@@ -15,7 +15,7 @@
      Allow from all
    </Proxy>
 
-   ProxyPass         / http://dart:80/
-   ProxyPassReverse  / http://dart:80/
+   ProxyPass         / http://spdemo/
+   ProxyPassReverse  / http://spdemo/
 </VirtualHost>
 
