@@ -98,7 +98,10 @@ function my_onstat(data) {
                         + data.activeclients
                         + '/' + data.clients + ' -- </span>'
                         + '<span>Retrieved records: ' + data.records
-                        + '/' + data.hits + ' :.</span>';
+                        + '/' + data.hits
+			+ ' -- by ' 
+			+ (useServiceProxy ? 'service proxy' : 'pazpar2')
+			+ ' :.</span>';
 }
 
 function my_onterm(data) {
