@@ -7,8 +7,24 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Pazpar2 demo client</title>
   <link rel="stylesheet" href="styles.css"></link>
+
+  <!-- pre configure -->
+  <script type="text/javascript">
+    var pazpar2URL = "/pazpar2/search.pz2";
+    var serviceProxyURL = "/service-proxy";
+    var authURLServiceProxy = "/service-proxy-auth";
+    var useServiceProxy = true;
+    var pazpar2path = useServiceProxy ? serviceProxyURL : pazpar2URL;
+  </script>
+
   <script type="text/javascript" src="pz2.js"></script>
   <script type="text/javascript" src="example_client.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+
+  <!-- post configure -->
+  <script type="text/javascript">
+    $(document).ready(function() { if (useServiceProxy) jQuery.get(authURLServiceProxy) } );
+  </script>
  </head>
  
  <body onload="domReady();">

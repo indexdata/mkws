@@ -4,13 +4,19 @@
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-var usesessions = true;
-var pazpar2path = '/pazpar2/search.pz2';
+
+/* var usesessions = true;
+ * var pazpar2path = '/pazpar2/search.pz2';
+*/
+
 var showResponseType = '';
 if (document.location.hash == '#useproxy') {
     usesessions = false;
     pazpar2path = '/service-proxy/';
     showResponseType = 'json';
+}
+if (useServiceProxy) {
+    usesessions = false;
 }
 
 var my_paz = new pz2( { "onshow": my_onshow,
