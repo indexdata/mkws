@@ -5,9 +5,12 @@
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
 
-/* var usesessions = true;
- * var pazpar2path = '/pazpar2/search.pz2';
-*/
+var pazpar2URL = "/pazpar2/search.pz2";
+var serviceProxyURL = "/service-proxy/";
+var authURLServiceProxy = "/service-proxy-auth";
+var pazpar2path = useServiceProxy ? serviceProxyURL : pazpar2URL;
+
+var usesessions;
 
 var showResponseType = '';
 if (document.location.hash == '#useproxy') {
