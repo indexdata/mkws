@@ -3,7 +3,7 @@
 # pazpar2 / service proxy config
 <VirtualHost *:80>
     ServerName spdemo.example.com
-    ServerAlias spdemo-test.indexdata.com spdemo-dev.indexdata.com spdemo-devel.indexdata.com
+    ServerAlias spdemo-dev.indexdata.com spdemo-devel.indexdata.com
     ServerAdmin webmaster@example.com
     ErrorLog /var/log/apache2/spdemo-error.log
     CustomLog /var/log/apache2/spdemo-access.log combined
