@@ -7,8 +7,20 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Pazpar2 demo client</title>
   <link rel="stylesheet" href="styles.css"></link>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+
+  <!-- pre configure -->
+  <script type="text/javascript">
+    var useServiceProxy = true;
+  </script>
+
   <script type="text/javascript" src="pz2.js"></script>
   <script type="text/javascript" src="example_client.js"></script>
+
+  <!-- post configure -->
+  <script type="text/javascript">
+    $(document).ready(function() { if (useServiceProxy) jQuery.get(authURLServiceProxy) } );
+  </script>
  </head>
  
  <body onload="domReady();">
@@ -87,7 +99,7 @@
   
   <div id="footer">
       <div id="stat"></div>
-      <span>Copyright &copy; 1999-2010 by <a href="http://www.indexdata.com">Index Data</a></span> 
+      <span>Copyright &copy; 1999-2013 by <a href="http://www.indexdata.com">Index Data</a></span> 
   </div>
 
  </body>
