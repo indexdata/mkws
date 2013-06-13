@@ -19,7 +19,13 @@
 
   <!-- post configure -->
   <script type="text/javascript">
-    $(document).ready(function() { if (useServiceProxy) jQuery.get(authURLServiceProxy) } );
+    $(document).ready(function() { 
+	if (useServiceProxy) { 
+	    var jqxhr = jQuery.get(authURLServiceProxy)
+		.fail(function() { alert("service proxy authentifiction failed"); });
+	} 
+      } 
+    );
   </script>
  </head>
  
