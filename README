@@ -1,3 +1,6 @@
+OVERVIEW
+========
+
 The MasterKey Widget Set, or MKWS, is a project to create some very
 simple HTML/JS/CSS widgets that can be dropped into ANY website,
 irrespective of CMS or lack thereof, to enable MasterKey searching.
@@ -6,4 +9,18 @@ The top level bug for discussing this is
         https://jira.indexdata.com/browse/MKWS-1
 and a high-level description can be found at
         https://twiki.indexdata.com/twiki/bin/view/ID/MasterKeyWidgetSet
+
+
+WHAT'S WHAT
+===========
+
+experiments -- a directory containing code experiments:
+	jquery-ui -- Using a JQuery UI element
+	jsdemo -- The basic pazpar2 client, running locally
+	spclient -- Mike's hardly-there sketch
+	spdemo -- Wolfram's functioning jsdemo-targeted-at-SP
+
+etc -- configuration files for the various experiments
+	apache2 -- configuration for running spdemo
+	service-proxy -- config for running a local Service Proxy
 
