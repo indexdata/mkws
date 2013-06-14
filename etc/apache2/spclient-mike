@@ -26,4 +26,9 @@
     # For local Service Proxy running as mvn jetty:run
     #ProxyPass        /service-proxy/ http://localhost:8585/service-proxy/
     #ProxyPassReverse /service-proxy/ http://localhost:8585/service-proxy/
+
+    # Needed on Mac, which locks Apache down hard by default.
+    <Directory />
+        Allow from all
+    </Directory>
 </VirtualHost>
