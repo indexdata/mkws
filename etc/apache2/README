@@ -1,0 +1,5 @@
+You will need to enable the Rewrite module for this to work:
+
+$ sudo a2enmod rewrite
+$ sudo service apache2 reload
+
