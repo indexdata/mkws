@@ -9,7 +9,12 @@ In its current form, this is very close to
 	- It has a boolean indicating whether the SP is in use
 	- When that is set it performs simple authentication
 	  (The username/pw are hardwired into the Apache2 config)
-- Its JavaScript (example_client.js) differs more
+- Its JavaScript (example_client.js) differs only in a few lines:
+	diff /usr/local/src/git/pazpar2/www/jsdemo/example_client.js example_client.js
+	- usesessions and pazpar2path are set differently if SP is in use
+	- authURLServiceProxy is defined (to be used in the HTML)
+	- status info has extra info to say whether SP is in use
 - A simple favicon.ico is added to avoid spamming the error-log with 404s
 - A simple robots.txt is added
+
 
