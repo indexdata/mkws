@@ -4,26 +4,16 @@
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-var usesessions = useServiceProxy ? false : true;
-var pazpar2path = useServiceProxy ? '/service-proxy/' : '/pazpar2/search.pz2';
-var authURLServiceProxy = "/service-proxy-auth";
-var showResponseType = '';
-if (document.location.hash == '#useproxy') {
-    usesessions = false;
-    pazpar2path = '/service-proxy/';
-    showResponseType = 'json';
-}
-
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": pazpar2path,
+                    "pazpar2path": '/service-proxy/',
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : usesessions,
-                    "showResponseType": showResponseType,
+	 	    "usesessions" : false,
+                    "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 // some state vars
 var curPage = 1;
@@ -90,10 +80,7 @@ function my_onstat(data) {
                         + data.activeclients
                         + '/' + data.clients + ' -- </span>'
                         + '<span>Retrieved records: ' + data.records
-                        + '/' + data.hits
-			+ ' -- by ' 
-			+ (useServiceProxy ? 'service proxy' : 'pazpar2')
-			+ ' :.</span>';
+                        + '/' + data.hits + ' :.</span>';
 }
 
 function my_onterm(data) {
@@ -383,4 +370,9 @@ function renderDetails(data, marker)
     details += '</table></div>';
     return details;
 }
- //EOF
+
+
+$(document).ready(function() { 
+    var jqxhr = jQuery.get("/service-proxy-auth")
+	.fail(function() { alert("service proxy authentifiction failed"); });
+});
