@@ -13,7 +13,7 @@
     RewriteLog /var/log/apache2/spclient-rewrite.log 
 
     DocumentRoot /usr/local/src/git/mkws/experiments/spclient/
-    Alias /pazpar2/js/pz2.js /usr/local/src/git/pazpar2/js/pz2.js
+    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
     Alias /indexdata_logo.png /usr/local/src/git/pazpar2/www/jsdemo/indexdata_logo.png
     Alias /styles.css /usr/local/src/git/pazpar2/www/jsdemo/styles.css
 
