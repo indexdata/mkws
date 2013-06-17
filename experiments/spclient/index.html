@@ -8,25 +8,8 @@
   <title>Pazpar2 demo client</title>
   <link rel="stylesheet" href="styles.css"></link>
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-
-  <!-- pre configure -->
-  <script type="text/javascript">
-    var useServiceProxy = true;
-  </script>
-
   <script type="text/javascript" src="/pazpar2/js/pz2.js"></script>
   <script type="text/javascript" src="example_client.js"></script>
-
-  <!-- post configure -->
-  <script type="text/javascript">
-    $(document).ready(function() { 
-	if (useServiceProxy) { 
-	    var jqxhr = jQuery.get(authURLServiceProxy)
-		.fail(function() { alert("service proxy authentifiction failed"); });
-	} 
-      } 
-    );
-  </script>
  </head>
  
  <body onload="domReady();">
