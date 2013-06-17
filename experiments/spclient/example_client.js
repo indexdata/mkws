@@ -373,6 +373,7 @@ function renderDetails(data, marker)
 
 
 $(document).ready(function() { 
+    domReady();
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() { alert("service proxy authentifiction failed"); });
 });
