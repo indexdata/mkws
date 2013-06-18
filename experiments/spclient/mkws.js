@@ -377,12 +377,12 @@ $(document).ready(function() {
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() { alert("service proxy authentifiction failed"); });
 
-    $("#switchmenu").html($("<a/>", { href: '#',
+    $("#mkwsSwitch").html($("<a/>", { href: '#',
 				      onclick: "switchView(\'recordview\')",
 				      text: "Record Browser",
 				    }));
-    $("#switchmenu").append($("<span/>", { text: " | " }));
-    $("#switchmenu").append($("<a/>", { href: '#',
+    $("#mkwsSwitch").append($("<span/>", { text: " | " }));
+    $("#mkwsSwitch").append($("<a/>", { href: '#',
 					onclick: "switchView(\'targetview\')",
 					text: "Target Info",
 				      }));
