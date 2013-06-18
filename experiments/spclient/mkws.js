@@ -376,4 +376,10 @@ $(document).ready(function() {
     domReady();
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() { alert("service proxy authentifiction failed"); });
+
+    // Less code needs to be included in the HTML client
+    $('#switchmenu').html('\
+      <a href="#" onclick="switchView(\'recordview\')">Record Browser</a>\
+      <span> | </span>\
+      <a href="#" onclick="switchView(\'targetview\')">Target Info</a>');
 });
