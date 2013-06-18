@@ -14,7 +14,6 @@
 
     DocumentRoot /usr/local/src/git/mkws/experiments/spclient/
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
-    Alias /indexdata_logo.png /usr/local/src/git/pazpar2/www/jsdemo/indexdata_logo.png
     Alias /styles.css /usr/local/src/git/pazpar2/www/jsdemo/styles.css
 
     RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
