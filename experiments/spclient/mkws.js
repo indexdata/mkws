@@ -76,7 +76,7 @@ function my_onstat(data) {
     if (stat == null)
 	return;
     
-    stat.innerHTML = '<b> .:STATUS INFO</b> -- Active clients: '
+    stat.innerHTML = '<b>STATUS INFO</b> -- Active clients: '
                         + data.activeclients
                         + '/' + data.clients + ' -- </span>'
                         + '<span>Retrieved records: ' + data.records
