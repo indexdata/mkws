@@ -13,30 +13,12 @@
     <noscript>
       <p>Searching will not work if JavaScript is disabled.</p>
     </noscript>
-    <div id="switchmenu">
-      <a href="#" onclick="switchView('recordview')">Record Browser</a>
-      <span> | </span>
-      <a href="#" onclick="switchView('targetview')">Target Info</a>
-    </div>
+    <div id="switchmenu"></div>
     <div id="heading">
-      <table width="100%" border="0" cellpadding="6" cellspacing="0">
-        <tr>
-          <td width="250" height="100" align="center">
-            <b>Pazpar2</b>
-          </td>
-          <td>
-            <form id="searchForm" name="search">
-              <input id="query" type="text" size="50" />
-              <input id="button" type="submit" value="Search" />
-            </form>
-          </td>
-          <td>
-            <a href="http://www.indexdata.com">
-              <img border="0" title="IndexData home page" src="indexdata_logo.png" height="98" align="right" alt="" />
-            </a>
-          </td>
-        </tr>
-      </table>
+      <form id="searchForm" name="search">
+        <input id="query" type="text" size="50" />
+        <input id="button" type="submit" value="Search" />
+      </form>
     </div>
     <div id="recordview">
       <table width="100%" border="0" cellpadding="6" cellspacing="0">
