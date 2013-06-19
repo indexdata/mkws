@@ -373,15 +373,17 @@ function renderDetails(data, marker)
 
 
 $(document).ready(function() {
-    $("#mkwsSwitch").html($("<a/>", { href: '#',
-				      onclick: "switchView(\'records\')",
-				      text: "Record Browser",
-				    }));
+    $("#mkwsSwitch").html($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'records\')",
+	text: "Records",
+    }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
-    $("#mkwsSwitch").append($("<a/>", { href: '#',
-					onclick: "switchView(\'targets\')",
-					text: "Target Info",
-				      }));
+    $("#mkwsSwitch").append($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'targets\')",
+	text: "Targets",
+    }));
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
