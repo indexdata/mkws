@@ -10,8 +10,8 @@
       Allow from all
     </Proxy>
 
-    ProxyPass         / http://diane:80/
-    ProxyPassReverse  / http://diane:80/
+    ProxyPass         / http://caliban:80/
+    ProxyPassReverse  / http://caliban:80/
 
     # These are the logs for the proxying operation
     ErrorLog /var/log/apache2/mkws-proxy-error.log
