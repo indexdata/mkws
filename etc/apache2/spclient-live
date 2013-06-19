@@ -16,6 +16,9 @@
     RewriteLog /var/log/apache2/mkws-rewrite.log 
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
+    ### Way too general: should limit by requested URL and origin
+    Header set Access-Control-Allow-Origin "*"
+
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
