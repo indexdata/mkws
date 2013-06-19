@@ -17,4 +17,3 @@
     ErrorLog /var/log/apache2/mkws-proxy-error.log
     CustomLog /var/log/apache2/mkws-proxy-access.log combined
 </VirtualHost>
-
