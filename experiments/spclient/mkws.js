@@ -72,7 +72,7 @@ function my_onshow(data) {
 }
 
 function my_onstat(data) {
-    var stat = document.getElementById("stat");
+    var stat = document.getElementById("mkwsStat");
     if (stat == null)
 	return;
 
