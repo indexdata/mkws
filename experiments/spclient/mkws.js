@@ -391,13 +391,10 @@ $(document).ready(function() {
       <input id="button" type="submit" value="Search" />\
     </form>');
 
-/*
-    $("#mkwsSearch").html('\
-    <form id="searchForm" name="search">\
-      <input id="query" type="text" size="50" />\
-      <input id="button" type="submit" value="Search" />\
-    </form>');
-*/
+    $("#mkwsTargets").html('\
+      <div id="bytarget">\
+       No information available yet.\
+      </div>');
 
     domReady();
 
