@@ -8,7 +8,7 @@
     ErrorLog /var/log/apache2/mkws-error.log
     CustomLog /var/log/apache2/mkws-access.log combined
 
-    DocumentRoot /home/indexdata/mkws/experiments/mkws/
+    DocumentRoot /home/indexdata/mkws/experiments/spclient/
     Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
 
     RewriteEngine on
