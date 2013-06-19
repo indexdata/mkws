@@ -1,20 +1,23 @@
-In its current form, this is very close to
-/usr/local/src/git/pazpar2/www/jsdemo/
+An embryonic MasterKey Widget Set
+=================================
 
-- It uses indexdata_logo.png directly from that location
-- It uses styles.css directly from that location
-- It uses pz2.js directly from /usr/local/src/git/pazpar2/js
-- Its HTML (index.html) differs only in a few lines:
-	diff /usr/local/src/git/pazpar2/www/jsdemo/index.html index.html
-	- It has a boolean indicating whether the SP is in use
-	- When that is set it performs simple authentication
-	  (The username/pw are hardwired into the Apache2 config)
-- Its JavaScript (example_client.js) differs only in a few lines:
-	diff /usr/local/src/git/pazpar2/www/jsdemo/example_client.js example_client.js
-	- usesessions and pazpar2path are set differently if SP is in use
-	- authURLServiceProxy is defined (to be used in the HTML)
-	- status info has extra info to say whether SP is in use
-- A simple favicon.ico is added to avoid spamming the error-log with 404s
-- A simple robots.txt is added
+This directory contains an embryonic MasterKey Widget Set, based
+initially on "jsdemo" though now far removed from those beginnnings.
 
+The goal is to make it that as much of the searching functionality as
+possible is hosted on
+	http://mkws.indexdata.com/
+so that very simple websites such as
+	http://somesite.indexdata.com/
+can have MasterKey searching with minimal effort.
+
+The following files must be hosted on mkws.indexdata.com:
+	mkws.js
+	mkwsStyle.css
+	/libjs-pz2/pz2api.1.js
+
+The following files make up the application:
+	index.html
+	favicon.ico [optional]
+	robots.txt [optional]
 
