@@ -395,6 +395,7 @@ $(document).ready(function() {
       <div id="bytarget">\
        No information available yet.\
       </div>');
+    $("#mkwsTargets").css("display", "none");
 
     domReady();
 
