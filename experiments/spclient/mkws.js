@@ -427,22 +427,19 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    if (useServiceProxy) {
-	var jqxhr = jQuery.get(authURLServiceProxy)
-	    .fail(function() {
-	      alert("service proxy authentification failed for URL " + authURLServiceProxy + " , give up!");
-	    })
-	    .success(function(data) {
-	       if (!jQuery.isXMLDoc(data)) {
-		 alert("service proxy auth response document is not valid XML document, give up!");
-		 return;
-	       }
-
-	       var status = $(data).find("status");
-	       if (status.text() != "OK") {
+    var jqxhr = jQuery.get("/service-proxy-auth")
+	.fail(function() {
+	    alert("service proxy authentification failed, give up!");
+	})
+	.success(function(data) {
+	    if (!jQuery.isXMLDoc(data)) {
+		alert("service proxy auth response document is not valid XML document, give up!");
+		return;
+	    }
+	    var status = $(data).find("status");
+	    if (status.text() != "OK") {
 		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
 		return;
-	       }
-	      });
-    }
+	    }
+	});
 });
