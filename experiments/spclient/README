@@ -63,9 +63,11 @@ What next?
 ----------
 
 Main areas of work:
-* Fix cross-site issues properly
+* Fix cross-site issues proper
 * Make MKWS robust to missing widgets
 * Make CSS more tightly targeted at MKWS elements only
+* Make CSS prettier
 * Embed in a real, existing, site
 * Clean up the code
+
 
