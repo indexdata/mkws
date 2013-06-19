@@ -6,7 +6,7 @@
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": 'http://mkws.indexdata.com/service-proxy/',
+                    "pazpar2path": '/service-proxy/',
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
@@ -427,7 +427,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    var jqxhr = jQuery.get("http://mkws.indexdata.com/service-proxy-auth")
+    var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() {
 	    alert("service proxy authentification failed, give up!");
 	})
