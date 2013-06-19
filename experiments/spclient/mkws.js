@@ -424,8 +424,25 @@ $(document).ready(function() {
     $("#mkwsTargets").css("display", "none");
 
     domReady();
+});
 
-    var jqxhr = jQuery.get("/service-proxy-auth")
-	.fail(function() { alert("service proxy authentifiction failed"); });
+$(document).ready(function() {
+    if (useServiceProxy) {
+	var jqxhr = jQuery.get(authURLServiceProxy)
+	    .fail(function() {
+	      alert("service proxy authentifiction failed for URL " + authURLServiceProxy + " , give up!");
+	    })
+	    .success(function(data) {
+	       if (!jQuery.isXMLDoc(data)) {
+		 alert("service proxy auth response document is not valid XML document, give up!");
+		 return;
+	       }
 
+	       var status = $(data).find("status");
+	       if (status.text() != "OK") {
+		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+		return;
+	       }
+	      });
+    }
 });
