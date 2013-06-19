@@ -427,7 +427,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    var jqxhr = jQuery.get("/service-proxy-auth")
+    var jqxhr = jQuery.get("http://mkws.indexdata.com/service-proxy-auth")
 	.fail(function() {
 	    alert("service proxy authentification failed, give up!");
 	})
