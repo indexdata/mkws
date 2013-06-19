@@ -3,13 +3,13 @@
 
 <VirtualHost *:80>
     ServerName mkws.indexdata.com
-    ServerName somesite.indexdata.com
 
     ErrorLog /var/log/apache2/mkws-error.log
     CustomLog /var/log/apache2/mkws-access.log combined
 
     DocumentRoot /home/indexdata/mkws/experiments/spclient/
     Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
+    Alias /index.html /home/indexdata/mkws/experiments/spclient/index-mkws.html
 
     RewriteEngine on
     RewriteLogLevel 1
@@ -19,4 +19,14 @@
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName somesite.indexdata.com
+
+    ErrorLog /var/log/apache2/somesite-error.log
+    CustomLog /var/log/apache2/somesite-access.log combined
+
+    DocumentRoot /home/indexdata/mkws/experiments/spclient/
+    Alias /index.html /home/indexdata/mkws/experiments/spclient/index-somesite.html
 </VirtualHost>
