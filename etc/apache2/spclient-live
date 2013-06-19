@@ -1,0 +1,22 @@
+# Configuration for the apache web server
+# Running on caliban
+
+<VirtualHost *:80>
+    ServerName mkws.indexdata.com
+    ServerName somesite.indexdata.com
+
+    ErrorLog /var/log/apache2/mkws-error.log
+    CustomLog /var/log/apache2/mkws-access.log combined
+
+    DocumentRoot /home/indexdata/mkws/experiments/mkws/
+    Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog /var/log/apache2/mkws-rewrite.log 
+    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+
+    # For MKC Service Proxy
+    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+</VirtualHost>
