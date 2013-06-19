@@ -2,7 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
- 
+
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>Pazpar2 demo client</title>
@@ -19,16 +19,30 @@
 
   <!-- post configure -->
   <script type="text/javascript">
-    $(document).ready(function() { 
-	if (useServiceProxy) { 
+    $(document).ready(function() {
+	if (useServiceProxy) {
 	    var jqxhr = jQuery.get(authURLServiceProxy)
-		.fail(function() { alert("service proxy authentifiction failed"); });
-	} 
-      } 
+		.fail(function() {
+		  alert("service proxy authentifiction failed for URL " + authURLServiceProxy + " , give up!");
+		})
+		.success(function(data) {
+		   if (!jQuery.isXMLDoc(data)) {
+		     alert("service proxy auth response document is not valid XML document, give up!");
+		     return;
+		   }
+
+		   var status = $(data).find("status");
+		   if (status.text() != "OK") {
+		    alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+		    return;
+		   }
+		  });
+	}
+      }
     );
   </script>
  </head>
- 
+
  <body onload="domReady();">
 
   <div id="noscript">
@@ -45,7 +59,7 @@
    <span> | </span>
    <a href="#" onclick="switchView('targetview')">Target Info</a>
   </div>
- 
+
   <div id="heading">
    <table width="100%" border="0" cellpadding="6" cellspacing="0">
     <tr>
@@ -62,7 +76,7 @@
     </tr>
    </table>
   </div>
-  
+
   <div id="recordview">
    <table width="100%" border="0" cellpadding="6" cellspacing="0">
     <tr>
@@ -79,7 +93,7 @@
          <option value="date:0">newest</option>
          <option value="date:1">oldest</option>
         </select>
-        and show 
+        and show
         <select name="perpage" id="perpage">
          <option value="10">10</option>
          <option value="20" selected="selected">20</option>
@@ -96,16 +110,16 @@
     </tr>
    </table>
   </div>
-  
+
   <div id="targetview" style="display: none">
    <div id="bytarget">
        No information available yet.
    </div>
   </div>
-  
+
   <div id="footer">
       <div id="stat"></div>
-      <span>Copyright &copy; 1999-2013 by <a href="http://www.indexdata.com">Index Data</a></span> 
+      <span>Copyright &copy; 1999-2013 by <a href="http://www.indexdata.com">Index Data</a></span>
   </div>
 
  </body>
