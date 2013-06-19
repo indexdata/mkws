@@ -4,6 +4,10 @@ An embryonic MasterKey Widget Set
 This directory contains an embryonic MasterKey Widget Set, based
 initially on "jsdemo" though now far removed from those beginnnings.
 
+
+How this works
+--------------
+
 The goal is to make it that as much of the searching functionality as
 possible is hosted on
 	http://mkws.indexdata.com/
@@ -20,4 +24,48 @@ The following files make up the application:
 	index.html
 	favicon.ico [optional]
 	robots.txt [optional]
+
+(At present, the client application's configuruation also needs an
+Alias for /service-proxy/, to avoid cross-site scripting issues. We
+will fix this.)
+
+
+Configuring a client
+--------------------
+
+The application's HTML must contains the following elements as well as
+whatever makes up the application itself:
+
+Prerequisites:
+    <link rel="stylesheet" href="mkwsStyle.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="/libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="mkws.js"></script>
+(Yes, we're using JQuery. We use it only in the most trivial ways, and
+could probably get rid of it without too much pain. I'd like to have
+mkws.js automatically pull in pz2api.1.js, too, so you don't need to
+do so many things, but that's not quite trivial.)
+
+Then the following special <div>s can be added (with no content), and
+will be filled in by MKWS:
+    <div id="mkwsSwitch"></div> -- switch between record and target views
+    <div id="mkwsSearch"></div> -- search box and button
+    <div id="mkwsRecords"></div> -- result list, including pager/sorting
+    <div id="mkwsTargets"></div> -- target list, including status
+    <div id="mkwsStat"></div> -- summary statistics
+
+At present, MKWS will not work correctly if any of these is
+missing. One of the TODOs is to fix it so that it doesn't try to use
+whatever is not there, and just uses what is.
+
+
+What next?
+----------
+
+Main areas of work:
+* Fix cross-site issues properly
+* Make MKWS robust to missing widgets
+* Make CSS more tightly targeted at MKWS elements only
+* Embed in a real, existing, site
+* Clean up the code
 
