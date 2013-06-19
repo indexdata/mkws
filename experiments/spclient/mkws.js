@@ -373,10 +373,6 @@ function renderDetails(data, marker)
 
 
 $(document).ready(function() { 
-    domReady();
-    var jqxhr = jQuery.get("/service-proxy-auth")
-	.fail(function() { alert("service proxy authentifiction failed"); });
-
     $("#mkwsSwitch").html($("<a/>", { href: '#',
 				      onclick: "switchView(\'recordview\')",
 				      text: "Record Browser",
@@ -386,4 +382,18 @@ $(document).ready(function() {
 					onclick: "switchView(\'targetview\')",
 					text: "Target Info",
 				      }));
+
+    // For some reason, doing this programmatically results in
+    // document.search.query being undefined, hence the raw HTML.
+    $("#mkwsSearch").html('\
+    <form id="searchForm" name="search">\
+      <input id="query" type="text" size="50" />\
+      <input id="button" type="submit" value="Search" />\
+    </form>');
+
+    domReady();
+
+    var jqxhr = jQuery.get("/service-proxy-auth")
+	.fail(function() { alert("service proxy authentifiction failed"); });
+
 });
