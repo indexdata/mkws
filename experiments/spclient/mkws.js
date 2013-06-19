@@ -41,22 +41,22 @@ function my_onshow(data) {
     // move it out
     var pager = document.getElementById("pager");
     pager.innerHTML = "";
-    pager.innerHTML +='<hr/><div style="float: right">Displaying: ' 
+    pager.innerHTML +='<hr/><div style="float: right">Displaying: '
                     + (data.start + 1) + ' to ' + (data.start + data.num) +
-                     ' of ' + data.merged + ' (found: ' 
+                     ' of ' + data.merged + ' (found: '
                      + data.total + ')</div>';
     drawPager(pager);
     // navi
     var results = document.getElementById("results");
-  
+
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
 	      html.push('<div class="record" id="recdiv_'+hit.recid+'" >'
             +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="rec_'+hit.recid
-            +'" onclick="showDetails(this.id);return false;"><b>' 
-            + hit["md-title"] +' </b></a>'); 
+            +'" onclick="showDetails(this.id);return false;"><b>'
+            + hit["md-title"] +' </b></a>');
 	      if (hit["md-title-remainder"] !== undefined) {
 	        html.push('<span>' + hit["md-title-remainder"] + ' </span>');
 	      }
@@ -75,7 +75,7 @@ function my_onstat(data) {
     var stat = document.getElementById("stat");
     if (stat == null)
 	return;
-    
+
     stat.innerHTML = '<b>STATUS INFO</b> -- Active clients: '
                         + data.activeclients
                         + '/' + data.clients + ' -- </span>'
@@ -88,22 +88,22 @@ function my_onterm(data) {
     termlists.push('<hr/><b>TERMLISTS:</b><hr/><div class="termtitle">Sources</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
         termlists.push('<a href="#" target_id='+data.xtargets[i].id
-            + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name 
+            + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name
         + ' </a><span> (' + data.xtargets[i].freq + ')</span><br/>');
     }
-     
+
     termlists.push('<hr/><div class="termtitle">Subjects</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  (' 
+        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
               + data.subject[i].freq + ')</span><br/>');
     }
-     
+
     termlists.push('<hr/><div class="termtitle">Authors</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">' 
-                            + data.author[i].name 
-                            + ' </a><span> (' 
-                            + data.author[i].freq 
+        termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
+                            + data.author[i].name
+                            + ' </a><span> ('
+                            + data.author[i].freq
                             + ')</span><br/>');
     }
     var termlist = document.getElementById("termlist");
@@ -126,7 +126,7 @@ function my_onbytarget(data) {
     var targetDiv = document.getElementById("bytarget");
     var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
         +'<td>Records</td><td>State</td></tr></thead><tbody>';
-    
+
     for (var i = 0; i < data.length; i++ ) {
         table += "<tr><td>" + data[i].id +
             "</td><td>" + data[i].hits +
@@ -143,8 +143,8 @@ function my_onbytarget(data) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // wait until the DOM is ready
-function domReady () 
-{ 
+function domReady ()
+{
     document.search.onsubmit = onFormSubmitEventHandler;
     document.search.query.value = '';
     document.select.sort.onchange = onSelectDdChange;
@@ -152,7 +152,7 @@ function domReady ()
 }
 
 // when search button pressed
-function onFormSubmitEventHandler() 
+function onFormSubmitEventHandler()
 {
     resetPage();
     loadSelect();
@@ -198,7 +198,7 @@ function limitQuery (field, value)
 function limitTarget (id, name)
 {
     var navi = document.getElementById('navi');
-    navi.innerHTML = 
+    navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="delimitTarget();return false;">'
         + name + '</a>';
     navi.innerHTML += '<hr/>';
@@ -213,7 +213,7 @@ function delimitTarget ()
 {
     var navi = document.getElementById('navi');
     navi.innerHTML = '';
-    curFilter = null; 
+    curFilter = null;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -225,8 +225,8 @@ function drawPager (pagerDiv)
     //client indexes pages from 1 but pz2 from 0
     var onsides = 6;
     var pages = Math.ceil(totalRec / recPerPage);
-    
-    var firstClkbl = ( curPage - onsides > 0 ) 
+
+    var firstClkbl = ( curPage - onsides > 0 )
         ? curPage - onsides
         : 1;
 
@@ -248,7 +248,7 @@ function drawPager (pagerDiv)
         middle += '<a href="#" onclick="showPage(' + i + ')"> '
             + numLabel + ' </a>';
     }
-    
+
     var next = '<b> | </b><span id="next">Next &#62;&#62;</span>';
     if (pages - curPage > 0)
         next = '<b> | </b><a href="#" id="next" onclick="pagerNext()">'
@@ -262,7 +262,7 @@ function drawPager (pagerDiv)
     if (lastClkbl < pages)
         postdots = '...';
 
-    pagerDiv.innerHTML += '<div style="float: clear">' 
+    pagerDiv.innerHTML += '<div style="float: clear">'
         + prev + predots + middle + postdots + next + '</div><hr/>';
 }
 
@@ -289,17 +289,17 @@ function pagerPrev() {
 // swithing view between targets and records
 
 function switchView(view) {
-    
+
     var targets = document.getElementById('mkwsTargets');
     var records = document.getElementById('mkwsRecords');
-    
+
     switch(view) {
         case 'targets':
-            targets.style.display = "block";            
+            targets.style.display = "block";
             records.style.display = "none";
             break;
         case 'records':
-            targets.style.display = "none";            
+            targets.style.display = "none";
             records.style.display = "block";
             break;
         default:
@@ -312,7 +312,7 @@ function showDetails (prefixRecId) {
     var recId = prefixRecId.replace('rec_', '');
     var oldRecId = curDetRecId;
     curDetRecId = recId;
-    
+
     // remove current detailed view if any
     var detRecordDiv = document.getElementById('det_'+oldRecId);
     // lovin DOM!
@@ -372,7 +372,7 @@ function renderDetails(data, marker)
 }
 
 
-$(document).ready(function() { 
+$(document).ready(function() {
     $("#mkwsSwitch").html($("<a/>", { href: '#',
 				      onclick: "switchView(\'records\')",
 				      text: "Record Browser",
