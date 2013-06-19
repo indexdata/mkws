@@ -53,6 +53,7 @@ div.details {
 #mkwsSwitch {
     float: right;
     padding-left: 1em;
+    padding-top: 0.4em;
 }
 
 #mkwsSearch {
