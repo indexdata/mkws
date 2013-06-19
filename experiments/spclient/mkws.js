@@ -391,6 +391,30 @@ $(document).ready(function() {
       <input id="button" type="submit" value="Search" />\
     </form>');
 
+    $("#mkwsRecords").html('\
+      <table width="100%" border="0" cellpadding="6" cellspacing="0">\
+        <tr>\
+          <td width="250" valign="top">\
+            <div id="termlist"></div>\
+          </td>\
+          <td valign="top">\
+            <div id="ranking">\
+              <form name="select" id="select">\
+        Sort by\
+        <select name="sort" id="sort"><option value="relevance" selected="selected">relevance</option><option value="title:1">title</option><option value="date:0">newest</option><option value="date:1">oldest</option></select>\
+        and show \
+        <select name="perpage" id="perpage"><option value="10">10</option><option value="20" selected="selected">20</option><option value="30">30</option><option value="50">50</option></select>\
+        per page.\
+       </form>\
+            </div>\
+            <div id="pager"></div>\
+            <div id="navi"></div>\
+            <div id="results"></div>\
+          </td>\
+        </tr>\
+      </table>\
+    </div>');
+
     $("#mkwsTargets").html('\
       <div id="bytarget">\
        No information available yet.\
