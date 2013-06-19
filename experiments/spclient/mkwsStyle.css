@@ -51,12 +51,12 @@ div.details {
 }
 
 #mkwsSwitch {
-    padding-bottom: 3px;
-    text-align: right;
+    float: right;
+    padding-left: 1em;
 }
 
 #mkwsSearch {
-    // nothing to say at this point
+    float: right;
 }
 
 #mkwsRecords {
