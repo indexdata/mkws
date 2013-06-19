@@ -51,12 +51,12 @@ div.details {
     text-align: right;
 }
 
-#recordview {
+#mkwsRecords {
     background-color: #fafafa;
     border-bottom: 1px solid  #156a16;
 }
 
-#targetview {
+#mkwsTargets {
     background-color: #fafafa;
     border-bottom: 1px solid  #156a16;
 }

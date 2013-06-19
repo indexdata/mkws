@@ -290,15 +290,15 @@ function pagerPrev() {
 
 function switchView(view) {
     
-    var targets = document.getElementById('targetview');
-    var records = document.getElementById('recordview');
+    var targets = document.getElementById('mkwsTargets');
+    var records = document.getElementById('mkwsRecords');
     
     switch(view) {
-        case 'targetview':
+        case 'targets':
             targets.style.display = "block";            
             records.style.display = "none";
             break;
-        case 'recordview':
+        case 'records':
             targets.style.display = "none";            
             records.style.display = "block";
             break;
@@ -374,12 +374,12 @@ function renderDetails(data, marker)
 
 $(document).ready(function() { 
     $("#mkwsSwitch").html($("<a/>", { href: '#',
-				      onclick: "switchView(\'recordview\')",
+				      onclick: "switchView(\'records\')",
 				      text: "Record Browser",
 				    }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", { href: '#',
-					onclick: "switchView(\'targetview\')",
+					onclick: "switchView(\'targets\')",
 					text: "Target Info",
 				      }));
 
@@ -390,6 +390,14 @@ $(document).ready(function() {
       <input id="query" type="text" size="50" />\
       <input id="button" type="submit" value="Search" />\
     </form>');
+
+/*
+    $("#mkwsSearch").html('\
+    <form id="searchForm" name="search">\
+      <input id="query" type="text" size="50" />\
+      <input id="button" type="submit" value="Search" />\
+    </form>');
+*/
 
     domReady();
 
