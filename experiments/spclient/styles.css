@@ -11,11 +11,6 @@ a.crossout:hover {
     text-decoration: line-through;
 }
 
-#heading {
-    background-color: #87c9af;
-    color: #ffffff;
-}
-
 input#button {
     border: 3px outset #132194;
     background-color: #132194;
