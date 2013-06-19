@@ -30,6 +30,7 @@
     CustomLog /var/log/apache2/somesite-access.log combined
 
     DocumentRoot /home/indexdata/mkws/experiments/spclient/
+    Alias /index.html /home/indexdata/mkws/experiments/spclient/index-somesite.html
 
     RewriteEngine on
     RewriteLogLevel 1
