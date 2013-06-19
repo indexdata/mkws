@@ -430,7 +430,7 @@ $(document).ready(function() {
     if (useServiceProxy) {
 	var jqxhr = jQuery.get(authURLServiceProxy)
 	    .fail(function() {
-	      alert("service proxy authentifiction failed for URL " + authURLServiceProxy + " , give up!");
+	      alert("service proxy authentification failed for URL " + authURLServiceProxy + " , give up!");
 	    })
 	    .success(function(data) {
 	       if (!jQuery.isXMLDoc(data)) {
