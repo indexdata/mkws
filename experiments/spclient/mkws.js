@@ -1,8 +1,6 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-"use strict";
-
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
@@ -379,6 +377,7 @@ function renderDetails(data, marker)
  */
 function mkws_html_all(data) {
 
+    /* default config */
     var config = {
 	sort: [ ["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage: [10, 20, 30, 50],
@@ -412,6 +411,19 @@ function mkws_html_all(data) {
         $("#mkwsSwitch").css("display", "none");
     }
 
+    var sort_html = '<select name="sort" id="sort">';
+    for(var i = 0; i < config.sort.length; i++) {
+	var key = config.sort[i][0];
+	var val = config.sort[i].length == 1 ? config.sort[i][0] : config.sort[i][1];
+
+	sort_html += '<option value="' + key + '"';
+	if (key == config.sort_default) {
+	    sort_html += ' selected="selected"';
+	}
+	sort_html += '>' + val + '</option>';
+    }
+    sort_html += '</select>';
+
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
     $("#mkwsSearch").html('\
@@ -429,8 +441,7 @@ function mkws_html_all(data) {
           <td valign="top">\
             <div id="ranking">\
               <form name="select" id="select">\
-        Sort by\
-        <select name="sort" id="sort"><option value="relevance" selected="selected">relevance</option><option value="title:1">title</option><option value="date:0">newest</option><option value="date:1">oldest</option></select>\
+        Sort by' + sort_html + '\
         and show \
         <select name="perpage" id="perpage"><option value="10">10</option><option value="20" selected="selected">20</option><option value="30">30</option><option value="50">50</option></select>\
         per page.\
