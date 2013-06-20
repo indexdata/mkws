@@ -432,6 +432,7 @@ function mkws_html_all(data) {
       </div>');
     $("#mkwsTargets").css("display", "none");
 
+    mkws_service_proxy_auth(config.service_proxy_auth);
     domReady();
 }
 
@@ -514,5 +515,5 @@ function mkws_service_proxy_auth(auth_url) {
 	});
 }
 
+/* magic */
 $(document).ready(function() { mkws_html_all(mkws_config) });
-$(document).ready(function() { mkws_service_proxy_auth(); });
