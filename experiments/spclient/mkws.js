@@ -1,18 +1,26 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
+"use strict"; // HTML5
+
+var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
+var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "/service-proxy/";
+
+var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
+var usesessions = mkws_config.use_service_proxy ? false : true;
+
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": '/service-proxy/',
+                    "pazpar2path": pazpar2path,
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : false,
+	 	    "usesessions" : usesessions,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 // some state vars
