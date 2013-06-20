@@ -1,23 +1,18 @@
-# Configuration for the apache web server                 -*- apache -*-
+# Configuration for the apache web server
 # Running on Mike's local development box
-# This file is a variant of "spdemo"
 
-# pazpar2 / service proxy config
 <VirtualHost *:80>
     ServerName x.spclient.indexdata.com
     ErrorLog /var/log/apache2/spclient-error.log
     CustomLog /var/log/apache2/spclient-access.log combined
 
+    DocumentRoot /usr/local/src/git/mkws/experiments/spclient/
+    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+
     RewriteEngine on
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/spclient-rewrite.log 
-
-    DocumentRoot /usr/local/src/git/mkws/experiments/spclient/
-    Alias /pazpar2/js/pz2.js /usr/local/src/git/pazpar2/js/pz2.js
-    Alias /indexdata_logo.png /usr/local/src/git/pazpar2/www/jsdemo/indexdata_logo.png
-    Alias /styles.css /usr/local/src/git/pazpar2/www/jsdemo/styles.css
-
-    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/

@@ -4,26 +4,16 @@
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-var usesessions = useServiceProxy ? false : true;
-var pazpar2path = useServiceProxy ? '/service-proxy/' : '/pazpar2/search.pz2';
-var authURLServiceProxy = "/service-proxy-auth";
-var showResponseType = '';
-if (document.location.hash == '#useproxy') {
-    usesessions = false;
-    pazpar2path = '/service-proxy/';
-    showResponseType = 'json';
-}
-
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": pazpar2path,
+                    "pazpar2path": '/service-proxy/',
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : usesessions,
-                    "showResponseType": showResponseType,
+	 	    "usesessions" : false,
+                    "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 // some state vars
 var curPage = 1;
@@ -51,22 +41,22 @@ function my_onshow(data) {
     // move it out
     var pager = document.getElementById("pager");
     pager.innerHTML = "";
-    pager.innerHTML +='<hr/><div style="float: right">Displaying: ' 
+    pager.innerHTML +='<hr/><div style="float: right">Displaying: '
                     + (data.start + 1) + ' to ' + (data.start + data.num) +
-                     ' of ' + data.merged + ' (found: ' 
+                     ' of ' + data.merged + ' (found: '
                      + data.total + ')</div>';
     drawPager(pager);
     // navi
     var results = document.getElementById("results");
-  
+
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
 	      html.push('<div class="record" id="recdiv_'+hit.recid+'" >'
             +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="rec_'+hit.recid
-            +'" onclick="showDetails(this.id);return false;"><b>' 
-            + hit["md-title"] +' </b></a>'); 
+            +'" onclick="showDetails(this.id);return false;"><b>'
+            + hit["md-title"] +' </b></a>');
 	      if (hit["md-title-remainder"] !== undefined) {
 	        html.push('<span>' + hit["md-title-remainder"] + ' </span>');
 	      }
@@ -82,41 +72,38 @@ function my_onshow(data) {
 }
 
 function my_onstat(data) {
-    var stat = document.getElementById("stat");
+    var stat = document.getElementById("mkwsStat");
     if (stat == null)
 	return;
-    
-    stat.innerHTML = '<b> .:STATUS INFO</b> -- Active clients: '
+
+    stat.innerHTML = '<b>STATUS INFO</b> -- Active clients: '
                         + data.activeclients
                         + '/' + data.clients + ' -- </span>'
                         + '<span>Retrieved records: ' + data.records
-                        + '/' + data.hits
-			+ ' -- by ' 
-			+ (useServiceProxy ? 'service proxy' : 'pazpar2')
-			+ ' :.</span>';
+                        + '/' + data.hits + ' :.</span>';
 }
 
 function my_onterm(data) {
     var termlists = [];
-    termlists.push('<hr/><b>TERMLISTS:</b><hr/><div class="termtitle">.::Sources</div>');
+    termlists.push('<hr/><b>TERMLISTS:</b><hr/><div class="termtitle">Sources</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
         termlists.push('<a href="#" target_id='+data.xtargets[i].id
-            + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name 
+            + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name
         + ' </a><span> (' + data.xtargets[i].freq + ')</span><br/>');
     }
-     
-    termlists.push('<hr/><div class="termtitle">.::Subjects</div>');
+
+    termlists.push('<hr/><div class="termtitle">Subjects</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  (' 
+        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
               + data.subject[i].freq + ')</span><br/>');
     }
-     
-    termlists.push('<hr/><div class="termtitle">.::Authors</div>');
+
+    termlists.push('<hr/><div class="termtitle">Authors</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">' 
-                            + data.author[i].name 
-                            + ' </a><span> (' 
-                            + data.author[i].freq 
+        termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
+                            + data.author[i].name
+                            + ' </a><span> ('
+                            + data.author[i].freq
                             + ')</span><br/>');
     }
     var termlist = document.getElementById("termlist");
@@ -139,7 +126,7 @@ function my_onbytarget(data) {
     var targetDiv = document.getElementById("bytarget");
     var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
         +'<td>Records</td><td>State</td></tr></thead><tbody>';
-    
+
     for (var i = 0; i < data.length; i++ ) {
         table += "<tr><td>" + data[i].id +
             "</td><td>" + data[i].hits +
@@ -156,8 +143,8 @@ function my_onbytarget(data) {
 ////////////////////////////////////////////////////////////////////////////////
 
 // wait until the DOM is ready
-function domReady () 
-{ 
+function domReady ()
+{
     document.search.onsubmit = onFormSubmitEventHandler;
     document.search.query.value = '';
     document.select.sort.onchange = onSelectDdChange;
@@ -165,7 +152,7 @@ function domReady ()
 }
 
 // when search button pressed
-function onFormSubmitEventHandler() 
+function onFormSubmitEventHandler()
 {
     resetPage();
     loadSelect();
@@ -211,7 +198,7 @@ function limitQuery (field, value)
 function limitTarget (id, name)
 {
     var navi = document.getElementById('navi');
-    navi.innerHTML = 
+    navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="delimitTarget();return false;">'
         + name + '</a>';
     navi.innerHTML += '<hr/>';
@@ -226,7 +213,7 @@ function delimitTarget ()
 {
     var navi = document.getElementById('navi');
     navi.innerHTML = '';
-    curFilter = null; 
+    curFilter = null;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -238,8 +225,8 @@ function drawPager (pagerDiv)
     //client indexes pages from 1 but pz2 from 0
     var onsides = 6;
     var pages = Math.ceil(totalRec / recPerPage);
-    
-    var firstClkbl = ( curPage - onsides > 0 ) 
+
+    var firstClkbl = ( curPage - onsides > 0 )
         ? curPage - onsides
         : 1;
 
@@ -261,7 +248,7 @@ function drawPager (pagerDiv)
         middle += '<a href="#" onclick="showPage(' + i + ')"> '
             + numLabel + ' </a>';
     }
-    
+
     var next = '<b> | </b><span id="next">Next &#62;&#62;</span>';
     if (pages - curPage > 0)
         next = '<b> | </b><a href="#" id="next" onclick="pagerNext()">'
@@ -275,7 +262,7 @@ function drawPager (pagerDiv)
     if (lastClkbl < pages)
         postdots = '...';
 
-    pagerDiv.innerHTML += '<div style="float: clear">' 
+    pagerDiv.innerHTML += '<div style="float: clear">'
         + prev + predots + middle + postdots + next + '</div><hr/>';
 }
 
@@ -302,17 +289,17 @@ function pagerPrev() {
 // swithing view between targets and records
 
 function switchView(view) {
-    
-    var targets = document.getElementById('targetview');
-    var records = document.getElementById('recordview');
-    
+
+    var targets = document.getElementById('mkwsTargets');
+    var records = document.getElementById('mkwsRecords');
+
     switch(view) {
-        case 'targetview':
-            targets.style.display = "block";            
+        case 'targets':
+            targets.style.display = "block";
             records.style.display = "none";
             break;
-        case 'recordview':
-            targets.style.display = "none";            
+        case 'records':
+            targets.style.display = "none";
             records.style.display = "block";
             break;
         default:
@@ -325,7 +312,7 @@ function showDetails (prefixRecId) {
     var recId = prefixRecId.replace('rec_', '');
     var oldRecId = curDetRecId;
     curDetRecId = recId;
-    
+
     // remove current detailed view if any
     var detRecordDiv = document.getElementById('det_'+oldRecId);
     // lovin DOM!
@@ -383,4 +370,150 @@ function renderDetails(data, marker)
     details += '</table></div>';
     return details;
 }
- //EOF
+
+/*
+ * All the HTML stuff to render the search forms and
+ * result pages.
+ */
+function mkws_html_all(data) {
+
+    /* default config */
+    var config = {
+	sort: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	perpage: [10, 20, 30, 50],
+	sort_default: "relevance",
+	perpage_default: 20,
+	query_width: 50,
+	switch: true, /* show/hide Records|Targets menu */
+
+	dummy: "dummy"
+    };
+
+    /* override standard config values by function parameters */
+    for (var k in data) {
+	config[k] = data[k];
+    }
+
+    // For some reason, doing this programmatically results in
+    // document.search.query being undefined, hence the raw HTML.
+    $("#mkwsSearch").html('\
+    <form id="searchForm" name="search">\
+      <input id="query" type="text" size="50" />\
+      <input id="button" type="submit" value="Search" />\
+    </form>');
+
+    $("#mkwsRecords").html('\
+      <table width="100%" border="0" cellpadding="6" cellspacing="0">\
+        <tr>\
+          <td width="250" valign="top">\
+            <div id="termlist"></div>\
+          </td>\
+          <td valign="top">\
+            <div id="ranking">\
+              <form name="select" id="select">\
+        Sort by' + mkws_html_sort(config) + '\
+        and show ' + mkws_html_perpage(config) + '\
+        per page.\
+       </form>\
+            </div>\
+            <div id="pager"></div>\
+            <div id="navi"></div>\
+            <div id="results"></div>\
+          </td>\
+        </tr>\
+      </table>\
+    </div>');
+
+    mkws_html_switch(config);
+    mkws_service_proxy_auth(config.service_proxy_auth);
+
+    domReady();
+}
+
+function mkws_html_switch(config) {
+    $("#mkwsSwitch").html($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'records\')",
+	text: "Records"
+    }));
+    $("#mkwsSwitch").append($("<span/>", { text: " | " }));
+    $("#mkwsSwitch").append($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'targets\')",
+	text: "Targets"
+    }));
+
+    $("#mkwsTargets").html('\
+      <div id="bytarget">\
+       No information available yet.\
+      </div>');
+    $("#mkwsTargets").css("display", "none");
+
+    if (!config.switch) {
+        $("#mkwsSwitch").css("display", "none");
+    }
+}
+
+function mkws_html_sort(config) {
+    var sort_html = '<select name="sort" id="sort">';
+
+    for(var i = 0; i < config.sort.length; i++) {
+	var key = config.sort[i][0];
+	var val = config.sort[i].length == 1 ? config.sort[i][0] : config.sort[i][1];
+
+	sort_html += '<option value="' + key + '"';
+	if (key == config.sort_default) {
+	    sort_html += ' selected="selected"';
+	}
+	sort_html += '>' + val + '</option>';
+    }
+    sort_html += '</select>';
+
+    return sort_html;
+}
+
+function mkws_html_perpage(config) {
+    var perpage_html = '<select name="perpage" id="perpage">';
+
+    for(var i = 0; i < config.perpage.length; i++) {
+	var key = config.perpage[i];
+
+	perpage_html += '<option value="' + key + '"';
+	if (key == config.perpage_default) {
+	    perpage_html += ' selected="selected"';
+	}
+	perpage_html += '>' + key + '</option>';
+    }
+    perpage_html += '</select>';
+
+    return perpage_html;
+}
+
+/*
+ * Run service-proxy authentication in background (after page load).
+ * The username/password is configured in the apache config file
+ * for the site.
+ */
+function mkws_service_proxy_auth(auth_url) {
+    if (!auth_url)
+	auth_url = "/service-proxy-auth";
+
+    var jqxhr = jQuery.get(auth_url)
+	.fail(function() {
+	    alert("service proxy authentication failed, give up!");
+	})
+	.success(function(data) {
+	    if (!jQuery.isXMLDoc(data)) {
+		alert("service proxy auth response document is not valid XML document, give up!");
+		return;
+	    }
+	    var status = $(data).find("status");
+	    if (status.text() != "OK") {
+		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+		return;
+	    }
+	});
+}
+
+/* magic */
+$(document).ready(function() { mkws_html_all(mkws_config) });

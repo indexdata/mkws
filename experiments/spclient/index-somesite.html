@@ -3,20 +3,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com">
     <title>MKWS demo client</title>
     <!-- Next four lines required by MKWS -->
-    <link rel="stylesheet" href="mkwsStyle.css" />
-    <script type="text/javascript">
-	var mkws_config = { 
-		switch: true, 
-		sort_default: "relevance",
-		perpage_default: 20
-	 }; 
-    </script>
+    <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="mkws.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
   </head>
   <body>
     <!-- These five <div>s are provided by MKWS -->
@@ -24,10 +16,6 @@
     <div id="mkwsSearch"></div>
     <div id="mkwsRecords"></div>
     <div id="mkwsTargets"></div>
-
-    <div id="footer">
-      <div id="mkwsStat"></div>
-      <span>Copyright &copy; 1999-2013 by <a href="http://www.indexdata.com">Index Data</a></span> 
-    </div>
+    <div id="mkwsStat"></div>
   </body>
 </html>
