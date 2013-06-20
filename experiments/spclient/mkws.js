@@ -371,7 +371,22 @@ function renderDetails(data, marker)
     return details;
 }
 
-function mkws_html_all() {
+/*
+ * All the HTML stuff to render the search forms and
+ * result pages.
+ */
+function mkws_html_all(data) {
+
+    var config = {
+	sort: [ ["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	perpage: [10, 20, 30, 50],
+	sort_default: "relevance",
+	perpage_default: 20,
+	query_width: 50,
+
+	dummy: "dummy"
+    };
+
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
