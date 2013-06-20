@@ -383,6 +383,7 @@ function mkws_html_all(data) {
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
+	mkws_switch: true, /* show/hide Records|Targets menu */
 
 	dummy: "dummy"
     };
@@ -398,6 +399,10 @@ function mkws_html_all(data) {
 	onclick: "switchView(\'targets\')",
 	text: "Targets",
     }));
+
+    if (!config.mkws_switch) {
+        $("#mkwsSwitch").css("display", "none");
+    }
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
