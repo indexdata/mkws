@@ -3,6 +3,9 @@
 
 "use strict"; // HTML5
 
+if (!mkws_config)
+    var mkws_config = {}; // for the guys who forgot to define mkws_config...
+
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "/service-proxy/";
 
