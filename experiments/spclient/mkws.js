@@ -1,18 +1,69 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
+"use strict"; // HTML5
+
+if (!mkws_config)
+    var mkws_config = {}; // for the guys who forgot to define mkws_config...
+
+var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
+var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "/service-proxy/";
+
+var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
+var usesessions = mkws_config.use_service_proxy ? false : true;
+
+var mkws_locale_lang = {
+    "de": {
+	"Authors": "Autoren",
+	"Subjects": "Schlagw&ouml;rter",
+	"Sources": "Daten und Quellen",
+	"TERMLISTS": "Termlisten",
+	"Next": "Weiter",
+	"Prev": "Zur&uuml;ck",
+	"Search": "Suche",
+	"Sort by": "Sortieren nach",
+	"and show": "und zeige",
+	"per page": "pro Seite",
+	"Displaying": "Zeige",
+	"to": "von",
+	"of": "aus",
+	"found": "gefunden",
+
+	"dummy": "dummy"
+    },
+
+    "da": {
+	"Authors": "Forfattere",
+	"Subjects": "Emner",
+	"Sources": "Kilder",
+	"TERMLISTS": "TERMLISTS",
+	"Next": "N&aelig;ste",
+	"Prev": "Forrige",
+	"Search": "S&oslash;g",
+	"Sort by": "Sorter efter",
+	"and show": "og vis",
+	"per page": "per side",
+	"Displaying": "Viser",
+	"to": "til",
+	"of": "ud af",
+	"found": "fandt",
+
+	"dummy": "dummy"
+    }
+};
+
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": '/service-proxy/',
+                    "pazpar2path": pazpar2path,
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : false,
+	 	    "usesessions" : usesessions,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 // some state vars
@@ -41,9 +92,9 @@ function my_onshow(data) {
     // move it out
     var pager = document.getElementById("pager");
     pager.innerHTML = "";
-    pager.innerHTML +='<hr/><div style="float: right">Displaying: '
-                    + (data.start + 1) + ' to ' + (data.start + data.num) +
-                     ' of ' + data.merged + ' (found: '
+    pager.innerHTML +='<hr/><div style="float: right">' + M('Displaying') + ': '
+                    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+                     ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
                      + data.total + ')</div>';
     drawPager(pager);
     // navi
@@ -85,20 +136,20 @@ function my_onstat(data) {
 
 function my_onterm(data) {
     var termlists = [];
-    termlists.push('<hr/><b>TERMLISTS:</b><hr/><div class="termtitle">Sources</div>');
+    termlists.push('<hr/><b>' + M('TERMLISTS') + ':</b><hr/><div class="termtitle">' + M('Sources') + '</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
         termlists.push('<a href="#" target_id='+data.xtargets[i].id
             + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name
         + ' </a><span> (' + data.xtargets[i].freq + ')</span><br/>');
     }
 
-    termlists.push('<hr/><div class="termtitle">Subjects</div>');
+    termlists.push('<hr/><div class="termtitle">' + M('Subjects') + '</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
               + data.subject[i].freq + ')</span><br/>');
     }
 
-    termlists.push('<hr/><div class="termtitle">Authors</div>');
+    termlists.push('<hr/><div class="termtitle">' + M('Authors') + '</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
                             + data.author[i].name
@@ -234,10 +285,10 @@ function drawPager (pagerDiv)
         ? firstClkbl + 2*onsides
         : pages;
 
-    var prev = '<span id="prev">&#60;&#60; Prev</span><b> | </b>';
+    var prev = '<span id="prev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
     if (curPage > 1)
         prev = '<a href="#" id="prev" onclick="pagerPrev();">'
-        +'&#60;&#60; Prev</a><b> | </b>';
+        +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
     var middle = '';
     for(var i = firstClkbl; i <= lastClkbl; i++) {
@@ -249,10 +300,10 @@ function drawPager (pagerDiv)
             + numLabel + ' </a>';
     }
 
-    var next = '<b> | </b><span id="next">Next &#62;&#62;</span>';
+    var next = '<b> | </b><span id="next">' + M('Next') + ' &#62;&#62;</span>';
     if (pages - curPage > 0)
         next = '<b> | </b><a href="#" id="next" onclick="pagerNext()">'
-        +'Next &#62;&#62;</a>';
+        + M('Next') + ' &#62;&#62;</a>';
 
     var predots = '';
     if (firstClkbl > 1)
@@ -399,7 +450,7 @@ function mkws_html_all(data) {
     $("#mkwsSearch").html('\
     <form id="searchForm" name="search">\
       <input id="query" type="text" size="50" />\
-      <input id="button" type="submit" value="Search" />\
+      <input id="button" type="submit" value="' + M('Search') + '" />\
     </form>');
 
     $("#mkwsRecords").html('\
@@ -411,9 +462,9 @@ function mkws_html_all(data) {
           <td valign="top">\
             <div id="ranking">\
               <form name="select" id="select">\
-        Sort by' + mkws_html_sort(config) + '\
-        and show ' + mkws_html_perpage(config) + '\
-        per page.\
+        ' + M('Sort by') + mkws_html_sort(config) + '\
+        ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
+        ' + M('per page') + '.\
        </form>\
             </div>\
             <div id="pager"></div>\
@@ -425,7 +476,8 @@ function mkws_html_all(data) {
     </div>');
 
     mkws_html_switch(config);
-    mkws_service_proxy_auth(config.service_proxy_auth);
+    if (mkws_config.use_service_proxy)
+	mkws_service_proxy_auth(config.service_proxy_auth);
 
     domReady();
 }
@@ -513,6 +565,16 @@ function mkws_service_proxy_auth(auth_url) {
 		return;
 	    }
 	});
+}
+
+/* locale */
+function M(word) {
+    var lang = mkws_config.lang;
+
+    if (!lang || !mkws_locale_lang[lang])
+	return word;
+
+    return mkws_locale_lang[lang][word] ? mkws_locale_lang[lang][word] : word;
 }
 
 /* magic */
