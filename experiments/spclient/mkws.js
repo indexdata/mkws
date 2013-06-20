@@ -425,7 +425,11 @@ function mkws_html_all() {
     domReady();
 }
 
-
+/* 
+ * Run service-proxy authentication in background (after page load).
+ * The username/password is configured in the apache config file
+ * for the site.
+ */
 function mkws_service_proxy_auth() {
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() {
