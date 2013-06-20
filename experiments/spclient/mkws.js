@@ -1,6 +1,8 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
+"use strict";
+
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
