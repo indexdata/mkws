@@ -397,13 +397,13 @@ function mkws_html_all(data) {
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
-	text: "Records",
+	text: "Records"
     }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'targets\')",
-	text: "Targets",
+	text: "Targets"
     }));
 
     if (!config.mkws_switch) {
@@ -451,7 +451,7 @@ function mkws_html_all(data) {
     domReady();
 }
 
-/* 
+/*
  * Run service-proxy authentication in background (after page load).
  * The username/password is configured in the apache config file
  * for the site.
@@ -476,4 +476,3 @@ function mkws_service_proxy_auth() {
 
 $(document).ready(function() { mkws_html_all(mkws_config) });
 $(document).ready(function() { mkws_service_proxy_auth(); });
-
