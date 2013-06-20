@@ -384,7 +384,7 @@ function mkws_html_all(data) {
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
-	mkws_switch: true, /* show/hide Records|Targets menu */
+	switch: true, /* show/hide Records|Targets menu */
 
 	dummy: "dummy"
     };
@@ -449,7 +449,7 @@ function mkws_html_switch(config) {
 	text: "Targets"
     }));
 
-    if (!config.mkws_switch) {
+    if (!config.switch) {
         $("#mkwsSwitch").css("display", "none");
     }
 }
