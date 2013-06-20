@@ -426,7 +426,7 @@ $(document).ready(function() {
     domReady();
 });
 
-$(document).ready(function() {
+function mkws_service_proxy_auth() {
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() {
 	    alert("service proxy authentification failed, give up!");
@@ -442,4 +442,9 @@ $(document).ready(function() {
 		return;
 	    }
 	});
+}
+
+$(document).ready(function() {
+    mkws_service_proxy_auth();
 });
+
