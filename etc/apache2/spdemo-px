@@ -1,6 +1,6 @@
 <VirtualHost *:80> 
    ServerName spdemo.indexdata.com
-   ServerAlias spdemo-dev.indexdata.com spdemo-devel.indexdata.com spdemo-sp.indexdata.com spdemo-pp2.indexdata.com
+   ServerAlias spdemo-dev.indexdata.com spdemo-devel.indexdata.com spdemo-sp.indexdata.com spdemo-pp2.indexdata.com spclient-dev.indexdata.com
    
    ErrorLog /var/log/apache2/spdemo-error.log
    CustomLog /var/log/apache2/spdemo-access.log combined

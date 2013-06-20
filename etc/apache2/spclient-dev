@@ -1,0 +1,26 @@
+# Configuration for the apache web server                 -*- apache -*-
+
+# pazpar2 / service proxy config
+<VirtualHost *:80>
+    ServerName spdemo.example.com
+    ServerAlias spdemo-dev.indexdata.com spdemo-devel.indexdata.com spdemo-sp.indexdata.com spdemo-pp2.indexdata.com 
+    ServerAdmin webmaster@example.com
+    ErrorLog /var/log/apache2/spdemo-error.log
+    CustomLog /var/log/apache2/spdemo-access.log combined
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog /var/log/apache2/spdemo-rewrite.log 
+
+    DocumentRoot /home/indexdata/mkws/experiments/spclient
+
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+
+    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+
+    ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
+    ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
+
+</VirtualHost>
+
