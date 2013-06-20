@@ -371,8 +371,7 @@ function renderDetails(data, marker)
     return details;
 }
 
-
-$(document).ready(function() {
+function mkws_html_all() {
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
@@ -424,7 +423,8 @@ $(document).ready(function() {
     $("#mkwsTargets").css("display", "none");
 
     domReady();
-});
+}
+
 
 function mkws_service_proxy_auth() {
     var jqxhr = jQuery.get("/service-proxy-auth")
@@ -444,7 +444,6 @@ function mkws_service_proxy_auth() {
 	});
 }
 
-$(document).ready(function() {
-    mkws_service_proxy_auth();
-});
+$(document).ready(function() { mkws_html_all(); });
+$(document).ready(function() { mkws_service_proxy_auth(); });
 
