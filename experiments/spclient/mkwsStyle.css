@@ -69,3 +69,15 @@ div.details {
     background-color: #fafafa;
     border-bottom: 1px solid  #156a16;
 }
+
+#mkwsStat {
+    font-weight: bold;
+    font-size: small;
+}
+
+#footer {
+    padding-top: 4px;
+    text-align: center;
+    font-size: small;
+}
+
