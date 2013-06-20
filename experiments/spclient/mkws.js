@@ -379,7 +379,7 @@ function mkws_html_all(data) {
 
     /* default config */
     var config = {
-	sort: [ ["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	sort: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage: [10, 20, 30, 50],
 	sort_default: "relevance",
 	perpage_default: 20,
@@ -424,6 +424,18 @@ function mkws_html_all(data) {
     }
     sort_html += '</select>';
 
+    var perpage_html = '<select name="perpage" id="perpage">';
+    for(var i = 0; i < config.perpage.length; i++) {
+	var key = config.perpage[i];
+
+	perpage_html += '<option value="' + key + '"';
+	if (key == config.perpage_default) {
+	    perpage_html += ' selected="selected"';
+	}
+	perpage_html += '>' + key + '</option>';
+    }
+    perpage_html += '</select>';
+
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
     $("#mkwsSearch").html('\
@@ -442,8 +454,7 @@ function mkws_html_all(data) {
             <div id="ranking">\
               <form name="select" id="select">\
         Sort by' + sort_html + '\
-        and show \
-        <select name="perpage" id="perpage"><option value="10">10</option><option value="20" selected="selected">20</option><option value="30">30</option><option value="50">50</option></select>\
+        and show ' + perpage_html + '\
         per page.\
        </form>\
             </div>\
