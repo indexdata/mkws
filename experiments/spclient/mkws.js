@@ -46,7 +46,7 @@ var mkws_locale_lang = {
 	"Displaying": "Viser",
 	"to": "til",
 	"of": "ud af",
-	"found": "fundet",
+	"found": "fandt",
 
 	"dummy": "dummy"
     }
