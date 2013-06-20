@@ -474,6 +474,6 @@ function mkws_service_proxy_auth() {
 	});
 }
 
-/* moved to index.html:  $(document).ready(function() { mkws_html_all( { mkws_switch: false }); }); */
+$(document).ready(function() { mkws_html_all(mkws_config) });
 $(document).ready(function() { mkws_service_proxy_auth(); });
 
