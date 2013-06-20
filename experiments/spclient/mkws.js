@@ -388,6 +388,12 @@ function mkws_html_all(data) {
 	dummy: "dummy"
     };
 
+    /* override standard config values by function parameters */
+    for (var k in data) {
+	config[k] = data[k];
+    }
+
+
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
@@ -468,6 +474,6 @@ function mkws_service_proxy_auth() {
 	});
 }
 
-$(document).ready(function() { mkws_html_all(); });
+$(document).ready(function() { mkws_html_all( { mkws_switch: false }); });
 $(document).ready(function() { mkws_service_proxy_auth(); });
 
