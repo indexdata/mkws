@@ -36,7 +36,7 @@ var mkws_locale_lang = {
 	"Authors": "Forfattere",
 	"Subjects": "Emner",
 	"Sources": "Kilder",
-	"TERMLISTS": "Termlisten",
+	"TERMLISTS": "TERMLISTS",
 	"Next": "N&aelig;ste",
 	"Prev": "Forrige",
 	"Search": "S&oslash;g",
