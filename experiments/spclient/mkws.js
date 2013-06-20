@@ -569,13 +569,25 @@ function mkws_service_proxy_auth(auth_url) {
 
 /* locale */
 function M(word) {
-    var lang = mkws_config.lang;
+    var lang = jQuery.parseQuerystring().lang || mkws_config.lang;
 
     if (!lang || !mkws_locale_lang[lang])
 	return word;
 
     return mkws_locale_lang[lang][word] ? mkws_locale_lang[lang][word] : word;
 }
+
+jQuery.extend({
+    parseQuerystring: function() {
+    var nvpair = {};
+    var qs = window.location.search.replace('?', '');
+    var pairs = qs.split('&');
+    $.each(pairs, function(i, v){
+	var pair = v.split('=');
+	nvpair[pair[0]] = pair[1];
+    });
+    return nvpair;
+} });
 
 /* magic */
 $(document).ready(function() { mkws_html_all(mkws_config) });
