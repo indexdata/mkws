@@ -429,7 +429,7 @@ $(document).ready(function() {
 function mkws_service_proxy_auth() {
     var jqxhr = jQuery.get("/service-proxy-auth")
 	.fail(function() {
-	    alert("service proxy authentification failed, give up!");
+	    alert("service proxy authentication failed, give up!");
 	})
 	.success(function(data) {
 	    if (!jQuery.isXMLDoc(data)) {
