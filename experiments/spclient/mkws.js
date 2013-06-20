@@ -41,11 +41,11 @@ var mkws_locale_lang = {
 	"Prev": "Forrige",
 	"Search": "S&oslash;g",
 	"Sort by": "Sorter efter",
-	"and show": "og show",
+	"and show": "og vis",
 	"per page": "per side",
-	"Displaying": "Visning",
+	"Displaying": "Viser",
 	"to": "til",
-	"of": "under",
+	"of": "ud af",
 	"found": "fundet",
 
 	"dummy": "dummy"
