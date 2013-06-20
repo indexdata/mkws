@@ -497,7 +497,7 @@ function mkws_service_proxy_auth(auth_url) {
     if (!auth_url)
 	auth_url = "/service-proxy-auth";
 
-    var jqxhr = jQuery.get(auth_url);
+    var jqxhr = jQuery.get(auth_url)
 	.fail(function() {
 	    alert("service proxy authentication failed, give up!");
 	})
