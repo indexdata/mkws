@@ -433,7 +433,8 @@ function mkws_html_all(data) {
     </div>');
 
     mkws_html_switch(config);
-    mkws_service_proxy_auth(config.service_proxy_auth);
+    if (mkws_config.use_service_proxy)
+	mkws_service_proxy_auth(config.service_proxy_auth);
 
     domReady();
 }
