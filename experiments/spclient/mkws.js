@@ -394,47 +394,7 @@ function mkws_html_all(data) {
 	config[k] = data[k];
     }
 
-
-    $("#mkwsSwitch").html($("<a/>", {
-	href: '#',
-	onclick: "switchView(\'records\')",
-	text: "Records"
-    }));
-    $("#mkwsSwitch").append($("<span/>", { text: " | " }));
-    $("#mkwsSwitch").append($("<a/>", {
-	href: '#',
-	onclick: "switchView(\'targets\')",
-	text: "Targets"
-    }));
-
-    if (!config.mkws_switch) {
-        $("#mkwsSwitch").css("display", "none");
-    }
-
-    var sort_html = '<select name="sort" id="sort">';
-    for(var i = 0; i < config.sort.length; i++) {
-	var key = config.sort[i][0];
-	var val = config.sort[i].length == 1 ? config.sort[i][0] : config.sort[i][1];
-
-	sort_html += '<option value="' + key + '"';
-	if (key == config.sort_default) {
-	    sort_html += ' selected="selected"';
-	}
-	sort_html += '>' + val + '</option>';
-    }
-    sort_html += '</select>';
-
-    var perpage_html = '<select name="perpage" id="perpage">';
-    for(var i = 0; i < config.perpage.length; i++) {
-	var key = config.perpage[i];
-
-	perpage_html += '<option value="' + key + '"';
-	if (key == config.perpage_default) {
-	    perpage_html += ' selected="selected"';
-	}
-	perpage_html += '>' + key + '</option>';
-    }
-    perpage_html += '</select>';
+    mkws_html_switch(config);
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
@@ -453,8 +413,8 @@ function mkws_html_all(data) {
           <td valign="top">\
             <div id="ranking">\
               <form name="select" id="select">\
-        Sort by' + sort_html + '\
-        and show ' + perpage_html + '\
+        Sort by' + mkws_html_sort(config) + '\
+        and show ' + mkws_html_perpage(config) + '\
         per page.\
        </form>\
             </div>\
@@ -473,6 +433,59 @@ function mkws_html_all(data) {
     $("#mkwsTargets").css("display", "none");
 
     domReady();
+}
+
+function mkws_html_switch(config) {
+    $("#mkwsSwitch").html($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'records\')",
+	text: "Records"
+    }));
+    $("#mkwsSwitch").append($("<span/>", { text: " | " }));
+    $("#mkwsSwitch").append($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'targets\')",
+	text: "Targets"
+    }));
+
+    if (!config.mkws_switch) {
+        $("#mkwsSwitch").css("display", "none");
+    }
+}
+
+function mkws_html_sort(config) {
+    var sort_html = '<select name="sort" id="sort">';
+
+    for(var i = 0; i < config.sort.length; i++) {
+	var key = config.sort[i][0];
+	var val = config.sort[i].length == 1 ? config.sort[i][0] : config.sort[i][1];
+
+	sort_html += '<option value="' + key + '"';
+	if (key == config.sort_default) {
+	    sort_html += ' selected="selected"';
+	}
+	sort_html += '>' + val + '</option>';
+    }
+    sort_html += '</select>';
+
+    return sort_html;
+}
+
+function mkws_html_perpage(config) {
+    var perpage_html = '<select name="perpage" id="perpage">';
+
+    for(var i = 0; i < config.perpage.length; i++) {
+	var key = config.perpage[i];
+
+	perpage_html += '<option value="' + key + '"';
+	if (key == config.perpage_default) {
+	    perpage_html += ' selected="selected"';
+	}
+	perpage_html += '>' + key + '</option>';
+    }
+    perpage_html += '</select>';
+
+    return perpage_html;
 }
 
 /*
