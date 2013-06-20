@@ -46,9 +46,18 @@ div.details {
     margin: 4px;
 }
 
+#mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets {
+    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+}
+
 #mkwsSwitch {
-    padding-bottom: 3px;
-    text-align: right;
+    float: right;
+    padding-left: 1em;
+    padding-top: 0.4em;
+}
+
+#mkwsSearch {
+    float: right;
 }
 
 #mkwsRecords {

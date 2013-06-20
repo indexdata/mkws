@@ -72,7 +72,7 @@ function my_onshow(data) {
 }
 
 function my_onstat(data) {
-    var stat = document.getElementById("stat");
+    var stat = document.getElementById("mkwsStat");
     if (stat == null)
 	return;
 
@@ -373,15 +373,17 @@ function renderDetails(data, marker)
 
 
 $(document).ready(function() {
-    $("#mkwsSwitch").html($("<a/>", { href: '#',
-				      onclick: "switchView(\'records\')",
-				      text: "Record Browser",
-				    }));
+    $("#mkwsSwitch").html($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'records\')",
+	text: "Records",
+    }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
-    $("#mkwsSwitch").append($("<a/>", { href: '#',
-					onclick: "switchView(\'targets\')",
-					text: "Target Info",
-				      }));
+    $("#mkwsSwitch").append($("<a/>", {
+	href: '#',
+	onclick: "switchView(\'targets\')",
+	text: "Targets",
+    }));
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
@@ -390,6 +392,30 @@ $(document).ready(function() {
       <input id="query" type="text" size="50" />\
       <input id="button" type="submit" value="Search" />\
     </form>');
+
+    $("#mkwsRecords").html('\
+      <table width="100%" border="0" cellpadding="6" cellspacing="0">\
+        <tr>\
+          <td width="250" valign="top">\
+            <div id="termlist"></div>\
+          </td>\
+          <td valign="top">\
+            <div id="ranking">\
+              <form name="select" id="select">\
+        Sort by\
+        <select name="sort" id="sort"><option value="relevance" selected="selected">relevance</option><option value="title:1">title</option><option value="date:0">newest</option><option value="date:1">oldest</option></select>\
+        and show \
+        <select name="perpage" id="perpage"><option value="10">10</option><option value="20" selected="selected">20</option><option value="30">30</option><option value="50">50</option></select>\
+        per page.\
+       </form>\
+            </div>\
+            <div id="pager"></div>\
+            <div id="navi"></div>\
+            <div id="results"></div>\
+          </td>\
+        </tr>\
+      </table>\
+    </div>');
 
     $("#mkwsTargets").html('\
       <div id="bytarget">\
@@ -401,22 +427,19 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    if (useServiceProxy) {
-	var jqxhr = jQuery.get(authURLServiceProxy)
-	    .fail(function() {
-	      alert("service proxy authentifiction failed for URL " + authURLServiceProxy + " , give up!");
-	    })
-	    .success(function(data) {
-	       if (!jQuery.isXMLDoc(data)) {
-		 alert("service proxy auth response document is not valid XML document, give up!");
-		 return;
-	       }
-
-	       var status = $(data).find("status");
-	       if (status.text() != "OK") {
+    var jqxhr = jQuery.get("/service-proxy-auth")
+	.fail(function() {
+	    alert("service proxy authentification failed, give up!");
+	})
+	.success(function(data) {
+	    if (!jQuery.isXMLDoc(data)) {
+		alert("service proxy auth response document is not valid XML document, give up!");
+		return;
+	    }
+	    var status = $(data).find("status");
+	    if (status.text() != "OK") {
 		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
 		return;
-	       }
-	      });
-    }
+	    }
+	});
 });
