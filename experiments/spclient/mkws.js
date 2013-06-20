@@ -394,8 +394,6 @@ function mkws_html_all(data) {
 	config[k] = data[k];
     }
 
-    mkws_html_switch(config);
-
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
     $("#mkwsSearch").html('\
@@ -426,13 +424,9 @@ function mkws_html_all(data) {
       </table>\
     </div>');
 
-    $("#mkwsTargets").html('\
-      <div id="bytarget">\
-       No information available yet.\
-      </div>');
-    $("#mkwsTargets").css("display", "none");
-
+    mkws_html_switch(config);
     mkws_service_proxy_auth(config.service_proxy_auth);
+
     domReady();
 }
 
@@ -448,6 +442,12 @@ function mkws_html_switch(config) {
 	onclick: "switchView(\'targets\')",
 	text: "Targets"
     }));
+
+    $("#mkwsTargets").html('\
+      <div id="bytarget">\
+       No information available yet.\
+      </div>');
+    $("#mkwsTargets").css("display", "none");
 
     if (!config.switch) {
         $("#mkwsSwitch").css("display", "none");
