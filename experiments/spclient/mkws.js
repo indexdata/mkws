@@ -1,7 +1,7 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-"use strict"; // HTML5
+// "use strict"; // HTML5
 
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
@@ -661,7 +661,13 @@ function debug(string) {
     if (!console) { /* ARGH!!! */
 	return;
     }
-    
+
+    // you need to disable use strict at the top of the file!!!
+    if (mkws_debug >= 3) {
+	console.log(arguments.callee.caller);
+    } else if (mkws_debug >= 2) {
+	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+    }
     console.log(string);
 }
 
