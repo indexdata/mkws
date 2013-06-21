@@ -633,7 +633,7 @@ function mkws_html_lang(mkws_config) {
 
 /* locale */
 function M(word) {
-    var lang = jQuery.parseQuerystring().lang || mkws_config.lang;
+    var lang = mkws_config.lang;
 
     if (!lang || !mkws_locale_lang[lang])
 	return word;
