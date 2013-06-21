@@ -3,6 +3,7 @@
 
 "use strict"; // HTML5
 
+// global config object mkws_config 
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
 
@@ -147,6 +148,9 @@ function my_onstat(data) {
 }
 
 function my_onterm(data) {
+    if (!mkws_config.termlist_menu)
+	return;
+    
     var termlists = [];
     termlists.push('<hr/><b>' + M('TERMLISTS') + ':</b><hr/><div class="termtitle">' + M('Sources') + '</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
@@ -447,8 +451,9 @@ function mkws_html_all(data) {
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
-	switch_menu: true, /* show/hide Records|Targets menu */
-	lang_menu: true, /* show/hide language menu */
+	switch_menu: true, 	/* show/hide Records|Targets menu */
+	lang_menu: true, 	/* show/hide language menu */
+	termlist_menu: true, 	/* show/hide termlist */
 	debug: 0,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
