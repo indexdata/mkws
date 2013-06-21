@@ -577,6 +577,7 @@ function M(word) {
     return mkws_locale_lang[lang][word] ? mkws_locale_lang[lang][word] : word;
 }
 
+/* implement jQuery.parseQuerystring() for parsing URL parameters */
 jQuery.extend({
     parseQuerystring: function() {
     var nvpair = {};
