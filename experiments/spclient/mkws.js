@@ -657,7 +657,8 @@ jQuery.extend({
 function debug(string) {
     if (!mkws_debug)
 	return;
-    
+   
+    var console; // IE8 quirks 
     if (!console) { /* ARGH!!! */
 	return;
     }
