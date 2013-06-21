@@ -438,6 +438,7 @@ function mkws_html_all(data) {
 	perpage_default: 20,
 	query_width: 50,
 	switch_menu: true, /* show/hide Records|Targets menu */
+	lang_menu: true, /* show/hide language menu */
 	debug: 0,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
@@ -461,7 +462,8 @@ function mkws_html_all(data) {
     }
    
     mkws_set_lang(mkws_config); 
-    mkws_html_lang(mkws_config); 
+    if (mkws_config.lang_menu)
+	mkws_html_lang(mkws_config); 
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
