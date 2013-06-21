@@ -99,6 +99,17 @@ Any modern HTML5 browser will work fine. JavaScript must be enabled.
 
 Not supported: IE6, IE7
 
+New Features since jsdemo
+--------------------------
+- multilinguality: English (default), Danish, German
+- depends on the new pazpar2 JS library libjs-pz2/pz2api.1.js
+  which will make the development of pazpar2 plugins faster and
+  easier to share code between projects
+- supports basic pazpar2 and service-proxy requests
+- simplified HTML
+- the search page is fully configurable by a JSON object
+
+
 What next?
 ----------
 
