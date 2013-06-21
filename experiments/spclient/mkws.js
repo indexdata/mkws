@@ -55,10 +55,10 @@ var mkws_locale_lang = {
 	"of": "ud af",
 	"found": "fandt",
 	"Title": "Title",
-	"Author": "Author",
+	"Author": "Forfatter",
 	"Date": "Dato",
-	"Subject": "Subject",
-	"Location": "Location",
+	"Subject": "Emneord",
+	"Location": "Lokation",
 
 	"dummy": "dummy"
     }
