@@ -455,6 +455,10 @@ function mkws_html_all(data) {
 	config[k] = data[k];
 	debug("Set config: " + k + ' => ' + data[k]);
     }
+    if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
+	debug("Reset query width: " + mkws_config.query_width);
+	mkws_config.query_width = 50;
+    }
    
     mkws_set_lang(mkws_config); 
     mkws_html_lang(mkws_config); 
@@ -464,7 +468,7 @@ function mkws_html_all(data) {
     debug("HTML search form");
     $("#mkwsSearch").html('\
     <form id="searchForm" name="search" action="" >\
-      <input id="query" type="text" size="50" />\
+      <input id="query" type="text" size="' + mkws_config.query_width + '" />\
       <input id="button" type="submit" value="' + M('Search') + '" />\
     </form>');
 
