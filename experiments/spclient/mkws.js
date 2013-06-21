@@ -488,8 +488,7 @@ function mkws_html_all(data) {
             <div id="results"></div>\
           </td>\
         </tr>\
-      </table>\
-    </div>');
+      </table>');
 
     mkws_html_switch(config);
     if (mkws_config.use_service_proxy)
