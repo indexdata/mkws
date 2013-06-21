@@ -444,6 +444,8 @@ function mkws_html_all(data) {
     for (var k in data) {
 	config[k] = data[k];
     }
+   
+    mkws_set_lang(mkws_config); 
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
@@ -480,6 +482,17 @@ function mkws_html_all(data) {
 	mkws_service_proxy_auth(config.service_proxy_auth);
 
     domReady();
+}
+
+function mkws_set_lang(mkws_config)  {
+    var lang = jQuery.parseQuerystring().lang || mkws_config.lang || "";
+    if (!lang || !mkws_locale_lang[lang]) {
+	mkws_config.lang = ""
+    } else {
+	mkws_config.lang = lang;
+    }
+    
+    return mkws_config.lang;
 }
 
 function mkws_html_switch(config) {
