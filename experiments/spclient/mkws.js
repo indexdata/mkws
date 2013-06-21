@@ -30,6 +30,11 @@ var mkws_locale_lang = {
 	"to": "von",
 	"of": "aus",
 	"found": "gefunden",
+	"Title": "Titel",
+	"Author": "Autor",
+	"Date": "Datum",
+	"Subject": "Schlagwort",
+	"Location": "Ort",
 
 	"dummy": "dummy"
     },
@@ -49,6 +54,11 @@ var mkws_locale_lang = {
 	"to": "til",
 	"of": "ud af",
 	"found": "fandt",
+	"Title": "Title",
+	"Author": "Author",
+	"Date": "Dato",
+	"Subject": "Subject",
+	"Location": "Location",
 
 	"dummy": "dummy"
     }
@@ -401,7 +411,7 @@ function renderDetails(data, marker)
     var details = '<div class="details" id="det_'+data.recid+'"><table>';
     if (marker) details += '<tr><td>'+ marker + '</td></tr>';
     if (data["md-title"] != undefined) {
-        details += '<tr><td><b>Title</b></td><td><b>:</b> '+data["md-title"];
+        details += '<tr><td><b>' + M('Title') + '</b></td><td><b>:</b> '+data["md-title"];
   	if (data["md-title-remainder"] !== undefined) {
 	      details += ' : <span>' + data["md-title-remainder"] + ' </span>';
   	}
@@ -411,15 +421,15 @@ function renderDetails(data, marker)
  	  details += '</td></tr>';
     }
     if (data["md-date"] != undefined)
-        details += '<tr><td><b>Date</b></td><td><b>:</b> ' + data["md-date"] + '</td></tr>';
+        details += '<tr><td><b>' + M('Date') + '</b></td><td><b>:</b> ' + data["md-date"] + '</td></tr>';
     if (data["md-author"] != undefined)
-        details += '<tr><td><b>Author</b></td><td><b>:</b> ' + data["md-author"] + '</td></tr>';
+        details += '<tr><td><b>' + M('Author') + '</b></td><td><b>:</b> ' + data["md-author"] + '</td></tr>';
     if (data["md-electronic-url"] != undefined)
         details += '<tr><td><b>URL</b></td><td><b>:</b> <a href="' + data["md-electronic-url"] + '" target="_blank">' + data["md-electronic-url"] + '</a>' + '</td></tr>';
     if (data["location"][0]["md-subject"] != undefined)
-        details += '<tr><td><b>Subject</b></td><td><b>:</b> ' + data["location"][0]["md-subject"] + '</td></tr>';
+        details += '<tr><td><b>' + M('Subject') + '</b></td><td><b>:</b> ' + data["location"][0]["md-subject"] + '</td></tr>';
     if (data["location"][0]["@name"] != undefined)
-        details += '<tr><td><b>Location</b></td><td><b>:</b> ' + data["location"][0]["@name"] + " (" +data["location"][0]["@id"] + ")" + '</td></tr>';
+        details += '<tr><td><b>' + M('Location') + '</b></td><td><b>:</b> ' + data["location"][0]["@name"] + " (" +data["location"][0]["@id"] + ")" + '</td></tr>';
     details += '</table></div>';
     return details;
 }
