@@ -446,6 +446,7 @@ function mkws_html_all(data) {
     }
    
     mkws_set_lang(mkws_config); 
+    mkws_html_lang(mkws_config); 
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
@@ -578,6 +579,33 @@ function mkws_service_proxy_auth(auth_url) {
 		return;
 	    }
 	});
+}
+
+/* create locale language menu */
+function mkws_html_lang(mkws_config) {
+    var lang_default = "en";
+    var lang = mkws_config.lang || lang_default;
+    var list = [lang_default];
+    
+    for (var k in mkws_locale_lang) {
+	list.push(k);
+    }
+
+    var data = "";    
+    for(var i = 0; i < list.length; i++) {
+	var l = list[i];
+	
+	if (data)
+	    data += ' | ';
+	    
+	if (lang == l) {
+	    data += l;
+	} else {
+	    data += ' <a href="/?lang=' + l + '">' + l + '</a> '
+	}
+    }
+    
+    $("#mkwsLang").html(data);
 }
 
 /* locale */
