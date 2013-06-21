@@ -506,7 +506,7 @@ function mkws_set_lang(mkws_config)  {
 	mkws_config.lang = lang;
     }
     
-    debug("Locale language: " + mkws_config.lang);
+    debug("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
     return mkws_config.lang;
 }
 
