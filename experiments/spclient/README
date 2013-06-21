@@ -18,7 +18,7 @@ can have MasterKey searching with minimal effort.
 The following files must be hosted on mkws.indexdata.com:
 	mkws.js
 	mkwsStyle.css
-	/libjs-pz2/pz2api.1.js
+	/libjs-pz2/pz2api.1.js (*)
 
 The following files make up the application:
 	index.html
@@ -29,6 +29,9 @@ The following files make up the application:
 Alias for /service-proxy/, to avoid cross-site scripting issues. We
 will fix this.)
 
+(*) if you don't have already installed libjs-pz2 on the machine, you can
+do it by installing a debian package or check it out from GIT:
+$ git clone ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
 
 Configuring a client
 --------------------
@@ -38,6 +41,9 @@ whatever makes up the application itself:
 
 Prerequisites:
     <link rel="stylesheet" href="mkwsStyle.css" />
+    <script type="text/javascript">
+	var mkws_config = { };
+    </script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="mkws.js"></script>
@@ -59,6 +65,24 @@ missing. One of the TODOs is to fix it so that it doesn't try to use
 whatever is not there, and just uses what is.
 
 
+You can configure and control the client with the JavaScript mkws_config object.
+
+Here is an example of all possible options
+    <script type="text/javascript">
+        var mkws_config = {
+                use_service_proxy: false,   /* true, flase */
+                switch: true, 		    /* true, false */
+                sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
+		query_width: 50,	    /* 5..50 */
+                perpage_default: 20,	    /* 10, 20, 30, 50 */
+                lang: "en",                 /* "en", "de", "da" */
+
+		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
+		service_proxy_url: "/service-proxy/", 	   /* URL */
+		service_proxy_auth: "/service-proxy-auth", /* URL */
+         };
+    </script>
+
 What next?
 ----------
 
@@ -69,5 +93,3 @@ Main areas of work:
 * Make CSS prettier
 * Embed in a real, existing, site
 * Clean up the code
-
-
