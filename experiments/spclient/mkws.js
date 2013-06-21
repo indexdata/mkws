@@ -463,7 +463,7 @@ function mkws_html_all(data) {
     // document.search.query being undefined, hence the raw HTML.
     debug("HTML search form");
     $("#mkwsSearch").html('\
-    <form id="searchForm" name="search">\
+    <form id="searchForm" name="search" action="" >\
       <input id="query" type="text" size="50" />\
       <input id="button" type="submit" value="' + M('Search') + '" />\
     </form>');
@@ -477,7 +477,7 @@ function mkws_html_all(data) {
           </td>\
           <td valign="top">\
             <div id="ranking">\
-              <form name="select" id="select">\
+              <form name="select" id="select" action="" >\
         ' + M('Sort by') + mkws_html_sort(config) + '\
         ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
         ' + M('per page') + '.\
