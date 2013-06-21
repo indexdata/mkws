@@ -1,7 +1,7 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-// "use strict"; // HTML5
+"use strict"; // HTML5
 
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
