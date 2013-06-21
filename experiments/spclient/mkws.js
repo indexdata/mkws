@@ -12,6 +12,8 @@ var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_prox
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
+var mkws_debug = 1;
+
 var mkws_locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -436,13 +438,22 @@ function mkws_html_all(data) {
 	perpage_default: 20,
 	query_width: 50,
 	switch: true, /* show/hide Records|Targets menu */
+	debug: 0,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
     };
 
+    /* set global debug flag early */
+    if (data.debug !== 'undefined') {
+	mkws_debug = data.debug;
+    } else if (config.debug !== 'undefined') {
+	mkws_debug = config.debug;
+    }
+    
     /* override standard config values by function parameters */
     for (var k in data) {
 	config[k] = data[k];
+	debug("Set config: " + k + ' => ' + data[k]);
     }
    
     mkws_set_lang(mkws_config); 
@@ -450,12 +461,14 @@ function mkws_html_all(data) {
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
+    debug("HTML search form");
     $("#mkwsSearch").html('\
     <form id="searchForm" name="search">\
       <input id="query" type="text" size="50" />\
       <input id="button" type="submit" value="' + M('Search') + '" />\
     </form>');
 
+    debug("HTML records");
     $("#mkwsRecords").html('\
       <table width="100%" border="0" cellpadding="6" cellspacing="0">\
         <tr>\
@@ -493,10 +506,13 @@ function mkws_set_lang(mkws_config)  {
 	mkws_config.lang = lang;
     }
     
+    debug("Locale language: " + mkws_config.lang);
     return mkws_config.lang;
 }
 
 function mkws_html_switch(config) {
+    debug("HTML switch");
+    
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
@@ -509,6 +525,7 @@ function mkws_html_switch(config) {
 	text: "Targets"
     }));
 
+    debug("HTML targets");
     $("#mkwsTargets").html('\
       <div id="bytarget">\
        No information available yet.\
@@ -516,11 +533,13 @@ function mkws_html_switch(config) {
     $("#mkwsTargets").css("display", "none");
 
     if (!config.switch) {
+	debug("disable switch");
         $("#mkwsSwitch").css("display", "none");
     }
 }
 
 function mkws_html_sort(config) {
+    debug("HTML sort");
     var sort_html = '<select name="sort" id="sort">';
 
     for(var i = 0; i < config.sort.length; i++) {
@@ -539,6 +558,7 @@ function mkws_html_sort(config) {
 }
 
 function mkws_html_perpage(config) {
+    debug("HTML perpage");
     var perpage_html = '<select name="perpage" id="perpage">';
 
     for(var i = 0; i < config.perpage.length; i++) {
@@ -563,6 +583,8 @@ function mkws_html_perpage(config) {
 function mkws_service_proxy_auth(auth_url) {
     if (!auth_url)
 	auth_url = "/service-proxy-auth";
+	
+    debug("Run service proxy auth URL: " + auth_url);
 
     var jqxhr = jQuery.get(auth_url)
 	.fail(function() {
@@ -590,6 +612,7 @@ function mkws_html_lang(mkws_config) {
     for (var k in mkws_locale_lang) {
 	list.push(k);
     }
+    debug("Language menu for: " + list.join(", "));
 
     var data = "";    
     for(var i = 0; i < list.length; i++) {
@@ -630,6 +653,17 @@ jQuery.extend({
     });
     return nvpair;
 } });
+
+function debug(string) {
+    if (!mkws_debug)
+	return;
+    
+    if (!console) { /* ARGH!!! */
+	return;
+    }
+    
+    console.log(string);
+}
 
 /* magic */
 $(document).ready(function() { mkws_html_all(mkws_config) });
