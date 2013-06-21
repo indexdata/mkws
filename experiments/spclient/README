@@ -55,6 +55,7 @@ do so many things, but that's not quite trivial.)
 Then the following special <div>s can be added (with no content), and
 will be filled in by MKWS:
     <div id="mkwsSwitch"></div> -- switch between record and target views
+    <div id="mkwsLang"></div>   -- switch between English, Danish and German
     <div id="mkwsSearch"></div> -- search box and button
     <div id="mkwsRecords"></div> -- result list, including pager/sorting
     <div id="mkwsTargets"></div> -- target list, including status
