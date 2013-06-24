@@ -2,7 +2,7 @@
 # Copyright (c) 2013 IndexData ApS. http://indexdata.com
 #
 
-all: help
+all: mkws-js
 
 MKWS_JS=	mkws.2.js
 
