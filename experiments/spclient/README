@@ -55,6 +55,7 @@ do so many things, but that's not quite trivial.)
 Then the following special <div>s can be added (with no content), and
 will be filled in by MKWS:
     <div id="mkwsSwitch"></div> -- switch between record and target views
+    <div id="mkwsLang"></div>   -- switch between English, Danish and German
     <div id="mkwsSearch"></div> -- search box and button
     <div id="mkwsRecords"></div> -- result list, including pager/sorting
     <div id="mkwsTargets"></div> -- target list, including status
@@ -71,17 +72,47 @@ Here is an example of all possible options
     <script type="text/javascript">
         var mkws_config = {
                 use_service_proxy: false,   /* true, flase */
-                switch: true, 		    /* true, false */
+		switch_menu: true, 	    /* true, false: show/hide Records|Targets menu */
+		lang_menu: true, 	    /* true, false: show/hide language menu */
+	        lang_display: ["en", "de", "da"], /* display languages links for given 
+				                     languages, [] for all */
+		termlist_menu: true, 	    /* true, false: show/hide termlist menu/facets */
                 sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
 		query_width: 50,	    /* 5..50 */
                 perpage_default: 20,	    /* 10, 20, 30, 50 */
                 lang: "en",                 /* "en", "de", "da" */
+		debug: 0,     		    /* debug level for development: 0..2 */
 
 		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
 		service_proxy_url: "/service-proxy/", 	   /* URL */
 		service_proxy_auth: "/service-proxy-auth", /* URL */
          };
     </script>
+
+
+Supported Browsers
+------------------
+
+Any modern HTML5 browser will work fine. JavaScript must be enabled.
+
+* IE8 or later
+* Firefox 17 or later
+* Google Chrome 27 or later
+* Safari 6 or later
+* Opera  12 or later
+
+Not supported: IE6, IE7
+
+New Features since jsdemo
+--------------------------
+- multilinguality: English (default), Danish, German
+- depends on the new pazpar2 JS library libjs-pz2/pz2api.1.js
+  which will make the development of pazpar2 plugins faster and
+  easier to share code between projects
+- supports basic pazpar2 and service-proxy requests
+- simplified HTML
+- the search page is fully configurable by a JSON object
+
 
 What next?
 ----------
