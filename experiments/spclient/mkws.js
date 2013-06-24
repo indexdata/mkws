@@ -1,7 +1,7 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-"use strict"; // HTML5
+// "use strict"; // HTML5
 
 // global config object mkws_config 
 if (!mkws_config)
@@ -453,6 +453,7 @@ function mkws_html_all(data) {
 	query_width: 50,
 	switch_menu: true, 	/* show/hide Records|Targets menu */
 	lang_menu: true, 	/* show/hide language menu */
+	lang_display: [], 	/* display languages links for given languages, [] for all */
 	termlist_menu: true, 	/* show/hide termlist */
 	debug: 0,     /* debug level for development: 0..2 */
 
@@ -627,13 +628,25 @@ function mkws_service_proxy_auth(auth_url) {
 function mkws_html_lang(mkws_config) {
     var lang_default = "en";
     var lang = mkws_config.lang || lang_default;
-    var list = [lang_default];
+    var list = [];
+
+    /* display a list of configured languages, or all */
+    var lang_display = mkws_config.lang_display || [];
+    var hash = {};
+    for (var i = 0; i < lang_display.length; i++) {
+	hash[lang_display[i]] = 1;
+    }
     
+    if (hash[lang_default] == 1)
+	list.push(lang_default);
+
     for (var k in mkws_locale_lang) {
-	list.push(k);
+	if (hash[k] == 1 || lang_display.length == 0)
+	    list.push(k);
     }
     debug("Language menu for: " + list.join(", "));
 
+    /* the HTML part */
     var data = "";    
     for(var i = 0; i < list.length; i++) {
 	var l = list[i];
