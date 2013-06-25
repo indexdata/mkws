@@ -700,7 +700,7 @@ function debug(string) {
     if (!mkws_debug)
 	return;
 
-    if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! */
+    if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
 	return;
     }
 
