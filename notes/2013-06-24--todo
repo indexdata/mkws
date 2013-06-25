@@ -1,0 +1,62 @@
+Adam, Wolfram, Jakub and I just had a ninety-minute meeting to look at
+MKWS (the MasterKey Widget Set) and discuss how to progress it.
+
+I won't bother trying to summarise the discussion, just the
+conclusions.
+
+1. We really like the concept, though Jakub is wary about the danger
+   of reinventing the wheel.
+
+2. We're happy with the distinction between two levels of MK2
+   integration: MKWS for entry-level HTML programmers; and more
+   sophisticated customers who want more control can roll their own
+   MasterKey Client based on MK2-UI-core.
+
+3. To avoid that wheel-reinventing, we want MKWS to itself be built on
+   the UI core. To pick a concrete benefit: Wolfram has invested some
+   effort to make MKWS multi-lingual; but had it been based on the UI
+   core, he could have put that work into the core, and all other MK2
+   UIs would have benefitted from it.
+
+4. We plan therefore to re-engineer MKWS to use the UI core -- or,
+   which might be a faster route to the same destination, to redo the
+   MKWS work but starting from a core-based UI instead of from
+   JSDemo. (This is in accordance with the experimental nature of the
+   work we've been doing -- what we're currenty referring to as "the"
+   MKWS code is actually one of several threads within the
+   "experiments" directory.)
+
+5. Because we want to enable smooth demos at ALA this coming weekend,
+   we are NOT going to begin the re-engineering until after ALA,
+   instead concentrating on getting the current MKWS experiment to
+   work as cleanly as possible.
+
+6. We want to establishing some demo sites that use MKWS, ready to be
+   shown to prospective customers. We think the best approach is to
+   pick three sites that currently have no searching (for example,
+   Dennis's site and one of my own) and add minimal MKWS code to
+   each. Then Seb will be able to demo the small HTML/JS changes in
+   those sites.
+
+7. To make these demos work, we will need to solve the problem of
+   cross-site scripting, allowing those sites to make Service Proxy
+   requests. This is the top programming priority (and what I will
+   start working on as soon as I've sent this message!)
+
+8. After some back-and-forth, we decided that we would eliminate the
+   current use of jQuery. (We're not doing anything at all clever with
+   it -- basically just node-selection and HTML-building). Life is
+   simpler without the dependency, and the danger of colliding with a
+   different jQuery version in use on the customer's site.
+
+9. We'd like to have mkws.js include pz2api.1.js on its own, so that
+   the customer's HTML only has to do a single JS include. Not a big
+   deal, but it just makes the demos look more lightweight.
+
+10. We really like the explicitness of the configuration hash that
+   Wolfram's introduced, and the way it defaults intelligently when
+   elements of it are omitted (or indeed when the whole thing is
+   omitted). We'd like to add a config element that tells the results
+   page to pop up in front of the main website, like the Google CSE
+   results do on http://www.miketaylor.org.uk/
+
