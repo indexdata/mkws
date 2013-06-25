@@ -15,6 +15,7 @@
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-rewrite.log 
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+    RewriteRule /service-proxy/auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
     Header set Access-Control-Allow-Origin "http://somesite.indexdata.com"
 
