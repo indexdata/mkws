@@ -449,10 +449,10 @@ function renderDetails(data, marker)
  * All the HTML stuff to render the search forms and
  * result pages.
  */
-function mkws_html_all(data) {
+function mkws_html_all(config) {
 
-    /* default config */
-    var config = {
+    /* default mkws config */
+    var mkws_config_default = {
 	sort: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage: [10, 20, 30, 50],
 	sort_default: "relevance",
@@ -468,17 +468,19 @@ function mkws_html_all(data) {
     };
 
     /* set global debug flag early */
-    if (data.debug !== 'undefined') {
-	mkws_debug = data.debug;
-    } else if (config.debug !== 'undefined') {
+    if (config.debug !== 'undefined') {
 	mkws_debug = config.debug;
+    } else if (mkws_config_default.debug !== 'undefined') {
+	mkws_debug = mkws_config_default.debug;
     }
     
     /* override standard config values by function parameters */
-    for (var k in config) {
-	mkws_config[k] = config[k];
-	debug("Set config: " + k + ' => ' + config[k]);
+    for (var k in mkws_config_default) {
+	if (typeof config[k] === 'undefined')
+	   mkws_config[k] = mkws_config_default[k];
+	debug("Set config: " + k + ' => ' + mkws_config[k]);
     }
+
     if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
 	debug("Reset query width: " + mkws_config.query_width);
 	mkws_config.query_width = 50;
