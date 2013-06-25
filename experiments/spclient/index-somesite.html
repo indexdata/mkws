@@ -4,21 +4,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo client</title>
-    <!-- Next four lines required by MKWS -->
-    <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
+    <link rel="stylesheet" href="mkwsStyle.css" />
     <script type="text/javascript">
       var mkws_config = { 
+      use_service_proxy: true,
       service_proxy_url: "http://mkws.indexdata.com/service-proxy/",
-      service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
+      service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=guest&password=guest",
       }; 
     </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
+    <script type="text/javascript" src="mkws-complete.js"></script>
   </head>
   <body>
-    <!-- These five <div>s are provided by MKWS -->
     <div id="mkwsSwitch"></div>
+    <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
     <div id="mkwsRecords"></div>
     <div id="mkwsTargets"></div>
