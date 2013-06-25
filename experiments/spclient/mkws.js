@@ -619,21 +619,18 @@ function mkws_service_proxy_auth(auth_url) {
 	
     debug("Run service proxy auth URL: " + auth_url);
 
-    var jqxhr = jQuery.get(auth_url)
-	.fail(function() {
-	    alert("service proxy authentication failed, give up!");
-	})
-	.success(function(data) {
-	    if (!jQuery.isXMLDoc(data)) {
-		alert("service proxy auth response document is not valid XML document, give up!");
-		return;
-	    }
-	    var status = $(data).find("status");
-	    if (status.text() != "OK") {
-		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
-		return;
-	    }
-	});
+    var request = new pzHttpRequest(auth_url);
+    request.get(null, function(data) {
+	if (!jQuery.isXMLDoc(data)) {
+	    alert("service proxy auth response document is not valid XML document, give up!");
+	    return;
+	}
+	var status = $(data).find("status");
+	if (status.text() != "OK") {
+	    alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+	    return;
+	}
+    });
 }
 
 /* create locale language menu */
