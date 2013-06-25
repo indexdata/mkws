@@ -5,7 +5,7 @@
 MKWS_JS=	mkws-complete.js
 all: ${MKWS_JS}
 
-mkws-js ${MKWS_JS}: mkws.js
+mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( curl -sSf http://code.jquery.com/jquery-1.10.0.min.js; \
 	  cat ../../../libjs-pz2/pz2api.1.js mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
