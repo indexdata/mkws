@@ -647,7 +647,7 @@ function mkws_html_lang(mkws_config) {
     }
     
     for (var k in mkws_locale_lang) {
-	if (hash[k] == 1)
+	if (hash[k] == 1 || lang_display.length == 0)
 	    list.push(k);
     }
 
