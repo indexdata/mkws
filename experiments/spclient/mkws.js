@@ -1,7 +1,7 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-// "use strict"; // HTML5
+"use strict"; // HTML5: disable for debug >= 2
 
 // global config object mkws_config 
 if (!mkws_config)
