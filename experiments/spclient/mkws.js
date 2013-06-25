@@ -13,7 +13,7 @@
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
 
-if (mkws_config.use_service_proxy === 'undefined')
+if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
 var mkws_debug = 1;
