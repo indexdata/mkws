@@ -33,13 +33,4 @@
 
     DocumentRoot /home/indexdata/mkws/experiments/spclient/
     Alias /index.html /home/indexdata/mkws/experiments/spclient/index-somesite.html
-
-#    RewriteEngine on
-#    RewriteLogLevel 1
-#    RewriteLog /var/log/apache2/mkws-rewrite.log 
-#    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
-#
-#    # For MKC Service Proxy
-#    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
-#    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
 </VirtualHost>
