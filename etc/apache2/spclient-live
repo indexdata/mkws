@@ -24,6 +24,7 @@
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverseCookiePath /service-proxy /
+    ProxyPassReverseCookieDomain * mkws.indexdata.com
 </VirtualHost>
 
 <VirtualHost *:80>
