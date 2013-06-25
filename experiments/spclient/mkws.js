@@ -687,7 +687,7 @@ function M(word) {
 
 /* implement jQuery.parseQuerystring() for parsing URL parameters */
 jQuery.extend({
-    parseQuerystring: function() {
+  parseQuerystring: function() {
     var nvpair = {};
     var qs = window.location.search.replace('?', '');
     var pairs = qs.split('&');
@@ -696,7 +696,21 @@ jQuery.extend({
 	nvpair[pair[0]] = pair[1];
     });
     return nvpair;
-} });
+  }, 
+  pazpar2: function(data) {
+	document.write('<div id="mkwsSwitch"></div>\
+    <div id="mkwsLang"></div>\
+    <div id="mkwsSearch"></div>\
+    <div id="mkwsRecords"></div>\
+    <div id="mkwsTargets"></div>\
+    <div id="footer">\
+      <div id="mkwsStat"></div>\
+      <span>Powered by MKWS &copy; 2013 <a href="http://www.indexdata.com">Index Data</a></span>\
+    </div>');
+
+    mkws_html_all(mkws_config);
+  }
+});
 
 function debug(string) {
     if (!mkws_debug)
