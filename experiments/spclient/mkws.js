@@ -3,9 +3,17 @@
 
 "use strict"; // HTML5: disable for debug >= 2
 
-// global config object mkws_config 
+/* 
+ * global config object: mkws_config 
+ * 
+ * needs to be defined in the HTML header before 
+ * including this JS file
+ */
+
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
+
+var mkws_debug = 1;
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "/service-proxy/";
@@ -13,7 +21,6 @@ var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_prox
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
-var mkws_debug = 1;
 
 var mkws_locale_lang = {
     "de": {
@@ -468,9 +475,9 @@ function mkws_html_all(data) {
     }
     
     /* override standard config values by function parameters */
-    for (var k in data) {
-	config[k] = data[k];
-	debug("Set config: " + k + ' => ' + data[k]);
+    for (var k in config) {
+	mkws_config[k] = config[k];
+	debug("Set config: " + k + ' => ' + config[k]);
     }
     if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
 	debug("Reset query width: " + mkws_config.query_width);
