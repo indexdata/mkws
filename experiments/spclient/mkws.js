@@ -646,13 +646,15 @@ function mkws_html_lang(mkws_config) {
 	hash[lang_display[i]] = 1;
     }
     
-    if (hash[lang_default] == 1)
-	list.push(lang_default);
-
     for (var k in mkws_locale_lang) {
-	if (hash[k] == 1 || lang_display.length == 0)
+	if (hash[k] == 1)
 	    list.push(k);
     }
+
+    // add english link
+    if (lang_display.length == 0 || hash[lang_default] == 1)
+        list.push(lang_default);
+
     debug("Language menu for: " + list.join(", "));
 
     /* the HTML part */
