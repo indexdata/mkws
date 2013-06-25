@@ -23,8 +23,6 @@
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
-    # workaround https://issues.apache.org/bugzilla/show_bug.cgi?id=44322
-    ProxyPassReverseCookiePath /service-proxy "/; Domain=mkws.indexdata.com"
 </VirtualHost>
 
 <VirtualHost *:80>
