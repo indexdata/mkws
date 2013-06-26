@@ -17,16 +17,16 @@ sub handler {
     my $ho = $f->r->headers_out;
     my $cookie = $ho->get('Set-Cookie');
     if (defined $cookie && $cookie ne "") {
-	$ho->set('X-Set-Cookie', $cookie);
+	$ho->set('X-Set-Cake', $cookie);
     }
 
-    # If the client sent an existing cookie as X-Cookie, but didn't
+    # If the client sent an existing cookie as X-Cake, but didn't
     # set Cookie, copy the former to the latter.
     my $hi = $f->r->headers_in;
     $cookie = $hi->get('Cookie');
     if (!defined $cookie || $cookie eq "") {
-	$cookie = $hi->get('X-Cookie');
-	warn "copying X-Cookie '$cookie' to Cookie";
+	$cookie = $hi->get('X-Cake');
+	warn "copying X-Cake '$cookie' to Cookie";
 	$hi->set('Cookie', $cookie);
     }
 
