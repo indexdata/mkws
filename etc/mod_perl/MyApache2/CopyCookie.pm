@@ -12,17 +12,25 @@ sub handler {
     my $f = shift;
     warn "in MyApache2::CopyCookie (f=$f)";
 
+    # If the server generated a new cookie, make it available in a
+    # header other than the magic "Cookie" that clients can't read.
     my $ho = $f->r->headers_out;
     my $cookie = $ho->get('Set-Cookie');
-    warn "MyApache2::CopyCookie headers_out='$ho', cookie='$cookie'";
     $ho->set('X-Set-Cookie', $cookie);
-    my $extra = $ho->get('X-Set-Cookie');
-    warn "MyApache2::CopyCookie extra cookie='$extra'";
+
+    # If the client sent an existing cookie as X-Cookie, but didn't
+    # set Cookie, copy the former to the latter.
+    my $hi = $f->r->headers_in;
+    $cookie = $hi->get('Cookie');
+    if (!defined $cookie || $cookie eq "") {
+	$cookie = $hi->get('X-Cookie');
+	warn "copying X-Cookie '$cookie' to Cookie";
+	$hi->set('Cookie', $cookie);
+    }
 
     while ($f->read(my $buffer, BUFF_LEN)) {
 	$f->print($buffer);
     }
-    warn "MyApache2::CopyCookie copied data";
 
     return Apache2::Const::OK;
 }
