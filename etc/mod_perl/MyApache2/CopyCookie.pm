@@ -12,12 +12,10 @@ sub handler {
 
     my $ho = $f->r->headers_out;
     my $cookie = $ho->get('Set-Cookie');
-    open F, ">/tmp/mike";
-    print F "MyApache2::CopyCookie headers_out='$ho', cookie='$cookie'";
+    warn "MyApache2::CopyCookie headers_out='$ho', cookie='$cookie'";
     $ho->set('X-Set-Cookie', $cookie);
     my $extra = $ho->get('X-Set-Cookie');
-    print F "MyApache2::CopyCookie extra cookie='$extra'";
-    close F;
+    warn "MyApache2::CopyCookie extra cookie='$extra'";
     return Apache2::Const::OK;
 }
 
