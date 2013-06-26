@@ -33,10 +33,14 @@
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
 
-    PerlOptions +Parent
-    PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
-    <Location /service-proxy/>
-	PerlInputFilterHandler MyApache2::CopyCookie
-	PerlOutputFilterHandler MyApache2::CopyCookie
-    </Location>
+    # Although what follows works perfectly well, it's no use to us:
+    # IE8/9 are unable to set or read ANY headers when operating in
+    # CORS mode.
+    #
+    #    PerlOptions +Parent
+    #    PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
+    #    <Location /service-proxy/>
+    #        PerlInputFilterHandler MyApache2::CopyCookie
+    #        PerlOutputFilterHandler MyApache2::CopyCookie
+    #    </Location>
 </VirtualHost>
