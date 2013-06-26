@@ -19,7 +19,7 @@ if (typeof mkws_config.use_service_proxy === 'undefined')
 var mkws_debug = 1;
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
-var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "/service-proxy/";
+var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
 
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
@@ -615,7 +615,7 @@ function mkws_html_perpage(config) {
  */
 function mkws_service_proxy_auth(auth_url) {
     if (!auth_url)
-	auth_url = "/service-proxy-auth";
+	auth_url = "http://mkws.indexdata.com/service-proxy-auth";
 	
     debug("Run service proxy auth URL: " + auth_url);
 
