@@ -6,7 +6,7 @@ use APR::Table ();
 
 use Apache2::Const -compile => qw(OK);
 
-sub copy_cookie {
+sub handler {
     my $f = shift;
 
     my $ho = $f->r->headers_out;
