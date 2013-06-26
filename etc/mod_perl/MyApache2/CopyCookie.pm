@@ -26,8 +26,10 @@ sub handler {
     $cookie = $hi->get('Cookie');
     if (!defined $cookie || $cookie eq "") {
 	$cookie = $hi->get('X-Cake');
-	warn "copying X-Cake '$cookie' to Cookie";
-	$hi->set('Cookie', $cookie);
+	if (defined $cookie && $cookie ne "") {
+	    warn "copying X-Cake '$cookie' to Cookie";
+	    $hi->set('Cookie', $cookie);
+	}
     }
 
     while ($f->read(my $buffer, BUFF_LEN)) {
