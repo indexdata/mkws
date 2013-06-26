@@ -24,7 +24,8 @@
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
 
-    Header edit Set-Cookie .* "$0\r\nX-IndexData-JSESSION: $0"
+    Header edit Set-Cookie .* "$0
+X-IndexData-JSESSION: $0"
 </VirtualHost>
 
 <VirtualHost *:80>
