@@ -24,8 +24,11 @@
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
 
-    SetEnv XIDJSESSION 12345
-    Header add X-Set-Cookie "%{XIDJSESSION}e"
+    PerlOptions +Parent
+    PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
+    <Directory /service-proxy/>
+        PerlOutputFilterHandler MyApache2::CopyCookie
+    </Directory>
 </VirtualHost>
 
 <VirtualHost *:80>
