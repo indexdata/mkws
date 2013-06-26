@@ -26,8 +26,12 @@
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
-    PerlOutputFilterHandler MyApache2::CopyCookie
+    <Location /service-proxy/>
+	PerlInputFilterHandler MyApache2::CopyCookie
+	PerlOutputFilterHandler MyApache2::CopyCookie
+    </Location>>
 </VirtualHost>
+
 
 <VirtualHost *:80>
     ServerName somesite.indexdata.com
