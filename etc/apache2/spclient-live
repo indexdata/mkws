@@ -26,9 +26,7 @@
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
-    <Directory /service-proxy/>
-        PerlOutputFilterHandler MyApache2::CopyCookie
-    </Directory>
+    PerlOutputFilterHandler MyApache2::CopyCookie
 </VirtualHost>
 
 <VirtualHost *:80>
