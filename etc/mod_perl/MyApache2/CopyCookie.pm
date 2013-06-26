@@ -9,8 +9,12 @@ use Apache2::Const -compile => qw(OK);
 sub handler {
     my $f = shift;
 
-    my $cookie = $f->r->headers_out->get('Set-Cookie');
-    $f->r->headers_out->set('X-Set-Cookie', $cookie);
+    my $ho = $f->r->headers_out;
+    my $cookie = $ho->get('Set-Cookie');
+    warn "MyApache2::CopyCookie headers_out='$ho', cookie='$cookie'";
+    $ho->set('X-Set-Cookie', $cookie);
+    my $extra = $ho->get('X-Set-Cookie');
+    warn "MyApache2::CopyCookie extra cookie='$extra'";
     return Apache2::Const::OK;
 }
 
