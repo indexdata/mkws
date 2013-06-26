@@ -8,6 +8,7 @@ use Apache2::Const -compile => qw(OK);
 
 sub handler {
     my $f = shift;
+    warn "in MyApache2::CopyCookie (f=$f)";
 
     my $ho = $f->r->headers_out;
     my $cookie = $ho->get('Set-Cookie');
