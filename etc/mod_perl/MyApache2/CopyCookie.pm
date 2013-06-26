@@ -16,7 +16,9 @@ sub handler {
     # header other than the magic "Cookie" that clients can't read.
     my $ho = $f->r->headers_out;
     my $cookie = $ho->get('Set-Cookie');
-    $ho->set('X-Set-Cookie', $cookie);
+    if (defined $cookie && $cookie ne "") {
+	$ho->set('X-Set-Cookie', $cookie);
+    }
 
     # If the client sent an existing cookie as X-Cookie, but didn't
     # set Cookie, copy the former to the latter.
