@@ -6,6 +6,8 @@ use APR::Table ();
 
 use Apache2::Const -compile => qw(OK);
 
+use constant BUFF_LEN => 1024;
+
 sub handler {
     my $f = shift;
     warn "in MyApache2::CopyCookie (f=$f)";
@@ -16,6 +18,12 @@ sub handler {
     $ho->set('X-Set-Cookie', $cookie);
     my $extra = $ho->get('X-Set-Cookie');
     warn "MyApache2::CopyCookie extra cookie='$extra'";
+
+    while ($f->read(my $buffer, BUFF_LEN)) {
+	$f->print($buffer);
+    }
+    warn "MyApache2::CopyCookie copied data";
+
     return Apache2::Const::OK;
 }
 
