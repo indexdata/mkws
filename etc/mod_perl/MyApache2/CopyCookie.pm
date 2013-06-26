@@ -10,7 +10,6 @@ use constant BUFF_LEN => 1024;
 
 sub handler {
     my $f = shift;
-    warn "in MyApache2::CopyCookie (f=$f)";
 
     # If the server generated a new cookie, make it available in a
     # header other than the magic "Cookie" that clients can't read.
