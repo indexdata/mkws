@@ -1,16 +1,17 @@
-    package MyApache2::CopyCookie;
-      use Apache2::Filter ();
-      use Apache2::RequestRec ();
-      use APR::Table ();
+package MyApache2::CopyCookie;
 
-      use Apache2::Const -compile => qw(OK);
+use Apache2::Filter ();
+use Apache2::RequestRec ();
+use APR::Table ();
 
-      sub handler {
-	  my $f = shift;
+use Apache2::Const -compile => qw(OK);
 
-	  my $cookie = $f->r->headers_out->get('Set-Cookie');
-	  $f->r->headers_out->set('X-Set-Cookie', $cookie);
-	  return Apache2::Const::OK;
-      }
-      1;
+sub handler {
+    my $f = shift;
 
+    my $cookie = $f->r->headers_out->get('Set-Cookie');
+    $f->r->headers_out->set('X-Set-Cookie', $cookie);
+    return Apache2::Const::OK;
+}
+
+1;
