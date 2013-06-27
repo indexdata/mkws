@@ -1,0 +1,47 @@
+The HTML structure of the MKWS <div>s is as follows. This is useful to
+know when working on stylesheets. As in CSS, #ID indicates a unique
+identifier and .CLASS indicates an instance of a class.
+
+
+#mkwsSwitch
+  a*
+
+#mkwsLang
+  a*
+
+#mkwsSearch
+  form#searchForm
+    input#query type=text
+    input#button type=submit
+
+#mkwsBlanket
+  (no contents -- used only for masking)
+
+#mkwsRecords
+  table
+    tbody
+      tr
+        td
+          div#termlist
+            div.title
+            div.facet*
+              div.termtitle
+              ( a span br )*
+        td
+          ###
+
+#mkwsTargets
+  div#bytarget
+    table
+      thead
+        tr*
+          td*
+      tbody
+        tr*
+          td*
+
+#mkwsStat
+  span.head
+  span.clients
+  span.records
+
