@@ -16,9 +16,11 @@ sub handler {
     # doesnt prevent credentials from being accepted.
     my $hi = $f->r->headers_in;
     my $ho = $f->r->headers_out;
-    my $origin = $ho->get('Origin');
+    my $origin = $hi->get('Origin');
+    warn "MyApache2::SetACAO got origin '$origin'";
     if (defined $origin && $origin ne "") {
 	$ho->set('Access-Control-Allow-Origin', $origin);
+	warn "MyApache2::SetACAO copied origin to ACAO";
     }
 
     while ($f->read(my $buffer, BUFF_LEN)) {
