@@ -174,7 +174,7 @@ function my_onterm(data) {
     termlists.push('</div>');
 
     termlists.push('<div class="facet">');
-    termlists.push('<hr/><div class="termtitle">' + M('Subjects') + '</div>');
+    termlists.push('<div class="termtitle">' + M('Subjects') + '</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
               + data.subject[i].freq + ')</span><br/>');
@@ -182,7 +182,7 @@ function my_onterm(data) {
     termlists.push('</div>');
 
     termlists.push('<div class="facet">');
-    termlists.push('<hr/><div class="termtitle">' + M('Authors') + '</div>');
+    termlists.push('<div class="termtitle">' + M('Authors') + '</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
                             + data.author[i].name
