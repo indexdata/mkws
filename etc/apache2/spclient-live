@@ -25,7 +25,7 @@
     RewriteLog /var/log/apache2/mkws-rewrite.log 
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
 
-    Header set Access-Control-Allow-Origin "*"
+#    Header set Access-Control-Allow-Origin "*"
     Header add Access-Control-Allow-Origin "http://somesite.indexdata.com"
     Header set Access-Control-Allow-Credentials true
 
