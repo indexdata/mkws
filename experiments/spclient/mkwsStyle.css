@@ -1,3 +1,32 @@
+#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat {
+    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+}
+
+#mkwsSwitch {
+    float: right;
+    padding-left: 1em;
+    padding-top: 0.4em;
+}
+
+#mkwsSearch {
+    float: right;
+}
+
+#mkwsRecords {
+    background-color: #fafafa;
+    border-bottom: 1px solid  #156a16;
+}
+
+#mkwsTargets {
+    background-color: #fafafa;
+    border-bottom: 1px solid  #156a16;
+}
+
+#mkwsStat {
+    font-weight: bold;
+    font-size: small;
+} 
+
 #mkwsSwitch a, #mkwsLang a, #mkwsRecords a {
     color: #005701; 
     text-decoration: none;
@@ -49,32 +78,3 @@
     padding: 5px;
     margin: 4px;
 }
-
-#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat {
-    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
-}
-
-#mkwsSwitch {
-    float: right;
-    padding-left: 1em;
-    padding-top: 0.4em;
-}
-
-#mkwsSearch {
-    float: right;
-}
-
-#mkwsRecords {
-    background-color: #fafafa;
-    border-bottom: 1px solid  #156a16;
-}
-
-#mkwsTargets {
-    background-color: #fafafa;
-    border-bottom: 1px solid  #156a16;
-}
-
-#mkwsStat {
-    font-weight: bold;
-    font-size: small;
-} 
