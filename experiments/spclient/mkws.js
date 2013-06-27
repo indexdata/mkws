@@ -530,7 +530,7 @@ function mkws_html_all(config) {
           <td valign="top">\
             <div id="ranking">\
               <form name="select" id="select" action="" >\
-        ' + M('Sort by') + mkws_html_sort(config) + '\
+        ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
         ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
         ' + M('per page') + '.\
        </form>\
