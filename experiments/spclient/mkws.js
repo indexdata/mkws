@@ -234,6 +234,7 @@ function onFormSubmitEventHandler()
     resetPage();
     loadSelect();
     triggerSearch();
+    switchView('records'); // In case it's configured to start off as hidden
     submitted = true;
     return false;
 }
