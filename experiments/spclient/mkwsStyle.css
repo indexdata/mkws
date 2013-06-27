@@ -30,6 +30,10 @@
     font-size: 12px;
 }
 
+#mkwsRecords hr {
+    display: none;
+}
+
 #mkwsRecords div.termtitle {
     margin: 4px;
     font-weight: bold;
