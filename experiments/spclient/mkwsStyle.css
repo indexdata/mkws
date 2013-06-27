@@ -20,15 +20,16 @@
 
 #mkwsRecords {
     background-color: #fafafa;
-    border-bottom: 1px solid  #156a16;
 }
 
 #mkwsTargets {
     background-color: #fafafa;
-    border-bottom: 1px solid  #156a16;
 }
 
 #mkwsStat {
+    margin-top: 10px;
+    border-top: 1px solid  #156a16;
+    padding-top: 5px;
     font-size: small;
 } 
 
@@ -80,8 +81,32 @@
     display: none;
 }
 
+#mkwsRecords div#termlist .title {
+    font-size: large;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#mkwsRecords div#termlist {
+    background: #d0e0ff;
+    padding: 0.7em;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+#mkwsRecords div.facet {
+    background: #e0f0ff;
+    padding: 0.7em;
+    margin-top: 0.7em;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
 #mkwsRecords div.termtitle {
-    margin: 4px;
     font-weight: bold;
 }
 
@@ -90,8 +115,19 @@
 }
 
 #mkwsRecords div.details {
-    border: 3px solid gray;
+    border: 1px solid #404040;
+    background: #e8e8e8;
     color: darkgray;
-    padding: 5px;
-    margin: 4px;
+    padding: 0px 5px;
+    margin: 10px 4px;
+    box-shadow: 10px 10px 5px #808080;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+#mkwsRecords #pager {
+    background: #e0e0e0;
+    padding: 0.3em;
 }
