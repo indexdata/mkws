@@ -150,11 +150,11 @@ function my_onstat(data) {
     if (stat == null)
 	return;
 
-    stat.innerHTML = '<b>STATUS INFO</b> -- Active clients: '
-                        + data.activeclients
-                        + '/' + data.clients + ' -- </span>'
-                        + '<span>Retrieved records: ' + data.records
-                        + '/' + data.hits + ' :.</span>';
+    stat.innerHTML = '<span class="head">Status info</span>' +
+	' -- ' +
+	'<span class="clients">' + data.activeclients + '/' + data.clients + '</span>' +
+	' -- ' +
+        '<span class="records">' + data.records + '/' + data.hits + '</span>';
 }
 
 function my_onterm(data) {
