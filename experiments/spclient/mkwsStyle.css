@@ -2,12 +2,6 @@
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
-#mkwsSwitch {
-    float: right;
-    padding-left: 1em;
-    padding-top: 0.4em;
-}
-
 #mkwsLang {
     float: left;
     padding-left: 1em;
@@ -16,6 +10,12 @@
 
 #mkwsSearch {
     float: right;
+}
+
+#mkwsSwitch {
+    float: right;
+    padding-left: 1em;
+    padding-top: 0.4em;
 }
 
 #mkwsRecords {
