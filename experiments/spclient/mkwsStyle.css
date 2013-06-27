@@ -29,9 +29,20 @@
 }
 
 #mkwsStat {
-    font-weight: bold;
     font-size: small;
 } 
+
+#mkwsStat span.head {
+    font-weight: bold;
+}
+
+#mkwsStat span.clients:before {
+    content: "Active clients: ";
+}
+
+#mkwsStat span.records:before {
+    content: "Retrieved records: ";
+}
 
 #mkwsSwitch a, #mkwsLang a, #mkwsRecords a {
     color: #005701; 
