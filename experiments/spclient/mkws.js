@@ -370,15 +370,18 @@ function switchView(view) {
 
     var targets = document.getElementById('mkwsTargets');
     var records = document.getElementById('mkwsRecords');
+    var blanket = document.getElementById('mkwsBlanket');
 
     switch(view) {
         case 'targets':
             targets.style.display = "block";
             records.style.display = "none";
+            blanket.style.display = "none";
             break;
         case 'records':
             targets.style.display = "none";
             records.style.display = "block";
+            blanket.style.display = "block";
             break;
         default:
             alert('Unknown view.');
