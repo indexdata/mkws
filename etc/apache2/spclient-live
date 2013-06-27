@@ -48,7 +48,7 @@
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
-    <Location /service-proxy/>
+    <Location /service-proxy>
         PerlOutputFilterHandler MyApache2::SetACAO
     </Location>
 </VirtualHost>
