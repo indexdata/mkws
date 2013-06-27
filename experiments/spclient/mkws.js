@@ -30,7 +30,7 @@ var mkws_locale_lang = {
 	"Authors": "Autoren",
 	"Subjects": "Schlagw&ouml;rter",
 	"Sources": "Daten und Quellen",
-	"TERMLISTS": "Termlisten",
+	"Termlists": "Termlisten",
 	"Next": "Weiter",
 	"Prev": "Zur&uuml;ck",
 	"Search": "Suche",
@@ -54,7 +54,7 @@ var mkws_locale_lang = {
 	"Authors": "Forfattere",
 	"Subjects": "Emner",
 	"Sources": "Kilder",
-	"TERMLISTS": "TERMLISTS",
+	"Termlists": "Termlists",
 	"Next": "N&aelig;ste",
 	"Prev": "Forrige",
 	"Search": "S&oslash;g",
@@ -162,19 +162,26 @@ function my_onterm(data) {
 	return;
     
     var termlists = [];
-    termlists.push('<hr/><b>' + M('TERMLISTS') + ':</b><hr/><div class="termtitle">' + M('Sources') + '</div>');
+    termlists.push('<div class="title">' + M('Termlists') + '</div>');
+
+    termlists.push('<div class="termlist">');
+    termlists.push('<div class="termtitle">' + M('Sources') + '</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
         termlists.push('<a href="#" target_id='+data.xtargets[i].id
             + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name
         + ' </a><span> (' + data.xtargets[i].freq + ')</span><br/>');
     }
+    termlists.push('</div>');
 
+    termlists.push('<div class="termlist">');
     termlists.push('<hr/><div class="termtitle">' + M('Subjects') + '</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
               + data.subject[i].freq + ')</span><br/>');
     }
+    termlists.push('</div>');
 
+    termlists.push('<div class="termlist">');
     termlists.push('<hr/><div class="termtitle">' + M('Authors') + '</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
@@ -183,6 +190,8 @@ function my_onterm(data) {
                             + data.author[i].freq
                             + ')</span><br/>');
     }
+    termlists.push('</div>');
+
     var termlist = document.getElementById("termlist");
     replaceHtml(termlist, termlists.join(''));
 }
