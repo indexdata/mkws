@@ -8,6 +8,12 @@
     padding-top: 0.4em;
 }
 
+#mkwsLang {
+    float: left;
+    padding-left: 1em;
+    padding-top: 0.4em;
+}
+
 #mkwsSearch {
     float: right;
 }
