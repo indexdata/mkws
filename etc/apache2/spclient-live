@@ -25,7 +25,9 @@
     RewriteLog /var/log/apache2/mkws-rewrite.log 
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
 
-    Header set Access-Control-Allow-Origin "http://somesite.indexdata.com"
+# We want *, but can't use credentials unless we specify a particular origin
+# Instead, we generate the header using mod_perl: see below.
+#    Header set Access-Control-Allow-Origin "http://somesite.indexdata.com"
 #    Header set Access-Control-Allow-Origin "*"
     Header set Access-Control-Allow-Credentials true
 
@@ -43,4 +45,10 @@
     #        PerlInputFilterHandler MyApache2::CopyCookie
     #        PerlOutputFilterHandler MyApache2::CopyCookie
     #    </Location>
+
+    PerlOptions +Parent
+    PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
+    <Location /service-proxy/>
+        PerlOutputFilterHandler MyApache2::SetACAO
+    </Location>
 </VirtualHost>
