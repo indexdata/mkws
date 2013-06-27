@@ -14,13 +14,10 @@ sub handler {
     # If the client generated an Origin header, echo its content back
     # in an ACAO header. This is better than just using *, since it
     # doesnt prevent credentials from being accepted.
-    my $hi = $f->r->headers_in;
-    my $ho = $f->r->headers_out;
-    my $origin = $hi->get('Origin');
-    warn "MyApache2::SetACAO got origin '$origin'";
+    my $origin = $f->r->headers_in->get('Origin');
     if (defined $origin && $origin ne "") {
-	$ho->set('Access-Control-Allow-Origin', $origin);
-	warn "MyApache2::SetACAO copied origin to ACAO";
+	$f->r->headers_out->set('Access-Control-Allow-Origin', $origin);
+	warn "MyApache2::SetACAO copied Origin '$origin' to ACAO";
     }
 
     while ($f->read(my $buffer, BUFF_LEN)) {
