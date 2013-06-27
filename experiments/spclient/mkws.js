@@ -376,12 +376,12 @@ function switchView(view) {
         case 'targets':
             targets.style.display = "block";
             records.style.display = "none";
-            blanket.style.display = "none";
+            if (blanket) { blanket.style.display = "none"; }
             break;
         case 'records':
             targets.style.display = "none";
             records.style.display = "block";
-            blanket.style.display = "block";
+            if (blanket) { blanket.style.display = "block"; }
             break;
         default:
             alert('Unknown view.');
