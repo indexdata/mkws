@@ -164,7 +164,7 @@ function my_onterm(data) {
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
 
-    termlists.push('<div class="termlist">');
+    termlists.push('<div class="facet">');
     termlists.push('<div class="termtitle">' + M('Sources') + '</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
         termlists.push('<a href="#" target_id='+data.xtargets[i].id
@@ -173,7 +173,7 @@ function my_onterm(data) {
     }
     termlists.push('</div>');
 
-    termlists.push('<div class="termlist">');
+    termlists.push('<div class="facet">');
     termlists.push('<hr/><div class="termtitle">' + M('Subjects') + '</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
@@ -181,7 +181,7 @@ function my_onterm(data) {
     }
     termlists.push('</div>');
 
-    termlists.push('<div class="termlist">');
+    termlists.push('<div class="facet">');
     termlists.push('<hr/><div class="termtitle">' + M('Authors') + '</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
