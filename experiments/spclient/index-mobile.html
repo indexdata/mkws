@@ -21,6 +21,30 @@
 	 }; 
     </script>
     <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+    <script type="text/javascript">
+	var timeout;
+	$(window).resize( function(e) { 
+	   if (timeout)
+	   	clearTimeout(timeout);
+	   timeout = setTimeout(function () { mobile_resize() }, 100);
+        });
+
+	function mobile_resize () {
+	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
+	   var list = ["mkwsSwitch", "mkwsTargets"];
+	   if ($(window).width() <= 600) {
+		for(var i = 0; i < list.length; i++) {
+		    $("#" + list[i]).hide();
+		}
+		$("#termlist").parent().hide();	
+	   } else {
+		for(var i = 0; i < list.length; i++) {
+		    $("#" + list[i]).show();
+		}
+		$("#termlist").parent().show();	
+	   }
+	};
+    </script>
   </head>
   <body>
     <!-- These six mkws <div>s are provided by MKWS -->
@@ -29,6 +53,8 @@
     <div id="mkwsSearch"></div>
     <div id="mkwsRecords"></div>
     <div id="mkwsTargets"></div>
+
+    <div id="mkwsTermlist"></div>
 
     <div id="footer">
       <div id="mkwsStat"></div>
