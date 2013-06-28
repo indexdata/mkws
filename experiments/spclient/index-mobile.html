@@ -28,20 +28,26 @@
 	   	clearTimeout(timeout);
 	   timeout = setTimeout(function () { mobile_resize() }, 100);
         });
+	$(document).ready(function() { mobile_resize() });
 
 	function mobile_resize () {
 	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
 	   var list = ["mkwsSwitch"];
+	   var obj;
 	   if ($(window).width() <= 600) {
 		for(var i = 0; i < list.length; i++) {
 		    $("#" + list[i]).hide();
 		}
+		
 		$("#termlist").parent().hide();	
+		obj = $("#termlist").parent().html();
+	        $("#mkwsTermlist").html(obj);
 	   } else {
 		for(var i = 0; i < list.length; i++) {
 		    $("#" + list[i]).show();
 		}
 		$("#termlist").parent().show();	
+	        $("#mkwsTermlist").html("");
 	   }
 	};
     </script>
