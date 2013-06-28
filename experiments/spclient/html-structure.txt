@@ -29,22 +29,22 @@ identifier and .CLASS indicates an instance of a class.
               ( a span br )*
         td
           div#ranking
-	    form#select
-	      select#sort
-	      select#perpage
-	  div#pager
-	  div#navi
-	  div#results
-	    div.record*
-	      span (for sequence number)
-	      a (for title)
-	      span (for other information such as author)
-	      div.details (sometimes)
-	        table
-		  tbody
-		    tr*
-		      th
-		      td
+            form#select
+              select#sort
+              select#perpage
+          div#pager
+          div#navi
+          div#results
+            div.record*
+              span (for sequence number)
+              a (for title)
+              span (for other information such as author)
+              div.details (sometimes)
+                table
+                  tbody
+                    tr*
+                      th
+                      td
 #mkwsTargets
   div#bytarget
     table
