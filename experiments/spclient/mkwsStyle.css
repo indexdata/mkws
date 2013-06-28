@@ -1,4 +1,4 @@
-#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat {
+#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat, #mkwsTermlist {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
@@ -28,7 +28,7 @@
     padding-top: 0.4em;
 }
 
-#mkwsRecords {
+#mkwsRecords, #mkwsTermlist {
     background-color: #fafafa;
 }
 
@@ -55,16 +55,16 @@
     content: "Retrieved records: ";
 }
 
-#mkwsSwitch a, #mkwsLang a, #mkwsRecords a {
+#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, mkwsTermlist a {
     color: #005701; 
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsRecords a:hover {
+#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsRecords a:hover, #mkwsTermlist a:hover {
     text-decoration: underline;
 }
 
-#mkwsRecords a.crossout:hover {
+#mkwsRecords a.crossout:hover, #mkwsTermlist #mkwsRecords a.crossout:hover {
     text-decoration: line-through;
 }
 
@@ -88,17 +88,17 @@
     background: #f0f8ff;
 }
 
-#mkwsRecords hr {
+#mkwsRecords hr, #mkwsTermlist hr {
     display: none;
 }
 
-#mkwsRecords div#termlist .title {
+#mkwsRecords div#termlist .title, #mkwsTermlist div#termlist .title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#mkwsRecords div#termlist {
+#mkwsRecords div#termlist, #mkwsTermlist div#termlist  {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -108,7 +108,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.facet {
+#mkwsRecords div.facet, #mkwsTermlist div.facet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -118,15 +118,15 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.termtitle {
+#mkwsRecords div.termtitle, #mkwsTermlist div.termtitle {
     font-weight: bold;
 }
 
-#mkwsRecords div.record {
+#mkwsRecords div.record, #mkwsTermlist div.record {
     padding: 5px;
 }
 
-#mkwsRecords div.details {
+#mkwsRecords div.details, #mkwsTermlist div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: darkgray;
@@ -139,13 +139,13 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.details th {
+#mkwsRecords div.details th, #mkwsTermlist div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsRecords div.details th:after {
+#mkwsRecords div.details th:after, #mkwsTermlist div.details th:after {
     content: ":";
 }
 
@@ -153,3 +153,4 @@
     background: #e0e0e0;
     padding: 0.3em;
 }
+
