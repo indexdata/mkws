@@ -8,6 +8,16 @@
     padding-top: 0.4em;
 }
 
+#mkwsLang a {
+    background: #d0e0ff;
+    padding: 1px 4px;
+}
+
+#mkwsLang span {
+    border: solid 1px #e0f0ff;
+    padding: 0px 3px;
+}
+
 #mkwsSearch {
     float: right;
 }
