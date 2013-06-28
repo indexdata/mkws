@@ -72,9 +72,10 @@
 }
 
 #mkwsSearch input#query {
-    border: 2px inset #34cc67;
+    border: 2px inset #e0f0ff;
     padding: 3px;
     font-size: 12px;
+    background: #f0f8ff;
 }
 
 #mkwsRecords hr {
@@ -90,6 +91,7 @@
 #mkwsRecords div#termlist {
     background: #d0e0ff;
     padding: 0.7em;
+    font-size: small;
 
     border-top-right-radius: 10px;
     -moz-border-top-right-radius: 10px;
