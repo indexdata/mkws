@@ -3,12 +3,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo client</title>
     <link rel="stylesheet" href="mkwsStyle.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="mkws.js"></script>
-
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+
+    <script type="text/javascript">
+      mkws_config = { switch_menu: false, lang_menu: false, query_width: 40 };
+    </script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
         <style>
                 body { font-size: 62.5%; }
                 label, input { display:block; }
@@ -53,7 +55,6 @@
 
   <div id="dialog-form" title="Search Box">
     <script type="text/javascript">
-      mkws_config = { switch_menu: false, lang_menu: false, query_width: 40 };
       jQuery.pazpar2();
     </script>
   </div>
@@ -64,3 +65,4 @@
 
   </body>
 </html>
+
