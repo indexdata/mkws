@@ -17,18 +17,22 @@
 		termlist_menu: true, 
 		sort_default: "relevance",
 		query_width: 50,
+	        responsive_design: true,
 		perpage_default: 20
 	 }; 
     </script>
     <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
     <script type="text/javascript">
 	var timeout;
-	$(window).resize( function(e) { 
-	   if (timeout)
-	   	clearTimeout(timeout);
-	   timeout = setTimeout(function () { mobile_resize() }, 100);
-        });
-	$(document).ready(function() { mobile_resize() });
+
+	if (mkws_config.responsive_design) {
+	    $(window).resize( function(e) { 
+	        if (timeout)
+	   	    clearTimeout(timeout);
+	   	timeout = setTimeout(function () { mobile_resize() }, 100);
+            });
+	    $(document).ready(function() { mobile_resize() });
+	}
 
 	function mobile_resize () {
 	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
