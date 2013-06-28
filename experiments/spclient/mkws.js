@@ -442,29 +442,38 @@ function renderDetails(data, marker)
 {
     var details = '<div class="details" id="det_'+data.recid+'"><table>';
     if (marker) details += '<tr><td>'+ marker + '</td></tr>';
-    if (data["md-title"] != undefined) {
-        details += '<tr><td><b>' + M('Title') + '</b></td><td><b>:</b> '+data["md-title"];
-  	if (data["md-title-remainder"] !== undefined) {
-	      details += ' : <span>' + data["md-title-remainder"] + ' </span>';
-  	}
-  	if (data["md-title-responsibility"] !== undefined) {
-	      details += ' <span><i>'+ data["md-title-responsibility"] +'</i></span>';
-  	}
- 	  details += '</td></tr>';
-    }
-    if (data["md-date"] != undefined)
-        details += '<tr><td><b>' + M('Date') + '</b></td><td><b>:</b> ' + data["md-date"] + '</td></tr>';
-    if (data["md-author"] != undefined)
-        details += '<tr><td><b>' + M('Author') + '</b></td><td><b>:</b> ' + data["md-author"] + '</td></tr>';
-    if (data["md-electronic-url"] != undefined)
-        details += '<tr><td><b>URL</b></td><td><b>:</b> <a href="' + data["md-electronic-url"] + '" target="_blank">' + data["md-electronic-url"] + '</a>' + '</td></tr>';
-    if (data["location"][0]["md-subject"] != undefined)
-        details += '<tr><td><b>' + M('Subject') + '</b></td><td><b>:</b> ' + data["location"][0]["md-subject"] + '</td></tr>';
-    if (data["location"][0]["@name"] != undefined)
-        details += '<tr><td><b>' + M('Location') + '</b></td><td><b>:</b> ' + data["location"][0]["@name"] + " (" +data["location"][0]["@id"] + ")" + '</td></tr>';
+
+    details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
+    details += renderField("Date", data["md-date"]);
+    details += renderField("Author", data["md-author"]);
+    details += renderField("URL", data["md-electronic-url"]);
+    details += renderField("Subject", data["location"][0]["md-subject"]);
+    details += renderField("Location", data["location"][0]["@name"], data["location"][0]["@id"]);
     details += '</table></div>';
+
     return details;
 }
+
+function renderField(caption, data, data2, data3) {
+    if (data === undefined) {
+	return "";
+    }
+
+    if (caption == "URL") {
+	data = '<a href="' + data + '" target="_blank">' + data + '</a>';
+    }
+
+    if (data2 != undefined) {
+	data = data + " (" + data2 + ")";
+    }
+
+    if (data3 != undefined) {
+	data = data + " <i>" + data3 + "</i>";
+    }
+
+    return '<tr><td><b>' + M(caption) + '</b></td><td><b>:</b> ' + data + '</td></tr>';
+}
+
 
 /*
  * All the HTML stuff to render the search forms and
