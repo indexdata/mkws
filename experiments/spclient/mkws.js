@@ -471,7 +471,7 @@ function renderField(caption, data, data2, data3) {
 	data = data + " <i>" + data3 + "</i>";
     }
 
-    return '<tr><td><b>' + M(caption) + '</b></td><td><b>:</b> ' + data + '</td></tr>';
+    return '<tr><th>' + M(caption) + '</th><td>' + data + '</td></tr>';
 }
 
 
