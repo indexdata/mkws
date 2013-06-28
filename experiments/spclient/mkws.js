@@ -693,7 +693,7 @@ function mkws_html_lang(mkws_config) {
 	    data += ' | ';
 	    
 	if (lang == l) {
-	    data += l;
+	    data += ' <span>' + l + '</span> ';
 	} else {
 	    data += ' <a href="?lang=' + l + '">' + l + '</a> '
 	}
