@@ -11,7 +11,7 @@
 		lang: "da",
 		debug: 1,
 		use_service_proxy: true,
-		switch_menu: true, 
+		switch_menu: false, 
 		lang_menu: true, 
 		lang_display: ["da", "en"], 
 		termlist_menu: true, 
@@ -31,7 +31,7 @@
 
 	function mobile_resize () {
 	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
-	   var list = ["mkwsSwitch", "mkwsTargets"];
+	   var list = ["mkwsSwitch"];
 	   if ($(window).width() <= 600) {
 		for(var i = 0; i < list.length; i++) {
 		    $("#" + list[i]).hide();
