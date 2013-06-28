@@ -4,15 +4,63 @@
     <title>MKWS demo client</title>
     <link rel="stylesheet" href="mkwsStyle.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="mkws.js"></script>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+        <style>
+                body { font-size: 62.5%; }
+                label, input { display:block; }
+                input.text { margin-bottom:12px; width:95%; padding: .4em; }
+                fieldset { padding:0; border:0; margin-top:25px; }
+                h1 { font-size: 1.2em; margin: .6em 0; }
+                div#users-contain { width: 350px; margin: 20px 0; }
+                div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+                div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+                .ui-dialog .ui-state-error { padding: .3em; }
+                .validateTips { border: 1px solid transparent; padding: 0.3em; }
+        </style>
+
+        <script>
+        $(function() {
+                $( "#dialog-form" ).dialog({
+                        closeOnEscape: true,
+                        autoOpen: false,
+                        height: 600,
+                        width: 740,
+                        modal: true,
+                        resizable: true,
+                        buttons: {
+                                Cancel: function() {
+                                        $( this ).dialog( "close" );
+                                }
+                        },
+                        close: function() {
+                                allFields.val( "" ).removeClass( "ui-state-error" );
+                        }
+                });
+
+                $( "#create-user" )
+                        .button()
+                        .click(function() {
+                                $( "#dialog-form" ).dialog( "open" );
+                        });
+        });
+        </script>
   </head>
   <body>
-    <div id="mkwsSwitch"></div>
-    <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
-    <div id="mkwsRecords"></div>
-    <div id="mkwsTargets"></div>
-    <div id="mkwsStat"></div>
+
+  <div id="dialog-form" title="Search Box">
+    <script type="text/javascript">
+      mkws_config = { switch_menu: false, lang_menu: false, query_width: 40 };
+      jQuery.pazpar2();
+    </script>
+  </div>
+
+  <div id="users-contain" class="ui-widget"></div>
+
+  <button id="create-user">Open Search Box</button>
+
   </body>
 </html>
