@@ -7,7 +7,7 @@ identifier and .CLASS indicates an instance of a class.
   a*
 
 #mkwsLang
-  a*
+  ( a | span )*
 
 #mkwsSearch
   form#searchForm
@@ -43,7 +43,7 @@ identifier and .CLASS indicates an instance of a class.
 	        table
 		  tbody
 		    tr*
-		      td
+		      th
 		      td
 #mkwsTargets
   div#bytarget
