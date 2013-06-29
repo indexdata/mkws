@@ -38,7 +38,9 @@
 	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
 	   var list = ["mkwsSwitch"];
 	   var obj;
-	   if ($(window).width() <= 600) {
+	   // alert($(window).width());
+ 
+	   if ($(window).width() <= 980) {
 		for(var i = 0; i < list.length; i++) {
 		    $("#" + list[i]).hide();
 		}
