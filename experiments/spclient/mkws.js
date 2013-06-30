@@ -164,17 +164,7 @@ function my_onterm(data) {
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
 
-    termlists.push('<div class="facet">');
-    termlists.push('<div class="termtitle">' + M('Sources') + '</div>');
-    for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
-	termlists.push('<a href="#" target_id='+data.xtargets[i].id + ' onclick="limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue);return false;">'
-		       + data.xtargets[i].name
-		       + '</a><span> ('
-		       + data.xtargets[i].freq
-		       + ')</span><br/>');
-    }
-    termlists.push('</div>');
-
+    add_single_facet(termlists, "Sources", data.xtargets, SourceMax, null);
     add_single_facet(termlists, "Subjects", data.subject, SubjectMax, "su");
     add_single_facet(termlists, "Authors", data.author, AuthorMax, "au");
 
@@ -186,7 +176,16 @@ function add_single_facet(termlists, caption, data, max, cclIndex) {
     termlists.push('<div class="facet">');
     termlists.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue);return false;">'
+        termlists.push('<a href="#" ');
+	var action;
+	if (!cclIndex) {
+	    // Special case: target selection
+	    termlists.push('target_id='+data[i].id+' ');
+	    action = 'limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+	} else {
+	    action = 'limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
+	}
+	termlists.push('onclick="' + action + ';return false;">'
 		       + data[i].name
 		       + '</a><span> ('
 		       + data[i].freq
