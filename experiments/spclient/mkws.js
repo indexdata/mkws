@@ -167,17 +167,22 @@ function my_onterm(data) {
     termlists.push('<div class="facet">');
     termlists.push('<div class="termtitle">' + M('Sources') + '</div>');
     for (var i = 0; i < data.xtargets.length && i < SourceMax; i++ ) {
-        termlists.push('<a href="#" target_id='+data.xtargets[i].id
-            + ' onclick="limitTarget(this.getAttribute(\'target_id\'), this.firstChild.nodeValue);return false;">' + data.xtargets[i].name
-        + ' </a><span> (' + data.xtargets[i].freq + ')</span><br/>');
+        termlists.push('<a href="#" target_id='+data.xtargets[i].id + ' onclick="limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue);return false;">'
+		       + data.xtargets[i].name
+		       + ' </a><span> ('
+		       + data.xtargets[i].freq
+		       + ')</span><br/>');
     }
     termlists.push('</div>');
 
     termlists.push('<div class="facet">');
     termlists.push('<div class="termtitle">' + M('Subjects') + '</div>');
     for (var i = 0; i < data.subject.length && i < SubjectMax; i++ ) {
-        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">' + data.subject[i].name + '</a><span>  ('
-              + data.subject[i].freq + ')</span><br/>');
+        termlists.push('<a href="#" onclick="limitQuery(\'su\', this.firstChild.nodeValue);return false;">'
+		       + data.subject[i].name
+		       + '</a><span>  ('
+		       + data.subject[i].freq
+		       + ')</span><br/>');
     }
     termlists.push('</div>');
 
@@ -185,10 +190,10 @@ function my_onterm(data) {
     termlists.push('<div class="termtitle">' + M('Authors') + '</div>');
     for (var i = 0; i < data.author.length && i < AuthorMax; i++ ) {
         termlists.push('<a href="#" onclick="limitQuery(\'au\', this.firstChild.nodeValue);return false;">'
-                            + data.author[i].name
-                            + ' </a><span> ('
-                            + data.author[i].freq
-                            + ')</span><br/>');
+                       + data.author[i].name
+                       + ' </a><span> ('
+                       + data.author[i].freq
+                       + ')</span><br/>');
     }
     termlists.push('</div>');
 
