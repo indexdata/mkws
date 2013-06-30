@@ -163,35 +163,31 @@ function my_onterm(data) {
     
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
-
-    add_single_facet(termlists, "Sources", data.xtargets, SourceMax, null);
-    add_single_facet(termlists, "Subjects", data.subject, SubjectMax, "su");
-    add_single_facet(termlists, "Authors", data.author, AuthorMax, "au");
+    add_single_facet(termlists, "Sources",  data.xtargets, SourceMax, null);
+    add_single_facet(termlists, "Subjects", data.subject,  SubjectMax, "su");
+    add_single_facet(termlists, "Authors",  data.author,   AuthorMax, "au");
 
     var termlist = document.getElementById("termlist");
     replaceHtml(termlist, termlists.join(''));
 }
 
-function add_single_facet(termlists, caption, data, max, cclIndex) {
-    termlists.push('<div class="facet">');
-    termlists.push('<div class="termtitle">' + M(caption) + '</div>');
+function add_single_facet(acc, caption, data, max, cclIndex) {
+    acc.push('<div class="facet">');
+    acc.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
-        termlists.push('<a href="#" ');
+        acc.push('<a href="#" ');
 	var action;
 	if (!cclIndex) {
 	    // Special case: target selection
-	    termlists.push('target_id='+data[i].id+' ');
+	    acc.push('target_id='+data[i].id+' ');
 	    action = 'limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	} else {
 	    action = 'limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
 	}
-	termlists.push('onclick="' + action + ';return false;">'
-		       + data[i].name
-		       + '</a><span> ('
-		       + data[i].freq
-		       + ')</span><br/>');
+	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
+		 + '<span> (' + data[i].freq + ')</span><br/>');
     }
-    termlists.push('</div>');
+    acc.push('</div>');
 }
 
 function my_onrecord(data) {
