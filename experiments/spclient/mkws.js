@@ -294,7 +294,7 @@ function limitQuery (field, value)
 // limit by target functions
 function limitTarget (id, name)
 {
-    var navi = document.getElementById('navi');
+    var navi = document.getElementById('mkwsNavi');
     navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="delimitTarget();return false;">'
         + name + '</a>';
@@ -308,7 +308,7 @@ function limitTarget (id, name)
 
 function delimitTarget ()
 {
-    var navi = document.getElementById('navi');
+    var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
     curFilter = null;
     resetPage();
@@ -556,7 +556,7 @@ function mkws_html_all(config) {
        </form>\
             </div>\
             <div id="mkwsPager"></div>\
-            <div id="navi"></div>\
+            <div id="mkwsNavi"></div>\
             <div id="mkwsResults"></div>\
           </td>\
         </tr>\

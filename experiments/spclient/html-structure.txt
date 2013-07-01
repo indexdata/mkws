@@ -33,7 +33,7 @@ identifier and .CLASS indicates an instance of a class.
               select#sort
               select#perpage
           #mkwsPager
-          div#navi
+          #mkwsNavi
           #mkwsResults
             div.record*
               span (for sequence number)
