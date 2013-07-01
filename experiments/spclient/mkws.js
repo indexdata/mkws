@@ -243,8 +243,8 @@ function domReady ()
 {
     document.search.onsubmit = onFormSubmitEventHandler;
     document.search.mkwsQuery.value = '';
-    document.select.sort.onchange = onSelectDdChange;
-    document.select.perpage.onchange = onSelectDdChange;
+    document.mkwsSelect.sort.onchange = onSelectDdChange;
+    document.mkwsSelect.perpage.onchange = onSelectDdChange;
 }
 
 // when search button pressed
@@ -280,8 +280,8 @@ function triggerSearch ()
 
 function loadSelect ()
 {
-    curSort = document.select.sort.value;
-    recPerPage = document.select.perpage.value;
+    curSort = document.mkwsSelect.sort.value;
+    recPerPage = document.mkwsSelect.perpage.value;
 }
 
 // limit the query after clicking the facet
@@ -549,7 +549,7 @@ function mkws_html_all(config) {
           </td>\
           <td valign="top">\
             <div id="mkwsRanking">\
-              <form name="select" id="select" action="" >\
+              <form name="mkwsSelect" id="mkwsSelect" action="" >\
         ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
         ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
         ' + M('per page') + '.\
