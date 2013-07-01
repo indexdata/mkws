@@ -210,7 +210,7 @@ function my_onrecord(data) {
     // FIXME: record is async!!
     clearTimeout(my_paz.recordTimer);
     // in case on_show was faster to redraw element
-    var detRecordDiv = document.getElementById('det_'+data.recid);
+    var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
     if (detRecordDiv) return;
     curDetRecData = data;
     var recordDiv = document.getElementById('recdiv_'+curDetRecData.recid);
@@ -419,7 +419,7 @@ function showDetails (prefixRecId) {
     curDetRecId = recId;
 
     // remove current detailed view if any
-    var detRecordDiv = document.getElementById('det_'+oldRecId);
+    var detRecordDiv = document.getElementById('mkwsDet_'+oldRecId);
     // lovin DOM!
     if (detRecordDiv)
       detRecordDiv.parentNode.removeChild(detRecordDiv);
@@ -450,7 +450,7 @@ function replaceHtml(el, html) {
 
 function renderDetails(data, marker)
 {
-    var details = '<div class="details" id="det_'+data.recid+'"><table>';
+    var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
     if (marker) details += '<tr><td>'+ marker + '</td></tr>';
 
     details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
