@@ -76,7 +76,7 @@ Here is an example of all possible options
 		lang_menu: true, 	    /* true, false: show/hide language menu */
 	        lang_display: ["en", "de", "da"], /* display languages links for given 
 				                     languages, [] for all */
-		termlist_menu: true, 	    /* true, false: show/hide termlist menu/facets */
+		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
                 sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
 		query_width: 50,	    /* 5..50 */
                 perpage_default: 20,	    /* 10, 20, 30, 50 */

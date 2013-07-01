@@ -3,10 +3,10 @@
 
 "use strict"; // HTML5: disable for debug >= 2
 
-/* 
- * global config object: mkws_config 
- * 
- * needs to be defined in the HTML header before 
+/*
+ * global config object: mkws_config
+ *
+ * needs to be defined in the HTML header before
  * including this JS file
  */
 
@@ -158,14 +158,21 @@ function my_onstat(data) {
 }
 
 function my_onterm(data) {
-    if (!mkws_config.termlist_menu)
+    if (!mkws_config.facets || mkws_config.facets.length == 0)
 	return;
-    
+
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
-    add_single_facet(termlists, "Sources",  data.xtargets, SourceMax, null);
-    add_single_facet(termlists, "Subjects", data.subject,  SubjectMax, "su");
-    add_single_facet(termlists, "Authors",  data.author,   AuthorMax, "au");
+    var facets = mkws_config.facets;
+
+    for(var i = 0; i < facets.length; i++) {
+	if (facets[i] == "sources")
+	    add_single_facet(termlists, "Sources",  data.xtargets, SourceMax, null);
+	if (facets[i] == "subjects")
+	    add_single_facet(termlists, "Subjects", data.subject,  SubjectMax, "su");
+	if (facets[i] == "authors")
+	    add_single_facet(termlists, "Authors",  data.author,   AuthorMax, "au");
+    }
 
     var termlist = document.getElementById("termlist");
     replaceHtml(termlist, termlists.join(''));
@@ -485,7 +492,8 @@ function mkws_html_all(config) {
 	switch_menu: true, 	/* show/hide Records|Targets menu */
 	lang_menu: true, 	/* show/hide language menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
-	termlist_menu: true, 	/* show/hide termlist */
+	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+
 	debug: 0,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
@@ -497,7 +505,7 @@ function mkws_html_all(config) {
     } else if (mkws_config_default.debug !== 'undefined') {
 	mkws_debug = mkws_config_default.debug;
     }
-    
+
     /* override standard config values by function parameters */
     for (var k in mkws_config_default) {
 	if (typeof config[k] === 'undefined')
@@ -509,10 +517,10 @@ function mkws_html_all(config) {
 	debug("Reset query width: " + mkws_config.query_width);
 	mkws_config.query_width = 50;
     }
-   
-    mkws_set_lang(mkws_config); 
+
+    mkws_set_lang(mkws_config);
     if (mkws_config.lang_menu)
-	mkws_html_lang(mkws_config); 
+	mkws_html_lang(mkws_config);
 
     // For some reason, doing this programmatically results in
     // document.search.query being undefined, hence the raw HTML.
@@ -559,14 +567,14 @@ function mkws_set_lang(mkws_config)  {
     } else {
 	mkws_config.lang = lang;
     }
-    
+
     debug("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
     return mkws_config.lang;
 }
 
 function mkws_html_switch(config) {
     debug("HTML switch");
-    
+
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
@@ -637,7 +645,7 @@ function mkws_html_perpage(config) {
 function mkws_service_proxy_auth(auth_url) {
     if (!auth_url)
 	auth_url = "http://mkws.indexdata.com/service-proxy-auth";
-	
+
     debug("Run service proxy auth URL: " + auth_url);
 
     var request = new pzHttpRequest(auth_url);
@@ -666,7 +674,7 @@ function mkws_html_lang(mkws_config) {
     for (var i = 0; i < lang_display.length; i++) {
 	hash[lang_display[i]] = 1;
     }
-    
+
     for (var k in mkws_locale_lang) {
 	if (hash[k] == 1 || lang_display.length == 0)
 	    list.push(k);
@@ -679,20 +687,20 @@ function mkws_html_lang(mkws_config) {
     debug("Language menu for: " + list.join(", "));
 
     /* the HTML part */
-    var data = "";    
+    var data = "";
     for(var i = 0; i < list.length; i++) {
 	var l = list[i];
-	
+
 	if (data)
 	    data += ' | ';
-	    
+
 	if (lang == l) {
 	    data += ' <span>' + l + '</span> ';
 	} else {
 	    data += ' <a href="?lang=' + l + '">' + l + '</a> '
 	}
     }
-    
+
     $("#mkwsLang").html(data);
 }
 
@@ -717,7 +725,7 @@ jQuery.extend({
 	nvpair[pair[0]] = pair[1];
     });
     return nvpair;
-  }, 
+  },
   pazpar2: function(data) {
 	document.write('<div id="mkwsSwitch"></div>\
     <div id="mkwsLang"></div>\
