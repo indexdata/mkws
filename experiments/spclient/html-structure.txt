@@ -32,7 +32,7 @@ identifier and .CLASS indicates an instance of a class.
             form#select
               select#sort
               select#perpage
-          div#pager
+          #mkwsPager
           div#navi
           div#results
             div.record*

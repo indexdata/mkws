@@ -113,7 +113,7 @@ function my_oninit() {
 function my_onshow(data) {
     totalRec = data.merged;
     // move it out
-    var pager = document.getElementById("pager");
+    var pager = document.getElementById("mkwsPager");
     pager.innerHTML = "";
     pager.innerHTML +='<hr/><div style="float: right">' + M('Displaying') + ': '
                     + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
@@ -555,7 +555,7 @@ function mkws_html_all(config) {
         ' + M('per page') + '.\
        </form>\
             </div>\
-            <div id="pager"></div>\
+            <div id="mkwsPager"></div>\
             <div id="navi"></div>\
             <div id="results"></div>\
           </td>\
