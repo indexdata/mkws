@@ -30,8 +30,8 @@ identifier and .CLASS indicates an instance of a class.
         td
           div#mkwsRanking
             form#mkwsSelect
-              select#sort
-              select#perpage
+              select#mkwsSort
+              select#mkwsPerpage
           #mkwsPager
           #mkwsNavi
           #mkwsResults

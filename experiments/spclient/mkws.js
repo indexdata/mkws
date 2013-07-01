@@ -243,8 +243,8 @@ function domReady ()
 {
     document.search.onsubmit = onFormSubmitEventHandler;
     document.search.mkwsQuery.value = '';
-    document.mkwsSelect.sort.onchange = onSelectDdChange;
-    document.mkwsSelect.perpage.onchange = onSelectDdChange;
+    document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
+    document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
 }
 
 // when search button pressed
@@ -280,8 +280,8 @@ function triggerSearch ()
 
 function loadSelect ()
 {
-    curSort = document.mkwsSelect.sort.value;
-    recPerPage = document.mkwsSelect.perpage.value;
+    curSort = document.mkwsSelect.mkwsSort.value;
+    recPerPage = document.mkwsSelect.mkwsPerpage.value;
 }
 
 // limit the query after clicking the facet
@@ -634,7 +634,7 @@ function mkws_html_switch(config) {
 
 function mkws_html_sort(config) {
     debug("HTML sort");
-    var sort_html = '<select name="sort" id="sort">';
+    var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
     for(var i = 0; i < config.sort.length; i++) {
 	var key = config.sort[i][0];
@@ -653,7 +653,7 @@ function mkws_html_sort(config) {
 
 function mkws_html_perpage(config) {
     debug("HTML perpage");
-    var perpage_html = '<select name="perpage" id="perpage">';
+    var perpage_html = '<select name="mkwsPerpage" id="mkwsPerpage">';
 
     for(var i = 0; i < config.perpage.length; i++) {
 	var key = config.perpage[i];
