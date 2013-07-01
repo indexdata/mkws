@@ -158,8 +158,14 @@ function my_onstat(data) {
 }
 
 function my_onterm(data) {
-    if (!mkws_config.facets || mkws_config.facets.length == 0)
+    // no facets
+    if (!mkws_config.facets || mkws_config.facets.length == 0) {
+	$("#termlist").parent().hide();
 	return;
+    }
+
+    // display if we first got results
+    $("#termlist").parent().show();
 
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
@@ -558,6 +564,9 @@ function mkws_html_all(config) {
 	mkws_service_proxy_auth(config.service_proxy_auth);
 
     domReady();
+
+    // on first page, hide the termlist
+    $(document).ready(function() { $("#termlist").parent().hide(); } );
 }
 
 function mkws_set_lang(mkws_config)  {
