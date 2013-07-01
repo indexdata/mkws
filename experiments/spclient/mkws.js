@@ -787,7 +787,7 @@ jQuery.extend({
     <div id="mkwsSearch"></div>\
     <div id="mkwsRecords"></div>\
     <div id="mkwsTargets"></div>\
-    <div id="footer">\
+    <div id="mkwsFooter">\
       <div id="mkwsStat"></div>\
       <span>Powered by MKWS &copy; 2013 <a href="http://www.indexdata.com">Index Data</a></span>\
     </div>');
