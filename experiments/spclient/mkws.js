@@ -734,26 +734,26 @@ function mkws_html_lang(mkws_config) {
 }
 
 function mkws_mobile_resize () {
-   debug("resize width: " + $(window).height() + ", width: " + $(window).width());
-   var list = ["mkwsSwitch"];
-   var obj;
-   // alert($(window).width());
+    debug("resize width: " + $(window).height() + ", width: " + $(window).width());
+    var list = ["mkwsSwitch"];
+    var obj;
+    // alert($(window).width());
 
-   if ($(window).width() <= 980) {
+    if ($(window).width() <= 980) {
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
 
 	$("#termlist").parent().hide();
 	obj = $("#termlist").parent().html();
-	$("#mkwsTermlist").html("<hr/>" + obj);
-   } else {
+        $("#mkwsTermlist").html("<hr/>" + obj);
+    } else {
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
 	}
 	$("#termlist").parent().show();
 	$("#mkwsTermlist").html("");
-   }
+    }
 };
 
 /* locale */
