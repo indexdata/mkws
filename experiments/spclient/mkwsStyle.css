@@ -81,7 +81,7 @@
     cursor: pointer;
 }
 
-#mkwsSearch input#query {
+#mkwsSearch input#mkwsQuery {
     border: 2px inset #e0f0ff;
     padding: 3px;
     font-size: 12px;

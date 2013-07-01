@@ -11,7 +11,7 @@ identifier and .CLASS indicates an instance of a class.
 
 #mkwsSearch
   form
-    input#query type=text
+    input#mkwsQuery type=text
     input#mkwsButton type=submit
 
 #mkwsBlanket
@@ -28,7 +28,7 @@ identifier and .CLASS indicates an instance of a class.
               div.termtitle
               ( a span br )*
         td
-          div#ranking
+          div#mkwsRanking
             form#select
               select#sort
               select#perpage

@@ -242,7 +242,7 @@ function my_onbytarget(data) {
 function domReady ()
 {
     document.search.onsubmit = onFormSubmitEventHandler;
-    document.search.query.value = '';
+    document.search.mkwsQuery.value = '';
     document.select.sort.onchange = onSelectDdChange;
     document.select.perpage.onchange = onSelectDdChange;
 }
@@ -275,7 +275,7 @@ function resetPage()
 
 function triggerSearch ()
 {
-    my_paz.search(document.search.query.value, recPerPage, curSort, curFilter);
+    my_paz.search(document.search.mkwsQuery.value, recPerPage, curSort, curFilter);
 }
 
 function loadSelect ()
@@ -532,11 +532,11 @@ function mkws_html_all(config) {
 	mkws_html_lang(mkws_config);
 
     // For some reason, doing this programmatically results in
-    // document.search.query being undefined, hence the raw HTML.
+    // document.search.mkwsQuery being undefined, hence the raw HTML.
     debug("HTML search form");
     $("#mkwsSearch").html('\
     <form name="search" action="" >\
-      <input id="query" type="text" size="' + mkws_config.query_width + '" />\
+      <input id="mkwsQuery" type="text" size="' + mkws_config.query_width + '" />\
       <input id="mkwsButton" type="submit" value="' + M('Search') + '" />\
     </form>');
 
@@ -548,7 +548,7 @@ function mkws_html_all(config) {
             <div id="mkwsTermlists"></div>\
           </td>\
           <td valign="top">\
-            <div id="ranking">\
+            <div id="mkwsRanking">\
               <form name="select" id="select" action="" >\
         ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
         ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
