@@ -10,7 +10,7 @@ identifier and .CLASS indicates an instance of a class.
   ( a | span )*
 
 #mkwsSearch
-  form#searchForm
+  form
     input#query type=text
     input#button type=submit
 

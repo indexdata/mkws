@@ -535,7 +535,7 @@ function mkws_html_all(config) {
     // document.search.query being undefined, hence the raw HTML.
     debug("HTML search form");
     $("#mkwsSearch").html('\
-    <form id="searchForm" name="search" action="" >\
+    <form name="search" action="" >\
       <input id="query" type="text" size="' + mkws_config.query_width + '" />\
       <input id="button" type="submit" value="' + M('Search') + '" />\
     </form>');
