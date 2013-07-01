@@ -153,3 +153,22 @@
     background: #e0e0e0;
     padding: 0.3em;
 }
+
+#mkwsBytarget table thead tr td {
+    background-color: #132194;
+    color: white;
+    font-weight: bold;
+    padding: 0.2em 0.5em;
+}
+
+#mkwsBytarget table tbody tr:nth-child(odd) {
+    background-color: #e0f0ff;
+}
+
+#mkwsBytarget table tbody tr:nth-child(even) {
+    background-color: #d0e0ff;
+}
+
+#mkwsBytarget table tbody tr td {
+    padding: 0.2em 0.5em;
+}
