@@ -121,7 +121,7 @@ function my_onshow(data) {
                      + data.total + ')</div>';
     drawPager(pager);
     // navi
-    var results = document.getElementById("results");
+    var results = document.getElementById("mkwsResults");
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
@@ -557,7 +557,7 @@ function mkws_html_all(config) {
             </div>\
             <div id="mkwsPager"></div>\
             <div id="navi"></div>\
-            <div id="results"></div>\
+            <div id="mkwsResults"></div>\
           </td>\
         </tr>\
       </table>');
