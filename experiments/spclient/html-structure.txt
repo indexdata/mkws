@@ -12,7 +12,7 @@ identifier and .CLASS indicates an instance of a class.
 #mkwsSearch
   form
     input#query type=text
-    input#button type=submit
+    input#mkwsButton type=submit
 
 #mkwsBlanket
   (no contents -- used only for masking)

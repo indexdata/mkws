@@ -68,7 +68,7 @@
     text-decoration: line-through;
 }
 
-#mkwsSearch input#button {
+#mkwsSearch input#mkwsButton {
     border: 3px outset #132194;
     background-color: #132194;
     padding: 2px;

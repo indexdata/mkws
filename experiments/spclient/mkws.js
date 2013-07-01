@@ -537,7 +537,7 @@ function mkws_html_all(config) {
     $("#mkwsSearch").html('\
     <form name="search" action="" >\
       <input id="query" type="text" size="' + mkws_config.query_width + '" />\
-      <input id="button" type="submit" value="' + M('Search') + '" />\
+      <input id="mkwsButton" type="submit" value="' + M('Search') + '" />\
     </form>');
 
     debug("HTML records");
