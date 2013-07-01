@@ -172,12 +172,15 @@ function my_onterm(data) {
     var facets = mkws_config.facets;
 
     for(var i = 0; i < facets.length; i++) {
-	if (facets[i] == "sources")
+	if (facets[i] == "sources") {
 	    add_single_facet(termlists, "Sources",  data.xtargets, SourceMax, null);
-	if (facets[i] == "subjects")
+	} else if (facets[i] == "subjects") {
 	    add_single_facet(termlists, "Subjects", data.subject,  SubjectMax, "su");
-	if (facets[i] == "authors")
+	} else if (facets[i] == "authors") {
 	    add_single_facet(termlists, "Authors",  data.author,   AuthorMax, "au");
+	} else {
+	    alert("bad facet configuration: '" + facets[i] + "'");
+	}
     }
 
     var termlist = document.getElementById("termlist");
