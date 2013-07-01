@@ -167,24 +167,24 @@ function my_onterm(data) {
     // display if we first got results
     $("#termlist").parent().show();
 
-    var termlists = [];
-    termlists.push('<div class="title">' + M('Termlists') + '</div>');
+    var acc = [];
+    acc.push('<div class="title">' + M('Termlists') + '</div>');
     var facets = mkws_config.facets;
 
     for(var i = 0; i < facets.length; i++) {
 	if (facets[i] == "sources") {
-	    add_single_facet(termlists, "Sources",  data.xtargets, SourceMax, null);
+	    add_single_facet(acc, "Sources",  data.xtargets, SourceMax, null);
 	} else if (facets[i] == "subjects") {
-	    add_single_facet(termlists, "Subjects", data.subject,  SubjectMax, "su");
+	    add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "su");
 	} else if (facets[i] == "authors") {
-	    add_single_facet(termlists, "Authors",  data.author,   AuthorMax, "au");
+	    add_single_facet(acc, "Authors",  data.author,   AuthorMax, "au");
 	} else {
 	    alert("bad facet configuration: '" + facets[i] + "'");
 	}
     }
 
     var termlist = document.getElementById("termlist");
-    replaceHtml(termlist, termlists.join(''));
+    replaceHtml(termlist, acc.join(''));
 }
 
 function add_single_facet(acc, caption, data, max, cclIndex) {
