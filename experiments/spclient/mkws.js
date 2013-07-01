@@ -126,7 +126,7 @@ function my_onshow(data) {
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
-	      html.push('<div class="record" id="recdiv_'+hit.recid+'" >'
+	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
             +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="rec_'+hit.recid
             +'" onclick="showDetails(this.id);return false;"><b>'
@@ -213,7 +213,7 @@ function my_onrecord(data) {
     var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
     if (detRecordDiv) return;
     curDetRecData = data;
-    var recordDiv = document.getElementById('recdiv_'+curDetRecData.recid);
+    var recordDiv = document.getElementById('mkwsRecdiv_'+curDetRecData.recid);
     var html = renderDetails(curDetRecData);
     recordDiv.innerHTML += html;
 }
