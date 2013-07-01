@@ -7,62 +7,25 @@
     <title>MKWS demo client</title>
 
     <script type="text/javascript">
-	var mkws_config = { 
+	var mkws_config = {
 		lang: "da",
 		debug: 1,
 		use_service_proxy: true,
-		switch_menu: false, 
-		lang_menu: true, 
-		lang_display: ["da", "en"], 
-		termlist_menu: true, 
+		switch_menu: false,
+		lang_menu: true,
+		lang_display: ["da", "en"],
 		sort_default: "relevance",
 		query_width: 50,
 	        responsive_design: true,
-		facets: ["sources", "subjects", "authors"],
+		facets: ["authors", "sources", "subjects"],
 		perpage_default: 20
-	 }; 
+	 };
     </script>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="mkws.js"></script>
     <link rel="stylesheet" href="mkwsStyle.css" />
-
-    <script type="text/javascript">
-	var timeout;
-
-	if (mkws_config.responsive_design) {
-	    $(window).resize( function(e) { 
-	        if (timeout)
-	   	    clearTimeout(timeout);
-	   	timeout = setTimeout(function () { mobile_resize() }, 100);
-            });
-	    $(document).ready(function() { mobile_resize() });
-	}
-
-	function mobile_resize () {
-	   debug("resize width: " + $(window).height() + ", width: " + $(window).width()); 
-	   var list = ["mkwsSwitch"];
-	   var obj;
-	   // alert($(window).width());
- 
-	   if ($(window).width() <= 980) {
-		for(var i = 0; i < list.length; i++) {
-		    $("#" + list[i]).hide();
-		}
-		
-		$("#termlist").parent().hide();	
-		obj = $("#termlist").parent().html();
-	        $("#mkwsTermlist").html(obj);
-	   } else {
-		for(var i = 0; i < list.length; i++) {
-		    $("#" + list[i]).show();
-		}
-		$("#termlist").parent().show();	
-	        $("#mkwsTermlist").html("");
-	   }
-	};
-    </script>
   </head>
   <body>
     <!-- These six mkws <div>s are provided by MKWS -->
@@ -76,7 +39,7 @@
 
     <div id="footer">
       <div id="mkwsStat"></div>
-      <span>Powered by MKWS &copy; 2013 <a href="http://www.indexdata.com">Index Data</a></span> 
+      <span>Powered by MKWS &copy; 2013 <a href="http://www.indexdata.com">Index Data</a></span>
     </div>
   </body>
 </html>

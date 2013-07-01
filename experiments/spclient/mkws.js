@@ -158,8 +158,14 @@ function my_onstat(data) {
 }
 
 function my_onterm(data) {
-    if (!mkws_config.facets || mkws_config.facets.length == 0)
+    // no facets
+    if (!mkws_config.facets || mkws_config.facets.length == 0) {
+	$("#termlist").parent().hide();
 	return;
+    }
+
+    // display if we first got results
+    $("#termlist").parent().show();
 
     var termlists = [];
     termlists.push('<div class="title">' + M('Termlists') + '</div>');
@@ -554,10 +560,33 @@ function mkws_html_all(config) {
       </table>');
 
     mkws_html_switch(config);
+
     if (mkws_config.use_service_proxy)
 	mkws_service_proxy_auth(config.service_proxy_auth);
 
+    if (mkws_config.responsive_design)
+	mkws_responsive_design();
+
     domReady();
+
+    // on first page, hide the termlist
+    $(document).ready(function() { $("#termlist").parent().hide(); } );
+}
+
+/* Responsive web design - change layout on the fly depending on
+ * the current screen size width/height. Required for mobile devices.
+ */
+function mkws_responsive_design () {
+    var timeout = null;
+
+    $(window).resize( function(e) {
+	if (timeout)
+	    clearTimeout(timeout);
+	timeout = setTimeout(function () { mkws_mobile_resize() }, 100);
+    });
+
+    // initial check after page load
+    $(document).ready(function() { mkws_mobile_resize() });
 }
 
 function mkws_set_lang(mkws_config)  {
@@ -703,6 +732,29 @@ function mkws_html_lang(mkws_config) {
 
     $("#mkwsLang").html(data);
 }
+
+function mkws_mobile_resize () {
+   debug("resize width: " + $(window).height() + ", width: " + $(window).width());
+   var list = ["mkwsSwitch"];
+   var obj;
+   // alert($(window).width());
+
+   if ($(window).width() <= 980) {
+	for(var i = 0; i < list.length; i++) {
+	    $("#" + list[i]).hide();
+	}
+
+	$("#termlist").parent().hide();
+	obj = $("#termlist").parent().html();
+	$("#mkwsTermlist").html("<hr/>" + obj);
+   } else {
+	for(var i = 0; i < list.length; i++) {
+	    $("#" + list[i]).show();
+	}
+	$("#termlist").parent().show();
+	$("#mkwsTermlist").html("");
+   }
+};
 
 /* locale */
 function M(word) {
