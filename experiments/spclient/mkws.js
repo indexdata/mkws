@@ -128,7 +128,7 @@ function my_onshow(data) {
         var hit = data.hits[i];
 	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
             +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
-            +'<a href="#" id="rec_'+hit.recid
+            +'<a href="#" id="mkwsRec_'+hit.recid
             +'" onclick="showDetails(this.id);return false;"><b>'
             + hit["md-title"] +' </b></a>');
 	      if (hit["md-title-remainder"] !== undefined) {
@@ -414,7 +414,7 @@ function switchView(view) {
 
 // detailed record drawing
 function showDetails (prefixRecId) {
-    var recId = prefixRecId.replace('rec_', '');
+    var recId = prefixRecId.replace('mkwsRec_', '');
     var oldRecId = curDetRecId;
     curDetRecId = recId;
 
