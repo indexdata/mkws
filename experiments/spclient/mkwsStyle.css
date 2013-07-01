@@ -1,4 +1,4 @@
-#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat, #mkwsTermlist {
+#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat, #mkwsShiftedTermlists {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
@@ -28,7 +28,7 @@
     padding-top: 0.4em;
 }
 
-#mkwsRecords, #mkwsTermlist {
+#mkwsRecords, #mkwsShiftedTermlists {
     background-color: #fafafa;
 }
 
@@ -55,16 +55,16 @@
     content: "Retrieved records: ";
 }
 
-#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, #mkwsTermlist a {
+#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, #mkwsShiftedTermlists a {
     color: #005701;
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsRecords a:hover, #mkwsTermlist a:hover {
+#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsRecords a:hover, #mkwsShiftedTermlists a:hover {
     text-decoration: underline;
 }
 
-#mkwsRecords a.crossout:hover, #mkwsTermlist #mkwsRecords a.crossout:hover {
+#mkwsRecords a.crossout:hover, #mkwsShiftedTermlists a.crossout:hover #mkwsRecords a.crossout:hover {
     text-decoration: line-through;
 }
 
@@ -88,17 +88,17 @@
     background: #f0f8ff;
 }
 
-#mkwsRecords hr, #mkwsTermlist hr {
+#mkwsRecords hr, #mkwsShiftedTermlists hr {
     display: none;
 }
 
-#mkwsRecords div#termlist .title, #mkwsTermlist div#termlist .title {
+#mkwsTermlists .title, #mkwsShiftedTermlists .title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#mkwsRecords div#termlist, #mkwsTermlist div#termlist  {
+#mkwsTermlists, #mkwsShiftedTermlists div#termlist  {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -108,7 +108,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.facet, #mkwsTermlist div.facet {
+#mkwsTermlists div.facet, #mkwsShiftedTermlists div.facet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -118,15 +118,15 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.termtitle, #mkwsTermlist div.termtitle {
+#mkwsTermlists div.termtitle, #mkwsShiftedTermlists div.termtitle {
     font-weight: bold;
 }
 
-#mkwsRecords div.record, #mkwsTermlist div.record {
+#mkwsRecords div.record, #mkwsShiftedTermlists div.record {
     padding: 5px;
 }
 
-#mkwsRecords div.details, #mkwsTermlist div.details {
+#mkwsRecords div.details, #mkwsShiftedTermlists div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: darkgray;
@@ -139,13 +139,13 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.details th, #mkwsTermlist div.details th {
+#mkwsRecords div.details th, #mkwsShiftedTermlists div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsRecords div.details th:after, #mkwsTermlist div.details th:after {
+#mkwsRecords div.details th:after, #mkwsShiftedTermlists div.details th:after {
     content: ":";
 }
 
