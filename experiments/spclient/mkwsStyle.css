@@ -41,7 +41,7 @@
     border-top: 1px solid  #156a16;
     padding-top: 5px;
     font-size: small;
-} 
+}
 
 #mkwsStat span.head {
     font-weight: bold;
@@ -55,8 +55,8 @@
     content: "Retrieved records: ";
 }
 
-#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, mkwsTermlist a {
-    color: #005701; 
+#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, #mkwsTermlist a {
+    color: #005701;
     text-decoration: none;
 }
 
@@ -153,4 +153,3 @@
     background: #e0e0e0;
     padding: 0.3em;
 }
-
