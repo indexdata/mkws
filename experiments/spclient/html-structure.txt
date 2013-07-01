@@ -46,7 +46,7 @@ identifier and .CLASS indicates an instance of a class.
                       th
                       td
 #mkwsTargets
-  div#bytarget
+  #mkwsBytarget
     table
       thead
         tr*

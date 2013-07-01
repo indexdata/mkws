@@ -219,7 +219,7 @@ function my_onrecord(data) {
 }
 
 function my_onbytarget(data) {
-    var targetDiv = document.getElementById("bytarget");
+    var targetDiv = document.getElementById("mkwsBytarget");
     var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
         +'<td>Records</td><td>State</td></tr></thead><tbody>';
 
@@ -621,7 +621,7 @@ function mkws_html_switch(config) {
 
     debug("HTML targets");
     $("#mkwsTargets").html('\
-      <div id="bytarget">\
+      <div id="mkwsBytarget">\
        No information available yet.\
       </div>');
     $("#mkwsTargets").css("display", "none");
