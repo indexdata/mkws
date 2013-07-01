@@ -331,9 +331,9 @@ function drawPager (pagerDiv)
         ? firstClkbl + 2*onsides
         : pages;
 
-    var prev = '<span id="prev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
+    var prev = '<span id="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
     if (curPage > 1)
-        prev = '<a href="#" id="prev" onclick="pagerPrev();">'
+        prev = '<a href="#" id="mkwsPrev" onclick="pagerPrev();">'
         +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
     var middle = '';
@@ -346,9 +346,9 @@ function drawPager (pagerDiv)
             + numLabel + ' </a>';
     }
 
-    var next = '<b> | </b><span id="next">' + M('Next') + ' &#62;&#62;</span>';
+    var next = '<b> | </b><span id="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
     if (pages - curPage > 0)
-        next = '<b> | </b><a href="#" id="next" onclick="pagerNext()">'
+        next = '<b> | </b><a href="#" id="mkwsNext" onclick="pagerNext()">'
         + M('Next') + ' &#62;&#62;</a>';
 
     var predots = '';
