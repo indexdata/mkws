@@ -585,7 +585,7 @@ function mkws_responsive_design () {
     $(window).resize( function(e) {
 	if (timeout)
 	    clearTimeout(timeout);
-	timeout = setTimeout(function () { mkws_mobile_resize() }, 100);
+	timeout = setTimeout(function () { mkws_mobile_resize() }, 50);
     });
 
     // initial check after page load
