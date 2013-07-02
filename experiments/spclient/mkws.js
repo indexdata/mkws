@@ -185,6 +185,9 @@ function my_onterm(data) {
 
     var termlist = document.getElementById("mkwsTermlists");
     replaceHtml(termlist, acc.join(''));
+
+    if (mkws_config.responsive_design)
+        mkws_mobile_resize();
 }
 
 function add_single_facet(acc, caption, data, max, cclIndex) {
