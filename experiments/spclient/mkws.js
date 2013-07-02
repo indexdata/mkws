@@ -502,8 +502,10 @@ function mkws_html_all(config) {
 	lang_menu: true, 	/* show/hide language menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+	responsive_design_width: 980, /* a page with less pixel width considered as mobile */	
 
 	debug: 0,     /* debug level for development: 0..2 */
+
 
 	dummy: "dummy"
     };
@@ -742,7 +744,9 @@ function mkws_mobile_resize () {
     var obj;
     // alert($(window).width());
 
-    if ($(window).width() <= 980) {
+    var width = mkws_config.responsive_design_width || 980;
+
+    if ($(window).width() <= width) {
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
