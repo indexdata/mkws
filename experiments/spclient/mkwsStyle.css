@@ -29,6 +29,7 @@
 }
 
 #mkwsRecords, #mkwsShiftedTermlists {
+    clear: both;
     background-color: #fafafa;
 }
 
