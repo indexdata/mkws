@@ -796,7 +796,7 @@ jQuery.extend({
     <div id="mkwsTargets"></div>\
     <div id="mkwsFooter">\
       <div id="mkwsStat"></div>\
-      <span>Powered by MKWS &copy; 2013 <a href="http://www.indexdata.com">Index Data</a></span>\
+      <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>\
     </div>');
 
     mkws_html_all(mkws_config);
