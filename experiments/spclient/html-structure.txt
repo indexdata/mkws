@@ -17,7 +17,7 @@ identifier and .CLASS indicates an instance of a class.
 #mkwsBlanket
   (no contents -- used only for masking)
 
-#mkwsRecords
+#mkwsResults
   table
     tbody
       tr
@@ -34,7 +34,7 @@ identifier and .CLASS indicates an instance of a class.
               select#mkwsPerpage
           #mkwsPager
           #mkwsNavi
-          #mkwsResults
+          #mkwsRecords
             div.record*
               span (for sequence number)
               a (for title)
