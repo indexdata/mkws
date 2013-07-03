@@ -104,17 +104,20 @@
     background: #f0f8ff;
 }
 
-#mkwsResults hr, #mkwsShiftedTermlists hr {
+#mkwsResults hr,
+#mkwsShiftedTermlists hr {
     display: none;
 }
 
-#mkwsTermlists .title, #mkwsShiftedTermlists .title {
+#mkwsTermlists .title,
+#mkwsShiftedTermlists .title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#mkwsTermlists, #mkwsShiftedTermlists div#termlist  {
+#mkwsTermlists,
+#mkwsShiftedTermlists div#termlist  {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -124,7 +127,8 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.facet, #mkwsShiftedTermlists div.facet {
+#mkwsTermlists div.facet,
+#mkwsShiftedTermlists div.facet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -134,15 +138,18 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.termtitle, #mkwsShiftedTermlists div.termtitle {
+#mkwsTermlists div.termtitle,
+#mkwsShiftedTermlists div.termtitle {
     font-weight: bold;
 }
 
-#mkwsResults div.record, #mkwsShiftedTermlists div.record {
+#mkwsResults div.record,
+#mkwsShiftedTermlists div.record {
     padding: 5px;
 }
 
-#mkwsResults div.details, #mkwsShiftedTermlists div.details {
+#mkwsResults div.details,
+#mkwsShiftedTermlists div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: darkgray;
@@ -155,13 +162,15 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsResults div.details th, #mkwsShiftedTermlists div.details th {
+#mkwsResults div.details th,
+#mkwsShiftedTermlists div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsResults div.details th:after, #mkwsShiftedTermlists div.details th:after {
+#mkwsResults div.details th:after,
+#mkwsShiftedTermlists div.details th:after {
     content: ":";
 }
 
