@@ -121,7 +121,7 @@ function my_onshow(data) {
                      + data.total + ')</div>';
     drawPager(pager);
     // navi
-    var results = document.getElementById("mkwsResults");
+    var results = document.getElementById("mkwsRecords");
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
@@ -246,8 +246,10 @@ function domReady ()
 {
     document.mkwsSearchForm.onsubmit = onFormSubmitEventHandler;
     document.mkwsSearchForm.mkwsQuery.value = '';
-    document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
-    document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
+    if (document.mkwsSelect) {
+	document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
+	document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
+    }
 }
 
 // when search button pressed
@@ -283,8 +285,10 @@ function triggerSearch ()
 
 function loadSelect ()
 {
-    curSort = document.mkwsSelect.mkwsSort.value;
-    recPerPage = document.mkwsSelect.mkwsPerpage.value;
+    if (document.mkwsSelect) {
+	curSort = document.mkwsSelect.mkwsSort.value;
+	recPerPage = document.mkwsSelect.mkwsPerpage.value;
+    }
 }
 
 // limit the query after clicking the facet
@@ -386,28 +390,28 @@ function pagerPrev() {
         curPage--;
 }
 
-// swithing view between targets and records
+// switching view between targets and records
 
 function switchView(view) {
 
     var targets = document.getElementById('mkwsTargets');
-    var records = document.getElementById('mkwsRecords');
+    var records = document.getElementById('mkwsResults');
     var blanket = document.getElementById('mkwsBlanket');
 
     switch(view) {
         case 'targets':
             targets.style.display = "block";
-            records.style.display = "none";
+            if (records) records.style.display = "none";
             if (blanket) { blanket.style.display = "none"; }
             break;
         case 'records':
             targets.style.display = "none";
-            records.style.display = "block";
+            if (records) records.style.display = "block";
             if (blanket) { blanket.style.display = "block"; }
             break;
 	case 'none':
             targets.style.display = "none";
-            records.style.display = "none";
+            if (records) records.style.display = "none";
             if (blanket) { blanket.style.display = "none"; }
             break;
         default:
@@ -546,26 +550,39 @@ function mkws_html_all(config) {
     </form>');
 
     debug("HTML records");
-    $("#mkwsRecords").html('\
+    // If the application has an #mkwsResults, populate it in the
+    // usual way. If not, assume that it's a smarter application that
+    // defines its own subcomponents:
+    //	#mkwsTermlists
+    //	#mkwsRanking
+    //	#mkwsPager
+    //	#mkwsNavi
+    //	#mkwsRecords
+    if ($("#mkwsResults").length) {
+	$("#mkwsResults").html('\
       <table width="100%" border="0" cellpadding="6" cellspacing="0">\
         <tr>\
           <td width="250" valign="top">\
             <div id="mkwsTermlists"></div>\
           </td>\
           <td valign="top">\
-            <div id="mkwsRanking">\
+            <div id="mkwsRanking"></div>\
+            <div id="mkwsPager"></div>\
+            <div id="mkwsNavi"></div>\
+            <div id="mkwsRecords"></div>\
+          </td>\
+        </tr>\
+      </table>');
+    }
+
+    if ($("#mkwsRanking").length == 2) {
+	$("#mkwsRanking").html('\
               <form name="mkwsSelect" id="mkwsSelect" action="" >\
         ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
         ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
         ' + M('per page') + '.\
-       </form>\
-            </div>\
-            <div id="mkwsPager"></div>\
-            <div id="mkwsNavi"></div>\
-            <div id="mkwsResults"></div>\
-          </td>\
-        </tr>\
-      </table>');
+       </form>');
+    }
 
     mkws_html_switch(config);
 
@@ -792,7 +809,7 @@ jQuery.extend({
 	document.write('<div id="mkwsSwitch"></div>\
     <div id="mkwsLang"></div>\
     <div id="mkwsSearch"></div>\
-    <div id="mkwsRecords"></div>\
+    <div id="mkwsResults"></div>\
     <div id="mkwsTargets"></div>\
     <div id="mkwsFooter">\
       <div id="mkwsStat"></div>\
