@@ -244,8 +244,8 @@ function my_onbytarget(data) {
 // wait until the DOM is ready
 function domReady ()
 {
-    document.search.onsubmit = onFormSubmitEventHandler;
-    document.search.mkwsQuery.value = '';
+    document.mkwsSearchForm.onsubmit = onFormSubmitEventHandler;
+    document.mkwsSearchForm.mkwsQuery.value = '';
     document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
     document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
 }
@@ -278,7 +278,7 @@ function resetPage()
 
 function triggerSearch ()
 {
-    my_paz.search(document.search.mkwsQuery.value, recPerPage, curSort, curFilter);
+    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, curFilter);
 }
 
 function loadSelect ()
@@ -290,7 +290,7 @@ function loadSelect ()
 // limit the query after clicking the facet
 function limitQuery (field, value)
 {
-    document.search.query.value += ' and ' + field + '="' + value + '"';
+    document.mkwsSearchForm.query.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
 
@@ -537,10 +537,10 @@ function mkws_html_all(config) {
 	mkws_html_lang(mkws_config);
 
     // For some reason, doing this programmatically results in
-    // document.search.mkwsQuery being undefined, hence the raw HTML.
+    // document.mkwsSearchForm.mkwsQuery being undefined, hence the raw HTML.
     debug("HTML search form");
     $("#mkwsSearch").html('\
-    <form name="search" action="" >\
+    <form name="mkwsSearchForm" action="" >\
       <input id="mkwsQuery" type="text" size="' + mkws_config.query_width + '" />\
       <input id="mkwsButton" type="submit" value="' + M('Search') + '" />\
     </form>');
