@@ -71,12 +71,12 @@ You can configure and control the client with the JavaScript mkws_config object.
 Here is an example of all possible options
     <script type="text/javascript">
         var mkws_config = {
-                use_service_proxy: false,   /* true, flase */
+                use_service_proxy: false,   /* true, flase: use service proxy instead pazpar2 */
 		switch_menu: true, 	    /* true, false: show/hide Records|Targets menu */
 		lang_menu: true, 	    /* true, false: show/hide language menu */
-		sort_menu: true, 	    /* show/hide perpage menu */
-		perpage_menu: true, 	    /* show/hide language menu */
-	        lang_display: ["en", "de", "da"], /* display languages links for given 
+		sort_menu: true, 	    /* true, false: show/hide sort menu */
+		perpage_menu: true, 	    /* true, false: show/hide perpage menu */
+	        lang_display: ["en", "de", "da"], /* display languages links for given
 				                     languages, [] for all */
 		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
                 sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
@@ -126,4 +126,3 @@ What next?
 Main areas of work:
 * Make MKWS robust to missing widgets
 * Clean up the code
-
