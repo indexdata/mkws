@@ -509,18 +509,18 @@ function mkws_html_all(config) {
 	lang_menu: true, 	/* show/hide language menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: 980, /* a page with less pixel width considered as mobile */	
+	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
 
-	debug: 0,     /* debug level for development: 0..2 */
+	debug: 1,     /* debug level for development: 0..2 */
 
 
 	dummy: "dummy"
     };
 
     /* set global debug flag early */
-    if (config.debug !== 'undefined') {
+    if (typeof config.debug !== 'undefined') {
 	mkws_debug = config.debug;
-    } else if (mkws_config_default.debug !== 'undefined') {
+    } else if (typeof mkws_config_default.debug !== 'undefined') {
 	mkws_debug = mkws_config_default.debug;
     }
 
