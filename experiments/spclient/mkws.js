@@ -397,7 +397,6 @@ function pagerPrev() {
 // switching view between targets and records
 
 function switchView(view) {
-
     var targets = document.getElementById('mkwsTargets');
     var records = document.getElementById('mkwsResults');
     var blanket = document.getElementById('mkwsBlanket');
