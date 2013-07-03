@@ -77,7 +77,7 @@
     text-decoration: underline;
 }
 
-#mkwsResults a.crossout:hover, #mkwsShiftedTermlists a.crossout:hover #mkwsResults a.crossout:hover {
+#mkwsNavi a.crossout:hover {
     text-decoration: line-through;
 }
 
