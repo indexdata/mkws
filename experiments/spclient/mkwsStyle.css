@@ -73,7 +73,10 @@
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsResults a:hover, #mkwsShiftedTermlists a:hover {
+#mkwsSwitch a:hover,
+#mkwsLang a:hover,
+#mkwsResults a:hover,
+#mkwsShiftedTermlists a:hover {
     text-decoration: underline;
 }
 
