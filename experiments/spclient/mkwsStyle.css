@@ -75,7 +75,9 @@
 
 #mkwsSwitch a:hover,
 #mkwsLang a:hover,
-#mkwsResults a:hover,
+#mkwsTermlists a:hover,
+#mkwsPager a:hover,
+#mkwsRecords a:hover,
 #mkwsShiftedTermlists a:hover {
     text-decoration: underline;
 }
