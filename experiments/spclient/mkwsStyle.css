@@ -106,11 +106,6 @@
     background: #f0f8ff;
 }
 
-#mkwsResults hr,
-#mkwsShiftedTermlists hr {
-    display: none;
-}
-
 #mkwsTermlists .title,
 #mkwsShiftedTermlists .title {
     font-size: large;
