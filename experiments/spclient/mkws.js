@@ -247,8 +247,10 @@ function domReady ()
     document.mkwsSearchForm.onsubmit = onFormSubmitEventHandler;
     document.mkwsSearchForm.mkwsQuery.value = '';
     if (document.mkwsSelect) {
-	document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
-	document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
+	if (document.mkwsSelect.mkwsSort)
+	    document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
+	if (document.mkwsSelect.mkwsPerpage)
+	    document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
     }
 }
 
@@ -506,7 +508,9 @@ function mkws_html_all(config) {
 	perpage_default: 20,
 	query_width: 50,
 	switch_menu: true, 	/* show/hide Records|Targets menu */
-	lang_menu: true, 	/* show/hide language menu */
+	lang_menu: true, 	/* show/hide sort menu */
+	sort_menu: true, 	/* show/hide perpage menu */
+	perpage_menu: true, 	/* show/hide language menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
@@ -574,12 +578,17 @@ function mkws_html_all(config) {
     }
 
     if ($("#mkwsRanking").length) {
-	$("#mkwsRanking").html('\
-              <form name="mkwsSelect" id="mkwsSelect" action="" >\
-        ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
-        ' + M('and show') + ' ' + mkws_html_perpage(config) + '\
-        ' + M('per page') + '.\
-       </form>');
+	var ranking_data = '';
+	ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
+	if (config.sort_menu) {
+	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort(config) + ' ';
+	}
+	if (config.perpage_menu) {
+	    ranking_data += M('and show') + ' ' + mkws_html_perpage(config) + ' ' + M('per page') + '.';
+	}
+        ranking_data += '</form>';
+
+	$("#mkwsRanking").html(ranking_data);
     }
 
     mkws_html_switch(config);
