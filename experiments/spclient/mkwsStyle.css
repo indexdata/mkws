@@ -1,4 +1,6 @@
-#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsResults, #mkwsTargets, #mkwsStat, #mkwsShiftedTermlists {
+#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsTermlists, #mkwsRanking,
+#mkwsPager, #mkwsNavi, #mkwsRecords, #mkwsTargets, #mkwsStat,
+#mkwsShiftedTermlists {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
@@ -26,11 +28,6 @@
     float: right;
     padding-left: 1em;
     padding-top: 0.4em;
-}
-
-#mkwsResults, #mkwsShiftedTermlists {
-    clear: both;
-    background-color: #fafafa;
 }
 
 #mkwsTargets {
