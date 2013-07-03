@@ -1,4 +1,4 @@
-#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsRecords, #mkwsTargets, #mkwsStat, #mkwsShiftedTermlists {
+#mkwsLang, #mkwsSwitch, #mkwsSearch, #mkwsResults, #mkwsTargets, #mkwsStat, #mkwsShiftedTermlists {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
@@ -28,7 +28,7 @@
     padding-top: 0.4em;
 }
 
-#mkwsRecords, #mkwsShiftedTermlists {
+#mkwsResults, #mkwsShiftedTermlists {
     clear: both;
     background-color: #fafafa;
 }
@@ -56,16 +56,16 @@
     content: "Retrieved records: ";
 }
 
-#mkwsSwitch a, #mkwsLang a, #mkwsRecords a, #mkwsShiftedTermlists a {
+#mkwsSwitch a, #mkwsLang a, #mkwsResults a, #mkwsShiftedTermlists a {
     color: #005701;
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsRecords a:hover, #mkwsShiftedTermlists a:hover {
+#mkwsSwitch a:hover, #mkwsLang a:hover, #mkwsResults a:hover, #mkwsShiftedTermlists a:hover {
     text-decoration: underline;
 }
 
-#mkwsRecords a.crossout:hover, #mkwsShiftedTermlists a.crossout:hover #mkwsRecords a.crossout:hover {
+#mkwsResults a.crossout:hover, #mkwsShiftedTermlists a.crossout:hover #mkwsResults a.crossout:hover {
     text-decoration: line-through;
 }
 
@@ -89,7 +89,7 @@
     background: #f0f8ff;
 }
 
-#mkwsRecords hr, #mkwsShiftedTermlists hr {
+#mkwsResults hr, #mkwsShiftedTermlists hr {
     display: none;
 }
 
@@ -123,11 +123,11 @@
     font-weight: bold;
 }
 
-#mkwsRecords div.record, #mkwsShiftedTermlists div.record {
+#mkwsResults div.record, #mkwsShiftedTermlists div.record {
     padding: 5px;
 }
 
-#mkwsRecords div.details, #mkwsShiftedTermlists div.details {
+#mkwsResults div.details, #mkwsShiftedTermlists div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: darkgray;
@@ -140,13 +140,13 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.details th, #mkwsShiftedTermlists div.details th {
+#mkwsResults div.details th, #mkwsShiftedTermlists div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsRecords div.details th:after, #mkwsShiftedTermlists div.details th:after {
+#mkwsResults div.details th:after, #mkwsShiftedTermlists div.details th:after {
     content: ":";
 }
 
