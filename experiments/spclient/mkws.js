@@ -508,9 +508,9 @@ function mkws_html_all(config) {
 	perpage_default: 20,
 	query_width: 50,
 	switch_menu: true, 	/* show/hide Records|Targets menu */
-	lang_menu: true, 	/* show/hide sort menu */
-	sort_menu: true, 	/* show/hide perpage menu */
-	perpage_menu: true, 	/* show/hide language menu */
+	lang_menu: true, 	/* show/hide language menu */
+	sort_menu: true, 	/* show/hide sort menu */
+	perpage_menu: true, 	/* show/hide perpage menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
