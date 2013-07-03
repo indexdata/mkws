@@ -573,7 +573,7 @@ function mkws_html_all(config) {
       </table>');
     }
 
-    if ($("#mkwsRanking").length == 2) {
+    if ($("#mkwsRanking").length) {
 	$("#mkwsRanking").html('\
               <form name="mkwsSelect" id="mkwsSelect" action="" >\
         ' + M('Sort by') + ' ' + mkws_html_sort(config) + '\
