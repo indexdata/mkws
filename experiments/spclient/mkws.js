@@ -510,9 +510,7 @@ function mkws_html_all(config) {
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
-
 	debug: 1,     /* debug level for development: 0..2 */
-
 
 	dummy: "dummy"
     };
