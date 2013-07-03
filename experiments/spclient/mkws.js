@@ -288,8 +288,10 @@ function triggerSearch ()
 function loadSelect ()
 {
     if (document.mkwsSelect) {
-	curSort = document.mkwsSelect.mkwsSort.value;
-	recPerPage = document.mkwsSelect.mkwsPerpage.value;
+	if (document.mkwsSelect.mkwsSort)
+	    curSort = document.mkwsSelect.mkwsSort.value;
+	if (document.mkwsSelect.mkwsPerpage)
+	    recPerPage = document.mkwsSelect.mkwsPerpage.value;
     }
 }
 
