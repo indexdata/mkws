@@ -90,6 +90,7 @@ Here is an example of all possible options
          };
     </script>
 
+Note: the mkws_config object which must be loaded before the mkws.js and pz2api.js files.
 
 Supported Browsers
 ------------------
