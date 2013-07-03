@@ -140,13 +140,12 @@
     font-weight: bold;
 }
 
-#mkwsResults div.record,
+#mkwsRecords div.record,
 #mkwsShiftedTermlists div.record {
     padding: 5px;
 }
 
-#mkwsResults div.details,
-#mkwsShiftedTermlists div.details {
+#mkwsRecords div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: darkgray;
@@ -159,14 +158,14 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsResults div.details th,
+#mkwsRecords div.details th,
 #mkwsShiftedTermlists div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsResults div.details th:after,
+#mkwsRecords div.details th:after,
 #mkwsShiftedTermlists div.details th:after {
     content: ":";
 }
