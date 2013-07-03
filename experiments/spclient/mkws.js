@@ -115,7 +115,7 @@ function my_onshow(data) {
     // move it out
     var pager = document.getElementById("mkwsPager");
     pager.innerHTML = "";
-    pager.innerHTML +='<hr/><div style="float: right">' + M('Displaying') + ': '
+    pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
                     + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
                      ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
                      + data.total + ')</div>';
@@ -309,7 +309,6 @@ function limitTarget (id, name)
     navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="delimitTarget();return false;">'
         + name + '</a>';
-    navi.innerHTML += '<hr/>';
     curFilter = 'pz:id=' + id;
     resetPage();
     loadSelect();
@@ -371,7 +370,7 @@ function drawPager (pagerDiv)
         postdots = '...';
 
     pagerDiv.innerHTML += '<div style="float: clear">'
-        + prev + predots + middle + postdots + next + '</div><hr/>';
+        + prev + predots + middle + postdots + next + '</div>';
 }
 
 function showPage (pageNum)
@@ -781,7 +780,7 @@ function mkws_mobile_resize () {
 
 	$("#mkwsTermlists").parent().hide();
 	obj = $("#mkwsTermlists").parent().html();
-        $("#mkwsShiftedTermlists").html("<hr/>" + obj);
+        $("#mkwsShiftedTermlists").html(obj);
     } else {
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
