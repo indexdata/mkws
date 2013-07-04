@@ -6,32 +6,36 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="mkws.js"></script>
+    <style type="text/css">
+      #mkwsTermlists div.facet {
+      float:left;
+      max-width: 300px;
+      margin: 0.3em;
+      }
+    </style>
   </head>
   <body>
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
-      <table width="100%" border="0" cellpadding="6" cellspacing="0">
-        <tr>
-          <td colspan="2">
-            <div id="mkwsPager"></div>
-	  </td>
-        </tr>
-        <tr>
-          <td valign="top">
-            <div id="mkwsNavi"></div>
-            <div id="mkwsRecords" style="background: #f0f8ff"></div>
-          </td>
-          <td width="250" valign="top">
-            <div id="mkwsTermlists"></div>
-          </td>
-        </tr>
-	<tr>
-	  <td colspan="2">
-            <div id="mkwsRanking"></div>
-	  </td>
-	</tr>
-      </table>
+    <table width="100%" border="1" style="clear:both">
+      <tr>
+        <td style="height:500px" valign="top">
+	  top
+          <div id="mkwsPager"></div>
+          <div id="mkwsNavi"></div>
+          <div id="mkwsRecords" style="background: #f0f8ff"></div>
+          <div id="mkwsRanking"></div>
+	  bottom
+	</td>
+      </tr>
+      <tr>
+        <td style="height:300px" valign="top">
+	  second
+          <div id="mkwsTermlists"></div>
+        </td>
+      </tr>
+    </table>
     <div id="mkwsTargets"></div>
     <div id="mkwsStat"></div>
   </body>
