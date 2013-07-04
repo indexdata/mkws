@@ -9,34 +9,43 @@
     <style type="text/css">
       #mkwsTermlists div.facet {
       float:left;
-      max-width: 300px;
+      width: 30%;
       margin: 0.3em;
       }
     </style>
   </head>
   <body>
-    <div id="mkwsSwitch"></div>
-    <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
-    <table width="100%" border="1" style="clear:both">
+    <table width="100%" border="0">
       <tr>
-        <td style="height:500px" valign="top">
-	  top
-          <div id="mkwsPager"></div>
-          <div id="mkwsNavi"></div>
-          <div id="mkwsRecords" style="background: #f0f8ff"></div>
-          <div id="mkwsRanking"></div>
-	  bottom
-	</td>
+        <td>
+          <div id="mkwsSwitch"></div>
+          <div id="mkwsLang"></div>
+          <div id="mkwsSearch"></div>
+        </td>
       </tr>
       <tr>
-        <td style="height:300px" valign="top">
-	  second
-          <div id="mkwsTermlists"></div>
+        <td>
+          <div style="height:500px; overflow: auto">
+            <div id="mkwsPager"></div>
+            <div id="mkwsNavi"></div>
+            <div id="mkwsRecords"></div>
+            <div id="mkwsTargets"></div>
+            <div id="mkwsRanking"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="height:300px; overflow: hidden">
+            <div id="mkwsTermlists"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="mkwsStat"></div>
         </td>
       </tr>
     </table>
-    <div id="mkwsTargets"></div>
-    <div id="mkwsStat"></div>
   </body>
 </html>
