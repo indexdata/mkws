@@ -160,12 +160,12 @@ function my_onstat(data) {
 function my_onterm(data) {
     // no facets
     if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	$("#mkwsTermlists").parent().hide();
+	$("#mkwsTermlists").hide();
 	return;
     }
 
     // display if we first got results
-    $("#mkwsTermlists").parent().show();
+    $("#mkwsTermlists").show();
 
     var acc = [];
     acc.push('<div class="title">' + M('Termlists') + '</div>');
@@ -602,7 +602,7 @@ function mkws_html_all(config) {
     domReady();
 
     // on first page, hide the termlist
-    $(document).ready(function() { $("#mkwsTermlists").parent().hide(); } );
+    $(document).ready(function() { $("#mkwsTermlists").hide(); } );
 }
 
 /* Responsive web design - change layout on the fly depending on
@@ -778,14 +778,14 @@ function mkws_mobile_resize () {
 	    $("#" + list[i]).hide();
 	}
 
-	$("#mkwsTermlists").parent().hide();
-	obj = $("#mkwsTermlists").parent().html();
+	$("#mkwsTermlists").hide();
+	obj = $("#mkwsTermlists").html();
         $("#mkwsShiftedTermlists").html(obj);
     } else {
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
 	}
-	$("#mkwsTermlists").parent().show();
+	$("#mkwsTermlists").show();
 	$("#mkwsShiftedTermlists").html("");
     }
 };
