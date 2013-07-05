@@ -16,7 +16,8 @@ if (!mkws_config)
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
-var mkws_debug = 1;
+// global debug flag
+var mkws_debug;
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
