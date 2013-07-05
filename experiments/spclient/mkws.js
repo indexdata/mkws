@@ -398,36 +398,24 @@ function pagerPrev() {
 
 function switchView(view) {
     var targets = document.getElementById('mkwsTargets');
-    var results = document.getElementById('mkwsResults');
-    var records = document.getElementById('mkwsRecords');
+    var results = document.getElementById('mkwsResults') ||
+	          document.getElementById('mkwsRecords');
     var blanket = document.getElementById('mkwsBlanket');
 
     switch(view) {
         case 'targets':
             if (targets) targets.style.display = "block";
-            if (results) {
-		results.style.display = "none";
-	    } else {
-		records.style.display = "none";
-	    }
+            if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
             break;
         case 'records':
             if (targets) targets.style.display = "none";
-            if (results) {
-		results.style.display = "block";
-	    } else {
-		records.style.display = "block";
-	    }
+            if (results) results.style.display = "block";
             if (blanket) blanket.style.display = "block";
             break;
 	case 'none':
             if (targets) targets.style.display = "none";
-            if (results) {
-		results.style.display = "none";
-	    } else {
-		records.style.display = "none";
-	    }
+            if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
             break;
         default:
