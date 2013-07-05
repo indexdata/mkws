@@ -405,17 +405,17 @@ function switchView(view) {
         case 'targets':
             if (targets) targets.style.display = "block";
             if (results) results.style.display = "none";
-            if (blanket) { blanket.style.display = "none"; }
+            if (blanket) blanket.style.display = "none";
             break;
         case 'results':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "block";
-            if (blanket) { blanket.style.display = "block"; }
+            if (blanket) blanket.style.display = "block";
             break;
 	case 'none':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "none";
-            if (blanket) { blanket.style.display = "none"; }
+            if (blanket) blanket.style.display = "none";
             break;
         default:
             alert('Unknown view.');
