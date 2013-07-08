@@ -413,22 +413,26 @@ function switchView(view) {
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
     var blanket = document.getElementById('mkwsBlanket');
+    var motd    = document.getElementById('mkwsEmbeddedMOTD');
 
     switch(view) {
         case 'targets':
             if (targets) targets.style.display = "block";
             if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
+            if (motd) motd.style.display = "none";
             break;
         case 'records':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "block";
             if (blanket) blanket.style.display = "block";
+            if (motd) motd.style.display = "none";
             break;
 	case 'none':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
+            if (motd) motd.style.display = "none";
             break;
         default:
             alert("Unknown view '" + view + "'");
@@ -586,6 +590,7 @@ function mkws_html_all(config) {
             <div id="mkwsPager"></div>\
             <div id="mkwsNavi"></div>\
             <div id="mkwsRecords"></div>\
+            <div id="mkwsEmbeddedMOTD"></div>\
           </td>\
         </tr>\
       </table>');
@@ -617,6 +622,12 @@ function mkws_html_all(config) {
 
     // on first page, hide the termlist
     $(document).ready(function() { $("#mkwsTermlists").hide(); } );
+    var elem = document.getElementById("mkwsMOTD");
+    if (elem) {
+	// Move the MOTD from the provided element down into the embedded one
+	document.getElementById("mkwsEmbeddedMOTD").innerHTML = elem.innerHTML;
+        elem.style.display = "none";
+    }
 }
 
 /* Responsive web design - change layout on the fly depending on
