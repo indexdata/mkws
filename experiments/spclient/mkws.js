@@ -653,13 +653,13 @@ function mkws_html_switch(config) {
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
-	text: "Records"
+	text: M("Records")
     }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'targets\')",
-	text: "Targets"
+	text: M("Targets")
     }));
 
     debug("HTML targets");
