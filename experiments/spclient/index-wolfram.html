@@ -1,0 +1,82 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MKWS demo: Mike's playground</title>
+    <link rel="stylesheet" href="mkwsStyle.css" />
+    <script type="text/javascript">
+      var mkws_config = {
+	  switch_menu: true,
+	  language_Arabic: {
+	      "Authors": "الكتاب",
+	      "Subjects": "المواضيع",
+	      "Sources": "مصادر",
+	      "Termlists": "العضو الأجل",
+	      "Next": "التالي",
+	      "Prev": "السابق",
+	      "Search": "بحث",
+	      "Sort by": "الترتيب حسب",
+	      "and show": "وعرض",
+	      "per page": "في كل صفحة",
+	      "Displaying": "عرض",
+	      "to": "إلى",
+	      "of": "من",
+	      "found": "أسس",
+	      "Title": "لقب",
+	      "Author": "الكاتب",
+	      "Date": "تاريخ",
+	      "Subject": "موضوع",
+	      "Location": "موقع",
+	      "Records": "أهداف",
+	      "Targets": "السجلات"
+	  }
+      };
+    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="mkws.js"></script>
+    <style type="text/css">
+      #mkwsTermlists div.facet {
+      float:left;
+      width: 30%;
+      margin: 0.3em;
+      }
+      #mkwsStat {
+      text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <table width="100%" border="0">
+      <tr>
+        <td>
+          <div id="mkwsSwitch"></div>
+          <div id="mkwsLang"></div>
+          <div id="mkwsSearch"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="height:500px; overflow: auto">
+            <div id="mkwsPager"></div>
+            <div id="mkwsNavi"></div>
+            <div id="mkwsRecords"></div>
+            <div id="mkwsTargets"></div>
+            <div id="mkwsRanking"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="height:300px; overflow: hidden">
+            <div id="mkwsTermlists"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="mkwsStat"></div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
