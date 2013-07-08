@@ -398,27 +398,28 @@ function pagerPrev() {
 
 function switchView(view) {
     var targets = document.getElementById('mkwsTargets');
-    var records = document.getElementById('mkwsResults');
+    var results = document.getElementById('mkwsResults') ||
+	          document.getElementById('mkwsRecords');
     var blanket = document.getElementById('mkwsBlanket');
 
     switch(view) {
         case 'targets':
-            targets.style.display = "block";
-            if (records) records.style.display = "none";
-            if (blanket) { blanket.style.display = "none"; }
+            if (targets) targets.style.display = "block";
+            if (results) results.style.display = "none";
+            if (blanket) blanket.style.display = "none";
             break;
         case 'records':
-            targets.style.display = "none";
-            if (records) records.style.display = "block";
-            if (blanket) { blanket.style.display = "block"; }
+            if (targets) targets.style.display = "none";
+            if (results) results.style.display = "block";
+            if (blanket) blanket.style.display = "block";
             break;
 	case 'none':
-            targets.style.display = "none";
-            if (records) records.style.display = "none";
-            if (blanket) { blanket.style.display = "none"; }
+            if (targets) targets.style.display = "none";
+            if (results) results.style.display = "none";
+            if (blanket) blanket.style.display = "none";
             break;
         default:
-            alert('Unknown view.');
+            alert("Unknown view '" + view + "'");
     }
 }
 
