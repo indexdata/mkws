@@ -8,7 +8,8 @@
 #mkwsRecords,
 #mkwsTargets,
 #mkwsStat,
-#mkwsShiftedTermlists {
+#mkwsShiftedTermlists,
+#mkwsEmbeddedMOTD {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
