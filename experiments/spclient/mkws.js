@@ -76,6 +76,18 @@ var mkws_locale_lang = {
     }
 };
 
+
+for (var key in mkws_config) {
+    if (mkws_config.hasOwnProperty(key)) {
+	if (key.match(/^language_/)) {
+	    var lang = key.replace(/^language_/, "");
+	    // Copy custom languages into list
+	    mkws_locale_lang[lang] = mkws_config[key];
+	}
+    }
+}
+
+
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
