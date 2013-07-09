@@ -5,12 +5,12 @@
     ServerName spclient.example.com
     ServerAlias spclient-dev.indexdata.com
     ServerAdmin webmaster@example.com
-    ErrorLog /var/log/apache2/spdemo-error.log
-    CustomLog /var/log/apache2/spdemo-access.log combined
+    ErrorLog /var/log/apache2/mkws-dev-error.log
+    CustomLog /var/log/apache2/mkws-dev-access.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog /var/log/apache2/spdemo-rewrite.log 
+    RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
 
     DocumentRoot /home/indexdata/mkws/experiments/spclient
 
