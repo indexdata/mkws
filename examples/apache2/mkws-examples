@@ -1,0 +1,6 @@
+<VirtualHost *:80>
+    ServerName example.indexdata.com
+    DocumentRoot /home/indexdata/mkws/examples/htdocs/
+    ErrorLog /var/log/apache2/mkws-examples-error.log
+    CustomLog /var/log/apache2/mkws-examples-access.log combined
+</VirtualHost>
