@@ -12,7 +12,7 @@ The goal is to make it that as much of the searching functionality as
 possible is hosted on
 	http://mkws.indexdata.com/
 so that very simple websites such as
-	http://somesite.indexdata.com/
+	http://example.indexdata.com/
 can have MasterKey searching with minimal effort.
 
 The following files must be hosted on mkws.indexdata.com:

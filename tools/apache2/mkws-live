@@ -1,24 +1,14 @@
 # Configuration for the apache web server
 # Running on caliban
 
-
-<VirtualHost *:80>
-    ServerName somesite.indexdata.com
-    DocumentRoot /home/indexdata/mkws/experiments/spclient/
-    ErrorLog /var/log/apache2/somesite-error.log
-    CustomLog /var/log/apache2/somesite-access.log combined
-</VirtualHost>
-
-
 <VirtualHost *:80>
     ServerName mkws.indexdata.com
 
     ErrorLog /var/log/apache2/mkws-error.log
     CustomLog /var/log/apache2/mkws-access.log combined
 
-    DocumentRoot /home/indexdata/mkws/experiments/spclient/
+    DocumentRoot /home/indexdata/mkws/tools/htdocs
     Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
-    Alias /index.html /home/indexdata/mkws/experiments/spclient/index-mkws.html
 
     RewriteEngine on
     RewriteLogLevel 1
@@ -32,7 +22,7 @@
     ProxyPassReverse /service-proxy/ http://mk2-test.indexdata.com/service-proxy/
 
     PerlOptions +Parent
-    PerlSwitches -I/home/indexdata/mkws/etc/mod_perl
+    PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
     <Location /service-proxy>
         PerlOutputFilterHandler MyApache2::SetACAO
     </Location>

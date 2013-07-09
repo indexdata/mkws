@@ -1,5 +1,5 @@
 <VirtualHost *:80>
-    ServerName mkws.indexdata.com
+    ServerName example.indexdata.com
 
     ProxyRequests off
     ProxyVia On
@@ -13,6 +13,6 @@
     ProxyPassReverse  / http://caliban:80/
 
     # These are the logs for the proxying operation
-    ErrorLog /var/log/apache2/mkws-proxy-error.log
-    CustomLog /var/log/apache2/mkws-proxy-access.log combined
+    ErrorLog /var/log/apache2/mkws-examples-proxy-error.log
+    CustomLog /var/log/apache2/mkws-examples-proxy-access.log combined
 </VirtualHost>

@@ -2,11 +2,11 @@
 # Running on Mike's local development box
 
 <VirtualHost *:80>
-    ServerName x.spclient.indexdata.com
-    ErrorLog /var/log/apache2/spclient-error.log
-    CustomLog /var/log/apache2/spclient-access.log combined
+    ServerName x.mkws.indexdata.com
+    ErrorLog /var/log/apache2/mkws-error.log
+    CustomLog /var/log/apache2/mkws-access.log combined
 
-    DocumentRoot /usr/local/src/git/mkws/experiments/spclient/
+    DocumentRoot /usr/local/src/git/mkws/tools/htdocs
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
 
     RewriteEngine on
