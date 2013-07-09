@@ -413,7 +413,7 @@ function switchView(view) {
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
     var blanket = document.getElementById('mkwsBlanket');
-    var motd    = document.getElementById('mkwsEmbeddedMOTD');
+    var motd    = document.getElementById('mkwsMOTD');
 
     switch(view) {
         case 'targets':
@@ -585,12 +585,11 @@ function mkws_html_all(config) {
           <td width="250" valign="top">\
             <div id="mkwsTermlists"></div>\
           </td>\
-          <td valign="top">\
+          <td id="mkwsMOTDContainer" valign="top">\
             <div id="mkwsRanking"></div>\
             <div id="mkwsPager"></div>\
             <div id="mkwsNavi"></div>\
             <div id="mkwsRecords"></div>\
-            <div id="mkwsEmbeddedMOTD"></div>\
           </td>\
         </tr>\
       </table>');
@@ -622,11 +621,12 @@ function mkws_html_all(config) {
 
     // on first page, hide the termlist
     $(document).ready(function() { $("#mkwsTermlists").hide(); } );
-    var elem = document.getElementById("mkwsMOTD");
-    if (elem) {
-	// Move the MOTD from the provided element down into the embedded one
-	document.getElementById("mkwsEmbeddedMOTD").innerHTML = elem.innerHTML;
-        elem.style.display = "none";
+    var motd = document.getElementById("mkwsMOTD");
+    var container = document.getElementById("mkwsMOTDContainer");
+    if (motd && container) {
+	// Move the MOTD from the provided element down into the container
+        motd.parentNode.removeChild(motd);
+	container.appendChild(motd);
     }
 }
 
