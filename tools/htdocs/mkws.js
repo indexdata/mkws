@@ -617,13 +617,7 @@ function mkws_html_all(config) {
     if (mkws_config.responsive_design) {
 	// Responsive web design - change layout on the fly based on
 	// current screen width. Required for mobile devices.
-	var timeout = null;
-	$(window).resize( function(e) {
-	    if (timeout)
-		clearTimeout(timeout);
-	    timeout = setTimeout(function () { mkws_mobile_resize() }, 50);
-	});
-
+	$(window).resize( function(e) { mkws_mobile_resize() });
 	// initial check after page load
 	$(document).ready(function() { mkws_mobile_resize() });
     }
