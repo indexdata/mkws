@@ -614,8 +614,19 @@ function mkws_html_all(config) {
     if (mkws_config.use_service_proxy)
 	mkws_service_proxy_auth(config.service_proxy_auth);
 
-    if (mkws_config.responsive_design)
-	mkws_responsive_design();
+    if (mkws_config.responsive_design) {
+	// Responsive web design - change layout on the fly based on
+	// current screen width. Required for mobile devices.
+	var timeout = null;
+	$(window).resize( function(e) {
+	    if (timeout)
+		clearTimeout(timeout);
+	    timeout = setTimeout(function () { mkws_mobile_resize() }, 50);
+	});
+
+	// initial check after page load
+	$(document).ready(function() { mkws_mobile_resize() });
+    }
 
     domReady();
 
@@ -628,22 +639,6 @@ function mkws_html_all(config) {
         motd.parentNode.removeChild(motd);
 	container.appendChild(motd);
     }
-}
-
-/* Responsive web design - change layout on the fly depending on
- * the current screen size width/height. Required for mobile devices.
- */
-function mkws_responsive_design () {
-    var timeout = null;
-
-    $(window).resize( function(e) {
-	if (timeout)
-	    clearTimeout(timeout);
-	timeout = setTimeout(function () { mkws_mobile_resize() }, 50);
-    });
-
-    // initial check after page load
-    $(document).ready(function() { mkws_mobile_resize() });
 }
 
 function mkws_set_lang(mkws_config)  {
