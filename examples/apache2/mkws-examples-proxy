@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+    ServerName example.indexdata.com
+
+    ProxyRequests off
+    ProxyVia On
+    ProxyPreserveHost On
+    <Proxy *>
+      Order deny,allow
+      Allow from all
+    </Proxy>
+
+    ProxyPass         / http://caliban:80/
+    ProxyPassReverse  / http://caliban:80/
+
+    # These are the logs for the proxying operation
+    ErrorLog /var/log/apache2/mkws-examples-proxy-error.log
+    CustomLog /var/log/apache2/mkws-examples-proxy-access.log combined
+</VirtualHost>
