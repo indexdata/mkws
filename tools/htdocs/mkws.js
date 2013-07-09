@@ -199,6 +199,7 @@ function my_onterm(data) {
     var termlist = document.getElementById("mkwsTermlists");
     replaceHtml(termlist, acc.join(''));
 
+    // ### I don't believe these lines should be necessary (but they are)
     if (mkws_config.responsive_design)
         mkws_mobile_resize();
 }
