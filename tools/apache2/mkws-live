@@ -1,15 +1,6 @@
 # Configuration for the apache web server
 # Running on caliban
 
-
-<VirtualHost *:80>
-    ServerName somesite.indexdata.com
-    DocumentRoot /home/indexdata/mkws/experiments/spclient/
-    ErrorLog /var/log/apache2/somesite-error.log
-    CustomLog /var/log/apache2/somesite-access.log combined
-</VirtualHost>
-
-
 <VirtualHost *:80>
     ServerName mkws.indexdata.com
 
