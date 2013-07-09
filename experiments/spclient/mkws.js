@@ -76,6 +76,18 @@ var mkws_locale_lang = {
     }
 };
 
+
+for (var key in mkws_config) {
+    if (mkws_config.hasOwnProperty(key)) {
+	if (key.match(/^language_/)) {
+	    var lang = key.replace(/^language_/, "");
+	    // Copy custom languages into list
+	    mkws_locale_lang[lang] = mkws_config[key];
+	}
+    }
+}
+
+
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
@@ -401,22 +413,26 @@ function switchView(view) {
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
     var blanket = document.getElementById('mkwsBlanket');
+    var motd    = document.getElementById('mkwsEmbeddedMOTD');
 
     switch(view) {
         case 'targets':
             if (targets) targets.style.display = "block";
             if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
+            if (motd) motd.style.display = "none";
             break;
         case 'records':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "block";
             if (blanket) blanket.style.display = "block";
+            if (motd) motd.style.display = "none";
             break;
 	case 'none':
             if (targets) targets.style.display = "none";
             if (results) results.style.display = "none";
             if (blanket) blanket.style.display = "none";
+            if (motd) motd.style.display = "none";
             break;
         default:
             alert("Unknown view '" + view + "'");
@@ -574,6 +590,7 @@ function mkws_html_all(config) {
             <div id="mkwsPager"></div>\
             <div id="mkwsNavi"></div>\
             <div id="mkwsRecords"></div>\
+            <div id="mkwsEmbeddedMOTD"></div>\
           </td>\
         </tr>\
       </table>');
@@ -605,6 +622,12 @@ function mkws_html_all(config) {
 
     // on first page, hide the termlist
     $(document).ready(function() { $("#mkwsTermlists").hide(); } );
+    var elem = document.getElementById("mkwsMOTD");
+    if (elem) {
+	// Move the MOTD from the provided element down into the embedded one
+	document.getElementById("mkwsEmbeddedMOTD").innerHTML = elem.innerHTML;
+        elem.style.display = "none";
+    }
 }
 
 /* Responsive web design - change layout on the fly depending on
@@ -641,13 +664,13 @@ function mkws_html_switch(config) {
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'records\')",
-	text: "Records"
+	text: M("Records")
     }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", {
 	href: '#',
 	onclick: "switchView(\'targets\')",
-	text: "Targets"
+	text: M("Targets")
     }));
 
     debug("HTML targets");
