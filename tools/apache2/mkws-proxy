@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName mkws.indexdata.com
-    ServerAlias somesite.indexdata.com
+    ServerAlias example.indexdata.com
 
     ProxyRequests off
     ProxyVia On
