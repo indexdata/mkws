@@ -1,2 +1,2 @@
 **default**:
-	(cd experiments/spclient; $(MAKE))
+	(cd tools/htdocs; $(MAKE))
