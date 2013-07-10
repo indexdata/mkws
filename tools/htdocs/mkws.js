@@ -204,6 +204,7 @@ function add_single_facet(acc, caption, data, max, cclIndex) {
     acc.push('<div class="facet">');
     acc.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
+	acc.push('<div class="term">');
         acc.push('<a href="#" ');
 	var action;
 	if (!cclIndex) {
@@ -214,7 +215,8 @@ function add_single_facet(acc, caption, data, max, cclIndex) {
 	    action = 'limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
 	}
 	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-		 + '<span> (' + data[i].freq + ')</span><br/>');
+		 + '<span> (' + data[i].freq + ')</span>');
+	acc.push('</div>');
     }
     acc.push('</div>');
 }
