@@ -827,8 +827,10 @@ jQuery.extend({
     });
     return nvpair;
   },
-  pazpar2: function(data) {
-	document.write('<div id="mkwsSwitch"></div>\
+  pazpar2: function(config) {
+
+    // simple layout
+    var div = '<div id="mkwsSwitch"></div>\
     <div id="mkwsLang"></div>\
     <div id="mkwsSearch"></div>\
     <div id="mkwsResults"></div>\
@@ -836,7 +838,59 @@ jQuery.extend({
     <div id="mkwsFooter">\
       <div id="mkwsStat"></div>\
       <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>\
-    </div>');
+    </div>';
+
+    // new table layout
+    var table = '\
+    <style type="text/css">\
+      #mkwsTermlists div.facet {\
+      float:left;\
+      width: 30%;\
+      margin: 0.3em;\
+      }\
+      #mkwsStat {\
+      text-align: right;\
+      }\
+    </style>\
+	\
+    <table width="100%" border="0">\
+      <tr>\
+        <td>\
+          <div id="mkwsSwitch"></div>\
+          <div id="mkwsLang"></div>\
+          <div id="mkwsSearch"></div>\
+        </td>\
+      </tr>\
+      <tr>\
+        <td>\
+          <div style="height:500px; overflow: auto">\
+            <div id="mkwsPager"></div>\
+            <div id="mkwsNavi"></div>\
+            <div id="mkwsRecords"></div>\
+            <div id="mkwsTargets"></div>\
+            <div id="mkwsRanking"></div>\
+          </div>\
+        </td>\
+      </tr>\
+      <tr>\
+        <td>\
+          <div style="height:300px; overflow: hidden">\
+            <div id="mkwsTermlists"></div>\
+          </div>\
+        </td>\
+      </tr>\
+      <tr>\
+        <td>\
+          <div id="mkwsStat"></div>\
+        </td>\
+      </tr>\
+    </table>';
+
+    if (config && config.layout == 'table') {
+       document.write(table);
+    } else {
+       document.write(div);
+    }
 
     mkws_html_all(mkws_config);
   }
