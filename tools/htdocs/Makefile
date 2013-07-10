@@ -3,7 +3,7 @@
 #
 
 MKWS_JS=	mkws-complete.js
-all: ${MKWS_JS}
+all: ${MKWS_JS} README.html
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( echo "/* created at: $$(date)"; \
@@ -14,10 +14,19 @@ mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 
 distclean: clean
 clean:
-	rm -f ${MKWS_JS}
+	rm -f ${MKWS_JS} README.html
 
 help:
 	@echo "make [ help | mkws-js | clean ]"
 	@echo ""
 	@echo "Please check ./README file too!"
+
+
+# For a description of pandoc's markdown format, see:
+# http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
+
+README.html: README.markdown
+	rm -f $@
+	pandoc --standalone --smart $< > $@
+	chmod ugo-w $@
 
