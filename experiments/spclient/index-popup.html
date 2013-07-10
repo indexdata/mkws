@@ -25,19 +25,53 @@
 
   </head>
   <body>
+    <script type="text/javascript">
+     jQuery.pazpar2({ "layout":"popup"} );
+    </script>
 
-  <div id="mkwsSearch"></div>
+    <pre>
+      An embryonic MasterKey Widget Set
+=================================
 
-  <div id="popup-form">
-    <div id="mkwsSwitch"></div>
-    <div id="mkwsLang"></div>
-    <div id="mkwsResults"></div>
-    <div id="mkwsTargets"></div>
-    <div id="mkwsFooter">
-      <div id="mkwsStat"></div>
-    </div>
-  </div>
+This directory contains an embryonic MasterKey Widget Set, based
+initially on "jsdemo" though now far removed from those beginnnings.
 
-  <script> $(document).ready(function() { init_popup();});  </script>
+
+How this works
+--------------
+
+The goal is to make it that as much of the searching functionality as
+possible is hosted on
+        http://mkws.indexdata.com/
+so that very simple websites such as
+        http://example.indexdata.com/
+can have MasterKey searching with minimal effort.
+
+The following files must be hosted on mkws.indexdata.com:
+        mkws.js
+        mkwsStyle.css
+        /libjs-pz2/pz2api.1.js (*)
+
+The following files make up the application:
+        index.html
+        favicon.ico [optional]
+        robots.txt [optional]
+
+(At present, the client application's configuruation also needs an
+Alias for /service-proxy/, to avoid cross-site scripting issues. We
+will fix this.)
+
+(*) if you don't have already installed libjs-pz2 on the machine, you can
+do it by installing a debian package or check it out from GIT:
+$ git clone ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
+
+Configuring a client
+--------------------
+
+The application's HTML must contains the following elements as well as
+whatever makes up the application itself:
+
+[...]
+    </pre>
   </body>
 </html>
