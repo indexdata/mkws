@@ -919,7 +919,7 @@ jQuery.extend({
 });
 
 function init_popup(obj) {
-    var config = obj && obj.config ? obj.config : {};
+    var config = obj ? obj : {};
 
     var height = config.height || 760;
     var width = config.width || 880;
