@@ -897,15 +897,56 @@ jQuery.extend({
 	  </tr>\
 	</table>';
 
+	var popup = '\
+	  <div id="mkwsSearch"></div>\
+	  <div id="popup-form">\
+	    <div id="mkwsSwitch"></div>\
+	    <div id="mkwsLang"></div>\
+	    <div id="mkwsResults"></div>\
+	    <div id="mkwsTargets"></div>\
+	    <div id="mkwsFooter">\
+	      <div id="mkwsStat"></div>\
+	    </div>\
+	  </div>\
+	  <script> $(document).ready(function() { init_popup();});  </script>';
+
 	if (config && config.layout == 'div') {
 	    this.debug2("jquery plugin layout: div");
 	    document.write(div);
+	} else if (config && config.layout == 'popup') {
+	    this.debug2("jquery plugin layout: popup");
+	    document.write(popup);
 	} else {
 	    this.debug2("jquery plugin layout: table");
 	    document.write(table);
 	}
     }
 });
+
+function init_popup(config) {
+    $("#popup-form").dialog({
+      closeOnEscape: true,
+      autoOpen: false,
+      height: 760,
+      width: 880,
+      modal: true,
+      resizable: true,
+      buttons: {
+	      Cancel: function() {
+		      $(this).dialog("close");
+	      }
+      },
+      close: function() {
+	      // allFields.val( "" ).removeClass( "ui-state-error" );
+      }
+    });
+
+    $("input#mkwsButton")
+      .button()
+      .click(function() {
+	      $("#popup-form").dialog("open");
+      });
+};
 
 function debug(string) {
     if (!mkws_debug)
