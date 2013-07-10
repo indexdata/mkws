@@ -899,7 +899,7 @@ jQuery.extend({
 
 	var popup = '\
 	  <div id="mkwsSearch"></div>\
-	  <div id="popup-form">\
+	  <div id="mkwsPopup">\
 	    <div id="mkwsSwitch"></div>\
 	    <div id="mkwsLang"></div>\
 	    <div id="mkwsResults"></div>\
@@ -924,7 +924,7 @@ jQuery.extend({
 });
 
 function init_popup(config) {
-    $("#popup-form").dialog({
+    $("#mkwsPopup").dialog({
       closeOnEscape: true,
       autoOpen: false,
       height: 760,
@@ -944,7 +944,7 @@ function init_popup(config) {
     $("input#mkwsButton")
       .button()
       .click(function() {
-	      $("#popup-form").dialog("open");
+	      $("#mkwsPopup").dialog("open");
       });
 };
 
