@@ -846,10 +846,7 @@ jQuery.extend({
 	<div id="mkwsSearch"></div>\
 	<div id="mkwsResults"></div>\
 	<div id="mkwsTargets"></div>\
-	<div id="mkwsFooter">\
-	  <div id="mkwsStat"></div>\
-	  <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>\
-	</div>';
+        <div id="mkwsStat"></div>';
 
 	// new table layout
 	var table = '\
@@ -904,9 +901,7 @@ jQuery.extend({
 	    <div id="mkwsLang"></div>\
 	    <div id="mkwsResults"></div>\
 	    <div id="mkwsTargets"></div>\
-	    <div id="mkwsFooter">\
-	      <div id="mkwsStat"></div>\
-	    </div>\
+	    <div id="mkwsStat"></div>\
 	  </div>\
 	  <script> $(document).ready(function() { init_popup();});  </script>';
 
