@@ -902,8 +902,7 @@ jQuery.extend({
 	    <div id="mkwsResults"></div>\
 	    <div id="mkwsTargets"></div>\
 	    <div id="mkwsStat"></div>\
-	  </div>\
-	  <script> $(document).ready(function() { init_popup();});  </script>';
+	  </div>'
 
 	if (config && config.layout == 'div') {
 	    this.debug2("jquery plugin layout: div");
@@ -911,6 +910,7 @@ jQuery.extend({
 	} else if (config && config.layout == 'popup') {
 	    this.debug2("jquery plugin layout: popup");
 	    document.write(popup);
+	    $(document).ready( function() { init_popup(config); } );
 	} else {
 	    this.debug2("jquery plugin layout: table");
 	    document.write(table);
@@ -918,14 +918,15 @@ jQuery.extend({
     }
 });
 
-function init_popup(config) {
-    if (!config)
-	config = {};
+function init_popup(obj) {
+    var config = obj && obj.config ? obj.config : {};
 
     var height = config.height || 760;
     var width = config.width || 880;
     var id_button = config.button || "input#mkwsButton";
     var id_popup = config.popup || "#mkwsPopup";
+
+    debug("popup height: " + height + ", width: " + width);
 
     $(id_popup).dialog({
       closeOnEscape: true,
