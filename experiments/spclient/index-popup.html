@@ -23,38 +23,12 @@
     <script type="text/javascript" src="libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="mkws.js"></script>
 
-    <script>
-    $(function() {
-      $("#dialog-form").dialog({
-        closeOnEscape: true,
-        autoOpen: false,
-        height: 760,
-        width: 880,
-        modal: true,
-        resizable: true,
-        buttons: {
-                Cancel: function() {
-                        $(this).dialog("close");
-                }
-        },
-        close: function() {
-                // allFields.val( "" ).removeClass( "ui-state-error" );
-        }
-      });
-
-      $("input#mkwsButton")
-        .button()
-        .click(function() {
-                $("#dialog-form").dialog("open");
-        });
-    });
-    </script>
   </head>
   <body>
 
   <div id="mkwsSearch"></div>
 
-  <div id="dialog-form">
+  <div id="popup-form">
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsResults"></div>
@@ -64,5 +38,6 @@
     </div>
   </div>
 
+  <script> $(document).ready(function() { init_popup();});  </script>
   </body>
 </html>
