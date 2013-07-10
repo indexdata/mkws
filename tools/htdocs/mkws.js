@@ -198,10 +198,6 @@ function my_onterm(data) {
 
     var termlist = document.getElementById("mkwsTermlists");
     replaceHtml(termlist, acc.join(''));
-
-    // ### I don't believe these lines should be necessary (but they are)
-    if (mkws_config.responsive_design)
-        mkws_mobile_resize();
 }
 
 function add_single_facet(acc, caption, data, max, cclIndex) {
@@ -532,7 +528,7 @@ function mkws_html_all(config) {
 	perpage_menu: true, 	/* show/hide perpage menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
+	responsive_design_width: 980, /* a page with less pixel width considered as narrow */
 	debug: 1,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
@@ -583,7 +579,7 @@ function mkws_html_all(config) {
 	$("#mkwsResults").html('\
       <table width="100%" border="0" cellpadding="6" cellspacing="0">\
         <tr>\
-          <td width="250" valign="top">\
+          <td id="mkwsTermlistContainer1" width="250" valign="top">\
             <div id="mkwsTermlists"></div>\
           </td>\
           <td id="mkwsMOTDContainer" valign="top">\
@@ -591,6 +587,11 @@ function mkws_html_all(config) {
             <div id="mkwsPager"></div>\
             <div id="mkwsNavi"></div>\
             <div id="mkwsRecords"></div>\
+          </td>\
+        </tr>\
+        <tr>\
+          <td colspan="2">\
+            <div id="mkwsTermlistContainer2"></div>\
           </td>\
         </tr>\
       </table>');
@@ -618,9 +619,9 @@ function mkws_html_all(config) {
     if (mkws_config.responsive_design) {
 	// Responsive web design - change layout on the fly based on
 	// current screen width. Required for mobile devices.
-	$(window).resize( function(e) { mkws_mobile_resize() });
+	$(window).resize( function(e) { mkws_resize_page() });
 	// initial check after page load
-	$(document).ready(function() { mkws_mobile_resize() });
+	$(document).ready(function() { mkws_resize_page() });
     }
 
     domReady();
@@ -780,28 +781,30 @@ function mkws_html_lang(mkws_config) {
     $("#mkwsLang").html(data);
 }
 
-function mkws_mobile_resize () {
-    debug("resize width: " + $(window).height() + ", width: " + $(window).width());
+function mkws_resize_page () {
     var list = ["mkwsSwitch"];
-    var obj;
-    // alert($(window).width());
 
     var width = mkws_config.responsive_design_width || 980;
+    var parentId = $("#mkwsTermlists").parent().attr('id');
 
-    if ($(window).width() <= width) {
+    if ($(window).width() <= width &&
+	parentId === "mkwsTermlistContainer1") {
+	debug("changing from wide to narrow: " + $(window).width());
+	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
+	$("#mkwsTermlistContainer1").hide();
+	$("#mkwsTermlistContainer2").show();
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
-
-	$("#mkwsTermlists").hide();
-	obj = $("#mkwsTermlists").html();
-        $("#mkwsShiftedTermlists").html(obj);
-    } else {
+    } else if ($(window).width() > width &&
+	parentId === "mkwsTermlistContainer2") {
+	debug("changing from narrow to wide: " + $(window).width());
+	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
+	$("#mkwsTermlistContainer1").show();
+	$("#mkwsTermlistContainer2").hide();
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
 	}
-	$("#mkwsTermlists").show();
-	$("#mkwsShiftedTermlists").html("");
     }
 };
 
