@@ -215,7 +215,7 @@ function add_single_facet(acc, caption, data, max, cclIndex) {
 	    action = 'limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
 	}
 	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-		 + '<span> (' + data[i].freq + ')</span>');
+		 + ' <span>' + data[i].freq + '</span>');
 	acc.push('</div>');
     }
     acc.push('</div>');
