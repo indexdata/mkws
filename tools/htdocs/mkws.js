@@ -786,24 +786,21 @@ function mkws_html_lang(mkws_config) {
 }
 
 function mkws_mobile_resize () {
-    debug("resize height: " + $(window).height() + ", width: " + $(window).width());
     var list = ["mkwsSwitch"];
-    var obj;
-    // alert($(window).width());
 
     var width = mkws_config.responsive_design_width || 980;
     var parentId = $("#mkwsTermlists").parent().attr('id');
 
     if ($(window).width() <= width &&
 	parentId === "mkwsTermlistContainer1") {
-	debug("changing from wide to narrow");
+	debug("changing from wide to narrow: " + $(window).width());
 	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
     } else if ($(window).width() > width &&
 	parentId === "mkwsTermlistContainer2") {
-	debug("changing from narrow to wide");
+	debug("changing from narrow to wide: " + $(window).width());
 	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
