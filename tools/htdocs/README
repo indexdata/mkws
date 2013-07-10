@@ -94,6 +94,26 @@ Here is an example of all possible options
 
 Note: the mkws_config object which must be loaded before the mkws.js and pz2api.js files.
 
+
+jQuery plugin
+------------------
+
+The jQuery plugin version, consisting of a single line of JavaScript code
+
+  <script>jQuery.pazpar2();</script>
+
+put the code in your page at the position where the metasearch should occours.
+
+Here is an example of all possible options
+
+  jQuery.pazpar2({"layout": "popup", 	/* "table", "div", "popup", default is table */
+		  "id_button": "input#mkwsButton", /* submit button id in search field */
+		  "id_popup": "#mkwsPopup",        /* interal id of popup window */
+		  "width": 880,		/* popup width, should be at least  800 */ 
+		  "height": 760 	/* popup height, should be at least 600 */
+  });
+
+
 Supported Browsers
 ------------------
 
