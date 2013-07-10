@@ -38,7 +38,7 @@
 
     <script>
     $(function() {
-      $( "#dialog-form" ).dialog({
+      $("#dialog-form").dialog({
         closeOnEscape: true,
         autoOpen: false,
         height: 760,
@@ -47,7 +47,7 @@
         resizable: true,
         buttons: {
                 Cancel: function() {
-                        $( this ).dialog( "close" );
+                        $(this).dialog("close");
                 }
         },
         close: function() {
@@ -55,31 +55,27 @@
         }
       });
 
-      $( "#create-user" )
+      $("input#mkwsButton")
         .button()
         .click(function() {
-                $( "#dialog-form" ).dialog( "open" );
+                $("#dialog-form").dialog("open");
         });
     });
     </script>
   </head>
   <body>
 
+  <div id="mkwsSearch"></div>
+
   <div id="dialog-form" title="Search Box">
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
     <div id="mkwsResults"></div>
     <div id="mkwsTargets"></div>
     <div id="mkwsFooter">
       <div id="mkwsStat"></div>
-      <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>
     </div>
   </div>
-
-  <div id="users-contain" class="ui-widget"></div>
-
-  <button id="create-user">Open Search Box</button>
 
   </body>
 </html>
