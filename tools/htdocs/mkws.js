@@ -822,91 +822,89 @@ function M(word) {
  * implement jQuery plugins
  */
 jQuery.extend({
-   // implement jQuery.parseQuerystring() for parsing URL parameters
-  parseQuerystring: function() {
-    var nvpair = {};
-    var qs = window.location.search.replace('?', '');
-    var pairs = qs.split('&');
-    $.each(pairs, function(i, v){
-	var pair = v.split('=');
-	nvpair[pair[0]] = pair[1];
-    });
-    return nvpair;
-  },
+    // implement jQuery.parseQuerystring() for parsing URL parameters
+    parseQuerystring: function() {
+	var nvpair = {};
+	var qs = window.location.search.replace('?', '');
+	var pairs = qs.split('&');
+	$.each(pairs, function(i, v){
+	    var pair = v.split('=');
+	    nvpair[pair[0]] = pair[1];
+	});
+	return nvpair;
+    },
 
     debug2: function(string) { // delayed debug, internal variables are set after dom ready
 	setTimeout(function() { debug(string); }, 500);
     },
 
-  // service-proxy or pazpar2
-  pazpar2: function(config) {
+    // service-proxy or pazpar2
+    pazpar2: function(config) {
+	// simple layout
+	var div = '<div id="mkwsSwitch"></div>\
+	<div id="mkwsLang"></div>\
+	<div id="mkwsSearch"></div>\
+	<div id="mkwsResults"></div>\
+	<div id="mkwsTargets"></div>\
+	<div id="mkwsFooter">\
+	  <div id="mkwsStat"></div>\
+	  <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>\
+	</div>';
 
-    // simple layout
-    var div = '<div id="mkwsSwitch"></div>\
-    <div id="mkwsLang"></div>\
-    <div id="mkwsSearch"></div>\
-    <div id="mkwsResults"></div>\
-    <div id="mkwsTargets"></div>\
-    <div id="mkwsFooter">\
-      <div id="mkwsStat"></div>\
-      <span>Powered by MKWS &copy; 2013 <a target="_new" href="http://www.indexdata.com">Index Data</a></span>\
-    </div>';
+	// new table layout
+	var table = '\
+	<style type="text/css">\
+	  #mkwsTermlists div.facet {\
+	  float:left;\
+	  width: 30%;\
+	  margin: 0.3em;\
+	  }\
+	  #mkwsStat {\
+	  text-align: right;\
+	  }\
+	</style>\
+	    \
+	<table width="100%" border="0">\
+	  <tr>\
+	    <td>\
+	      <div id="mkwsSwitch"></div>\
+	      <div id="mkwsLang"></div>\
+	      <div id="mkwsSearch"></div>\
+	    </td>\
+	  </tr>\
+	  <tr>\
+	    <td>\
+	      <div style="height:500px; overflow: auto">\
+		<div id="mkwsPager"></div>\
+		<div id="mkwsNavi"></div>\
+		<div id="mkwsRecords"></div>\
+		<div id="mkwsTargets"></div>\
+		<div id="mkwsRanking"></div>\
+	      </div>\
+	    </td>\
+	  </tr>\
+	  <tr>\
+	    <td>\
+	      <div style="height:300px; overflow: hidden">\
+		<div id="mkwsTermlists"></div>\
+	      </div>\
+	    </td>\
+	  </tr>\
+	  <tr>\
+	    <td>\
+	      <div id="mkwsStat"></div>\
+	    </td>\
+	  </tr>\
+	</table>';
 
-    // new table layout
-    var table = '\
-    <style type="text/css">\
-      #mkwsTermlists div.facet {\
-      float:left;\
-      width: 30%;\
-      margin: 0.3em;\
-      }\
-      #mkwsStat {\
-      text-align: right;\
-      }\
-    </style>\
-	\
-    <table width="100%" border="0">\
-      <tr>\
-        <td>\
-          <div id="mkwsSwitch"></div>\
-          <div id="mkwsLang"></div>\
-          <div id="mkwsSearch"></div>\
-        </td>\
-      </tr>\
-      <tr>\
-        <td>\
-          <div style="height:500px; overflow: auto">\
-            <div id="mkwsPager"></div>\
-            <div id="mkwsNavi"></div>\
-            <div id="mkwsRecords"></div>\
-            <div id="mkwsTargets"></div>\
-            <div id="mkwsRanking"></div>\
-          </div>\
-        </td>\
-      </tr>\
-      <tr>\
-        <td>\
-          <div style="height:300px; overflow: hidden">\
-            <div id="mkwsTermlists"></div>\
-          </div>\
-        </td>\
-      </tr>\
-      <tr>\
-        <td>\
-          <div id="mkwsStat"></div>\
-        </td>\
-      </tr>\
-    </table>';
-
-    if (config && config.layout == 'div') {
-	this.debug2("jquery plugin layout: div");
-        document.write(div);
-    } else {
-	this.debug2("jquery plugin layout: table");
-        document.write(table);
+	if (config && config.layout == 'div') {
+	    this.debug2("jquery plugin layout: div");
+	    document.write(div);
+	} else {
+	    this.debug2("jquery plugin layout: table");
+	    document.write(table);
+	}
     }
-
-  }
 });
 
 function debug(string) {
