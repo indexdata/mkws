@@ -138,14 +138,6 @@
     float: right;
 }
 
-#mkwsTermlists div.facet div.term span:before {
-    content: "(";
-}
-
-#mkwsTermlists div.facet div.term span:after {
-    content: ")";
-}
-
 #mkwsTermlists div.termtitle {
     font-weight: bold;
 }
