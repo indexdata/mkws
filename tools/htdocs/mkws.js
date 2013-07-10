@@ -583,7 +583,7 @@ function mkws_html_all(config) {
 	$("#mkwsResults").html('\
       <table width="100%" border="0" cellpadding="6" cellspacing="0">\
         <tr>\
-          <td width="250" valign="top">\
+          <td id="mkwsTermlistContainer1" width="250" valign="top">\
             <div id="mkwsTermlists"></div>\
           </td>\
           <td id="mkwsMOTDContainer" valign="top">\
@@ -591,6 +591,11 @@ function mkws_html_all(config) {
             <div id="mkwsPager"></div>\
             <div id="mkwsNavi"></div>\
             <div id="mkwsRecords"></div>\
+          </td>\
+        </tr>\
+        <tr>\
+          <td colspan="2">\
+            <div id="mkwsTermlistContainer2"></div>\
           </td>\
         </tr>\
       </table>');
@@ -781,27 +786,28 @@ function mkws_html_lang(mkws_config) {
 }
 
 function mkws_mobile_resize () {
-    debug("resize width: " + $(window).height() + ", width: " + $(window).width());
+    debug("resize height: " + $(window).height() + ", width: " + $(window).width());
     var list = ["mkwsSwitch"];
     var obj;
     // alert($(window).width());
 
     var width = mkws_config.responsive_design_width || 980;
+    var parentId = $("#mkwsTermlists").parent().attr('id');
 
-    if ($(window).width() <= width) {
+    if ($(window).width() <= width &&
+	parentId === "mkwsTermlistContainer1") {
+	debug("changing from wide to narrow");
+	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
-
-	$("#mkwsTermlists").hide();
-	obj = $("#mkwsTermlists").html();
-        $("#mkwsShiftedTermlists").html(obj);
-    } else {
+    } else if ($(window).width() > width &&
+	parentId === "mkwsTermlistContainer2") {
+	debug("changing from narrow to wide");
+	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
 	}
-	$("#mkwsTermlists").show();
-	$("#mkwsShiftedTermlists").html("");
     }
 };
 
