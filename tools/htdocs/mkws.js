@@ -834,6 +834,10 @@ jQuery.extend({
     return nvpair;
   },
 
+    debug2: function(string) { // delayed debug
+	setTimeout(function() { debug(string); }, 500);
+    },
+
   // service-proxy or pazpar2
   pazpar2: function(config) {
 
@@ -894,12 +898,12 @@ jQuery.extend({
       </tr>\
     </table>';
 
-    if (config && config.layout == 'table') {
-	debug("jquery plugin layout: table");
-        document.write(table);
-    } else {
-	debug("jquery plugin layout: div");
+    if (config && config.layout == 'div') {
+	this.debug2("jquery plugin layout: div");
         document.write(div);
+    } else {
+	this.debug2("jquery plugin layout: table");
+        document.write(table);
     }
 
   }
@@ -921,6 +925,7 @@ function debug(string) {
     }
     console.log(string);
 }
+
 
 /* magic */
 $(document).ready(function() { mkws_html_all(mkws_config) });
