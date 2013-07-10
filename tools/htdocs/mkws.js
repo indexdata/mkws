@@ -919,11 +919,19 @@ jQuery.extend({
 });
 
 function init_popup(config) {
-    $("#mkwsPopup").dialog({
+    if (!config)
+	config = {};
+
+    var height = config.height || 760;
+    var width = config.width || 880;
+    var id_button = config.button || "input#mkwsButton";
+    var id_popup = config.popup || "#mkwsPopup";
+
+    $(id_popup).dialog({
       closeOnEscape: true,
       autoOpen: false,
-      height: 760,
-      width: 880,
+      height: height,
+      width: width,
       modal: true,
       resizable: true,
       buttons: {
@@ -931,15 +939,13 @@ function init_popup(config) {
 		      $(this).dialog("close");
 	      }
       },
-      close: function() {
-	      // allFields.val( "" ).removeClass( "ui-state-error" );
-      }
+      close: function() { }
     });
 
-    $("input#mkwsButton")
+    $(id_button)
       .button()
       .click(function() {
-	      $("#mkwsPopup").dialog("open");
+	      $(id_popup).dialog("open");
       });
 };
 
