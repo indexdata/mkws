@@ -2,18 +2,26 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: popup search box</title>
+
     <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
     <script type="text/javascript">
-      mkws_config = { switch_menu: false, lang_menu: false, query_width: 40 };
+      mkws_config = {
+        service_proxy_url : "/service-proxy/",
+        service_proxy_auth : "/service-proxy-auth/",
+	switch_menu: false,
+	lang_menu: false,
+	perpage_default: 10,
+	query_width: 50
+     };
     </script>
-    <!-- <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script> -->
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
 
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="mkws.js"></script>
 
     <style>
       body { font-size: 62.5%; }
@@ -33,8 +41,8 @@
       $( "#dialog-form" ).dialog({
         closeOnEscape: true,
         autoOpen: false,
-        height: 600,
-        width: 740,
+        height: 760,
+        width: 880,
         modal: true,
         resizable: true,
         buttons: {
@@ -59,7 +67,7 @@
 
   <div id="dialog-form" title="Search Box">
     <script type="text/javascript">
-      jQuery.pazpar2();
+      jQuery.pazpar2({ "layout":""} );
     </script>
   </div>
 
@@ -69,4 +77,3 @@
 
   </body>
 </html>
-
