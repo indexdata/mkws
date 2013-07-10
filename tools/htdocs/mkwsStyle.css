@@ -8,7 +8,6 @@
 #mkwsRecords,
 #mkwsTargets,
 #mkwsStat,
-#mkwsShiftedTermlists,
 #mkwsMOTD {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
@@ -68,8 +67,7 @@
 #mkwsRanking a,
 #mkwsPager a,
 #mkwsNavi a,
-#mkwsRecords a,
-#mkwsShiftedTermlists a {
+#mkwsRecords a {
     color: #005701;
     text-decoration: none;
 }
@@ -78,8 +76,7 @@
 #mkwsLang a:hover,
 #mkwsTermlists a:hover,
 #mkwsPager a:hover,
-#mkwsRecords a:hover,
-#mkwsShiftedTermlists a:hover {
+#mkwsRecords a:hover {
     text-decoration: underline;
 }
 
@@ -107,15 +104,13 @@
     background: #f0f8ff;
 }
 
-#mkwsTermlists .title,
-#mkwsShiftedTermlists .title {
+#mkwsTermlists .title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#mkwsTermlists,
-#mkwsShiftedTermlists div#termlist  {
+#mkwsTermlists {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -125,8 +120,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.facet,
-#mkwsShiftedTermlists div.facet {
+#mkwsTermlists div.facet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -136,13 +130,11 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.termtitle,
-#mkwsShiftedTermlists div.termtitle {
+#mkwsTermlists div.termtitle {
     font-weight: bold;
 }
 
-#mkwsRecords div.record,
-#mkwsShiftedTermlists div.record {
+#mkwsRecords div.record {
     padding: 5px;
 }
 
@@ -159,15 +151,13 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.details th,
-#mkwsShiftedTermlists div.details th {
+#mkwsRecords div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsRecords div.details th:after,
-#mkwsShiftedTermlists div.details th:after {
+#mkwsRecords div.details th:after {
     content: ":";
 }
 
