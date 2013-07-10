@@ -834,7 +834,7 @@ jQuery.extend({
     return nvpair;
   },
 
-    debug2: function(string) { // delayed debug
+    debug2: function(string) { // delayed debug, internal variables are set after dom ready
 	setTimeout(function() { debug(string); }, 500);
     },
 
