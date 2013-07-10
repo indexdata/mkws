@@ -795,6 +795,8 @@ function mkws_resize_page () {
 	parentId === "mkwsTermlistContainer1") {
 	debug("changing from wide to narrow: " + $(window).width());
 	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
+	$("#mkwsTermlistContainer1").hide();
+	$("#mkwsTermlistContainer2").show();
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).hide();
 	}
@@ -802,6 +804,8 @@ function mkws_resize_page () {
 	parentId === "mkwsTermlistContainer2") {
 	debug("changing from narrow to wide: " + $(window).width());
 	$("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
+	$("#mkwsTermlistContainer1").show();
+	$("#mkwsTermlistContainer2").hide();
 	for(var i = 0; i < list.length; i++) {
 	    $("#" + list[i]).show();
 	}
