@@ -897,7 +897,6 @@ jQuery.extend({
         document.write(div);
     }
 
-    mkws_html_all(mkws_config);
   }
 });
 
