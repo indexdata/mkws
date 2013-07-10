@@ -818,8 +818,11 @@ function M(word) {
     return mkws_locale_lang[lang][word] ? mkws_locale_lang[lang][word] : word;
 }
 
-/* implement jQuery.parseQuerystring() for parsing URL parameters */
+/*
+ * implement jQuery plugins
+ */
 jQuery.extend({
+   // implement jQuery.parseQuerystring() for parsing URL parameters
   parseQuerystring: function() {
     var nvpair = {};
     var qs = window.location.search.replace('?', '');
@@ -830,6 +833,8 @@ jQuery.extend({
     });
     return nvpair;
   },
+
+  // service-proxy or pazpar2
   pazpar2: function(config) {
 
     // simple layout
