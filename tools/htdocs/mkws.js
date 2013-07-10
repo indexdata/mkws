@@ -201,7 +201,7 @@ function my_onterm(data) {
 
     // ### I don't believe these lines should be necessary (but they are)
     if (mkws_config.responsive_design)
-        mkws_mobile_resize();
+        mkws_resize_page();
 }
 
 function add_single_facet(acc, caption, data, max, cclIndex) {
@@ -532,7 +532,7 @@ function mkws_html_all(config) {
 	perpage_menu: true, 	/* show/hide perpage menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: 980, /* a page with less pixel width considered as mobile */
+	responsive_design_width: 980, /* a page with less pixel width considered as narrow */
 	debug: 1,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
@@ -623,9 +623,9 @@ function mkws_html_all(config) {
     if (mkws_config.responsive_design) {
 	// Responsive web design - change layout on the fly based on
 	// current screen width. Required for mobile devices.
-	$(window).resize( function(e) { mkws_mobile_resize() });
+	$(window).resize( function(e) { mkws_resize_page() });
 	// initial check after page load
-	$(document).ready(function() { mkws_mobile_resize() });
+	$(document).ready(function() { mkws_resize_page() });
     }
 
     domReady();
@@ -785,7 +785,7 @@ function mkws_html_lang(mkws_config) {
     $("#mkwsLang").html(data);
 }
 
-function mkws_mobile_resize () {
+function mkws_resize_page () {
     var list = ["mkwsSwitch"];
 
     var width = mkws_config.responsive_design_width || 980;
