@@ -130,6 +130,14 @@
     -webkit-border-top-right-radius: 10px;
 }
 
+#mkwsTermlists div.facet div.term span:before {
+    content: "(";
+}
+
+#mkwsTermlists div.facet div.term span:after {
+    content: ")";
+}
+
 #mkwsTermlists div.termtitle {
     font-weight: bold;
 }
