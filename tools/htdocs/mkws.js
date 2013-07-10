@@ -890,9 +890,11 @@ jQuery.extend({
     </table>';
 
     if (config && config.layout == 'table') {
-       document.write(table);
+	debug("jquery plugin layout: table");
+        document.write(table);
     } else {
-       document.write(div);
+	debug("jquery plugin layout: div");
+        document.write(div);
     }
 
     mkws_html_all(mkws_config);
