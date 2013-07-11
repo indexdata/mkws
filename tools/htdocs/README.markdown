@@ -143,6 +143,7 @@ What next?
 ----------
 
 Main areas of work:
+
 * Make MKWS robust to missing widgets
 * Clean up the code
 
