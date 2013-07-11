@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MKWS demo: popup search box</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
+
+    <script type="text/javascript">
+      mkws_config = {
+        service_proxy_url : "/service-proxy/",
+        service_proxy_auth : "/service-proxy-auth/",
+	switch_menu: false,
+	lang_menu: false,
+	perpage_default: 10,
+	query_width: 50
+     };
+    </script>
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="mkws.js"></script>
+
+  </head>
+  <body>
+    <script type="text/javascript">
+     jQuery.pazpar2({ "layout":"popup", width: 800, height: 500 } );
+    </script>
+
+    <pre>
+      An embryonic MasterKey Widget Set
+=================================
+
+This directory contains an embryonic MasterKey Widget Set, based
+initially on "jsdemo" though now far removed from those beginnnings.
+
+
+How this works
+--------------
+
+The goal is to make it that as much of the searching functionality as
+possible is hosted on
+        http://mkws.indexdata.com/
+so that very simple websites such as
+        http://example.indexdata.com/
+can have MasterKey searching with minimal effort.
+
+The following files must be hosted on mkws.indexdata.com:
+        mkws.js
+        mkwsStyle.css
+        /libjs-pz2/pz2api.1.js (*)
+
+The following files make up the application:
+        index.html
+        favicon.ico [optional]
+        robots.txt [optional]
+
+(At present, the client application's configuruation also needs an
+Alias for /service-proxy/, to avoid cross-site scripting issues. We
+will fix this.)
+
+(*) if you don't have already installed libjs-pz2 on the machine, you can
+do it by installing a debian package or check it out from GIT:
+$ git clone ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
+
+Configuring a client
+--------------------
+
+The application's HTML must contains the following elements as well as
+whatever makes up the application itself:
+
+[...]
+    </pre>
+  </body>
+</html>
