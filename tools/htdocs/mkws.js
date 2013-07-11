@@ -201,7 +201,7 @@ function my_onterm(data) {
 }
 
 function add_single_facet(acc, caption, data, max, cclIndex) {
-    acc.push('<div class="facet">');
+    acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
     acc.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
 	acc.push('<div class="term">');
