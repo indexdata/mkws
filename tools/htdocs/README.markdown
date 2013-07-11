@@ -147,4 +147,6 @@ Main areas of work:
 * Make MKWS robust to missing widgets
 * Clean up the code
 
+- - -
+\(c) 2013 by IndexData ApS, <http://www.indexdata.com>
 
