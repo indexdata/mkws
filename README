@@ -24,3 +24,9 @@ etc -- configuration files for the various experiments
 	apache2 -- configuration for running spdemo
 	service-proxy -- config for running a local Service Proxy
 
+
+Required devel tools
+====================
+
+on debian, you will need: curl git-core pandoc
+
