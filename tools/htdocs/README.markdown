@@ -38,78 +38,77 @@ The application's HTML must contains the following elements as well as
 whatever makes up the application itself:
 
 Prerequisites:
-    <link rel="stylesheet" href="mkwsStyle.css" />
-    <script type="text/javascript">
-	var mkws_config = { };
-    </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="mkws.js"></script>
-(Yes, we're using JQuery. We use it only in the most trivial ways, and
-could probably get rid of it without too much pain. I'd like to have
-mkws.js automatically pull in pz2api.1.js, too, so you don't need to
-do so many things, but that's not quite trivial.)
 
-Then the following special <div>s can be added (with no content), and
+~~~
+	<link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+~~~
+
+Then the following special `<div>`s can be added (with no content), and
 will be filled in by MKWS:
-    <div id="mkwsSwitch"></div> -- switch between record and target views
-    <div id="mkwsLang"></div>   -- switch between English, Danish and German
-    <div id="mkwsSearch"></div> -- search box and button
-    <div id="mkwsResults"></div> -- result list, including pager/sorting
-    <div id="mkwsTargets"></div> -- target list, including status
-    <div id="mkwsStat"></div> -- summary statistics
 
-At present, MKWS will not work correctly if any of these is
+* `<div id="mkwsSwitch"></div>` -- switch between record and target views
+* `<div id="mkwsLang"></div>  ` -- switch between English, Danish and German
+* `<div id="mkwsSearch"></div>` -- search box and button
+* `<div id="mkwsResults"></div>` -- result list, including pager/sorting
+* `<div id="mkwsTargets"></div>` -- target list, including status
+* `<div id="mkwsStat"></div>` -- summary statistics
+
+At present, MKWS may not work correctly if some of these are
 missing. One of the TODOs is to fix it so that it doesn't try to use
 whatever is not there, and just uses what is.
 
+You can configure and control the client by creating an `mkws_config`
+object _before_ loading the widget-set.  Here is an example of all
+possible options:
 
-You can configure and control the client with the JavaScript mkws_config object.
-
-Here is an example of all possible options
-    <script type="text/javascript">
-        var mkws_config = {
-                use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
+~~~
+	<script type="text/javascript">
+	    var mkws_config = {
+		use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
 		switch_menu: true, 	    /* true, false: show/hide Records|Targets menu */
 		lang_menu: true, 	    /* true, false: show/hide language menu */
 		sort_menu: true, 	    /* true, false: show/hide sort menu */
 		perpage_menu: true, 	    /* true, false: show/hide perpage menu */
-	        lang_display: ["en", "de", "da"], /* display languages links for given
-				                     languages, [] for all */
+		lang_display: ["en", "de", "da"], /* display languages links for given
+						     languages, [] for all */
 		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-                sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
+		sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
 		query_width: 50,	    /* 5..50 */
-                perpage_default: 20,	    /* 10, 20, 30, 50 */
-                lang: "en",                 /* "en", "de", "da" */
+		perpage_default: 20,	    /* 10, 20, 30, 50 */
+		lang: "en",                 /* "en", "de", "da" */
 		debug: 0,     		    /* debug level for development: 0..2 */
 
 		responsive_design: false    /* true, false: resize for smaller mobile devices */
 		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
 		service_proxy_url: "/service-proxy/", 	   /* URL */
 		service_proxy_auth: "/service-proxy-auth", /* URL */
-         };
-    </script>
-
-Note: the mkws_config object which must be loaded before the mkws.js and pz2api.js files.
-
+	    };
+	</script>
+~~~
 
 jQuery plugin
 ------------------
 
-The jQuery plugin version, consisting of a single line of JavaScript code
+The jQuery plugin version can be used by a single line of JavaScript code:
 
-  <script>jQuery.pazpar2();</script>
+~~~
+	<script>jQuery.pazpar2();</script>
+~~~
 
-put the code in your page at the position where the metasearch should occours.
+put the code in your page at the position where the metasearch should occur.
 
 Here is an example of all possible options
 
-  jQuery.pazpar2({"layout": "popup", 	/* "table", "div", "popup", default is table */
-		  "id_button": "input#mkwsButton", /* submit button id in search field */
-		  "id_popup": "#mkwsPopup",        /* interal id of popup window */
-		  "width": 880,		/* popup width, should be at least  800 */ 
-		  "height": 760 	/* popup height, should be at least 600 */
-  });
+~~~
+	jQuery.pazpar2({
+	    "layout": "popup",               /* "table" [default], "div", "popup" */
+	    "id_button": "input#mkwsButton", /* submit button id in search field */
+	    "id_popup": "#mkwsPopup",        /* interal id of popup window */
+	    "width": 880,                    /* popup width, should be at least 800 */ 
+	    "height": 760                    /* popup height, should be at least 600 */
+	});
+~~~
 
 
 Supported Browsers
@@ -127,15 +126,17 @@ Any modern HTML5 browser will work fine. JavaScript must be enabled.
 
 Not supported: IE6, IE7
 
+
 New Features since jsdemo
 --------------------------
-- multilinguality: English (default), Danish, German
-- depends on the new pazpar2 JS library libjs-pz2/pz2api.1.js
+
+- Multilinguality: English (default), Danish, German
+- Depends on the new pazpar2 JS library libjs-pz2/pz2api.1.js
   which will make the development of pazpar2 plugins faster and
   easier to share code between projects
-- supports basic pazpar2 and service-proxy requests
-- simplified HTML
-- the search page is fully configurable by a JSON object
+- Supports basic pazpar2 and service-proxy requests
+- Simplified HTML
+- The search page is fully configurable by a JSON object
 
 
 What next?
@@ -144,3 +145,5 @@ What next?
 Main areas of work:
 * Make MKWS robust to missing widgets
 * Clean up the code
+
+
