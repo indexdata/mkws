@@ -2,13 +2,16 @@
 # Copyright (c) 2013 IndexData ApS. http://indexdata.com
 #
 
+#JQUERY_URL=	http://code.jquery.com/jquery-2.0.3.min.js
+JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
+
 MKWS_JS=	mkws-complete.js
 all: ${MKWS_JS} README.html
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( echo "/* created at: $$(date)"; \
  	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
-	  curl -sSf http://code.jquery.com/jquery-1.10.0.min.js; \
+	  curl -sSf ${JQUERY_URL}; \
 	  cat ../../../libjs-pz2/pz2api.1.js mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
@@ -18,6 +21,8 @@ clean:
 
 help:
 	@echo "make [ help | mkws-js | clean ]"
+	@echo ""
+	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
 	@echo "Please check ./README file too!"
 
