@@ -3,7 +3,7 @@
 # pazpar2 / service proxy config
 <VirtualHost *:80>
     ServerName spclient.example.com
-    ServerAlias spclient-dev.indexdata.com
+    ServerAlias spclient-dev.indexdata.com mkws-dev.indexdata.com
     ServerAdmin webmaster@example.com
     ErrorLog /var/log/apache2/mkws-dev-error.log
     CustomLog /var/log/apache2/mkws-dev-access.log combined
@@ -12,7 +12,7 @@
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
 
-    DocumentRoot /home/indexdata/mkws/experiments/spclient
+    DocumentRoot /home/indexdata/mkws/examples/htdocs
 
     RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
