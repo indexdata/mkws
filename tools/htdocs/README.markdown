@@ -104,7 +104,7 @@ Here is an example of all possible options
 	jQuery.pazpar2({
 	    "layout": "popup",               /* "table" [default], "div", "popup" */
 	    "id_button": "input#mkwsButton", /* submit button id in search field */
-	    "id_popup": "#mkwsPopup",        /* interal id of popup window */
+	    "id_popup": "#mkwsPopup",        /* internal id of popup window */
 	    "width": 880,                    /* popup width, should be at least 800 */ 
 	    "height": 760                    /* popup height, should be at least 600 */
 	});
