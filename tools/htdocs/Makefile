@@ -27,6 +27,6 @@ help:
 
 README.html: README.markdown
 	rm -f $@
-	pandoc --standalone --smart $< > $@
+	pandoc --standalone $< > $@
 	chmod ugo-w $@
 
