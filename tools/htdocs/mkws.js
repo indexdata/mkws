@@ -640,7 +640,7 @@ function mkws_html_all(config) {
 }
 
 function mkws_set_lang(mkws_config)  {
-    var lang = jQuery.parseQuerystring().lang || mkws_config.lang || "";
+    var lang = $.parseQuerystring().lang || mkws_config.lang || "";
     if (!lang || !mkws_locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
@@ -729,7 +729,7 @@ function mkws_service_proxy_auth(auth_url) {
 
     var request = new pzHttpRequest(auth_url);
     request.get(null, function(data) {
-	if (!jQuery.isXMLDoc(data)) {
+	if (!$.isXMLDoc(data)) {
 	    alert("service proxy auth response document is not valid XML document, give up!");
 	    return;
 	}
@@ -823,8 +823,8 @@ function M(word) {
 /*
  * implement jQuery plugins
  */
-jQuery.extend({
-    // implement jQuery.parseQuerystring() for parsing URL parameters
+$.extend({
+    // implement $.parseQuerystring() for parsing URL parameters
     parseQuerystring: function() {
 	var nvpair = {};
 	var qs = window.location.search.replace('?', '');
