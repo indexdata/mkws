@@ -41,7 +41,7 @@ help:
 
 README.html: README.markdown
 	rm -f $@
-	pandoc --standalone $< -o $@
+	pandoc --standalone -c mkws-doc.css $< -o $@
 	chmod ugo-w $@
 
 README.odt: README.markdown
