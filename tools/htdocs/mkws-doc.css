@@ -17,6 +17,10 @@ p, ul, pre {
     margin-left: 10em;
 }
 
+p, ul {
+    max-width: 40em;
+}
+
 /*
  * Works with the HTML emitted by pandoc. It would better if pandoc
  * were to emit class names that we can use. But it doesn't.
