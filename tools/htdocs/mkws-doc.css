@@ -3,13 +3,13 @@ body {
 }
 
 h1, h2, h3 {
-    color: #666;
+    color: #68a;
     font-weight: bold;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
 h1 {
-    background: #eee;
+    background: #e0e8f8;
     padding: 0.2em;
 }
 
@@ -19,6 +19,10 @@ p, ul, pre {
 
 p, ul {
     max-width: 40em;
+}
+
+pre {
+    background: #eee;
 }
 
 /*
