@@ -14,6 +14,7 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 
 MKWS_JS=	mkws-complete.js
+DOCS = README.html README.odt README.pdf
 all: ${MKWS_JS} README.html
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
@@ -25,7 +26,7 @@ mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 
 distclean: clean
 clean:
-	rm -f ${MKWS_JS} README.html
+	rm -f ${MKWS_JS} $(DOCS)
 
 help:
 	@echo "make [ help | mkws-js | clean ]"
@@ -40,6 +41,16 @@ help:
 
 README.html: README.markdown
 	rm -f $@
-	pandoc --standalone $< > $@
+	pandoc --standalone $< -o $@
+	chmod ugo-w $@
+
+README.odt: README.markdown
+	rm -f $@
+	pandoc --standalone $< -o $@
+	chmod ugo-w $@
+
+README.pdf: README.markdown
+	rm -f $@
+	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
