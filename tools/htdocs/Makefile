@@ -15,7 +15,8 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 
 MKWS_JS=	mkws-complete.js
 DOCS = README.html README.odt README.pdf
-all: ${MKWS_JS} README.html
+**default**: ${MKWS_JS} README.html
+all: ${MKWS_JS} $(DOCS)
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( echo "/* created at: $$(date)"; \
@@ -39,17 +40,17 @@ help:
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
 
-README.html: README.markdown
+%.html: %.markdown
 	rm -f $@
 	pandoc --standalone -c mkws-doc.css $< -o $@
 	chmod ugo-w $@
 
-README.odt: README.markdown
+%.odt: %.markdown
 	rm -f $@
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
-README.pdf: README.markdown
+%.pdf: %.markdown
 	rm -f $@
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
