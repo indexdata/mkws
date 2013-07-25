@@ -20,7 +20,7 @@ all: ${MKWS_JS} $(DOCS)
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( echo "/* created at: $$(date)"; \
- 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
+	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
 	  curl -sSf ${JQUERY_URL}; \
 	  cat ../../../libjs-pz2/pz2api.1.js mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
