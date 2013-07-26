@@ -14,15 +14,11 @@ and a high-level description can be found at
 WHAT'S WHAT
 ===========
 
-experiments -- a directory containing code experiments:
-	jquery-ui -- Using a JQuery UI element
-	jsdemo -- The basic pazpar2 client, running locally
-	spclient -- Mike's hardly-there sketch
-	spdemo -- Wolfram's functioning jsdemo-targeted-at-SP
-
-etc -- configuration files for the various experiments
-	apache2 -- configuration for running spdemo
-	service-proxy -- config for running a local Service Proxy
+README -- this file
+Makefile -- delegates to tools/htdocs/Makefile
+tools -- the tools that make up the Widget Set
+examples -- examples of applications that use MKWS
+notes -- internal documents, not for customers
 
 
 Required devel tools
