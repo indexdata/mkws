@@ -14,8 +14,9 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 
 MKWS_JS=	mkws-complete.js
-DOCS = README.html README.odt README.pdf
-**default**: ${MKWS_JS} README.html
+DOCS = README.html README.odt README.pdf \
+       whitepaper.html whitepaper.odt whitepaper.pdf
+**default**: ${MKWS_JS} README.html whitepaper.html
 all: ${MKWS_JS} $(DOCS)
 
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
