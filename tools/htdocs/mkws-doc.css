@@ -31,5 +31,6 @@ pre {
  */
 body p:last-of-type {
     font-size: small;
+    max-width: none;
     text-align: right;
 }
