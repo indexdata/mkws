@@ -22,7 +22,8 @@ The following files are hosted on `mkws.indexdata.com`:
 * `mkwsStyle.css`
 * `mkws.js`
 * `/libjs-pz2/pz2api.1.js`
-* `mkws-complete.js`
+* `mkws-complete.js` -- a single file consisting of `mkws.js`,
+  jQuery (which it uses) and `pz2api.1.js`
 
 The following files make up an application:
 
