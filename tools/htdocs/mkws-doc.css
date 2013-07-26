@@ -11,6 +11,7 @@ h1, h2, h3 {
 h1 {
     background: #e0e8f8;
     padding: 0.2em;
+    font-weight: normal;
 }
 
 h2.author {
