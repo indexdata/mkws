@@ -24,7 +24,7 @@ h3.date {
     color: black
 }
 
-p, ul, pre {
+body > p, ul, pre {
     margin-left: 10%;
 }
 
