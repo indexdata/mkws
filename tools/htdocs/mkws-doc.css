@@ -13,6 +13,16 @@ h1 {
     padding: 0.2em;
 }
 
+h2.author {
+    font-size: 120%;
+    color: black
+}
+
+h3.date {
+    font-size: 100%;
+    color: black
+}
+
 p, ul, pre {
     margin-left: 10%;
 }
