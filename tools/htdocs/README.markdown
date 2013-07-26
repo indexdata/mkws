@@ -25,12 +25,6 @@ The following files are hosted on `mkws.indexdata.com`:
 * `mkws-complete.js` -- a single file consisting of `mkws.js`,
   jQuery (which it uses) and `pz2api.1.js`
 
-The following files make up an application:
-
-* `index.html`
-* `favicon.ico` [_optional_]
-* `robots.txt` [_optional_]
-
 
 Configuring a client
 --------------------
