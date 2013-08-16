@@ -3,7 +3,6 @@
 
 "use strict"; // HTML5: disable for debug >= 2
 
-
 /*
  * global config object: mkws_config
  *
@@ -27,7 +26,6 @@ var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_ur
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
 
-(function ($) {
 var mkws_locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -974,5 +972,3 @@ function debug(string) {
 
 /* magic */
 $(document).ready(function() { mkws_html_all(mkws_config) });
-
-})(jQuery);
