@@ -310,7 +310,7 @@ function loadSelect ()
 // limit the query after clicking the facet
 function limitQuery (field, value)
 {
-    document.mkwsSearchForm.query.value += ' and ' + field + '="' + value + '"';
+    document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
 
