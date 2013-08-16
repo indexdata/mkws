@@ -19,6 +19,8 @@ DOCS = README.html README.odt README.pdf \
 **default**: ${MKWS_JS} README.html whitepaper.html
 all: ${MKWS_JS} $(DOCS)
 
+docs: $(DOCS)
+
 mkws-js ${MKWS_JS}: ../../../libjs-pz2/pz2api.1.js mkws.js
 	( echo "/* created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
@@ -31,7 +33,7 @@ clean:
 	rm -f ${MKWS_JS} $(DOCS)
 
 help:
-	@echo "make [ help | mkws-js | clean ]"
+	@echo "make [ help | mkws-js | docs | clean ]"
 	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
