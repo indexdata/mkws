@@ -13,6 +13,7 @@
     RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
 
     DocumentRoot /home/indexdata/mkws/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws/tools/htdocs
 
     # compress text output
     <Location />
