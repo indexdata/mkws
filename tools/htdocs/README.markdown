@@ -11,24 +11,19 @@ pazpar2, but it is now far removed from those beginnnings.
 How this works
 --------------
 
-The goal is to make it that as much of the searching functionality as
-possible is hosted on
+As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
 so that very simple websites such as
 	<http://example.indexdata.com/>
 can have MasterKey searching with minimal effort.
 
-The following files are hosted on mkws.indexdata.com:
+The following files are hosted on `mkws.indexdata.com`:
 
-* `mkws.js`
 * `mkwsStyle.css`
+* `mkws.js`
 * `/libjs-pz2/pz2api.1.js`
-
-The following files make up an application:
-
-* `index.html`
-* `favicon.ico` [_optional_]
-* `robots.txt` [_optional_]
+* `mkws-complete.js` -- a single file consisting of `mkws.js`,
+  jQuery (which it uses) and `pz2api.1.js`
 
 
 Configuring a client

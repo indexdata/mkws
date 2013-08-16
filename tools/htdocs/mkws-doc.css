@@ -1,0 +1,47 @@
+body {
+    font-family: Times, "Times Roman", "Times New Roman";
+}
+
+h1, h2, h3 {
+    color: #68a;
+    font-weight: bold;
+    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+}
+
+h1 {
+    background: #e0e8f8;
+    padding: 0.2em;
+    font-weight: normal;
+}
+
+h2.author {
+    font-size: 120%;
+    color: black
+}
+
+h3.date {
+    font-size: 100%;
+    color: black
+}
+
+body > p, ul, pre {
+    margin-left: 10%;
+}
+
+p, ul {
+    max-width: 40em;
+}
+
+pre {
+    background: #eee;
+}
+
+/*
+ * Works with the HTML emitted by pandoc. It would better if pandoc
+ * were to emit class names that we can use. But it doesn't.
+ */  
+body > p:last-of-type {
+    font-size: small;
+    max-width: none;
+    text-align: right;
+}

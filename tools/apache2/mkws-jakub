@@ -1,0 +1,17 @@
+<VirtualHost *:80>
+  ServerName mkws-origin
+  DocumentRoot /Users/jakub/code/mkws/tools/htdocs
+
+  # auth
+  RewriteEngine on
+  RewriteRule /service-proxy-auth/ /service-proxy/?command=auth&action=login&use
+  rname=demo&password=demo [P] # [NE,P]
+
+  # allow cors
+  Header set Access-Control-Allow-Origin *
+
+  # For MKC Service Proxy
+  ProxyPass        /service-proxy/ http://mk2-test.indexdata.com/service-proxy/
+  ProxyPassReverse /service-proxy/ http://mk2-test.indexdata.com/service-proxy/
+</VirtualHost>
+
