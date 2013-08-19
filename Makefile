@@ -6,5 +6,7 @@
 clean distclean all:
 	${MAKE} -C./tools/htdocs $@
 
+check: distclean all
+
 help:
 	@echo "make [ all | clean ]"
