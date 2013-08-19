@@ -2,6 +2,9 @@
 # Copyright (c) 2013 IndexData ApS. http://indexdata.com
 #
 
+##############################
+# select a jquery version
+#
 #JQUERY_URL=	http://code.jquery.com/jquery-2.0.3.min.js
 JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.9.1.min.js
@@ -16,7 +19,9 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 MKWS_JS=	mkws-complete.js
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
+
 **default**: ${MKWS_JS} README.html whitepaper.html
+
 all: ${MKWS_JS} $(DOCS)
 
 docs: $(DOCS)
