@@ -3,5 +3,8 @@
 **default**:
 	(cd tools/htdocs; $(MAKE))
 
+clean distclean all:
+	${MAKE} -C./tools/htdocs $@
+
 help:
 	@echo "make [ all | clean ]"
