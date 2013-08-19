@@ -3,10 +3,10 @@
 **default**:
 	(cd tools/htdocs; $(MAKE))
 
-clean distclean all:
+clean distclean all pz2api-git-checkout:
 	${MAKE} -C./tools/htdocs $@
 
 check: distclean all
 
 help:
-	@echo "make [ all | clean ]"
+	@echo "make [ all | clean | pz2api-git-checkout ]"

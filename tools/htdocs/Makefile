@@ -33,8 +33,13 @@ pz2api-check:
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
-	    echo "( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} )"; \
+	    echo "Please run: make pz2api-git-checkout"; \
 	    exit 1; \
+	fi
+
+pz2api-git-checkout: 
+	@if ! test -e ${PZ2API_JS}; then \
+	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
 	fi
 
 mkws-js ${MKWS_JS}: pz2api-check ${PZ2API_JS} mkws.js
