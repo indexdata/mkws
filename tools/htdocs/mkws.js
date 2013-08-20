@@ -971,4 +971,13 @@ function debug(string) {
 
 
 /* magic */
-$(document).ready(function() { mkws_html_all(mkws_config) });
+$(document).ready(function() {
+    try {
+	mkws_html_all(mkws_config)
+    }
+
+    catch (e) {
+	mkws_config.error = e.message;
+	// alert(e.message);
+    }
+});
