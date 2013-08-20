@@ -1,27 +1,39 @@
-      (function() {
-	var jasmineEnv = jasmine.getEnv();
-	jasmineEnv.updateInterval = 1000;
+/*
+ * init and run jasmine
+ *
+ * a given delay starts the test N miliseconds later
+ */
 
-	var htmlReporter = new jasmine.HtmlReporter();
+function mkws_jasmine_init(delay) {
+    var currentWindowOnload = window.onload;
 
-	jasmineEnv.addReporter(htmlReporter);
+    window.onload = function() {
+        if (currentWindowOnload) {
+            currentWindowOnload();
+        }
+        if (delay) {
+            setTimeout(function() {
+                execJasmine()
+            }, delay);
+        } else {
+            execJasmine();
+        }
+    };
 
-	jasmineEnv.specFilter = function(spec) {
-	  return htmlReporter.specFilter(spec);
-	};
+    function execJasmine() {
 
-	var currentWindowOnload = window.onload;
+        var jasmineEnv = jasmine.getEnv();
+        jasmineEnv.updateInterval = 1000;
+        var htmlReporter = new jasmine.HtmlReporter();
+        jasmineEnv.addReporter(htmlReporter);
 
-	window.onload = function() {
-	  if (currentWindowOnload) {
-	    currentWindowOnload();
-	  }
-	  execJasmine();
-	};
+        jasmineEnv.specFilter = function(spec) {
+            return htmlReporter.specFilter(spec);
+        };
 
-	function execJasmine() {
-	  jasmineEnv.execute();
-	}
+        jasmineEnv.execute();
+    }
+};
 
-      })();
+/* EOF */
 
