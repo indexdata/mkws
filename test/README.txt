@@ -9,3 +9,5 @@ Documentation
 http://pivotal.github.io/jasmine/
 https://github.com/pivotal/jasmine
 
+--
+Aug 2013, Wolfram
