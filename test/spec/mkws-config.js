@@ -20,24 +20,21 @@ describe("Check mkws_config object", function() {
   it("mkws_config service proxy enabled", function() {
     expect(mkws_config.use_service_proxy).toBe(true);
   });
+
 });
 
-/*
-describe("Check service proxy URL", function() {
-  var timerCallback;
 
-  beforeEach(function() {
-    timerCallback = jasmine.createSpy('timerCallback');
-    jasmine.Clock.useMock();
+describe("Check pazpar2 config", function() {
+  it("pazpar2path is a path or an full URL", function() {
+    expect(pazpar2path).toMatch(/^(\/|http:\/\/)/)
   });
 
-  it("causes an interval to be called synchronously", function() {
-    setTimeout(function() {
-      timerCallback();
-    }, 500);
+  it("usesessions false", function() {
+    expect(usesessions).toBe(false);
+  });
 
-    jasmine.Clock.tick(1501);
-    expect(mkws_config.service_proxy_url).toMatch(/service-proxy/);
+  it("my_paz is defined", function() {
+    expect(my_paz).not.toBe(undefined);
   });
 });
-*/
+
