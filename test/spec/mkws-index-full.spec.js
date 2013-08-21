@@ -6,12 +6,8 @@
 
 var file = '../examples/htdocs/index-full.html'
 
-var jsdom = require('jsdom').jsdom;
-var myWindow = jsdom().createWindow();
-var $ = jQuery = require('jquery').create(myWindow);
-
 var fs = require("fs");
-var index_full = fs.readFileSync(file, "utf-8");
+var html = fs.readFileSync(file, "utf-8");
 
 var mkws_tags_required = ["mkwsSearch", "mkwsResults"];
 var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
@@ -39,28 +35,62 @@ function flat_list (list) {
   return data;
 }
 
-
-describe("index-full.html test", function() {
+/*
+ * simple test with string matching of the HTML page
+ *
+ */
+describe("index-full.html string test", function() {
   it("html test", function() {
-    expect(index_full).toBeDefined();
+    expect(html).toBeDefined();
 
-    expect(index_full).toMatch(/<html.*?>/); // forgotten doctype?
-    expect(index_full).toMatch(/<head.*?>/);
-    expect(index_full).toMatch(/<body.*?>/);
-    expect(index_full).toMatch(/<\/html.*?>/);
-    expect(index_full).toMatch(/<\/head.*?>/);
-    expect(index_full).toMatch(/<\/body.*?>/);
+    expect(html).toMatch(/<html.*?>/); // forgotten doctype?
+    expect(html).toMatch(/<head.*?>/);
+    expect(html).toMatch(/<body.*?>/);
+    expect(html).toMatch(/<\/html.*?>/);
+    expect(html).toMatch(/<\/head.*?>/);
+    expect(html).toMatch(/<\/body.*?>/);
 
-    expect(index_full).toMatch(/<meta .*?charset=utf-8/i);
-    expect(index_full).toMatch(/<title>.+<\/title>/i);
-    expect(index_full).toMatch(/<link .*?type="text\/css" href=".*?\/mkwsStyle.css"/);
+    expect(html).toMatch(/<meta .*?charset=utf-8/i);
+    expect(html).toMatch(/<title>.+<\/title>/i);
+    expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/mkwsStyle.css"/);
 
     var tags = flat_list([mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
 
     for(var i = 0, data = ""; i < tags.length; i++) {
       data = '<div id="' + tags[i] + '">';
       // console.log(data)
-      expect(index_full).toMatch(data);
+      expect(html).toMatch(data);
+    }
+  });
+});
+
+
+/*
+ * parse HTML data to DOM, and run jQuery request on it
+ *
+ */
+describe("index-full.html jsdom + jquery", function() {
+  var window = require('jsdom').jsdom(html, null, {
+    FetchExternalResources: false,
+    ProcessExternalResources: false,
+    MutationEvents: false,
+    QuerySelector: false
+  }).createWindow();
+
+  /* apply jquery to the window */
+  var $ = jQuery = require('jquery').create(window);
+
+
+  it("html jquery test", function() {
+    expect(html).toBeDefined();
+
+    expect($("body").length == 0).toEqual(false);
+    expect($("body").length == 1).toEqual(true);
+    expect($("head").length == 1).toEqual(true);
+
+    var tags = flat_list([mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
+    for(var i = 0; i < tags.length; i++) {
+      expect($("#" + tags[i]).length == 1).toEqual(true);
     }
   });
 });
