@@ -89,18 +89,14 @@ function jsdom_check (file, tags_array, ignore_doctype) {
   });
 }
 
-var mkws_tags_required = ["mkwsSearch", "mkwsResults"];
-var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
-var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
-
-html_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
-html_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
+html_check('../examples/htdocs/index-full.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
+html_check('../examples/htdocs/index-mobile.html', [utils.tags.required, utils.tags.optional]);
 html_check('../examples/htdocs/index-popup.html', [], true);
 html_check('../examples/htdocs/index-jquery.html', []);
-html_check('../examples/htdocs/index-mike.html', [mkws_tags_required, mkws_tags_optional], true);
+html_check('../examples/htdocs/index-mike.html', [utils.tags.required, utils.tags.optional], true);
 
-jsdom_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
-jsdom_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
+jsdom_check('../examples/htdocs/index-full.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
+jsdom_check('../examples/htdocs/index-mobile.html', [utils.tags.required, utils.tags.optional]);
 jsdom_check('../examples/htdocs/index-popup.html', [], true);
 jsdom_check('../examples/htdocs/index-jquery.html', []);
-jsdom_check('../examples/htdocs/index-mike.html', [mkws_tags_required, mkws_tags_optional], true);
+jsdom_check('../examples/htdocs/index-mike.html', [utils.tags.required, utils.tags.optional], true);
