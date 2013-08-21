@@ -1,3 +1,9 @@
+/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+ *
+ * helper functions for other test *.spec.js files
+ *
+ */
+
 /*
  * combine arrays, return a flat list
  * [["a","b"], ["c"], "d"] => ["a", "b", "c", "d"]
@@ -20,7 +26,7 @@ var flat_list = function (list) {
   return data;
 };
 
-var tags = { 
+var tags = {
 	required: ["mkwsSearch", "mkwsResults"],
 	optional: ["mkwsSwitch", "mkwsLang", "mkwsTargets"],
 	optional2: ["mkwsMOTD", "mkwsStat", "footer"]
@@ -30,6 +36,3 @@ module.exports = {
 	flat_list: flat_list,
 	tags: tags
 };
-
-
-
