@@ -26,12 +26,17 @@ var flat_list = function (list) {
   return data;
 };
 
+/*
+ * list of div id to check
+ *
+ */
 var tags = {
 	required: ["mkwsSearch", "mkwsResults"],
 	optional: ["mkwsSwitch", "mkwsLang", "mkwsTargets"],
 	optional2: ["mkwsMOTD", "mkwsStat", "footer"]
 };
 
+// node.js exports
 module.exports = {
 	flat_list: flat_list,
 	tags: tags
