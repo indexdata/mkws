@@ -93,4 +93,11 @@ describe("index-full.html jsdom + jquery", function() {
       expect($("#" + tags[i]).length == 1).toEqual(true);
     }
   });
+
+  it("html jquery fail test", function() {
+    expect(html).toBeDefined();
+
+    expect($("body_does_not_exists").length == 1).toEqual(false);
+    expect($("#body_does_not_exists").length == 1).toEqual(false);
+  });
 });
