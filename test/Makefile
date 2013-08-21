@@ -6,6 +6,7 @@ clean distclean:
 
 check:
 	jasmine-node ./spec 
+test: check
 
 help:
 	@echo "make [ all | clean | check ]"
