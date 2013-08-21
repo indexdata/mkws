@@ -17,6 +17,7 @@ Installation
 2. install node modules with npm
 
 npm install jquery
+npm install jsdom
 npm install jasmine-node
 
 
