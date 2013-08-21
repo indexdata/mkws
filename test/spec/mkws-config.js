@@ -1,3 +1,8 @@
+/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+ *
+ * check mkws_config = {} object in browser
+ *
+ */
 
 describe("Check mkws_config object", function() {
   it("mkws_config exists", function() {
