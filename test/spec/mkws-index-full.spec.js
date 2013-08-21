@@ -72,8 +72,8 @@ var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
 html_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
 html_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
 html_check('../examples/htdocs/index-popup.html', [], true);
-// html_check('../examples/htdocs/index-wolfram.html', [mkws_tags_required, mkws_tags_optional]);
 html_check('../examples/htdocs/index-jquery.html', []);
+html_check('../examples/htdocs/index-mike.html', [mkws_tags_required, mkws_tags_optional], true);
 
 var file = '../examples/htdocs/index-full.html';
 var html = fs.readFileSync(file, "utf-8");
