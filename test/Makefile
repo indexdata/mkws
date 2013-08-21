@@ -2,7 +2,7 @@
 
 all: check
 
-clean:
+clean distclean:
 
 check:
 	jasmine-node ./spec 
