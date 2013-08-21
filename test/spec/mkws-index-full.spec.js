@@ -34,7 +34,7 @@ function flat_list (list) {
  *
  */
 
-function html_check (file, tags_array) {
+function html_check (file, tags_array, ignore_doctype) {
   var html = fs.readFileSync(file, "utf-8");
   var tags = flat_list(tags_array);
 
@@ -42,8 +42,11 @@ function html_check (file, tags_array) {
     it("html test", function() {
       expect(html).toBeDefined();
 
-      expect(html).toMatch(/<html.*?>/); // forgotten doctype?
-      expect(html).toMatch(/<\/html.*?>/);
+      // forgotten doctype declaration
+      if (!ignore_doctype) {
+        expect(html).toMatch(/<html.*?>/);
+        expect(html).toMatch(/<\/html.*?>/);
+      }
       expect(html).toMatch(/<head.*?>/);
       expect(html).toMatch(/<body.*?>/);
       expect(html).toMatch(/<\/head.*?>/);
@@ -51,7 +54,7 @@ function html_check (file, tags_array) {
 
       expect(html).toMatch(/<meta .*?charset=utf-8/i);
       expect(html).toMatch(/<title>.+<\/title>/i);
-      expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/mkwsStyle.css"/);
+      expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/?mkwsStyle.css"/);
 
 
       for(var i = 0, data = ""; i < tags.length; i++) {
@@ -68,6 +71,8 @@ var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
 var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
 html_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
 html_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
+html_check('../examples/htdocs/index-popup.html', [], true);
+// html_check('../examples/htdocs/index-wolfram.html', [mkws_tags_required, mkws_tags_optional]);
 html_check('../examples/htdocs/index-jquery.html', []);
 
 var file = '../examples/htdocs/index-full.html';
