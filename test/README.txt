@@ -3,7 +3,7 @@ Jasmine / jasmine-node test frame works
 
 ./spec		contains *spec.js files
 ./js		jasmine runtime JS lib
-	
+
 README.txt	this file
 
 Documentation
@@ -18,6 +18,7 @@ Installation
 
 npm install jquery
 npm install jsdom
+npm install request
 npm install jasmine-node
 
 
