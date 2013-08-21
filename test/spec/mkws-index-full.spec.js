@@ -66,51 +66,62 @@ function html_check (file, tags_array, ignore_doctype) {
   });
 }
 
+
+/*
+ * parse HTML data to DOM, and run jQuery request on it
+ *
+ */
+
+function jsdom_check (file, tags_array, ignore_doctype) {
+  var html = fs.readFileSync(file, "utf-8");
+  var tags = flat_list(tags_array);
+
+  describe("index-full.html jsdom + jquery for " + file, function() {
+    var window = require('jsdom').jsdom(html, null, {
+
+      FetchExternalResources: false,
+      ProcessExternalResources: false,
+      MutationEvents: false,
+      QuerySelector: false
+    }).createWindow();
+
+    /* apply jquery to the window */
+    var $ = jQuery = require('jquery').create(window);
+
+
+    it("html jquery test", function() {
+      expect(html).toBeDefined();
+
+      expect($("body").length == 0).toEqual(false);
+      expect($("body").length == 1).toEqual(true);
+      expect($("head").length == 1).toEqual(true);
+
+      for(var i = 0; i < tags.length; i++) {
+        expect($("#" + tags[i]).length == 1).toEqual(true);
+      }
+    });
+
+    it("html jquery fail test", function() {
+      expect(html).toBeDefined();
+
+      expect($("body_does_not_exists").length == 1).toEqual(false);
+      expect($("#body_does_not_exists").length == 1).toEqual(false);
+    });
+  });
+}
+
 var mkws_tags_required = ["mkwsSearch", "mkwsResults"];
 var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
 var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
+
 html_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
 html_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
 html_check('../examples/htdocs/index-popup.html', [], true);
 html_check('../examples/htdocs/index-jquery.html', []);
 html_check('../examples/htdocs/index-mike.html', [mkws_tags_required, mkws_tags_optional], true);
 
-var file = '../examples/htdocs/index-full.html';
-var html = fs.readFileSync(file, "utf-8");
-/*
- * parse HTML data to DOM, and run jQuery request on it
- *
- */
-describe("index-full.html jsdom + jquery", function() {
-  var window = require('jsdom').jsdom(html, null, {
-
-    FetchExternalResources: false,
-    ProcessExternalResources: false,
-    MutationEvents: false,
-    QuerySelector: false
-  }).createWindow();
-
-  /* apply jquery to the window */
-  var $ = jQuery = require('jquery').create(window);
-
-
-  it("html jquery test", function() {
-    expect(html).toBeDefined();
-
-    expect($("body").length == 0).toEqual(false);
-    expect($("body").length == 1).toEqual(true);
-    expect($("head").length == 1).toEqual(true);
-
-    var tags = flat_list([mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
-    for(var i = 0; i < tags.length; i++) {
-      expect($("#" + tags[i]).length == 1).toEqual(true);
-    }
-  });
-
-  it("html jquery fail test", function() {
-    expect(html).toBeDefined();
-
-    expect($("body_does_not_exists").length == 1).toEqual(false);
-    expect($("#body_does_not_exists").length == 1).toEqual(false);
-  });
-});
+jsdom_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
+jsdom_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
+jsdom_check('../examples/htdocs/index-popup.html', [], true);
+jsdom_check('../examples/htdocs/index-jquery.html', []);
+jsdom_check('../examples/htdocs/index-mike.html', [mkws_tags_required, mkws_tags_optional], true);
