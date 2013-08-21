@@ -10,34 +10,34 @@
  *
  */
 var flat_list = function (list) {
-  var data = [];
+        var data = [];
 
-  for(var i = 0; i < list.length; i++) {
-      if (typeof list[i] == 'object') {
-        for(var j = 0; j < list[i].length; j++) {
-          data.push(list[i][j]);
+        for (var i = 0; i < list.length; i++) {
+            if (typeof list[i] == 'object') {
+                for (var j = 0; j < list[i].length; j++) {
+                    data.push(list[i][j]);
+                }
+
+            } else {
+                data.push(list[i]);
+            }
         }
 
-      } else {
-        data.push(list[i]);
-      }
-  }
-
-  return data;
-};
+        return data;
+    };
 
 /*
  * list of div id to check
  *
  */
 var tags = {
-	required: ["mkwsSearch", "mkwsResults"],
-	optional: ["mkwsSwitch", "mkwsLang", "mkwsTargets"],
-	optional2: ["mkwsMOTD", "mkwsStat", "footer"]
+    required: ["mkwsSearch", "mkwsResults"],
+    optional: ["mkwsSwitch", "mkwsLang", "mkwsTargets"],
+    optional2: ["mkwsMOTD", "mkwsStat", "footer"]
 };
 
 // node.js exports
 module.exports = {
-	flat_list: flat_list,
-	tags: tags
+    flat_list: flat_list,
+    tags: tags
 };

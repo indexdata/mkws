@@ -13,36 +13,36 @@ var utils = require("./mkws_utils.js");
  *
  */
 
-function html_check (file, tags_array, ignore_doctype) {
-  var html = fs.readFileSync(file, "utf-8");
-  var tags = utils.flat_list(tags_array);
+function html_check(file, tags_array, ignore_doctype) {
+    var html = fs.readFileSync(file, "utf-8");
+    var tags = utils.flat_list(tags_array);
 
-  describe("index-full.html string test for " + file, function() {
-    it("html test", function() {
-      expect(html).toBeDefined();
+    describe("index-full.html string test for " + file, function () {
+        it("html test", function () {
+            expect(html).toBeDefined();
 
-      // forgotten doctype declaration
-      if (!ignore_doctype) {
-        expect(html).toMatch(/<html.*?>/);
-        expect(html).toMatch(/<\/html.*?>/);
-      }
-      expect(html).toMatch(/<head.*?>/);
-      expect(html).toMatch(/<body.*?>/);
-      expect(html).toMatch(/<\/head.*?>/);
-      expect(html).toMatch(/<\/body.*?>/);
+            // forgotten doctype declaration
+            if (!ignore_doctype) {
+                expect(html).toMatch(/<html.*?>/);
+                expect(html).toMatch(/<\/html.*?>/);
+            }
+            expect(html).toMatch(/<head.*?>/);
+            expect(html).toMatch(/<body.*?>/);
+            expect(html).toMatch(/<\/head.*?>/);
+            expect(html).toMatch(/<\/body.*?>/);
 
-      expect(html).toMatch(/<meta .*?charset=utf-8/i);
-      expect(html).toMatch(/<title>.+<\/title>/i);
-      expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/?mkwsStyle.css"/);
+            expect(html).toMatch(/<meta .*?charset=utf-8/i);
+            expect(html).toMatch(/<title>.+<\/title>/i);
+            expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/?mkwsStyle.css"/);
 
 
-      for(var i = 0, data = ""; i < tags.length; i++) {
-        data = '<div id="' + tags[i] + '">';
-        // console.log(data)
-        expect(html).toMatch(data);
-      }
+            for (var i = 0, data = ""; i < tags.length; i++) {
+                data = '<div id="' + tags[i] + '">';
+                // console.log(data)
+                expect(html).toMatch(data);
+            }
+        });
     });
-  });
 }
 
 html_check('../examples/htdocs/index-full.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
