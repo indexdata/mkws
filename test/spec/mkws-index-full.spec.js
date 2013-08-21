@@ -4,14 +4,8 @@
  *
  */
 
-var file = '../examples/htdocs/index-full.html'
 
 var fs = require("fs");
-var html = fs.readFileSync(file, "utf-8");
-
-var mkws_tags_required = ["mkwsSearch", "mkwsResults"];
-var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
-var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
 
 /*
  * combine arrays, return a flat list
@@ -39,38 +33,52 @@ function flat_list (list) {
  * simple test with string matching of the HTML page
  *
  */
-describe("index-full.html string test", function() {
-  it("html test", function() {
-    expect(html).toBeDefined();
 
-    expect(html).toMatch(/<html.*?>/); // forgotten doctype?
-    expect(html).toMatch(/<head.*?>/);
-    expect(html).toMatch(/<body.*?>/);
-    expect(html).toMatch(/<\/html.*?>/);
-    expect(html).toMatch(/<\/head.*?>/);
-    expect(html).toMatch(/<\/body.*?>/);
+function html_check (file, tags_array) {
+  var html = fs.readFileSync(file, "utf-8");
+  var tags = flat_list(tags_array);
 
-    expect(html).toMatch(/<meta .*?charset=utf-8/i);
-    expect(html).toMatch(/<title>.+<\/title>/i);
-    expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/mkwsStyle.css"/);
+  describe("index-full.html string test for " + file, function() {
+    it("html test", function() {
+      expect(html).toBeDefined();
 
-    var tags = flat_list([mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
+      expect(html).toMatch(/<html.*?>/); // forgotten doctype?
+      expect(html).toMatch(/<\/html.*?>/);
+      expect(html).toMatch(/<head.*?>/);
+      expect(html).toMatch(/<body.*?>/);
+      expect(html).toMatch(/<\/head.*?>/);
+      expect(html).toMatch(/<\/body.*?>/);
 
-    for(var i = 0, data = ""; i < tags.length; i++) {
-      data = '<div id="' + tags[i] + '">';
-      // console.log(data)
-      expect(html).toMatch(data);
-    }
+      expect(html).toMatch(/<meta .*?charset=utf-8/i);
+      expect(html).toMatch(/<title>.+<\/title>/i);
+      expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/mkwsStyle.css"/);
+
+
+      for(var i = 0, data = ""; i < tags.length; i++) {
+        data = '<div id="' + tags[i] + '">';
+        // console.log(data)
+        expect(html).toMatch(data);
+      }
+    });
   });
-});
+}
 
+var mkws_tags_required = ["mkwsSearch", "mkwsResults"];
+var mkws_tags_optional = ["mkwsSwitch", "mkwsLang", "mkwsTargets"];
+var mkws_tags_optional2 = ["mkwsMOTD", "mkwsStat", "footer"];
+html_check('../examples/htdocs/index-full.html', [mkws_tags_required, mkws_tags_optional, mkws_tags_optional2]);
+html_check('../examples/htdocs/index-mobile.html', [mkws_tags_required, mkws_tags_optional]);
+html_check('../examples/htdocs/index-jquery.html', []);
 
+var file = '../examples/htdocs/index-full.html';
+var html = fs.readFileSync(file, "utf-8");
 /*
  * parse HTML data to DOM, and run jQuery request on it
  *
  */
 describe("index-full.html jsdom + jquery", function() {
   var window = require('jsdom').jsdom(html, null, {
+
     FetchExternalResources: false,
     ProcessExternalResources: false,
     MutationEvents: false,
