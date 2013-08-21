@@ -1,3 +1,8 @@
+/*
+ * jQuery test for node.js
+ *
+ */
+
 var $ = jQuery = require('jquery');
 
 describe("jQuery suite", function() {
