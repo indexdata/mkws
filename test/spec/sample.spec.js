@@ -1,3 +1,9 @@
+/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+ *
+ * jQuery sample from system documentation
+ *
+ */
+
 describe('jasmine-node', function(){
 
   it('should pass', function(){
@@ -16,7 +22,7 @@ describe('jasmine-node', function(){
   it('shows asynchronous test node-style', function(done){
     setTimeout(function(){
       expect('second').toEqual('second');
-      // If you call done() with an argument, it will fail the spec 
+      // If you call done() with an argument, it will fail the spec
       // so you can use it as a handler for many async node calls
       done();
     }, 1);
