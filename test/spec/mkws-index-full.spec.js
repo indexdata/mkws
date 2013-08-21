@@ -6,28 +6,7 @@
 
 
 var fs = require("fs");
-
-/*
- * combine arrays, return a flat list
- * [["a","b"], ["c"], "d"] => ["a", "b", "c", "d"]
- *
- */
-function flat_list (list) {
-  var data = [];
-
-  for(var i = 0; i < list.length; i++) {
-      if (typeof list[i] == 'object') {
-        for(var j = 0; j < list[i].length; j++) {
-          data.push(list[i][j]);
-        }
-
-      } else {
-        data.push(list[i]);
-      }
-  }
-
-  return data;
-}
+var utils = require("./mkws_utils.js");
 
 /*
  * simple test with string matching of the HTML page
@@ -36,7 +15,7 @@ function flat_list (list) {
 
 function html_check (file, tags_array, ignore_doctype) {
   var html = fs.readFileSync(file, "utf-8");
-  var tags = flat_list(tags_array);
+  var tags = utils.flat_list(tags_array);
 
   describe("index-full.html string test for " + file, function() {
     it("html test", function() {
@@ -74,7 +53,7 @@ function html_check (file, tags_array, ignore_doctype) {
 
 function jsdom_check (file, tags_array, ignore_doctype) {
   var html = fs.readFileSync(file, "utf-8");
-  var tags = flat_list(tags_array);
+  var tags = utils.flat_list(tags_array);
 
   describe("index-full.html jsdom + jquery for " + file, function() {
     var window = require('jsdom').jsdom(html, null, {
