@@ -1,5 +1,6 @@
-/*
- * jQuery test for node.js
+/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+ *
+ * jQuery test
  *
  */
 
