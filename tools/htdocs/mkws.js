@@ -930,6 +930,10 @@ function init_popup(obj) {
 
     debug("popup height: " + height + ", width: " + width);
 
+    /* 
+     * make sure that jquery-ui was loaded afte jQuery core lib
+     * http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"
+     */
     $(id_popup).dialog({
       closeOnEscape: true,
       autoOpen: false,
