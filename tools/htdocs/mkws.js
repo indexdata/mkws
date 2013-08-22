@@ -727,7 +727,10 @@ function mkws_service_proxy_auth(auth_url) {
 
     debug("Run service proxy auth URL: " + auth_url);
 
-    var request = new pzHttpRequest(auth_url);
+    var request = new pzHttpRequest(auth_url, function(err) {
+	alert("HTTP call for authentication failed: " + err)
+	return;
+    });
     request.get(null, function(data) {
 	if (!$.isXMLDoc(data)) {
 	    alert("service proxy auth response document is not valid XML document, give up!");
@@ -842,6 +845,9 @@ $.extend({
 
     // service-proxy or pazpar2
     pazpar2: function(config) {
+	var id_popup = config.id_popup || "#mkwsPopup";
+	id_popup = id_popup.replace(/^#/, "");
+
 	// simple layout
 	var div = '<div id="mkwsSwitch"></div>\
 	<div id="mkwsLang"></div>\
@@ -898,7 +904,7 @@ $.extend({
 
 	var popup = '\
 	  <div id="mkwsSearch"></div>\
-	  <div id="mkwsPopup">\
+	  <div id="' + id_popup + '">\
 	    <div id="mkwsSwitch"></div>\
 	    <div id="mkwsLang"></div>\
 	    <div id="mkwsResults"></div>\
@@ -910,7 +916,7 @@ $.extend({
 	    this.debug2("jquery plugin layout: div");
 	    document.write(div);
 	} else if (config && config.layout == 'popup') {
-	    this.debug2("jquery plugin layout: popup");
+	    this.debug2("jquery plugin layout: popup with id: " + id_popup);
 	    document.write(popup);
 	    $(document).ready( function() { init_popup(config); } );
 	} else {
@@ -925,10 +931,17 @@ function init_popup(obj) {
 
     var height = config.height || 760;
     var width = config.width || 880;
-    var id_button = config.button || "input#mkwsButton";
-    var id_popup = config.popup || "#mkwsPopup";
+    var id_button = config.id_button || "input#mkwsButton";
+    var id_popup = config.id_popup || "#mkwsPopup";
 
     debug("popup height: " + height + ", width: " + width);
+
+    // make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
+    // <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    if (!$.ui) {
+	debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
+	return;
+    }
 
     $(id_popup).dialog({
       closeOnEscape: true,
