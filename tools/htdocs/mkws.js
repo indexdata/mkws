@@ -930,10 +930,13 @@ function init_popup(obj) {
 
     debug("popup height: " + height + ", width: " + width);
 
-    /* 
-     * make sure that jquery-ui was loaded afte jQuery core lib
-     * http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"
-     */
+    // make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
+    // <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    if (!$.ui) {
+	debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
+	return;
+    }
+
     $(id_popup).dialog({
       closeOnEscape: true,
       autoOpen: false,
