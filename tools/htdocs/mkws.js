@@ -727,7 +727,10 @@ function mkws_service_proxy_auth(auth_url) {
 
     debug("Run service proxy auth URL: " + auth_url);
 
-    var request = new pzHttpRequest(auth_url);
+    var request = new pzHttpRequest(auth_url, function(err) {
+	alert("HTTP call for authentication failed: " + err)
+	return;
+    });
     request.get(null, function(data) {
 	if (!$.isXMLDoc(data)) {
 	    alert("service proxy auth response document is not valid XML document, give up!");
