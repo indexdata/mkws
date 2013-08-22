@@ -9,7 +9,7 @@ check:
 
 test: check
 
-jsbeautifier:
+jsbeautifier jsb:
 	for i in ./spec/*.js ./js/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
