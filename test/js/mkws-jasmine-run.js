@@ -7,12 +7,12 @@
 function mkws_jasmine_init(delay) {
     var currentWindowOnload = window.onload;
 
-    window.onload = function() {
+    window.onload = function () {
         if (currentWindowOnload) {
             currentWindowOnload();
         }
         if (delay) {
-            setTimeout(function() {
+            setTimeout(function () {
                 execJasmine()
             }, delay);
         } else {
@@ -27,7 +27,7 @@ function mkws_jasmine_init(delay) {
         var htmlReporter = new jasmine.HtmlReporter();
         jasmineEnv.addReporter(htmlReporter);
 
-        jasmineEnv.specFilter = function(spec) {
+        jasmineEnv.specFilter = function (spec) {
             return htmlReporter.specFilter(spec);
         };
 
@@ -36,4 +36,3 @@ function mkws_jasmine_init(delay) {
 };
 
 /* EOF */
-
