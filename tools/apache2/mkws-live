@@ -14,6 +14,7 @@
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-rewrite.log 
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
+    RewriteRule /service-proxy/%3F /service-proxy/? [P] # [NE,P]
 
     Header set Access-Control-Allow-Credentials true
 

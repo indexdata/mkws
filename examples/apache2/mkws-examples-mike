@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+    ServerName x.example.indexdata.com
+    DocumentRoot /usr/local/src/git/mkws/examples/htdocs/
+    ErrorLog /var/log/apache2/mkws-examples-error.log
+    CustomLog /var/log/apache2/mkws-examples-access.log combined
+
+    ProxyPass        /service-proxy-auth-mike http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo
+    ProxyPassReverse /service-proxy-auth-mike http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName x.mkws.indexdata.com
+    DocumentRoot /usr/local/src/git/mkws/tools/htdocs/
+    ErrorLog /var/log/apache2/mkws-tools-error.log
+    CustomLog /var/log/apache2/mkws-tools-access.log combined
+
+    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+</VirtualHost>
