@@ -45,7 +45,7 @@ pz2api-git-checkout:
 mkws-js ${MKWS_JS}: pz2api-check ${PZ2API_JS} mkws.js
 	( echo "/* created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
-	  curl -sSf ${JQUERY_URL}; \
+	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
 	  cat ../../../libjs-pz2/pz2api.1.js mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
