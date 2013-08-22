@@ -61,7 +61,6 @@ possible options:
 	<script type="text/javascript">
 	    var mkws_config = {
 		use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
-		switch_menu: true, 	    /* true, false: show/hide Records|Targets menu */
 		lang_menu: true, 	    /* true, false: show/hide language menu */
 		sort_menu: true, 	    /* true, false: show/hide sort menu */
 		perpage_menu: true, 	    /* true, false: show/hide perpage menu */
