@@ -111,4 +111,9 @@ describe("Check pazpar2 hit counter", function () {
             expect(j_hits).toBeGreaterThan(expected_hits);
         });
     });
+
+    it("Final success message in search input field", function () {
+        $("input#mkwsQuery").val("Success: jasmine test is done");
+        expect($("input#mkwsQuery").val()).toMatch(/done/);
+    });
 });
