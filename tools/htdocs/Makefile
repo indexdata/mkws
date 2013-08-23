@@ -40,7 +40,7 @@ mkws-js ${MKWS_JS}: ${PZ2API_JS} mkws.js
 	    echo "Did you checked out the source from the git repo?"; \
 	    echo "Please run: make pz2api-git-checkout"; \
 	    exit 1; \
-	fi \
+	fi
 	( echo "/* created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
