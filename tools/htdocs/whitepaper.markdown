@@ -1,6 +1,7 @@
-% Using the MasterKey Widget Set to embed metasearching functionality in any web-site
+% Embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
 % 26 July 2013
+
 
 Introduction
 ------------
