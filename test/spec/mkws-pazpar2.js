@@ -40,14 +40,15 @@ describe("Check pazpar2 navigation", function () {
 
                 debug("next click is success: " + click.length);
                 expect(click.length == 1).toBe(true);
+
             }, time * 1000);
         }
 
         runs(function () {
             // click next/prev after N seconds
             my_click("#mkwsNext", 7);
-            my_click("#mkwsNext", 9);
-            my_click("#mkwsPrev", 9.5);
+            my_click("#mkwsNext", 8);
+            my_click("#mkwsPrev", 9);
         });
     });
 });
@@ -112,8 +113,14 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
+    it("Show record", function () {
+        var click = $("div#mkwsRecords div:first-child :nth-child(2)").trigger("click");
+        debug("show click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
+    });
+
     it("Final success message in search input field", function () {
-        $("input#mkwsQuery").val("Success: jasmine test is done");
+        $("input#mkwsQuery").val("jasmine test is done");
         expect($("input#mkwsQuery").val()).toMatch(/done/);
     });
 });
