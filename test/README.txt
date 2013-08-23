@@ -1,6 +1,9 @@
 Jasmine / jasmine-node test frame works
 ---------------------------------------
 
+This directory contains the MasterKey Widget Set (MKWS) Test framework.
+
+
 to run the tests, run:
 
 $ make check
@@ -41,4 +44,5 @@ npm install jasmine-node
 
 
 --
+Copyright (c) 2013 IndexData ApS. http://indexdata.com
 Aug 2013, Wolfram
