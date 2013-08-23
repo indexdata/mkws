@@ -235,6 +235,11 @@ function my_onrecord(data) {
 
 function my_onbytarget(data) {
     var targetDiv = document.getElementById("mkwsBytarget");
+    if (!targetDiv) {
+	// No mkwsTargets div.
+	return;
+    }
+
     var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
         +'<td>Records</td><td>State</td></tr></thead><tbody>';
 
