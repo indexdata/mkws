@@ -524,7 +524,6 @@ function mkws_html_all(config) {
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
-	switch_menu: false, 	/* show/hide Records|Targets menu */
 	lang_menu: true, 	/* show/hide language menu */
 	sort_menu: true, 	/* show/hide sort menu */
 	perpage_menu: true, 	/* show/hide perpage menu */
@@ -672,11 +671,6 @@ function mkws_html_switch(config) {
        No information available yet.\
       </div>');
     $("#mkwsTargets").css("display", "none");
-
-    if (!config.switch_menu) {
-	debug("disable switch menu");
-        $("#mkwsSwitch").css("display", "none");
-    }
 }
 
 function mkws_html_sort(config) {
