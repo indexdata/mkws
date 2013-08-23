@@ -32,7 +32,7 @@ var flat_list = function (list) {
  */
 var tags = {
     required: ["mkwsSearch", "mkwsResults"],
-    optional: ["mkwsSwitch", "mkwsLang", "mkwsTargets"],
+    optional: ["mkwsLang", "mkwsTargets"],
     optional2: ["mkwsMOTD", "mkwsStat", "footer"]
 };
 
