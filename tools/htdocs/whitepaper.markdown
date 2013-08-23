@@ -51,8 +51,8 @@ The following is a complete MKWS-based searching application:
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>MKWS demo client</title>
-        <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
         <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+        <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
       </head>
       <body>
         <div id="mkwsSearch"></div>
@@ -67,8 +67,8 @@ say -- and point your web-browser at it:
 metasearching.
 
 
-Explanation
------------
+How the example works
+---------------------
 
 If you know any HTML, the structure of the file will be familar to
 you: the `<html>` element at the top level contains a `<head>` and a
@@ -93,18 +93,24 @@ are supported. The main `<div>`s are:
 * `mkwsSearch` -- provides the search box and button.
 
 * `mkwsResults` -- provides the results area, including a list of
-  brief records (which open out into full versions when clicked),
-  paging for large results sets, facets for refining a search, sorting
-  facilities, etc.
+   brief records (which open out into full versions when clicked),
+   paging for large results sets, facets for refining a search,
+   sorting facilities, etc.
 
 * `mkwsLang` -- provides links to switch between one of several
    different UI languages. By default, English, Danish and German are
    provided.
 
-* `mkwsSwitch` --
+* `mkwsSwitch` -- provides links to switch between a view of the
+   result records and of the targets that provide them. Only
+   meaningful when `mkwsTargets` is also provided.
 
-* `mkwsTargets` --
-* `mkwsStat` --
+* `mkwsTargets` -- the area where per-target information will appear
+   when selected by the link in the `mkwsSwitch` area. Of interest
+   mostly for fault diagnosis rather than for end-users.
+
+* `mkwsStat` --provides a status line summarising the statistics of
+   the various targets.
 
 ### different HTML structure
 
