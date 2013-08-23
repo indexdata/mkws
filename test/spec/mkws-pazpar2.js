@@ -67,15 +67,15 @@ describe("Check pazpar2 hit counter", function () {
                     re.exec(found);
                     var hits = -1;
 
-                    if (RegExp.$1 != '') {
+                    if (RegExp.$1) {
                         hits = RegExp.$1;
+                        expect(hits).toBeGreaterThan(0);
                     }
 
                     // debug("found: " + found);
                     if (none) {
                         expect(hits < 0).toBeTruthy();
                     } else {
-                        expect(hits).toBeGreaterThan(0);
                         j_hits = hits;
                     }
 
