@@ -50,8 +50,10 @@ function jsdom_check(file, tags_array, ignore_doctype) {
     });
 }
 
+/*
 jsdom_check('../examples/htdocs/index-full.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
 jsdom_check('../examples/htdocs/index-mobile.html', [utils.tags.required, utils.tags.optional]);
 jsdom_check('../examples/htdocs/index-popup.html', [], true);
 jsdom_check('../examples/htdocs/index-jquery.html', []);
 jsdom_check('../examples/htdocs/index-mike.html', [utils.tags.required, utils.tags.optional], true);
+*/
