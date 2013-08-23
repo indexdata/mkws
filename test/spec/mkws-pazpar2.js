@@ -58,33 +58,31 @@ describe("Check pazpar2 hit counter", function () {
         var j_hits = 0;
 
         function found(time, none) {
-            describe("found hits", function () {
-                setTimeout(function () {
-                    j_time = time;
+            setTimeout(function () {
+                j_time = time;
 
-                    var found = $("#mkwsPager").text();
-                    var re = /found: ([0-9]+)/;
-                    re.exec(found);
-                    var hits = -1;
+                var found = $("#mkwsPager").text();
+                var re = /found: ([0-9]+)/;
+                re.exec(found);
+                var hits = -1;
 
-                    if (RegExp.$1) {
-                        hits = RegExp.$1;
-                        expect(hits).toBeGreaterThan(0);
-                    }
+                if (RegExp.$1) {
+                    hits = RegExp.$1;
+                    expect(hits).toBeGreaterThan(0);
+                }
 
-                    // debug("found: " + found);
-                    if (none) {
-                        expect(hits < 0).toBeTruthy();
-                    } else {
-                        j_hits = hits;
-                    }
+                // debug("found: " + found);
+                if (none) {
+                    expect(hits < 0).toBeTruthy();
+                } else {
+                    j_hits = hits;
+                }
 
-                    debug("mkws pager found records: '" + hits + "'");
-                    debug("time state: " + j_time);
+                debug("mkws pager found records: '" + hits + "'");
+                debug("time state: " + j_time);
 
-                    expect(time >= 0).toBeTruthy();
-                }, time * 1000);
-            });
+                expect(time >= 0).toBeTruthy();
+            }, time * 1000);
         }
 
         runs(function () {
