@@ -114,7 +114,7 @@ describe("Check pazpar2 hit counter", function () {
     });
 
     it("Show record", function () {
-        var click = $("div#mkwsRecords div:first-child :nth-child(2)").trigger("click");
+        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
         debug("show click is success: " + click.length);
         expect(click.length == 1).toBe(true);
     });
