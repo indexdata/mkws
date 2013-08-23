@@ -2,7 +2,14 @@ Jasmine / jasmine-node test frame works
 ---------------------------------------
 
 to run the tests, run:
+
 $ make check
+jasmine-node ./spec
+.......................................
+
+Finished in 2.024 seconds
+39 tests, 194 assertions, 0 failures, 0 skipped
+
 
 To get a basic help, run:
 $ make help
