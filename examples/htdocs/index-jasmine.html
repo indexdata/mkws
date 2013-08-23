@@ -78,44 +78,6 @@
         </td>
       </tr>
     </table>
-<!--    <script>
-    $(document).ready(function() {
-	debug("document ready");
-	setTimeout(function () {
-	  debug("start search");
-	  $("input#mkwsQuery").val("freebsd");
-	  $("input#mkwsButton").trigger("click");
 
-	  function my_click (id, time) {
-	    setTimeout(function () {
-	      debug("trigger click on id: " + id);
-	      $(id).trigger("click");
-	    }, time*1000);
-	  }
-
-	  function found (time) {
-	    setTimeout(function() {
-	      var found = $("#mkwsPager").html().match(/found: ([0-9]+)/);
-	      debug("mkws pager found records: " + (found != null ? found[0] : "unknown"));
-	    }, time*1000);
-	  }
-
-	  my_click("#mkwsNext", 10);
-	  my_click("#mkwsNext", 13);
-	  my_click("#mkwsPrev", 15);
-
-	  if ($("#mkwsPager").length) {
-	    found(0);
-	    found(5);
-	    found(10);
-	    found(15);
-	    found(25);
-
-	  } else {
-	    debug("no mkws page found");
-	  }
-	}, 3 * 1000);
-    });
-    </script>-->
   </body>
 </html>
