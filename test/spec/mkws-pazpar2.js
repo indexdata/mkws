@@ -36,16 +36,18 @@ describe("Check pazpar2 navigation", function () {
         function my_click(id, time) {
             setTimeout(function () {
                 debug("trigger click on id: " + id);
-                $(id).trigger("click");
-                expect(time >= 0).toBeTruthy();
+                var click = $(id).trigger("click");
+
+                debug("next click is success: " + click.length);
+                expect(click.length == 1).toBe(true);
             }, time * 1000);
         }
 
         runs(function () {
             // click next/prev after N seconds
             my_click("#mkwsNext", 7);
-            my_click("#mkwsNext", 10);
-            my_click("#mkwsPrev", 12);
+            my_click("#mkwsNext", 9);
+            my_click("#mkwsPrev", 9.5);
         });
     });
 });
@@ -53,7 +55,8 @@ describe("Check pazpar2 navigation", function () {
 
 describe("Check pazpar2 hit counter", function () {
     it("check running search hit counter", function () {
-        var max_time = 10;
+        var max_time = 10; // in seconds
+        var expected_hits = 116; //
         var j_time = 0;
         var j_hits = 0;
 
@@ -105,7 +108,7 @@ describe("Check pazpar2 hit counter", function () {
 
         runs(function () {
             expect(j_time <= max_time).toBeTruthy();
-            expect(j_hits).toBeGreaterThan(80);
+            expect(j_hits).toBeGreaterThan(expected_hits);
         });
     });
 });
