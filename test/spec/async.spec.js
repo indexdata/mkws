@@ -17,6 +17,7 @@ describe("Asynchronous check", function () {
             setTimeout(function () {
                 timer = time;
             }, time * 1000);
+            expect(time >= 0).toBeTruthy();
         }
 
         runs(function () {
@@ -48,6 +49,7 @@ describe("Asynchronous check", function () {
             setTimeout(function () {
                 timer = time;
             }, time * 1000);
+            expect(time >= 0).toBeTruthy();
         }
 
         runs(function () {
