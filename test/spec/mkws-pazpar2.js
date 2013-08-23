@@ -53,7 +53,7 @@ describe("Check pazpar2 navigation", function () {
 
 describe("Check pazpar2 hit counter", function () {
     it("check running search hit counter", function () {
-        var max_time = 13;
+        var max_time = 10;
         var j_time = 0;
         var j_hits = 0;
 
@@ -88,22 +88,24 @@ describe("Check pazpar2 hit counter", function () {
         runs(function () {
             // check hit counter after N seconds
             found(0, true);
-            found(5);
-            found(10);
-            found(15);
+            found(3);
+            found(6);
+            found(8);
             found(max_time);
         });
 
         waitsFor(function () {
             return j_time == max_time ? true : false;
-        }, "The Value should be 20 seconds", 30 * 1000); // (max_time + 1) * 1000);
+        }, "The Value should be 20 seconds", max_time * 1000);
+
+
         runs(function () {
             expect($("#mkwsPager").length == 1).toBe(true);
         })
 
         runs(function () {
             expect(j_time <= max_time).toBeTruthy();
-            expect(j_hits > 0).toBeTruthy();
+            expect(j_hits).toBeGreaterThan(80);
         });
     });
 });
