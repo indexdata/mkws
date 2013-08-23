@@ -119,8 +119,10 @@ describe("Check pazpar2 hit counter", function () {
         expect(click.length == 1).toBe(true);
     });
 
+    /*
     it("Final success message in search input field", function () {
         $("input#mkwsQuery").val("jasmine test is done");
         expect($("input#mkwsQuery").val()).toMatch(/done/);
     });
+    */
 });
