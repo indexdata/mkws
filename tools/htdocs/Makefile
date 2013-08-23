@@ -29,20 +29,18 @@ all: ${MKWS_JS} $(DOCS)
 
 docs: $(DOCS)
 
-pz2api-check: 
-	@if ! test -e ${PZ2API_JS}; then \
-	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
-	    echo "Did you checked out the source from the git repo?"; \
-	    echo "Please run: make pz2api-git-checkout"; \
-	    exit 1; \
-	fi
-
 pz2api-git-checkout: 
 	@if ! test -e ${PZ2API_JS}; then \
 	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: pz2api-check ${PZ2API_JS} mkws.js
+mkws-js ${MKWS_JS}: ${PZ2API_JS} mkws.js
+	@if ! test -e ${PZ2API_JS}; then \
+	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
+	    echo "Did you checked out the source from the git repo?"; \
+	    echo "Please run: make pz2api-git-checkout"; \
+	    exit 1; \
+	fi \
 	( echo "/* created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
