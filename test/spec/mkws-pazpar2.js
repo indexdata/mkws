@@ -6,11 +6,11 @@
 
 var debug = mkws.debug;
 
-function get_hit_counter() {
+var get_hit_counter = function () {
     if ($("#mkwsPager").length == 0) return -1;
 
     var found = $("#mkwsPager").text();
-    var re = /found: ([0-9]+)/;
+    var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
     re.exec(found);
     var hits = -1;
 
