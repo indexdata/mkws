@@ -68,7 +68,7 @@ describe("Check pazpar2 hit counter", function () {
             expect(hits).toBeGreaterThan(0);
         }
 
-        debug("Hits: " + hits);
+        //debug("Hits: " + hits);
         return hits;
     }
 
@@ -169,23 +169,6 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
-    it("Show record", function () {
-        function get_time() {
-            var date = new Date();
-            return date.getTime();
-        }
-        var time = get_time();
-
-        waitsFor(function () {
-            return get_time() > time ? true : false;
-        }, "wait a second", 1 * 1000);
-
-        runs(function () {
-            show_record();
-        });
-    });
-
-
     it("Limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
 
@@ -204,7 +187,35 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
-    it("Show record", function () {
+    it("Show record author", function () {
         show_record();
     });
+});
+
+describe("Check status client counter", function () {
+    function get_time() {
+        var date = new Date();
+        return date.getTime();
+    }
+    var time = get_time();
+
+    it("Limit search to first author", function () {
+
+        waitsFor(function () {
+            var clients = $("div#mkwsStat span.clients");
+            if (clients.length == 1 && clients.text() == "0/1") {
+                return true;
+            } else {
+                return false;
+            }
+
+        }, "wait for status", 4 * 1000);
+
+    });
+    runs(function () {
+        var clients = $("div#mkwsStat span.clients");
+        debug("span.clients: " + clients.text());
+        expect(clients.text()).toEqual("0/1");
+    });
+
 });
