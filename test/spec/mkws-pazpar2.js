@@ -202,7 +202,7 @@ describe("Check status client counter", function () {
     }
     var time = get_time();
 
-    it("limit search to first author", function () {
+    it("check status clients", function () {
 
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
