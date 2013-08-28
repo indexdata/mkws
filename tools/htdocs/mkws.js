@@ -10,16 +10,11 @@
  * including this JS file
  */
 
-if (!mkws_config)
-    var mkws_config = {}; // for the guys who forgot to define mkws_config...
-
 // Set up namespace and some state.
 var mkws = {};
 
-
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
-
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
@@ -27,11 +22,11 @@ var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_prox
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
-var mkws_debug;
-
-
 // Wrapper for jQuery
 (function ($) {
+
+if (!mkws_config)
+    var mkws_config = {}; // for the guys who forgot to define mkws_config...
 
 mkws.locale_lang = {
     "de": {
@@ -84,7 +79,7 @@ mkws.locale_lang = {
 };
 
 mkws.debug = function (string) {
-    if (!mkws_debug)
+    if (!mkws.debug)
 	return;
 
     if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
@@ -92,9 +87,9 @@ mkws.debug = function (string) {
     }
 
     // you need to disable use strict at the top of the file!!!
-    if (mkws_debug >= 3) {
+    if (mkws.debug >= 3) {
 	console.log(arguments.callee.caller);
-    } else if (mkws_debug >= 2) {
+    } else if (mkws.debug >= 2) {
 	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
     }
     console.log(string);
@@ -569,9 +564,9 @@ function mkws_html_all(config) {
 
     /* set global debug flag early */
     if (typeof config.debug !== 'undefined') {
-	mkws_debug = config.debug;
+	mkws.debug = config.debug;
     } else if (typeof mkws_config_default.debug !== 'undefined') {
-	mkws_debug = mkws_config_default.debug;
+	mkws.debug = mkws_config_default.debug;
     }
 
     /* override standard config values by function parameters */
