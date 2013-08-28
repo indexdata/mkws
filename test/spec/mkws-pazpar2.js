@@ -146,7 +146,7 @@ describe("Check Termlist", function () {
         expect(authors.length == 1).toBe(true);
     });
 
-    it("Limit search to first source", function () {
+    it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
 
         var click = $("div#mkwsFacetSources div.term:nth-child(2) a").trigger("click");
@@ -172,7 +172,7 @@ describe("Check Termlist", function () {
         });
     });
 
-    it("Limit search to first author", function () {
+    it("limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
 
         var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
@@ -190,7 +190,7 @@ describe("Check Termlist", function () {
         });
     });
 
-    it("Show record author", function () {
+    it("show record author", function () {
         show_record();
     });
 });
@@ -202,7 +202,7 @@ describe("Check status client counter", function () {
     }
     var time = get_time();
 
-    it("Limit search to first author", function () {
+    it("limit search to first author", function () {
 
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
