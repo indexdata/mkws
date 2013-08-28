@@ -25,8 +25,21 @@ var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_prox
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
+// exported symobols
+var debug;
+var my_paz;
+var limitTarget;
+var delimitTarget;
+var limitQuery;
+var showDetails;
+var pagerNext;
+var switchView;
+var showPage;
+var mkws_locale_lang;
 
-var mkws_locale_lang = {
+(function ($) {
+
+mkws_locale_lang = {
     "de": {
 	"Authors": "Autoren",
 	"Subjects": "Schlagw&ouml;rter",
@@ -76,6 +89,22 @@ var mkws_locale_lang = {
     }
 };
 
+debug = function (string) {
+    if (!mkws_debug)
+	return;
+
+    if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
+	return;
+    }
+
+    // you need to disable use strict at the top of the file!!!
+    if (mkws_debug >= 3) {
+	console.log(arguments.callee.caller);
+    } else if (mkws_debug >= 2) {
+	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+    }
+    console.log(string);
+}
 
 for (var key in mkws_config) {
     if (mkws_config.hasOwnProperty(key)) {
@@ -91,7 +120,7 @@ for (var key in mkws_config) {
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-var my_paz = new pz2( { "onshow": my_onshow,
+my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
                     "pazpar2path": pazpar2path,
                     "oninit": my_oninit,
@@ -313,14 +342,14 @@ function loadSelect ()
 }
 
 // limit the query after clicking the facet
-function limitQuery (field, value)
+limitQuery = function (field, value)
 {
     document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
 
 // limit by target functions
-function limitTarget (id, name)
+limitTarget  = function (id, name)
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML =
@@ -333,7 +362,7 @@ function limitTarget (id, name)
     return false;
 }
 
-function delimitTarget ()
+delimitTarget = function ()
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
@@ -390,7 +419,7 @@ function drawPager (pagerDiv)
         + prev + predots + middle + postdots + next + '</div>';
 }
 
-function showPage (pageNum)
+showPage = function (pageNum)
 {
     curPage = pageNum;
     my_paz.showPage( curPage - 1 );
@@ -398,7 +427,7 @@ function showPage (pageNum)
 
 // simple paging functions
 
-function pagerNext() {
+pagerNext = function () {
     if ( totalRec - recPerPage*curPage > 0) {
         my_paz.showNext();
         curPage++;
@@ -412,7 +441,7 @@ function pagerPrev() {
 
 // switching view between targets and records
 
-function switchView(view) {
+switchView = function(view) {
     var targets = document.getElementById('mkwsTargets');
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
@@ -444,7 +473,7 @@ function switchView(view) {
 }
 
 // detailed record drawing
-function showDetails (prefixRecId) {
+showDetails = function (prefixRecId) {
     var recId = prefixRecId.replace('mkwsRec_', '');
     var oldRecId = curDetRecId;
     curDetRecId = recId;
@@ -964,22 +993,7 @@ function init_popup(obj) {
       });
 };
 
-function debug(string) {
-    if (!mkws_debug)
-	return;
 
-    if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
-	return;
-    }
-
-    // you need to disable use strict at the top of the file!!!
-    if (mkws_debug >= 3) {
-	console.log(arguments.callee.caller);
-    } else if (mkws_debug >= 2) {
-	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
-    }
-    console.log(string);
-}
 
 
 /* magic */
@@ -993,3 +1007,7 @@ $(document).ready(function() {
 	// alert(e.message);
     }
 });
+
+})(jQuery);
+
+jQuery = null;
