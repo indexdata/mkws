@@ -4,6 +4,23 @@
  *
  */
 
+function get_hit_counter() {
+    if ($("#mkwsPager").length == 0) return -1;
+
+    var found = $("#mkwsPager").text();
+    var re = /found: ([0-9]+)/;
+    re.exec(found);
+    var hits = -1;
+
+    if (RegExp.$1) {
+        hits = parseInt(RegExp.$1);
+        expect(hits).toBeGreaterThan(0);
+    }
+
+    //debug("Hits: " + hits);
+    return hits;
+}
+
 describe("Check pazpar2 search", function () {
     it("pazpar2 was successfully initialize", function () {
         expect(mkws_config.error).toBe(undefined);
@@ -55,28 +72,6 @@ describe("Check pazpar2 navigation", function () {
 
 
 describe("Check pazpar2 hit counter", function () {
-    function get_hit_counter() {
-        if ($("#mkwsPager").length == 0) return -1;
-
-        var found = $("#mkwsPager").text();
-        var re = /found: ([0-9]+)/;
-        re.exec(found);
-        var hits = -1;
-
-        if (RegExp.$1) {
-            hits = parseInt(RegExp.$1);
-            expect(hits).toBeGreaterThan(0);
-        }
-
-        //debug("Hits: " + hits);
-        return hits;
-    }
-
-    function show_record() {
-        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
-        debug("show click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
-    }
 
     it("check running search hit counter", function () {
         var max_time = 10; // in seconds
@@ -126,6 +121,14 @@ describe("Check pazpar2 hit counter", function () {
             expect(j_hits).toBeGreaterThan(expected_hits);
         });
     });
+});
+
+describe("Check Termlist", function () {
+    function show_record() {
+        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
+        debug("show click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
+    }
 
     // show_record();
     it("found Termlist", function () {
