@@ -55,6 +55,31 @@ describe("Check pazpar2 navigation", function () {
 
 
 describe("Check pazpar2 hit counter", function () {
+    function get_hit_counter() {
+        if ($("#mkwsPager").length == 0) return -1;
+
+        var found = $("#mkwsPager").text();
+        var re = /found: ([0-9]+)/;
+        re.exec(found);
+        var hits = -1;
+
+        if (RegExp.$1) {
+            hits = parseInt(RegExp.$1);
+            expect(hits).toBeGreaterThan(0);
+        }
+
+        debug("Hits: " + hits);
+        return hits;
+    }
+
+    function show_record() {
+        it("Show record", function () {
+            var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
+            debug("show click is success: " + click.length);
+            expect(click.length == 1).toBe(true);
+        });
+    }
+
     it("check running search hit counter", function () {
         var max_time = 10; // in seconds
         var expected_hits = 116; //
@@ -64,16 +89,7 @@ describe("Check pazpar2 hit counter", function () {
         function found(time, none) {
             setTimeout(function () {
                 j_time = time;
-
-                var found = $("#mkwsPager").text();
-                var re = /found: ([0-9]+)/;
-                re.exec(found);
-                var hits = -1;
-
-                if (RegExp.$1) {
-                    hits = RegExp.$1;
-                    expect(hits).toBeGreaterThan(0);
-                }
+                hits = get_hit_counter();
 
                 // debug("found: " + found);
                 if (none) {
@@ -113,12 +129,7 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
-    it("Show record", function () {
-        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
-        debug("show click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
-    });
-
+    // show_record();
     it("found Termlist", function () {
         var termlist = $("div#mkwsTermlists");
         debug("Termlist success: " + termlist.length);
@@ -134,16 +145,51 @@ describe("Check pazpar2 hit counter", function () {
         expect(authors.length == 1).toBe(true);
     });
 
+    // show_record();
     it("Limit search to first source", function () {
+        var hits_all_targets = get_hit_counter();
+
         var click = $("div#mkwsFacetSources div.term:nth-child(2) a").trigger("click");
         debug("limit source click is success: " + click.length);
         expect(click.length == 1).toBe(true);
+
+        waitsFor(function () {
+            if ($("div#mkwsNavi").length && $("div#mkwsNavi").text().match(/^Source/)) {
+                return true;
+            } else {
+                return false;
+            }
+        }, "Search for source in navi bar", 1000);
+
+        waitsFor(function () {
+            return get_hit_counter() < hits_all_targets ? true : false;
+        }, "Search for with less hits", 9 * 1000);
+
+        runs(function () {
+            var hits_single_target = get_hit_counter();
+            debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
+            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
+        });
     });
 
-/*
-    it("Final success message in search input field", function () {
-        $("input#mkwsQuery").val("jasmine test is done");
-        expect($("input#mkwsQuery").val()).toMatch(/done/);
+    // show_record();
+    it("Limit search to first author", function () {
+        var hits_all_targets = get_hit_counter();
+
+        var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
+        debug("limit author click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
+
+        waitsFor(function () {
+            return get_hit_counter() < hits_all_targets ? true : false;
+        }, "Search for with less hits", 9 * 1000);
+
+        runs(function () {
+            var hits_single_target = get_hit_counter();
+            debug("get less hits for authors: " + hits_all_targets + " > " + hits_single_target);
+            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
+        });
     });
-    */
+
+    // show_record();
 });
