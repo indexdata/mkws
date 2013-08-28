@@ -4,6 +4,8 @@
  *
  */
 
+var debug = mkws.debug;
+
 function get_hit_counter() {
     if ($("#mkwsPager").length == 0) return -1;
 

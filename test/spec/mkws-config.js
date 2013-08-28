@@ -14,12 +14,12 @@ describe("Check mkws_config object", function () {
     });
 
     it("mkws_config locale check German", function () {
-        expect(mkws_locale_lang.de.Authors).toMatch(/^Autoren$/);
-        expect(mkws_locale_lang.de.Location).toMatch(/^Ort$/);
+        expect(mkws.locale_lang.de.Authors).toMatch(/^Autoren$/);
+        expect(mkws.locale_lang.de.Location).toMatch(/^Ort$/);
     });
     it("mkws_config locale check Danish", function () {
-        expect(mkws_locale_lang.da.Authors).toMatch(/^Forfattere$/);
-        expect(mkws_locale_lang.da.Location).toMatch(/^Lokation$/);
+        expect(mkws.locale_lang.da.Authors).toMatch(/^Forfattere$/);
+        expect(mkws.locale_lang.da.Location).toMatch(/^Lokation$/);
     });
 
     it("mkws_config service proxy enabled", function () {
@@ -39,7 +39,7 @@ describe("Check pazpar2 config", function () {
     });
 
     it("my_paz is defined", function () {
-        expect(my_paz).not.toBe(undefined);
+        expect(mkws.my_paz).not.toBe(undefined);
     });
 });
 

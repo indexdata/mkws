@@ -13,11 +13,13 @@
 if (!mkws_config)
     var mkws_config = {}; // for the guys who forgot to define mkws_config...
 
+// Set up namespace and some state.
+var mkws = {};
+
+
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
-// global debug flag
-var mkws_debug;
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
@@ -25,21 +27,13 @@ var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_prox
 var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
 var usesessions = mkws_config.use_service_proxy ? false : true;
 
-// exported symobols
-var debug;
-var my_paz;
-var limitTarget;
-var delimitTarget;
-var limitQuery;
-var showDetails;
-var pagerNext;
-var switchView;
-var showPage;
-var mkws_locale_lang;
+var mkws_debug;
 
+
+// Wrapper for jQuery
 (function ($) {
 
-mkws_locale_lang = {
+mkws.locale_lang = {
     "de": {
 	"Authors": "Autoren",
 	"Subjects": "Schlagw&ouml;rter",
@@ -89,7 +83,7 @@ mkws_locale_lang = {
     }
 };
 
-debug = function (string) {
+mkws.debug = function (string) {
     if (!mkws_debug)
 	return;
 
@@ -105,13 +99,14 @@ debug = function (string) {
     }
     console.log(string);
 }
+var debug = mkws.debug; // local alias
 
 for (var key in mkws_config) {
     if (mkws_config.hasOwnProperty(key)) {
 	if (key.match(/^language_/)) {
 	    var lang = key.replace(/^language_/, "");
 	    // Copy custom languages into list
-	    mkws_locale_lang[lang] = mkws_config[key];
+	    mkws.locale_lang[lang] = mkws_config[key];
 	}
     }
 }
@@ -120,7 +115,7 @@ for (var key in mkws_config) {
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-my_paz = new pz2( { "onshow": my_onshow,
+var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
                     "pazpar2path": pazpar2path,
                     "oninit": my_oninit,
@@ -131,6 +126,9 @@ my_paz = new pz2( { "onshow": my_onshow,
 	 	    "usesessions" : usesessions,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
+
+mkws.my_paz = my_paz; // export
+
 // some state vars
 var curPage = 1;
 var recPerPage = 20;
@@ -171,7 +169,7 @@ function my_onshow(data) {
 	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
             +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="mkwsRec_'+hit.recid
-            +'" onclick="showDetails(this.id);return false;"><b>'
+            +'" onclick="mkws.showDetails(this.id);return false;"><b>'
             + hit["md-title"] +' </b></a>');
 	      if (hit["md-title-remainder"] !== undefined) {
 	        html.push('<span>' + hit["md-title-remainder"] + ' </span>');
@@ -239,9 +237,9 @@ function add_single_facet(acc, caption, data, max, cclIndex) {
 	if (!cclIndex) {
 	    // Special case: target selection
 	    acc.push('target_id='+data[i].id+' ');
-	    action = 'limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+	    action = 'mkws.limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	} else {
-	    action = 'limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
+	    action = 'mkws.limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
 	}
 	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 		 + ' <span>' + data[i].freq + '</span>');
@@ -306,7 +304,7 @@ function onFormSubmitEventHandler()
     resetPage();
     loadSelect();
     triggerSearch();
-    switchView('records'); // In case it's configured to start off as hidden
+    mkws.switchView('records'); // In case it's configured to start off as hidden
     submitted = true;
     return false;
 }
@@ -342,18 +340,18 @@ function loadSelect ()
 }
 
 // limit the query after clicking the facet
-limitQuery = function (field, value)
+mkws.limitQuery = function (field, value)
 {
     document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
 
 // limit by target functions
-limitTarget  = function (id, name)
+mkws.limitTarget  = function (id, name)
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML =
-        'Source: <a class="crossout" href="#" onclick="delimitTarget();return false;">'
+        'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
         + name + '</a>';
     curFilter = 'pz:id=' + id;
     resetPage();
@@ -362,7 +360,7 @@ limitTarget  = function (id, name)
     return false;
 }
 
-delimitTarget = function ()
+mkws.delimitTarget = function ()
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
@@ -398,13 +396,13 @@ function drawPager (pagerDiv)
         if(i == curPage)
             numLabel = '<b>' + i + '</b>';
 
-        middle += '<a href="#" onclick="showPage(' + i + ')"> '
+        middle += '<a href="#" onclick="mkws.showPage(' + i + ')"> '
             + numLabel + ' </a>';
     }
 
     var next = '<b> | </b><span id="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
     if (pages - curPage > 0)
-        next = '<b> | </b><a href="#" id="mkwsNext" onclick="pagerNext()">'
+        next = '<b> | </b><a href="#" id="mkwsNext" onclick="mkws.pagerNext()">'
         + M('Next') + ' &#62;&#62;</a>';
 
     var predots = '';
@@ -419,7 +417,7 @@ function drawPager (pagerDiv)
         + prev + predots + middle + postdots + next + '</div>';
 }
 
-showPage = function (pageNum)
+mkws.showPage = function (pageNum)
 {
     curPage = pageNum;
     my_paz.showPage( curPage - 1 );
@@ -427,7 +425,7 @@ showPage = function (pageNum)
 
 // simple paging functions
 
-pagerNext = function () {
+mkws.pagerNext = function () {
     if ( totalRec - recPerPage*curPage > 0) {
         my_paz.showNext();
         curPage++;
@@ -441,7 +439,7 @@ function pagerPrev() {
 
 // switching view between targets and records
 
-switchView = function(view) {
+mkws.switchView = function(view) {
     var targets = document.getElementById('mkwsTargets');
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
@@ -473,7 +471,7 @@ switchView = function(view) {
 }
 
 // detailed record drawing
-showDetails = function (prefixRecId) {
+mkws.showDetails = function (prefixRecId) {
     var recId = prefixRecId.replace('mkwsRec_', '');
     var oldRecId = curDetRecId;
     curDetRecId = recId;
@@ -674,7 +672,7 @@ function mkws_html_all(config) {
 
 function mkws_set_lang(mkws_config)  {
     var lang = $.parseQuerystring().lang || mkws_config.lang || "";
-    if (!lang || !mkws_locale_lang[lang]) {
+    if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
 	mkws_config.lang = lang;
@@ -689,13 +687,13 @@ function mkws_html_switch(config) {
 
     $("#mkwsSwitch").html($("<a/>", {
 	href: '#',
-	onclick: "switchView(\'records\')",
+	onclick: "mkws.switchView(\'records\')",
 	text: M("Records")
     }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", {
 	href: '#',
-	onclick: "switchView(\'targets\')",
+	onclick: "mkws.switchView(\'targets\')",
 	text: M("Targets")
     }));
 
@@ -785,7 +783,7 @@ function mkws_html_lang(mkws_config) {
 	hash[lang_display[i]] = 1;
     }
 
-    for (var k in mkws_locale_lang) {
+    for (var k in mkws.locale_lang) {
 	if (hash[k] == 1 || lang_display.length == 0)
 	    list.push(k);
     }
@@ -845,10 +843,10 @@ function mkws_resize_page () {
 function M(word) {
     var lang = mkws_config.lang;
 
-    if (!lang || !mkws_locale_lang[lang])
+    if (!lang || !mkws.locale_lang[lang])
 	return word;
 
-    return mkws_locale_lang[lang][word] ? mkws_locale_lang[lang][word] : word;
+    return mkws.locale_lang[lang][word] ? mkws.locale_lang[lang][word] : word;
 }
 
 /*
@@ -1009,5 +1007,3 @@ $(document).ready(function() {
 });
 
 })(jQuery);
-
-jQuery = null;
