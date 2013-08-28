@@ -73,11 +73,9 @@ describe("Check pazpar2 hit counter", function () {
     }
 
     function show_record() {
-        it("Show record", function () {
-            var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
-            debug("show click is success: " + click.length);
-            expect(click.length == 1).toBe(true);
-        });
+        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
+        debug("show click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
     }
 
     it("check running search hit counter", function () {
@@ -145,7 +143,6 @@ describe("Check pazpar2 hit counter", function () {
         expect(authors.length == 1).toBe(true);
     });
 
-    // show_record();
     it("Limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
 
@@ -172,7 +169,23 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
-    // show_record();
+    it("Show record", function () {
+        function get_time() {
+            var date = new Date();
+            return date.getTime();
+        }
+        var time = get_time();
+
+        waitsFor(function () {
+            return get_time() > time ? true : false;
+        }, "wait a second", 1 * 1000);
+
+        runs(function () {
+            show_record();
+        });
+    });
+
+
     it("Limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
 
@@ -191,5 +204,7 @@ describe("Check pazpar2 hit counter", function () {
         });
     });
 
-    // show_record();
+    it("Show record", function () {
+        show_record();
+    });
 });
