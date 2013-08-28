@@ -119,7 +119,28 @@ describe("Check pazpar2 hit counter", function () {
         expect(click.length == 1).toBe(true);
     });
 
-    /*
+    it("found Termlist", function () {
+        var termlist = $("div#mkwsTermlists");
+        debug("Termlist success: " + termlist.length);
+        expect(termlist.length == 1).toBe(true);
+
+        var sources = $("div#mkwsFacetSources");
+        expect(sources.length == 1).toBe(true);
+
+        var subjects = $("div#mkwsFacetSubjects");
+        expect(subjects.length == 1).toBe(true);
+
+        var authors = $("div#mkwsFacetAuthors");
+        expect(authors.length == 1).toBe(true);
+    });
+
+    it("Limit search to first source", function () {
+        var click = $("div#mkwsFacetSources div.term:nth-child(2) a").trigger("click");
+        debug("limit source click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
+    });
+
+/*
     it("Final success message in search input field", function () {
         $("input#mkwsQuery").val("jasmine test is done");
         expect($("input#mkwsQuery").val()).toMatch(/done/);
