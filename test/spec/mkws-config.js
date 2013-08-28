@@ -31,11 +31,11 @@ describe("Check mkws_config object", function () {
 
 describe("Check pazpar2 config", function () {
     it("pazpar2path is a path or an full URL", function () {
-        expect(pazpar2path).toMatch(/^(\/|http:\/\/)/)
+        expect(mkws.pazpar2path).toMatch(/^(\/|http:\/\/)/)
     });
 
     it("usesessions false", function () {
-        expect(usesessions).toBe(false);
+        expect(mkws.usesessions).toBe(false);
     });
 
     it("my_paz is defined", function () {

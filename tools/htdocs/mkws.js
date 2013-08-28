@@ -3,6 +3,15 @@
 
 "use strict"; // HTML5: disable for debug >= 2
 
+// Set up namespace and some state.
+var mkws = {};
+
+if (!mkws_config)
+    var mkws_config = {}; // for the guys who forgot to define mkws_config...
+
+// Wrapper for jQuery
+(function ($) {
+
 /*
  * global config object: mkws_config
  *
@@ -10,23 +19,14 @@
  * including this JS file
  */
 
-// Set up namespace and some state.
-var mkws = {};
-
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
 var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
 var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
 
-var pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
-var usesessions = mkws_config.use_service_proxy ? false : true;
-
-// Wrapper for jQuery
-(function ($) {
-
-if (!mkws_config)
-    var mkws_config = {}; // for the guys who forgot to define mkws_config...
+mkws.pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
+mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
 mkws.locale_lang = {
     "de": {
@@ -112,13 +112,13 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": pazpar2path,
+                    "pazpar2path": mkws.pazpar2path,
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : usesessions,
+	 	    "usesessions" : mkws.usesessions,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
