@@ -752,6 +752,7 @@ function mkws_service_proxy_auth(auth_url) {
 	alert("HTTP call for authentication failed: " + err)
 	return;
     });
+
     request.get(null, function(data) {
 	if (!$.isXMLDoc(data)) {
 	    alert("service proxy auth response document is not valid XML document, give up!");
@@ -762,6 +763,9 @@ function mkws_service_proxy_auth(auth_url) {
 	    alert("service proxy auth repsonse status: " + status.text() + ", give up!");
 	    return;
 	}
+
+	debug("Service proxy auth successfully done");
+	mkws.service_proxy_auth = true;
     });
 }
 
