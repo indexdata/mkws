@@ -49,7 +49,7 @@ describe("Check pazpar2 search", function () {
         }, "SP auth done", 10 * 1000);
 
         runs(function () {
-	    debug("Submit search");
+	    debug("Click on submit button");
             var click = $("input#mkwsButton").trigger("click");
 	    expect(click.length == 1).toBe(true);
         })
@@ -82,55 +82,24 @@ describe("Check pazpar2 navigation", function () {
     });
 });
 
-
 describe("Check pazpar2 hit counter", function () {
-
     it("check running search hit counter", function () {
         var max_time = 10; // in seconds
-        var expected_hits = 116; //
-        var j_time = 0;
-        var j_hits = 0;
+        var expected_hits = 116; // at least expected hit counter
 
-        function found(time, none) {
-            setTimeout(function () {
-                j_time = time;
-                hits = get_hit_counter();
-
-                // debug("found: " + found);
-                if (none) {
-                    expect(hits < 0).toBeTruthy();
-                } else {
-                    j_hits = hits;
-                }
-
-                debug("mkws pager found records: '" + hits + "'");
-                debug("time state: " + j_time);
-
-                expect(time >= 0).toBeTruthy();
-            }, time * 1000);
-        }
-
-        runs(function () {
-            // check hit counter after N seconds
-            found(0, true);
-            found(3);
-            found(6);
-            found(8);
-            found(max_time);
-        });
+        var hits = 0;
 
         waitsFor(function () {
-            return j_time == max_time ? true : false;
-        }, "The Value should be 20 seconds", max_time * 1000);
+	    hits = get_hit_counter();
+
+            return hits >= expected_hits;
+        }, "Expect N hits in x seconds", max_time * 1000);
 
 
         runs(function () {
+	    debug("mkws pager found records: '" + hits + "'");
             expect($("#mkwsPager").length == 1).toBe(true);
-        })
-
-        runs(function () {
-            expect(j_time <= max_time).toBeTruthy();
-            expect(j_hits).toBeGreaterThan(expected_hits);
+            expect(hits).toBeGreaterThan(expected_hits);
         });
     });
 });
