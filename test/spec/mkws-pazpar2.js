@@ -203,3 +203,9 @@ describe("Check status client counter", function () {
     });
 
 });
+
+/* dummy EOF */
+describe("All tests are done", function () {
+    it(">>> hooray!!! <<<", function () {
+    });
+});
