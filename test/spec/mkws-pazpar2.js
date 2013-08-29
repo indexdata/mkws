@@ -37,12 +37,22 @@ describe("Check pazpar2 search", function () {
     });
 
     it("run search query", function () {
-        $("input#mkwsQuery").val("freebsd");
-        expect($("input#mkwsQuery").val()).toMatch(/^freebsd$/);
+	var search_query = "freebsd"; // short hit counter with some paging
 
-        setTimeout(function () {
-            $("input#mkwsButton").trigger("click");
-        }, 3 * 1000);
+        $("input#mkwsQuery").val(search_query);
+	debug("set search query: " + search_query)
+        expect($("input#mkwsQuery").val()).toMatch("^" + search_query + "$");
+
+	// wait for service proxy auth
+	waitsFor(function () {
+            return mkws.service_proxy_auth;
+        }, "SP auth done", 10 * 1000);
+
+        runs(function () {
+	    debug("Submit search");
+            var click = $("input#mkwsButton").trigger("click");
+	    expect(click.length == 1).toBe(true);
+        })
     });
 });
 
