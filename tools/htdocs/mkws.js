@@ -78,6 +78,11 @@ mkws.locale_lang = {
     }
 };
 
+// keep time state for debugging
+mkws.debug_time = {
+    "start": $.now(),
+    "last": $.now()
+};
 mkws.debug = function (string) {
     if (!mkws.debug)
 	return;
@@ -86,13 +91,17 @@ mkws.debug = function (string) {
 	return;
     }
 
+    var now = $.now();
+    var timestamp = (now - mkws.debug_time.start)/1000 + " (+" + (now - mkws.debug_time.last)/1000 + ") "
+    mkws.debug_time.last = now;
+
     // you need to disable use strict at the top of the file!!!
     if (mkws.debug >= 3) {
-	console.log(arguments.callee.caller);
+	console.log(timestamp + arguments.callee.caller);
     } else if (mkws.debug >= 2) {
-	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+	console.log(timestamp + ">>> called from function " + arguments.callee.caller.name + ' <<<');
     }
-    console.log(string);
+    console.log(timestamp + string);
 }
 var debug = mkws.debug; // local alias
 
