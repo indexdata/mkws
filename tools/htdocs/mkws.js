@@ -445,7 +445,7 @@ function pagerPrev() {
 
 mkws.switchView = function(view) {
     debug("switchView: " + view);
-   
+
     var targets = document.getElementById('mkwsTargets');
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
@@ -692,14 +692,12 @@ function mkws_html_switch(config) {
     debug("HTML switch");
 
     $("#mkwsSwitch").html($("<a/>", {
-	href: '#',
-	onclick: "mkws.switchView(\'records\')",
+	href: "javascript:mkws.switchView('records')",
 	text: M("Records")
     }));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
     $("#mkwsSwitch").append($("<a/>", {
-	href: '#',
-	onclick: "mkws.switchView(\'targets\')",
+	href: "javascript:mkws.switchView('targets')",
 	text: M("Targets")
     }));
 
