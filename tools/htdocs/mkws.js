@@ -444,6 +444,8 @@ function pagerPrev() {
 // switching view between targets and records
 
 mkws.switchView = function(view) {
+    debug("switchView: " + view);
+   
     var targets = document.getElementById('mkwsTargets');
     var results = document.getElementById('mkwsResults') ||
 	          document.getElementById('mkwsRecords');
