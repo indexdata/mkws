@@ -114,13 +114,6 @@ describe("Check pazpar2 hit counter", function () {
 });
 
 describe("Check Termlist", function () {
-    function show_record() {
-        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
-        debug("show click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
-    }
-
-    // show_record();
     it("found Termlist", function () {
         var termlist = $("div#mkwsTermlists");
         debug("Termlist success: " + termlist.length);
@@ -179,9 +172,13 @@ describe("Check Termlist", function () {
             expect(hits_all_targets).toBeGreaterThan(hits_single_target);
         });
     });
+});
 
+describe("Show record", function () {
     it("show record author", function () {
-        show_record();
+        var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
+        debug("show click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
     });
 });
 
