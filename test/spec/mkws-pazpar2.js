@@ -101,7 +101,7 @@ describe("Check pazpar2 hit counter", function () {
         waitsFor(function () {
             hits = get_hit_counter();
 
-            return hits >= expected_hits;
+            return hits > expected_hits;
         }, "Expect " + expected_hits + " hits", max_time * 1000);
 
 
