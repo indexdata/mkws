@@ -95,7 +95,7 @@ describe("Check pazpar2 navigation", function () {
 describe("Check pazpar2 hit counter", function () {
     it("check running search hit counter", function () {
         var max_time = 16; // in seconds
-        var expected_hits = 116; // at least expected hit counter
+        var expected_hits = 80; // at least expected hit counter
         var hits = 0;
 
         waitsFor(function () {
