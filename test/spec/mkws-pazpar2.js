@@ -216,7 +216,7 @@ describe("Check switch menu Records/Targets", function () {
 
         // now the target table must be visible
         expect($("div#mkwsBytarget").is(":visible")).toBe(true);
-        expect($("div#mkwsResults").is(":visible")).toBe(false);
+        expect($("div#mkwsRecords").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
         var time = (new Date).getTime();
@@ -236,7 +236,7 @@ describe("Check switch menu Records/Targets", function () {
 
         // now the target table must be visible
         expect($("div#mkwsBytarget").is(":visible")).toBe(false);
-        expect($("div#mkwsResults").is(":visible")).toBe(true);
+        expect($("div#mkwsRecords").is(":visible")).toBe(true);
     });
 });
 
