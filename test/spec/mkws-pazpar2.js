@@ -185,34 +185,6 @@ describe("Check Termlist", function () {
     });
 });
 
-describe("Check status client counter", function () {
-    function get_time() {
-        var date = new Date();
-        return date.getTime();
-    }
-    var time = get_time();
-
-    it("check status clients", function () {
-
-        waitsFor(function () {
-            var clients = $("div#mkwsStat span.clients");
-            if (clients.length == 1 && clients.text() == "0/1") {
-                return true;
-            } else {
-                return false;
-            }
-
-        }, "wait for status", 4 * 1000);
-
-    });
-    runs(function () {
-        var clients = $("div#mkwsStat span.clients");
-        debug("span.clients: " + clients.text());
-        expect(clients.text()).toEqual("0/1");
-    });
-
-});
-
 describe("Check switch menu Records/Targets", function () {
     it("check mkwsSwitch", function () {
         expect($("div#mkwsSwitch").length).toBe(1);
@@ -250,6 +222,34 @@ describe("Check switch menu Records/Targets", function () {
         expect($("div#mkwsBytarget").is(":visible")).toBe(false);
         expect($("div#mkwsResults").is(":visible")).toBe(true);
     });
+});
+
+describe("Check status client counter", function () {
+    function get_time() {
+        var date = new Date();
+        return date.getTime();
+    }
+    var time = get_time();
+
+    it("check status clients", function () {
+
+        waitsFor(function () {
+            var clients = $("div#mkwsStat span.clients");
+            if (clients.length == 1 && clients.text() == "0/1") {
+                return true;
+            } else {
+                return false;
+            }
+
+        }, "wait for status", 4 * 1000);
+
+    });
+    runs(function () {
+        var clients = $("div#mkwsStat span.clients");
+        debug("span.clients: " + clients.text());
+        expect(clients.text()).toEqual("0/1");
+    });
+
 });
 
 /* dummy EOF */
