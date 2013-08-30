@@ -69,16 +69,27 @@ describe("Check pazpar2 navigation", function () {
 
                 debug("next click is success: " + click.length);
                 expect(click.length == 1).toBe(true);
-
             }, time * 1000);
         }
 
+        waitsFor(function () {
+	    return $("div#mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
+        }, "Expect next link 2", 5 * 1000);
+
         runs(function () {
             // click next/prev after N seconds
-            my_click("#mkwsNext", 7);
-            my_click("#mkwsNext", 8);
-            my_click("#mkwsPrev", 9);
-        });
+            my_click("#mkwsNext", 0);
+	});
+
+        waitsFor(function () {
+	    return $("div#mkwsPager div:nth-child(2) a").length >= 3 ? true : false;
+        }, "Expect next link 3", 5 * 1000);
+
+        runs(function () {
+            // click next/prev after N seconds
+            my_click("#mkwsNext", 0);
+            my_click("#mkwsPrev", 0.2);
+	});
     });
 });
 
@@ -204,12 +215,53 @@ describe("Check status client counter", function () {
 
 });
 
-
+//describe("Check switch menu Records/Targets", function () {
+//    var div = $("div#mkwsSwitch");
+////    if (div.length == 0) {
+////	debug("mkwsSwitch does not exists, skip test");
+////	return;
+////    }
+//
+//
+//    it("check mkwsSwitch", function () {
+//	expect($("div#mkwsSwitch").length).toBe(1);
+//
+//	// expect 2 clickable links
+//	expect( $("div#mkwsSwitch a").length).toBe(2);
+//    });
+//
+//    it("switch to target view", function () {
+//	var click = $("a#mkwsSwitch_targets").trigger("click");
+//	debug("target click is success: " + click.length);
+//	expect(click.length == 1).toBe(true);
+//
+//	// now the target table must be visible
+//	/*
+//	expect($("div#mkwsBytarget").is(":visible")).toBe(true);
+//	*/
+//	expect($("div#mkwsResults").is(":visible")).toBe(true);
+//
+//	// look for table header
+//	expect($("div#mkwsBytarget").html()).toMatch(/Target ID/);
+//    });
+//
+//    /*
+//    it("switch back to record view", function () {
+//	var click = $("div#mkwsSwitch a:nth-child(0)").trigger("click");
+//	debug("record click is success: " + click.length);
+//	expect(click.length == 1).toBe(true);
+//
+//	// now the target table must be in-visible again
+//	var bytarget = $("div#mkwsBytarget:visible");
+//	var byrecords = $("div#mkwsResults:visible");
+//	expect(bytarget.length == 1).toBe(false);
+//	expect(byrecords.length == 1).toBe(true);
+//    });
+//    */
+//});
 
 /* dummy EOF */
-/*
 describe("All tests are done", function () {
-    it(">>> hooray!!! <<<", function () {
+    it("xxx >>> hooray!!! <<<", function () {
     });
 });
-*/
