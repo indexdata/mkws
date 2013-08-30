@@ -179,6 +179,25 @@ describe("Show record", function () {
         var click = $("div#mkwsRecords div.record:nth-child(3) :nth-child(2)").trigger("click");
         debug("show click is success: " + click.length);
         expect(click.length == 1).toBe(true);
+
+        // wait until the record pops up
+        waitsFor(function () {
+            var show = $("div#mkwsRecords div.record:nth-child(3) div");
+            return show != null && show.length ? true : false;
+        }, "wait some miliseconds", 1 * 1000);
+
+        runs(function () {
+            debug("show record pop up");
+            expect($("div#mkwsRecords div.record:nth-child(3) div")).not.toBe(null);
+        });
+    });
+
+    it("extract URL", function () {
+        var url = $("div#mkwsRecords div.record:nth-child(3) div table tbody tr td a").text();
+        debug("extracted URL from record: " + url);
+
+        expect(url).not.toBe(null);
+        expect(url).toMatch(/^http:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
     });
 });
 
