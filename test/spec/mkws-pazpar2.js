@@ -73,7 +73,7 @@ describe("Check pazpar2 navigation", function () {
 
         waitsFor(function () {
             return $("div#mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
-        }, "Expect next link 2", 5 * 1000);
+        }, "Expect next link 2", 10 * 1000);
 
         runs(function () {
             // click next/prev after N seconds
