@@ -129,6 +129,24 @@ describe("Check Termlist", function () {
         expect(authors.length == 1).toBe(true);
     });
 
+    it("limit search to first author", function () {
+        var hits_all_targets = get_hit_counter();
+
+        var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
+        debug("limit author click is success: " + click.length);
+        expect(click.length == 1).toBe(true);
+
+        waitsFor(function () {
+            return get_hit_counter() < hits_all_targets ? true : false;
+        }, "Search for with less hits", 9 * 1000);
+
+        runs(function () {
+            var hits_single_target = get_hit_counter();
+            debug("get less hits for authors: " + hits_all_targets + " > " + hits_single_target);
+            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
+        });
+    });
+
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
 
@@ -151,24 +169,6 @@ describe("Check Termlist", function () {
         runs(function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
-            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
-        });
-    });
-
-    it("limit search to first author", function () {
-        var hits_all_targets = get_hit_counter();
-
-        var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
-        debug("limit author click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
-
-        waitsFor(function () {
-            return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Search for with less hits", 9 * 1000);
-
-        runs(function () {
-            var hits_single_target = get_hit_counter();
-            debug("get less hits for authors: " + hits_all_targets + " > " + hits_single_target);
             expect(hits_all_targets).toBeGreaterThan(hits_single_target);
         });
     });
