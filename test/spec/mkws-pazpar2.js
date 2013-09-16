@@ -122,17 +122,20 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div#mkwsFacetSources").length == 1 ? true : false;
-        }, "check for facet sourcs", 1 * 1000);
+        }, "check for facet sources", 2 * 1000);
 
-        var sources = $("div#mkwsFacetSources");
-        debug("Termlist sources success: " + sources.length);
-        expect(sources.length).toBe(1);
+        runs(function () {
+            var sources = $("div#mkwsFacetSources");
+            debug("Termlist sources success: " + sources.length);
+            expect(sources.length).toBe(1);
 
-        var subjects = $("div#mkwsFacetSubjects");
-        expect(subjects.length).toBe(1);
+            var subjects = $("div#mkwsFacetSubjects");
+            expect(subjects.length).toBe(1);
 
-        var authors = $("div#mkwsFacetAuthors");
-        expect(authors.length).toBe(1);
+            var authors = $("div#mkwsFacetAuthors");
+            expect(authors.length).toBe(1);
+        });
+
     });
 
     it("limit search to first author", function () {
