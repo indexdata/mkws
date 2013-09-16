@@ -37,7 +37,7 @@ Installation
 1. install node.js, see http://nodejs.org/
 2. install node modules with npm
 
-npm install -g jquery jsdom request jasmine-node
+npm install jquery jsdom request jasmine-node
 
 --
 Copyright (c) 2013 IndexData ApS. http://indexdata.com
