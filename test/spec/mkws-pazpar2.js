@@ -239,6 +239,7 @@ describe("Check switch menu Records/Targets", function () {
         waitsFor(function () {
             return (new Date).getTime() - time > 700 ? true : false;
         }, "wait some miliseconds", 1 * 1000);
+
         // look for table header
         runs(function () {
             expect($("div#mkwsBytarget").html()).toMatch(/Target ID/);
@@ -264,7 +265,6 @@ describe("Check status client counter", function () {
     var time = get_time();
 
     it("check status clients", function () {
-
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             if (clients.length == 1 && clients.text() == "0/1") {
@@ -275,11 +275,12 @@ describe("Check status client counter", function () {
 
         }, "wait for status", 4 * 1000);
 
-    });
-    runs(function () {
-        var clients = $("div#mkwsStat span.clients");
-        debug("span.clients: " + clients.text());
-        expect(clients.text()).toEqual("0/1");
+        runs(function () {
+            var clients = $("div#mkwsStat span.clients");
+            debug("span.clients: " + clients.text());
+            expect(clients.text()).toEqual("0/1");
+        });
+
     });
 
 });
