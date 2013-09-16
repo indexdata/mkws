@@ -7,6 +7,7 @@
 var debug = mkws.debug;
 
 var get_hit_counter = function () {
+        // not yet here
         if ($("#mkwsPager").length == 0) return -1;
 
         var found = $("#mkwsPager").text();
@@ -29,11 +30,11 @@ describe("Check pazpar2 search", function () {
     });
 
     it("validate HTML id's", function () {
-        expect($("input#mkwsQuery").length == 1).toBe(true);
-        expect($("input#mkwsButton").length == 1).toBe(true);
+        expect($("input#mkwsQuery").length).toBe(1);
+        expect($("input#mkwsButton").length).toBe(1);
 
-        expect($("#mkwsNext").length == 1).toBe(false);
-        expect($("#mkwsPrev").length == 1).toBe(false);
+        expect($("#mkwsNext").length).not.toBe(1);
+        expect($("#mkwsPrev").length).not.toBe(1);
     });
 
     it("run search query", function () {
@@ -50,7 +51,7 @@ describe("Check pazpar2 search", function () {
         runs(function () {
             debug("Click on submit button");
             var click = $("input#mkwsButton").trigger("click");
-            expect(click.length == 1).toBe(true);
+            expect(click.length).toBe(1);
         })
     });
 });
@@ -59,7 +60,7 @@ describe("Check pazpar2 search", function () {
 describe("Check pazpar2 navigation", function () {
     // Asynchronous part
     it("check running search next/prev", function () {
-        expect($("#mkwsPager").length == 1).toBe(true);
+        expect($("#mkwsPager").length).toBe(1);
 
         function my_click(id, time) {
             setTimeout(function () {
@@ -67,7 +68,7 @@ describe("Check pazpar2 navigation", function () {
                 var click = $(id).trigger("click");
 
                 debug("next click is success: " + click.length);
-                expect(click.length == 1).toBe(true);
+                expect(click.length).toBe(1);
             }, time * 1000);
         }
 
@@ -107,7 +108,7 @@ describe("Check pazpar2 hit counter", function () {
 
         runs(function () {
             debug("mkws pager found records: '" + hits + "'");
-            expect($("#mkwsPager").length == 1).toBe(true);
+            expect($("#mkwsPager").length).toBe(1);
             expect(hits).toBeGreaterThan(expected_hits);
         });
     });
@@ -117,16 +118,16 @@ describe("Check Termlist", function () {
     it("found Termlist", function () {
         var termlist = $("div#mkwsTermlists");
         debug("Termlist success: " + termlist.length);
-        expect(termlist.length == 1).toBe(true);
+        expect(termlist.length).toBe(1);
 
         var sources = $("div#mkwsFacetSources");
-        expect(sources.length == 1).toBe(true);
+        expect(sources.length).toBe(1);
 
         var subjects = $("div#mkwsFacetSubjects");
-        expect(subjects.length == 1).toBe(true);
+        expect(subjects.length).toBe(1);
 
         var authors = $("div#mkwsFacetAuthors");
-        expect(authors.length == 1).toBe(true);
+        expect(authors.length).toBe(1);
     });
 
     it("limit search to first author", function () {
@@ -134,7 +135,7 @@ describe("Check Termlist", function () {
 
         var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
         debug("limit author click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
+        expect(click.length).toBe(1);
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
@@ -152,7 +153,7 @@ describe("Check Termlist", function () {
 
         var click = $("div#mkwsFacetSources div.term:nth-child(2) a").trigger("click");
         debug("limit source click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
+        expect(click.length).toBe(1);
 
         waitsFor(function () {
             if ($("div#mkwsNavi").length && $("div#mkwsNavi").text().match(/^Source/)) {
@@ -213,7 +214,7 @@ describe("Check switch menu Records/Targets", function () {
     it("switch to target view", function () {
         var click = $("a#mkwsSwitch_targets").trigger("click");
         debug("target click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
+        expect(click.length).toBe(1);
 
         // now the target table must be visible
         expect($("div#mkwsBytarget").is(":visible")).toBe(true);
@@ -233,7 +234,7 @@ describe("Check switch menu Records/Targets", function () {
     it("switch back to record view", function () {
         var click = $("a#mkwsSwitch_records").trigger("click");
         debug("record click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
+        expect(click.length).toBe(1);
 
         // now the target table must be visible
         expect($("div#mkwsBytarget").is(":visible")).toBe(false);
