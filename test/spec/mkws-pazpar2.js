@@ -190,7 +190,7 @@ describe("Check Termlist", function () {
 });
 
 describe("Show record", function () {
-    var record_number = 2; // the Nth record in hit list
+    var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
         var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") :nth-child(2)").trigger("click");
         debug("show click is success: " + click.length);
@@ -200,7 +200,7 @@ describe("Show record", function () {
         waitsFor(function () {
             var show = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div");
             return show != null && show.length ? true : false;
-        }, "wait some miliseconds", 2 * 1000);
+        }, "wait some miliseconds to show up a record", 2 * 1000);
 
         runs(function () {
             debug("show record pop up");
