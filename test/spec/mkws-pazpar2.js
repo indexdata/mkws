@@ -150,9 +150,15 @@ describe("Check Termlist", function () {
 
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
+        var source_number = 2; // 2=first source
+        var source_name = $("div#mkwsFacetSources div.term:nth-child(" + source_number + ") a").text();
+        // do not click on wikipedia link - no author or subject facets possible
+        if (source_name.match(/wikipedia/i)) {
+            source_number++;
+        }
 
-        var click = $("div#mkwsFacetSources div.term:nth-child(2) a").trigger("click");
-        debug("limit source click is success: " + click.length);
+        var click = $("div#mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
+        debug("limit source click " + (source_number - 1) + " is success: " + click.length);
         expect(click.length).toBe(1);
 
         waitsFor(function () {
