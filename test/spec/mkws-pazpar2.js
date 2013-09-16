@@ -147,7 +147,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Search for with less hits", 9 * 1000);
+        }, "Limited author search for less than " + hits_all_targets + " hits", 8 * 1000);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
@@ -179,7 +179,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Search for with less hits", 9 * 1000);
+        }, "Limited source earch for less than " + hits_all_targets + " hits", 9 * 1000);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
