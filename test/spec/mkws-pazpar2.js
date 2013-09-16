@@ -175,27 +175,26 @@ describe("Check Termlist", function () {
 });
 
 describe("Show record", function () {
-    var record_number = 1; // the Nth record in hit list
-
+    var record_number = 2; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div#mkwsRecords div.record:nth-child(record_number) :nth-child(2)").trigger("click");
+        var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") :nth-child(2)").trigger("click");
         debug("show click is success: " + click.length);
-        expect(click.length == 1).toBe(true);
+        expect(click.length).toBe(1);
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div#mkwsRecords div.record:nth-child(record_number) div");
+            var show = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div");
             return show != null && show.length ? true : false;
         }, "wait some miliseconds", 2 * 1000);
 
         runs(function () {
             debug("show record pop up");
-            expect($("div#mkwsRecords div.record:nth-child(record_number) div")).not.toBe(null);
+            expect($("div#mkwsRecords div.record:nth-child(" + record_number + ") div")).not.toBe(null);
         });
     });
 
     it("extract URL", function () {
-        var url = $("div#mkwsRecords div.record:nth-child(record_number) div table tbody tr td a").text();
+        var url = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a").text();
         debug("extracted URL from record: " + url);
 
         expect(url).not.toBe(null);
