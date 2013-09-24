@@ -391,7 +391,7 @@ function drawPager (pagerDiv)
 
     var prev = '<span id="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
     if (curPage > 1)
-        prev = '<a href="#" id="mkwsPrev" onclick="pagerPrev();">'
+        prev = '<a href="#" id="mkwsPrev" onclick="mkws.pagerPrev();">'
         +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
     var middle = '';
@@ -436,7 +436,7 @@ mkws.pagerNext = function () {
     }
 }
 
-function pagerPrev() {
+mkws.pagerPrev = function () {
     if ( my_paz.showPrev() != false )
         curPage--;
 }
