@@ -67,7 +67,7 @@ describe("Check pazpar2 navigation", function () {
                 debug("trigger click on id: " + id);
                 var click = $(id).trigger("click");
 
-                debug("next click is success: " + click.length);
+                debug("next/prev: " + id + " click is success: " + click.length);
                 expect(click.length).toBe(1);
             }, time * 1000);
         }
