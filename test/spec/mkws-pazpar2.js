@@ -57,6 +57,11 @@ describe("Check pazpar2 search", function () {
 });
 
 
+/*
+ * This part runs in background. It should be rewritten with
+ * async jasmine functions
+ *
+ */
 describe("Check pazpar2 navigation", function () {
     // Asynchronous part
     it("check running search next/prev", function () {
