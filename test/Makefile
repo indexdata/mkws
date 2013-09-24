@@ -2,7 +2,11 @@
 
 all: check
 
-clean distclean:
+clean:
+
+distclean:
+	rm -rf node_modules
+	
 
 check:
 	jasmine-node ./spec 
@@ -14,5 +18,9 @@ jsbeautifier jsb indent:
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
+node-modules: node_modules
+node_modules:
+	npm install jquery jsdom request jasmine-node
+
 help:
-	@echo "make [ all | clean | check | jsbeautifier ]"
+	@echo "make [ all | clean | check | jsbeautifier | node-modules ]"
