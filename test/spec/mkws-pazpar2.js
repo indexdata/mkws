@@ -124,6 +124,8 @@ describe("Check Termlist", function () {
             return $("div#mkwsFacetSources").length == 1 ? true : false;
         }, "check for facet sources", 2 * 1000);
 
+
+        // everything displayed?
         runs(function () {
             var sources = $("div#mkwsFacetSources");
             debug("Termlist sources success: " + sources.length);
@@ -136,6 +138,13 @@ describe("Check Termlist", function () {
             expect(authors.length).toBe(1);
         });
 
+        waitsFor(function () {
+            return $("div#mkwsFacetAuthors div.term").length >= 2 ? true : false;
+        }, "At least one author link displayed", 2 * 1000);
+
+        runs(function () {
+            expect($("div#mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
+        });
     });
 
     it("limit search to first author", function () {
