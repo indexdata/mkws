@@ -207,10 +207,23 @@ but will be hidden when a search is made.
 
 ### Responsive design
 
-    responsive_design: true
-    responsive_design_width: 500
-    <div id="mkwsTermlistContainer1">
-    <div id="mkwsTermlistContainer2">
+Metasearching applications may need to appear differently on
+small-screened mobile devices, or change their appearance when
+screen-width changes (as when a small device is rotated). To achieve
+this, MKWS supports responsive design which will move the termlists to
+the bottom on narrow screens and to the sidebar on wide screens.
+
+To turn on this behaviour, set the `responsive_design` configuration
+element to `true`, and `responsive_design_width` to the desired
+threshhold width in pixels.
+
+If individual result-related components are in use in place of the
+all-in-one mkwsResults, then the redesigned application needs to
+specify the locations where the termlists should appear in both
+cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
+`mkwsTermlistContainer1` element; and provide an
+`mkwsTermlistContainer2` element in the place where the narrow-screen
+termlists should appear.
 
 
 ### Popup results with jQuery UI
