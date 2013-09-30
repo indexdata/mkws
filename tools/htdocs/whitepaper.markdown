@@ -215,7 +215,14 @@ the bottom on narrow screens and to the sidebar on wide screens.
 
 To turn on this behaviour, set the `responsive_design` configuration
 element to `true`, and `responsive_design_width` to the desired
-threshhold width in pixels.
+threshhold width in pixels. For example:
+
+        <script type="text/javascript">
+            var mkws_config = {
+                responsive_design: true,
+                responsive_design_width: 990
+            };
+        </script>
 
 If individual result-related components are in use in place of the
 all-in-one mkwsResults, then the redesigned application needs to
