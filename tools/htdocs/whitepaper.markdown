@@ -10,9 +10,10 @@ There are lots of practical problems in building resource discovery
 solutions. One of the biggest, and most ubiquitous is incorporating
 metasearching functionality into existing web-sites -- for example,
 content-management systems, library catalogues or intranets. In
-general, even when access to metasearching is provided by simple
-web-services such as [Pazpar2](http://www.indexdata.com/pazpar2),
-integration work is seen as a major part of most projects.
+general, even when access to core metasearching functionality is
+provided by simple web-services such as
+[Pazpar2](http://www.indexdata.com/pazpar2), integration work is seen
+as a major part of most projects.
 
 Index Data provides several different toolkits for communicating with
 its metasearching middleware, trading off varying degrees of
@@ -20,8 +21,8 @@ flexibility against convenience:
 
 * libpz2.js -- a low-level JavaScript library for interrogating the
   Service Proxy and Pazpar2. It allows the HTML/JavaScript programmer
-  to implement simple JavaScript functions to display facets, records,
-  etc.
+  to create JavaScript applications display facets, records, etc. that
+  are fetched from the metasearching middleware.
 
 * masterkey-ui-core -- a higher-level, complex JavaScript library that
   uses libpz2.js to provide the pieces needed for building a
@@ -85,11 +86,11 @@ header, which are loaded from the tool site mkws.indexdata.com:
 * `mkwsStyle.css`
   provides the default CSS styling 
 
-Second, the `<div>` elements with special IDs that begin `mkws` can be
-provided. These are filled in by the MKWS code, and provide the
-components of the searching UI. The very simple application above has
-only two such components: a search box and a results area. But more
-are supported. The main `<div>`s are:
+Second, within the HTML body, `<div>` elements with special IDs that
+begin `mkws` can be provided. These are filled in by the MKWS code,
+and provide the components of the searching UI. The very simple
+application above has only two such components: a search box and a
+results area. But more are supported. The main `<div>`s are:
 
 * `mkwsSearch` -- provides the search box and button.
 
@@ -126,23 +127,84 @@ To see all of these working together, just put them all into the HTML
 Configuration
 -------------
 
-TODO
+Many aspects of the behaviour of MKWS can be modified by setting
+parameters into the `mkws_config` hash. **This must be done *before*
+including the MKWS JavaScript** so that when that code is executed it
+can refer to the configuration values. So the HTML header looks like
+this:
 
-resposive resize
+        <script type="text/javascript">
+          var mkws_config = {
+            lang: "da",
+            sort_default: "title",
+            query_width: 60,
+          };
+        </script>
+        <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+
+This configuration sets the UI language to Danish (rather than the
+default of English), initially sorts search results by title rather
+than relevance (though as always this can be changed in the UI) and
+makes the search box a bit wider than the default.
+
+The full set of supported configuration items is described in the
+reference guide below.
 
 
 Control over HTML and CSS
 -------------------------
 
-TODO
-
 More sophisticated applications will not simply place the `<div>`s
 together, but position them carefully within an existing page
 framework -- such as a Drupal template, an OPAC or a SharePoint page.
 
-Breaking up mkwsResults
+While it's convenient for simple applications to use a monolithic
+`mkwsResults` area which contains record, facets, sorting options,
+etc., customised layouts may wish to treat each of these components
+separately. In this case, `mkwsResults` can be omitted, and the
+following lower-level components provided instead:
 
-overriding styles
+* `mkwsTermlists` -- provides the facets
+
+* `mkwsRanking` -- provides the options for how records are sorted and
+   how many are included on each page of results.
+
+* `mkwsPager` -- provides the links for navigating back and forth
+   through the pages of records.
+
+* `mkwsNavi` -- when a search result has been narrowed by one or more
+   facets, this area shows the names of those facets, and allows the
+   selected values to be clicked in order to remove them.
+
+* `mkwsRecords` -- lists the actual result records.
+
+Customisation of MKWS searching widgets can also be achieved by
+overriding the styles set in the toolkit's CSS stylesheet. The default
+styles can be inspected in `mkwsStyle.css` and overridden in any
+styles that appears later in the HTML than that file. At the simplest
+level, this might just mean changing fonts, sizes and colours, but
+more fundamental changes are also possible.
+
+To properly apply styles, it's necessary to understand how the HTML is
+structured, e.g. which elements are nested within which
+containers. The structures used by the widget-set are described in the
+reference guide below.
+
+
+Message of the day
+------------------
+
+          </td>\
+          <td id="mkwsMOTDContainer" valign="top">\
+
+
+Responsive design
+-----------------
+
+    responsive_design: true
+    responsive_design_width: 500
+    <div id="mkwsTermlistContainer1">
+    <div id="mkwsTermlistContainer2">
 
 
 Popup results with jQuery UI
