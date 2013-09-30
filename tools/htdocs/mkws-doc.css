@@ -8,6 +8,11 @@ h1, h2, h3 {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
+h2 {
+    /* Default spacing is way off in both Chrome and Firefox */
+    margin-bottom: -0.5em;
+}
+
 h1 {
     background: #e0e8f8;
     padding: 0.2em;
