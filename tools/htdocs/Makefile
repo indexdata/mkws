@@ -64,7 +64,7 @@ help:
 
 %.html: %.markdown
 	rm -f $@
-	pandoc --standalone -c mkws-doc.css $< -o $@
+	pandoc --standalone --toc -c mkws-doc.css $< -o $@
 	chmod ugo-w $@
 
 %.odt: %.markdown
