@@ -1,6 +1,6 @@
 % Embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% 26 July 2013
+% July-September 2013
 
 
 Introduction
@@ -191,15 +191,21 @@ containers. The structures used by the widget-set are described in the
 reference guide below.
 
 
-Message of the day
-------------------
-
-          </td>\
-          <td id="mkwsMOTDContainer" valign="top">\
+Refinements
+-----------
 
 
-Responsive design
------------------
+### Message of the day
+
+Some applications might like to open with content in the area that
+will subsequently be filled with result-records -- a message of the
+day, a welcome message or a help page. This can be done by placing an
+`mkwsMOTDContainer` division on the page next to `mkwsResults` or
+`mkwsRecords`. The contents of this element are initially displayed,
+but will be hidden when a search is made.
+
+
+### Responsive design
 
     responsive_design: true
     responsive_design_width: 500
@@ -207,14 +213,12 @@ Responsive design
     <div id="mkwsTermlistContainer2">
 
 
-Popup results with jQuery UI
-----------------------------
+### Popup results with jQuery UI
 
 TODO
 
 
-Authentication and target configuration
----------------------------------------
+### Authentication and target configuration
 
 TODO
 
