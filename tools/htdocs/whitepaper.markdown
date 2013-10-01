@@ -235,12 +235,33 @@ termlists should appear.
 
 ### Popup results with jQuery UI
 
-TODO
+The [jQuery UI library](http://en.wikipedia.org/wiki/JQuery_UI)
+can be used to construct MKWS applications in which the only component
+generally visible on the page is a search box, and the results appear
+in a popup. The key part of such an application is this invocation of
+the MKWS jQuery plugin:
+
+        <script type="text/javascript">
+          jQuery.pazpar2({ "layout":"popup", width:800, height:500 });
+        </script>
+
+The necessary scaffolding can be seen in an example application,
+http://example.indexdata.com/index-popup.html
 
 
 ### Authentication and target configuration
 
-TODO
+By default, MKWS configures itself to use a demo account on a service
+hosted by mkws.indexdata.com. This demo account provides access to
+about a dozen free data sources. Authentication onto this service is
+via an authentication URL on the same server, which MKWS uses by
+default so no configuration is needed.
+
+Access to a customised set of resources (including resources that
+require authentication) can be provided. In this case, a
+customer-specific authentication URL is used to gain access to these
+rather than the default set. Contact Index Data on info@indexdata.com
+for details.
 
 
 Reference Guide
