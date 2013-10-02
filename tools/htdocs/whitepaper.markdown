@@ -269,27 +269,71 @@ Reference Guide
 
 ### Configuration object
 
-	debug: int [1]
-	facets: array 
-	lang: string
-	lang_display: array
-	lang_menu: bool
-ADD	language_*: hash
-	pazpar2_url: string [/pazpar2/search.pz2]
-ADD	perpage: array
-	perpage_default: string
-	perpage_menu: bool [true]
-	query_width: int
-	responsive_design: bool
-ADD	responsive_design_width: int [980]
-	service_proxy_auth: url
-	service_proxy_url: string [http://mkws.indexdata.com/service-proxy/]
-ADD	sort: array
-	sort_default: string
-	sort_menu: bool [true]
-	use_service_proxy: bool [true]
+The configuration object `mkws_config` may be created before including
+the MKWS JavaScript code to modify default behaviour. This structure
+is a hash, whose entries are described in the table below. All entries
+are options, but if specified must be given values of the specified
+type. If ommitted, each setting takes the indicated default value.
 
-TODO add default values, describe
+---
+Element                  Type    Default   Description
+--------                 -----   --------- ------------
+debug                    int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                           datestamps, 3 = messages with datestamps and stack-traces.
+
+facets                   array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
+                                           `sources`, `subjects` and `authors`.
+
+lang                     string  en        Code of the default language to display the UI in. Supported language codes are `en` =
+                                           English, `de` = German, `da` = Danish, and whatever additional languages are configured
+                                           using `language_*` entries (see below).
+
+lang_display             array
+
+lang_menu                bool
+
+language_*               hash
+
+pazpar2_url              string  *Note 2*
+
+perpage                  array   *Note 3*
+
+perpage_default          string
+
+perpage_menu             bool    true
+
+query_width              int
+
+responsive_design        bool
+
+responsive_design_width  int     980
+
+service_proxy_auth       url
+
+service_proxy_url        string  *Note 4*  The URL on which the service proxy is accessed. This service must be configured to
+                                           provide search results, facets, etc.
+
+sort                     array   *Note 5*
+
+sort_default             string
+
+sort_menu                bool    true
+
+use_service_proxy        bool    true
+---
+
+#### Notes
+
+1: ["sources", "subjects", "authors"]
+
+2: /pazpar2/search.pz2
+
+3: ###
+
+4: http://mkws.indexdata.com/service-proxy/
+
+5: ###
+
 
 ### jQuery plugin invocation
 
