@@ -556,6 +556,10 @@ function renderField(caption, data, data2, data3) {
 function mkws_html_all(config) {
 
     /* default mkws config */
+    /* ### No defaults given for:
+     * lang, responsive_design, service_proxy_auth, use_service_proxy
+     * and of course the optional language_* entries.
+     */
     var mkws_config_default = {
 	sort: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage: [10, 20, 30, 50],
