@@ -269,7 +269,27 @@ Reference Guide
 
 ### Configuration object
 
-TODO
+	debug: int [1]
+	facets: array 
+	lang: string
+	lang_display: array
+	lang_menu: bool
+ADD	language_*: hash
+	pazpar2_url: string [/pazpar2/search.pz2]
+ADD	perpage: array
+	perpage_default: string
+	perpage_menu: bool [true]
+	query_width: int
+	responsive_design: bool
+ADD	responsive_design_width: int [980]
+	service_proxy_auth: url
+	service_proxy_url: string [http://mkws.indexdata.com/service-proxy/]
+ADD	sort: array
+	sort_default: string
+	sort_menu: bool [true]
+	use_service_proxy: bool [true]
+
+TODO add default values, describe
 
 ### jQuery plugin invocation
 
