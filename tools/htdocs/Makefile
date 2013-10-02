@@ -64,7 +64,7 @@ help:
 
 %.html: %.markdown
 	rm -f $@
-	pandoc --standalone --toc -c mkws-doc.css $< -o $@
+	pandoc --standalone --toc -c mkws-doc.css $< | sed '/^<col width="[0-9]*%" \/>$//d' > $@
 	chmod ugo-w $@
 
 %.odt: %.markdown
