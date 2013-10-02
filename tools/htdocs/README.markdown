@@ -77,6 +77,7 @@ possible options:
 		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
 		service_proxy_url: "/service-proxy/", 	   /* URL */
 		service_proxy_auth: "/service-proxy-auth", /* URL */
+		// TODO: language_*, perpage, responsive_design_width, sort
 	    };
 	</script>
 ~~~
