@@ -34,7 +34,7 @@ h3.date {
     color: black
 }
 
-body > p, ul, pre {
+body > p, ul, pre, table {
     margin-left: 10%;
 }
 
@@ -44,6 +44,25 @@ p, ul {
 
 pre {
     background: #eee;
+}
+
+table tr th {
+    color: white;
+    background: #68a;
+    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+}
+
+th, td {
+    padding: 0.2em 0.5em;
+    vertical-align: top;
+}
+
+table tr:nth-child(odd) {
+    background: #a9c6e3;
+}
+
+table tr:nth-child(even) {
+    background: #b9d4f0;
 }
 
 /*
