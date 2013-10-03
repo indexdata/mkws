@@ -695,9 +695,9 @@ function mkws_set_lang(mkws_config)  {
 function mkws_html_switch(config) {
     debug("HTML switch");
 
-    $("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_records" onclick="mkws.switchView(\'records\')">' + M("Records") + '</a>'));
+    $("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_records" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
     $("#mkwsSwitch").append($("<span/>", { text: " | " }));
-    $("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_targets" onclick="mkws.switchView(\'targets\')">' + M("Targets") + '</a>'));
+    $("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_targets" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
 
     debug("HTML targets");
     $("#mkwsTargets").html('\
