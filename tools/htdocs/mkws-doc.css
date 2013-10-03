@@ -2,13 +2,13 @@ body {
     font-family: Times, "Times Roman", "Times New Roman";
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
     color: #68a;
     font-weight: bold;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
-h2 a, h3 a, div#TOC a {
+h2 a, h3 a, h4 a, div#TOC a {
     color: #68a;
     text-decoration: none;
 }
@@ -34,7 +34,7 @@ h3.date {
     color: black
 }
 
-body > p, ul, pre, table {
+body > p, ul, ol, pre, table, h4 {
     margin-left: 10%;
 }
 
