@@ -49,6 +49,7 @@ mkws.locale_lang = {
 	"Date": "Datum",
 	"Subject": "Schlagwort",
 	"Location": "Ort",
+	// ### to add: Records, Targets
 
 	"dummy": "dummy"
     },
@@ -73,6 +74,7 @@ mkws.locale_lang = {
 	"Date": "Dato",
 	"Subject": "Emneord",
 	"Location": "Lokation",
+	// ### to add: Records, Targets
 
 	"dummy": "dummy"
     }
