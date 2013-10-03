@@ -273,7 +273,8 @@ The configuration object `mkws_config` may be created before including
 the MKWS JavaScript code to modify default behaviour. This structure
 is a hash, whose entries are described in the table below. All entries
 are options, but if specified must be given values of the specified
-type. If ommitted, each setting takes the indicated default value.
+type. If ommitted, each setting takes the indicated default value;
+long default values are in footnotes to keep the table reasonably narrow.
 
 ---
 Element                  Type    Default   Description
@@ -288,52 +289,80 @@ lang                     string  en        Code of the default language to displ
                                            English, `de` = German, `da` = Danish, and whatever additional languages are configured
                                            using `language_*` entries (see below).
 
-lang_display             array
+lang_display             array   []        A list of the languages to offer as options. If empty (the default), then all
+                                           configured languages are listed.
 
-lang_menu                bool
+lang_menu                bool    true      Indicates whether or not to display the language menu. ### We should get rid of this
+                                           setting, and simply display the menu if there's an `mkwsLang` element.
 
-language_*               hash
+language_*               hash              Support for any number of languages can be added by providing entries whose name is
+                                           `language_` followed by the code of the language. See the separate section below for
+                                           details.
 
-pazpar2_url              string  *Note 2*
+pazpar2_url              string  *Note 2*  The URL used to access the metasearch middleware if `use_service_proxy` is false. ###
+                                           It's silly that you have to provide a different setting depending on whether
+                                           `use_service_proxy` is set. Should just use pazpar2_url in all cases.
 
-perpage                  array   *Note 3*
+perpage                  array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
+                                           records are displayed on each page of results.
 
-perpage_default          string
+perpage_default          string  20        The initial value for the number of records to show on each page. ### The `perpage` and
+                                           `perpage_default` entries should be renamed `perpage_display` and `perpage`
+                                           respectively for consistency with the language-related settings.
 
-perpage_menu             bool    true
+perpage_menu             bool    true      Indicates whether or not to display the perpage menu. ### We should get rid of this
+                                           setting, and simply display the menu if an appropriate container is provided.
 
-query_width              int
+query_width              int     50        The width of the query box, in characters.
 
-responsive_design        bool
+responsive_design        bool    false     If true, then the facets display moves between two locations as the screen-width
+                                           varies, as described above. ### This entry should not exist: the design should be
+                                           responsive whenever `responsive_design_width` has a defined value.
 
-responsive_design_width  int     980
+responsive_design_width  int     980       If `responsive_design` is true, this is the threshhold width, in pixels, at which the
+                                           facets move between their two locations.
 
-service_proxy_auth       url
+service_proxy_auth       url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
+                                           session to authenticate the user and establish a session that encompasses a defined set
+                                           of targets to search in.
 
-service_proxy_url        string  *Note 4*  The URL on which the service proxy is accessed. This service must be configured to
-                                           provide search results, facets, etc.
+service_proxy_url        string  *Note 5*  The URL on which the service proxy is accessed if `use_service_proxy` is true. This
+                                           service must be configured to provide search results, facets, etc.
 
-sort                     array   *Note 5*
+sort                     array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
+                                           the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
+                                           the second is a human-readable label such as `newest`.
 
-sort_default             string
+sort_default             string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
+                                           array.
 
-sort_menu                bool    true
+sort_menu                bool    true      Indicates whether or not to display the sort menu. ### We should get rid of this
+                                           setting, and simply display the menu if an appropriate container is provided.
 
-use_service_proxy        bool    true
+use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
+                                           Pazpar2. ### Do we even need this? Can't we just assume that the Service Proxy is in
+                                           use when and only when `service_proxy_auth` is defined? Alternatively, retain this, but
+                                           use the same entry to specify the URL in either case.
 ---
 
 #### Notes
 
-1: ["sources", "subjects", "authors"]
+1. ["sources", "subjects", "authors"]
 
-2: /pazpar2/search.pz2
+2. /pazpar2/search.pz2
 
-3: ###
+3. [10, 20, 30, 50]
 
-4: http://mkws.indexdata.com/service-proxy/
+4. http://mkws.indexdata.com/service-proxy-auth
 
-5: ###
+5. http://mkws.indexdata.com/service-proxy/
 
+6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
+
+
+### Language specification
+
+TODO
 
 ### jQuery plugin invocation
 
