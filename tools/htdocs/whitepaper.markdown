@@ -292,7 +292,7 @@ lang                     string  en        Code of the default language to displ
 lang_display             array   []        A list of the languages to offer as options. If empty (the default), then all
                                            configured languages are listed.
 
-lang_menu                bool    true      Indicates whether or not to display the language menu. ### We should get rid of this
+show_lang                bool    true      Indicates whether or not to display the language menu. ### We should get rid of this
                                            setting, and simply display the menu if there's an `mkwsLang` element.
 
 language_*               hash              Support for any number of languages can be added by providing entries whose name is
@@ -310,7 +310,7 @@ perpage_default          string  20        The initial value for the number of r
                                            `perpage_default` entries should be renamed `perpage_display` and `perpage`
                                            respectively for consistency with the language-related settings.
 
-perpage_menu             bool    true      Indicates whether or not to display the perpage menu. ### We should get rid of this
+show_perpage             bool    true      Indicates whether or not to display the perpage menu. ### We should get rid of this
                                            setting, and simply display the menu if an appropriate container is provided.
 
 query_width              int     50        The width of the query box, in characters.
@@ -336,7 +336,7 @@ sort                     array   *Note 6*  List of supported sort criteria. Each
 sort_default             string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
                                            array.
 
-sort_menu                bool    true      Indicates whether or not to display the sort menu. ### We should get rid of this
+show_sort                bool    true      Indicates whether or not to display the sort menu. ### We should get rid of this
                                            setting, and simply display the menu if an appropriate container is provided.
 
 use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw

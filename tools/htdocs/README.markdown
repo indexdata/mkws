@@ -61,9 +61,9 @@ possible options:
 	<script type="text/javascript">
 	    var mkws_config = {
 		use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
-		lang_menu: true, 	    /* true, false: show/hide language menu */
-		sort_menu: true, 	    /* true, false: show/hide sort menu */
-		perpage_menu: true, 	    /* true, false: show/hide perpage menu */
+		show_lang: true, 	    /* true, false: show/hide language menu */
+		show_sort: true, 	    /* true, false: show/hide sort menu */
+		show_perpage: true, 	    /* true, false: show/hide perpage menu */
 		lang_display: ["en", "de", "da"], /* display languages links for given
 						     languages, [] for all */
 		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */

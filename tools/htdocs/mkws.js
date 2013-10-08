@@ -568,9 +568,9 @@ function mkws_html_all(config) {
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
-	lang_menu: true, 	/* show/hide language menu */
-	sort_menu: true, 	/* show/hide sort menu */
-	perpage_menu: true, 	/* show/hide perpage menu */
+	show_lang: true, 	/* show/hide language menu */
+	show_sort: true, 	/* show/hide sort menu */
+	show_perpage: true, 	/* show/hide perpage menu */
 	lang_display: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: 980, /* a page with less pixel width considered as narrow */
@@ -599,7 +599,7 @@ function mkws_html_all(config) {
     }
 
     mkws_set_lang(mkws_config);
-    if (mkws_config.lang_menu)
+    if (mkws_config.show_lang)
 	mkws_html_lang(mkws_config);
 
     // For some reason, doing this programmatically results in
@@ -645,10 +645,10 @@ function mkws_html_all(config) {
     if ($("#mkwsRanking").length) {
 	var ranking_data = '';
 	ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
-	if (config.sort_menu) {
+	if (config.show_sort) {
 	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort(config) + ' ';
 	}
-	if (config.perpage_menu) {
+	if (config.show_perpage) {
 	    ranking_data += M('and show') + ' ' + mkws_html_perpage(config) + ' ' + M('per page') + '.';
 	}
         ranking_data += '</form>';
