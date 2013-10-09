@@ -328,9 +328,7 @@ sort_default             string  relevance The label of the default sort criteri
 show_sort                bool    true      Indicates whether or not to display the sort menu.
 
 use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
-                                           Pazpar2. ### Do we even need this? Can't we just assume that the Service Proxy is in
-                                           use when and only when `service_proxy_auth` is defined? Alternatively, retain this, but
-                                           use the same entry to specify the URL in either case.
+                                           Pazpar2.
 ---
 
 Perhaps we should get rid of the `show_lang`, `show_perpage` and
