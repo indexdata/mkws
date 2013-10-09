@@ -22,10 +22,9 @@ if (!mkws_config)
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
-var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "/pazpar2/search.pz2";
-var service_proxy_url = mkws_config.service_proxy_url ? mkws_config.service_proxy_url : "http://mkws.indexdata.com/service-proxy/";
+var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "http://mkws.indexdata.com/service-proxy/";
 
-mkws.pazpar2path = mkws_config.use_service_proxy ? service_proxy_url : pazpar2_url;
+mkws.pazpar2path = pazpar2_url;
 mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
 mkws.locale_lang = {
@@ -559,7 +558,7 @@ function mkws_html_all(config) {
 
     /* default mkws config */
     /* ### No defaults given for:
-     * lang, responsive_design, service_proxy_auth, use_service_proxy
+     * lang, service_proxy_auth, use_service_proxy
      * and of course the optional language_* entries.
      */
     var mkws_config_default = {
@@ -573,7 +572,7 @@ function mkws_html_all(config) {
 	show_perpage: true, 	/* show/hide perpage menu */
 	lang_options: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: 980, /* a page with less pixel width considered as narrow */
+	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
 	debug: 1,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
@@ -661,7 +660,7 @@ function mkws_html_all(config) {
     if (mkws_config.use_service_proxy)
 	mkws_service_proxy_auth(config.service_proxy_auth);
 
-    if (mkws_config.responsive_design) {
+    if (mkws_config.responsive_design_width) {
 	// Responsive web design - change layout on the fly based on
 	// current screen width. Required for mobile devices.
 	$(window).resize( function(e) { mkws_resize_page() });
@@ -823,7 +822,7 @@ function mkws_html_lang(mkws_config) {
 function mkws_resize_page () {
     var list = ["mkwsSwitch"];
 
-    var width = mkws_config.responsive_design_width || 980;
+    var width = mkws_config.responsive_design_width;
     var parentId = $("#mkwsTermlists").parent().attr('id');
 
     if ($(window).width() <= width &&

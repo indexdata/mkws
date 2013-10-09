@@ -73,11 +73,10 @@ possible options:
 		lang: "en",                 /* "en", "de", "da" */
 		debug: 0,     		    /* debug level for development: 0..2 */
 
-		responsive_design: false    /* true, false: resize for smaller mobile devices */
-		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
-		service_proxy_url: "/service-proxy/", 	   /* URL */
+		responsive_design_wodth: 600,    /* page reflows for devices < 600 pixels wide */
+		pazpar2_url: "/service-proxy/", 	   /* URL */
 		service_proxy_auth: "/service-proxy-auth", /* URL */
-		// TODO: language_*, perpage_options, responsive_design_width, sort_options
+		// TODO: language_*, perpage_options, sort_options
 	    };
 	</script>
 ~~~

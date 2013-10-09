@@ -213,13 +213,11 @@ screen-width changes (as when a small device is rotated). To achieve
 this, MKWS supports responsive design which will move the termlists to
 the bottom on narrow screens and to the sidebar on wide screens.
 
-To turn on this behaviour, set the `responsive_design` configuration
-element to `true`, and `responsive_design_width` to the desired
+To turn on this behaviour, set the `responsive_design_width` to the desired
 threshhold width in pixels. For example:
 
         <script type="text/javascript">
             var mkws_config = {
-                responsive_design: true,
                 responsive_design_width: 990
             };
         </script>
@@ -299,9 +297,10 @@ language_*               hash              Support for any number of languages c
                                            `language_` followed by the code of the language. See the separate section below for
                                            details.
 
-pazpar2_url              string  *Note 2*  The URL used to access the metasearch middleware if `use_service_proxy` is false. ###
-                                           It's silly that you have to provide a different setting depending on whether
-                                           `use_service_proxy` is set. Should just use pazpar2_url in all cases.
+pazpar2_url              string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
+                                           provide search results, facets, etc. It may be either unmediated or Pazpar2 the
+                                           MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
+                                           the latter case, `service_proxy_auth` must be provided.
 
 perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
                                            records are displayed on each page of results.
@@ -313,19 +312,13 @@ show_perpage             bool    true      Indicates whether or not to display t
 
 query_width              int     50        The width of the query box, in characters.
 
-responsive_design        bool    false     If true, then the facets display moves between two locations as the screen-width
-                                           varies, as described above. ### This entry should not exist: the design should be
-                                           responsive whenever `responsive_design_width` has a defined value.
-
-responsive_design_width  int     980       If `responsive_design` is true, this is the threshhold width, in pixels, at which the
-                                           facets move between their two locations.
+responsive_design_width  int               If defined, then the facets display moves between two locations as the screen-width
+                                           varies, as described above. The specified number is the threshhold width, in pixels,
+                                           at which the facets move between their two locations.
 
 service_proxy_auth       url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
                                            session to authenticate the user and establish a session that encompasses a defined set
                                            of targets to search in.
-
-service_proxy_url        string  *Note 5*  The URL on which the service proxy is accessed if `use_service_proxy` is true. This
-                                           service must be configured to provide search results, facets, etc.
 
 sort_options             array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
                                            the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
