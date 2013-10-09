@@ -290,8 +290,6 @@ lang                     string  en        Code of the default language to displ
 lang_options             array   []        A list of the languages to offer as options. If empty (the default), then all
                                            configured languages are listed.
 
-show_lang                bool    true      Indicates whether or not to display the language menu.
-
 language_*               hash              Support for any number of languages can be added by providing entries whose name is
                                            `language_` followed by the code of the language. See the separate section below for
                                            details.
@@ -301,12 +299,10 @@ pazpar2_url              string  *Note 2*  The URL used to access the metasearch
                                            MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
                                            the latter case, `service_proxy_auth` must be provided.
 
-perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
-                                           records are displayed on each page of results.
-
 perpage_default          string  20        The initial value for the number of records to show on each page.
 
-show_perpage             bool    true      Indicates whether or not to display the perpage menu.
+perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
+                                           records are displayed on each page of results.
 
 query_width              int     50        The width of the query box, in characters.
 
@@ -318,14 +314,18 @@ service_proxy_auth       url     *Note 4*  A URL which, when `use_service_proxy`
                                            session to authenticate the user and establish a session that encompasses a defined set
                                            of targets to search in.
 
-sort_options             array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
-                                           the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
-                                           the second is a human-readable label such as `newest`.
+show_lang                bool    true      Indicates whether or not to display the language menu.
+
+show_perpage             bool    true      Indicates whether or not to display the perpage menu.
+
+show_sort                bool    true      Indicates whether or not to display the sort menu.
 
 sort_default             string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
                                            array.
 
-show_sort                bool    true      Indicates whether or not to display the sort menu.
+sort_options             array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
+                                           the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
+                                           the second is a human-readable label such as `newest`.
 
 use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
                                            Pazpar2.
