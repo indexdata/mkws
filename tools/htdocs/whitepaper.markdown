@@ -290,8 +290,7 @@ lang                     string  en        Code of the default language to displ
 lang_options             array   []        A list of the languages to offer as options. If empty (the default), then all
                                            configured languages are listed.
 
-show_lang                bool    true      Indicates whether or not to display the language menu. ### We should get rid of this
-                                           setting, and simply display the menu if there's an `mkwsLang` element.
+show_lang                bool    true      Indicates whether or not to display the language menu.
 
 language_*               hash              Support for any number of languages can be added by providing entries whose name is
                                            `language_` followed by the code of the language. See the separate section below for
@@ -307,8 +306,7 @@ perpage_options          array   *Note 3*  A list of candidate page sizes. Users
 
 perpage_default          string  20        The initial value for the number of records to show on each page.
 
-show_perpage             bool    true      Indicates whether or not to display the perpage menu. ### We should get rid of this
-                                           setting, and simply display the menu if an appropriate container is provided.
+show_perpage             bool    true      Indicates whether or not to display the perpage menu.
 
 query_width              int     50        The width of the query box, in characters.
 
@@ -327,14 +325,20 @@ sort_options             array   *Note 6*  List of supported sort criteria. Each
 sort_default             string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
                                            array.
 
-show_sort                bool    true      Indicates whether or not to display the sort menu. ### We should get rid of this
-                                           setting, and simply display the menu if an appropriate container is provided.
+show_sort                bool    true      Indicates whether or not to display the sort menu.
 
 use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
                                            Pazpar2. ### Do we even need this? Can't we just assume that the Service Proxy is in
                                            use when and only when `service_proxy_auth` is defined? Alternatively, retain this, but
                                            use the same entry to specify the URL in either case.
 ---
+
+Perhaps we should get rid of the `show_lang`, `show_perpage` and
+`show_sort` configuration items, and simply display the relevant menus
+only when their containers are provided -- e.g. an `mkwsLang` element
+for the language menu. But for now we retain these, as an easier route
+to lightly customise the display than my changing providing a full HTML
+structure.
 
 #### Notes
 
