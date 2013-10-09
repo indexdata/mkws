@@ -563,15 +563,15 @@ function mkws_html_all(config) {
      * and of course the optional language_* entries.
      */
     var mkws_config_default = {
-	sort: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
-	perpage: [10, 20, 30, 50],
+	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	perpage_options: [10, 20, 30, 50],
 	sort_default: "relevance",
 	perpage_default: 20,
 	query_width: 50,
 	show_lang: true, 	/* show/hide language menu */
 	show_sort: true, 	/* show/hide sort menu */
 	show_perpage: true, 	/* show/hide perpage menu */
-	lang_display: [], 	/* display languages links for given languages, [] for all */
+	lang_options: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: 980, /* a page with less pixel width considered as narrow */
 	debug: 1,     /* debug level for development: 0..2 */
@@ -713,9 +713,9 @@ function mkws_html_sort(config) {
     debug("HTML sort");
     var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
-    for(var i = 0; i < config.sort.length; i++) {
-	var key = config.sort[i][0];
-	var val = config.sort[i].length == 1 ? config.sort[i][0] : config.sort[i][1];
+    for(var i = 0; i < config.sort_options.length; i++) {
+	var key = config.sort_options[i][0];
+	var val = config.sort_options[i].length == 1 ? config.sort_options[i][0] : config.sort_options[i][1];
 
 	sort_html += '<option value="' + key + '"';
 	if (key == config.sort_default) {
@@ -732,8 +732,8 @@ function mkws_html_perpage(config) {
     debug("HTML perpage");
     var perpage_html = '<select name="mkwsPerpage" id="mkwsPerpage">';
 
-    for(var i = 0; i < config.perpage.length; i++) {
-	var key = config.perpage[i];
+    for(var i = 0; i < config.perpage_options.length; i++) {
+	var key = config.perpage_options[i];
 
 	perpage_html += '<option value="' + key + '"';
 	if (key == config.perpage_default) {
@@ -785,19 +785,19 @@ function mkws_html_lang(mkws_config) {
     var list = [];
 
     /* display a list of configured languages, or all */
-    var lang_display = mkws_config.lang_display || [];
+    var lang_options = mkws_config.lang_options || [];
     var hash = {};
-    for (var i = 0; i < lang_display.length; i++) {
-	hash[lang_display[i]] = 1;
+    for (var i = 0; i < lang_options.length; i++) {
+	hash[lang_options[i]] = 1;
     }
 
     for (var k in mkws.locale_lang) {
-	if (hash[k] == 1 || lang_display.length == 0)
+	if (hash[k] == 1 || lang_options.length == 0)
 	    list.push(k);
     }
 
     // add english link
-    if (lang_display.length == 0 || hash[lang_default] == 1)
+    if (lang_options.length == 0 || hash[lang_default] == 1)
         list.push(lang_default);
 
     debug("Language menu for: " + list.join(", "));

@@ -64,7 +64,7 @@ possible options:
 		show_lang: true, 	    /* true, false: show/hide language menu */
 		show_sort: true, 	    /* true, false: show/hide sort menu */
 		show_perpage: true, 	    /* true, false: show/hide perpage menu */
-		lang_display: ["en", "de", "da"], /* display languages links for given
+		lang_options: ["en", "de", "da"], /* display languages links for given
 						     languages, [] for all */
 		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 		sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
@@ -77,7 +77,7 @@ possible options:
 		pazpar2_url: "/pazpar2/search.pz2",   	   /* URL */
 		service_proxy_url: "/service-proxy/", 	   /* URL */
 		service_proxy_auth: "/service-proxy-auth", /* URL */
-		// TODO: language_*, perpage, responsive_design_width, sort
+		// TODO: language_*, perpage_options, responsive_design_width, sort_options
 	    };
 	</script>
 ~~~

@@ -289,7 +289,7 @@ lang                     string  en        Code of the default language to displ
                                            English, `de` = German, `da` = Danish, and whatever additional languages are configured
                                            using `language_*` entries (see below).
 
-lang_display             array   []        A list of the languages to offer as options. If empty (the default), then all
+lang_options             array   []        A list of the languages to offer as options. If empty (the default), then all
                                            configured languages are listed.
 
 show_lang                bool    true      Indicates whether or not to display the language menu. ### We should get rid of this
@@ -303,7 +303,7 @@ pazpar2_url              string  *Note 2*  The URL used to access the metasearch
                                            It's silly that you have to provide a different setting depending on whether
                                            `use_service_proxy` is set. Should just use pazpar2_url in all cases.
 
-perpage                  array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
+perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
                                            records are displayed on each page of results.
 
 perpage_default          string  20        The initial value for the number of records to show on each page. ### The `perpage` and
@@ -329,7 +329,7 @@ service_proxy_auth       url     *Note 4*  A URL which, when `use_service_proxy`
 service_proxy_url        string  *Note 5*  The URL on which the service proxy is accessed if `use_service_proxy` is true. This
                                            service must be configured to provide search results, facets, etc.
 
-sort                     array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
+sort_options             array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
                                            the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
                                            the second is a human-readable label such as `newest`.
 
