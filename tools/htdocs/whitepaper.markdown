@@ -306,9 +306,7 @@ pazpar2_url              string  *Note 2*  The URL used to access the metasearch
 perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
                                            records are displayed on each page of results.
 
-perpage_default          string  20        The initial value for the number of records to show on each page. ### The `perpage` and
-                                           `perpage_default` entries should be renamed `perpage_display` and `perpage`
-                                           respectively for consistency with the language-related settings.
+perpage_default          string  20        The initial value for the number of records to show on each page.
 
 show_perpage             bool    true      Indicates whether or not to display the perpage menu. ### We should get rid of this
                                            setting, and simply display the menu if an appropriate container is provided.
