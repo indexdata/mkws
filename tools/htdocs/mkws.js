@@ -84,7 +84,7 @@ mkws.debug_time = {
     "start": $.now(),
     "last": $.now()
 };
-mkws.debug = function (string) {
+mkws.debug_function = function (string) {
     if (!mkws.debug)
 	return;
 
@@ -104,7 +104,7 @@ mkws.debug = function (string) {
     }
     console.log(timestamp + string);
 }
-var debug = mkws.debug; // local alias
+var debug = mkws.debug_function; // local alias
 
 for (var key in mkws_config) {
     if (mkws_config.hasOwnProperty(key)) {
