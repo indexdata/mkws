@@ -71,7 +71,7 @@ possible options:
 		query_width: 50,	    /* 5..50 */
 		perpage_default: 20,	    /* 10, 20, 30, 50 */
 		lang: "en",                 /* "en", "de", "da" */
-		debug: 0,     		    /* debug level for development: 0..2 */
+		debug_level: 0,     	/* debug level for development: 0..2 */
 
 		responsive_design_wodth: 600,    /* page reflows for devices < 600 pixels wide */
 		pazpar2_url: "/service-proxy/", 	   /* URL */

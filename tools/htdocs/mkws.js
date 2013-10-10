@@ -1,7 +1,7 @@
 /* A very simple client that shows a basic usage of the pz2.js
 */
 
-"use strict"; // HTML5: disable for debug >= 2
+"use strict"; // HTML5: disable for debug_level >= 2
 
 // Set up namespace and some state.
 var mkws = {};
@@ -85,7 +85,7 @@ mkws.debug_time = {
     "last": $.now()
 };
 mkws.debug_function = function (string) {
-    if (!mkws.debug)
+    if (!mkws.debug_level)
 	return;
 
     if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
@@ -97,9 +97,9 @@ mkws.debug_function = function (string) {
     mkws.debug_time.last = now;
 
     // you need to disable use strict at the top of the file!!!
-    if (mkws.debug >= 3) {
+    if (mkws.debug_level >= 3) {
 	console.log(timestamp + arguments.callee.caller);
-    } else if (mkws.debug >= 2) {
+    } else if (mkws.debug_level >= 2) {
 	console.log(timestamp + ">>> called from function " + arguments.callee.caller.name + ' <<<');
     }
     console.log(timestamp + string);
@@ -573,16 +573,16 @@ function mkws_html_all(config) {
 	lang_options: [], 	/* display languages links for given languages, [] for all */
 	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
 	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
-	debug: 1,     /* debug level for development: 0..2 */
+	debug_level: 1,     /* debug level for development: 0..2 */
 
 	dummy: "dummy"
     };
 
-    /* set global debug flag early */
-    if (typeof config.debug !== 'undefined') {
-	mkws.debug = config.debug;
-    } else if (typeof mkws_config_default.debug !== 'undefined') {
-	mkws.debug = mkws_config_default.debug;
+    /* set global debug_level flag early */
+    if (typeof config.debug_level !== 'undefined') {
+	mkws.debug_level = config.debug_level;
+    } else if (typeof mkws_config_default.debug_level !== 'undefined') {
+	mkws.debug_level = mkws_config_default.debug_level;
     }
 
     /* override standard config values by function parameters */

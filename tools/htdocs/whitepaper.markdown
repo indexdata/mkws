@@ -277,7 +277,7 @@ long default values are in footnotes to keep the table reasonably narrow.
 ---
 Element                  Type    Default   Description
 --------                 -----   --------- ------------
-debug                    int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+debug_level              int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                            datestamps, 3 = messages with datestamps and stack-traces.
 
 facets                   array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
