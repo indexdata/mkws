@@ -554,14 +554,14 @@ function renderField(caption, data, data2, data3) {
  * All the HTML stuff to render the search forms and
  * result pages.
  */
-function mkws_html_all(config) {
+function mkws_html_all() {
 
     /* default mkws config */
     /* ### No defaults given for:
      * lang, service_proxy_auth, use_service_proxy
      * and of course the optional language_* entries.
      */
-    var mkws_config_default = {
+    var config_default = {
 	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage_options: [10, 20, 30, 50],
 	sort_default: "relevance",
@@ -579,16 +579,16 @@ function mkws_html_all(config) {
     };
 
     /* set global debug_level flag early */
-    if (typeof config.debug_level !== 'undefined') {
-	mkws.debug_level = config.debug_level;
-    } else if (typeof mkws_config_default.debug_level !== 'undefined') {
-	mkws.debug_level = mkws_config_default.debug_level;
+    if (typeof mkws_config.debug_level !== 'undefined') {
+	mkws.debug_level = mkws_config.debug_level;
+    } else if (typeof config_default.debug_level !== 'undefined') {
+	mkws.debug_level = config_default.debug_level;
     }
 
     /* override standard config values by function parameters */
-    for (var k in mkws_config_default) {
-	if (typeof config[k] === 'undefined')
-	   mkws_config[k] = mkws_config_default[k];
+    for (var k in config_default) {
+	if (typeof mkws_config[k] === 'undefined')
+	   mkws_config[k] = config_default[k];
 	debug("Set config: " + k + ' => ' + mkws_config[k]);
     }
 
@@ -644,21 +644,21 @@ function mkws_html_all(config) {
     if ($("#mkwsRanking").length) {
 	var ranking_data = '';
 	ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
-	if (config.show_sort) {
-	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort(config) + ' ';
+	if (mkws_config.show_sort) {
+	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort(mkws_config) + ' ';
 	}
-	if (config.show_perpage) {
-	    ranking_data += M('and show') + ' ' + mkws_html_perpage(config) + ' ' + M('per page') + '.';
+	if (mkws_config.show_perpage) {
+	    ranking_data += M('and show') + ' ' + mkws_html_perpage(mkws_config) + ' ' + M('per page') + '.';
 	}
         ranking_data += '</form>';
 
 	$("#mkwsRanking").html(ranking_data);
     }
 
-    mkws_html_switch(config);
+    mkws_html_switch(mkws_config);
 
     if (mkws_config.use_service_proxy)
-	mkws_service_proxy_auth(config.service_proxy_auth);
+	mkws_service_proxy_auth(mkws_config.service_proxy_auth);
 
     if (mkws_config.responsive_design_width) {
 	// Responsive web design - change layout on the fly based on
@@ -1004,7 +1004,7 @@ function init_popup(obj) {
 /* magic */
 $(document).ready(function() {
     try {
-	mkws_html_all(mkws_config)
+	mkws_html_all()
     }
 
     catch (e) {
