@@ -648,7 +648,7 @@ function mkws_html_all() {
 	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort() + ' ';
 	}
 	if (mkws_config.show_perpage) {
-	    ranking_data += M('and show') + ' ' + mkws_html_perpage(mkws_config) + ' ' + M('per page') + '.';
+	    ranking_data += M('and show') + ' ' + mkws_html_perpage() + ' ' + M('per page') + '.';
 	}
         ranking_data += '</form>';
 
@@ -728,15 +728,15 @@ function mkws_html_sort() {
     return sort_html;
 }
 
-function mkws_html_perpage(config) {
+function mkws_html_perpage() {
     debug("HTML perpage");
     var perpage_html = '<select name="mkwsPerpage" id="mkwsPerpage">';
 
-    for(var i = 0; i < config.perpage_options.length; i++) {
-	var key = config.perpage_options[i];
+    for(var i = 0; i < mkws_config.perpage_options.length; i++) {
+	var key = mkws_config.perpage_options[i];
 
 	perpage_html += '<option value="' + key + '"';
-	if (key == config.perpage_default) {
+	if (key == mkws_config.perpage_default) {
 	    perpage_html += ' selected="selected"';
 	}
 	perpage_html += '>' + key + '</option>';
