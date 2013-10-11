@@ -645,7 +645,7 @@ function mkws_html_all() {
 	var ranking_data = '';
 	ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
 	if (mkws_config.show_sort) {
-	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort(mkws_config) + ' ';
+	    ranking_data +=  M('Sort by') + ' ' + mkws_html_sort() + ' ';
 	}
 	if (mkws_config.show_perpage) {
 	    ranking_data += M('and show') + ' ' + mkws_html_perpage(mkws_config) + ' ' + M('per page') + '.';
@@ -708,16 +708,16 @@ function mkws_html_switch(config) {
     $("#mkwsTargets").css("display", "none");
 }
 
-function mkws_html_sort(config) {
+function mkws_html_sort() {
     debug("HTML sort");
     var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
-    for(var i = 0; i < config.sort_options.length; i++) {
-	var key = config.sort_options[i][0];
-	var val = config.sort_options[i].length == 1 ? config.sort_options[i][0] : config.sort_options[i][1];
+    for(var i = 0; i < mkws_config.sort_options.length; i++) {
+	var key = mkws_config.sort_options[i][0];
+	var val = mkws_config.sort_options[i].length == 1 ? mkws_config.sort_options[i][0] : mkws_config.sort_options[i][1];
 
 	sort_html += '<option value="' + key + '"';
-	if (key == config.sort_default) {
+	if (key == mkws_config.sort_default) {
 	    sort_html += ' selected="selected"';
 	}
 	sort_html += '>' + val + '</option>';
