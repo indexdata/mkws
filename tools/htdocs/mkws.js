@@ -713,8 +713,9 @@ function mkws_html_sort() {
     var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
     for(var i = 0; i < mkws_config.sort_options.length; i++) {
-	var key = mkws_config.sort_options[i][0];
-	var val = mkws_config.sort_options[i].length == 1 ? mkws_config.sort_options[i][0] : mkws_config.sort_options[i][1];
+	var opt = mkws_config.sort_options[i];
+	var key = opt[0];
+	var val = opt.length == 1 ? opt[0] : opt[1];
 
 	sort_html += '<option value="' + key + '"';
 	if (key == mkws_config.sort_default) {
