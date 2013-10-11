@@ -655,7 +655,7 @@ function mkws_html_all() {
 	$("#mkwsRanking").html(ranking_data);
     }
 
-    mkws_html_switch(mkws_config);
+    mkws_html_switch();
 
     if (mkws_config.use_service_proxy)
 	mkws_service_proxy_auth(mkws_config.service_proxy_auth);
@@ -693,7 +693,7 @@ function mkws_set_lang()  {
     return mkws_config.lang;
 }
 
-function mkws_html_switch(config) {
+function mkws_html_switch() {
     debug("HTML switch");
 
     $("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_records" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
