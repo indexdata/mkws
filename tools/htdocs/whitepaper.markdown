@@ -128,7 +128,7 @@ Configuration
 -------------
 
 Many aspects of the behaviour of MKWS can be modified by setting
-parameters into the `mkws_config` hash. **This must be done *before*
+parameters into the `mkws_config` object. **This must be done *before*
 including the MKWS JavaScript** so that when that code is executed it
 can refer to the configuration values. So the HTML header looks like
 this:
@@ -269,10 +269,11 @@ Reference Guide
 
 The configuration object `mkws_config` may be created before including
 the MKWS JavaScript code to modify default behaviour. This structure
-is a hash, whose entries are described in the table below. All entries
-are options, but if specified must be given values of the specified
-type. If ommitted, each setting takes the indicated default value;
-long default values are in footnotes to keep the table reasonably narrow.
+is a key-value lookup table, whose entries are described in the table
+below. All entries are options, but if specified must be given values
+of the specified type. If ommitted, each setting takes the indicated
+default value; long default values are in footnotes to keep the table
+reasonably narrow.
 
 ---
 Element                  Type    Default   Description
@@ -356,11 +357,11 @@ structure.
 ### Language specification
 
 Support for another UI language can be added by providing an entry in
-the `mkws_config` hash whose name is `language_` followed by the name
-of the language: for example, `language_Arabic` to support
-Arabic. Then value of this entry must be a hash, mapping the
-English-language strings of the UI into their equivalents in the
-specified language. For example:
+the `mkws_config` object whose name is `language_` followed by the
+name of the language: for example, `language_Arabic` to support
+Arabic. Then value of this entry must be a key-value lookup table,
+mapping the English-language strings of the UI into their equivalents
+in the specified language. For example:
 
             var mkws_config = {
               language_Arabic: {
@@ -414,9 +415,9 @@ the invocation is a single line of JavaScript:
 This code should be inserted in the page at the position where the
 metasearch should occur.
 
-When invoking this plugin, a hash of named options may be passed in to
-modify the default behaviour, as in the exaple above. The available
-options are as follows:
+When invoking this plugin, a key-value lookup table of named options
+may be passed in to modify the default behaviour, as in the exaple
+above. The available options are as follows:
 
 ---
 Element    Type    Default           Description
