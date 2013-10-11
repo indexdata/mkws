@@ -137,7 +137,7 @@ this:
           var mkws_config = {
             lang: "da",
             sort_default: "title",
-            query_width: 60,
+            query_width: 60
           };
         </script>
         <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
