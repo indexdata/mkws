@@ -597,9 +597,9 @@ function mkws_html_all(config) {
 	mkws_config.query_width = 50;
     }
 
-    mkws_set_lang(mkws_config);
+    mkws_set_lang();
     if (mkws_config.show_lang)
-	mkws_html_lang(mkws_config);
+	mkws_html_lang();
 
     // For some reason, doing this programmatically results in
     // document.mkwsSearchForm.mkwsQuery being undefined, hence the raw HTML.
@@ -681,7 +681,7 @@ function mkws_html_all(config) {
     }
 }
 
-function mkws_set_lang(mkws_config)  {
+function mkws_set_lang()  {
     var lang = $.parseQuerystring().lang || mkws_config.lang || "";
     if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
@@ -778,7 +778,7 @@ function mkws_service_proxy_auth(auth_url) {
 }
 
 /* create locale language menu */
-function mkws_html_lang(mkws_config) {
+function mkws_html_lang() {
     var lang_default = "en";
     var lang = mkws_config.lang || lang_default;
     var list = [];
