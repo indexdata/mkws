@@ -19,7 +19,7 @@ can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
 
-* `mkwsStyle.css`
+* `mkws.css`
 * `mkws.js`
 * `/libjs-pz2/pz2api.1.js`
 * `mkws-complete.js` -- a single file consisting of `mkws.js`,
@@ -35,7 +35,7 @@ whatever makes up the application itself:
 Prerequisites:
 
 ~~~
-	<link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
+	<link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
 	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 ~~~
 

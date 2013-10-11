@@ -54,7 +54,7 @@ The following is a complete MKWS-based searching application:
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>MKWS demo client</title>
         <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
-        <link rel="stylesheet" href="http://mkws.indexdata.com/mkwsStyle.css" />
+        <link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
       </head>
       <body>
         <div id="mkwsSearch"></div>
@@ -83,7 +83,7 @@ header, which are loaded from the tool site mkws.indexdata.com:
 * `mkws-complete.js`
   contains all the JavaScript needed by the widget-set.
 
-* `mkwsStyle.css`
+* `mkws.css`
   provides the default CSS styling 
 
 Second, within the HTML body, `<div>` elements with special IDs that
@@ -180,7 +180,7 @@ following lower-level components provided instead:
 
 Customisation of MKWS searching widgets can also be achieved by
 overriding the styles set in the toolkit's CSS stylesheet. The default
-styles can be inspected in `mkwsStyle.css` and overridden in any
+styles can be inspected in `mkws.css` and overridden in any
 styles that appears later in the HTML than that file. At the simplest
 level, this might just mean changing fonts, sizes and colours, but
 more fundamental changes are also possible.

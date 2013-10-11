@@ -33,7 +33,7 @@ function html_check(file, tags_array, ignore_doctype) {
 
             expect(html).toMatch(/<meta .*?charset=utf-8/i);
             expect(html).toMatch(/<title>.+<\/title>/i);
-            expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/?mkwsStyle.css"/);
+            expect(html).toMatch(/<link .*?type="text\/css" href=".*?\/?mkws.css"/);
 
 
             for (var i = 0, data = ""; i < tags.length; i++) {
