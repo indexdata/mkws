@@ -5,6 +5,7 @@
  */
 
 var debug_level = mkws.debug_level;
+var debug = mkws.debug_function;
 
 var get_hit_counter = function () {
         // not yet here
