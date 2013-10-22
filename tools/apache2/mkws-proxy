@@ -1,5 +1,6 @@
 <VirtualHost *:80>
     ServerName mkws.indexdata.com
+    ServerName mkws-git.indexdata.com
 
     ProxyRequests off
     ProxyVia On
