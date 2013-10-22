@@ -358,15 +358,15 @@ structure.
 
 Support for another UI language can be added by providing an entry in
 the `mkws_config` object whose name is `language_` followed by the
-name of the language: for example, `language_Arabic` to support
-Arabic. Then value of this entry must be a key-value lookup table,
+name of the language: for example, `language_French` to support
+French. Then value of this entry must be a key-value lookup table,
 mapping the English-language strings of the UI into their equivalents
 in the specified language. For example:
 
             var mkws_config = {
-              language_Arabic: {
-                "Authors": "الكتاب",
-                "Subjects": "المواضيع",
+              language_French: {
+                "Authors": "Auteurs",
+                "Subjects": "Sujets",
                 // ... and others ...
               }
             }
