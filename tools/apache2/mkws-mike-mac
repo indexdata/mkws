@@ -1,0 +1,25 @@
+# Configuration for the apache web server
+# Running on Mike's local development box
+
+<VirtualHost *:80>
+    ServerName x.mkws.indexdata.com
+    ErrorLog /opt/local/apache2/logs/mkws-error.log
+    CustomLog /opt/local/apache2/logs/mkws-access.log combined
+
+    DocumentRoot /usr/local/src/git/mkws/tools/htdocs
+    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog /opt/local/apache2/logs/spclient-rewrite.log 
+    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+
+    # For MKC Service Proxy
+    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+
+    # Needed on Mac, which locks Apache down hard by default.
+    <Directory />
+        Allow from all
+    </Directory>
+</VirtualHost>
