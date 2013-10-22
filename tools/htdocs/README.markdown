@@ -3,6 +3,9 @@
 % 10 July 2013
 
 
+Introduction
+------------
+
 This directory contains an embryonic MasterKey Widget Set. The initial
 version was based on the "jsdemo" application distributed with
 pazpar2, but it is now far removed from those beginnnings.
