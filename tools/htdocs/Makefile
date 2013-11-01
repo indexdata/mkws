@@ -75,6 +75,9 @@ help:
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
+# ### In order to compile the whitepaper, which has tables, to PDF,
+# you will need to install the Debian package
+#	texlive-latex-recommended
 %.pdf: %.markdown
 	rm -f $@
 	pandoc --standalone $< -o $@
