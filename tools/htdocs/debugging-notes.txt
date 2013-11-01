@@ -1,0 +1,7 @@
+config_default.debug_level is initialised to 1
+mkws_config.debug_level may be set by the application
+mkws.debug_level is set from one of the above
+mkws.debug_time is self-contained, and used well
+mkws.debug_function is a function
+var debug is a local alias of mkws.debug_function
+debug2 is a function that calls debug after 500 ms -- what?!
