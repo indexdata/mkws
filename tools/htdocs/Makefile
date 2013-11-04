@@ -34,7 +34,7 @@ pz2api-git-checkout:
 	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: ${PZ2API_JS} mkws.js
+mkws-js ${MKWS_JS}: mkws.js
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
