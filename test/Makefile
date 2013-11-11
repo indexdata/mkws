@@ -9,7 +9,7 @@ distclean:
 	
 
 check:
-	jasmine-node ./spec 
+	jasmine-node --captureExceptions ./spec 
 
 test: check
 
