@@ -78,6 +78,7 @@ mkws.debug_time = {
     "start": $.now(),
     "last": $.now()
 };
+
 mkws.debug_function = function (string) {
     if (!mkws.debug_level)
 	return;
