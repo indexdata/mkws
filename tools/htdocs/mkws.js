@@ -21,11 +21,6 @@ if (!mkws_config)
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
-var pazpar2_url = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
-
-mkws.pazpar2path = pazpar2_url;
-mkws.usesessions = mkws_config.use_service_proxy ? false : true;
-
 mkws.locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -162,13 +157,13 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": mkws.pazpar2path,
+                    "pazpar2path": mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/",
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : mkws.usesessions,
+	 	    "usesessions" : mkws_config.use_service_proxy ? false : true,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
