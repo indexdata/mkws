@@ -6,18 +6,17 @@
 // Set up namespace and some state.
 var mkws = {};
 
-if (!mkws_config)
-    var mkws_config = {}; // for the guys who forgot to define mkws_config...
-
-// Wrapper for jQuery
-(function ($) {
-
 /*
  * global config object: mkws_config
  *
- * needs to be defined in the HTML header before
- * including this JS file
+ * Needs to be defined in the HTML header before including this JS file.
+ * Define empty mkws_config for simple applications that don't define it.
  */
+if (!mkws_config)
+    var mkws_config = {};
+
+// Wrapper for jQuery
+(function ($) {
 
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
