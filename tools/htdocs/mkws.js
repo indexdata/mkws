@@ -105,6 +105,47 @@ mkws.debug_function = function (string) {
 }
 var debug = mkws.debug_function; // local alias
 
+/* default mkws config */
+/* ### No defaults given for:
+ * lang, service_proxy_auth, use_service_proxy
+ * and of course the optional language_* entries.
+ */
+var config_default = {
+    sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+    perpage_options: [10, 20, 30, 50],
+    sort_default: "relevance",
+    perpage_default: 20,
+    query_width: 50,
+    show_lang: true, 	/* show/hide language menu */
+    show_sort: true, 	/* show/hide sort menu */
+    show_perpage: true, 	/* show/hide perpage menu */
+    lang_options: [], 	/* display languages links for given languages, [] for all */
+    facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+    responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
+    debug_level: 1,     /* debug level for development: 0..2 */
+
+    dummy: "dummy"
+};
+
+/* set global debug_level flag early */
+if (typeof mkws_config.debug_level !== 'undefined') {
+    mkws.debug_level = mkws_config.debug_level;
+} else if (typeof config_default.debug_level !== 'undefined') {
+    mkws.debug_level = config_default.debug_level;
+}
+
+/* override standard config values by function parameters */
+for (var k in config_default) {
+    if (typeof mkws_config[k] === 'undefined')
+       mkws_config[k] = config_default[k];
+    debug("Set config: " + k + ' => ' + mkws_config[k]);
+}
+
+if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
+    debug("Reset query width: " + mkws_config.query_width);
+    mkws_config.query_width = 50;
+}
+
 for (var key in mkws_config) {
     if (mkws_config.hasOwnProperty(key)) {
 	if (key.match(/^language_/)) {
@@ -553,48 +594,6 @@ function renderField(caption, data, data2, data3) {
  * result pages.
  */
 function mkws_html_all() {
-
-    /* default mkws config */
-    /* ### No defaults given for:
-     * lang, service_proxy_auth, use_service_proxy
-     * and of course the optional language_* entries.
-     */
-    var config_default = {
-	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
-	perpage_options: [10, 20, 30, 50],
-	sort_default: "relevance",
-	perpage_default: 20,
-	query_width: 50,
-	show_lang: true, 	/* show/hide language menu */
-	show_sort: true, 	/* show/hide sort menu */
-	show_perpage: true, 	/* show/hide perpage menu */
-	lang_options: [], 	/* display languages links for given languages, [] for all */
-	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
-	debug_level: 1,     /* debug level for development: 0..2 */
-
-	dummy: "dummy"
-    };
-
-    /* set global debug_level flag early */
-    if (typeof mkws_config.debug_level !== 'undefined') {
-	mkws.debug_level = mkws_config.debug_level;
-    } else if (typeof config_default.debug_level !== 'undefined') {
-	mkws.debug_level = config_default.debug_level;
-    }
-
-    /* override standard config values by function parameters */
-    for (var k in config_default) {
-	if (typeof mkws_config[k] === 'undefined')
-	   mkws_config[k] = config_default[k];
-	debug("Set config: " + k + ' => ' + mkws_config[k]);
-    }
-
-    if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	debug("Reset query width: " + mkws_config.query_width);
-	mkws_config.query_width = 50;
-    }
-
     mkws_set_lang();
     if (mkws_config.show_lang)
 	mkws_html_lang();
