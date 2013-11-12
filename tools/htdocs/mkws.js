@@ -22,7 +22,7 @@ if (!mkws_config)
 if (typeof mkws_config.use_service_proxy === 'undefined')
     mkws_config.use_service_proxy = true;
 
-var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "http://mkws.indexdata.com/service-proxy/";
+var pazpar2_url = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
 
 mkws.pazpar2path = pazpar2_url;
 mkws.usesessions = mkws_config.use_service_proxy ? false : true;
