@@ -18,9 +18,6 @@ var mkws = {};
 if (!mkws_config)
     var mkws_config = {};
 
-if (typeof mkws_config.use_service_proxy === 'undefined')
-    mkws_config.use_service_proxy = true;
-
 mkws.locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -103,10 +100,10 @@ var debug = mkws.debug_function; // local alias
 
 /* default mkws config */
 /* ### No defaults given for:
- * lang, service_proxy_auth, use_service_proxy
- * and of course the optional language_* entries.
+ * lang, service_proxy_auth and of course the optional language_* entries.
  */
 var config_default = {
+    use_service_proxy: true,
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
     sort_default: "relevance",
