@@ -172,7 +172,6 @@ function my_onshow(data) {
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
 	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
-            +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="mkwsRec_'+hit.recid
             +'" onclick="mkws.showDetails(this.id);return false;"><b>'
             + hit["md-title"] +' </b></a>');
