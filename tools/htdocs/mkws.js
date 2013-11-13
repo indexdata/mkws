@@ -844,7 +844,7 @@ function M(word) {
     if (!lang || !mkws.locale_lang[lang])
 	return word;
 
-    return mkws.locale_lang[lang][word] ? mkws.locale_lang[lang][word] : word;
+    return mkws.locale_lang[lang][word] || word;
 }
 
 /*
