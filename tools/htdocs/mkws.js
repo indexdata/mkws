@@ -100,12 +100,10 @@ var debug = mkws.debug_function; // local alias
 
 {
     /* default mkws config */
-    /* ### No defaults given for:
-     * lang and of course the optional language_* entries.
-     */
     var config_default = {
 	use_service_proxy: true,
 	service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
+	lang: "",
 	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage_options: [10, 20, 30, 50],
 	sort_default: "relevance",
@@ -675,7 +673,7 @@ function mkws_html_all() {
 }
 
 function mkws_set_lang()  {
-    var lang = $.parseQuerystring().lang || mkws_config.lang || "";
+    var lang = $.parseQuerystring().lang || mkws_config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
