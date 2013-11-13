@@ -3,29 +3,20 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-// Set up namespace and some state.
-var mkws = {};
-
-if (!mkws_config)
-    var mkws_config = {}; // for the guys who forgot to define mkws_config...
-
 // Wrapper for jQuery
 (function ($) {
+
+// Set up namespace and some state.
+var mkws = {};
 
 /*
  * global config object: mkws_config
  *
- * needs to be defined in the HTML header before
- * including this JS file
+ * Needs to be defined in the HTML header before including this JS file.
+ * Define empty mkws_config for simple applications that don't define it.
  */
-
-if (typeof mkws_config.use_service_proxy === 'undefined')
-    mkws_config.use_service_proxy = true;
-
-var pazpar2_url = mkws_config.pazpar2_url ? mkws_config.pazpar2_url : "http://mkws.indexdata.com/service-proxy/";
-
-mkws.pazpar2path = pazpar2_url;
-mkws.usesessions = mkws_config.use_service_proxy ? false : true;
+if (!mkws_config)
+    var mkws_config = {};
 
 mkws.locale_lang = {
     "de": {
@@ -84,6 +75,7 @@ mkws.debug_time = {
     "start": $.now(),
     "last": $.now()
 };
+
 mkws.debug_function = function (string) {
     if (!mkws.debug_level)
 	return;
@@ -106,6 +98,48 @@ mkws.debug_function = function (string) {
 }
 var debug = mkws.debug_function; // local alias
 
+{
+    /* default mkws config */
+    var config_default = {
+	use_service_proxy: true,
+	service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
+	lang: "",
+	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	perpage_options: [10, 20, 30, 50],
+	sort_default: "relevance",
+	perpage_default: 20,
+	query_width: 50,
+	show_lang: true, 	/* show/hide language menu */
+	show_sort: true, 	/* show/hide sort menu */
+	show_perpage: true, 	/* show/hide perpage menu */
+	lang_options: [], 	/* display languages links for given languages, [] for all */
+	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
+	debug_level: 1,     /* debug level for development: 0..2 */
+
+	dummy: "dummy"
+    };
+
+    /* set global debug_level flag early */
+    if (typeof mkws_config.debug_level !== 'undefined') {
+	mkws.debug_level = mkws_config.debug_level;
+    } else if (typeof config_default.debug_level !== 'undefined') {
+	mkws.debug_level = config_default.debug_level;
+    }
+
+    /* override standard config values by function parameters */
+    for (var k in config_default) {
+	if (typeof mkws_config[k] === 'undefined')
+	   mkws_config[k] = config_default[k];
+	debug("Set config: " + k + ' => ' + mkws_config[k]);
+    }
+}
+
+if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
+    debug("Reset query width: " + mkws_config.query_width);
+    mkws_config.query_width = 50;
+}
+
 for (var key in mkws_config) {
     if (mkws_config.hasOwnProperty(key)) {
 	if (key.match(/^language_/)) {
@@ -122,13 +156,13 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": mkws.pazpar2path,
+                    "pazpar2path": mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/",
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : mkws.usesessions,
+	 	    "usesessions" : mkws_config.use_service_proxy ? false : true,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
@@ -172,7 +206,6 @@ function my_onshow(data) {
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
 	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
-            +'<span>'+ (i + 1 + recPerPage * (curPage - 1)) +'. </span>'
             +'<a href="#" id="mkwsRec_'+hit.recid
             +'" onclick="mkws.showDetails(this.id);return false;"><b>'
             + hit["md-title"] +' </b></a>');
@@ -555,48 +588,6 @@ function renderField(caption, data, data2, data3) {
  * result pages.
  */
 function mkws_html_all() {
-
-    /* default mkws config */
-    /* ### No defaults given for:
-     * lang, service_proxy_auth, use_service_proxy
-     * and of course the optional language_* entries.
-     */
-    var config_default = {
-	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
-	perpage_options: [10, 20, 30, 50],
-	sort_default: "relevance",
-	perpage_default: 20,
-	query_width: 50,
-	show_lang: true, 	/* show/hide language menu */
-	show_sort: true, 	/* show/hide sort menu */
-	show_perpage: true, 	/* show/hide perpage menu */
-	lang_options: [], 	/* display languages links for given languages, [] for all */
-	facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
-	debug_level: 1,     /* debug level for development: 0..2 */
-
-	dummy: "dummy"
-    };
-
-    /* set global debug_level flag early */
-    if (typeof mkws_config.debug_level !== 'undefined') {
-	mkws.debug_level = mkws_config.debug_level;
-    } else if (typeof config_default.debug_level !== 'undefined') {
-	mkws.debug_level = config_default.debug_level;
-    }
-
-    /* override standard config values by function parameters */
-    for (var k in config_default) {
-	if (typeof mkws_config[k] === 'undefined')
-	   mkws_config[k] = config_default[k];
-	debug("Set config: " + k + ' => ' + mkws_config[k]);
-    }
-
-    if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	debug("Reset query width: " + mkws_config.query_width);
-	mkws_config.query_width = 50;
-    }
-
     mkws_set_lang();
     if (mkws_config.show_lang)
 	mkws_html_lang();
@@ -682,7 +673,7 @@ function mkws_html_all() {
 }
 
 function mkws_set_lang()  {
-    var lang = $.parseQuerystring().lang || mkws_config.lang || "";
+    var lang = $.parseQuerystring().lang || mkws_config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
@@ -752,9 +743,6 @@ function mkws_html_perpage() {
  * for the site.
  */
 function mkws_service_proxy_auth(auth_url) {
-    if (!auth_url)
-	auth_url = "http://mkws.indexdata.com/service-proxy-auth";
-
     debug("Run service proxy auth URL: " + auth_url);
 
     var request = new pzHttpRequest(auth_url, function(err) {
@@ -854,7 +842,7 @@ function M(word) {
     if (!lang || !mkws.locale_lang[lang])
 	return word;
 
-    return mkws.locale_lang[lang][word] ? mkws.locale_lang[lang][word] : word;
+    return mkws.locale_lang[lang][word] || word;
 }
 
 /*

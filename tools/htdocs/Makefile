@@ -34,7 +34,7 @@ pz2api-git-checkout:
 	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: ${PZ2API_JS} mkws.js
+mkws-js ${MKWS_JS}: mkws.js
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -44,7 +44,7 @@ mkws-js ${MKWS_JS}: ${PZ2API_JS} mkws.js
 	( echo "/* created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,') */"; \
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
-	  cat ../../../libjs-pz2/pz2api.1.js mkws.js ) > ${MKWS_JS}.new 
+	  cat ${PZ2API_JS} mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
 distclean: clean
@@ -75,6 +75,9 @@ help:
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
+# ### In order to compile the whitepaper, which has tables, to PDF,
+# you will need to install the Debian package
+#	texlive-latex-recommended
 %.pdf: %.markdown
 	rm -f $@
 	pandoc --standalone $< -o $@
