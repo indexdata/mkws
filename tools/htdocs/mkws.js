@@ -101,10 +101,11 @@ var debug = mkws.debug_function; // local alias
 {
     /* default mkws config */
     /* ### No defaults given for:
-     * lang, service_proxy_auth and of course the optional language_* entries.
+     * lang and of course the optional language_* entries.
      */
     var config_default = {
 	use_service_proxy: true,
+	service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
 	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	perpage_options: [10, 20, 30, 50],
 	sort_default: "relevance",
@@ -744,9 +745,6 @@ function mkws_html_perpage() {
  * for the site.
  */
 function mkws_service_proxy_auth(auth_url) {
-    if (!auth_url)
-	auth_url = "http://mkws.indexdata.com/service-proxy-auth";
-
     debug("Run service proxy auth URL: " + auth_url);
 
     var request = new pzHttpRequest(auth_url, function(err) {
