@@ -3,8 +3,12 @@ Jasmine / jasmine-node test frame works
 
 This directory contains the MasterKey Widget Set (MKWS) Test framework.
 
+To install (some) prerequisites, run:
 
-to run the tests, run:
+$ sudo apt-get install npm
+$ sudo npm install jasmine-node -g
+
+To run the tests, run:
 
 $ make check
 jasmine-node ./spec
