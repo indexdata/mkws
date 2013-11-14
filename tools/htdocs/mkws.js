@@ -306,8 +306,13 @@ function my_onbytarget(data) {
 	return;
     }
 
-    var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
-        +'<td>Records</td><td>State</td></tr></thead><tbody>';
+    var table ='<table><thead><tr>' +
+	'<td>' + M('Target ID') + '</td>' +
+	'<td>' + M('Hits') + '</td>' +
+	'<td>' + M('Diags') + '</td>' +
+	'<td>' + M('Records') + '</td>' +
+	'<td>' + M('State') + '</td>' +
+	'</tr></thead><tbody>';
 
     for (var i = 0; i < data.length; i++ ) {
         table += "<tr><td>" + data[i].id +
