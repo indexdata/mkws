@@ -3,9 +3,6 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-// Wrapper for jQuery
-(function ($) {
-
 // Set up namespace and some state.
 var mkws = {};
 
@@ -17,6 +14,9 @@ var mkws = {};
  */
 if (!mkws_config)
     var mkws_config = {};
+
+// Wrapper for jQuery
+(function ($) {
 
 mkws.locale_lang = {
     "de": {
