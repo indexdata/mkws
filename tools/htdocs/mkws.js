@@ -146,6 +146,7 @@ for (var key in mkws_config) {
 	    var lang = key.replace(/^language_/, "");
 	    // Copy custom languages into list
 	    mkws.locale_lang[lang] = mkws_config[key];
+	    debug("Added locally configured language '" + lang + "'");
 	}
     }
 }
