@@ -713,7 +713,7 @@ function mkws_html_sort() {
 	if (key == mkws_config.sort_default) {
 	    sort_html += ' selected="selected"';
 	}
-	sort_html += '>' + val + '</option>';
+	sort_html += '>' + M(val) + '</option>';
     }
     sort_html += '</select>';
 
