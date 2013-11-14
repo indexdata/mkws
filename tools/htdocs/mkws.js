@@ -231,9 +231,9 @@ function my_onstat(data) {
 
     stat.innerHTML = '<span class="head">Status info</span>' +
 	' -- ' +
-	'<span class="clients">' + data.activeclients + '/' + data.clients + '</span>' +
+	'<span class="clients">Active clients: ' + data.activeclients + '/' + data.clients + '</span>' +
 	' -- ' +
-        '<span class="records">' + data.records + '/' + data.hits + '</span>';
+        '<span class="records">Retrieved records: ' + data.records + '/' + data.hits + '</span>';
 }
 
 function my_onterm(data) {
