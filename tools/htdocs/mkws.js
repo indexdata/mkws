@@ -229,11 +229,11 @@ function my_onstat(data) {
     if (stat == null)
 	return;
 
-    stat.innerHTML = '<span class="head">Status info</span>' +
+    stat.innerHTML = '<span class="head">' + M('Status info') + '</span>' +
 	' -- ' +
-	'<span class="clients">Active clients: ' + data.activeclients + '/' + data.clients + '</span>' +
+	'<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	' -- ' +
-        '<span class="records">Retrieved records: ' + data.records + '/' + data.hits + '</span>';
+        '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
 }
 
 function my_onterm(data) {
