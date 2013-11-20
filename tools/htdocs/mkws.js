@@ -555,7 +555,7 @@ function replaceHtml(el, html) {
 function renderDetails(data, marker)
 {
     var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
-    if (marker) details += '<tr><td>'+ marker + '</td></tr>';
+    if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
 
     var sources = [];
     for (var i in data.location) {
