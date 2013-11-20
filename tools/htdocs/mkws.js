@@ -564,7 +564,7 @@ function renderDetails(data, marker)
     if (sources.length == 0) {
 	details += '<tr><td colspan="2">No sources for record!</td></tr>';
     } else if (sources.length == 1) {
-	details += renderField("Source", sources[0]);
+	details += renderField("Source", sources);
     } else {
 	details += renderField("Sources", sources);
     }
@@ -585,16 +585,16 @@ function renderField(caption, data, data2, data3) {
 	return "";
     }
 
-    var res = data;
-    if (caption == "URL") {
-	res = "";
-	for (var i = 0; i < data.length; i++) {
-	    var s = data[i];
-	    if (i > 0)
-		res += ", ";
+    var res = "";
+    for (var i = 0; i < data.length; i++) {
+	var s = data[i];
+	if (i > 0)
+	    res += ", ";
 
-	    res += '<a href="' + s + '" target="_blank">' + s + '</a>';
-	}
+	if (caption == "URL")
+	    s = '<a href="' + s + '" target="_blank">' + s + '</a>';
+
+	res += s
     }
 
     if (data2 != undefined) {
