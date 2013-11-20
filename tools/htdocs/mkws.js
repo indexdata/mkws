@@ -587,15 +587,14 @@ function renderField(caption, data, data2, data3) {
 
     var res = data;
     if (caption == "URL") {
-	var tmp = "";
+	res = "";
 	for (var i = 0; i < data.length; i++) {
 	    var s = data[i];
 	    if (i > 0)
+		res += ", ";
 
-	tmp += ", ";
-	    tmp += '<a href="' + s + '" target="_blank">' + s + '</a>';
+	    res += '<a href="' + s + '" target="_blank">' + s + '</a>';
 	}
-	res = tmp;
     }
 
     if (data2 != undefined) {
