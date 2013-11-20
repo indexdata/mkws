@@ -557,6 +557,18 @@ function renderDetails(data, marker)
     var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
     if (marker) details += '<tr><td>'+ marker + '</td></tr>';
 
+    var sources = [];
+    for (var i in data.location) {
+	sources.push(data.location[i]['@name']);
+    }
+    if (sources.length == 0) {
+	details += '<tr><td colspan="2">No sources for record!</td></tr>';
+    } else if (sources.length == 1) {
+	details += renderField("Source", sources[0]);
+    } else {
+	details += renderField("Sources", sources);
+    }
+
     details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
     details += renderField("Date", data["md-date"]);
     details += renderField("Author", data["md-author"]);
