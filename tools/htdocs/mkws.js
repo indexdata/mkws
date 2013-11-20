@@ -561,20 +561,19 @@ function renderDetails(data, marker)
     for (var i in data.location) {
 	sources.push(data.location[i]['@name']);
     }
-    if (sources.length == 0) {
-	details += '<tr><td colspan="2">No sources for record!</td></tr>';
-    } else if (sources.length == 1) {
-	details += renderField("Source", sources);
-    } else {
-	details += renderField("Sources", sources);
-    }
 
     details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
     details += renderField("Date", data["md-date"]);
     details += renderField("Author", data["md-author"]);
     details += renderField("URL", data["md-electronic-url"]);
     details += renderField("Subject", data["location"][0]["md-subject"]);
-    details += renderField("Location", data["location"][0]["@name"], data["location"][0]["@id"]);
+    if (sources.length == 0) {
+	details += '<tr><td colspan="2">No locations for record!</td></tr>';
+    } else if (sources.length == 1) {
+	details += renderField("Location", sources);
+    } else {
+	details += renderField("Locations", sources);
+    }
     details += '</table></div>';
 
     return details;
