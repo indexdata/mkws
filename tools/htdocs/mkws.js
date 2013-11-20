@@ -557,9 +557,9 @@ function renderDetails(data, marker)
     var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
     if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
 
-    var sources = [];
+    var locations = [];
     for (var i in data.location) {
-	sources.push(data.location[i]['@name']);
+	locations.push(data.location[i]['@name']);
     }
 
     details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
@@ -567,12 +567,12 @@ function renderDetails(data, marker)
     details += renderField("Author", data["md-author"]);
     details += renderField("URL", data["md-electronic-url"]);
     details += renderField("Subject", data["location"][0]["md-subject"]);
-    if (sources.length == 0) {
+    if (locations.length == 0) {
 	details += '<tr><td colspan="2">No locations for record!</td></tr>';
-    } else if (sources.length == 1) {
-	details += renderField("Location", sources);
+    } else if (locations.length == 1) {
+	details += renderField("Location", locations);
     } else {
-	details += renderField("Locations", sources);
+	details += renderField("Locations", locations);
     }
     details += '</table></div>';
 
