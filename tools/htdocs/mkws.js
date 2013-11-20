@@ -585,26 +585,28 @@ function renderField(caption, data, data2, data3) {
 	return "";
     }
 
+    var res = data;
     if (caption == "URL") {
 	var tmp = "";
 	for (var i = 0; i < data.length; i++) {
 	    var s = data[i];
 	    if (i > 0)
-		tmp += ", ";
+
+	tmp += ", ";
 	    tmp += '<a href="' + s + '" target="_blank">' + s + '</a>';
 	}
-	data = tmp;
+	res = tmp;
     }
 
     if (data2 != undefined) {
-	data = data + " (" + data2 + ")";
+	res = res + " (" + data2 + ")";
     }
 
     if (data3 != undefined) {
-	data = data + " <i>" + data3 + "</i>";
+	res = res + " <i>" + data3 + "</i>";
     }
 
-    return '<tr><th>' + M(caption) + '</th><td>' + data + '</td></tr>';
+    return '<tr><th>' + M(caption) + '</th><td>' + res + '</td></tr>';
 }
 
 
