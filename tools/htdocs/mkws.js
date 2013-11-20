@@ -569,10 +569,8 @@ function renderDetails(data, marker)
     details += renderField("Subject", data["location"][0]["md-subject"]);
     if (locations.length == 0) {
 	details += '<tr><td colspan="2">No locations for record!</td></tr>';
-    } else if (locations.length == 1) {
-	details += renderField("Location", locations);
     } else {
-	details += renderField("Locations", locations);
+	details += renderField("Location" + (locations.length == 1 ? "" : "s"), locations);
     }
     details += '</table></div>';
 
