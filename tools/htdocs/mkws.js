@@ -672,7 +672,8 @@ function mkws_html_all() {
     mkws_html_switch();
 
     if (mkws_config.use_service_proxy)
-	mkws_service_proxy_auth(mkws_config.service_proxy_auth);
+	  mkws_service_proxy_auth(mkws_config.service_proxy_auth, 
+          mkws_config.service_proxy_auth_domain);
 
     if (mkws_config.responsive_design_width) {
 	// Responsive web design - change layout on the fly based on
@@ -765,13 +766,13 @@ function mkws_html_perpage() {
  * The username/password is configured in the apache config file
  * for the site.
  */
-function mkws_service_proxy_auth(auth_url) {
+function mkws_service_proxy_auth(auth_url, auth_domain) {
     debug("Run service proxy auth URL: " + auth_url);
 
     var request = new pzHttpRequest(auth_url, function(err) {
-	alert("HTTP call for authentication failed: " + err)
-	return;
-    });
+	  alert("HTTP call for authentication failed: " + err)
+	  return;
+    }, auth_domain);
 
     request.get(null, function(data) {
 	if (!$.isXMLDoc(data)) {
