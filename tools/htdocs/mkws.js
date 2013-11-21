@@ -389,6 +389,7 @@ function loadSelect ()
 // limit the query after clicking the facet
 mkws.limitQuery = function (field, value)
 {
+    debug("limitQuery(field=" + field + ", value=" + value + ")");
     document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
@@ -396,6 +397,7 @@ mkws.limitQuery = function (field, value)
 // limit by target functions
 mkws.limitTarget  = function (id, name)
 {
+    debug("limitTarget(id=" + id + ", name=" + name + ")");
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
