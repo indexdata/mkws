@@ -194,12 +194,15 @@ function my_onshow(data) {
     totalRec = data.merged;
     // move it out
     var pager = document.getElementById("mkwsPager");
-    pager.innerHTML = "";
-    pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
-                    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-                     ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-                     + data.total + ')</div>';
-    drawPager(pager);
+    if (pager) {
+	pager.innerHTML = "";
+	pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
+            + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+            ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+            + data.total + ')</div>';
+	drawPager(pager);
+    }
+
     // navi
     var results = document.getElementById("mkwsRecords");
 
