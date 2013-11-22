@@ -6,7 +6,6 @@
 // Set up namespace and some state.
 var mkws = {
     filters: [],
-    pp2filter: null,
 };
 
 /*
@@ -259,9 +258,9 @@ function my_onterm(data) {
 	if (facets[i] == "sources") {
 	    add_single_facet(acc, "Sources",  data.xtargets, SourceMax, null);
 	} else if (facets[i] == "subjects") {
-	    add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "su");
+	    add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "subject");
 	} else if (facets[i] == "authors") {
-	    add_single_facet(acc, "Authors",  data.author,   AuthorMax, "au");
+	    add_single_facet(acc, "Authors",  data.author,   AuthorMax, "author");
 	} else {
 	    alert("bad facet configuration: '" + facets[i] + "'");
 	}
@@ -271,19 +270,19 @@ function my_onterm(data) {
     replaceHtml(termlist, acc.join(''));
 }
 
-function add_single_facet(acc, caption, data, max, cclIndex) {
+function add_single_facet(acc, caption, data, max, pzIndex) {
     acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
     acc.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
 	acc.push('<div class="term">');
         acc.push('<a href="#" ');
 	var action;
-	if (!cclIndex) {
+	if (!pzIndex) {
 	    // Special case: target selection
 	    acc.push('target_id='+data[i].id+' ');
 	    action = 'mkws.limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	} else {
-	    action = 'mkws.limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
+	    action = 'mkws.limitQuery(\'' + pzIndex + '\', this.firstChild.nodeValue)';
 	}
 	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 		 + ' <span>' + data[i].freq + '</span>');
@@ -375,8 +374,24 @@ function resetPage()
 
 function triggerSearch ()
 {
-    debug("triggerSearch: filters = " + JSON.stringify(mkws.filters));
-    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, mkws.pp2filter);
+    var pp2filter = "";
+    var pp2limit = "";
+
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    if (pp2filter)
+		pp2filter += ",";
+	    pp2filter += 'pz:id=' + filter.id;
+	} else {
+	    if (pp2limit)
+		pp2limit += ",";
+	    pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
+	}
+    }
+
+    debug("triggerSearch: filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
+    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
 }
 
 function loadSelect ()
@@ -395,8 +410,10 @@ mkws.limitQuery = function (field, value)
     debug("limitQuery(field=" + field + ", value=" + value + ")");
     mkws.filters.push({ field: field, value: value });
     redraw_navi();
-    document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
-    onFormSubmitEventHandler();
+    resetPage();
+    loadSelect();
+    triggerSearch();
+    return false;
 }
 
 // limit by target functions
@@ -405,7 +422,6 @@ mkws.limitTarget  = function (id, name)
     debug("limitTarget(id=" + id + ", name=" + name + ")");
     mkws.filters.push({ id: id, name: name });
     redraw_navi();
-    mkws.pp2filter = 'pz:id=' + id;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -430,7 +446,6 @@ mkws.delimitQuery = function (field, value)
     mkws.filters = newFilters;
 
     redraw_navi();
-    mkws.pp2filter = null;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -454,7 +469,6 @@ mkws.delimitTarget = function (id)
     mkws.filters = newFilters;
 
     redraw_navi();
-    mkws.pp2filter = null;
     resetPage();
     loadSelect();
     triggerSearch();
