@@ -394,6 +394,7 @@ mkws.limitQuery = function (field, value)
 {
     debug("limitQuery(field=" + field + ", value=" + value + ")");
     mkws.filters.push({ field: field, value: value });
+    redraw_navi();
     document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
@@ -403,16 +404,39 @@ mkws.limitTarget  = function (id, name)
 {
     debug("limitTarget(id=" + id + ", name=" + name + ")");
     mkws.filters.push({ id: id, name: name });
-    var navi = document.getElementById('mkwsNavi');
-    navi.innerHTML =
-        'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' + "'" + id + "'" + ');return false;">'
-        + name + '</a>';
+    redraw_navi();
     mkws.pp2filter = 'pz:id=' + id;
     resetPage();
     loadSelect();
     triggerSearch();
     return false;
 }
+
+mkws.delimitQuery = function (field, value)
+{
+    debug("delimitQuery(field=" + field + ", value=" + value + ")");    
+    var newFilters = [];
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.field &&
+	    field == filter.field &&
+	    value == filter.value) {
+	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	} else {
+	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    newFilters.push(filter);
+	}
+    }
+    mkws.filters = newFilters;
+
+    redraw_navi();
+    mkws.pp2filter = null;
+    resetPage();
+    loadSelect();
+    triggerSearch();
+    return false;
+}
+
 
 mkws.delimitTarget = function (id)
 {
@@ -429,14 +453,39 @@ mkws.delimitTarget = function (id)
     }
     mkws.filters = newFilters;
 
-    var navi = document.getElementById('mkwsNavi');
-    navi.innerHTML = '';
+    redraw_navi();
     mkws.pp2filter = null;
     resetPage();
     loadSelect();
     triggerSearch();
     return false;
 }
+
+
+function redraw_navi ()
+{
+    var navi = document.getElementById('mkwsNavi');
+    if (!navi) return;
+
+    var text = "";
+    for (var i in mkws.filters) {
+	if (text) {
+	    text += " | ";
+	}
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    text += 'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
+		"'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+	} else {
+	    text += filter.field + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
+		"'" + filter.field + "', '" + filter.value + "'" +
+		');return false;">' + filter.value + '</a>';
+	}
+    }
+    
+    navi.innerHTML = text;
+}
+
 
 function drawPager (pagerDiv)
 {
