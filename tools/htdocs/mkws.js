@@ -4,7 +4,9 @@
 "use strict"; // HTML5: disable for debug_level >= 2
 
 // Set up namespace and some state.
-var mkws = {};
+var mkws = {
+    curFilter: null,
+};
 
 /*
  * global config object: mkws_config
@@ -176,7 +178,6 @@ var totalRec = 0;
 var curDetRecId = '';
 var curDetRecData = null;
 var curSort = 'relevance';
-var curFilter = null;
 var submitted = false;
 var SourceMax = 16;
 var SubjectMax = 10;
@@ -373,7 +374,7 @@ function resetPage()
 
 function triggerSearch ()
 {
-    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, curFilter);
+    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, mkws.curFilter);
 }
 
 function loadSelect ()
@@ -402,7 +403,7 @@ mkws.limitTarget  = function (id, name)
     navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
         + name + '</a>';
-    curFilter = 'pz:id=' + id;
+    mkws.curFilter = 'pz:id=' + id;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -413,7 +414,7 @@ mkws.delimitTarget = function ()
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
-    curFilter = null;
+    mkws.curFilter = null;
     resetPage();
     loadSelect();
     triggerSearch();
