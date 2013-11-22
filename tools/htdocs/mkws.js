@@ -5,7 +5,7 @@
 
 // Set up namespace and some state.
 var mkws = {
-    curFilter: null,
+    pp2filter: null,
 };
 
 /*
@@ -374,7 +374,7 @@ function resetPage()
 
 function triggerSearch ()
 {
-    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, mkws.curFilter);
+    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, mkws.pp2filter);
 }
 
 function loadSelect ()
@@ -403,7 +403,7 @@ mkws.limitTarget  = function (id, name)
     navi.innerHTML =
         'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
         + name + '</a>';
-    mkws.curFilter = 'pz:id=' + id;
+    mkws.pp2filter = 'pz:id=' + id;
     resetPage();
     loadSelect();
     triggerSearch();
@@ -414,7 +414,7 @@ mkws.delimitTarget = function ()
 {
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
-    mkws.curFilter = null;
+    mkws.pp2filter = null;
     resetPage();
     loadSelect();
     triggerSearch();
