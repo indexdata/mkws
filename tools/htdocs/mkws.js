@@ -5,6 +5,7 @@
 
 // Set up namespace and some state.
 var mkws = {
+    filters: [],
     pp2filter: null,
 };
 
@@ -374,6 +375,7 @@ function resetPage()
 
 function triggerSearch ()
 {
+    debug("triggerSearch: filters = " + JSON.stringify(mkws.filters));
     my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, mkws.pp2filter);
 }
 
@@ -391,6 +393,7 @@ function loadSelect ()
 mkws.limitQuery = function (field, value)
 {
     debug("limitQuery(field=" + field + ", value=" + value + ")");
+    mkws.filters.push({ field: field, value: value });
     document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
     onFormSubmitEventHandler();
 }
@@ -399,9 +402,10 @@ mkws.limitQuery = function (field, value)
 mkws.limitTarget  = function (id, name)
 {
     debug("limitTarget(id=" + id + ", name=" + name + ")");
+    mkws.filters.push({ id: id, name: name });
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML =
-        'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
+        'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' + "'" + id + "'" + ');return false;">'
         + name + '</a>';
     mkws.pp2filter = 'pz:id=' + id;
     resetPage();
@@ -410,8 +414,21 @@ mkws.limitTarget  = function (id, name)
     return false;
 }
 
-mkws.delimitTarget = function ()
+mkws.delimitTarget = function (id)
 {
+    debug("delimitTarget(id=" + id + ")");    
+    var newFilters = [];
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	} else {
+	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    newFilters.push(filter);
+	}
+    }
+    mkws.filters = newFilters;
+
     var navi = document.getElementById('mkwsNavi');
     navi.innerHTML = '';
     mkws.pp2filter = null;
