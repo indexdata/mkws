@@ -13,12 +13,22 @@
     </script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
   </head>
   <body>
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
+    <script id="entry-template" type="text/x-handlebars-template">
+      <div class="entry">
+	<h1>{{title}}</h1>
+	<div class="body">
+	  {{body}}
+	</div>
+      </div>
+    </script>
+    <div id="mkwsMOTD"></div>
 
     <table width="100%" border="0" cellpadding="6" cellspacing="0">
       <tr>
@@ -41,5 +51,13 @@
 
     <div id="mkwsTargets"></div>
     <div id="mkwsStat"></div>
+
+    <script type="text/javascript">
+      var source = $("#entry-template").html();
+      var template = Handlebars.compile(source);
+      var context = {title: "My New Post", body: "This is my first post!"}
+      var html = template(context);
+      $("#mkwsMOTD").html(html);
+    </script>
   </body>
 </html>
