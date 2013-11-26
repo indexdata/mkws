@@ -34,7 +34,7 @@ pz2api-git-checkout:
 	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: mkws.js
+mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -46,6 +46,9 @@ mkws-js ${MKWS_JS}: mkws.js
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
 	  cat ${PZ2API_JS} mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
+
+handlebars-v1.1.2.js:
+	curl -sSf http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
 
 distclean: clean
 clean:
