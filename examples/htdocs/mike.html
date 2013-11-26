@@ -20,12 +20,10 @@
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
-    <script id="entry-template" type="text/x-handlebars-template">
-      <div class="entry">
-	<h1>{{title}}</h1>
-	<div class="body">
-	  {{body}}
-	</div>
+    <script id="mkwsTemplateRecord" type="text/x-handlebars-template">
+      <div>
+	<b>Title:</b> {{md-title}}<br/>
+	<b>Author:</b> {{md-author}}<br/>
       </div>
     </script>
     <div id="mkwsMOTD"></div>
@@ -51,13 +49,5 @@
 
     <div id="mkwsTargets"></div>
     <div id="mkwsStat"></div>
-
-    <script type="text/javascript">
-      var source = $("#entry-template").html();
-      var template = Handlebars.compile(source);
-      var context = {title: "My New Post", body: "This is my first post!"}
-      var html = template(context);
-      $("#mkwsMOTD").html(html);
-    </script>
   </body>
 </html>
