@@ -640,6 +640,15 @@ function replaceHtml(el, html) {
 
 function renderDetails(data, marker)
 {
+    if (mkws.templateRecord === undefined) {
+	maybeLoadTemplate("Record");
+    }
+
+    if (mkws.templateRecord) {
+	var template = mkws.templateRecord;
+	return template(data);
+    }
+
     var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
     if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
 
@@ -662,6 +671,24 @@ function renderDetails(data, marker)
 
     return details;
 }
+
+
+function maybeLoadTemplate(name)
+{
+    debug("trying to load template 'name'");
+    var source = $("#mkwsTemplate" + name).html();
+    debug("source = " + source);
+    if (!source) {
+	// No template: mark as not provided, fall back to hardwired behaviour
+	mkws['template' + name] = 0;
+	return;
+    }
+
+    var template = Handlebars.compile(source);
+    debug("template = " + template);
+    mkws['template' + name] = template;
+}
+
 
 function renderField(caption, data, data2, data3) {
     if (data === undefined) {
