@@ -675,17 +675,16 @@ function renderDetails(data, marker)
 
 function maybeLoadTemplate(name)
 {
-    debug("trying to load template 'name'");
     var source = $("#mkwsTemplate" + name).html();
-    debug("source = " + source);
     if (!source) {
-	// No template: mark as not provided, fall back to hardwired behaviour
+	debug("no template '" + name + "': falling back to default behaviour");
+	// Mark template as not provided
 	mkws['template' + name] = 0;
 	return;
     }
 
     var template = Handlebars.compile(source);
-    debug("template = " + template);
+    debug("compiled template '" + name + "'");
     mkws['template' + name] = template;
 }
 
