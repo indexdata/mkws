@@ -655,6 +655,23 @@ function renderDetails(data, marker)
     return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
 }
 
+
+function maybeLoadTemplate(name)
+{
+    var source = $("#mkwsTemplate" + name).html();
+    if (!source) {
+	debug("no template '" + name + "': falling back to default behaviour");
+	// Mark template as not provided
+	mkws['template' + name] = 0;
+	return;
+    }
+
+    var template = Handlebars.compile(source);
+    debug("compiled template '" + name + "'");
+    mkws['template' + name] = template;
+}
+
+
 function defaultRenderDetails(data, marker)
 {
     var details = '<table>';
@@ -677,22 +694,6 @@ function defaultRenderDetails(data, marker)
     }
     details += '</table>';
     return details;
-}
-
-
-function maybeLoadTemplate(name)
-{
-    var source = $("#mkwsTemplate" + name).html();
-    if (!source) {
-	debug("no template '" + name + "': falling back to default behaviour");
-	// Mark template as not provided
-	mkws['template' + name] = 0;
-	return;
-    }
-
-    var template = Handlebars.compile(source);
-    debug("compiled template '" + name + "'");
-    mkws['template' + name] = template;
 }
 
 
