@@ -101,14 +101,17 @@ mkws.debug_function = function (string) {
 var debug = mkws.debug_function; // local alias
 
 
-Handlebars.registerHelper('link', function(text, url) {
-  text = Handlebars.Utils.escapeExpression(text);
-  url  = Handlebars.Utils.escapeExpression(url);
+Handlebars.registerHelper('link', function(a) {
+    var result = "";
+    for (var i in a) {
+	if (i > 0) result += "<br/>";
+	var text = Handlebars.Utils.escapeExpression(a[i]);
+	result += '<a href="' + text + '">' + text + '</a>';
+    }
 
-  var result = '<a href="' + url + '">' + text + '</a>';
-
-  return new Handlebars.SafeString(result);
+    return new Handlebars.SafeString(result);
 });
+
 
 
 {
