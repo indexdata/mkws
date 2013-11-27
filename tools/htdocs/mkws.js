@@ -640,16 +640,26 @@ function replaceHtml(el, html) {
 
 function renderDetails(data, marker)
 {
+    var details = '<div class="details" id="mkwsDet_'+data.recid+'">';
+
     if (mkws.templateRecord === undefined) {
 	maybeLoadTemplate("Record");
     }
 
     if (mkws.templateRecord) {
 	var template = mkws.templateRecord;
-	return template(data);
+	details += template(data);
+    } else {
+	details += defaultRenderRecord(data, marker);
     }
 
-    var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
+    details += '</div>';
+    return details;
+}
+
+function defaultRenderRecord(data, marker)
+{
+    var details = '<table>';
     if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
 
     var locations = [];
@@ -667,8 +677,7 @@ function renderDetails(data, marker)
     } else {
 	details += renderField("Location" + (locations.length == 1 ? "" : "s"), locations);
     }
-    details += '</table></div>';
-
+    details += '</table>';
     return details;
 }
 
