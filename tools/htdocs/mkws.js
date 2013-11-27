@@ -652,10 +652,7 @@ function renderDetails(data, marker)
 	details = defaultRenderDetails(data, marker);
     }
 
-    details = '<div class="details" id="mkwsDet_'+data.recid+'">' + details;
-    details += '</div>';
-
-    return details;
+    return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
 }
 
 function defaultRenderDetails(data, marker)
