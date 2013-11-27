@@ -34,18 +34,24 @@
 	    {{/if}}
 	  </td>
 	</tr>
+	{{#if md-date}}
 	<tr>
 	  <th>Date</th>
 	  <td>{{md-date}}</td>
 	</tr>
+	{{/if}}
+	{{#if md-author}}
 	<tr>
 	  <th>Author</th>
 	  <td>{{md-author}}</td>
 	</tr>
+	{{/if}}
+	{{#if md-electronic-url}}
 	<tr>
 	  <th>URL</th>
-	  <td>{{md-electronic-url}}</td>
+	  <td>{{#link md-electronic-url}}{{/link}}</td>
 	</tr>
+	{{/if}}
 	<tr>
 	  <th>Subject</th>
 	  <td>{{md-subject}}</td>
