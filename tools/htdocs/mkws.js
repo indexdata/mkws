@@ -640,20 +640,21 @@ function replaceHtml(el, html) {
 
 function renderDetails(data, marker)
 {
-    var details = '<div class="details" id="mkwsDet_'+data.recid+'">';
-
     if (mkws.templateRecord === undefined) {
 	maybeLoadTemplate("Record");
     }
 
+    var details;
     if (mkws.templateRecord) {
 	var template = mkws.templateRecord;
-	details += template(data);
+	details = template(data);
     } else {
-	details += defaultRenderDetails(data, marker);
+	details = defaultRenderDetails(data, marker);
     }
 
+    details = '<div class="details" id="mkwsDet_'+data.recid+'">' + details;
     details += '</div>';
+
     return details;
 }
 
