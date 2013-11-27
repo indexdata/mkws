@@ -650,14 +650,14 @@ function renderDetails(data, marker)
 	var template = mkws.templateRecord;
 	details += template(data);
     } else {
-	details += defaultRenderRecord(data, marker);
+	details += defaultRenderDetails(data, marker);
     }
 
     details += '</div>';
     return details;
 }
 
-function defaultRenderRecord(data, marker)
+function defaultRenderDetails(data, marker)
 {
     var details = '<table>';
     if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
