@@ -21,10 +21,40 @@
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
     <script id="mkwsTemplateRecord" type="text/x-handlebars-template">
-      <div>
-	<b>Title:</b> {{md-title}}<br/>
-	<b>Author:</b> {{md-author}}<br/>
-      </div>
+      <table>
+	<tr>
+	  <th>Title</th>
+	  <td>
+	    {{md-title}}
+	    {{#if md-title-remainder}}
+	      ({{md-title-remainder}})
+	    {{/if}}
+	    {{#if md-title-responsibility}}
+	      <i>{{md-title-responsibility}}</i>
+	    {{/if}}
+	  </td>
+	</tr>
+	<tr>
+	  <th>Date</th>
+	  <td>{{md-date}}</td>
+	</tr>
+	<tr>
+	  <th>Author</th>
+	  <td>{{md-author}}</td>
+	</tr>
+	<tr>
+	  <th>URL</th>
+	  <td>{{md-electronic-url}}</td>
+	</tr>
+	<tr>
+	  <th>Subject</th>
+	  <td>{{md-subject}}</td>
+	</tr>
+	<tr>
+	  <th>Locations</th>
+	  <td>{{location}}</td>
+	</tr>
+      </table>
     </script>
     <div id="mkwsMOTD"></div>
 
