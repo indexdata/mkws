@@ -3,15 +3,6 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-Handlebars.registerHelper('link', function(text, url) {
-  text = Handlebars.Utils.escapeExpression(text);
-  url  = Handlebars.Utils.escapeExpression(url);
-
-  var result = '<a href="' + url + '">' + text + '</a>';
-
-  return new Handlebars.SafeString(result);
-});
-
 // Set up namespace and some state.
 var mkws = {
     filters: [],
@@ -108,6 +99,17 @@ mkws.debug_function = function (string) {
     console.log(timestamp + string);
 }
 var debug = mkws.debug_function; // local alias
+
+
+Handlebars.registerHelper('link', function(text, url) {
+  text = Handlebars.Utils.escapeExpression(text);
+  url  = Handlebars.Utils.escapeExpression(url);
+
+  var result = '<a href="' + url + '">' + text + '</a>';
+
+  return new Handlebars.SafeString(result);
+});
+
 
 {
     /* default mkws config */
