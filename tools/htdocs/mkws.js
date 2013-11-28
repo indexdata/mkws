@@ -118,9 +118,9 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
-// We need {{attr name}} because Handlebars can't parse {{@@name}}
+// We need {{attr '@name'}} because Handlebars can't parse {{@name}}
 Handlebars.registerHelper('attr', function(attrName) {
-    return this['@' + attrName];
+    return this[attrName];
 });
 
 
