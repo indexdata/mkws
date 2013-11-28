@@ -119,7 +119,16 @@ Handlebars.registerHelper('json', function(obj) {
 
 
 Handlebars.registerHelper('first', function(items, options) {
-    return options.fn(items[0]);
+    var having = options.hash.having;
+    debug("#first checking for first item having '" + having + "'");
+    for (var i in items) {
+	var item = items[i]
+	debug("considering item " + (+i+1) + " of " + items.length + " = '" + item[having] + "'");
+	if (!having || item[having]) {
+	    return options.fn(item);
+	}
+    }
+    return "";
 });
 
 
