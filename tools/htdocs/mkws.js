@@ -113,6 +113,10 @@ Handlebars.registerHelper('link', function(a) {
 });
 
 
+Handlebars.registerHelper('json', function(obj) {
+    return JSON.stringify(obj);
+});
+
 
 {
     /* default mkws config */
