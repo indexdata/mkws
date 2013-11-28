@@ -69,7 +69,9 @@
 	  <td>
 	    <ul>
 	      {{#each location}}
-	        <li>{{attr 'name'}}</li>
+	        {{#if '@name'}}
+	          <li>{{attr 'name'}}</li>
+	        {{/if}}
 	      {{/each}}
 	    </ul>
 	  </td>
