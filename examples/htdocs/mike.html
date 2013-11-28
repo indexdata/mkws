@@ -56,13 +56,11 @@
 	<tr>
 	  <th>Subject</th>
 	  <td>
-	    <ul>
-	      {{#each location}}
-	        {{#if md-subject}}
-	          <li>{{md-subject}}</li>
-	        {{/if}}
-	      {{/each}}
-	    </ul>
+	    {{#first location}}
+	      {{#if md-subject}}
+	        {{md-subject}}
+	      {{/if}}
+	    {{/first}}
 	  </td>
 	</tr>
 	{{/if}}
