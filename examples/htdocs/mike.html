@@ -52,10 +52,20 @@
 	  <td>{{#link md-electronic-url}}{{/link}}</td>
 	</tr>
 	{{/if}}
+	{{#if location}}
 	<tr>
 	  <th>Subject</th>
-	  <td>{{md-subject}}</td>
+	  <td>
+	    <ul>
+	      {{#each location}}
+	        {{#if md-subject}}
+	          <li>{{md-subject}}</li>
+	        {{/if}}
+	      {{/each}}
+	    </ul>
+	  </td>
 	</tr>
+	{{/if}}
 	<tr>
 	  <th>Locations</th>
 	  <td>{{location}}</td>
