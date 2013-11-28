@@ -124,6 +124,18 @@ Handlebars.registerHelper('attr', function(attrName) {
 });
 
 
+Handlebars.registerHelper('if-any', function(items, options) {
+    var having = options.hash.having;
+    for (var i in items) {
+	var item = items[i]
+	if (!having || item[having]) {
+	    return options.fn(this);
+	}
+    }
+    return "";
+});
+
+
 Handlebars.registerHelper('first', function(items, options) {
     var having = options.hash.having;
     for (var i in items) {
