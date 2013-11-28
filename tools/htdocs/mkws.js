@@ -126,10 +126,8 @@ Handlebars.registerHelper('attr', function(attrName) {
 
 Handlebars.registerHelper('first', function(items, options) {
     var having = options.hash.having;
-    debug("#first checking for first item having '" + having + "'");
     for (var i in items) {
 	var item = items[i]
-	debug("considering item " + (+i+1) + " of " + items.length + " = '" + item[having] + "'");
 	if (!having || item[having]) {
 	    return options.fn(item);
 	}
