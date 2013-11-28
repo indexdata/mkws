@@ -67,13 +67,11 @@
 	<tr>
 	  <th>Locations</th>
 	  <td>
-	    <ul>
-	      {{#each location}}
-	        {{#if '@name'}}
-	          <li>{{attr '@name'}}</li>
-	        {{/if}}
-	      {{/each}}
-	    </ul>
+	    {{#each location}}
+	      {{#if '@name'}}
+		{{attr '@name'}}<br/>
+	      {{/if}}
+	    {{/each}}
 	  </td>
 	</tr>
       </table>
