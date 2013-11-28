@@ -118,6 +118,12 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+// We need {{attr name}} because Handlebars can't parse {{@@name}}
+Handlebars.registerHelper('attr', function(attrName) {
+    return this['@' + attrName];
+});
+
+
 Handlebars.registerHelper('first', function(items, options) {
     var having = options.hash.having;
     debug("#first checking for first item having '" + having + "'");
