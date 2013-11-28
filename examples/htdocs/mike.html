@@ -52,7 +52,7 @@
 	  <td>{{link md-electronic-url}}</td>
 	</tr>
 	{{/if}}
-	{{#if location}}
+	{{#if-any location having="md-subject"}}
 	<tr>
 	  <th>Subject</th>
 	  <td>
@@ -63,7 +63,7 @@
 	    {{/first}}
 	  </td>
 	</tr>
-	{{/if}}
+	{{/if-any}}
 	<tr>
 	  <th>Locations</th>
 	  <td>
