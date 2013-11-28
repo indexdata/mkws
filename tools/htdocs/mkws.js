@@ -118,6 +118,11 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+Handlebars.registerHelper('first', function(items, options) {
+    return options.fn(items[0]);
+});
+
+
 {
     /* default mkws config */
     var config_default = {
