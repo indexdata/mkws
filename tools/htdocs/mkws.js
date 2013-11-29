@@ -264,9 +264,9 @@ function my_onshow(data) {
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
-	html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >');
-	html.push(renderSummary(hit));
-      	html.push('</div>');
+	html.push('<div class="record" id="mkwsRecdiv_' + hit.recid + '" >',
+		  renderSummary(hit),
+      		  '</div>');
     }
     replaceHtml(results, html.join(''));
 }
