@@ -782,6 +782,18 @@ function defaultTemplate(name)
 	</tr>\
       </table>\
 ';
+    } else if (name === "Summary") {
+	return '\
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+	<b>{{md-title}}</b>\
+      </a>\
+      {{#if md-title-remainder}}\
+        <span>{{md-title-remainder}}</span>\
+      {{/if}}\
+      {{#if md-title-responsibility}}\
+    	<span><i>{{md-title-responsibility}}</i></span>\
+      {{/if}}\
+';
     }
 
     var s = "There is no default '" + name +"' template!";
