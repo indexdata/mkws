@@ -71,11 +71,8 @@
 	<tr>
 	  <th>Locations</th>
 	  <td>
-	    {{#each location}}
-	      {{#if '@name'}}
-		{{attr '@name'}}<br/>
-	      {{/if}}
-	    {{/each}}
+	    {{#commaList location}}
+	      {{attr '@name'}}{{/commaList}}
 	  </td>
 	</tr>
       </table>
