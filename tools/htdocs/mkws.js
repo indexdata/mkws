@@ -264,23 +264,32 @@ function my_onshow(data) {
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
-	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
-            +'<a href="#" id="mkwsRec_'+hit.recid
-            +'" onclick="mkws.showDetails(this.id);return false;"><b>'
-            + hit["md-title"] +' </b></a>');
-	      if (hit["md-title-remainder"] !== undefined) {
-	        html.push('<span>' + hit["md-title-remainder"] + ' </span>');
-	      }
-	      if (hit["md-title-responsibility"] !== undefined) {
-    	    html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
-      	}
-        if (hit.recid == curDetRecId) {
-            html.push(renderDetails(curDetRecData));
-        }
+	html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >');
+	html.push(renderSummary(hit));
       	html.push('</div>');
     }
     replaceHtml(results, html.join(''));
 }
+
+
+function renderSummary(hit)
+{
+    var html = [];
+    html.push('<a href="#" id="mkwsRec_'+hit.recid
+              +'" onclick="mkws.showDetails(this.id);return false;"><b>'
+              + hit["md-title"] +' </b></a>');
+    if (hit["md-title-remainder"] !== undefined) {
+	html.push('<span>' + hit["md-title-remainder"] + ' </span>');
+    }
+    if (hit["md-title-responsibility"] !== undefined) {
+    	html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
+    }
+    if (hit.recid == curDetRecId) {
+        html.push(renderDetails(curDetRecData));
+    }
+    return html.join('');
+}
+
 
 function my_onstat(data) {
     var stat = document.getElementById("mkwsStat");
