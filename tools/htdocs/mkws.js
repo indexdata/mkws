@@ -695,7 +695,7 @@ function replaceHtml(el, html) {
 function renderDetails(data, marker)
 {
     if (mkws.templateRecord === undefined) {
-	maybeLoadTemplate("Record");
+	loadTemplate("Record");
     }
 
     var details;
@@ -710,7 +710,7 @@ function renderDetails(data, marker)
 }
 
 
-function maybeLoadTemplate(name)
+function loadTemplate(name)
 {
     var source = $("#mkwsTemplate" + name).html();
     if (!source) {
