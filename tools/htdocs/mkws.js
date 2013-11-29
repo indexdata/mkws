@@ -281,23 +281,9 @@ function renderSummary(hit)
 	loadTemplate("Summary");
     }
 
-    if (mkws.templateSummary) {
-	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails(this.id);return false;"
-	return mkws.templateSummary(hit);
-    } else {
-	var html = [];
-	html.push('<a href="#" id="mkwsRec_'+hit.recid
-		  +'" onclick="mkws.showDetails(this.id);return false;"><b>'
-		  + hit["md-title"] +' </b></a>');
-	if (hit["md-title-remainder"] !== undefined) {
-	    html.push('<span>' + hit["md-title-remainder"] + ' </span>');
-	}
-	if (hit["md-title-responsibility"] !== undefined) {
-    	    html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
-	}
-	return html.join('');
-    }
+    hit._id = "mkwsRec_" + hit.recid;
+    hit._onclick = "mkws.showDetails(this.id);return false;"
+    return mkws.templateSummary(hit);
 }
 
 
