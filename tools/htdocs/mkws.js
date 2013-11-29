@@ -698,14 +698,8 @@ function renderDetails(data, marker)
 	loadTemplate("Record");
     }
 
-    var details;
-    if (mkws.templateRecord) {
-	var template = mkws.templateRecord;
-	details = template(data);
-    } else {
-	details = defaultRenderDetails(data, marker);
-    }
-
+    var template = mkws.templateRecord;
+    var details = template(data);
     return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
 }
 
