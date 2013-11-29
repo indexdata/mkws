@@ -53,14 +53,6 @@
     font-weight: bold;
 }
 
-#mkwsStat span.clients:before {
-    content: "Active clients: ";
-}
-
-#mkwsStat span.records:before {
-    content: "Retrieved records: ";
-}
-
 #mkwsSwitch a,
 #mkwsLang a,
 #mkwsTermlists a,

@@ -3,11 +3,10 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-// Wrapper for jQuery
-(function ($) {
-
 // Set up namespace and some state.
-var mkws = {};
+var mkws = {
+    filters: [],
+};
 
 /*
  * global config object: mkws_config
@@ -17,6 +16,9 @@ var mkws = {};
  */
 if (!mkws_config)
     var mkws_config = {};
+
+// Wrapper for jQuery
+(function ($) {
 
 mkws.locale_lang = {
     "de": {
@@ -98,6 +100,60 @@ mkws.debug_function = function (string) {
 }
 var debug = mkws.debug_function; // local alias
 
+
+Handlebars.registerHelper('json', function(obj) {
+    return JSON.stringify(obj);
+});
+
+
+// We need {{attr '@name'}} because Handlebars can't parse {{@name}}
+Handlebars.registerHelper('attr', function(attrName) {
+    return this[attrName];
+});
+
+
+/*
+ * Use as follows: {{#if-any NAME1 having="NAME2"}}
+ * Applicable when NAME1 is the name of an array
+ * The guarded code runs only if at least one element of the NAME1
+ * array has a subelement called NAME2.
+ */
+Handlebars.registerHelper('if-any', function(items, options) {
+    var having = options.hash.having;
+    for (var i in items) {
+	var item = items[i]
+	if (!having || item[having]) {
+	    return options.fn(this);
+	}
+    }
+    return "";
+});
+
+
+Handlebars.registerHelper('first', function(items, options) {
+    var having = options.hash.having;
+    for (var i in items) {
+	var item = items[i]
+	if (!having || item[having]) {
+	    return options.fn(item);
+	}
+    }
+    return "";
+});
+
+
+Handlebars.registerHelper('commaList', function(items, options) {
+    var out = "";
+
+    for (var i in items) {
+	if (i > 0) out += ", ";
+	out += options.fn(items[i])
+    }
+
+    return out;
+});
+
+
 {
     /* default mkws config */
     var config_default = {
@@ -146,6 +202,7 @@ for (var key in mkws_config) {
 	    var lang = key.replace(/^language_/, "");
 	    // Copy custom languages into list
 	    mkws.locale_lang[lang] = mkws_config[key];
+	    debug("Added locally configured language '" + lang + "'");
 	}
     }
 }
@@ -175,7 +232,6 @@ var totalRec = 0;
 var curDetRecId = '';
 var curDetRecData = null;
 var curSort = 'relevance';
-var curFilter = null;
 var submitted = false;
 var SourceMax = 16;
 var SubjectMax = 10;
@@ -193,46 +249,54 @@ function my_onshow(data) {
     totalRec = data.merged;
     // move it out
     var pager = document.getElementById("mkwsPager");
-    pager.innerHTML = "";
-    pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
-                    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-                     ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-                     + data.total + ')</div>';
-    drawPager(pager);
+    if (pager) {
+	pager.innerHTML = "";
+	pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
+            + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+            ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+            + data.total + ')</div>';
+	drawPager(pager);
+    }
+
     // navi
     var results = document.getElementById("mkwsRecords");
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
         var hit = data.hits[i];
-	      html.push('<div class="record" id="mkwsRecdiv_'+hit.recid+'" >'
-            +'<a href="#" id="mkwsRec_'+hit.recid
-            +'" onclick="mkws.showDetails(this.id);return false;"><b>'
-            + hit["md-title"] +' </b></a>');
-	      if (hit["md-title-remainder"] !== undefined) {
-	        html.push('<span>' + hit["md-title-remainder"] + ' </span>');
-	      }
-	      if (hit["md-title-responsibility"] !== undefined) {
-    	    html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
-      	}
-        if (hit.recid == curDetRecId) {
+	html.push('<div class="record" id="mkwsRecdiv_' + hit.recid + '" >',
+		  renderSummary(hit),
+      		  '</div>');
+	if (hit.recid == curDetRecId) {
             html.push(renderDetails(curDetRecData));
-        }
-      	html.push('</div>');
+	}
     }
     replaceHtml(results, html.join(''));
 }
+
+
+function renderSummary(hit)
+{
+    if (mkws.templateSummary === undefined) {
+	loadTemplate("Summary");
+    }
+
+    hit._id = "mkwsRec_" + hit.recid;
+    hit._onclick = "mkws.showDetails(this.id);return false;"
+    return mkws.templateSummary(hit);
+}
+
 
 function my_onstat(data) {
     var stat = document.getElementById("mkwsStat");
     if (stat == null)
 	return;
 
-    stat.innerHTML = '<span class="head">Status info</span>' +
+    stat.innerHTML = '<span class="head">' + M('Status info') + '</span>' +
 	' -- ' +
-	'<span class="clients">' + data.activeclients + '/' + data.clients + '</span>' +
+	'<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	' -- ' +
-        '<span class="records">' + data.records + '/' + data.hits + '</span>';
+        '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
 }
 
 function my_onterm(data) {
@@ -253,9 +317,9 @@ function my_onterm(data) {
 	if (facets[i] == "sources") {
 	    add_single_facet(acc, "Sources",  data.xtargets, SourceMax, null);
 	} else if (facets[i] == "subjects") {
-	    add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "su");
+	    add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "subject");
 	} else if (facets[i] == "authors") {
-	    add_single_facet(acc, "Authors",  data.author,   AuthorMax, "au");
+	    add_single_facet(acc, "Authors",  data.author,   AuthorMax, "author");
 	} else {
 	    alert("bad facet configuration: '" + facets[i] + "'");
 	}
@@ -265,19 +329,19 @@ function my_onterm(data) {
     replaceHtml(termlist, acc.join(''));
 }
 
-function add_single_facet(acc, caption, data, max, cclIndex) {
+function add_single_facet(acc, caption, data, max, pzIndex) {
     acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
     acc.push('<div class="termtitle">' + M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++ ) {
 	acc.push('<div class="term">');
         acc.push('<a href="#" ');
 	var action;
-	if (!cclIndex) {
+	if (!pzIndex) {
 	    // Special case: target selection
 	    acc.push('target_id='+data[i].id+' ');
 	    action = 'mkws.limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	} else {
-	    action = 'mkws.limitQuery(\'' + cclIndex + '\', this.firstChild.nodeValue)';
+	    action = 'mkws.limitQuery(\'' + pzIndex + '\', this.firstChild.nodeValue)';
 	}
 	acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 		 + ' <span>' + data[i].freq + '</span>');
@@ -305,8 +369,13 @@ function my_onbytarget(data) {
 	return;
     }
 
-    var table ='<table><thead><tr><td>Target ID</td><td>Hits</td><td>Diags</td>'
-        +'<td>Records</td><td>State</td></tr></thead><tbody>';
+    var table ='<table><thead><tr>' +
+	'<td>' + M('Target ID') + '</td>' +
+	'<td>' + M('Hits') + '</td>' +
+	'<td>' + M('Diags') + '</td>' +
+	'<td>' + M('Records') + '</td>' +
+	'<td>' + M('State') + '</td>' +
+	'</tr></thead><tbody>';
 
     for (var i = 0; i < data.length; i++ ) {
         table += "<tr><td>" + data[i].id +
@@ -364,7 +433,24 @@ function resetPage()
 
 function triggerSearch ()
 {
-    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, curFilter);
+    var pp2filter = "";
+    var pp2limit = "";
+
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    if (pp2filter)
+		pp2filter += ",";
+	    pp2filter += 'pz:id=' + filter.id;
+	} else {
+	    if (pp2limit)
+		pp2limit += ",";
+	    pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
+	}
+    }
+
+    debug("triggerSearch: filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
+    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
 }
 
 function loadSelect ()
@@ -380,34 +466,99 @@ function loadSelect ()
 // limit the query after clicking the facet
 mkws.limitQuery = function (field, value)
 {
-    document.mkwsSearchForm.mkwsQuery.value += ' and ' + field + '="' + value + '"';
-    onFormSubmitEventHandler();
+    debug("limitQuery(field=" + field + ", value=" + value + ")");
+    mkws.filters.push({ field: field, value: value });
+    redraw_navi();
+    resetPage();
+    loadSelect();
+    triggerSearch();
+    return false;
 }
 
 // limit by target functions
 mkws.limitTarget  = function (id, name)
 {
-    var navi = document.getElementById('mkwsNavi');
-    navi.innerHTML =
-        'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget();return false;">'
-        + name + '</a>';
-    curFilter = 'pz:id=' + id;
+    debug("limitTarget(id=" + id + ", name=" + name + ")");
+    mkws.filters.push({ id: id, name: name });
+    redraw_navi();
     resetPage();
     loadSelect();
     triggerSearch();
     return false;
 }
 
-mkws.delimitTarget = function ()
+mkws.delimitQuery = function (field, value)
 {
-    var navi = document.getElementById('mkwsNavi');
-    navi.innerHTML = '';
-    curFilter = null;
+    debug("delimitQuery(field=" + field + ", value=" + value + ")");    
+    var newFilters = [];
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.field &&
+	    field == filter.field &&
+	    value == filter.value) {
+	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	} else {
+	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    newFilters.push(filter);
+	}
+    }
+    mkws.filters = newFilters;
+
+    redraw_navi();
     resetPage();
     loadSelect();
     triggerSearch();
     return false;
 }
+
+
+mkws.delimitTarget = function (id)
+{
+    debug("delimitTarget(id=" + id + ")");    
+    var newFilters = [];
+    for (var i in mkws.filters) {
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	} else {
+	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    newFilters.push(filter);
+	}
+    }
+    mkws.filters = newFilters;
+
+    redraw_navi();
+    resetPage();
+    loadSelect();
+    triggerSearch();
+    return false;
+}
+
+
+function redraw_navi ()
+{
+    var navi = document.getElementById('mkwsNavi');
+    if (!navi) return;
+
+    var text = "";
+    for (var i in mkws.filters) {
+	if (text) {
+	    text += " | ";
+	}
+	var filter = mkws.filters[i];
+	if (filter.id) {
+	    text += 'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
+		"'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+	} else {
+	    text += filter.field + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
+		"'" + filter.field + "', '" + filter.value + "'" +
+		');return false;">' + filter.value + '</a>';
+	}
+    }
+    
+    navi.innerHTML = text;
+}
+
 
 function drawPager (pagerDiv)
 {
@@ -548,38 +699,106 @@ function replaceHtml(el, html) {
 
 function renderDetails(data, marker)
 {
-    var details = '<div class="details" id="mkwsDet_'+data.recid+'"><table>';
-    if (marker) details += '<tr><td>'+ marker + '</td></tr>';
+    if (mkws.templateRecord === undefined) {
+	loadTemplate("Record");
+    }
 
-    details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
-    details += renderField("Date", data["md-date"]);
-    details += renderField("Author", data["md-author"]);
-    details += renderField("URL", data["md-electronic-url"]);
-    details += renderField("Subject", data["location"][0]["md-subject"]);
-    details += renderField("Location", data["location"][0]["@name"], data["location"][0]["@id"]);
-    details += '</table></div>';
-
-    return details;
+    var template = mkws.templateRecord;
+    var details = template(data);
+    return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
 }
 
-function renderField(caption, data, data2, data3) {
-    if (data === undefined) {
-	return "";
+
+function loadTemplate(name)
+{
+    var source = $("#mkwsTemplate" + name).html();
+    if (!source) {
+	source = defaultTemplate(name);
     }
 
-    if (caption == "URL") {
-	data = '<a href="' + data + '" target="_blank">' + data + '</a>';
+    var template = Handlebars.compile(source);
+    debug("compiled template '" + name + "'");
+    mkws['template' + name] = template;
+}
+
+
+function defaultTemplate(name)
+{
+    if (name === 'Record') {
+	return '\
+      <table>\
+	<tr>\
+	  <th>Title</th>\
+	  <td>\
+	    {{md-title}}\
+	    {{#if md-title-remainder}}\
+	      ({{md-title-remainder}})\
+	    {{/if}}\
+	    {{#if md-title-responsibility}}\
+	      <i>{{md-title-responsibility}}</i>\
+	    {{/if}}\
+	  </td>\
+	</tr>\
+	{{#if md-date}}\
+	<tr>\
+	  <th>Date</th>\
+	  <td>{{md-date}}</td>\
+	</tr>\
+	{{/if}}\
+	{{#if md-author}}\
+	<tr>\
+	  <th>Author</th>\
+	  <td>{{md-author}}</td>\
+	</tr>\
+	{{/if}}\
+	{{#if md-electronic-url}}\
+	<tr>\
+	  <th>URL</th>\
+	  <td>\
+	    {{#each md-electronic-url}}\
+	      <a href="{{this}}">{{this}}</a><br/>\
+	    {{/each}}\
+	  </td>\
+	</tr>\
+	{{/if}}\
+	{{#if-any location having="md-subject"}}\
+	<tr>\
+	  <th>Subject</th>\
+	  <td>\
+	    {{#first location having="md-subject"}}\
+	      {{#if md-subject}}\
+	        {{md-subject}}\
+	      {{/if}}\
+	    {{/first}}\
+	  </td>\
+	</tr>\
+	{{/if-any}}\
+	<tr>\
+	  <th>Locations</th>\
+	  <td>\
+	    {{#commaList location}}\
+	      {{attr "@name"}}{{/commaList}}\
+	  </td>\
+	</tr>\
+      </table>\
+';
+    } else if (name === "Summary") {
+	return '\
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+	<b>{{md-title}}</b>\
+      </a>\
+      {{#if md-title-remainder}}\
+        <span>{{md-title-remainder}}</span>\
+      {{/if}}\
+      {{#if md-title-responsibility}}\
+    	<span><i>{{md-title-responsibility}}</i></span>\
+      {{/if}}\
+';
     }
 
-    if (data2 != undefined) {
-	data = data + " (" + data2 + ")";
-    }
-
-    if (data3 != undefined) {
-	data = data + " <i>" + data3 + "</i>";
-    }
-
-    return '<tr><th>' + M(caption) + '</th><td>' + data + '</td></tr>';
+    var s = "There is no default '" + name +"' template!";
+    alert(s);
+    return s;
 }
 
 
@@ -649,7 +868,8 @@ function mkws_html_all() {
     mkws_html_switch();
 
     if (mkws_config.use_service_proxy)
-	mkws_service_proxy_auth(mkws_config.service_proxy_auth);
+	  mkws_service_proxy_auth(mkws_config.service_proxy_auth, 
+          mkws_config.service_proxy_auth_domain);
 
     if (mkws_config.responsive_design_width) {
 	// Responsive web design - change layout on the fly based on
@@ -712,7 +932,7 @@ function mkws_html_sort() {
 	if (key == mkws_config.sort_default) {
 	    sort_html += ' selected="selected"';
 	}
-	sort_html += '>' + val + '</option>';
+	sort_html += '>' + M(val) + '</option>';
     }
     sort_html += '</select>';
 
@@ -742,13 +962,13 @@ function mkws_html_perpage() {
  * The username/password is configured in the apache config file
  * for the site.
  */
-function mkws_service_proxy_auth(auth_url) {
+function mkws_service_proxy_auth(auth_url, auth_domain) {
     debug("Run service proxy auth URL: " + auth_url);
 
     var request = new pzHttpRequest(auth_url, function(err) {
-	alert("HTTP call for authentication failed: " + err)
-	return;
-    });
+	  alert("HTTP call for authentication failed: " + err)
+	  return;
+    }, auth_domain);
 
     request.get(null, function(data) {
 	if (!$.isXMLDoc(data)) {
