@@ -142,6 +142,18 @@ Handlebars.registerHelper('first', function(items, options) {
 });
 
 
+Handlebars.registerHelper('commaList', function(items, options) {
+    var out = "";
+
+    for (var i in items) {
+	if (i > 0) out += ", ";
+	out += options.fn(items[i])
+    }
+
+    return out;
+});
+
+
 {
     /* default mkws config */
     var config_default = {
