@@ -714,15 +714,80 @@ function maybeLoadTemplate(name)
 {
     var source = $("#mkwsTemplate" + name).html();
     if (!source) {
-	debug("no template '" + name + "': falling back to default behaviour");
-	// Mark template as not provided
-	mkws['template' + name] = 0;
-	return;
+	source = defaultTemplate(name);
     }
 
     var template = Handlebars.compile(source);
     debug("compiled template '" + name + "'");
     mkws['template' + name] = template;
+}
+
+
+function defaultTemplate(name)
+{
+    if (name === 'Record') {
+	return '\
+      <table>\
+	<tr>\
+	  <th>Title</th>\
+	  <td>\
+	    {{md-title}}\
+	    {{#if md-title-remainder}}\
+	      ({{md-title-remainder}})\
+	    {{/if}}\
+	    {{#if md-title-responsibility}}\
+	      <i>{{md-title-responsibility}}</i>\
+	    {{/if}}\
+	  </td>\
+	</tr>\
+	{{#if md-date}}\
+	<tr>\
+	  <th>Date</th>\
+	  <td>{{md-date}}</td>\
+	</tr>\
+	{{/if}}\
+	{{#if md-author}}\
+	<tr>\
+	  <th>Author</th>\
+	  <td>{{md-author}}</td>\
+	</tr>\
+	{{/if}}\
+	{{#if md-electronic-url}}\
+	<tr>\
+	  <th>URL</th>\
+	  <td>\
+	    {{#each md-electronic-url}}\
+	      <a href="{{this}}">{{this}}</a><br/>\
+	    {{/each}}\
+	  </td>\
+	</tr>\
+	{{/if}}\
+	{{#if-any location having="md-subject"}}\
+	<tr>\
+	  <th>Subject</th>\
+	  <td>\
+	    {{#first location having="md-subject"}}\
+	      {{#if md-subject}}\
+	        {{md-subject}}\
+	      {{/if}}\
+	    {{/first}}\
+	  </td>\
+	</tr>\
+	{{/if-any}}\
+	<tr>\
+	  <th>Locations</th>\
+	  <td>\
+	    {{#commaList location}}\
+	      {{attr "@name"}}{{/commaList}}\
+	  </td>\
+	</tr>\
+      </table>\
+';
+    }
+
+    var s = "There is no default '" + name +"' template!";
+    alert(s);
+    return s;
 }
 
 
