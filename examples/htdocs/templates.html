@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MKWS demo client</title>
+    <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+    <script id="mkwsTemplateSummary" type="text/x-handlebars-template">
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">
+	<b>{{md-title}}</b>
+      </a>
+      {{#if md-title-remainder}}
+        <span>{{md-title-remainder}}</span>
+      {{/if}}
+      {{#if md-title-responsibility}}
+    	<span><i>{{md-title-responsibility}}</i></span>
+      {{/if}}
+    </script>
+    <script id="mkwsTemplateRecord" type="text/x-handlebars-template">
+      <table>
+	<tr>
+	  <th>Title</th>
+	  <td>
+	    {{md-title}}
+	    {{#if md-title-remainder}}
+	      ({{md-title-remainder}})
+	    {{/if}}
+	    {{#if md-title-responsibility}}
+	      <i>{{md-title-responsibility}}</i>
+	    {{/if}}
+	  </td>
+	</tr>
+	{{#if md-date}}
+	<tr>
+	  <th>Date</th>
+	  <td>{{md-date}}</td>
+	</tr>
+	{{/if}}
+	{{#if md-author}}
+	<tr>
+	  <th>Author</th>
+	  <td>{{md-author}}</td>
+	</tr>
+	{{/if}}
+	{{#if md-electronic-url}}
+	<tr>
+	  <th>URL</th>
+	  <td>
+	    {{#each md-electronic-url}}
+	      <a href="{{this}}">{{this}}</a><br/>
+	    {{/each}}
+	  </td>
+	</tr>
+	{{/if}}
+	{{#if-any location having="md-subject"}}
+	<tr>
+	  <th>Subject</th>
+	  <td>
+	    {{#first location having="md-subject"}}
+	      {{#if md-subject}}
+	        {{md-subject}}
+	      {{/if}}
+	    {{/first}}
+	  </td>
+	</tr>
+	{{/if-any}}
+	<tr>
+	  <th>Locations</th>
+	  <td>
+	    {{#commaList location}}
+	      {{attr "@name"}}{{/commaList}}
+	  </td>
+	</tr>
+      </table>
+    </script>
+  </head>
+  <body>
+    <div id="mkwsSwitch"></div>
+    <div id="mkwsLang"></div>
+    <div id="mkwsSearch"></div>
+    <div id="mkwsResults"></div>
+    <div id="mkwsTargets"></div>
+    <div id="mkwsStat"></div>
+  </body>
+</html>
