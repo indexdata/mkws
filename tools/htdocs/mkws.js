@@ -267,6 +267,9 @@ function my_onshow(data) {
 	html.push('<div class="record" id="mkwsRecdiv_' + hit.recid + '" >',
 		  renderSummary(hit),
       		  '</div>');
+	if (hit.recid == curDetRecId) {
+            html.push(renderDetails(curDetRecData));
+	}
     }
     replaceHtml(results, html.join(''));
 }
@@ -274,20 +277,27 @@ function my_onshow(data) {
 
 function renderSummary(hit)
 {
-    var html = [];
-    html.push('<a href="#" id="mkwsRec_'+hit.recid
-              +'" onclick="mkws.showDetails(this.id);return false;"><b>'
-              + hit["md-title"] +' </b></a>');
-    if (hit["md-title-remainder"] !== undefined) {
-	html.push('<span>' + hit["md-title-remainder"] + ' </span>');
+    if (mkws.templateSummary === undefined) {
+	loadTemplate("Summary");
     }
-    if (hit["md-title-responsibility"] !== undefined) {
-    	html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
+
+    if (mkws.templateSummary) {
+	hit._id = "mkwsRec_" + hit.recid;
+	hit._onclick = "mkws.showDetails(this.id);return false;"
+	return mkws.templateSummary(hit);
+    } else {
+	var html = [];
+	html.push('<a href="#" id="mkwsRec_'+hit.recid
+		  +'" onclick="mkws.showDetails(this.id);return false;"><b>'
+		  + hit["md-title"] +' </b></a>');
+	if (hit["md-title-remainder"] !== undefined) {
+	    html.push('<span>' + hit["md-title-remainder"] + ' </span>');
+	}
+	if (hit["md-title-responsibility"] !== undefined) {
+    	    html.push('<span><i>'+hit["md-title-responsibility"]+'</i></span>');
+	}
+	return html.join('');
     }
-    if (hit.recid == curDetRecId) {
-        html.push(renderDetails(curDetRecData));
-    }
-    return html.join('');
 }
 
 
