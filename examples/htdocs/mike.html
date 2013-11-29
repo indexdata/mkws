@@ -50,7 +50,9 @@
 	<tr>
 	  <th>URL</th>
 	  <td>
-	    {{link md-electronic-url}}
+	    {{#each md-electronic-url}}
+	      <a href="{{this}}">{{this}}</a><br/>
+	    {{/each}}
 	  </td>
 	</tr>
 	{{/if}}
