@@ -785,60 +785,6 @@ function defaultTemplate(name)
 }
 
 
-function defaultRenderDetails(data, marker)
-{
-    var details = '<table>';
-    if (marker) details += '<tr><td colspan="2">'+ marker + '</td></tr>';
-
-    var locations = [];
-    for (var i in data.location) {
-	locations.push(data.location[i]['@name']);
-    }
-
-    details += renderField("Title", data["md-title"], data["md-title-remainder"], data["md-title-responsibility"]);
-    details += renderField("Date", data["md-date"]);
-    details += renderField("Author", data["md-author"]);
-    details += renderField("URL", data["md-electronic-url"]);
-    details += renderField("Subject", data["location"][0]["md-subject"]);
-    if (locations.length == 0) {
-	details += '<tr><td colspan="2">No locations for record!</td></tr>';
-    } else {
-	details += renderField("Location" + (locations.length == 1 ? "" : "s"), locations);
-    }
-    details += '</table>';
-    return details;
-}
-
-
-function renderField(caption, data, data2, data3) {
-    if (data === undefined) {
-	return "";
-    }
-
-    var res = "";
-    for (var i = 0; i < data.length; i++) {
-	var s = data[i];
-	if (i > 0)
-	    res += ", ";
-
-	if (caption == "URL")
-	    s = '<a href="' + s + '" target="_blank">' + s + '</a>';
-
-	res += s
-    }
-
-    if (data2 != undefined) {
-	res = res + " (" + data2 + ")";
-    }
-
-    if (data3 != undefined) {
-	res = res + " <i>" + data3 + "</i>";
-    }
-
-    return '<tr><th>' + M(caption) + '</th><td>' + res + '</td></tr>';
-}
-
-
 /*
  * All the HTML stuff to render the search forms and
  * result pages.
