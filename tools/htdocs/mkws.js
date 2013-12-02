@@ -408,6 +408,8 @@ function domReady ()
 // when search button pressed
 function onFormSubmitEventHandler()
 {
+    mkws.filters = []
+    redraw_navi();
     resetPage();
     loadSelect();
     triggerSearch();
