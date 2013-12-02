@@ -449,7 +449,7 @@ function triggerSearch ()
 	}
     }
 
-    debug("triggerSearch: filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
+    debug("triggerSearch(" + document.mkwsSearchForm.mkwsQuery.value + "): filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
     my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
 }
 
