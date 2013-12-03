@@ -5,90 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
     <title>MKWS demo: Mike's playground</title>
-    <link rel="stylesheet" type="text/css" href="http://mkws-git.indexdata.com/mkws.css" />
-    <script type="text/javascript">
-	var mkws_config = {
-	language_Klingon: {}
-	};
-    </script>
+    <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://mkws-git.indexdata.com/libjs-pz2/pz2api.1.js"></script>
-    <script type="text/javascript" src="http://mkws-git.indexdata.com/mkws.js"></script>
-    <style type="text/css">
-      #mkwsTermlists div.facet {
-      float:left;
-      width: 30%;
-      margin: 0.3em;
-      }
-      #mkwsStat {
-      text-align: right;
-      }
-    </style>
-  </head>
-  <body>
-    <table width="100%" border="0">
-      <tr>
-        <td>
-          <div id="mkwsSwitch"></div>
-          <div id="mkwsLang"></div>
-          <div id="mkwsSearch"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:500px; overflow: auto">
-            <div id="mkwsPager"></div>
-            <div id="mkwsNavi"></div>
-            <div id="mkwsRecords"></div>
-            <div id="mkwsTargets"></div>
-            <div id="mkwsRanking"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:300px; overflow: hidden">
-            <div id="mkwsTermlists"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div id="mkwsStat"></div>
-        </td>
-      </tr>
-    </table>
-=======
-    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
   </head>
   <body>
-    <div id="mkwsSwitch"></div>
-    <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
-    <div id="mkwsMOTD"></div>
-
-    <table width="100%" border="0" cellpadding="6" cellspacing="0">
-      <tr>
-        <td id="mkwsTermlistContainer1" width="250" valign="top">
-          <div id="mkwsTermlists"></div>
-        </td>
-        <td id="mkwsMOTDContainer" valign="top">
-          <div id="mkwsRanking"></div>
-          <div id="mkwsPager"></div>
-          <div id="mkwsNavi"></div>
-          <div id="mkwsRecords"></div>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <div id="mkwsTermlistContainer2"></div>
-        </td>
-      </tr>
-    </table>
-
-    <div id="mkwsTargets"></div>
-    <div id="mkwsStat"></div>
+    <div id="mkwsRecords" autosearch="true" query="dinosaur" sort="date-r"><i>News items will appear here</i></div>
   </body>
 </html>
