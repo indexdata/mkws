@@ -54,4 +54,4 @@ jsdom_check('../examples/htdocs/language.html', [utils.tags.required, utils.tags
 jsdom_check('../examples/htdocs/mobile.html', [utils.tags.required, utils.tags.optional]);
 jsdom_check('../examples/htdocs/popup.html', [], true);
 jsdom_check('../examples/htdocs/jquery.html', []);
-jsdom_check('../examples/htdocs/mike.html', [utils.tags.required, utils.tags.optional], true);
+// jsdom_check('../examples/htdocs/mike.html', [utils.tags.required, utils.tags.optional], true);
