@@ -260,6 +260,7 @@ function my_onshow(data) {
 
     // navi
     var results = document.getElementById("mkwsRecords");
+    debug("my_onshow, results = " + results);
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
@@ -326,7 +327,8 @@ function my_onterm(data) {
     }
 
     var termlist = document.getElementById("mkwsTermlists");
-    replaceHtml(termlist, acc.join(''));
+    if (termlist)
+	replaceHtml(termlist, acc.join(''));
 }
 
 function add_single_facet(acc, caption, data, max, pzIndex) {
@@ -408,14 +410,19 @@ function domReady ()
 // when search button pressed
 function onFormSubmitEventHandler()
 {
+    newSearch(document.mkwsSearchForm.mkwsQuery.value);
+    return false;
+}
+
+function newSearch(query)
+{
     mkws.filters = []
     redraw_navi();
     resetPage();
     loadSelect();
-    triggerSearch();
+    triggerSearch(query);
     mkws.switchView('records'); // In case it's configured to start off as hidden
     submitted = true;
-    return false;
 }
 
 function onSelectDdChange()
@@ -433,10 +440,15 @@ function resetPage()
     totalRec = 0;
 }
 
-function triggerSearch ()
+function triggerSearch (query)
 {
     var pp2filter = "";
     var pp2limit = "";
+
+    // Re-use previous query if a new one is not specified
+    if (query) {
+	mkws.query = query;
+    }
 
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
@@ -451,8 +463,8 @@ function triggerSearch ()
 	}
     }
 
-    debug("triggerSearch(" + document.mkwsSearchForm.mkwsQuery.value + "): filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
-    my_paz.search(document.mkwsSearchForm.mkwsQuery.value, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
+    debug("triggerSearch(" + mkws.query + "): filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
+    my_paz.search(mkws.query, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
 }
 
 function loadSelect ()
@@ -894,6 +906,19 @@ function mkws_html_all() {
     }
 }
 
+
+function run_auto_searches() {
+    var node = $('#mkwsRecords');
+    if (node.attr('autosearch')) {
+	var query = node.attr('query');
+	var sort = node.attr('sort');
+	debug("running auto search: '" + query + "' sorted by '" + sort + "'");
+	// ### currently ignoring sort
+	newSearch(query);
+    }
+}
+
+
 function mkws_set_lang()  {
     var lang = $.parseQuerystring().lang || mkws_config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
@@ -1222,6 +1247,8 @@ $(document).ready(function() {
 	mkws_config.error = e.message;
 	// alert(e.message);
     }
+
+    run_auto_searches();
 });
 
 })(jQuery);
