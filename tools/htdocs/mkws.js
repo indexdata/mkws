@@ -260,7 +260,7 @@ function my_onshow(data) {
 
     // navi
     var results = document.getElementById("mkwsRecords");
-    debug("my_onshow, results = " + results);
+    debug("my_onshow(" + JSON.stringify(data) + ")");
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
