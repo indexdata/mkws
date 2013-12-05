@@ -915,7 +915,7 @@ function mkws_html_all() {
 function run_auto_searches() {
     var node = $('#mkwsRecords');
     if (node.attr('autosearch')) {
-	var query = node.attr('query');
+	var query = node.attr('autosearch');
 	var sort = node.attr('sort');
 	debug("running auto search: '" + query + "' sorted by '" + sort + "'");
 	// ### currently ignoring sort
