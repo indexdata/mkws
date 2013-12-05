@@ -261,7 +261,6 @@ function my_onshow(data) {
 
     // navi
     var results = document.getElementById("mkwsRecords");
-    debug("my_onshow(" + JSON.stringify(data) + ")");
 
     var html = [];
     for (var i = 0; i < data.hits.length; i++) {
@@ -1016,6 +1015,7 @@ function mkws_service_proxy_auth(auth_url, auth_domain) {
 
 	debug("Service proxy auth successfully done");
 	mkws.authenticated = true;
+	run_auto_searches();
     });
 }
 
@@ -1253,8 +1253,6 @@ $(document).ready(function() {
 	mkws_config.error = e.message;
 	// alert(e.message);
     }
-
-    run_auto_searches();
 });
 
 })(jQuery);
