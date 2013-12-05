@@ -5,6 +5,7 @@
 
 // Set up namespace and some state.
 var mkws = {
+    authenticated: false,
     filters: [],
 };
 
@@ -416,6 +417,11 @@ function onFormSubmitEventHandler()
 
 function newSearch(query)
 {
+    if (!mkws.authenticated) {
+	alert("searching before authentication");
+	return;
+    }
+
     mkws.filters = []
     redraw_navi();
     resetPage();
@@ -1009,7 +1015,7 @@ function mkws_service_proxy_auth(auth_url, auth_domain) {
 	}
 
 	debug("Service proxy auth successfully done");
-	mkws.service_proxy_auth = true;
+	mkws.authenticated = true;
     });
 }
 
