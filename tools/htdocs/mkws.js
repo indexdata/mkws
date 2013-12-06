@@ -417,7 +417,7 @@ function onFormSubmitEventHandler()
     return false;
 }
 
-function newSearch(query)
+function newSearch(query, sort)
 {
     if (!mkws.authenticated) {
 	alert("searching before authentication");
@@ -428,7 +428,7 @@ function newSearch(query)
     redraw_navi();
     resetPage();
     loadSelect();
-    triggerSearch(query);
+    triggerSearch(query, sort);
     mkws.switchView('records'); // In case it's configured to start off as hidden
     submitted = true;
 }
@@ -448,14 +448,17 @@ function resetPage()
     totalRec = 0;
 }
 
-function triggerSearch (query)
+function triggerSearch (query, sort)
 {
     var pp2filter = "";
     var pp2limit = "";
 
-    // Re-use previous query if a new one is not specified
+    // Re-use previous query/sort if new ones are not specified
     if (query) {
 	mkws.query = query;
+    }
+    if (sort) {
+	mkws.sort = sort;
     }
 
     for (var i in mkws.filters) {
@@ -921,8 +924,7 @@ function run_auto_searches() {
 	var query = node.attr('autosearch');
 	var sort = node.attr('sort');
 	debug("running auto search: '" + query + "' sorted by '" + sort + "'");
-	// ### currently ignoring sort
-	newSearch(query);
+	newSearch(query, sort);
     }
 }
 
