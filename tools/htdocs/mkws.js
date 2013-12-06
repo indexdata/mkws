@@ -923,8 +923,12 @@ function run_auto_searches() {
     if (node.attr('autosearch')) {
 	var query = node.attr('autosearch');
 	var sort = node.attr('sort');
-	debug("running auto search: '" + query + "' sorted by '" + sort + "'");
-	newSearch(query, sort);
+	var targets = node.attr('targets');
+	var s = "running auto search: '" + query + "'";
+	if (sort) s += " sorted by '" + sort + "'";
+	if (targets) s += " in targets '" + targets + "'";
+	debug(s);
+	newSearch(query, sort, targets);
     }
 }
 
