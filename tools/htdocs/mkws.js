@@ -5,6 +5,7 @@
 
 // Set up namespace and some state.
 var mkws = {
+    sort: 'relevance',
     authenticated: false,
     filters: [],
 };
@@ -232,7 +233,6 @@ var recPerPage = 20;
 var totalRec = 0;
 var curDetRecId = '';
 var curDetRecData = null;
-var curSort = 'relevance';
 var submitted = false;
 var SourceMax = 16;
 var SubjectMax = 10;
@@ -435,7 +435,7 @@ function onSelectDdChange()
     if (!submitted) return false;
     resetPage();
     loadSelect();
-    my_paz.show(0, recPerPage, curSort);
+    my_paz.show(0, recPerPage, mkws.sort);
     return false;
 }
 
@@ -469,14 +469,14 @@ function triggerSearch (query)
     }
 
     debug("triggerSearch(" + mkws.query + "): filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
-    my_paz.search(mkws.query, recPerPage, curSort, pp2filter, undefined, { limit: pp2limit });
+    my_paz.search(mkws.query, recPerPage, mkws.sort, pp2filter, undefined, { limit: pp2limit });
 }
 
 function loadSelect ()
 {
     if (document.mkwsSelect) {
 	if (document.mkwsSelect.mkwsSort)
-	    curSort = document.mkwsSelect.mkwsSort.value;
+	    mkws.sort = document.mkwsSelect.mkwsSort.value;
 	if (document.mkwsSelect.mkwsPerpage)
 	    recPerPage = document.mkwsSelect.mkwsPerpage.value;
     }
