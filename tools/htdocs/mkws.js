@@ -193,6 +193,9 @@ Handlebars.registerHelper('commaList', function(items, options) {
     }
 }
 
+mkws.sort = mkws_config.sort_default;
+debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
+
 if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
     debug("Reset query width: " + mkws_config.query_width);
     mkws_config.query_width = 50;
@@ -952,7 +955,7 @@ function mkws_html_switch() {
 }
 
 function mkws_html_sort() {
-    debug("HTML sort");
+    debug("HTML sort, mkws.sort = '" + mkws.sort + "'");
     var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
     for(var i = 0; i < mkws_config.sort_options.length; i++) {
@@ -961,7 +964,7 @@ function mkws_html_sort() {
 	var val = opt.length == 1 ? opt[0] : opt[1];
 
 	sort_html += '<option value="' + key + '"';
-	if (key == mkws_config.sort_default) {
+	if (mkws.sort == key || mkws.sort == val) {
 	    sort_html += ' selected="selected"';
 	}
 	sort_html += '>' + M(val) + '</option>';
