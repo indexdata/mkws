@@ -469,8 +469,10 @@ function triggerSearch (query, sort, targets)
 	var filter = mkws.filters[i];
 	if (filter.id) {
 	    if (pp2filter)
-		pp2filter += ",";
-	    pp2filter += 'pz:id=' + filter.id;
+		pp2filter += "|";
+	    if (filter.id.indexOf('pz:id=') != 0)
+		filter.id = 'pz:id=' + filter.id;
+	    pp2filter += filter.id;
 	} else {
 	    if (pp2limit)
 		pp2limit += ",";
