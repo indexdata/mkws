@@ -469,9 +469,12 @@ function triggerSearch (query, sort, targets)
 	var filter = mkws.filters[i];
 	if (filter.id) {
 	    if (pp2filter)
-		pp2filter += "|";
-	    if (filter.id.indexOf('pz:id=') != 0)
+		pp2filter += ",";
+	    if (filter.id.match(/^[a-z:]+[=~]/)) {
+		log("filter '" + filter + "' already begins with SETTING OP");
+	    } else {
 		filter.id = 'pz:id=' + filter.id;
+	    }
 	    pp2filter += filter.id;
 	} else {
 	    if (pp2limit)
