@@ -8,6 +8,7 @@
 
     DocumentRoot /usr/local/src/git/mkws/tools/htdocs
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+    Alias /pazpar2/ /usr/local/src/git/pazpar2/
 
     RewriteEngine on
     RewriteLogLevel 1
