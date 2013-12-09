@@ -9,6 +9,7 @@
 
     DocumentRoot /home/indexdata/mkws/tools/htdocs
     Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
+    Alias /pazpar2/ /home/indexdata/pazpar2/
 
     RewriteEngine on
     RewriteLogLevel 1
