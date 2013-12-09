@@ -471,7 +471,7 @@ function triggerSearch (query, sort, targets)
 	    if (pp2filter)
 		pp2filter += ",";
 	    if (filter.id.match(/^[a-z:]+[=~]/)) {
-		log("filter '" + filter + "' already begins with SETTING OP");
+		debug("filter '" + filter.id + "' already begins with SETTING OP");
 	    } else {
 		filter.id = 'pz:id=' + filter.id;
 	    }
