@@ -4,12 +4,9 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
-    <title>MKWS demo: Mike's playground</title>
+    <title>MKWS demo: Automatic search</title>
     <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
   </head>
   <body>
     <h1>A site about stuff</h1>
@@ -21,7 +18,16 @@
 	</td>
 	<td>
 	  <h2>News</h2>
-	  <div id="mkwsRecords" autosearch="dinosaur" sort="date-r"><i>News items will appear here</i></div>
+
+
+<div id='mkwsRecords'
+	autosearch='mike'
+	sort='relevance'
+	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
+>results will appear here</div>
+
+
+	<div id='mkwsTermlists'/>
 	</td>
       </tr>
     </table>
