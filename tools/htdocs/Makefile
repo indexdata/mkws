@@ -17,7 +17,7 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 
 MKWS_JS=	mkws-complete.js
-PZ2API_JS=	../../../libjs-pz2/pz2api.1.js
+PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
 
 DOCS = README.html README.odt README.pdf \

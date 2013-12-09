@@ -24,9 +24,9 @@ The following files are hosted on `mkws.indexdata.com`:
 
 * `mkws.css`
 * `mkws.js`
-* `/libjs-pz2/pz2api.1.js`
+* `/pazpar2/js/pz2.js`
 * `mkws-complete.js` -- a single file consisting of `mkws.js`,
-  jQuery (which it uses) and `pz2api.1.js`
+  jQuery (which it uses), Handlebars (ditto) and `pz2.js`
 
 
 Configuring a client
@@ -127,10 +127,6 @@ Not supported: IE6, IE7
 New Features since jsdemo
 --------------------------
 
-- Multilinguality: English (default), Danish, German
-- Depends on the new pazpar2 JS library libjs-pz2/pz2api.1.js
-  which will make the development of pazpar2 plugins faster and
-  easier to share code between projects
 - Supports basic pazpar2 and service-proxy requests
 - Simplified HTML
 - The search page is fully configurable by a JSON object

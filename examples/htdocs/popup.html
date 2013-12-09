@@ -21,7 +21,7 @@
     <script src="http://code.jquery.com/ui/1.8.0/jquery-ui.min.js"></script>
     -->
 
-    <script type="text/javascript" src="http://mkws.indexdata.com/libjs-pz2/pz2api.1.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
 
   </head>
@@ -51,7 +51,7 @@ can have MasterKey searching with minimal effort.
 The following files must be hosted on mkws.indexdata.com:
         mkws.js
         mkws.css
-        /libjs-pz2/pz2api.1.js (*)
+        /pazpar2/js/pz2.js (*)
 
 The following files make up the application:
         index.html
@@ -62,9 +62,9 @@ The following files make up the application:
 Alias for /service-proxy/, to avoid cross-site scripting issues. We
 will fix this.)
 
-(*) if you don't have already installed libjs-pz2 on the machine, you can
+(*) if you don't have already installed pazpar2 on the machine, you can
 do it by installing a debian package or check it out from GIT:
-$ git clone ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
+$ git clone ssh://git.indexdata.com:222/home/git/pub/pazpar2
 
 Configuring a client
 --------------------
