@@ -15,4 +15,5 @@
     CustomLog /var/log/apache2/mkws-tools-access.log combined
 
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+    Alias /pazpar2/ /usr/local/src/git/pazpar2/
 </VirtualHost>
