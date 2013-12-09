@@ -8,6 +8,7 @@
 
     DocumentRoot /usr/local/src/git/mkws/tools/htdocs
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
+    Alias /pazpar2/ /usr/local/src/git/pazpar2/
 
     RewriteEngine on
     RewriteLogLevel 1
@@ -17,6 +18,19 @@
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+
+    # Needed on Mac, which locks Apache down hard by default.
+    <Directory />
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    ServerName x.example.indexdata.com
+    ErrorLog /opt/local/apache2/logs/example-error.log
+    CustomLog /opt/local/apache2/logs/example-access.log combined
+
+    DocumentRoot /usr/local/src/git/mkws/examples/htdocs
 
     # Needed on Mac, which locks Apache down hard by default.
     <Directory />
