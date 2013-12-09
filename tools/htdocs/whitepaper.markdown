@@ -19,13 +19,13 @@ Index Data provides several different toolkits for communicating with
 its metasearching middleware, trading off varying degrees of
 flexibility against convenience:
 
-* libpz2.js -- a low-level JavaScript library for interrogating the
+* pz2.js -- a low-level JavaScript library for interrogating the
   Service Proxy and Pazpar2. It allows the HTML/JavaScript programmer
   to create JavaScript applications display facets, records, etc. that
   are fetched from the metasearching middleware.
 
 * masterkey-ui-core -- a higher-level, complex JavaScript library that
-  uses libpz2.js to provide the pieces needed for building a
+  uses pz2.js to provide the pieces needed for building a
   full-featured JavaScript application.
 
 * MasterKey Demo UI -- an example of a searching application built on
