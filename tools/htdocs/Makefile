@@ -18,7 +18,7 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 
 MKWS_JS=	mkws-complete.js
 PZ2API_JS=	../../../pazpar2/js/pz2.js
-PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/libjs-pz2
+PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
@@ -31,7 +31,7 @@ docs: $(DOCS)
 
 pz2api-git-checkout: 
 	@if ! test -e ${PZ2API_JS}; then \
-	    ( cd $$(dirname $$(dirname ${PZ2API_JS})); git clone ${PZ2API_GIT} ); \
+	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
 mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
