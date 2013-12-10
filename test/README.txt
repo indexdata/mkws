@@ -39,8 +39,9 @@ https://github.com/pivotal/jasmine
 Installation
 -------------------------------------
 1. install node.js, see http://nodejs.org/
-2. install node modules with npm: make node-modules
+2. install node modules with npm: 
+$ make node-modules
 
 --
 Copyright (c) 2013 IndexData ApS. http://indexdata.com
-Sep 2013, Wolfram
+Dec 2013, Wolfram
