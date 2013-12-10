@@ -19,6 +19,7 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 MKWS_JS=	mkws-complete.js
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
+##############################
 
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
@@ -54,17 +55,6 @@ mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
 handlebars-v1.1.2.js:
 	curl -sSf http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
 
-distclean: clean
-clean:
-	rm -f ${MKWS_JS} $(DOCS)
-
-help:
-	@echo "make [ help | mkws-js | docs | clean ]"
-	@echo ""
-	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
-	@echo ""
-	@echo "Please check ./README file too!"
-
 
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
@@ -89,4 +79,18 @@ help:
 	rm -f $@
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
+
+##############################
+# helper targets 
+#
+distclean: clean
+clean:
+	rm -f ${MKWS_JS} $(DOCS)
+
+help:
+	@echo "make [ help | mkws-js | docs | clean ]"
+	@echo ""
+	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
+	@echo ""
+	@echo "Please check ./README file too!"
 
