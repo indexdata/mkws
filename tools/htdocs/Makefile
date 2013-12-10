@@ -38,7 +38,10 @@ mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
-	    echo "Please run: make pz2api-git-checkout"; \
+	    echo ""; \
+	    echo "Please run:"; \
+	    echo "$$ make pz2api-git-checkout"; \
+	    echo ""; \
 	    exit 1; \
 	fi
 	( echo "/* created at: $$(date)"; \
