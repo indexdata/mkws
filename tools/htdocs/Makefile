@@ -51,7 +51,8 @@ mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
 	  echo "*/"; \
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
 	  cat handlebars-v1.1.2.js; \
-	  cat ${PZ2API_JS} mkws.js ) > ${MKWS_JS}.new 
+	  cat ${PZ2API_JS}; \
+	  cat  mkws.js ) > ${MKWS_JS}.new 
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
 handlebars-v1.1.2.js:
