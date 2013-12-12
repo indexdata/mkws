@@ -1,7 +1,7 @@
 # Copyright (c) 2013 IndexData ApS. http://indexdata.com
 
 **default**:
-	(cd tools/htdocs; $(MAKE))
+	${MAKE} -C./tools/htdocs $@
 
 clean distclean all pz2api-git-checkout:
 	${MAKE} -C./tools/htdocs $@
