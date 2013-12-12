@@ -46,7 +46,7 @@ describe("Check pazpar2 search", function () {
 
         // wait for service proxy auth
         waitsFor(function () {
-            return mkws.service_proxy_auth;
+            return mkws.authenticated;
         }, "SP auth done", 10 * 1000);
 
         runs(function () {
