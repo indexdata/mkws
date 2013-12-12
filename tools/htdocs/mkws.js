@@ -23,7 +23,6 @@ if (!mkws_config)
 (function ($) {
 
 var pazpar2_url = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
-
 mkws.pazpar2path = pazpar2_url;
 mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
@@ -528,7 +527,7 @@ mkws.limitTarget  = function (id, name)
 
 mkws.delimitQuery = function (field, value)
 {
-    debug("delimitQuery(field=" + field + ", value=" + value + ")");    
+    debug("delimitQuery(field=" + field + ", value=" + value + ")");
     var newFilters = [];
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
@@ -553,7 +552,7 @@ mkws.delimitQuery = function (field, value)
 
 mkws.delimitTarget = function (id)
 {
-    debug("delimitTarget(id=" + id + ")");    
+    debug("delimitTarget(id=" + id + ")");
     var newFilters = [];
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
@@ -594,7 +593,7 @@ function redraw_navi ()
 		');return false;">' + filter.value + '</a>';
 	}
     }
-    
+
     navi.innerHTML = text;
 }
 
@@ -907,7 +906,7 @@ function mkws_html_all() {
     mkws_html_switch();
 
     if (mkws_config.use_service_proxy)
-	  mkws_service_proxy_auth(mkws_config.service_proxy_auth, 
+	  mkws_service_proxy_auth(mkws_config.service_proxy_auth,
           mkws_config.service_proxy_auth_domain);
 
     if (mkws_config.responsive_design_width) {
