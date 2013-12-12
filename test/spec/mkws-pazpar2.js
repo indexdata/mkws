@@ -185,7 +185,7 @@ describe("Check Termlist", function () {
         expect(click.length).toBe(1);
 
         waitsFor(function () {
-            if ($("div#mkwsNavi").length && $("div#mkwsNavi").text().match(/^Source/)) {
+            if ($("div#mkwsNavi").length && $("div#mkwsNavi").text().match(/Source: /)) {
                 return true;
             } else {
                 return false;
