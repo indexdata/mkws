@@ -1,4 +1,4 @@
-**default**: apache-config.txt
+all: apache-config.txt
 
 apache-config.txt: ../apache2/mkws-examples-mike
 	rm -f $@
