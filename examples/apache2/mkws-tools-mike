@@ -1,8 +1,9 @@
 <VirtualHost *:80>
     ServerName x.mkws.indexdata.com
-    DocumentRoot /usr/local/src/git/mkws/tools/htdocs/
     ErrorLog /var/log/apache2/mkws-tools-error.log
     CustomLog /var/log/apache2/mkws-tools-access.log combined
+
+    DocumentRoot /usr/local/src/git/mkws/tools/htdocs/
 
     Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
     Alias /pazpar2/ /usr/local/src/git/pazpar2/
