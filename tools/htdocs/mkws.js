@@ -196,6 +196,9 @@ Handlebars.registerHelper('commaList', function(items, options) {
 mkws.sort = mkws_config.sort_default;
 debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
 
+mkws.pazpar2path = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
+mkws.usesessions = mkws_config.use_service_proxy ? false : true;
+
 if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
     debug("Reset query width: " + mkws_config.query_width);
     mkws_config.query_width = 50;
@@ -218,13 +221,13 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/",
+                    "pazpar2path": mkws.pazpar2path,
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : mkws_config.use_service_proxy ? false : true,
+	 	    "usesessions" : mkws.usesessions,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
@@ -523,7 +526,7 @@ mkws.limitTarget  = function (id, name)
 
 mkws.delimitQuery = function (field, value)
 {
-    debug("delimitQuery(field=" + field + ", value=" + value + ")");    
+    debug("delimitQuery(field=" + field + ", value=" + value + ")");
     var newFilters = [];
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
@@ -548,7 +551,7 @@ mkws.delimitQuery = function (field, value)
 
 mkws.delimitTarget = function (id)
 {
-    debug("delimitTarget(id=" + id + ")");    
+    debug("delimitTarget(id=" + id + ")");
     var newFilters = [];
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
@@ -589,7 +592,7 @@ function redraw_navi ()
 		');return false;">' + filter.value + '</a>';
 	}
     }
-    
+
     navi.innerHTML = text;
 }
 
@@ -902,7 +905,7 @@ function mkws_html_all() {
     mkws_html_switch();
 
     if (mkws_config.use_service_proxy)
-	  mkws_service_proxy_auth(mkws_config.service_proxy_auth, 
+	  mkws_service_proxy_auth(mkws_config.service_proxy_auth,
           mkws_config.service_proxy_auth_domain);
 
     if (mkws_config.responsive_design_width) {
