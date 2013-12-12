@@ -22,9 +22,6 @@ if (!mkws_config)
 // Wrapper for jQuery
 (function ($) {
 
-mkws.pazpar2path = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
-mkws.usesessions = mkws_config.use_service_proxy ? false : true;
-
 mkws.locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -198,6 +195,9 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 mkws.sort = mkws_config.sort_default;
 debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
+
+mkws.pazpar2path = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
+mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
 if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
     debug("Reset query width: " + mkws_config.query_width);
