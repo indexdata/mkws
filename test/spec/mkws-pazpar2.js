@@ -208,7 +208,7 @@ describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
         var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") :nth-child(2)").trigger("click");
-        debug("show click is success: " + click.length);
+        debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // wait until the record pops up
@@ -263,7 +263,7 @@ describe("Check switch menu Records/Targets", function () {
 
     it("switch back to record view", function () {
         var click = $("a#mkwsSwitch_records").trigger("click");
-        debug("record click is success: " + click.length);
+        debug("record view click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // now the target table must be visible
