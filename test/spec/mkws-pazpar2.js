@@ -282,19 +282,21 @@ describe("Check status client counter", function () {
     it("check status clients", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
-            if (clients.length == 1 && clients.text() == "0/1") {
+            if (clients.length == 1 && clients.text().match("0/1$")) {
                 return true;
             } else {
                 return false;
             }
 
-        }, "wait for status", 4 * 1000);
+        }, "wait for Active clients: 0/1", 4 * 1000);
 
+        /*
         runs(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("span.clients: " + clients.text());
             expect(clients.text()).toEqual("0/1");
         });
+        */
 
     });
 
