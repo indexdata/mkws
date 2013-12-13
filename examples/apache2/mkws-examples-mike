@@ -4,16 +4,8 @@
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 
-    ProxyPass        /service-proxy-auth-mike http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo
-    ProxyPassReverse /service-proxy-auth-mike http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo
-</VirtualHost>
-
-<VirtualHost *:80>
-    ServerName x.mkws.indexdata.com
-    DocumentRoot /usr/local/src/git/mkws/tools/htdocs/
-    ErrorLog /var/log/apache2/mkws-tools-error.log
-    CustomLog /var/log/apache2/mkws-tools-access.log combined
-
-    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
-    Alias /pazpar2/ /usr/local/src/git/pazpar2/
+    RewriteEngine on
+    RewriteRule      /service-proxy-auth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo [P]
+    #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
+    #RewriteLogLevel 9
 </VirtualHost>
