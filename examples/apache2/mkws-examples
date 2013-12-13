@@ -8,4 +8,6 @@
 
     RewriteEngine on
     RewriteRule /service-proxy-auth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo [P]
+    #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
+    #RewriteLogLevel 9
 </VirtualHost>
