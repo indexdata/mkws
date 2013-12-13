@@ -242,7 +242,7 @@ describe("Check switch menu Records/Targets", function () {
 
     it("switch to target view", function () {
         var click = $("a#mkwsSwitch_targets").trigger("click");
-        debug("target click is success: " + click.length);
+        debug("target view click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // now the target table must be visible
