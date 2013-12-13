@@ -207,7 +207,7 @@ describe("Check Termlist", function () {
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") :nth-child(1)").trigger("click");
+        var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
         debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
 
