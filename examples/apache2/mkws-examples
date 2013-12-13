@@ -1,3 +1,5 @@
+# This is for the live example.indexdata.com, running on caliban
+
 <VirtualHost *:80>
     ServerName example.indexdata.com
     DocumentRoot /home/indexdata/mkws/examples/htdocs/
