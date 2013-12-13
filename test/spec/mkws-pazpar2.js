@@ -207,8 +207,8 @@ describe("Check Termlist", function () {
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") :nth-child(2)").trigger("click");
-        debug("show click is success: " + click.length);
+        var click = $("div#mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
+        debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // wait until the record pops up
@@ -242,7 +242,7 @@ describe("Check switch menu Records/Targets", function () {
 
     it("switch to target view", function () {
         var click = $("a#mkwsSwitch_targets").trigger("click");
-        debug("target click is success: " + click.length);
+        debug("target view click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // now the target table must be visible
@@ -263,7 +263,7 @@ describe("Check switch menu Records/Targets", function () {
 
     it("switch back to record view", function () {
         var click = $("a#mkwsSwitch_records").trigger("click");
-        debug("record click is success: " + click.length);
+        debug("record view click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // now the target table must be visible
@@ -282,19 +282,21 @@ describe("Check status client counter", function () {
     it("check status clients", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
-            if (clients.length == 1 && clients.text() == "0/1") {
+            if (clients.length == 1 && clients.text().match("0/1$")) {
                 return true;
             } else {
                 return false;
             }
 
-        }, "wait for status", 4 * 1000);
+        }, "wait for Active clients: 0/1", 4 * 1000);
 
+        /*
         runs(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("span.clients: " + clients.text());
             expect(clients.text()).toEqual("0/1");
         });
+        */
 
     });
 
