@@ -5,4 +5,7 @@
     DocumentRoot /home/indexdata/mkws/examples/htdocs/
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
+
+    RewriteEngine on
+    RewriteRule /service-proxy-auth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=demo&password=demo [P]
 </VirtualHost>
