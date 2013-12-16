@@ -160,6 +160,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
     /* default mkws config */
     var config_default = {
 	use_service_proxy: true,
+	pazpar2_url: "http://mkws.indexdata.com/service-proxy/",
 	service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
 	lang: "",
 	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
@@ -220,7 +221,7 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-		    "pazpar2path": mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/",
+                    "pazpar2path": mkws_config.pazpar2_url,
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
