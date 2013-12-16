@@ -7,7 +7,7 @@
 var mkws = {
     sort: 'relevance',
     authenticated: false,
-    filters: [],
+    filters: []
 };
 
 /*
