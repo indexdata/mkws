@@ -283,17 +283,52 @@ http://example.indexdata.com/index-popup.html
 
 ### Authentication and target configuration
 
-By default, MKWS configures itself to use a demo account on a service
-hosted by mkws.indexdata.com. This demo account provides access to
-about a dozen free data sources. Authentication onto this service is
-via an authentication URL on the same server, which MKWS uses by
-default so no configuration is needed.
+By default, MKWS configures itself to use a demonstration account on a
+service hosted by mkws.indexdata.com. This account (username `demo`,
+password `demo`) provides access to about a dozen free data
+sources. Authentication onto this service is via an authentication URL
+on the same MKWS server, so no explicit configuration is needed.
 
-Access to a customised set of resources (including resources that
-require authentication) can be provided. In this case, a
-customer-specific authentication URL is used to gain access to these
-rather than the default set. Contact Index Data on info@indexdata.com
-for details.
+In order to search in a customised set of targets, including
+subscription resources, it's necessary to create an account with
+Index Data's hosted service proxy, and protect that account with
+authentication tokens (to prevent unauthorised use of subscription
+resources). But in order to gain access to those resources, the
+authentication tokens have to be available to the widgets in some way,
+and simple embedding them in the JavaScript configuration is not
+acceptable because they are easy to read from there.
+
+The solution to this problem is in three steps.
+
+<b>First</b>
+the application's web-server creates a rewriting rule that takes an
+innocuous URL like
+http://example.indexdata.com/service-proxy-auth/
+and rewrites it as an access to Index Data's authentication service
+with authentication credentials embedded. This can be done using
+Apache2 directives such as
+
+    RewriteEngine on
+    RewriteRule /service-proxy-auth/
+        http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=U&password=PW [P]
+
+Because the credentials appear only in the application's web-server
+configuration, they are not visible to malicious users.
+
+<b>Second</b>, the broader application that includes MKWS widgets must
+protect access to the authentication URL on its own web-server. This
+can be done using IP authentication, a local username/password scheme,
+Kerberos or any other means.
+
+<b>Third</b>, the MKWS application must be configured to use the
+application-hosted authentication URL instead of the default one. This
+is done by means of the `service_proxy_auth` configuration element,
+which should be set to the authentication URL.
+
+Once these three steps are taken, the MKWS application will
+authenticate by means of a special URL on the application's web
+server, which the application prevents unauthorised access to, and the
+underlying credentials are hidden.
 
 
 Reference Guide
@@ -304,66 +339,70 @@ Reference Guide
 The configuration object `mkws_config` may be created before including
 the MKWS JavaScript code to modify default behaviour. This structure
 is a key-value lookup table, whose entries are described in the table
-below. All entries are options, but if specified must be given values
+below. All entries are optional, but if specified must be given values
 of the specified type. If ommitted, each setting takes the indicated
 default value; long default values are in footnotes to keep the table
 reasonably narrow.
 
 ---
-Element                  Type    Default   Description
---------                 -----   --------- ------------
-debug_level              int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                           datestamps, 3 = messages with datestamps and stack-traces.
+Element                   Type    Default   Description
+--------                  -----   --------- ------------
+debug_level               int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                            datestamps, 3 = messages with datestamps and stack-traces.
 
-facets                   array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
-                                           `sources`, `subjects` and `authors`.
+facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
+                                            `sources`, `subjects` and `authors`.
 
-lang                     string  en        Code of the default language to display the UI in. Supported language codes are `en` =
-                                           English, `de` = German, `da` = Danish, and whatever additional languages are configured
-                                           using `language_*` entries (see below).
+lang                      string  en        Code of the default language to display the UI in. Supported language codes are `en` =
+                                            English, `de` = German, `da` = Danish, and whatever additional languages are configured
+                                            using `language_*` entries (see below).
 
-lang_options             array   []        A list of the languages to offer as options. If empty (the default), then all
-                                           configured languages are listed.
+lang_options              array   []        A list of the languages to offer as options. If empty (the default), then all
+                                            configured languages are listed.
 
-language_*               hash              Support for any number of languages can be added by providing entries whose name is
-                                           `language_` followed by the code of the language. See the separate section below for
-                                           details.
+language_*                hash              Support for any number of languages can be added by providing entries whose name is
+                                            `language_` followed by the code of the language. See the separate section below for
+                                            details.
 
-pazpar2_url              string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
-                                           provide search results, facets, etc. It may be either unmediated or Pazpar2 the
-                                           MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
-                                           the latter case, `service_proxy_auth` must be provided.
+pazpar2_url               string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
+                                            provide search results, facets, etc. It may be either unmediated or Pazpar2 the
+                                            MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
+                                            the latter case, `service_proxy_auth` must be provided.
 
-perpage_default          string  20        The initial value for the number of records to show on each page.
+perpage_default           string  20        The initial value for the number of records to show on each page.
 
-perpage_options          array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
-                                           records are displayed on each page of results.
+perpage_options           array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
+                                            records are displayed on each page of results.
 
-query_width              int     50        The width of the query box, in characters.
+query_width               int     50        The width of the query box, in characters.
 
-responsive_design_width  int               If defined, then the facets display moves between two locations as the screen-width
-                                           varies, as described above. The specified number is the threshhold width, in pixels,
-                                           at which the facets move between their two locations.
+responsive_design_width   int               If defined, then the facets display moves between two locations as the screen-width
+                                            varies, as described above. The specified number is the threshhold width, in pixels,
+                                            at which the facets move between their two locations.
 
-service_proxy_auth       url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
-                                           session to authenticate the user and establish a session that encompasses a defined set
-                                           of targets to search in.
+service_proxy_auth        url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
+                                            session to authenticate the user and establish a session that encompasses a defined set
+                                            of targets to search in.
 
-show_lang                bool    true      Indicates whether or not to display the language menu.
+service_proxy_auth_domain domain            Can be set to the domain for which `service_proxy_auth` proxies authenticationm, so
+                                            that cookies are rewritten to appear to be from this domain. In general, this is not
+                                            necessary, as this setting defaults to the domain of `pazpar2_url`.
 
-show_perpage             bool    true      Indicates whether or not to display the perpage menu.
+show_lang                 bool    true      Indicates whether or not to display the language menu.
 
-show_sort                bool    true      Indicates whether or not to display the sort menu.
+show_perpage              bool    true      Indicates whether or not to display the perpage menu.
 
-sort_default             string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
-                                           array.
+show_sort                 bool    true      Indicates whether or not to display the sort menu.
 
-sort_options             array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
-                                           the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
-                                           the second is a human-readable label such as `newest`.
+sort_default              string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
+                                            array.
 
-use_service_proxy        bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
-                                           Pazpar2.
+sort_options              array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
+                                            the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
+                                            the second is a human-readable label such as `newest`.
+
+use_service_proxy         bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
+                                            Pazpar2.
 ---
 
 Perhaps we should get rid of the `show_lang`, `show_perpage` and
@@ -478,7 +517,8 @@ toolkit are used, so it's necessary to include both CSS and JavaScript
 from that toolkit. The relevant lines are:
 
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css"
+          href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 
 ### The structure of the HTML generated by the MKWS widgets
