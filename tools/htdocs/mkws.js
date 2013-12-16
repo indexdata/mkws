@@ -196,7 +196,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 mkws.sort = mkws_config.sort_default;
 debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
 
-mkws.pazpar2path = mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/";
 mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
 if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
@@ -221,7 +220,7 @@ for (var key in mkws_config) {
 // autoInit is set to true on default
 var my_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "pazpar2path": mkws.pazpar2path,
+		    "pazpar2path": mkws_config.pazpar2_url || "http://mkws.indexdata.com/service-proxy/",
                     "oninit": my_oninit,
                     "onstat": my_onstat,
                     "onterm": my_onterm,
