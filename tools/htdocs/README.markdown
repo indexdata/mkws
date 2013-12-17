@@ -158,5 +158,5 @@ Main areas of work:
 * Clean up the code
 
 - - -
-\(c) 2013 by IndexData ApS, <http://www.indexdata.com>
 
+Copyright © 2013 IndexData ApS. <http://www.indexdata.com>
