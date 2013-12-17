@@ -13,13 +13,15 @@ JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.6.4.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.4.4.min.js
 
-JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js	
+JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
+JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
 
 MKWS_JS=	mkws-complete.js
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 ##############################
+JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
 
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
@@ -30,12 +32,12 @@ all: ${MKWS_JS} $(DOCS)
 
 docs: $(DOCS)
 
-pz2api-git-checkout: 
+pz2api-git-checkout:
 	@if ! test -e ${PZ2API_JS}; then \
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
+mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js ${JQUERY_JSON_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -50,13 +52,17 @@ mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "*/"; \
 	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
+	  cat ${JQUERY_JSON_FILE}; \
 	  cat handlebars-v1.1.2.js; \
 	  cat ${PZ2API_JS}; \
-	  cat  mkws.js ) > ${MKWS_JS}.new 
+	  cat  mkws.js ) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
 handlebars-v1.1.2.js:
 	curl -sSf http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
+
+${JQUERY_JSON_FILE}:
+	curl -sSf ${JQUERY_JSON_URL} -o $@
 
 
 # For a description of pandoc's markdown format, see:
@@ -84,7 +90,7 @@ handlebars-v1.1.2.js:
 	chmod ugo-w $@
 
 ##############################
-# helper targets 
+# helper targets
 #
 distclean: clean
 clean:
@@ -96,4 +102,3 @@ help:
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
 	@echo "Please check ./README file too!"
-
