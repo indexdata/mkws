@@ -9,10 +9,6 @@ describe("Check mkws_config object", function () {
         expect(mkws_config).not.toBe(undefined);
     });
 
-    it("mkws_config pazpar2 config", function () {
-        expect(mkws_config.pazpar2_url).toBe(undefined);
-    });
-
     it("mkws_config locale check German", function () {
         expect(mkws.locale_lang.de.Authors).toMatch(/^Autoren$/);
         expect(mkws.locale_lang.de.Location).toMatch(/^Ort$/);
