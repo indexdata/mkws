@@ -41,7 +41,7 @@ pz2api-git-checkout:
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -114,3 +114,4 @@ help:
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
 	@echo "Please check ./README file too!"
+
