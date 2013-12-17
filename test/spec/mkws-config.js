@@ -9,10 +9,6 @@ describe("Check mkws_config object", function () {
         expect(mkws_config).not.toBe(undefined);
     });
 
-    it("mkws_config pazpar2 config", function () {
-        expect(mkws_config.pazpar2_url).toBe(undefined);
-    });
-
     it("mkws_config locale check German", function () {
         expect(mkws.locale_lang.de.Authors).toMatch(/^Autoren$/);
         expect(mkws.locale_lang.de.Location).toMatch(/^Ort$/);
@@ -31,7 +27,7 @@ describe("Check mkws_config object", function () {
 
 describe("Check pazpar2 config", function () {
     it("pazpar2path is a path or an full URL", function () {
-        expect(mkws.pazpar2path).toMatch(/^(\/|http:\/\/)/)
+        expect(mkws_config.pazpar2_url).toMatch(/^(\/|http:\/\/)/)
     });
 
     it("usesessions false", function () {
