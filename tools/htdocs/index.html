@@ -8,8 +8,15 @@
       }
       h1 { font-weight: normal; color: #606060 }
       h2 { font-size: 100% }
-      .pane { background: #eee; border-radius: 1em;
-              padding: 0.25em 1em; margin: 0.75em; }
+      .pane { padding: 0em 1em; margin: 0.75em;
+              border: 0.5em solid #eee;
+              border-radius: 1em;
+              background-image: url('images/mkws-logo-48x48-light.png');
+              background-repeat: no-repeat;
+              background-position: right top;
+              background-color: #eee; 
+            }
+      .nologo { background-image: none }
       pre { background: #ddd; padding: 0.5em; }
     </style>
   </head>
@@ -18,7 +25,7 @@
 	 style="float:right; margin: 1.5em"/>
     <h1>MKWS: the MasterKey Widget Set</h1>
 
-    <div class="pane">
+    <div class="pane nologo">
       <h2>Add metasearching to your web-site painlessly</h2>
       <p>
 	The MasterKey Widget Set provides the easiest possible way to
@@ -67,6 +74,9 @@
 
     <div class="pane">
       <h2>Tools</h2>
+      <p>
+	Here are the files that this web-site provides:
+      </p>
       <ul>
 	<li>
           <a href="mkws.js">mkws.js</a>
@@ -74,18 +84,26 @@
           JavaScript code that powers the MasterKey Widget Set
 	</li>
 	<li>
-          <a href="/pazpar2/js/pz2.js">/pazpar2/js/pz2.js</a>
+          <a href="pazpar2/js/pz2.js">pazpar2/js/pz2.js</a>
           --
           Low-level JavaScript library for access to the MasterKey web
           service.
+	</li>
+	<li>
+	  <a href="handlebars-v1.1.2.js">handlebars-v1.1.2.js</a>
+	  --
+	  A local copy of
+	  <a href="http://handlebarsjs.com/"
+	     >the Handlebars templating library</a>,
+	  since it doesn't like to be hotlinked.
 	</li>
 	<li>
           <a href="mkws-complete.js"
              >mkws-complete.js</a>
           --
           A single large JavaScript file containing everything needed for
-          MKWS to work: the widget-set itself, the API library, and any
-          additional prerequisites such as jQuery.
+          MKWS to work: the widget-set itself, the API library, and
+          the prerequisites jQuery and Handlebars.
 	</li>
 	<li>
           <a href="mkws.css">mkws.css</a>
@@ -94,16 +112,34 @@
           otherwise interfere with application-site's styles.
 	</li>
       </ul>
+      <p>
+	(This domain also hosts two web-service endpoints that are used by
+	running MKWS-based applications:
+	<tt>/service-proxy-auth</tt>
+	is used to authenticate new sessions and
+	<code>/service-proxy/</code>
+	is the main endpoint for searching and retrieval. But there is
+	no need to use these directly: the widgets take care of that.)
+	</li>
+      </ul>
     </div>
 
     <div class="pane">
-      <h2>For examples of how to use the widget-set, see:</h2>
+      <h2>Examples using the widget-set</h2>
+      <p>
+        It's worth viewing the source of these to see how small they
+        are and how various things are done.
+      </p>
       <ul>
 	<li>
           A very simple application at
           <a href="http://example.indexdata.com/"
              >http://example.indexdata.com/</a>.
-          It's worth viewing the source to see how small it is.
+	</li>
+	<li>
+          <a href="http://example.indexdata.com/minimal.html"
+             >The absolutely minimal application</a>
+	  listed above.
 	</li>
 	<li>
           <a href="http://example.indexdata.com/language.html"
@@ -116,7 +152,7 @@
           The
           <a href="http://example.indexdata.com/jquery.html"
              >jQuery plugin</a>
-          version, consisting of a single line of JavaScript code.
+          version, consisting of a single JavaScript statement.
 	</li>
 	<li>
 	  An application that
@@ -178,15 +214,22 @@
     </div>
 
     <div class="pane">
-      <h2>The set of targets can be maintained:</h2>
-      <ul>
-	<li>
-	  Use the main
-	  <a href="http://mk2.indexdata.com/console/"
-	     >MasterKey Admin Console</a>,
-	  and act as the "MK Demo" library administrator.
-	</li>
-      </ul>
+      <h2>Target maintainance</h2>
+      <p>
+	The set of targets provided by MKWS by default can be
+	maintained using
+	<a href="http://www.indexdata.com/mkadmin">MKAdmin</a>
+	by users with appropriate credentials.
+	Go to
+	<a href="http://mk2.indexdata.com/console/"
+	   >the main console</a>
+	and act as the "MK Demo" library administrator.
+      </p>
     </div>
+
+    <p style="text-align: right; font-size: small">
+      Copyright © 2013 IndexData ApS.
+      <a href="http://indexdata.com"><code>http://indexdata.com</code></a>
+    </p>
   </body>
 </html>
