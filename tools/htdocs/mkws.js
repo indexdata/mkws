@@ -104,7 +104,7 @@ var debug = mkws.debug_function; // local alias
 
 
 Handlebars.registerHelper('json', function(obj) {
-    return JSON.stringify(obj);
+    return $.toJSON(obj);
 });
 
 
@@ -486,7 +486,7 @@ function triggerSearch (query, sort, targets)
 	}
     }
 
-    debug("triggerSearch(" + mkws.query + "): filters = " + JSON.stringify(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
+    debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
     my_paz.search(mkws.query, recPerPage, mkws.sort, pp2filter, undefined, { limit: pp2limit });
 }
 
@@ -533,9 +533,9 @@ mkws.delimitQuery = function (field, value)
 	if (filter.field &&
 	    field == filter.field &&
 	    value == filter.value) {
-	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	    debug("delimitTarget() removing filter " + $.toJSON(filter));
 	} else {
-	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    debug("delimitTarget() keeping filter " + $.toJSON(filter));
 	    newFilters.push(filter);
 	}
     }
@@ -556,9 +556,9 @@ mkws.delimitTarget = function (id)
     for (var i in mkws.filters) {
 	var filter = mkws.filters[i];
 	if (filter.id) {
-	    debug("delimitTarget() removing filter " + JSON.stringify(filter));
+	    debug("delimitTarget() removing filter " + $.toJSON(filter));
 	} else {
-	    debug("delimitTarget() keeping filter " + JSON.stringify(filter));
+	    debug("delimitTarget() keeping filter " + $.toJSON(filter));
 	    newFilters.push(filter);
 	}
     }
