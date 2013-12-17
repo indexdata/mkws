@@ -51,7 +51,8 @@ mkws-js ${MKWS_JS}: mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE
 	    echo ""; \
 	    exit 1; \
 	fi
-	( echo "/* created at: $$(date)"; \
+	( echo "/* Copyright (c) 2013 IndexData ApS. http://indexdata.com"; \
+	  echo "   created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "*/"; \
