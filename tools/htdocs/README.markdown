@@ -159,4 +159,4 @@ Main areas of work:
 
 - - -
 
-Copyright © 2013 IndexData ApS. <http://www.indexdata.com>
+Copyright &copy; 2013 IndexData ApS. <http://www.indexdata.com>
