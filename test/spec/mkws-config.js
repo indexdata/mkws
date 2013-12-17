@@ -27,7 +27,7 @@ describe("Check mkws_config object", function () {
 
 describe("Check pazpar2 config", function () {
     it("pazpar2path is a path or an full URL", function () {
-        expect(mkws.pazpar2path).toMatch(/^(\/|http:\/\/)/)
+        expect(mkws_config.pazpar2_url).toMatch(/^(\/|http:\/\/)/)
     });
 
     it("usesessions false", function () {
