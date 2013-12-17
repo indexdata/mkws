@@ -16,12 +16,16 @@ JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
 JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
+HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
 
 MKWS_JS=	mkws-complete.js
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
-##############################
+
+JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
+HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
+##############################
 
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
@@ -37,7 +41,7 @@ pz2api-git-checkout:
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js ${JQUERY_JSON_FILE}
+mkws-js ${MKWS_JS}: mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -51,18 +55,24 @@ mkws-js ${MKWS_JS}: mkws.js handlebars-v1.1.2.js ${JQUERY_JSON_FILE}
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "*/"; \
-	  curl -sSf ${JQUERY_URL} | perl -npe 's,sourceMappingURL=jquery.*map,,'; \
+	  cat ${JQUERY_FILE}; \
 	  cat ${JQUERY_JSON_FILE}; \
-	  cat handlebars-v1.1.2.js; \
+	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PZ2API_JS}; \
-	  cat  mkws.js ) > ${MKWS_JS}.new
+	  cat  mkws.js; \
+	) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
-
-handlebars-v1.1.2.js:
-	curl -sSf http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
 
 ${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@
+
+${JQUERY_FILE}:
+	curl -sSf ${JQUERY_URL} -o $@.new
+	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
+	rm -f $@.new
+
+${HANDLEBARS_FILE}:
+	curl -sSf ${HANDLEBARS_URL} -o $@
 
 
 # For a description of pandoc's markdown format, see:
@@ -94,7 +104,8 @@ ${JQUERY_JSON_FILE}:
 #
 distclean: clean
 clean:
-	rm -f ${MKWS_JS} $(DOCS)
+	rm -f ${MKWS_JS} ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+	rm -f $(DOCS)
 
 help:
 	@echo "make [ help | mkws-js | docs | clean ]"
