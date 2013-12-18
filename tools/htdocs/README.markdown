@@ -117,15 +117,6 @@ Checklist before doing a release
 - what else?
 
 
-
-What next?
-----------
-
-Main areas of work:
-
-* Make MKWS robust to missing widgets
-* Clean up the code
-
 - - -
 
 Copyright 2013 IndexData ApS. <http://www.indexdata.com>
