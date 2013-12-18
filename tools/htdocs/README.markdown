@@ -1,4 +1,4 @@
-% An embryonic MasterKey Widget Set
+% The MasterKey Widget Set
 % Mike Taylor; Wolfram Schneider
 % 10 July 2013
 
@@ -6,13 +6,9 @@
 Introduction
 ------------
 
-This directory contains an embryonic MasterKey Widget Set. The initial
-version was based on the "jsdemo" application distributed with
-pazpar2, but it is now far removed from those beginnnings.
-
-
-How this works
---------------
+This is the MasterKey Widget Set. The initial version was based on the
+"jsdemo" application distributed with pazpar2, but it is now far
+removed from those beginnnings.
 
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
@@ -22,11 +18,11 @@ can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
 
-* `mkws.css`
 * `mkws.js`
 * `/pazpar2/js/pz2.js`
 * `mkws-complete.js` -- a single file consisting of `mkws.js`,
   jQuery (which it uses), Handlebars (ditto) and `pz2.js`
+* `mkws.css`
 
 
 Configuring a client
