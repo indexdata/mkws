@@ -93,14 +93,6 @@ possible options:
     </script>
 ~~~
 
-New Features since jsdemo
---------------------------
-
-- Supports basic pazpar2 and service-proxy requests
-- Simplified HTML
-- The search page is fully configurable by a JSON object
-
-
 Checklist before doing a release
 ---------------------------------
 - open the site, e.g. http://mkws-dev.indexdata.com/index-mike.html
