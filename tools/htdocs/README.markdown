@@ -28,7 +28,7 @@ The following files are hosted on `mkws.indexdata.com`:
 Supported Browsers
 ------------------
 
-Any modern HTML5 browser will work fine. JavaScript must be enabled.
+Any modern browser will work fine. JavaScript must be enabled.
 
 * IE8 or later
 * Firefox 17 or later
