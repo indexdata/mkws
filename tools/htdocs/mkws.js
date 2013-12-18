@@ -422,6 +422,8 @@ function onFormSubmitEventHandler()
 
 function newSearch(query, sort, targets)
 {
+    debug("newSearch: " + query);
+   
     if (mkws_config.use_service_proxy && !mkws.authenticated) {
 	alert("searching before authentication");
 	return;
@@ -904,10 +906,14 @@ function mkws_html_all() {
 
     mkws_html_switch();
 
-    if (mkws_config.use_service_proxy)
+    if (mkws_config.use_service_proxy) {
 	  mkws_service_proxy_auth(mkws_config.service_proxy_auth,
 				  mkws_config.service_proxy_auth_domain,
 				  mkws_config.pazpar2_url);
+    } else {
+	// raw pp2
+	run_auto_searches();
+    }
 
     if (mkws_config.responsive_design_width) {
 	// Responsive web design - change layout on the fly based on
@@ -932,6 +938,8 @@ function mkws_html_all() {
 
 
 function run_auto_searches() {
+    debug("run auto searches");
+
     var node = $('#mkwsRecords');
     if (node.attr('autosearch')) {
 	var query = node.attr('autosearch');
