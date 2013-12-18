@@ -230,6 +230,11 @@ describe("Show record", function () {
     });
 
     it("extract URL", function () {
+        if (mkws_config.jasmine && mkws_config.jasmine.show_record_url == false) {
+            debug("ignore test for URL in record")
+            return;
+        }
+
         var url = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a").text();
         debug("extracted URL from record: " + url);
 
