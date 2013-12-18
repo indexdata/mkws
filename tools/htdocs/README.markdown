@@ -93,6 +93,10 @@ possible options:
     </script>
 ~~~
 
+For much more detail, see
+[the MKWS whitepaper](whitepaper.html).
+
+
 Checklist before doing a release
 ---------------------------------
 - open the site, e.g. http://mkws-dev.indexdata.com/index-mike.html
