@@ -4,8 +4,9 @@
  *
  */
 
-var debug_level = mkws.debug_level;
-var debug = mkws.debug_function;
+// get references from mkws.js, lazy evaluation
+var debug = function () {  mkws.debug_level; }
+var debug_level = function () { mkws.debug_function }
 
 var get_hit_counter = function () {
     // not yet here
