@@ -48,36 +48,33 @@ will be filled in by MKWS:
 * `<div id="mkwsTargets"></div>` -- target list, including status
 * `<div id="mkwsStat"></div>` -- summary statistics
 
-At present, MKWS may not work correctly if some of these are
-missing. One of the TODOs is to fix it so that it doesn't try to use
-whatever is not there, and just uses what is.
-
 You can configure and control the client by creating an `mkws_config`
 object _before_ loading the widget-set.  Here is an example of all
 possible options:
 
 ~~~
-	<script type="text/javascript">
-	    var mkws_config = {
-		use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
-		show_lang: true, 	    /* true, false: show/hide language menu */
-		show_sort: true, 	    /* true, false: show/hide sort menu */
-		show_perpage: true, 	    /* true, false: show/hide perpage menu */
-		lang_options: ["en", "de", "da"], /* display languages links for given
-						     languages, [] for all */
-		facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
-		sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
-		query_width: 50,	    /* 5..50 */
-		perpage_default: 20,	    /* 10, 20, 30, 50 */
-		lang: "en",                 /* "en", "de", "da" */
-		debug_level: 0,     	/* debug level for development: 0..2 */
+    <script type="text/javascript">
+      var mkws_config = {
+        use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
+        show_lang: true,            /* true, false: show/hide language menu */
+        show_sort: true,            /* true, false: show/hide sort menu */
+        show_perpage: true,         /* true, false: show/hide perpage menu */
+        lang_options: ["en", "de", "da"],
+                                    /* display languages links for given languages, [] for all */
+        facets: ["sources", "subjects", "authors"],
+                                    /* display facets, in this order, [] for none */
+        sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
+        query_width: 50,            /* 5..50 */
+        perpage_default: 20,        /* 10, 20, 30, 50 */
+        lang: "en",                 /* "en", "de", "da" */
+        debug_level: 0,             /* debug level for development: 0..2 */
 
-		responsive_design_wodth: 600,    /* page reflows for devices < 600 pixels wide */
-		pazpar2_url: "/service-proxy/", 	   /* URL */
-		service_proxy_auth: "/service-proxy-auth", /* URL */
-		// TODO: language_*, perpage_options, sort_options
-	    };
-	</script>
+        responsive_design_wodth: 600,    /* page reflows for devices < 600 pixels wide */
+        pazpar2_url: "/service-proxy/",            /* URL */
+        service_proxy_auth: "/service-proxy-auth", /* URL */
+        // TODO: language_*, perpage_options, sort_options
+      };
+    </script>
 ~~~
 
 jQuery plugin
