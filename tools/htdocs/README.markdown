@@ -41,8 +41,8 @@ Any modern browser will work fine. JavaScript must be enabled.
 Not supported: IE6, IE7
 
 
-Configuring a client
---------------------
+Configuring a client (short version)
+------------------------------------
 
 The application's HTML must contains the following elements as well as
 whatever makes up the application itself:
