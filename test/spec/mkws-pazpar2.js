@@ -46,10 +46,14 @@ describe("Check pazpar2 search", function () {
         debug("set search query: " + search_query)
         expect($("input#mkwsQuery").val()).toMatch("^" + search_query + "$");
 
-        // wait for service proxy auth
-        waitsFor(function () {
-            return mkws.authenticated;
-        }, "SP auth done", 10 * 1000);
+        if (mkws_config.use_service_proxy) {
+            // wait for service proxy auth
+            waitsFor(function () {
+                return mkws.authenticated;
+            }, "SP auth done", 10 * 1000);
+        } else {
+            debug("running raw pp2, don't wait for mkws auth");
+        }
 
         runs(function () {
             debug("Click on submit button");
