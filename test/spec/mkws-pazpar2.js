@@ -8,22 +8,23 @@ var debug_level = mkws.debug_level;
 var debug = mkws.debug_function;
 
 var get_hit_counter = function () {
-        // not yet here
-        if ($("#mkwsPager").length == 0) return -1;
+    // not yet here
+    if ($("#mkwsPager").length == 0)
+        return -1;
 
-        var found = $("#mkwsPager").text();
-        var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
-        re.exec(found);
-        var hits = -1;
+    var found = $("#mkwsPager").text();
+    var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
+    re.exec(found);
+    var hits = -1;
 
-        if (RegExp.$1) {
-            hits = parseInt(RegExp.$1);
-            expect(hits).toBeGreaterThan(0);
-        }
-
-        //debug("Hits: " + hits);
-        return hits;
+    if (RegExp.$1) {
+        hits = parseInt(RegExp.$1);
+        expect(hits).toBeGreaterThan(0);
     }
+
+    //debug("Hits: " + hits);
+    return hits;
+}
 
 describe("Check pazpar2 search", function () {
     it("pazpar2 was successfully initialize", function () {
