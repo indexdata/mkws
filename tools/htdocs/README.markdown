@@ -77,30 +77,6 @@ possible options:
     </script>
 ~~~
 
-jQuery plugin
-------------------
-
-The jQuery plugin version can be used by a single line of JavaScript code:
-
-~~~
-	<script>jQuery.pazpar2();</script>
-~~~
-
-put the code in your page at the position where the metasearch should occur.
-
-Here is an example of all possible options
-
-~~~
-	jQuery.pazpar2({
-	    "layout": "popup",               /* "table" [default], "div", "popup" */
-	    "id_button": "input#mkwsButton", /* submit button id in search field */
-	    "id_popup": "#mkwsPopup",        /* internal id of popup window */
-	    "width": 880,                    /* popup width, should be at least 800 */ 
-	    "height": 760                    /* popup height, should be at least 600 */
-	});
-~~~
-
-
 Supported Browsers
 ------------------
 
