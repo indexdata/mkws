@@ -18,8 +18,12 @@ describe("Check mkws_config object", function () {
         expect(mkws.locale_lang.da.Location).toMatch(/^Lokation$/);
     });
 
-    it("mkws_config service proxy enabled", function () {
-        expect(mkws_config.use_service_proxy).toBe(true);
+    it("mkws_config service proxy enabled/disabled", function () {
+        if (mkws_config.use_service_proxy) {
+            expect(mkws_config.use_service_proxy).toBe(true);
+        } else {
+            expect(mkws_config.use_service_proxy).toBe(false);
+        }
     });
 
 });
@@ -30,8 +34,12 @@ describe("Check pazpar2 config", function () {
         expect(mkws_config.pazpar2_url).toMatch(/^(\/|http:\/\/)/)
     });
 
-    it("usesessions false", function () {
-        expect(mkws.usesessions).toBe(false);
+    it("Check usesessions true/false", function () {
+        if (mkws_config.use_service_proxy) {
+            expect(mkws.usesessions).toBe(false);
+        } else {
+            expect(mkws.usesessions).toBe(true);
+        }
     });
 
     it("my_paz is defined", function () {

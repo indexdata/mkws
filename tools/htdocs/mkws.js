@@ -422,7 +422,7 @@ function onFormSubmitEventHandler()
 
 function newSearch(query, sort, targets)
 {
-    if (!mkws.authenticated) {
+    if (mkws_config.use_service_proxy && !mkws.authenticated) {
 	alert("searching before authentication");
 	return;
     }
