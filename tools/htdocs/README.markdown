@@ -111,4 +111,4 @@ Checklist before doing a release
 
 - - -
 
-Copyright 2013 IndexData ApS. <http://www.indexdata.com>
+Copyright 2013 IndexData ApS. <http://indexdata.com>
