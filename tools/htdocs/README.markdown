@@ -25,6 +25,22 @@ The following files are hosted on `mkws.indexdata.com`:
 * `mkws.css`
 
 
+Supported Browsers
+------------------
+
+Any modern HTML5 browser will work fine. JavaScript must be enabled.
+
+* IE8 or later
+* Firefox 17 or later
+* Google Chrome 27 or later
+* Safari 6 or later
+* Opera  12 or later
+* iOS 6.x (iPhone, iPad)
+* Android 4.x
+
+Not supported: IE6, IE7
+
+
 Configuring a client
 --------------------
 
@@ -76,22 +92,6 @@ possible options:
       };
     </script>
 ~~~
-
-Supported Browsers
-------------------
-
-Any modern HTML5 browser will work fine. JavaScript must be enabled.
-
-* IE8 or later
-* Firefox 17 or later
-* Google Chrome 27 or later
-* Safari 6 or later
-* Opera  12 or later
-* iOS 6.x (iPhone, iPad)
-* Android 4.x
-
-Not supported: IE6, IE7
-
 
 New Features since jsdemo
 --------------------------
