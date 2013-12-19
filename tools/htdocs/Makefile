@@ -34,7 +34,7 @@ DOCS = README.html README.odt README.pdf \
 # Default rule when "make" is invoked without a target
 **default**: ${MKWS_JS} README.html whitepaper.html
 
-all: ${MKWS_JS} $(DOCS)
+all: ${MKWS_JS} $(DOCS) mkws-js-min
 
 docs: $(DOCS)
 
