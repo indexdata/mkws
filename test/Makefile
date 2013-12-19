@@ -11,7 +11,7 @@ distclean:
 check:
 	for i in ./spec/*.js; do \
 	  echo "$$i"; \
-	  jasmine-node --captureExceptions --forceexit $$i; \
+	  jasmine-node --noColor --captureExceptions --forceexit $$i; \
 	done
 
 test: check
