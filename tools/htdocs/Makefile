@@ -66,9 +66,11 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLE
 	) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
-mkws-js-min mkws-complete.min.js: ${MKWS_JS}
-	${JSMIN} ${MKWS_JS} > mkws-complete.min.js.new
-	mv -f mkws-complete.min.js.new mkws-complete.min.js
+mkws-js-min: mkws.min.js mkws-complete.min.js
+
+%.min.js: %.js
+	${JSMIN} $? > $@.new
+	mv -f $@.new $@
 
 ${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@
