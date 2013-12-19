@@ -23,4 +23,5 @@ node_modules:
 	npm install jquery jsdom request jasmine-node
 
 help:
-	@echo "make [ all | clean | check | jsbeautifier | node-modules ]"
+	@echo "make [ all | check | clean | distclean ]"
+	@echo "     [ jsbeautifier | node-modules ]"

@@ -1,4 +1,4 @@
-/* MKWS, the MasterKey Widget Set. Copyright (C) 2013, Index Data */
+/*! MKWS, the MasterKey Widget Set. Copyright (C) 2013, Index Data */
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
@@ -87,7 +87,7 @@ mkws.debug_function = function (string) {
     }
 
     var now = $.now();
-    var timestamp = (now - mkws.debug_time.start)/1000 + " (+" + (now - mkws.debug_time.last)/1000 + ") "
+    var timestamp = ((now - mkws.debug_time.start)/1000).toFixed(3) + " (+" + ((now - mkws.debug_time.last)/1000).toFixed(3) + ") "
     mkws.debug_time.last = now;
 
     // you need to disable use strict at the top of the file!!!
