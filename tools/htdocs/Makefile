@@ -20,7 +20,6 @@ HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.
 VERSION = $(shell tr -d '\012' < VERSION)
 
 MKWS_JS=	mkws-complete.js
-MKWS_JS_MIN=	mkws-complete.min.js
 JSMIN=		yui-compressor
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
@@ -67,9 +66,9 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLE
 	) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
-mkws-js-min ${MKWS_JS_MIN}: ${MKWS_JS}
-	${JSMIN} ${MKWS_JS} > ${MKWS_JS_MIN}.new
-	mv -f ${MKWS_JS_MIN}.new ${MKWS_JS_MIN}
+mkws-js-min mkws-complete.min.js: ${MKWS_JS}
+	${JSMIN} ${MKWS_JS} > mkws-complete.min.js.new
+	mv -f mkws-complete.min.js.new mkws-complete.min.js
 
 ${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@
@@ -123,7 +122,7 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
-	rm -f ${MKWS_JS} ${MKWS_JS_MIN}
+	rm -f ${MKWS_JS} mkws-complete.min.js
 	rm -f ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
 	rm -f $(DOCS)
 
