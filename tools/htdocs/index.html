@@ -6,8 +6,8 @@
       body {
       font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Sans-Serif;
       }
-      h1 { font-weight: normal; color: #606060 }
-      h2 { font-size: 100% }
+      h1, h3 { font-weight: normal; color: #606060 }
+      h2 { margin-top: 0.5em }
       .pane { padding: 0em 1em; margin: 0.75em;
               border: 0.5em solid #eee;
               border-radius: 1em;
@@ -40,7 +40,7 @@
     </div>
 
     <div class="pane">
-      <h2>Example</h2>
+      <h2>A minimal example</h2>
       <p>
 	Here is a completely functional (though ugly) MKWS-based
 	searching application:
@@ -130,6 +130,7 @@
         It's worth viewing the source of these to see how small they
         are and how various things are done.
       </p>
+      <h3>Simple examples</h3>
       <ul>
 	<li>
           A very simple application at
@@ -149,11 +150,15 @@
           the application in Arabic.
 	</li>
 	<li>
-          The
-          <a href="http://example.indexdata.com/jquery.html"
-             >jQuery plugin</a>
-          version, consisting of a single JavaScript statement.
+          <a href="http://example.indexdata.com/mobile.html"
+             >A version suitable for mobile devices</a>,
+	  with a responsive design that moves components around
+          depending on the screen size.
 	</li>
+      </ul>
+
+      <h3>Advanced examples</h3>
+      <ul>
 	<li>
 	  An application that
 	  <a href="http://example.indexdata.com/lowlevel.html"
@@ -170,15 +175,26 @@
 	     >the templating language</a>.)
 	</li>
 	<li>
-          <a href="http://example.indexdata.com/mobile.html"
-             >A version suitable for mobile devices</a>,
-	  with a responsive design that moves components around
-          depending on the screen size.
+	  <a href="http://example.indexdata.com/localauth.html"
+	     >An application that uses a local authentication regime</a>,
+	  and the corresponding
+	  <a href="http://example.indexdata.com/apache-config.txt"
+	     >Apache2 configuration stanza</a>.
+	</li>
+	<li>
+          The
+          <a href="http://example.indexdata.com/jquery.html"
+             >jQuery plugin</a>
+          version, consisting of a single JavaScript statement.
 	</li>
 	<li>
           <a href="http://example.indexdata.com/popup.html"
              >A version that uses a jQuery popup</a>.
 	</li>
+      </ul>
+
+      <h3>Non-standard interfaces</h3>
+      <ul>
 	<li>
           <a href="http://example.indexdata.com/dict.html"
              >An application that uses MKWS to find dictionary
@@ -189,13 +205,6 @@
              >An application that runs an automatic search on load</a>.
 	</li>
 	<li>
-	  <a href="http://example.indexdata.com/localauth.html"
-	     >An application that uses a local authentication regime</a>,
-	  and the corresponding
-	  <a href="http://example.indexdata.com/apache-config.txt"
-	     >Apache2 configuration stanza</a>.
-	</li>
-	<li>
           An existing web-site,
           <a href="http://sagp.miketaylor.org.uk/"
              >The Self-Appointed Grammar Police</a>,
@@ -204,26 +213,29 @@
           <a href="http://sagp.miketaylor.org.uk/style.css"
              >that site's stylesheet</a>.)
 	</li>
+<!--
 	<li>
 	  Another existing web-site,
           <a href="http://zthes.z3950.org/"
              >The Zthes specifications</a>,
 	  which has been fitted with a popup MKWS search-box.
 	</li>
+-->
       </ul>
     </div>
 
     <div class="pane">
-      <h2>Target maintainance</h2>
+      <h2>Target selection</h2>
       <p>
-	The set of targets provided by MKWS by default can be
-	maintained using
-	<a href="http://www.indexdata.com/mkadmin">MKAdmin</a>
-	by users with appropriate credentials.
-	Go to
-	<a href="http://mk2.indexdata.com/console/"
-	   >the main console</a>
-	and act as the "MK Demo" library administrator.
+	MKWS comes pre-configured to search in a set of a dozen or so
+        open-access targets, as a proof of concept. But you'll want
+        to use it to search your own selection of targets -- some open
+	access, some subscription.
+      </p>
+      <p>
+	We can set that up for you: email us on
+	<a href="mailto:info@indexdata.com"
+	               >info@indexdata.com</a>.
       </p>
     </div>
 

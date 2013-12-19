@@ -1,5 +1,4 @@
-/* A very simple client that shows a basic usage of the pz2.js
-*/
+/* MKWS, the MasterKey Widget Set. Copyright (C) 2013, Index Data */
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
