@@ -9,17 +9,16 @@ var mkws = {
     filters: []
 };
 
-/*
- * global config object: mkws_config
- *
- * Needs to be defined in the HTML header before including this JS file.
- * Define empty mkws_config for simple applications that don't define it.
- */
+// Define empty mkws_config for simple applications that don't define it.
 if (!mkws_config)
     var mkws_config = {};
 
-// Wrapper for jQuery
-(function ($) {
+// wrapper for jQuery lib
+function _mkws($) {
+    // if (console && console.log) console.log("run _mkws()");
+
+    // call this function only once
+    if (mkws.init) return;
 
 mkws.locale_lang = {
     "de": {
@@ -100,6 +99,7 @@ mkws.debug_function = function (string) {
     console.log(timestamp + string);
 }
 var debug = mkws.debug_function; // local alias
+debug("start running MKWS");
 
 
 Handlebars.registerHelper('json', function(obj) {
@@ -214,7 +214,7 @@ for (var key in mkws_config) {
     }
 }
 
-
+debug("Create main pz2 object");
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
@@ -422,7 +422,7 @@ function onFormSubmitEventHandler()
 function newSearch(query, sort, targets)
 {
     debug("newSearch: " + query);
-   
+
     if (mkws_config.use_service_proxy && !mkws.authenticated) {
 	alert("searching before authentication");
 	return;
@@ -1274,11 +1274,8 @@ function init_popup(obj) {
       });
 };
 
-
-
-
-/* magic */
-$(document).ready(function() {
+// main
+(function() {
     try {
 	mkws_html_all()
     }
@@ -1287,6 +1284,17 @@ $(document).ready(function() {
 	mkws_config.error = e.message;
 	// alert(e.message);
     }
-});
+})();
 
+    // done
+    mkws.init = true;
+};
+
+
+// wrapper to call _mkws after page load
+(function (j) {
+    $(document).ready(function() {
+	// if (console && console.log) console.log("on load ready");
+	_mkws(j);
+    });
 })(jQuery);
