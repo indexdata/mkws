@@ -20,7 +20,6 @@ HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.
 VERSION = $(shell tr -d '\012' < VERSION)
 
 MKWS_JS=	mkws-complete.js
-JSMIN=		yui-compressor
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 
@@ -70,7 +69,7 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLE
 mkws-js-min: mkws.min.js mkws-complete.min.js
 
 %.min.js: %.js
-	${JSMIN} $? > $@.new
+	yui-compressor $? > $@.new
 	mv -f $@.new $@
 
 ${JQUERY_JSON_FILE}:
