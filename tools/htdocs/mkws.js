@@ -953,8 +953,20 @@ function run_auto_searches() {
 }
 
 
+// implement $.parseQuerystring() for parsing URL parameters
+function parseQuerystring() {
+    var nvpair = {};
+    var qs = window.location.search.replace('?', '');
+    var pairs = qs.split('&');
+    $.each(pairs, function(i, v){
+	var pair = v.split('=');
+	nvpair[pair[0]] = pair[1];
+    });
+    return nvpair;
+}
+
 function mkws_set_lang()  {
-    var lang = $.parseQuerystring().lang || mkws_config.lang;
+    var lang = parseQuerystring().lang || mkws_config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
@@ -1197,19 +1209,6 @@ function _mkws_jquery_plugin ($) {
     };
 
     $.extend({
-
-    // implement $.parseQuerystring() for parsing URL parameters
-    parseQuerystring: function() {
-	var nvpair = {};
-	var qs = window.location.search.replace('?', '');
-	var pairs = qs.split('&');
-	$.each(pairs, function(i, v){
-	    var pair = v.split('=');
-	    nvpair[pair[0]] = pair[1];
-	});
-	return nvpair;
-    },
-
 
     // service-proxy or pazpar2
     pazpar2: function(config) {
