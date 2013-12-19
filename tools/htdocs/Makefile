@@ -32,7 +32,7 @@ DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
 # Default rule when "make" is invoked without a target
-**default**: ${MKWS_JS} README.html whitepaper.html
+**default**: ${MKWS_JS} mkws-js-min README.html whitepaper.html
 
 all: ${MKWS_JS} mkws-js-min $(DOCS)
 
@@ -83,7 +83,7 @@ ${JQUERY_JSON_FILE}:
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
 
-release: mkws.js mkws-complete.js mkws-complete.min.js
+release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 	@if [ -f releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
