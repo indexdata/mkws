@@ -83,7 +83,7 @@ ${JQUERY_JSON_FILE}:
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
 
-release: mkws.js mkws-complete.js mkws-complete.min.js
+release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 	@if [ -f releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
