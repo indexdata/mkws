@@ -17,10 +17,9 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
 HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
+VERSION = $(shell tr -d '\012' < VERSION)
 
 MKWS_JS=	mkws-complete.js
-MKWS_JS_MIN=	mkws-complete.min.js
-JSMIN=		yui-compressor
 PZ2API_JS=	../../../pazpar2/js/pz2.js
 PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 
@@ -32,9 +31,10 @@ HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
+# Default rule when "make" is invoked without a target
 **default**: ${MKWS_JS} README.html whitepaper.html
 
-all: ${MKWS_JS} $(DOCS)
+all: ${MKWS_JS} mkws-js-min $(DOCS)
 
 docs: $(DOCS)
 
@@ -43,7 +43,7 @@ pz2api-git-checkout:
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -66,21 +66,33 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLE
 	) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
-mkws-js-min ${MKWS_JS_MIN}: ${MKWS_JS}
-	${JSMIN} ${MKWS_JS} > ${MKWS_JS_MIN} > ${MKWS_JS_MIN}.new
-	mv -f ${MKWS_JS_MIN}.new ${MKWS_JS_MIN}
+mkws-js-min: mkws.min.js mkws-complete.min.js
 
-${JQUERY_JSON_FILE}:
-	curl -sSf ${JQUERY_JSON_URL} -o $@
+%.min.js: %.js
+	yui-compressor $? > $@.new
+	mv -f $@.new $@
 
 ${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.new
 	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
 	rm -f $@.new
 
+${JQUERY_JSON_FILE}:
+	curl -sSf ${JQUERY_JSON_URL} -o $@
+
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
 
+release: mkws.js mkws-complete.js mkws-complete.min.js
+	@if [ -f releases/mkws-$(VERSION).js ]; then \
+		echo "*** There is already a release $(VERSION)"; \
+	else \
+		cp -p mkws.js releases/mkws-$(VERSION).js; \
+		cp -p mkws.min.js releases/mkws-$(VERSION).min.js; \
+		cp -p mkws-complete.js releases/mkws-complete-$(VERSION).js; \
+		cp -p mkws-complete.min.js releases/mkws-complete-$(VERSION).min.js; \
+		echo "Made release $(VERSION)"; \
+	fi
 
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
@@ -113,8 +125,8 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
-	rm -f ${MKWS_JS} ${MKWS_JS_MIN}
-	rm -f ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
+	rm -f mkws.min.js ${MKWS_JS} mkws-complete.min.js
 	rm -f $(DOCS)
 
 help:
