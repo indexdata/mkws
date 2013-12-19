@@ -110,8 +110,10 @@ ${HANDLEBARS_FILE}:
 # helper targets
 #
 distclean: clean
+
 clean:
-	rm -f ${MKWS_JS} ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+	rm -f ${MKWS_JS} ${MKWS_JS_MIN}
+	rm -f ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
 	rm -f $(DOCS)
 
 help:
