@@ -34,7 +34,7 @@ DOCS = README.html README.odt README.pdf \
 # Default rule when "make" is invoked without a target
 **default**: ${MKWS_JS} README.html whitepaper.html
 
-all: ${MKWS_JS} $(DOCS) mkws-js-min
+all: ${MKWS_JS} mkws-js-min $(DOCS)
 
 docs: $(DOCS)
 
@@ -43,7 +43,7 @@ pz2api-git-checkout:
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
+mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -72,13 +72,13 @@ mkws-js-min: mkws.min.js mkws-complete.min.js
 	yui-compressor $? > $@.new
 	mv -f $@.new $@
 
-${JQUERY_JSON_FILE}:
-	curl -sSf ${JQUERY_JSON_URL} -o $@
-
 ${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.new
 	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
 	rm -f $@.new
+
+${JQUERY_JSON_FILE}:
+	curl -sSf ${JQUERY_JSON_URL} -o $@
 
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
@@ -125,8 +125,8 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
+	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
 	rm -f mkws.min.js ${MKWS_JS} mkws-complete.min.js
-	rm -f ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLEBARS_FILE}
 	rm -f $(DOCS)
 
 help:
