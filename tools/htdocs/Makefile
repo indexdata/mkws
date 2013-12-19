@@ -32,6 +32,7 @@ HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
+# Default rule when "make" is invoked without a target
 **default**: ${MKWS_JS} README.html whitepaper.html
 
 all: ${MKWS_JS} $(DOCS)
