@@ -88,6 +88,7 @@ release: mkws.js mkws-complete.js mkws-complete.min.js
 		echo "*** There is already a release $(VERSION)"; \
 	else \
 		cp -p mkws.js releases/mkws-$(VERSION).js; \
+		cp -p mkws.min.js releases/mkws-$(VERSION).min.js; \
 		cp -p mkws-complete.js releases/mkws-complete-$(VERSION).js; \
 		cp -p mkws-complete.min.js releases/mkws-complete-$(VERSION).min.js; \
 		echo "Made release $(VERSION)"; \
