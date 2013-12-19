@@ -17,6 +17,7 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
 HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
+VERSION = $(shell tr -d '\012' < VERSION)
 
 MKWS_JS=	mkws-complete.js
 MKWS_JS_MIN=	mkws-complete.min.js
@@ -81,6 +82,15 @@ ${JQUERY_FILE}:
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
 
+release: mkws.js mkws-complete.js mkws-complete.min.js
+	@if [ -f releases/mkws-$(VERSION).js ]; then \
+		echo "*** There is already a release $(VERSION)"; \
+	else \
+		cp -p mkws.js releases/mkws-$(VERSION).js; \
+		cp -p mkws-complete.js releases/mkws-complete-$(VERSION).js; \
+		cp -p mkws-complete.min.js releases/mkws-complete-$(VERSION).min.js; \
+		echo "Made release $(VERSION)"; \
+	fi
 
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
