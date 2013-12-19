@@ -68,7 +68,7 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_JSON_FILE} ${JQUERY_FILE} ${HANDLE
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
 
 mkws-js-min ${MKWS_JS_MIN}: ${MKWS_JS}
-	${JSMIN} ${MKWS_JS} > ${MKWS_JS_MIN} > ${MKWS_JS_MIN}.new
+	${JSMIN} ${MKWS_JS} > ${MKWS_JS_MIN}.new
 	mv -f ${MKWS_JS_MIN}.new ${MKWS_JS_MIN}
 
 ${JQUERY_JSON_FILE}:
