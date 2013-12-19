@@ -110,6 +110,7 @@ ${HANDLEBARS_FILE}:
 # helper targets
 #
 distclean: clean
+	rm -f *.orig *.bak *.rej
 
 clean:
 	rm -f ${MKWS_JS} ${MKWS_JS_MIN}
