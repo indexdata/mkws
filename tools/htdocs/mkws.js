@@ -1132,10 +1132,72 @@ function M(word) {
     return mkws.locale_lang[lang][word] || word;
 }
 
+// main
+(function() {
+    try {
+	mkws_html_all()
+    }
+
+    catch (e) {
+	mkws_config.error = e.message;
+	// alert(e.message);
+    }
+})();
+
+    // done
+    mkws.init = true;
+};
+
+
 /*
- * implement jQuery plugins
+ * implement jQuery plugin $.pazpar2({})
  */
-$.extend({
+function _mkws_jquery_plugin ($) {
+    function debug (string) { // delayed debug, internal variables are set after dom ready
+	setTimeout(function() { mkws.debug(string); }, 500);
+    }
+
+    function init_popup(obj) {
+	var config = obj ? obj : {};
+
+	var height = config.height || 760;
+	var width = config.width || 880;
+	var id_button = config.id_button || "input#mkwsButton";
+	var id_popup = config.id_popup || "#mkwsPopup";
+
+	debug("popup height: " + height + ", width: " + width);
+
+	// make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
+	// <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	if (!$.ui) {
+	    debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
+	    return;
+	}
+
+	$(id_popup).dialog({
+	  closeOnEscape: true,
+	  autoOpen: false,
+	  height: height,
+	  width: width,
+	  modal: true,
+	  resizable: true,
+	  buttons: {
+		  Cancel: function() {
+			  $(this).dialog("close");
+		  }
+	  },
+	  close: function() { }
+	});
+
+	$(id_button)
+	  .button()
+	  .click(function() {
+		  $(id_popup).dialog("open");
+	  });
+    };
+
+    $.extend({
+
     // implement $.parseQuerystring() for parsing URL parameters
     parseQuerystring: function() {
 	var nvpair = {};
@@ -1148,9 +1210,6 @@ $.extend({
 	return nvpair;
     },
 
-    debug2: function(string) { // delayed debug, internal variables are set after dom ready
-	setTimeout(function() { debug(string); }, 500);
-    },
 
     // service-proxy or pazpar2
     pazpar2: function(config) {
@@ -1222,77 +1281,25 @@ $.extend({
 	  </div>'
 
 	if (config && config.layout == 'div') {
-	    this.debug2("jquery plugin layout: div");
+	    debug("jquery plugin layout: div");
 	    document.write(div);
 	} else if (config && config.layout == 'popup') {
-	    this.debug2("jquery plugin layout: popup with id: " + id_popup);
+	    debug("jquery plugin layout: popup with id: " + id_popup);
 	    document.write(popup);
 	    $(document).ready( function() { init_popup(config); } );
 	} else {
-	    this.debug2("jquery plugin layout: table");
+	    debug("jquery plugin layout: table");
 	    document.write(table);
 	}
     }
 });
-
-function init_popup(obj) {
-    var config = obj ? obj : {};
-
-    var height = config.height || 760;
-    var width = config.width || 880;
-    var id_button = config.id_button || "input#mkwsButton";
-    var id_popup = config.id_popup || "#mkwsPopup";
-
-    debug("popup height: " + height + ", width: " + width);
-
-    // make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
-    // <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    if (!$.ui) {
-	debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
-	return;
-    }
-
-    $(id_popup).dialog({
-      closeOnEscape: true,
-      autoOpen: false,
-      height: height,
-      width: width,
-      modal: true,
-      resizable: true,
-      buttons: {
-	      Cancel: function() {
-		      $(this).dialog("close");
-	      }
-      },
-      close: function() { }
-    });
-
-    $(id_button)
-      .button()
-      .click(function() {
-	      $(id_popup).dialog("open");
-      });
 };
-
-// main
-(function() {
-    try {
-	mkws_html_all()
-    }
-
-    catch (e) {
-	mkws_config.error = e.message;
-	// alert(e.message);
-    }
-})();
-
-    // done
-    mkws.init = true;
-};
-
 
 // wrapper to call _mkws after page load
 (function (j) {
+    // enable before page load, so we could call it before mkws() runs
+    _mkws_jquery_plugin(j);
+
     $(document).ready(function() {
 	// if (console && console.log) console.log("on load ready");
 	_mkws(j);
