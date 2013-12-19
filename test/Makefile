@@ -9,7 +9,10 @@ distclean:
 	
 
 check:
-	jasmine-node --captureExceptions --forceexit ./spec 
+	for i in ./spec/*.js; do \
+	  echo "$$i"; \
+	  jasmine-node --noColor --captureExceptions --forceexit $$i; \
+	done
 
 test: check
 
@@ -23,4 +26,5 @@ node_modules:
 	npm install jquery jsdom request jasmine-node
 
 help:
-	@echo "make [ all | clean | check | jsbeautifier | node-modules ]"
+	@echo "make [ all | check | clean | distclean ]"
+	@echo "     [ jsbeautifier | node-modules ]"
