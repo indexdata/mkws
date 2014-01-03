@@ -8,9 +8,9 @@ describe("jQuery suite", function () {
     var jsdom = require('jsdom').jsdom;
     var myWindow = jsdom().createWindow();
 
-    var $ = require('jquery');
-    var jq = require('jquery').create();
-    var jQuery = require('jquery').create(myWindow);
+    var $ = require('jQuery');
+    var jq = require('jQuery').create();
+    var jQuery = require('jQuery').create(myWindow);
 
     it("jQuery append test", function () {
         jQuery("<h1>test passes h1</h1>").appendTo("body");
