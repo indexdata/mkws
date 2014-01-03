@@ -23,7 +23,7 @@ jsbeautifier jsb indent:
 
 node-modules: node_modules
 node_modules:
-	npm install jquery jsdom request jasmine-node
+	npm install jQuery xmlhttprequest jsdom request jasmine-node
 
 help:
 	@echo "make [ all | check | clean | distclean ]"

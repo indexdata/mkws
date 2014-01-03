@@ -26,7 +26,7 @@ function jsdom_check(file, tags_array, ignore_doctype) {
         }).createWindow();
 
         /* apply jquery to the window */
-        var $ = require('jquery').create(window);
+        var $ = require('jQuery').create(window);
 
 
         it("html jquery test", function () {
