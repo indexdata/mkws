@@ -10,8 +10,9 @@ var mkws = {
 };
 
 // Define empty mkws_config for simple applications that don't define it.
-if (!mkws_config)
+if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
+}
 
 // wrapper for jQuery lib
 function _mkws($) {
@@ -156,6 +157,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 {
+
     /* default mkws config */
     var config_default = {
 	use_service_proxy: true,
@@ -183,6 +185,12 @@ Handlebars.registerHelper('commaList', function(items, options) {
 	mkws.debug_level = mkws_config.debug_level;
     } else if (typeof config_default.debug_level !== 'undefined') {
 	mkws.debug_level = config_default.debug_level;
+    }
+
+    // make sure the mkws_config is a valid hash
+    if (!$.isPlainObject(mkws_config)) {
+	debug("ERROR: mkws_config is not an JS object, ignore it....");
+	mkws_config = {};
     }
 
     /* override standard config values by function parameters */
