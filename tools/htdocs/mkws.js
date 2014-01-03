@@ -15,7 +15,7 @@ var mkws = {
  * Needs to be defined in the HTML header before including this JS file.
  * Define empty mkws_config for simple applications that don't define it.
  */
-if (mkws_config == null || typeof mkws_config != 'object')) {
+if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
 }
 
