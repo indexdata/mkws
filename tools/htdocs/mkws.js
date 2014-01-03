@@ -15,8 +15,9 @@ var mkws = {
  * Needs to be defined in the HTML header before including this JS file.
  * Define empty mkws_config for simple applications that don't define it.
  */
-if (!mkws_config)
+if (mkws_config == null || typeof mkws_config != 'object')) {
     var mkws_config = {};
+}
 
 // Wrapper for jQuery
 (function ($) {
@@ -156,6 +157,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 {
+
     /* default mkws config */
     var config_default = {
 	use_service_proxy: true,
@@ -183,6 +185,12 @@ Handlebars.registerHelper('commaList', function(items, options) {
 	mkws.debug_level = mkws_config.debug_level;
     } else if (typeof config_default.debug_level !== 'undefined') {
 	mkws.debug_level = config_default.debug_level;
+    }
+
+    // make sure the mkws_config is a valid hash
+    if (!$.isPlainObject(mkws_config)) {
+	debug("ERROR: mkws_config is not an JS object, ignore it....");
+	mkws_config = {};
     }
 
     /* override standard config values by function parameters */
@@ -422,7 +430,7 @@ function onFormSubmitEventHandler()
 function newSearch(query, sort, targets)
 {
     debug("newSearch: " + query);
-   
+
     if (mkws_config.use_service_proxy && !mkws.authenticated) {
 	alert("searching before authentication");
 	return;
