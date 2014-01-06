@@ -495,8 +495,16 @@ function triggerSearch (query, sort, targets, windowid)
 	}
     }
 
-    debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(mkws.filters) + ", pp2filter = " + pp2filter + ", pp2limit = " + pp2limit);
-    my_paz.search(mkws.query, recPerPage, mkws.sort, pp2filter, undefined, { limit: pp2limit });
+    var params = {};
+    if (pp2limit) {
+	params.limit = pp2limit;
+    }
+    if (windowid) {
+	params.windowid = windowid;
+    }
+    debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(mkws.filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+
+    my_paz.search(mkws.query, recPerPage, mkws.sort, pp2filter, undefined, params);
 }
 
 function loadSelect ()
