@@ -427,7 +427,7 @@ function onFormSubmitEventHandler()
     return false;
 }
 
-function newSearch(query, sort, targets)
+function newSearch(query, sort, targets, windowid)
 {
     debug("newSearch: " + query);
 
@@ -437,10 +437,10 @@ function newSearch(query, sort, targets)
     }
 
     mkws.filters = []
-    redraw_navi();
-    resetPage();
-    loadSelect();
-    triggerSearch(query, sort, targets);
+    redraw_navi(); // ### should use windowid
+    resetPage(); // ### the globals it resents should be indexed by windowid
+    loadSelect(); // ### should use windowid
+    triggerSearch(query, sort, targets, windowid);
     mkws.switchView('records'); // In case it's configured to start off as hidden
     submitted = true;
 }
@@ -460,7 +460,7 @@ function resetPage()
     totalRec = 0;
 }
 
-function triggerSearch (query, sort, targets)
+function triggerSearch (query, sort, targets, windowid)
 {
     var pp2filter = "";
     var pp2limit = "";
@@ -945,19 +945,29 @@ function mkws_html_all() {
 
 
 function run_auto_searches() {
-    debug("run auto searches");
+    debug("running auto searches");
 
-    var node = $('#mkwsRecords');
-    if (node.attr('autosearch')) {
+    $('[id^="mkwsRecords"]').each(function () {
+	var node = $(this);
 	var query = node.attr('autosearch');
-	var sort = node.attr('sort');
-	var targets = node.attr('targets');
-	var s = "running auto search: '" + query + "'";
-	if (sort) s += " sorted by '" + sort + "'";
-	if (targets) s += " in targets '" + targets + "'";
-	debug(s);
-	newSearch(query, sort, targets);
-    }
+
+	if (query) {
+	    var windowid = undefined;
+	    var id = node.attr('id');
+	    if (id.match(/^mkwsRecords_/, '')) {
+		windowid = id.replace(/^mkwsRecords_/, '');
+	    }
+
+	    var sort = node.attr('sort');
+	    var targets = node.attr('targets');
+	    var s = "running auto search: '" + query + "'";
+	    if (windowid) s += " [windowid '" + windowid + "']";
+	    if (sort) s += " sorted by '" + sort + "'";
+	    if (targets) s += " in targets '" + targets + "'";
+	    debug(s);
+	    newSearch(query, sort, targets, windowid);
+	}
+    });
 }
 
 
