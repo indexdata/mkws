@@ -9,18 +9,17 @@ var mkws = {
     filters: []
 };
 
-/*
- * global config object: mkws_config
- *
- * Needs to be defined in the HTML header before including this JS file.
- * Define empty mkws_config for simple applications that don't define it.
- */
+// Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
 }
 
-// Wrapper for jQuery
-(function ($) {
+// wrapper for jQuery lib
+function _mkws($) {
+    // if (console && console.log) console.log("run _mkws()");
+
+    // call this function only once
+    if (mkws.init) return;
 
 mkws.locale_lang = {
     "de": {
@@ -101,6 +100,7 @@ mkws.debug_function = function (string) {
     console.log(timestamp + string);
 }
 var debug = mkws.debug_function; // local alias
+debug("start running MKWS");
 
 
 Handlebars.registerHelper('json', function(obj) {
@@ -222,7 +222,7 @@ for (var key in mkws_config) {
     }
 }
 
-
+debug("Create main pz2 object");
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
@@ -961,8 +961,20 @@ function run_auto_searches() {
 }
 
 
+// implement $.parseQuerystring() for parsing URL parameters
+function parseQuerystring() {
+    var nvpair = {};
+    var qs = window.location.search.replace('?', '');
+    var pairs = qs.split('&');
+    $.each(pairs, function(i, v){
+	var pair = v.split('=');
+	nvpair[pair[0]] = pair[1];
+    });
+    return nvpair;
+}
+
 function mkws_set_lang()  {
-    var lang = $.parseQuerystring().lang || mkws_config.lang;
+    var lang = parseQuerystring().lang || mkws_config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
 	mkws_config.lang = ""
     } else {
@@ -1140,25 +1152,72 @@ function M(word) {
     return mkws.locale_lang[lang][word] || word;
 }
 
-/*
- * implement jQuery plugins
- */
-$.extend({
-    // implement $.parseQuerystring() for parsing URL parameters
-    parseQuerystring: function() {
-	var nvpair = {};
-	var qs = window.location.search.replace('?', '');
-	var pairs = qs.split('&');
-	$.each(pairs, function(i, v){
-	    var pair = v.split('=');
-	    nvpair[pair[0]] = pair[1];
-	});
-	return nvpair;
-    },
+// main
+(function() {
+    try {
+	mkws_html_all()
+    }
 
-    debug2: function(string) { // delayed debug, internal variables are set after dom ready
-	setTimeout(function() { debug(string); }, 500);
-    },
+    catch (e) {
+	mkws_config.error = e.message;
+	// alert(e.message);
+    }
+})();
+
+    // done
+    mkws.init = true;
+};
+
+
+/*
+ * implement jQuery plugin $.pazpar2({})
+ */
+function _mkws_jquery_plugin ($) {
+    // delayed debug, internal variables are set after dom ready
+    function debug (string) {
+	setTimeout(function() { mkws.debug_function(string); }, 500);
+    }
+
+    function init_popup(obj) {
+	var config = obj ? obj : {};
+
+	var height = config.height || 760;
+	var width = config.width || 880;
+	var id_button = config.id_button || "input#mkwsButton";
+	var id_popup = config.id_popup || "#mkwsPopup";
+
+	debug("popup height: " + height + ", width: " + width);
+
+	// make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
+	// <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	if (!$.ui) {
+	    debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
+	    return;
+	}
+
+	$(id_popup).dialog({
+	  closeOnEscape: true,
+	  autoOpen: false,
+	  height: height,
+	  width: width,
+	  modal: true,
+	  resizable: true,
+	  buttons: {
+		  Cancel: function() {
+			  $(this).dialog("close");
+		  }
+	  },
+	  close: function() { }
+	});
+
+	$(id_button)
+	  .button()
+	  .click(function() {
+		  $(id_popup).dialog("open");
+	  });
+    };
+
+    $.extend({
 
     // service-proxy or pazpar2
     pazpar2: function(config) {
@@ -1230,71 +1289,27 @@ $.extend({
 	  </div>'
 
 	if (config && config.layout == 'div') {
-	    this.debug2("jquery plugin layout: div");
+	    debug("jquery plugin layout: div");
 	    document.write(div);
 	} else if (config && config.layout == 'popup') {
-	    this.debug2("jquery plugin layout: popup with id: " + id_popup);
+	    debug("jquery plugin layout: popup with id: " + id_popup);
 	    document.write(popup);
 	    $(document).ready( function() { init_popup(config); } );
 	} else {
-	    this.debug2("jquery plugin layout: table");
+	    debug("jquery plugin layout: table");
 	    document.write(table);
 	}
     }
 });
-
-function init_popup(obj) {
-    var config = obj ? obj : {};
-
-    var height = config.height || 760;
-    var width = config.width || 880;
-    var id_button = config.id_button || "input#mkwsButton";
-    var id_popup = config.id_popup || "#mkwsPopup";
-
-    debug("popup height: " + height + ", width: " + width);
-
-    // make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
-    // <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    if (!$.ui) {
-	debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
-	return;
-    }
-
-    $(id_popup).dialog({
-      closeOnEscape: true,
-      autoOpen: false,
-      height: height,
-      width: width,
-      modal: true,
-      resizable: true,
-      buttons: {
-	      Cancel: function() {
-		      $(this).dialog("close");
-	      }
-      },
-      close: function() { }
-    });
-
-    $(id_button)
-      .button()
-      .click(function() {
-	      $(id_popup).dialog("open");
-      });
 };
 
+// wrapper to call _mkws after page load
+(function (j) {
+    // enable before page load, so we could call it before mkws() runs
+    _mkws_jquery_plugin(j);
 
-
-
-/* magic */
-$(document).ready(function() {
-    try {
-	mkws_html_all()
-    }
-
-    catch (e) {
-	mkws_config.error = e.message;
-	// alert(e.message);
-    }
-});
-
+    $(document).ready(function() {
+	// if (console && console.log) console.log("on load ready");
+	_mkws(j);
+    });
 })(jQuery);
