@@ -1,7 +1,9 @@
-<html>
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo client</title>
+    <title>MKWS demo: Mike's playground</title>
     <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
     <script type="text/javascript">
       var mkws_config = {
@@ -15,13 +17,37 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <style type="text/css">
+      td { vertical-align: top }
+    </style>
   </head>
   <body>
-    <div id="mkwsSwitch"></div>
-    <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
-    <div id="mkwsResults"></div>
-    <div id="mkwsTargets"></div>
-    <div id="mkwsStat"></div>
+    <h1>A site about stuff</h1>
+    <table border="1" width="100%">
+      <tr>
+	<td width="33%">
+	  <h2>Welcome</h2>
+	  Main site content goes here.
+	</td>
+	<td width="33%">
+	  <h2>Blog</h2>
+<div id='mkwsRecords'
+	autosearch='mike'
+	sort='relevance'
+	targets='pz:id~josiah.brown.edu:210/innopac'
+>Brown results will appear here</div>
+	  <div id='mkwsTermlists'/>
+	</td>
+	<td width="33%">
+	  <h2>News</h2>
+<div id='mkwsRecords-mit'
+	autosearch='mike'
+	sort='title'
+	targets='pz:id~connect.indexdata.com:9000/mit_opencourseware'
+>MIT results will appear here</div>
+	  <div id='mkwsTermlists-mit'/>
+	</td>
+      </tr>
+    </table>
   </body>
 </html>
