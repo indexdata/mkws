@@ -1,12 +1,14 @@
 # Copyright (c) 2013 IndexData ApS. http://indexdata.com
 
+# For running on Mike's local install of node.js
+MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
+
 all: check
 
 clean:
 
 distclean:
 	rm -rf node_modules
-	
 
 check:
 	for i in ./spec/*.js; do \
@@ -15,6 +17,9 @@ check:
 	done
 
 test: check
+
+terse:
+	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 jsbeautifier jsb indent:
 	for i in ./spec/*.js ./js/*.js; do \
