@@ -108,6 +108,12 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+Handlebars.registerHelper('translate', function(s) {
+    debug("translating '" + s + "'");
+    return M(s);
+});
+
+
 // We need {{attr '@name'}} because Handlebars can't parse {{@name}}
 Handlebars.registerHelper('attr', function(attrName) {
     return this[attrName];
