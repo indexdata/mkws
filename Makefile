@@ -13,6 +13,7 @@ check-js:
 setup:	pz2api-git-checkout
 	${MAKE} -C./tools/htdocs mkws-js-min
 	${MAKE} -C./examples/htdocs jasmine-links
+	${MAKE} -C./test node-modules
 
 check: distclean all
 
