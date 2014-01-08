@@ -26,6 +26,7 @@ PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
 HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
+PP2_FILE := $(shell basename ${PZ2API_JS})
 ##############################
 
 DOCS = README.html README.odt README.pdf \
@@ -43,7 +44,7 @@ pz2api-git-checkout:
 	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
 	fi
 
-mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
+mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	@if ! test -e ${PZ2API_JS}; then \
 	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
 	    echo "Did you checked out the source from the git repo?"; \
@@ -53,7 +54,8 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLE
 	    echo ""; \
 	    exit 1; \
 	fi
-	( echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
+	( set -e; \
+	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
@@ -61,7 +63,7 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLE
 	  cat ${JQUERY_FILE}; \
 	  cat ${JQUERY_JSON_FILE}; \
 	  cat ${HANDLEBARS_FILE}; \
-	  cat ${PZ2API_JS}; \
+	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
 	) > ${MKWS_JS}.new
 	mv -f ${MKWS_JS}.new ${MKWS_JS}
@@ -87,6 +89,9 @@ ${JQUERY_JSON_FILE}:
 
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
+
+${PP2_FILE}: ${PZ2API_JS}
+	cp -pf ${PZ2API_JS} $@ 	
 
 release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 	@if [ -f releases/mkws-$(VERSION).js ]; then \
@@ -130,7 +135,7 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
-	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE}
+	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	rm -f mkws.min.js ${MKWS_JS} mkws-complete.min.js
 	rm -f $(DOCS)
 
