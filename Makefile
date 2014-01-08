@@ -5,7 +5,7 @@ all clean distclean:
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
 
-pz2api-git-checkout distclean:
+pz2api-git-checkout:
 	${MAKE} -C./tools/htdocs $@
 
 check-js:
