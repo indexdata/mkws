@@ -1,8 +1,9 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
-all clean:
+all clean distclean:
 	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./examples/htdocs $@
+	${MAKE} -C./test $@
 
 pz2api-git-checkout distclean:
 	${MAKE} -C./tools/htdocs $@
@@ -18,6 +19,6 @@ setup:	pz2api-git-checkout
 check: distclean all
 
 help:
-	@echo "make [ all | setup | clean ]"
+	@echo "make [ all | setup | clean | distclean ]"
 	@echo "     [ pz2api-git-checkout | check-js ]"
 
