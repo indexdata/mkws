@@ -1,5 +1,5 @@
 ######################################################################
-# Copyright (c) 2013 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 #
 
 ##############################
@@ -72,6 +72,9 @@ mkws-js-min: mkws.min.js mkws-complete.min.js
 	yui-compressor $? > $@.new
 	mv -f $@.new $@
 
+mkws-syntax-check:
+	yui-compressor mkws.js >/dev/null
+
 ${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.new
 	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
@@ -132,6 +135,7 @@ clean:
 help:
 	@echo "make [ help | docs | clean ]"
 	@echo "     [ mkws-js | mkws-js-min ]"
+	@echo "     [ mkws-syntax-check ]"
 	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
