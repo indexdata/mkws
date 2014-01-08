@@ -1,4 +1,4 @@
-# Copyright (c) 2013 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 all clean:
 	${MAKE} -C./tools/htdocs $@
@@ -10,7 +10,13 @@ pz2api-git-checkout distclean:
 check-js:
 	${MAKE} -C./test check
 
+setup:	pz2api-git-checkout
+	${MAKE} -C./tools/htdocs mkws-js-min
+	${MAKE} -C./examples/htdocs jasmine-links
+
 check: distclean all
 
 help:
-	@echo "make [ all | clean | pz2api-git-checkout | check-js ]"
+	@echo "make [ all | setup | clean ]"
+	@echo "     [ pz2api-git-checkout | check-js ]"
+
