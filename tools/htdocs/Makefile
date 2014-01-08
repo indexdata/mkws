@@ -53,7 +53,7 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLE
 	    echo ""; \
 	    exit 1; \
 	fi
-	( echo "/*! Copyright (c) 2013 IndexData ApS. http://indexdata.com"; \
+	( echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
@@ -74,6 +74,8 @@ mkws-js-min: mkws.min.js mkws-complete.min.js
 
 mkws-syntax-check:
 	yui-compressor mkws.js >/dev/null
+
+mkws-complete-syntax-check: mkws-js-min
 
 ${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.new
@@ -135,7 +137,7 @@ clean:
 help:
 	@echo "make [ help | docs | clean ]"
 	@echo "     [ mkws-js | mkws-js-min ]"
-	@echo "     [ mkws-syntax-check ]"
+	@echo "     [ mkws-syntax-check | mkws-complete-syntax-check ]"
 	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
