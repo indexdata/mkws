@@ -20,7 +20,7 @@ setup:	pz2api-git-checkout
 	${MAKE} -C./examples/htdocs jasmine-links
 	${MAKE} -C./test node-modules
 
-check: all
+check: setup check-js
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"
