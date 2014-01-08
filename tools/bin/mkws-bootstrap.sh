@@ -16,7 +16,7 @@ git clone -q ssh://git.indexdata.com:222/home/git/private/mkws.git
 cd mkws
 
 test -n "$debug" && echo "start bootstraping in $dir"
-if make pz2api-git-checkout check check-js > mkws.log 2>&1; then
+if make check > mkws.log 2>&1; then
     test -n "$debug" && echo "Ok"
     test -z "$debug" && rm -rf $dir
     exit 0
