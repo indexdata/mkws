@@ -11,12 +11,13 @@ pz2api-git-checkout:
 check-js:
 	${MAKE} -C./test check
 
+# must be called once after GIT checkout
 setup:	pz2api-git-checkout
 	${MAKE} -C./tools/htdocs mkws-js-min
 	${MAKE} -C./examples/htdocs jasmine-links
 	${MAKE} -C./test node-modules
 
-check: distclean all
+check: all
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"
