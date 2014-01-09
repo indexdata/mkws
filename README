@@ -24,5 +24,11 @@ notes -- internal documents, not for customers
 Required devel tools
 ====================
 
-on debian, you will need: curl git-core pandoc yui-compressor
+on debian, you will need: 
+$ sudo apt-get install curl git-core pandoc yui-compressor
+
+NEWS
+=========
+
+see tools/htdocs/NEWS
 
