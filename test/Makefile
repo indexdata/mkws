@@ -15,10 +15,8 @@ mkws-complete-syntax-check:
 	${MAKE} -C../tools/htdocs $@
 
 check: mkws-complete-syntax-check
-	for i in ./spec/*.js; do \
-	  echo "$$i"; \
-	  jasmine-node --noColor --captureExceptions --forceexit $$i; \
-	done
+	jasmine-node --noColor --captureExceptions --forceexit ./spec
+	jasmine-node --noColor --captureExceptions --forceexit ./spec-sp
 
 test: check
 
