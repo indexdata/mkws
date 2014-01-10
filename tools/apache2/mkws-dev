@@ -21,7 +21,7 @@
         SetOutputFilter DEFLATE 
     </Location> 
 
-    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
 
     ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
     ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
