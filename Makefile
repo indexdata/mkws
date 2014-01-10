@@ -1,16 +1,28 @@
-# Copyright (c) 2013 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
-all clean:
+all:
+	${MAKE} -C./tools/htdocs $@
+
+pz2api-git-checkout:
+	${MAKE} -C./tools/htdocs $@
+
+clean distclean:
 	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./examples/htdocs $@
-
-pz2api-git-checkout distclean:
-	${MAKE} -C./tools/htdocs $@
+	${MAKE} -C./test $@
 
 check-js:
 	${MAKE} -C./test check
 
-check: distclean all
+# must be called once after GIT checkout
+setup:	pz2api-git-checkout
+	${MAKE} -C./tools/htdocs mkws-js-min
+	${MAKE} -C./examples/htdocs jasmine-links
+	${MAKE} -C./test node-modules
+
+check: setup check-js
 
 help:
-	@echo "make [ all | clean | pz2api-git-checkout | check-js ]"
+	@echo "make [ all | setup | clean | distclean ]"
+	@echo "     [ pz2api-git-checkout | check-js ]"
+

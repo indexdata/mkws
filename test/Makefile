@@ -10,7 +10,10 @@ clean:
 distclean:
 	rm -rf node_modules
 
-check:
+mkws-complete-syntax-check:
+	${MAKE} -C../tools/htdocs $@
+
+check: mkws-complete-syntax-check
 	for i in ./spec/*.js; do \
 	  echo "$$i"; \
 	  jasmine-node --noColor --captureExceptions --forceexit $$i; \
