@@ -108,6 +108,12 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+Handlebars.registerHelper('translate', function(s) {
+    debug("translating '" + s + "'");
+    return M(s);
+});
+
+
 // We need {{attr '@name'}} because Handlebars can't parse {{@name}}
 Handlebars.registerHelper('attr', function(attrName) {
     return this[attrName];
@@ -782,7 +788,7 @@ function defaultTemplate(name)
 	return '\
       <table>\
 	<tr>\
-	  <th>Title</th>\
+	  <th>{{translate "Title"}}</th>\
 	  <td>\
 	    {{md-title}}\
 	    {{#if md-title-remainder}}\
@@ -795,19 +801,19 @@ function defaultTemplate(name)
 	</tr>\
 	{{#if md-date}}\
 	<tr>\
-	  <th>Date</th>\
+	  <th>{{translate "Date"}}</th>\
 	  <td>{{md-date}}</td>\
 	</tr>\
 	{{/if}}\
 	{{#if md-author}}\
 	<tr>\
-	  <th>Author</th>\
+	  <th>{{translate "Author"}}</th>\
 	  <td>{{md-author}}</td>\
 	</tr>\
 	{{/if}}\
 	{{#if md-electronic-url}}\
 	<tr>\
-	  <th>URL</th>\
+	  <th>{{translate "URL"}}</th>\
 	  <td>\
 	    {{#each md-electronic-url}}\
 	      <a href="{{this}}">{{this}}</a><br/>\
@@ -817,7 +823,7 @@ function defaultTemplate(name)
 	{{/if}}\
 	{{#if-any location having="md-subject"}}\
 	<tr>\
-	  <th>Subject</th>\
+	  <th>{{translate "Subject"}}</th>\
 	  <td>\
 	    {{#first location having="md-subject"}}\
 	      {{#if md-subject}}\
@@ -828,7 +834,7 @@ function defaultTemplate(name)
 	</tr>\
 	{{/if-any}}\
 	<tr>\
-	  <th>Locations</th>\
+	  <th>{{translate "Locations"}}</th>\
 	  <td>\
 	    {{#commaList location}}\
 	      {{attr "@name"}}{{/commaList}}\
