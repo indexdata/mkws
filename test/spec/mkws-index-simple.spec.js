@@ -47,6 +47,3 @@ function html_check(file, tags_array, ignore_doctype) {
 
 html_check('../examples/htdocs/language.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
 html_check('../examples/htdocs/mobile.html', [utils.tags.required, utils.tags.optional]);
-html_check('../examples/htdocs/popup.html', [], true);
-html_check('../examples/htdocs/jquery.html', []);
-// html_check('../examples/htdocs/mike.html', [utils.tags.required, utils.tags.optional], true);
