@@ -198,9 +198,11 @@ describe("Check Termlist", function () {
             }
         }, "Search for source in navi bar", 1000);
 
+	// Note: it may happens that limited source search returns the same number of hits
+	// as before. Thats not really an error, but unfortunate
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Limited source earch for less than " + hits_all_targets + " hits", 9 * 1000);
+        }, "Limited source search for less than " + hits_all_targets + " hits", 5 * 1000);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
