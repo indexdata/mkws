@@ -1,0 +1,15 @@
+Development
+===========================================
+
+please run first in this directory: 
+$ make jasmine-links
+
+
+jasmine.html	   - jasmine test with standard HTML page. 
+
+jasmine-popup.html - jasmine test with MKWS popup. No HTML, only JavaScript.
+	             Returns better readable test results as jasmine.html, 
+		     but it is less flexible.
+
+
+

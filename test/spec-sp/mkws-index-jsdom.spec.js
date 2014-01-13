@@ -17,7 +17,7 @@ function jsdom_check(file, tags_array, ignore_doctype) {
     var html = fs.readFileSync(file, "utf-8");
     var tags = utils.flat_list(tags_array);
 
-    describe("language.html jsdom + jquery for " + file, function () {
+    describe("local html file jsdom + jquery for " + file, function () {
         var window = require('jsdom').jsdom(html, null, {
             FetchExternalResources: false,
             ProcessExternalResources: false,
@@ -52,6 +52,5 @@ function jsdom_check(file, tags_array, ignore_doctype) {
 
 jsdom_check('../examples/htdocs/language.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
 jsdom_check('../examples/htdocs/mobile.html', [utils.tags.required, utils.tags.optional]);
-jsdom_check('../examples/htdocs/popup.html', [], true);
-jsdom_check('../examples/htdocs/jquery.html', []);
-// jsdom_check('../examples/htdocs/mike.html', [utils.tags.required, utils.tags.optional], true);
+jsdom_check('../examples/htdocs/index.html', [utils.tags.required, utils.tags.optional]);
+

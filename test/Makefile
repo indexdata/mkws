@@ -2,6 +2,7 @@
 
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
+NPM_INSTALL_FLAGS=-q
 
 all: check
 
@@ -14,10 +15,8 @@ mkws-complete-syntax-check:
 	${MAKE} -C../tools/htdocs $@
 
 check: mkws-complete-syntax-check
-	for i in ./spec/*.js; do \
-	  echo "$$i"; \
-	  jasmine-node --noColor --captureExceptions --forceexit $$i; \
-	done
+	jasmine-node --noColor --captureExceptions --forceexit ./spec
+	jasmine-node --noColor --captureExceptions --forceexit ./spec-sp
 
 test: check
 
@@ -31,7 +30,7 @@ jsbeautifier jsb indent:
 
 node-modules: node_modules
 node_modules:
-	npm install jQuery xmlhttprequest jsdom request jasmine-node
+	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
