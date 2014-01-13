@@ -162,7 +162,6 @@ describe("Check Termlist", function () {
     it("limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
         var author_number = 2; // 2=first author
-
         var author_name = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text();
         // do not click on author with numbers, e.g.: Bower, James M. Beeman, David, 1938-
         if (author_name.match(/[0-9].+[0-9]/)) {
@@ -205,8 +204,8 @@ describe("Check Termlist", function () {
             }
         }, "Search for source in navi bar", 1000);
 
-	// Note: it may happens that limited source search returns the same number of hits
-	// as before. Thats not really an error, but unfortunate
+        // Note: it may happens that limited source search returns the same number of hits
+        // as before. Thats not really an error, but unfortunate
         waitsFor(function () {
             return get_hit_counter() <= hits_all_targets ? true : false;
         }, "Limited source search for less than " + hits_all_targets + " hits", 5 * 1000);
