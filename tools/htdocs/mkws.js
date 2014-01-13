@@ -207,6 +207,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
     }
 }
 
+
 mkws.sort = mkws_config.sort_default;
 debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
 
@@ -256,6 +257,10 @@ var submitted = false;
 var SourceMax = 16;
 var SubjectMax = 10;
 var AuthorMax = 10;
+
+if ($.isNumeric(mkws_config.perpage_default)) {
+    recPerPage = parseInt(mkws_config.perpage_default);
+}
 
 //
 // pz2.js event handlers:
