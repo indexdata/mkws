@@ -161,14 +161,21 @@ describe("Check Termlist", function () {
 
     it("limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
+        var author_number = 2; // 2=first author
 
-        var click = $("div#mkwsFacetAuthors div.term:nth-child(2) a").trigger("click");
+        var author_name = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text();
+        // do not click on author with numbers, e.g.: Bower, James M. Beeman, David, 1938-
+        if (author_name.match(/[0-9].+[0-9]/)) {
+            author_number++;
+        }
+
+        var click = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
         debug("limit author click is success: " + click.length);
         expect(click.length).toBe(1);
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Limited author search for less than " + hits_all_targets + " hits", 8 * 1000);
+        }, "Limited author search for less than " + hits_all_targets + " hits", 6 * 1000);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
