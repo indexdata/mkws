@@ -201,13 +201,13 @@ describe("Check Termlist", function () {
 	// Note: it may happens that limited source search returns the same number of hits
 	// as before. Thats not really an error, but unfortunate
         waitsFor(function () {
-            return get_hit_counter() < hits_all_targets ? true : false;
+            return get_hit_counter() <= hits_all_targets ? true : false;
         }, "Limited source search for less than " + hits_all_targets + " hits", 5 * 1000);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
-            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
+            expect(hits_all_targets).not.toBeLessThan(hits_single_target);
         });
     });
 });
