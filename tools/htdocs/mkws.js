@@ -258,7 +258,7 @@ var SourceMax = 16;
 var SubjectMax = 10;
 var AuthorMax = 10;
 
-if ($.isNumeric(mkws_config.perpage_default)) {
+if (!isNaN(parseInt(mkws_config.perpage_default))) {
     recPerPage = parseInt(mkws_config.perpage_default);
 }
 
