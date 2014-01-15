@@ -2,12 +2,8 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-// Set up namespace and some state.
-var mkws = {
-    sort: 'relevance',
-    authenticated: false,
-    filters: []
-};
+// Set up global mkws object
+var mkws = {};
 
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
@@ -20,6 +16,10 @@ function _mkws($) {
 
     // call this function only once
     if (mkws.init) return;
+
+mkws.sort = 'relevance';
+mkws.authenticated = false;
+mkws.filters = [];
 
 mkws.locale_lang = {
     "de": {
