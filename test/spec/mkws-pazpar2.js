@@ -9,6 +9,38 @@ var debug = function (text) {
         mkws.debug_function(text)
     }
 
+
+var jasmine_config = {};
+
+/* check config for jasmine test
+ *
+ * you can override the default values in the config
+ * object: jasmine_config = {};
+ *
+ */
+beforeEach(function () {
+
+    var jasmine_config_default = {
+        search_query: "freebsd",
+        max_time: 16,
+        // in seconds
+        expected_hits: 80,
+        // at least expected hit counter
+        second: 1000,
+        // miliseconds to seconds
+        show_record_url: true,
+        // check for valid URL in records
+        dummy: false
+    };
+
+    // use default values for undefined values
+    for (var key in jasmine_config_default) {
+        if (!jasmine_config.hasOwnProperty(key)) {
+            jasmine_config[key] = jasmine_config_default[key];
+        }
+    }
+});
+
 var get_hit_counter = function () {
         // not yet here
         if ($("#mkwsPager").length == 0) return -1;
@@ -41,7 +73,7 @@ describe("Check pazpar2 search", function () {
     });
 
     it("run search query", function () {
-        var search_query = "freebsd"; // short hit counter with some paging
+        var search_query = jasmine_config.search_query; // short hit counter with some paging
         $("input#mkwsQuery").val(search_query);
         debug("set search query: " + search_query)
         expect($("input#mkwsQuery").val()).toMatch("^" + search_query + "$");
@@ -50,7 +82,7 @@ describe("Check pazpar2 search", function () {
             // wait for service proxy auth
             waitsFor(function () {
                 return mkws.authenticated;
-            }, "SP auth done", 10 * 1000);
+            }, "SP auth done", 10 * jasmine_config.second);
         } else {
             debug("running raw pp2, don't wait for mkws auth");
         }
@@ -81,12 +113,12 @@ describe("Check pazpar2 navigation", function () {
 
                 debug("next/prev: " + id + " click is success: " + click.length);
                 expect(click.length).toBe(1);
-            }, time * 1000);
+            }, time * jasmine_config.second);
         }
 
         waitsFor(function () {
             return $("div#mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
-        }, "Expect next link 2", 10 * 1000);
+        }, "Expect next link 2", 10 * jasmine_config.second);
 
         runs(function () {
             // click next/prev after N seconds
@@ -95,7 +127,7 @@ describe("Check pazpar2 navigation", function () {
 
         waitsFor(function () {
             return $("div#mkwsPager div:nth-child(2) a").length >= 3 ? true : false;
-        }, "Expect next link 3", 5 * 1000);
+        }, "Expect next link 3", 5 * jasmine_config.second);
 
         runs(function () {
             // click next/prev after N seconds
@@ -107,15 +139,15 @@ describe("Check pazpar2 navigation", function () {
 
 describe("Check pazpar2 hit counter", function () {
     it("check running search hit counter", function () {
-        var max_time = 16; // in seconds
-        var expected_hits = 80; // at least expected hit counter
+        var max_time = jasmine_config.max_time; // in seconds
+        var expected_hits = jasmine_config.expected_hits; // at least expected hit counter
         var hits = 0;
 
         waitsFor(function () {
             hits = get_hit_counter();
 
             return hits > expected_hits;
-        }, "Expect " + expected_hits + " hits", max_time * 1000);
+        }, "Expect " + expected_hits + " hits", max_time * jasmine_config.second);
 
 
         runs(function () {
@@ -134,7 +166,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div#mkwsFacetSources").length == 1 ? true : false;
-        }, "check for facet sources", 2 * 1000);
+        }, "check for facet sources", 2 * jasmine_config.second);
 
 
         // everything displayed?
@@ -152,7 +184,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div#mkwsFacetAuthors div.term").length >= 2 ? true : false;
-        }, "At least one author link displayed", 2 * 1000);
+        }, "At least one author link displayed", 2 * jasmine_config.second);
 
         runs(function () {
             expect($("div#mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
@@ -174,7 +206,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
-        }, "Limited author search for less than " + hits_all_targets + " hits", 6 * 1000);
+        }, "Limited author search for less than " + hits_all_targets + " hits", 6 * jasmine_config.second);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
@@ -202,13 +234,13 @@ describe("Check Termlist", function () {
             } else {
                 return false;
             }
-        }, "Search for source in navi bar", 1000);
+        }, "Search for source in navi bar", jasmine_config.second);
 
         // Note: it may happens that limited source search returns the same number of hits
         // as before. Thats not really an error, but unfortunate
         waitsFor(function () {
             return get_hit_counter() <= hits_all_targets ? true : false;
-        }, "Limited source search for less than " + hits_all_targets + " hits", 5 * 1000);
+        }, "Limited source search for less than " + hits_all_targets + " hits", 5 * jasmine_config.second);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
@@ -229,7 +261,7 @@ describe("Show record", function () {
         waitsFor(function () {
             var show = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div");
             return show != null && show.length ? true : false;
-        }, "wait some miliseconds to show up a record", 2 * 1000);
+        }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
@@ -238,7 +270,7 @@ describe("Show record", function () {
     });
 
     it("extract URL", function () {
-        if (mkws_config.jasmine && mkws_config.jasmine.show_record_url == false) {
+        if (jasmine_config.show_record_url == false) {
             debug("ignore test for URL in record")
             return;
         }
@@ -272,7 +304,7 @@ describe("Check switch menu Records/Targets", function () {
         var time = (new Date).getTime();
         waitsFor(function () {
             return (new Date).getTime() - time > 700 ? true : false;
-        }, "wait some miliseconds", 1 * 1000);
+        }, "wait some miliseconds", 1 * jasmine_config.second);
 
         // look for table header
         runs(function () {
@@ -307,7 +339,7 @@ describe("Check status client counter", function () {
                 return false;
             }
 
-        }, "wait for Active clients: 0/1", 4 * 1000);
+        }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
 
 /*
         runs(function () {
