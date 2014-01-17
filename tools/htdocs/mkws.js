@@ -2,8 +2,11 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
-// Set up global mkws object
-var mkws = {};
+// Set up global mkws object. Contains a hash of session objects,
+// indexed by windowid.
+var mkws = {
+    sessions: {}
+};
 
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
