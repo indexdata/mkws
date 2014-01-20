@@ -18,7 +18,10 @@ function _mkws($) {
     // if (console && console.log) console.log("run _mkws()");
 
     // call this function only once
-    if (mkws.init) return;
+    if (mkws.init) {
+	alert("_mkws() called twice: how did that happen?!");
+	return;
+    }
 
 mkws.sort = 'relevance';
 mkws.authenticated = false;
@@ -45,7 +48,8 @@ mkws.locale_lang = {
 	"Date": "Datum",
 	"Subject": "Schlagwort",
 	"Location": "Ort",
-	// ### to add: Records, Targets
+	"Records": "Datens&auml;tze",
+	"Targets": "Datenbanken",
 
 	"dummy": "dummy"
     },
@@ -70,7 +74,8 @@ mkws.locale_lang = {
 	"Date": "Dato",
 	"Subject": "Emneord",
 	"Location": "Lokation",
-	// ### to add: Records, Targets
+	"Records": "Poster",
+	"Targets": "Baser",
 
 	"dummy": "dummy"
     }
@@ -1223,7 +1228,7 @@ function _mkws_jquery_plugin ($) {
 	// make sure that jquery-ui was loaded afte jQuery core lib, e.g.:
 	// <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	if (!$.ui) {
-	    debug("Error: jquery-ui.js is missing, did you included it after jquery core in the HTML file?");
+	    debug("Error: jquery-ui.js is missing, did you include it after jQuery core in the HTML file?");
 	    return;
 	}
 
