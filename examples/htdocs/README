@@ -27,7 +27,8 @@ popup.html
 
 Jasmine test pages
 ------------------
-jasmine-popup.html 	- jasmine test with jquery popup, best for development
+jasmine-popup.html 	- jasmine test with jquery popup, best for JS/HTML testing
+jasmine-local-popup.html  jasmine test with local SP and jquery popup, best for development
 jasmine-pp2.html 	- running with local pazpar2 instead SP
 jasmine.html		- standard jasmine test
 
