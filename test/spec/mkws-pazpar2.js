@@ -9,7 +9,7 @@ var debug = function (text) {
         mkws.debug_function(text)
     }
 
-// Define empty mkws_config for simple applications that don't define it.
+    // Define empty mkws_config for simple applications that don't define it.
 if (jasmine_config == null || typeof jasmine_config != 'object') {
     var jasmine_config = {};
 }
@@ -20,7 +20,7 @@ if (jasmine_config == null || typeof jasmine_config != 'object') {
  * object: jasmine_config = {};
  *
  */
-beforeEach(function () {
+function init_jasmine_config() {
 
     var jasmine_config_default = {
         search_query: "freebsd",
@@ -40,9 +40,9 @@ beforeEach(function () {
         if (!jasmine_config.hasOwnProperty(key)) {
             jasmine_config[key] = jasmine_config_default[key];
         }
-	debug("jasmine config: " + key + " => " + jasmine_config[key]);
+        debug("jasmine config: " + key + " => " + jasmine_config[key]);
     }
-});
+}
 
 var get_hit_counter = function () {
         // not yet here
@@ -61,6 +61,17 @@ var get_hit_counter = function () {
         //debug("Hits: " + hits);
         return hits;
     }
+
+describe("Init jasmine config", function () {
+    it("jasmine was successfully initialized", function () {
+        init_jasmine_config();
+
+        expect(jasmine_config.search_query).toMatch(/\w/);
+        expect(jasmine_config.second).toBeGreaterThan(100);
+        expect(jasmine_config.max_time).toBeGreaterThan(1);
+        expect(jasmine_config.expected_hits).toBeGreaterThan(1);
+    });
+});
 
 describe("Check pazpar2 search", function () {
     it("pazpar2 was successfully initialize", function () {
