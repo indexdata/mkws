@@ -1210,9 +1210,16 @@ function M(word) {
  * implement jQuery plugin $.pazpar2({})
  */
 function _mkws_jquery_plugin ($) {
-    // delayed debug, internal variables are set after dom ready
+    var debug_level = 1;
+
     function debug (string) {
-	setTimeout(function() { mkws.debug_function(string); }, 500);
+	if (!debug_level)
+	    return;
+
+	if (typeof console === "undefined" || typeof console.log === "undefined")
+	    return;
+
+	console.log("jquery.pazpar2: " + string);
     }
 
     function init_popup(obj) {
