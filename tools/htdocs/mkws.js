@@ -1084,7 +1084,7 @@ function mkws_service_proxy_auth(auth_url, auth_domain, pp2_url) {
     debug("Run service proxy auth URL: " + auth_url);
 
     if (!auth_domain) {
-	auth_domain = pp2_url.replace(/^http:\/\/(.*?)\/.*/, '$1');
+	auth_domain = pp2_url.replace(/^https?:\/\/(.*?)\/.*/, '$1');
 	debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
     }
 
