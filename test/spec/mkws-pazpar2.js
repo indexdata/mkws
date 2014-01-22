@@ -279,7 +279,7 @@ describe("Show record", function () {
         debug("extracted URL from record: " + url);
 
         expect(url).not.toBe(null);
-        expect(url).toMatch(/^http:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+        expect(url).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
     });
 });
 
