@@ -9,8 +9,10 @@ var debug = function (text) {
         mkws.debug_function(text)
     }
 
-
-var jasmine_config = {};
+// Define empty mkws_config for simple applications that don't define it.
+if (jasmine_config == null || typeof jasmine_config != 'object') {
+    var jasmine_config = {};
+}
 
 /* check config for jasmine test
  *
@@ -38,6 +40,7 @@ beforeEach(function () {
         if (!jasmine_config.hasOwnProperty(key)) {
             jasmine_config[key] = jasmine_config_default[key];
         }
+	debug("jasmine config: " + key + " => " + jasmine_config[key]);
     }
 });
 
