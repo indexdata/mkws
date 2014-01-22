@@ -14,12 +14,12 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 // wrapper for jQuery lib
-function _mkws($) {
-    // if (console && console.log) console.log("run _mkws()");
+function _make_mkws_team($) {
+    // if (console && console.log) console.log("run _make_mkws_team()");
 
     // call this function only once
     if (mkws.init) {
-	alert("_mkws() called twice: how did that happen?!");
+	alert("_make_mkws_team() called twice: how did that happen?!");
 	return;
     }
 
@@ -1347,13 +1347,13 @@ function _mkws_jquery_plugin ($) {
 });
 };
 
-// wrapper to call _mkws after page load
+// wrapper to call _make_mkws_team() after page load
 (function (j) {
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 
     $(document).ready(function() {
 	// if (console && console.log) console.log("on load ready");
-	_mkws(j);
+	_make_mkws_team(j);
     });
 })(jQuery);
