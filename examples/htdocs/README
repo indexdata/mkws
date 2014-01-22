@@ -12,4 +12,22 @@ jasmine-popup.html - jasmine test with MKWS popup. No HTML, only JavaScript.
 		     but it is less flexible.
 
 
+Public demo pages
+-----------------
+auto.html
+dict.html
+index.html
+jquery.html 
+language.html
+localauth.html
+lowlevel.html
+minimal.html 
+mobile.html
+popup.html 
+
+Jasmine test pages
+------------------
+jasmine-popup.html 	- jasmine test with jquery popup, best for development
+jasmine-pp2.html 	- running with local pazpar2 instead SP
+jasmine.html		- standard jasmine test
 
