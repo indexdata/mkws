@@ -1,6 +1,6 @@
 <VirtualHost *:80>
     ServerName mkws-dev.indexdata.com
-    ServerAlias spclient-dev.indexdata.com
+    ServerAlias mkws-test.indexdata.com spclient-dev.indexdata.com
 
     ProxyRequests off
     ProxyVia On
@@ -14,6 +14,6 @@
     ProxyPassReverse  / http://dart:80/
 
     # These are the logs for the proxying operation
-    ErrorLog /var/log/apache2/mkws-dev-proxy-error.log
-    CustomLog /var/log/apache2/mkws-dev-proxy-access.log combined
+    ErrorLog /var/log/apache2/mkws-dev-px-error.log
+    CustomLog /var/log/apache2/mkws-dev-px-access.log combined
 </VirtualHost>

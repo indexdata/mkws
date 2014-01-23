@@ -2,7 +2,7 @@
 
 <VirtualHost *:443>
     ServerName mkws.indexdata.com 
-    ServerAlias mkws-dev.indexdata.com
+    ServerAlias mkws-dev.indexdata.com mkws-test.indexdata.com
 
   <IfModule mod_ssl.c>
     SSLEngine on
