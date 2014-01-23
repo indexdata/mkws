@@ -4,7 +4,7 @@
 <VirtualHost *:80>
     ServerName mkws-dev.indexdata.com
     ServerAlias mkws-dev
-    ServerAdmin webmaster@example.com
+    ServerAdmin webmaster@indexdata.com
     ErrorLog /var/log/apache2/mkws-dev-error.log
     CustomLog /var/log/apache2/mkws-dev-access.log combined
 
@@ -12,8 +12,8 @@
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
 
-    DocumentRoot /home/indexdata/mkws/examples/htdocs
-    Alias /tools/htdocs /home/indexdata/mkws/tools/htdocs
+    DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
 
     # compress text output
     <Location />
