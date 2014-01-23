@@ -313,10 +313,10 @@ function _make_mkws_team($, teamName) {
 
     function renderSummary(hit)
     {
-	loadTemplate("Summary");
+	var template = loadTemplate("Summary");
 	hit._id = "mkwsRec_" + hit.recid;
 	hit._onclick = "mkws.showDetails(this.id);return false;"
-	return mkws.templateSummary(hit);
+	return template(hit);
     }
 
 
@@ -772,8 +772,7 @@ function _make_mkws_team($, teamName) {
 
     function renderDetails(data, marker)
     {
-	loadTemplate("Record");
-	var template = mkws.templateRecord;
+	var template = loadTemplate("Record");
 	var details = template(data);
 	return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
     }
@@ -781,16 +780,20 @@ function _make_mkws_team($, teamName) {
 
     function loadTemplate(name)
     {
-	if (mkws['template' + name] === undefined) {
+	var template = mkws['template' + name];
+
+	if (template === undefined) {
 	    var source = $("#mkwsTemplate" + name).html();
 	    if (!source) {
 		source = defaultTemplate(name);
 	    }
 
-	    var template = Handlebars.compile(source);
+	    template = Handlebars.compile(source);
 	    debug("compiled template '" + name + "'");
 	    mkws['template' + name] = template;
 	}
+
+	return template;
     }
 
 
