@@ -143,15 +143,6 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
-    // if (console && console.log) // disabled, will fail in IE8
-    //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
-
-    // call this function only once
-    if (mkws.init) {
-	alert("_make_mkws_team() called twice: how did that happen?!");
-	return;
-    }
-
     var m_sort = 'relevance';
     var m_filters = [];
     var curPage = 1;
@@ -169,6 +160,16 @@ function _make_mkws_team($, teamName) {
 	"start": $.now(),
 	"last": $.now()
     };
+
+
+    // call this function only once
+    if (mkws.init) {
+	alert("_make_mkws_team() called twice: how did that happen?!");
+	return;
+    }
+
+    // if (console && console.log) // disabled, will fail in IE8
+    //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
 
 
     // Needs to be defined inside _make_mkws_team() so it can see m_debug_time
