@@ -313,10 +313,7 @@ function _make_mkws_team($, teamName) {
 
     function renderSummary(hit)
     {
-	if (mkws.templateSummary === undefined) {
-	    loadTemplate("Summary");
-	}
-
+	loadTemplate("Summary");
 	hit._id = "mkwsRec_" + hit.recid;
 	hit._onclick = "mkws.showDetails(this.id);return false;"
 	return mkws.templateSummary(hit);
@@ -775,10 +772,7 @@ function _make_mkws_team($, teamName) {
 
     function renderDetails(data, marker)
     {
-	if (mkws.templateRecord === undefined) {
-	    loadTemplate("Record");
-	}
-
+	loadTemplate("Record");
 	var template = mkws.templateRecord;
 	var details = template(data);
 	return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
