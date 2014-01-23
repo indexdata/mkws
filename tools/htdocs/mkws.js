@@ -781,17 +781,16 @@ function _make_mkws_team($, teamName) {
 
     function loadTemplate(name)
     {
-	if (mkws['template' + name])
-	    return; // It's already been done
+	if (mkws['template' + name] === undefined) {
+	    var source = $("#mkwsTemplate" + name).html();
+	    if (!source) {
+		source = defaultTemplate(name);
+	    }
 
-	var source = $("#mkwsTemplate" + name).html();
-	if (!source) {
-	    source = defaultTemplate(name);
+	    var template = Handlebars.compile(source);
+	    debug("compiled template '" + name + "'");
+	    mkws['template' + name] = template;
 	}
-
-	var template = Handlebars.compile(source);
-	debug("compiled template '" + name + "'");
-	mkws['template' + name] = template;
     }
 
 
