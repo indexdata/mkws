@@ -15,59 +15,58 @@ var mkws = {
     debug_function: undefined, // will be set during initialisation
     debug_level: undefined, // will be initialised from mkws_config
     sessions: {},
-};
+    locale_lang: {
+	"de": {
+	    "Authors": "Autoren",
+	    "Subjects": "Schlagw&ouml;rter",
+	    "Sources": "Daten und Quellen",
+	    "Termlists": "Termlisten",
+	    "Next": "Weiter",
+	    "Prev": "Zur&uuml;ck",
+	    "Search": "Suche",
+	    "Sort by": "Sortieren nach",
+	    "and show": "und zeige",
+	    "per page": "pro Seite",
+	    "Displaying": "Zeige",
+	    "to": "von",
+	    "of": "aus",
+	    "found": "gefunden",
+	    "Title": "Titel",
+	    "Author": "Autor",
+	    "Date": "Datum",
+	    "Subject": "Schlagwort",
+	    "Location": "Ort",
+	    "Records": "Datens&auml;tze",
+	    "Targets": "Datenbanken",
 
-mkws.locale_lang = {
-    "de": {
-	"Authors": "Autoren",
-	"Subjects": "Schlagw&ouml;rter",
-	"Sources": "Daten und Quellen",
-	"Termlists": "Termlisten",
-	"Next": "Weiter",
-	"Prev": "Zur&uuml;ck",
-	"Search": "Suche",
-	"Sort by": "Sortieren nach",
-	"and show": "und zeige",
-	"per page": "pro Seite",
-	"Displaying": "Zeige",
-	"to": "von",
-	"of": "aus",
-	"found": "gefunden",
-	"Title": "Titel",
-	"Author": "Autor",
-	"Date": "Datum",
-	"Subject": "Schlagwort",
-	"Location": "Ort",
-	"Records": "Datens&auml;tze",
-	"Targets": "Datenbanken",
+	    "dummy": "dummy"
+	},
 
-	"dummy": "dummy"
-    },
+	"da": {
+	    "Authors": "Forfattere",
+	    "Subjects": "Emner",
+	    "Sources": "Kilder",
+	    "Termlists": "Termlists",
+	    "Next": "N&aelig;ste",
+	    "Prev": "Forrige",
+	    "Search": "S&oslash;g",
+	    "Sort by": "Sorter efter",
+	    "and show": "og vis",
+	    "per page": "per side",
+	    "Displaying": "Viser",
+	    "to": "til",
+	    "of": "ud af",
+	    "found": "fandt",
+	    "Title": "Title",
+	    "Author": "Forfatter",
+	    "Date": "Dato",
+	    "Subject": "Emneord",
+	    "Location": "Lokation",
+	    "Records": "Poster",
+	    "Targets": "Baser",
 
-    "da": {
-	"Authors": "Forfattere",
-	"Subjects": "Emner",
-	"Sources": "Kilder",
-	"Termlists": "Termlists",
-	"Next": "N&aelig;ste",
-	"Prev": "Forrige",
-	"Search": "S&oslash;g",
-	"Sort by": "Sorter efter",
-	"and show": "og vis",
-	"per page": "per side",
-	"Displaying": "Viser",
-	"to": "til",
-	"of": "ud af",
-	"found": "fandt",
-	"Title": "Title",
-	"Author": "Forfatter",
-	"Date": "Dato",
-	"Subject": "Emneord",
-	"Location": "Lokation",
-	"Records": "Poster",
-	"Targets": "Baser",
-
-	"dummy": "dummy"
+	    "dummy": "dummy"
+	}
     }
 };
 
