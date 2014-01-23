@@ -164,10 +164,8 @@ function _make_mkws_team($, teamName) {
     var SubjectMax = 10;
     var AuthorMax = 10;
     var m_query; // initially undefined
-
-
-    // keep time state for debugging
     var m_debug_time = {
+	// Timestamps for logging
 	"start": $.now(),
 	"last": $.now()
     };
