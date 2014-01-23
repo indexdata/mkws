@@ -77,6 +77,7 @@ var mkws = {
     authenticated: false,
     debug_function: undefined, // will be set during initialisation
     debug_level: undefined, // will be initialised from mkws_config
+    paz: undefined, // will be set up during initialisation
     teams: {},
     locale_lang: {
 	"de": {
@@ -264,7 +265,7 @@ function _make_mkws_team($, teamName) {
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
-    var m_paz = new pz2( { "onshow": my_onshow,
+    mkws.paz = new pz2( { "onshow": my_onshow,
 			   "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
 			   "pazpar2path": mkws_config.pazpar2_url,
 			   "oninit": my_oninit,
@@ -285,8 +286,8 @@ function _make_mkws_team($, teamName) {
     // pz2.js event handlers:
     //
     function my_oninit() {
-	m_paz.stat();
-	m_paz.bytarget();
+	mkws.paz.stat();
+	mkws.paz.bytarget();
     }
 
 
@@ -398,7 +399,7 @@ function _make_mkws_team($, teamName) {
 
     function my_onrecord(data) {
 	// FIXME: record is async!!
-	clearTimeout(m_paz.recordTimer);
+	clearTimeout(mkws.paz.recordTimer);
 	// in case on_show was faster to redraw element
 	var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
 	if (detRecordDiv) return;
@@ -486,7 +487,7 @@ function _make_mkws_team($, teamName) {
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
-	m_paz.show(0, m_recPerPage, m_sort);
+	mkws.paz.show(0, m_recPerPage, m_sort);
 	return false;
     }
 
@@ -542,7 +543,7 @@ function _make_mkws_team($, teamName) {
 	}
 	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	m_paz.search(m_query, m_recPerPage, m_sort, pp2filter, undefined, params);
+	mkws.paz.search(m_query, m_recPerPage, m_sort, pp2filter, undefined, params);
     }
 
 
@@ -706,21 +707,21 @@ function _make_mkws_team($, teamName) {
     mkws.showPage = function (pageNum)
     {
 	m_curPage = pageNum;
-	m_paz.showPage( m_curPage - 1 );
+	mkws.paz.showPage( m_curPage - 1 );
     }
 
 
     // simple paging functions
     mkws.pagerNext = function () {
 	if ( m_totalRec - m_recPerPage*m_curPage > 0) {
-            m_paz.showNext();
+            mkws.paz.showNext();
             m_curPage++;
 	}
     }
 
 
     mkws.pagerPrev = function () {
-	if ( m_paz.showPrev() != false )
+	if ( mkws.paz.showPrev() != false )
             m_curPage--;
     }
 
@@ -779,7 +780,7 @@ function _make_mkws_team($, teamName) {
             return;
 	}
 	// request the record
-	m_paz.record(recId);
+	mkws.paz.record(recId);
     }
 
 
