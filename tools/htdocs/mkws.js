@@ -246,7 +246,7 @@ debug("Create main pz2 object");
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
 // autoInit is set to true on default
-var my_paz = new pz2( { "onshow": my_onshow,
+var m_paz = new pz2( { "onshow": my_onshow,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
                     "pazpar2path": mkws_config.pazpar2_url,
                     "oninit": my_oninit,
@@ -277,8 +277,8 @@ if (!isNaN(parseInt(mkws_config.perpage_default))) {
 // pz2.js event handlers:
 //
 function my_oninit() {
-    my_paz.stat();
-    my_paz.bytarget();
+    m_paz.stat();
+    m_paz.bytarget();
 }
 
 function my_onshow(data) {
@@ -389,7 +389,7 @@ function add_single_facet(acc, caption, data, max, pzIndex) {
 
 function my_onrecord(data) {
     // FIXME: record is async!!
-    clearTimeout(my_paz.recordTimer);
+    clearTimeout(m_paz.recordTimer);
     // in case on_show was faster to redraw element
     var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
     if (detRecordDiv) return;
@@ -472,7 +472,7 @@ function onSelectDdChange()
     if (!submitted) return false;
     resetPage();
     loadSelect();
-    my_paz.show(0, recPerPage, m_sort);
+    m_paz.show(0, recPerPage, m_sort);
     return false;
 }
 
@@ -526,7 +526,7 @@ function triggerSearch (query, sort, targets, windowid)
     }
     debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-    my_paz.search(mkws.query, recPerPage, m_sort, pp2filter, undefined, params);
+    m_paz.search(mkws.query, recPerPage, m_sort, pp2filter, undefined, params);
 }
 
 function loadSelect ()
@@ -685,20 +685,20 @@ function drawPager (pagerDiv)
 mkws.showPage = function (pageNum)
 {
     curPage = pageNum;
-    my_paz.showPage( curPage - 1 );
+    m_paz.showPage( curPage - 1 );
 }
 
 // simple paging functions
 
 mkws.pagerNext = function () {
     if ( totalRec - recPerPage*curPage > 0) {
-        my_paz.showNext();
+        m_paz.showNext();
         curPage++;
     }
 }
 
 mkws.pagerPrev = function () {
-    if ( my_paz.showPrev() != false )
+    if ( m_paz.showPrev() != false )
         curPage--;
 }
 
@@ -756,7 +756,7 @@ mkws.showDetails = function (prefixRecId) {
         return;
     }
     // request the record
-    my_paz.record(recId);
+    m_paz.record(recId);
 }
 
 function replaceHtml(el, html) {
