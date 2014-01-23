@@ -151,9 +151,6 @@ function _make_mkws_team($, teamName) {
     var m_curDetRecId = '';
     var m_curDetRecData = null;
     var m_submitted = false;
-    var m_SourceMax = 16;
-    var m_SubjectMax = 10;
-    var m_AuthorMax = 10;
     var m_query; // initially undefined
     var m_debug_time = {
 	// Timestamps for logging
@@ -366,11 +363,11 @@ function _make_mkws_team($, teamName) {
 
 	for(var i = 0; i < facets.length; i++) {
 	    if (facets[i] == "sources") {
-		add_single_facet(acc, "Sources",  data.xtargets, m_SourceMax, null);
+		add_single_facet(acc, "Sources",  data.xtargets, 16, null);
 	    } else if (facets[i] == "subjects") {
-		add_single_facet(acc, "Subjects", data.subject,  m_SubjectMax, "subject");
+		add_single_facet(acc, "Subjects", data.subject,  10, "subject");
 	    } else if (facets[i] == "authors") {
-		add_single_facet(acc, "Authors",  data.author,   m_AuthorMax, "author");
+		add_single_facet(acc, "Authors",  data.author,   10, "author");
 	    } else {
 		alert("bad facet configuration: '" + facets[i] + "'");
 	    }
