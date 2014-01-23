@@ -75,7 +75,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 // indexed by windowid.
 var mkws = {
     authenticated: false,
-    init: false,
     debug_function: undefined, // will be set during initialisation
     debug_level: undefined, // will be initialised from mkws_config
     sessions: {},
@@ -159,12 +158,6 @@ function _make_mkws_team($, teamName) {
     };
 
 
-    // call this function only once
-    if (mkws.init) {
-	alert("_make_mkws_team() called twice: how did that happen?!");
-	return;
-    }
-
     // if (console && console.log) // disabled, will fail in IE8
     //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
 
@@ -218,7 +211,7 @@ function _make_mkws_team($, teamName) {
 	    dummy: "dummy"
 	};
 
-	/* set global debug_level flag early */
+	/* Set global debug_level flag early so that debug() works */
 	if (typeof mkws_config.debug_level !== 'undefined') {
 	    mkws.debug_level = mkws_config.debug_level;
 	} else if (typeof config_default.debug_level !== 'undefined') {
@@ -1245,9 +1238,6 @@ function _make_mkws_team($, teamName) {
 	    // alert(e.message);
 	}
     })();
-
-    // done
-    mkws.init = true;
 };
 
 
