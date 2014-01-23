@@ -71,13 +71,13 @@ Handlebars.registerHelper('commaList', function(items, options) {
 // Handlebars helper 'translate'
 
 
-// Set up global mkws object. Contains a hash of session objects,
+// Set up global mkws object. Contains a hash of team objects,
 // indexed by windowid.
 var mkws = {
     authenticated: false,
     debug_function: undefined, // will be set during initialisation
     debug_level: undefined, // will be initialised from mkws_config
-    sessions: {},
+    teams: {},
     locale_lang: {
 	"de": {
 	    "Authors": "Autoren",
@@ -142,6 +142,8 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
+    var that = {};
+    var m_termName = teamName;
     var m_submitted = false;
     var m_query; // initially undefined
     var m_sort = 'relevance';
@@ -1238,6 +1240,10 @@ function _make_mkws_team($, teamName) {
 	    // alert(e.message);
 	}
     })();
+
+    // Bizarrely, 'that' is just an empty hash. All its state is in
+    // the closure variables defined earlier in this function.
+    return that;
 };
 
 
@@ -1386,11 +1392,41 @@ function _mkws_jquery_plugin ($) {
 
 // wrapper to call _make_mkws_team() after page load
 (function (j) {
+    function log(s) {
+	if (console && console.log) console.log(s);
+    }
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 
     $(document).ready(function() {
-	// if (console && console.log) console.log("on load ready");
-	_make_mkws_team(j, null);
+	log("on load ready");
+	// Backwards compatibility: the special-case undefined team
+	mkws.teams[''] = _make_mkws_team(j, undefined);
+	log("Made the unnamed MKWS team");
+
+	// Find all nodes with class (NOT id) mkwsRecords, and
+	// determine their team from the mkwsTeam_* class. So:
+	//	<div class="mkwsRecords mkwsTeam_foo"/>
+	// ### Down the line we will also want teams that have facet
+	//     divs but no results. But not today.
+	$('.mkwsRecords').each(function () {
+	    var node = this;
+	    var classes = this.className;
+ 	    var list = classes.split(/\s+/)
+	    var tname;
+	    for (var i = 0; i < list.length; i++) {
+		var cname = list[i];
+		if (cname.match(/^mkwsTeam_/)) {
+		    tname = cname.replace(/^mkwsTeam_/, '');
+		}
+	    }
+	    if (tname) {
+		mkws.teams[tname] = _make_mkws_team(j, tname);
+		log("Made MKWS team '" + tname + "'");
+	    } else {
+		alert("No MKWS team specified for mkwsRecords element with classes '" + classes + "'");
+	    }
+	});
+	
     });
 })(jQuery);
