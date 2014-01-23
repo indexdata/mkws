@@ -17,7 +17,7 @@
 
     # CORS setting
     Header set Access-Control-Allow-Credentials true
-    Header set Access-Control-Allow-Origin *
+    Header set Access-Control-Allow-Origin "*"
 
     # compress text output
     <Location />
