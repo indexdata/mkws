@@ -5,6 +5,7 @@
 // Set up global mkws object. Contains a hash of session objects,
 // indexed by windowid.
 var mkws = {
+    authenticated: false,
     sessions: {}
 };
 
@@ -14,8 +15,9 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 // wrapper for jQuery lib
-function _make_mkws_team($) {
-    // if (console && console.log) console.log("run _make_mkws_team()");
+function _make_mkws_team($, teamName) {
+    if (console && console.log)
+	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
 
     // call this function only once
     if (mkws.init) {
@@ -23,9 +25,8 @@ function _make_mkws_team($) {
 	return;
     }
 
-mkws.sort = 'relevance';
-mkws.authenticated = false;
-mkws.filters = [];
+var m_sort = 'relevance';
+var m_filters = [];
 
 mkws.locale_lang = {
     "de": {
@@ -216,8 +217,8 @@ Handlebars.registerHelper('commaList', function(items, options) {
 }
 
 
-mkws.sort = mkws_config.sort_default;
-debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to mkws.sort");
+m_sort = mkws_config.sort_default;
+debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
 
 mkws.usesessions = mkws_config.use_service_proxy ? false : true;
 
@@ -461,7 +462,7 @@ function newSearch(query, sort, targets, windowid)
 	return;
     }
 
-    mkws.filters = []
+    m_filters = []
     redraw_navi(); // ### should use windowid
     resetPage(); // ### the globals it resents should be indexed by windowid
     loadSelect(); // ### should use windowid
@@ -475,7 +476,7 @@ function onSelectDdChange()
     if (!submitted) return false;
     resetPage();
     loadSelect();
-    my_paz.show(0, recPerPage, mkws.sort);
+    my_paz.show(0, recPerPage, m_sort);
     return false;
 }
 
@@ -495,15 +496,15 @@ function triggerSearch (query, sort, targets, windowid)
 	mkws.query = query;
     }
     if (sort) {
-	mkws.sort = sort;
+	m_sort = sort;
     }
     if (targets) {
 	// ### should support multiple |-separated targets
-	mkws.filters.push({ id: targets, name: targets });
+	m_filters.push({ id: targets, name: targets });
     }
 
-    for (var i in mkws.filters) {
-	var filter = mkws.filters[i];
+    for (var i in m_filters) {
+	var filter = m_filters[i];
 	if (filter.id) {
 	    if (pp2filter)
 		pp2filter += ",";
@@ -527,16 +528,16 @@ function triggerSearch (query, sort, targets, windowid)
     if (windowid) {
 	params.windowid = windowid;
     }
-    debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(mkws.filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+    debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-    my_paz.search(mkws.query, recPerPage, mkws.sort, pp2filter, undefined, params);
+    my_paz.search(mkws.query, recPerPage, m_sort, pp2filter, undefined, params);
 }
 
 function loadSelect ()
 {
     if (document.mkwsSelect) {
 	if (document.mkwsSelect.mkwsSort)
-	    mkws.sort = document.mkwsSelect.mkwsSort.value;
+	    m_sort = document.mkwsSelect.mkwsSort.value;
 	if (document.mkwsSelect.mkwsPerpage)
 	    recPerPage = document.mkwsSelect.mkwsPerpage.value;
     }
@@ -546,7 +547,7 @@ function loadSelect ()
 mkws.limitQuery = function (field, value)
 {
     debug("limitQuery(field=" + field + ", value=" + value + ")");
-    mkws.filters.push({ field: field, value: value });
+    m_filters.push({ field: field, value: value });
     redraw_navi();
     resetPage();
     loadSelect();
@@ -558,7 +559,7 @@ mkws.limitQuery = function (field, value)
 mkws.limitTarget  = function (id, name)
 {
     debug("limitTarget(id=" + id + ", name=" + name + ")");
-    mkws.filters.push({ id: id, name: name });
+    m_filters.push({ id: id, name: name });
     redraw_navi();
     resetPage();
     loadSelect();
@@ -570,8 +571,8 @@ mkws.delimitQuery = function (field, value)
 {
     debug("delimitQuery(field=" + field + ", value=" + value + ")");
     var newFilters = [];
-    for (var i in mkws.filters) {
-	var filter = mkws.filters[i];
+    for (var i in m_filters) {
+	var filter = m_filters[i];
 	if (filter.field &&
 	    field == filter.field &&
 	    value == filter.value) {
@@ -581,7 +582,7 @@ mkws.delimitQuery = function (field, value)
 	    newFilters.push(filter);
 	}
     }
-    mkws.filters = newFilters;
+    m_filters = newFilters;
 
     redraw_navi();
     resetPage();
@@ -595,8 +596,8 @@ mkws.delimitTarget = function (id)
 {
     debug("delimitTarget(id=" + id + ")");
     var newFilters = [];
-    for (var i in mkws.filters) {
-	var filter = mkws.filters[i];
+    for (var i in m_filters) {
+	var filter = m_filters[i];
 	if (filter.id) {
 	    debug("delimitTarget() removing filter " + $.toJSON(filter));
 	} else {
@@ -604,7 +605,7 @@ mkws.delimitTarget = function (id)
 	    newFilters.push(filter);
 	}
     }
-    mkws.filters = newFilters;
+    m_filters = newFilters;
 
     redraw_navi();
     resetPage();
@@ -620,11 +621,11 @@ function redraw_navi ()
     if (!navi) return;
 
     var text = "";
-    for (var i in mkws.filters) {
+    for (var i in m_filters) {
 	if (text) {
 	    text += " | ";
 	}
-	var filter = mkws.filters[i];
+	var filter = m_filters[i];
 	if (filter.id) {
 	    text += 'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
 		"'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
@@ -1044,7 +1045,7 @@ function mkws_html_switch() {
 }
 
 function mkws_html_sort() {
-    debug("HTML sort, mkws.sort = '" + mkws.sort + "'");
+    debug("HTML sort, m_sort = '" + m_sort + "'");
     var sort_html = '<select name="mkwsSort" id="mkwsSort">';
 
     for(var i = 0; i < mkws_config.sort_options.length; i++) {
@@ -1053,7 +1054,7 @@ function mkws_html_sort() {
 	var val = opt.length == 1 ? opt[0] : opt[1];
 
 	sort_html += '<option value="' + key + '"';
-	if (mkws.sort == key || mkws.sort == val) {
+	if (m_sort == key || m_sort == val) {
 	    sort_html += ' selected="selected"';
 	}
 	sort_html += '>' + M(val) + '</option>';
@@ -1360,6 +1361,6 @@ function _mkws_jquery_plugin ($) {
 
     $(document).ready(function() {
 	// if (console && console.log) console.log("on load ready");
-	_make_mkws_team(j);
+	_make_mkws_team(j, null);
     });
 })(jQuery);
