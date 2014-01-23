@@ -273,6 +273,7 @@ function _make_mkws_team($, teamName) {
     var SourceMax = 16;
     var SubjectMax = 10;
     var AuthorMax = 10;
+    var m_query; // initially undefined
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	recPerPage = parseInt(mkws_config.perpage_default);
@@ -491,7 +492,7 @@ function _make_mkws_team($, teamName) {
 
 	// Re-use previous query/sort if new ones are not specified
 	if (query) {
-	    mkws.query = query;
+	    m_query = query;
 	}
 	if (sort) {
 	    m_sort = sort;
@@ -526,9 +527,9 @@ function _make_mkws_team($, teamName) {
 	if (windowid) {
 	    params.windowid = windowid;
 	}
-	debug("triggerSearch(" + mkws.query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	m_paz.search(mkws.query, recPerPage, m_sort, pp2filter, undefined, params);
+	m_paz.search(m_query, recPerPage, m_sort, pp2filter, undefined, params);
     }
 
     function loadSelect ()
