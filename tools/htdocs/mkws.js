@@ -83,7 +83,7 @@ var m_sort = 'relevance';
 var m_filters = [];
 
 // keep time state for debugging
-mkws.debug_time = {
+var m_debug_time = {
     "start": $.now(),
     "last": $.now()
 };
@@ -97,8 +97,8 @@ mkws.debug_function = function (string) {
     }
 
     var now = $.now();
-    var timestamp = ((now - mkws.debug_time.start)/1000).toFixed(3) + " (+" + ((now - mkws.debug_time.last)/1000).toFixed(3) + ") "
-    mkws.debug_time.last = now;
+    var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
+    m_debug_time.last = now;
 
     // you need to disable use strict at the top of the file!!!
     if (mkws.debug_level >= 3) {
