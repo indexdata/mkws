@@ -162,6 +162,7 @@ function _make_mkws_team($, teamName) {
     };
 
 
+    // Needs to be defined inside _make_mkws_team() so it can see m_debug_time
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
 	    return;
