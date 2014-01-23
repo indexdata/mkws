@@ -1407,8 +1407,6 @@ function _mkws_jquery_plugin ($) {
 	// Find all nodes with class (NOT id) mkwsRecords, and
 	// determine their team from the mkwsTeam_* class. So:
 	//	<div class="mkwsRecords mkwsTeam_foo"/>
-	// ### Down the line we will also want teams that have facet
-	//     divs but no results. But not today.
 	$('.mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
 	    var node = this;
 	    var classes = this.className;
