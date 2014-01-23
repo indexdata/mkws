@@ -220,8 +220,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 m_sort = mkws_config.sort_default;
 debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
 
-mkws.usesessions = mkws_config.use_service_proxy ? false : true;
-
 if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
     debug("Reset query width: " + mkws_config.query_width);
     mkws_config.query_width = 50;
@@ -256,7 +254,7 @@ var my_paz = new pz2( { "onshow": my_onshow,
                     "onterm": my_onterm,
                     "termlist": "xtargets,subject,author",
                     "onbytarget": my_onbytarget,
-	 	    "usesessions" : mkws.usesessions,
+                    "usesessions" : mkws_config.use_service_proxy ? false : true,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
