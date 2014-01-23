@@ -143,15 +143,15 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
-    var m_sort = 'relevance';
-    var m_filters = [];
-    var m_curPage = 1;
-    var m_recPerPage = 20;
-    var m_totalRec = 0;
-    var m_curDetRecId = '';
-    var m_curDetRecData = null;
     var m_submitted = false;
     var m_query; // initially undefined
+    var m_sort = 'relevance';
+    var m_filters = [];
+    var m_totalRec = 0;
+    var m_recPerPage = 20;
+    var m_curPage = 1;
+    var m_curDetRecId = '';
+    var m_curDetRecData = null;
     var m_debug_time = {
 	// Timestamps for logging
 	"start": $.now(),
