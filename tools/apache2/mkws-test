@@ -1,0 +1,33 @@
+# Configuration for the apache web server                 -*- apache -*-
+
+# pazpar2 / service proxy config
+<VirtualHost *:80>
+    ServerName spclient.example.com
+    ServerAlias spclient-dev.indexdata.com mkws-dev.indexdata.com
+    ServerAdmin webmaster@example.com
+    ErrorLog /var/log/apache2/mkws-dev-error.log
+    CustomLog /var/log/apache2/mkws-dev-access.log combined
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
+
+    DocumentRoot /home/indexdata/mkws/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws/tools/htdocs
+
+    # compress text output
+    <Location />
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml
+        SetOutputFilter DEFLATE 
+    </Location> 
+
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
+
+    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+
+    ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
+    ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
+
+</VirtualHost>
+
