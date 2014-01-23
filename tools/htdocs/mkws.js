@@ -2,6 +2,7 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
+
 // Handlebars helpers
 Handlebars.registerHelper('json', function(obj) {
     return $.toJSON(obj);
