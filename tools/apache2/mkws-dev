@@ -2,8 +2,8 @@
 
 # pazpar2 / service proxy config
 <VirtualHost *:80>
-    ServerName spclient.example.com
-    ServerAlias spclient-dev.indexdata.com mkws-dev.indexdata.com
+    ServerName mkws-dev.indexdata.com
+    ServerAlias mkws-dev
     ServerAdmin webmaster@example.com
     ErrorLog /var/log/apache2/mkws-dev-error.log
     CustomLog /var/log/apache2/mkws-dev-access.log combined
