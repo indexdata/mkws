@@ -237,6 +237,12 @@ for (var key in mkws_config) {
     }
 }
 
+// protocol independend link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
+if (mkws_config.pazpar2_url.match(/^\/\//)) {
+    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
+    debug("adjust protocol independend links: " + mkws_config.pazpar2_url);
+}
+
 debug("Create main pz2 object");
 // create a parameters array and pass it to the pz2's constructor
 // then register the form submit event with the pz2.search function
@@ -1084,7 +1090,7 @@ function mkws_service_proxy_auth(auth_url, auth_domain, pp2_url) {
     debug("Run service proxy auth URL: " + auth_url);
 
     if (!auth_domain) {
-	auth_domain = pp2_url.replace(/^https?:\/\/(.*?)\/.*/, '$1');
+	auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
 	debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
     }
 
