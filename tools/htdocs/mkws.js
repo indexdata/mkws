@@ -258,8 +258,6 @@ var my_paz = new pz2( { "onshow": my_onshow,
                     "showResponseType": '', // or "json" (for debugging?)
                     "onrecord": my_onrecord } );
 
-mkws.my_paz = my_paz; // export
-
 // some state vars
 var curPage = 1;
 var recPerPage = 20;
