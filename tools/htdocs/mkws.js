@@ -7,6 +7,7 @@
 // limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
 // pagerNext(), showPage()
 
+
 // Set up global mkws object. Contains a hash of session objects,
 // indexed by windowid.
 var mkws = {
@@ -70,10 +71,12 @@ var mkws = {
     }
 };
 
+
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
 }
+
 
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
@@ -94,6 +97,7 @@ function _make_mkws_team($, teamName) {
 	"start": $.now(),
 	"last": $.now()
     };
+
 
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
@@ -281,6 +285,7 @@ function _make_mkws_team($, teamName) {
 	recPerPage = parseInt(mkws_config.perpage_default);
     }
 
+
     //
     // pz2.js event handlers:
     //
@@ -288,6 +293,7 @@ function _make_mkws_team($, teamName) {
 	m_paz.stat();
 	m_paz.bytarget();
     }
+
 
     function my_onshow(data) {
 	totalRec = data.merged;
@@ -340,6 +346,7 @@ function _make_mkws_team($, teamName) {
             '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
     }
 
+
     function my_onterm(data) {
 	// no facets
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
@@ -371,6 +378,7 @@ function _make_mkws_team($, teamName) {
 	    replaceHtml(termlist, acc.join(''));
     }
 
+
     function add_single_facet(acc, caption, data, max, pzIndex) {
 	acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
@@ -392,6 +400,7 @@ function _make_mkws_team($, teamName) {
 	acc.push('</div>');
     }
 
+
     function my_onrecord(data) {
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
@@ -403,6 +412,7 @@ function _make_mkws_team($, teamName) {
 	var html = renderDetails(curDetRecData);
 	recordDiv.innerHTML += html;
     }
+
 
     function my_onbytarget(data) {
 	var targetDiv = document.getElementById("mkwsBytarget");
@@ -434,6 +444,7 @@ function _make_mkws_team($, teamName) {
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
 
+
     // wait until the DOM is ready
     function domReady ()
     {
@@ -447,12 +458,14 @@ function _make_mkws_team($, teamName) {
 	}
     }
 
+
     // when search button pressed
     function onFormSubmitEventHandler()
     {
 	newSearch(document.mkwsSearchForm.mkwsQuery.value);
 	return false;
     }
+
 
     function newSearch(query, sort, targets, windowid)
     {
@@ -472,6 +485,7 @@ function _make_mkws_team($, teamName) {
 	submitted = true;
     }
 
+
     function onSelectDdChange()
     {
 	if (!submitted) return false;
@@ -481,11 +495,13 @@ function _make_mkws_team($, teamName) {
 	return false;
     }
 
+
     function resetPage()
     {
 	curPage = 1;
 	totalRec = 0;
     }
+
 
     function triggerSearch (query, sort, targets, windowid)
     {
@@ -534,6 +550,7 @@ function _make_mkws_team($, teamName) {
 	m_paz.search(m_query, recPerPage, m_sort, pp2filter, undefined, params);
     }
 
+
     function loadSelect ()
     {
 	if (document.mkwsSelect) {
@@ -543,6 +560,7 @@ function _make_mkws_team($, teamName) {
 		recPerPage = document.mkwsSelect.mkwsPerpage.value;
 	}
     }
+
 
     // limit the query after clicking the facet
     mkws.limitQuery = function (field, value)
@@ -556,6 +574,7 @@ function _make_mkws_team($, teamName) {
 	return false;
     }
 
+
     // limit by target functions
     mkws.limitTarget  = function (id, name)
     {
@@ -567,6 +586,7 @@ function _make_mkws_team($, teamName) {
 	triggerSearch();
 	return false;
     }
+
 
     mkws.delimitQuery = function (field, value)
     {
@@ -687,14 +707,15 @@ function _make_mkws_team($, teamName) {
             + prev + predots + middle + postdots + next + '</div>';
     }
 
+
     mkws.showPage = function (pageNum)
     {
 	curPage = pageNum;
 	m_paz.showPage( curPage - 1 );
     }
 
-    // simple paging functions
 
+    // simple paging functions
     mkws.pagerNext = function () {
 	if ( totalRec - recPerPage*curPage > 0) {
             m_paz.showNext();
@@ -702,13 +723,14 @@ function _make_mkws_team($, teamName) {
 	}
     }
 
+
     mkws.pagerPrev = function () {
 	if ( m_paz.showPrev() != false )
             curPage--;
     }
 
-    // switching view between targets and records
 
+    // switching view between targets and records
     mkws.switchView = function(view) {
 	debug("switchView: " + view);
 
@@ -742,6 +764,7 @@ function _make_mkws_team($, teamName) {
 	}
     }
 
+
     // detailed record drawing
     mkws.showDetails = function (prefixRecId) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
@@ -764,6 +787,7 @@ function _make_mkws_team($, teamName) {
 	m_paz.record(recId);
     }
 
+
     function replaceHtml(el, html) {
 	var oldEl = typeof el === "string" ? document.getElementById(el) : el;
 	/*@cc_on // Pure innerHTML is slightly faster in IE
@@ -777,6 +801,7 @@ function _make_mkws_team($, teamName) {
 	   to the new element, which can be used to restore variable references. */
 	return newEl;
     };
+
 
     function renderDetails(data, marker)
     {
@@ -1020,6 +1045,7 @@ function _make_mkws_team($, teamName) {
 	return nvpair;
     }
 
+
     function mkws_set_lang()  {
 	var lang = parseQuerystring().lang || mkws_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
@@ -1031,6 +1057,7 @@ function _make_mkws_team($, teamName) {
 	debug("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
 	return mkws_config.lang;
     }
+
 
     function mkws_html_switch() {
 	debug("HTML switch");
@@ -1046,6 +1073,7 @@ function _make_mkws_team($, teamName) {
 </div>');
 	$("#mkwsTargets").css("display", "none");
     }
+
 
     function mkws_html_sort() {
 	debug("HTML sort, m_sort = '" + m_sort + "'");
@@ -1067,6 +1095,7 @@ function _make_mkws_team($, teamName) {
 	return sort_html;
     }
 
+
     function mkws_html_perpage() {
 	debug("HTML perpage");
 	var perpage_html = '<select name="mkwsPerpage" id="mkwsPerpage">';
@@ -1084,6 +1113,7 @@ function _make_mkws_team($, teamName) {
 
 	return perpage_html;
     }
+
 
     /*
      * Run service-proxy authentication in background (after page load).
@@ -1119,6 +1149,7 @@ function _make_mkws_team($, teamName) {
 	    run_auto_searches();
 	});
     }
+
 
     /* create locale language menu */
     function mkws_html_lang() {
@@ -1162,6 +1193,7 @@ function _make_mkws_team($, teamName) {
 	$("#mkwsLang").html(data);
     }
 
+
     function mkws_resize_page () {
 	var list = ["mkwsSwitch"];
 
@@ -1189,6 +1221,7 @@ function _make_mkws_team($, teamName) {
 	}
     };
 
+
     /* locale */
     function M(word) {
 	var lang = mkws_config.lang;
@@ -1198,6 +1231,7 @@ function _make_mkws_team($, teamName) {
 
 	return mkws.locale_lang[lang][word] || word;
     }
+
 
     // main
     (function() {
