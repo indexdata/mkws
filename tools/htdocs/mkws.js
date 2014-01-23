@@ -1401,6 +1401,21 @@ function _mkws_jquery_plugin ($) {
 
     $(document).ready(function() {
 	log("on load ready");
+
+	// Backwards compatibility: set new magic class names on any
+	// elements that have the old magic IDs.
+	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
+		    "Results", "Records", "Targets", "Ranking",
+		    "Termlists", "Stat" ];
+	for (var i = 0; i < ids.length; i++) {
+	    var id = 'mkws' + ids[i];
+	    var node = $('#' + id);
+	    if (node.attr('id')) {
+		node.addClass(id + " mkwsTeam_AUTO");
+		log("added magic classes to '" + node.attr('id') + "'");
+	    }
+	}
+
 	// Backwards compatibility: the special-case undefined team
 	mkws.teams[''] = _make_mkws_team(j, undefined);
 	log("Made the unnamed MKWS team");
