@@ -154,6 +154,17 @@ function _make_mkws_team($, teamName) {
 
     var m_sort = 'relevance';
     var m_filters = [];
+    var curPage = 1;
+    var recPerPage = 20;
+    var totalRec = 0;
+    var curDetRecId = '';
+    var curDetRecData = null;
+    var submitted = false;
+    var SourceMax = 16;
+    var SubjectMax = 10;
+    var AuthorMax = 10;
+    var m_query; // initially undefined
+
 
     // keep time state for debugging
     var m_debug_time = {
@@ -273,18 +284,6 @@ function _make_mkws_team($, teamName) {
 			   "usesessions" : mkws_config.use_service_proxy ? false : true,
 			   "showResponseType": '', // or "json" (for debugging?)
 			   "onrecord": my_onrecord } );
-
-    // some state vars
-    var curPage = 1;
-    var recPerPage = 20;
-    var totalRec = 0;
-    var curDetRecId = '';
-    var curDetRecData = null;
-    var submitted = false;
-    var SourceMax = 16;
-    var SubjectMax = 10;
-    var AuthorMax = 10;
-    var m_query; // initially undefined
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	recPerPage = parseInt(mkws_config.perpage_default);
