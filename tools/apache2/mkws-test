@@ -2,18 +2,18 @@
 
 # pazpar2 / service proxy config
 <VirtualHost *:80>
-    ServerName mkws-dev.indexdata.com
-    ServerAlias mkws-dev
+    ServerName mkws-test.indexdata.com
+    ServerAlias mkws-test spclient-dev.indexdata.com
     ServerAdmin webmaster@indexdata.com
-    ErrorLog /var/log/apache2/mkws-dev-error.log
-    CustomLog /var/log/apache2/mkws-dev-access.log combined
+    ErrorLog /var/log/apache2/mkws-test-error.log
+    CustomLog /var/log/apache2/mkws-test-access.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
+    RewriteLog /var/log/apache2/mkws-test-rewrite.log 
 
-    DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
-    Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
+    DocumentRoot /home/indexdata/mkws-test/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws-test/tools/htdocs
 
     # compress text output
     <Location />
