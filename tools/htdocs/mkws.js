@@ -145,15 +145,15 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 function _make_mkws_team($, teamName) {
     var m_sort = 'relevance';
     var m_filters = [];
-    var curPage = 1;
-    var recPerPage = 20;
-    var totalRec = 0;
-    var curDetRecId = '';
-    var curDetRecData = null;
-    var submitted = false;
-    var SourceMax = 16;
-    var SubjectMax = 10;
-    var AuthorMax = 10;
+    var m_curPage = 1;
+    var m_recPerPage = 20;
+    var m_totalRec = 0;
+    var m_curDetRecId = '';
+    var m_curDetRecData = null;
+    var m_submitted = false;
+    var m_SourceMax = 16;
+    var m_SubjectMax = 10;
+    var m_AuthorMax = 10;
     var m_query; // initially undefined
     var m_debug_time = {
 	// Timestamps for logging
@@ -285,7 +285,7 @@ function _make_mkws_team($, teamName) {
 			   "onrecord": my_onrecord } );
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
-	recPerPage = parseInt(mkws_config.perpage_default);
+	m_recPerPage = parseInt(mkws_config.perpage_default);
     }
 
 
@@ -299,7 +299,7 @@ function _make_mkws_team($, teamName) {
 
 
     function my_onshow(data) {
-	totalRec = data.merged;
+	m_totalRec = data.merged;
 	// move it out
 	var pager = document.getElementById("mkwsPager");
 	if (pager) {
@@ -320,8 +320,8 @@ function _make_mkws_team($, teamName) {
 	    html.push('<div class="record" id="mkwsRecdiv_' + hit.recid + '" >',
 		      renderSummary(hit),
       		      '</div>');
-	    if (hit.recid == curDetRecId) {
-		html.push(renderDetails(curDetRecData));
+	    if (hit.recid == m_curDetRecId) {
+		html.push(renderDetails(m_curDetRecData));
 	    }
 	}
 	replaceHtml(results, html.join(''));
@@ -366,11 +366,11 @@ function _make_mkws_team($, teamName) {
 
 	for(var i = 0; i < facets.length; i++) {
 	    if (facets[i] == "sources") {
-		add_single_facet(acc, "Sources",  data.xtargets, SourceMax, null);
+		add_single_facet(acc, "Sources",  data.xtargets, m_SourceMax, null);
 	    } else if (facets[i] == "subjects") {
-		add_single_facet(acc, "Subjects", data.subject,  SubjectMax, "subject");
+		add_single_facet(acc, "Subjects", data.subject,  m_SubjectMax, "subject");
 	    } else if (facets[i] == "authors") {
-		add_single_facet(acc, "Authors",  data.author,   AuthorMax, "author");
+		add_single_facet(acc, "Authors",  data.author,   m_AuthorMax, "author");
 	    } else {
 		alert("bad facet configuration: '" + facets[i] + "'");
 	    }
@@ -410,9 +410,9 @@ function _make_mkws_team($, teamName) {
 	// in case on_show was faster to redraw element
 	var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
 	if (detRecordDiv) return;
-	curDetRecData = data;
-	var recordDiv = document.getElementById('mkwsRecdiv_'+curDetRecData.recid);
-	var html = renderDetails(curDetRecData);
+	m_curDetRecData = data;
+	var recordDiv = document.getElementById('mkwsRecdiv_'+m_curDetRecData.recid);
+	var html = renderDetails(m_curDetRecData);
 	recordDiv.innerHTML += html;
     }
 
@@ -485,24 +485,24 @@ function _make_mkws_team($, teamName) {
 	loadSelect(); // ### should use windowid
 	triggerSearch(query, sort, targets, windowid);
 	mkws.switchView('records'); // In case it's configured to start off as hidden
-	submitted = true;
+	m_submitted = true;
     }
 
 
     function onSelectDdChange()
     {
-	if (!submitted) return false;
+	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
-	m_paz.show(0, recPerPage, m_sort);
+	m_paz.show(0, m_recPerPage, m_sort);
 	return false;
     }
 
 
     function resetPage()
     {
-	curPage = 1;
-	totalRec = 0;
+	m_curPage = 1;
+	m_totalRec = 0;
     }
 
 
@@ -550,7 +550,7 @@ function _make_mkws_team($, teamName) {
 	}
 	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	m_paz.search(m_query, recPerPage, m_sort, pp2filter, undefined, params);
+	m_paz.search(m_query, m_recPerPage, m_sort, pp2filter, undefined, params);
     }
 
 
@@ -560,7 +560,7 @@ function _make_mkws_team($, teamName) {
 	    if (document.mkwsSelect.mkwsSort)
 		m_sort = document.mkwsSelect.mkwsSort.value;
 	    if (document.mkwsSelect.mkwsPerpage)
-		recPerPage = document.mkwsSelect.mkwsPerpage.value;
+		m_recPerPage = document.mkwsSelect.mkwsPerpage.value;
 	}
     }
 
@@ -668,10 +668,10 @@ function _make_mkws_team($, teamName) {
     {
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
-	var pages = Math.ceil(totalRec / recPerPage);
+	var pages = Math.ceil(m_totalRec / m_recPerPage);
 
-	var firstClkbl = ( curPage - onsides > 0 )
-            ? curPage - onsides
+	var firstClkbl = ( m_curPage - onsides > 0 )
+            ? m_curPage - onsides
             : 1;
 
 	var lastClkbl = firstClkbl + 2*onsides < pages
@@ -679,14 +679,14 @@ function _make_mkws_team($, teamName) {
             : pages;
 
 	var prev = '<span id="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
-	if (curPage > 1)
+	if (m_curPage > 1)
             prev = '<a href="#" id="mkwsPrev" onclick="mkws.pagerPrev();">'
             +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 	var middle = '';
 	for(var i = firstClkbl; i <= lastClkbl; i++) {
             var numLabel = i;
-            if(i == curPage)
+            if(i == m_curPage)
 		numLabel = '<b>' + i + '</b>';
 
             middle += '<a href="#" onclick="mkws.showPage(' + i + ')"> '
@@ -694,7 +694,7 @@ function _make_mkws_team($, teamName) {
 	}
 
 	var next = '<b> | </b><span id="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-	if (pages - curPage > 0)
+	if (pages - m_curPage > 0)
             next = '<b> | </b><a href="#" id="mkwsNext" onclick="mkws.pagerNext()">'
             + M('Next') + ' &#62;&#62;</a>';
 
@@ -713,23 +713,23 @@ function _make_mkws_team($, teamName) {
 
     mkws.showPage = function (pageNum)
     {
-	curPage = pageNum;
-	m_paz.showPage( curPage - 1 );
+	m_curPage = pageNum;
+	m_paz.showPage( m_curPage - 1 );
     }
 
 
     // simple paging functions
     mkws.pagerNext = function () {
-	if ( totalRec - recPerPage*curPage > 0) {
+	if ( m_totalRec - m_recPerPage*m_curPage > 0) {
             m_paz.showNext();
-            curPage++;
+            m_curPage++;
 	}
     }
 
 
     mkws.pagerPrev = function () {
 	if ( m_paz.showPrev() != false )
-            curPage--;
+            m_curPage--;
     }
 
 
@@ -771,8 +771,8 @@ function _make_mkws_team($, teamName) {
     // detailed record drawing
     mkws.showDetails = function (prefixRecId) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
-	var oldRecId = curDetRecId;
-	curDetRecId = recId;
+	var oldRecId = m_curDetRecId;
+	m_curDetRecId = recId;
 
 	// remove current detailed view if any
 	var detRecordDiv = document.getElementById('mkwsDet_'+oldRecId);
@@ -782,8 +782,8 @@ function _make_mkws_team($, teamName) {
 
 	// if the same clicked, just hide
 	if (recId == oldRecId) {
-            curDetRecId = '';
-            curDetRecData = null;
+            m_curDetRecId = '';
+            m_curDetRecData = null;
             return;
 	}
 	// request the record
