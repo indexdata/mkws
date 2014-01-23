@@ -2,6 +2,11 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
+// Some functions are visible to be called from outside code, namely
+// generated HTML: mkws.switchView(), showDetails(), limitTarget(),
+// limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
+// pagerNext(), showPage()
+
 // Set up global mkws object. Contains a hash of session objects,
 // indexed by windowid.
 var mkws = {
