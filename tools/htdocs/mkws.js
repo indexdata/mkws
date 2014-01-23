@@ -1409,7 +1409,7 @@ function _mkws_jquery_plugin ($) {
 	//	<div class="mkwsRecords mkwsTeam_foo"/>
 	// ### Down the line we will also want teams that have facet
 	//     divs but no results. But not today.
-	$('.mkwsRecords').each(function () {
+	$('.mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
 	    var node = this;
 	    var classes = this.className;
  	    var list = classes.split(/\s+/)
@@ -1420,11 +1420,13 @@ function _mkws_jquery_plugin ($) {
 		    tname = cname.replace(/^mkwsTeam_/, '');
 		}
 	    }
-	    if (tname) {
+	    if (!tname) {
+		alert("No MKWS team specified for mkwsRecords element with classes '" + classes + "'");
+	    } else if (mkws.teams[tname]) {
+		log("MKWS team '" + tname + "' already exists, skipping");
+	    } else {
 		mkws.teams[tname] = _make_mkws_team(j, tname);
 		log("Made MKWS team '" + tname + "'");
-	    } else {
-		alert("No MKWS team specified for mkwsRecords element with classes '" + classes + "'");
 	    }
 	});
 	
