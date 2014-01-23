@@ -787,6 +787,9 @@ function _make_mkws_team($, teamName) {
 
     function loadTemplate(name)
     {
+	if (mkws['template' + name])
+	    return; // It's already been done
+
 	var source = $("#mkwsTemplate" + name).html();
 	if (!source) {
 	    source = defaultTemplate(name);
