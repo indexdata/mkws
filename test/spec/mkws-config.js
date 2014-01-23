@@ -33,10 +33,6 @@ describe("Check pazpar2 config", function () {
     it("pazpar2path is a path or an full URL", function () {
         expect(mkws_config.pazpar2_url).toMatch(/^(\/|https?:\/\/)/)
     });
-
-    it("my_paz is defined", function () {
-        expect(mkws.my_paz).not.toBe(undefined);
-    });
 });
 
 describe("Check pazpar2 runtime", function () {
