@@ -77,8 +77,8 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
-    if (console && console.log)
-	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
+    // if (console && console.log) // disabled, will fail in IE8
+    //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
 
     // call this function only once
     if (mkws.init) {

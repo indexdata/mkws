@@ -15,6 +15,10 @@
     DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
     Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
 
+    # CORS setting
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Origin "*"
+
     # compress text output
     <Location />
         AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml
