@@ -11,7 +11,10 @@
 // indexed by windowid.
 var mkws = {
     authenticated: false,
-    sessions: {}
+    init: false,
+    debug_function: undefined, // will be set during initialisation
+    debug_level: undefined, // will be initialised from mkws_config
+    sessions: {},
 };
 
 mkws.locale_lang = {
