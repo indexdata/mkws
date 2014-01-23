@@ -2,10 +2,72 @@
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
+// Handlebars helpers
+Handlebars.registerHelper('json', function(obj) {
+    return $.toJSON(obj);
+});
+
+
+Handlebars.registerHelper('translate', function(s) {
+    debug("translating '" + s + "'");
+    return mkws.M(s);
+});
+
+
+// We need {{attr '@name'}} because Handlebars can't parse {{@name}}
+Handlebars.registerHelper('attr', function(attrName) {
+    return this[attrName];
+});
+
+
+/*
+ * Use as follows: {{#if-any NAME1 having="NAME2"}}
+ * Applicable when NAME1 is the name of an array
+ * The guarded code runs only if at least one element of the NAME1
+ * array has a subelement called NAME2.
+ */
+Handlebars.registerHelper('if-any', function(items, options) {
+    var having = options.hash.having;
+    for (var i in items) {
+	var item = items[i]
+	if (!having || item[having]) {
+	    return options.fn(this);
+	}
+    }
+    return "";
+});
+
+
+Handlebars.registerHelper('first', function(items, options) {
+    var having = options.hash.having;
+    for (var i in items) {
+	var item = items[i]
+	if (!having || item[having]) {
+	    return options.fn(item);
+	}
+    }
+    return "";
+});
+
+
+Handlebars.registerHelper('commaList', function(items, options) {
+    var out = "";
+
+    for (var i in items) {
+	if (i > 0) out += ", ";
+	out += options.fn(items[i])
+    }
+
+    return out;
+});
+
+
+
 // Some functions are visible to be called from outside code, namely
 // generated HTML: mkws.switchView(), showDetails(), limitTarget(),
 // limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
-// pagerNext(), showPage()
+// pagerNext(), showPage(). Also mkws.M() is made available for the
+// Handlebars helper 'translate'
 
 
 // Set up global mkws object. Contains a hash of session objects,
@@ -121,65 +183,6 @@ function _make_mkws_team($, teamName) {
     }
     var debug = mkws.debug_function; // local alias
     debug("start running MKWS");
-
-
-    Handlebars.registerHelper('json', function(obj) {
-	return $.toJSON(obj);
-    });
-
-
-    Handlebars.registerHelper('translate', function(s) {
-	debug("translating '" + s + "'");
-	return M(s);
-    });
-
-
-    // We need {{attr '@name'}} because Handlebars can't parse {{@name}}
-    Handlebars.registerHelper('attr', function(attrName) {
-	return this[attrName];
-    });
-
-
-    /*
-     * Use as follows: {{#if-any NAME1 having="NAME2"}}
-     * Applicable when NAME1 is the name of an array
-     * The guarded code runs only if at least one element of the NAME1
-     * array has a subelement called NAME2.
-     */
-    Handlebars.registerHelper('if-any', function(items, options) {
-	var having = options.hash.having;
-	for (var i in items) {
-	    var item = items[i]
-	    if (!having || item[having]) {
-		return options.fn(this);
-	    }
-	}
-	return "";
-    });
-
-
-    Handlebars.registerHelper('first', function(items, options) {
-	var having = options.hash.having;
-	for (var i in items) {
-	    var item = items[i]
-	    if (!having || item[having]) {
-		return options.fn(item);
-	    }
-	}
-	return "";
-    });
-
-
-    Handlebars.registerHelper('commaList', function(items, options) {
-	var out = "";
-
-	for (var i in items) {
-	    if (i > 0) out += ", ";
-	    out += options.fn(items[i])
-	}
-
-	return out;
-    });
 
 
     {
@@ -1231,6 +1234,7 @@ function _make_mkws_team($, teamName) {
 
 	return mkws.locale_lang[lang][word] || word;
     }
+    mkws.M = M; // so the Handlebars helper can use it
 
 
     // main
