@@ -34,14 +34,6 @@ describe("Check pazpar2 config", function () {
         expect(mkws_config.pazpar2_url).toMatch(/^(\/|https?:\/\/)/)
     });
 
-    it("Check usesessions true/false", function () {
-        if (mkws_config.use_service_proxy) {
-            expect(mkws.usesessions).toBe(false);
-        } else {
-            expect(mkws.usesessions).toBe(true);
-        }
-    });
-
     it("my_paz is defined", function () {
         expect(mkws.my_paz).not.toBe(undefined);
     });
