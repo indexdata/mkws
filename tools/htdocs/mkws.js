@@ -9,25 +9,6 @@ var mkws = {
     sessions: {}
 };
 
-// Define empty mkws_config for simple applications that don't define it.
-if (mkws_config == null || typeof mkws_config != 'object') {
-    var mkws_config = {};
-}
-
-// wrapper for jQuery lib
-function _make_mkws_team($, teamName) {
-    if (console && console.log)
-	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
-
-    // call this function only once
-    if (mkws.init) {
-	alert("_make_mkws_team() called twice: how did that happen?!");
-	return;
-    }
-
-var m_sort = 'relevance';
-var m_filters = [];
-
 mkws.locale_lang = {
     "de": {
 	"Authors": "Autoren",
@@ -81,6 +62,25 @@ mkws.locale_lang = {
 	"dummy": "dummy"
     }
 };
+
+// Define empty mkws_config for simple applications that don't define it.
+if (mkws_config == null || typeof mkws_config != 'object') {
+    var mkws_config = {};
+}
+
+// wrapper for jQuery lib
+function _make_mkws_team($, teamName) {
+    if (console && console.log)
+	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
+
+    // call this function only once
+    if (mkws.init) {
+	alert("_make_mkws_team() called twice: how did that happen?!");
+	return;
+    }
+
+var m_sort = 'relevance';
+var m_filters = [];
 
 // keep time state for debugging
 mkws.debug_time = {
