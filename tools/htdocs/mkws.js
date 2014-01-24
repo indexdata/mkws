@@ -275,7 +275,7 @@ function _make_mkws_team($, teamName) {
 			 "onbytarget": my_onbytarget,
 			 "usesessions" : mkws_config.use_service_proxy ? false : true,
 			 "showResponseType": '', // or "json" (for debugging?)
-			 "onrecord": my_onrecord } );
+			 "onrecord": my_onrecord });
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	m_recPerPage = parseInt(mkws_config.perpage_default);
@@ -378,7 +378,7 @@ function _make_mkws_team($, teamName) {
     function add_single_facet(acc, caption, data, max, pzIndex) {
 	acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
-	for (var i = 0; i < data.length && i < max; i++ ) {
+	for (var i = 0; i < data.length && i < max; i++) {
 	    acc.push('<div class="term">');
             acc.push('<a href="#" ');
 	    var action;
@@ -425,7 +425,7 @@ function _make_mkws_team($, teamName) {
 	    '<td>' + M('State') + '</td>' +
 	    '</tr></thead><tbody>';
 
-	for (var i = 0; i < data.length; i++ ) {
+	for (var i = 0; i < data.length; i++) {
             table += "<tr><td>" + data[i].id +
 		"</td><td>" + data[i].hits +
 		"</td><td>" + data[i].diagnostic +
@@ -663,7 +663,7 @@ function _make_mkws_team($, teamName) {
 	var onsides = 6;
 	var pages = Math.ceil(m_totalRec / m_recPerPage);
 
-	var firstClkbl = ( m_curPage - onsides > 0 )
+	var firstClkbl = (m_curPage - onsides > 0)
             ? m_curPage - onsides
             : 1;
 
@@ -707,13 +707,13 @@ function _make_mkws_team($, teamName) {
     mkws.showPage = function (pageNum)
     {
 	m_curPage = pageNum;
-	mkws.paz.showPage( m_curPage - 1 );
+	mkws.paz.showPage(m_curPage - 1);
     }
 
 
     // simple paging functions
     mkws.pagerNext = function () {
-	if ( m_totalRec - m_recPerPage*m_curPage > 0) {
+	if (m_totalRec - m_recPerPage*m_curPage > 0) {
             mkws.paz.showNext();
             m_curPage++;
 	}
@@ -721,7 +721,7 @@ function _make_mkws_team($, teamName) {
 
 
     mkws.pagerPrev = function () {
-	if ( mkws.paz.showPrev() != false )
+	if (mkws.paz.showPrev() != false)
             m_curPage--;
     }
 
@@ -983,7 +983,7 @@ function _make_mkws_team($, teamName) {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize( function(e) { mkws_resize_page() });
+	    $(window).resize(function(e) { mkws_resize_page() });
 	    // initial check after page load
 	    $(document).ready(function() { mkws_resize_page() });
 	}
@@ -991,7 +991,7 @@ function _make_mkws_team($, teamName) {
 	domReady();
 
 	// on first page, hide the termlist
-	$(document).ready(function() { $("#mkwsTermlists").hide(); } );
+	$(document).ready(function() { $("#mkwsTermlists").hide(); });
 	var motd = document.getElementById("mkwsMOTD");
 	var container = document.getElementById("mkwsMOTDContainer");
 	if (motd && container) {
@@ -1381,7 +1381,7 @@ function _mkws_jquery_plugin ($) {
 	    } else if (config && config.layout == 'popup') {
 		debug("jquery plugin layout: popup with id: " + id_popup);
 		document.write(popup);
-		$(document).ready( function() { init_popup(config); } );
+		$(document).ready(function() { init_popup(config); });
 	    } else {
 		debug("jquery plugin layout: table");
 		document.write(table);
