@@ -265,17 +265,17 @@ function _make_mkws_team($, teamName) {
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
-    mkws.paz = new pz2( { "onshow": my_onshow,
-			   "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-			   "pazpar2path": mkws_config.pazpar2_url,
-			   "oninit": my_oninit,
-			   "onstat": my_onstat,
-			   "onterm": my_onterm,
-			   "termlist": "xtargets,subject,author",
-			   "onbytarget": my_onbytarget,
-			   "usesessions" : mkws_config.use_service_proxy ? false : true,
-			   "showResponseType": '', // or "json" (for debugging?)
-			   "onrecord": my_onrecord } );
+    mkws.paz = new pz2({ "onshow": my_onshow,
+			 "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
+			 "pazpar2path": mkws_config.pazpar2_url,
+			 "oninit": my_oninit,
+			 "onstat": my_onstat,
+			 "onterm": my_onterm,
+			 "termlist": "xtargets,subject,author",
+			 "onbytarget": my_onbytarget,
+			 "usesessions" : mkws_config.use_service_proxy ? false : true,
+			 "showResponseType": '', // or "json" (for debugging?)
+			 "onrecord": my_onrecord } );
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	m_recPerPage = parseInt(mkws_config.perpage_default);
@@ -1443,6 +1443,5 @@ function _mkws_jquery_plugin ($) {
 		log("Made MKWS team '" + tname + "'");
 	    }
 	});
-	
     });
 })(jQuery);
