@@ -239,7 +239,6 @@ describe("Check Termlist", function () {
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
-
         // do not click on wikipedia link - no author or subject facets possible
         var terms = $("div#mkwsFacetSources div.term a");
         for (var i = 0; i < terms.length; i++) {
@@ -306,10 +305,11 @@ describe("Show record", function () {
         var urls = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
         for (var i = 0; i < urls.length; i++) {
-            debug("URL: " + urls[i].href);
-            expect(urls[i].href).not.toBe(null);
-            expect(urls[i].href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
-            expect(urls[i].href).toBe(urls[i].text);
+            var url = $(urls[i]);
+            debug("URL: " + url.href);
+            expect(url.href).not.toBe(null);
+            expect(url.href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+            expect(url.href).toBe(url.text());
         }
     });
 });
