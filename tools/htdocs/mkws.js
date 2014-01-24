@@ -1001,33 +1001,6 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    mkws.run_auto_searches = function() {
-	debug("running auto searches");
-
-	$('[id^="mkwsRecords"]').each(function () {
-	    var node = $(this);
-	    var query = node.attr('autosearch');
-
-	    if (query) {
-		var windowid = undefined;
-		var id = node.attr('id');
-		if (id.match(/^mkwsRecords_/, '')) {
-		    windowid = id.replace(/^mkwsRecords_/, '');
-		}
-
-		var sort = node.attr('sort');
-		var targets = node.attr('targets');
-		var s = "running auto search: '" + query + "'";
-		if (windowid) s += " [windowid '" + windowid + "']";
-		if (sort) s += " sorted by '" + sort + "'";
-		if (targets) s += " in targets '" + targets + "'";
-		debug(s);
-		newSearch(query, sort, targets, windowid);
-	    }
-	});
-    }
-
-
     // implement $.parseQuerystring() for parsing URL parameters
     function parseQuerystring() {
 	var nvpair = {};
@@ -1454,6 +1427,33 @@ function _mkws_jquery_plugin ($) {
 	    debug("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    mkws.run_auto_searches();
+	});
+    }
+
+
+    mkws.run_auto_searches = function() {
+	debug("running auto searches");
+
+	$('[id^="mkwsRecords"]').each(function () {
+	    var node = $(this);
+	    var query = node.attr('autosearch');
+
+	    if (query) {
+		var windowid = undefined;
+		var id = node.attr('id');
+		if (id.match(/^mkwsRecords_/, '')) {
+		    windowid = id.replace(/^mkwsRecords_/, '');
+		}
+
+		var sort = node.attr('sort');
+		var targets = node.attr('targets');
+		var s = "running auto search: '" + query + "'";
+		if (windowid) s += " [windowid '" + windowid + "']";
+		if (sort) s += " sorted by '" + sort + "'";
+		if (targets) s += " in targets '" + targets + "'";
+		debug(s);
+		newSearch(query, sort, targets, windowid);
+	    }
 	});
     }
 })(jQuery);
