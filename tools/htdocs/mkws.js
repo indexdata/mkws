@@ -255,10 +255,10 @@ function _make_mkws_team($, teamName) {
 	}
     }
 
-    // protocol independend link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
+    // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws_config.pazpar2_url.match(/^\/\//)) {
 	mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
-	debug("adjust protocol independend links: " + mkws_config.pazpar2_url);
+	debug("adjust protocol independent links: " + mkws_config.pazpar2_url);
     }
 
     debug("Create main pz2 object");
