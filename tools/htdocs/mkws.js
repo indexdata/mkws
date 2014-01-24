@@ -262,7 +262,7 @@ function _make_mkws_team($, teamName) {
 	}
 
 	// navi
-	var results = document.getElementById("mkwsRecords");
+	var results = $("#mkwsRecords");
 
 	var html = [];
 	for (var i = 0; i < data.hits.length; i++) {
@@ -274,7 +274,7 @@ function _make_mkws_team($, teamName) {
 		html.push(renderDetails(m_curDetRecData));
 	    }
 	}
-	replaceHtml(results, html.join(''));
+	results.html(html.join(''));
     }
 
 
@@ -328,9 +328,9 @@ function _make_mkws_team($, teamName) {
 	    }
 	}
 
-	var termlist = document.getElementById("mkwsTermlists");
+	var termlist = $("#mkwsTermlists");
 	if (termlist)
-	    replaceHtml(termlist, acc.join(''));
+	    termlist.html(acc.join(''));
     }
 
 
@@ -743,21 +743,6 @@ function _make_mkws_team($, teamName) {
 	// request the record
 	m_paz.record(recId);
     }
-
-
-    function replaceHtml(el, html) {
-	var oldEl = typeof el === "string" ? document.getElementById(el) : el;
-	/*@cc_on // Pure innerHTML is slightly faster in IE
-	  oldEl.innerHTML = html;
-	  return oldEl;
-	  @*/
-	var newEl = oldEl.cloneNode(false);
-	newEl.innerHTML = html;
-	oldEl.parentNode.replaceChild(newEl, oldEl);
-	/* Since we just removed the old element from the DOM, return a reference
-	   to the new element, which can be used to restore variable references. */
-	return newEl;
-    };
 
 
     function renderDetails(data, marker)
