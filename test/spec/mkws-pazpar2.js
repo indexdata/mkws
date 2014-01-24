@@ -306,10 +306,10 @@ describe("Show record", function () {
         debug("number of extracted URL from record: " + urls.length);
         for (var i = 0; i < urls.length; i++) {
             var url = $(urls[i]);
-            debug("URL: " + url.href);
-            expect(url.href).not.toBe(null);
-            expect(url.href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
-            expect(url.href).toBe(url.text());
+            debug("URL: " + url.attr('href'));
+            expect(url.attr('href')).not.toBe(null);
+            expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+            expect(url.attr('href')).toBe(url.text());
         }
     });
 });
