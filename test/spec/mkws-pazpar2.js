@@ -208,11 +208,17 @@ describe("Check Termlist", function () {
     it("limit search to first author", function () {
         var hits_all_targets = get_hit_counter();
         var author_number = 2; // 2=first author
-        var author_name = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text();
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
-        if (author_name.match(/[0-9].+[0-9]/) || !author_name.match(/,/)) {
-            author_number++;
+        var terms = $("div#mkwsFacetAuthors div.term a");
+        for (var i = 0; i < terms.length; i++) {
+            var term = terms[i].text;
+            if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
+                debug("ignore author facet: " + term);
+                author_number++;
+            } else {
+                break;
+            }
         }
 
         var click = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
