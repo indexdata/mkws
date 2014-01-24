@@ -295,6 +295,7 @@ describe("Show record", function () {
             debug("URL: " + urls[i].href);
             expect(urls[i].href).not.toBe(null);
             expect(urls[i].href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+            expect(urls[i].href).toBe(urls[i].text);
         }
     });
 });
