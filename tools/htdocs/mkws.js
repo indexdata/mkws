@@ -1111,42 +1111,6 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    /*
-     * Run service-proxy authentication in background (after page load).
-     * The username/password is configured in the apache config file
-     * for the site.
-     */
-    mkws.service_proxy_auth = function(auth_url, auth_domain, pp2_url) {
-	debug("Run service proxy auth URL: " + auth_url);
-
-	if (!auth_domain) {
-	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
-	}
-
-	var request = new pzHttpRequest(auth_url, function(err) {
-	    alert("HTTP call for authentication failed: " + err)
-	    return;
-	}, auth_domain);
-
-	request.get(null, function(data) {
-	    if (!$.isXMLDoc(data)) {
-		alert("service proxy auth response document is not valid XML document, give up!");
-		return;
-	    }
-	    var status = $(data).find("status");
-	    if (status.text() != "OK") {
-		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
-		return;
-	    }
-
-	    debug("Service proxy auth successfully done");
-	    mkws.authenticated = true;
-	    run_auto_searches();
-	});
-    }
-
-
     /* create locale language menu */
     function mkws_html_lang() {
 	var lang_default = "en";
@@ -1457,4 +1421,40 @@ function _mkws_jquery_plugin ($) {
 	    run_auto_searches();
 	}
     });
+
+
+    /*
+     * Run service-proxy authentication in background (after page load).
+     * The username/password is configured in the apache config file
+     * for the site.
+     */
+    mkws.service_proxy_auth = function(auth_url, auth_domain, pp2_url) {
+	debug("Run service proxy auth URL: " + auth_url);
+
+	if (!auth_domain) {
+	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
+	    debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	}
+
+	var request = new pzHttpRequest(auth_url, function(err) {
+	    alert("HTTP call for authentication failed: " + err)
+	    return;
+	}, auth_domain);
+
+	request.get(null, function(data) {
+	    if (!$.isXMLDoc(data)) {
+		alert("service proxy auth response document is not valid XML document, give up!");
+		return;
+	    }
+	    var status = $(data).find("status");
+	    if (status.text() != "OK") {
+		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+		return;
+	    }
+
+	    debug("Service proxy auth successfully done");
+	    mkws.authenticated = true;
+	    run_auto_searches();
+	});
+    }
 })(jQuery);
