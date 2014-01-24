@@ -267,6 +267,7 @@ function _make_mkws_team($, teamName) {
     // autoInit is set to true on default
     if (!mkws.paz) {
 	mkws.paz = new pz2({ "onshow": my_onshow,
+			     "windowid": teamName,
 			     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
 			     "pazpar2path": mkws_config.pazpar2_url,
 			     "oninit": my_oninit,
@@ -287,13 +288,15 @@ function _make_mkws_team($, teamName) {
     //
     // pz2.js event handlers:
     //
-    function my_oninit() {
+    function my_oninit(teamName) {
+	debug("init for " + teamName);
 	mkws.paz.stat();
 	mkws.paz.bytarget();
     }
 
 
-    function my_onshow(data) {
+    function my_onshow(data, teamName) {
+	debug("show for " + teamName);
 	m_totalRec = data.merged;
 	// move it out
 	var pager = document.getElementById("mkwsPager");
@@ -332,7 +335,8 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onstat(data) {
+    function my_onstat(data, teamName) {
+	debug("stat for " + teamName);
 	var stat = document.getElementById("mkwsStat");
 	if (stat == null)
 	    return;
@@ -345,7 +349,8 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onterm(data) {
+    function my_onterm(data, teamName) {
+	debug("term for " + teamName);
 	// no facets
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
 	    $("#mkwsTermlists").hide();
@@ -399,7 +404,8 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onrecord(data) {
+    function my_onrecord(data, teamName) {
+	debug("record for " + teamName);
 	// FIXME: record is async!!
 	clearTimeout(mkws.paz.recordTimer);
 	// in case on_show was faster to redraw element
@@ -412,7 +418,8 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onbytarget(data) {
+    function my_onbytarget(data, teamName) {
+	debug("target for " + teamName);
 	var targetDiv = document.getElementById("mkwsBytarget");
 	if (!targetDiv) {
 	    // No mkwsTargets div.
