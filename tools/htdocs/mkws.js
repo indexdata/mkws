@@ -1283,8 +1283,12 @@ function _mkws_jquery_plugin ($) {
 // wrapper to call _make_mkws_team() after page load
 (function (j) {
     function log(s) {
-	if (console && console.log) console.log(s);
+        if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
+            return;
+        }
+	console.log(s);
     }
+
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 
