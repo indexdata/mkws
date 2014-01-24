@@ -973,15 +973,6 @@ function _make_mkws_team($, teamName) {
 
 	mkws_html_switch();
 
-	if (mkws_config.use_service_proxy) {
-	    mkws_service_proxy_auth(mkws_config.service_proxy_auth,
-				    mkws_config.service_proxy_auth_domain,
-				    mkws_config.pazpar2_url);
-	} else {
-	    // raw pp2
-	    run_auto_searches();
-	}
-
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
@@ -1118,7 +1109,7 @@ function _make_mkws_team($, teamName) {
      * The username/password is configured in the apache config file
      * for the site.
      */
-    function mkws_service_proxy_auth(auth_url, auth_domain, pp2_url) {
+    mkws.service_proxy_auth = function(auth_url, auth_domain, pp2_url) {
 	debug("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
@@ -1449,5 +1440,14 @@ function _mkws_jquery_plugin ($) {
 		log("Made MKWS team '" + tname + "'");
 	    }
 	});
+
+	if (mkws_config.use_service_proxy) {
+	    mkws.service_proxy_auth(mkws_config.service_proxy_auth,
+				    mkws_config.service_proxy_auth_domain,
+				    mkws_config.pazpar2_url);
+	} else {
+	    // raw pp2
+	    run_auto_searches();
+	}
     });
 })(jQuery);
