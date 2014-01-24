@@ -419,12 +419,12 @@ function _make_mkws_team($, teamName) {
     // when search button pressed
     function onFormSubmitEventHandler()
     {
-	newSearch(document.mkwsSearchForm.mkwsQuery.value);
+	that.newSearch(document.mkwsSearchForm.mkwsQuery.value);
 	return false;
     }
 
 
-    function newSearch(query, sort, targets, windowid)
+    that.newSearch = function(query, sort, targets, windowid)
     {
 	debug("newSearch: " + query);
 
@@ -1312,7 +1312,7 @@ function _mkws_jquery_plugin ($) {
 
 	// Backwards compatibility: the special-case undefined team
 	// ### Will not be necessary when non-default teams are working
-	mkws.teams[''] = _make_mkws_team(j, undefined);
+	mkws.teams['AUTO'] = _make_mkws_team(j, "AUTO");
 	log("Made the unnamed MKWS team");
 
 	// Find all nodes with class (NOT id) mkwsRecords, and
@@ -1404,11 +1404,11 @@ function _mkws_jquery_plugin ($) {
      * for the site.
      */
     function authenticate_session(auth_url, auth_domain, pp2_url) {
-	debug("Run service proxy auth URL: " + auth_url);
+	console.log("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    console.log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1427,7 +1427,7 @@ function _mkws_jquery_plugin ($) {
 		return;
 	    }
 
-	    debug("Service proxy auth successfully done");
+	    console.log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    run_auto_searches();
 	});
@@ -1437,26 +1437,24 @@ function _mkws_jquery_plugin ($) {
     function run_auto_searches() {
 	console.log("running auto searches");
 
-	$('[id^="mkwsRecords"]').each(function () {
-	    var node = $(this);
+	for (var teamName in mkws.teams) {
+	    // ### should check mkwsTermlist as well, for facet-only teams
+	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
+	    console.log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
-		var windowid = undefined;
-		var id = node.attr('id');
-		if (id.match(/^mkwsRecords_/, '')) {
-		    windowid = id.replace(/^mkwsRecords_/, '');
-		}
-
 		var sort = node.attr('sort');
 		var targets = node.attr('targets');
 		var s = "running auto search: '" + query + "'";
-		if (windowid) s += " [windowid '" + windowid + "']";
+		if (teamName) s += " [teamName '" + teamName + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
 		console.log(s);
-		newSearch(query, sort, targets, windowid);
+		var team = mkws.teams[teamName];
+		console.log($.toJSON(team));
+		team.newSearch(query, sort, targets, teamName);
 	    }
-	});
+	}
     }
 })(jQuery);
