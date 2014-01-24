@@ -198,7 +198,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div#mkwsFacetAuthors div.term").length >= 2 ? true : false;
-        }, "At least one author link displayed", 2 * jasmine_config.second);
+        }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
             expect($("div#mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
