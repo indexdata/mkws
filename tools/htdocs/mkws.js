@@ -1385,9 +1385,9 @@ function _mkws_jquery_plugin ($) {
 	});
 
 	if (mkws_config.use_service_proxy) {
-	    mkws.service_proxy_auth(mkws_config.service_proxy_auth,
-				    mkws_config.service_proxy_auth_domain,
-				    mkws_config.pazpar2_url);
+	    mkws.authenticate_session(mkws_config.service_proxy_auth,
+				      mkws_config.service_proxy_auth_domain,
+				      mkws_config.pazpar2_url);
 	} else {
 	    // raw pp2
 	    mkws.run_auto_searches();
@@ -1400,7 +1400,7 @@ function _mkws_jquery_plugin ($) {
      * The username/password is configured in the apache config file
      * for the site.
      */
-    mkws.service_proxy_auth = function(auth_url, auth_domain, pp2_url) {
+    mkws.authenticate_session = function(auth_url, auth_domain, pp2_url) {
 	debug("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
