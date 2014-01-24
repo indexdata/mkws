@@ -212,7 +212,7 @@ describe("Check Termlist", function () {
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         var terms = $("div#mkwsFacetAuthors div.term a");
         for (var i = 0; i < terms.length; i++) {
-            var term = terms[i].text;
+            var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
                 debug("ignore author facet: " + term);
                 author_number++;
@@ -239,11 +239,13 @@ describe("Check Termlist", function () {
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
+
         // do not click on wikipedia link - no author or subject facets possible
         var terms = $("div#mkwsFacetSources div.term a");
         for (var i = 0; i < terms.length; i++) {
-            if (terms[i].text.match(/wikipedia/i)) {
-                debug("ignore source facet: " + terms[i].text);
+            var term = $(terms[i]).text();
+            if (term.match(/wikipedia/i)) {
+                debug("ignore source facet: " + term);
                 source_number++;
             } else {
                 break;
