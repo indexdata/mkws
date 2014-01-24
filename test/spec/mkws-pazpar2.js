@@ -212,7 +212,7 @@ describe("Check Termlist", function () {
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         var terms = $("div#mkwsFacetAuthors div.term a");
         for (var i = 0; i < terms.length; i++) {
-            var term = terms[i].text;
+            var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
                 debug("ignore author facet: " + term);
                 author_number++;
@@ -242,8 +242,9 @@ describe("Check Termlist", function () {
         // do not click on wikipedia link - no author or subject facets possible
         var terms = $("div#mkwsFacetSources div.term a");
         for (var i = 0; i < terms.length; i++) {
-            if (terms[i].text.match(/wikipedia/i)) {
-                debug("ignore source facet: " + terms[i].text);
+            var term = $(terms[i]).text();
+            if (term.match(/wikipedia/i)) {
+                debug("ignore source facet: " + term);
                 source_number++;
             } else {
                 break;
@@ -304,10 +305,11 @@ describe("Show record", function () {
         var urls = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
         for (var i = 0; i < urls.length; i++) {
-            debug("URL: " + urls[i].href);
-            expect(urls[i].href).not.toBe(null);
-            expect(urls[i].href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
-            expect(urls[i].href).toBe(urls[i].text);
+            var url = $(urls[i]);
+            debug("URL: " + url.attr('href'));
+            expect(url.attr('href')).not.toBe(null);
+            expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+            expect(url.attr('href')).toBe(url.text());
         }
     });
 });
