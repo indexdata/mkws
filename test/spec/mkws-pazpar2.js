@@ -209,8 +209,9 @@ describe("Check Termlist", function () {
         var hits_all_targets = get_hit_counter();
         var author_number = 2; // 2=first author
         var author_name = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text();
-        // do not click on author with numbers, e.g.: Bower, James M. Beeman, David, 1938-
-        if (author_name.match(/[0-9].+[0-9]/)) {
+        // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
+        // do not click on author names without a comma, e.g.: "Joe Barbara"
+        if (author_name.match(/[0-9].+[0-9]/) || !author_name.match(/,/)) {
             author_number++;
         }
 
