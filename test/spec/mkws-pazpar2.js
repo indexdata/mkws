@@ -289,11 +289,13 @@ describe("Show record", function () {
             return;
         }
 
-        var url = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a").text();
-        debug("extracted URL from record: " + url);
-
-        expect(url).not.toBe(null);
-        expect(url).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+        var urls = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
+        debug("number of extracted URL from record: " + urls.length);
+        for (var i = 0; i < urls.length; i++) {
+            debug("URL: " + urls[i].href);
+            expect(urls[i].href).not.toBe(null);
+            expect(urls[i].href).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+        }
     });
 });
 
