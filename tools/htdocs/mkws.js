@@ -1441,6 +1441,9 @@ function _mkws_jquery_plugin ($) {
 		alert("No MKWS team specified for mkwsRecords element with classes '" + classes + "'");
 	    } else if (mkws.teams[tname]) {
 		log("MKWS team '" + tname + "' already exists, skipping");
+	    } else if (tname === "AUTO") {
+		// ### For now: later, this will be how the backwards-compatibility is done
+		log("Skipping MKWS team '" + tname + "'");
 	    } else {
 		mkws.teams[tname] = _make_mkws_team(j, tname);
 		log("Made MKWS team '" + tname + "'");
