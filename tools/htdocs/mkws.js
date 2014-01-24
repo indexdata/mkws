@@ -144,7 +144,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 // wrapper for jQuery lib
 function _make_mkws_team($, teamName) {
     var that = {};
-    var m_termName = teamName;
+    var m_teamName = teamName;
     var m_submitted = false;
     var m_query; // initially undefined
     var m_sort = 'relevance';
