@@ -231,7 +231,7 @@ function _make_mkws_team($, teamName) {
 	for (var k in config_default) {
 	    if (typeof mkws_config[k] === 'undefined')
 		mkws_config[k] = config_default[k];
-	    debug("Set config: " + k + ' => ' + mkws_config[k]);
+	    //debug("Set config: " + k + ' => ' + mkws_config[k]);
 	}
     }
 
@@ -1417,6 +1417,7 @@ function _mkws_jquery_plugin ($) {
 	}
 
 	// Backwards compatibility: the special-case undefined team
+	// ### Will not be necessary when non-default teams are working
 	mkws.teams[''] = _make_mkws_team(j, undefined);
 	log("Made the unnamed MKWS team");
 
