@@ -8,18 +8,21 @@
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
     <style type="text/css">
-      td { vertical-align: top }
+      td { vertical-align: top; overflow: word-break }
     </style>
   </head>
   <body>
-    <h1>A site about stuff</h1>
-    <table border="1" width="100%">
+    <h1>Dinosaurs and Museums</h1>
+    <table border="1" width="100%" style="table-layout:fixed">
+      <col width="40%"/>
+      <col width="30%"/>
+      <col width="30%"/>
       <tr>
-	<td width="40%">
+	<td>
 	  <h2>Welcome</h2>
 	  Main site content goes here.
 	</td>
-	<td width="30%">
+	<td>
 	  <h2>News</h2>
 <div class='mkwsRecords mkwsTeam_news'
 	autosearch='museum'
@@ -27,7 +30,7 @@
 	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
 >News will appear here</div>
 	</td>
-	<td width="30%">
+	<td>
 	  <h2>Blog</h2>
 <div class='mkwsRecords mkwsTeam_blog'
 	autosearch='dinosaur'
@@ -37,5 +40,8 @@
 	</td>
       </tr>
     </table>
+    <p style="color:grey">
+      <a href="http://mkws.indexdata.com/">About MKWS</p>
+    </p>
   </body>
 </html>
