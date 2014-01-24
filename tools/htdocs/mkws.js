@@ -1339,12 +1339,12 @@ function _mkws_jquery_plugin ($) {
 	});
 
 	if (mkws_config.use_service_proxy) {
-	    mkws.authenticate_session(mkws_config.service_proxy_auth,
-				      mkws_config.service_proxy_auth_domain,
-				      mkws_config.pazpar2_url);
+	    authenticate_session(mkws_config.service_proxy_auth,
+				 mkws_config.service_proxy_auth_domain,
+				 mkws_config.pazpar2_url);
 	} else {
 	    // raw pp2
-	    mkws.run_auto_searches();
+	    run_auto_searches();
 	}
     });
 
@@ -1399,7 +1399,7 @@ function _mkws_jquery_plugin ($) {
      * The username/password is configured in the apache config file
      * for the site.
      */
-    mkws.authenticate_session = function(auth_url, auth_domain, pp2_url) {
+    function authenticate_session(auth_url, auth_domain, pp2_url) {
 	debug("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
@@ -1425,13 +1425,13 @@ function _mkws_jquery_plugin ($) {
 
 	    debug("Service proxy auth successfully done");
 	    mkws.authenticated = true;
-	    mkws.run_auto_searches();
+	    run_auto_searches();
 	});
     }
 
 
-    mkws.run_auto_searches = function() {
-	debug("running auto searches");
+    function run_auto_searches() {
+	console.log("running auto searches");
 
 	$('[id^="mkwsRecords"]').each(function () {
 	    var node = $(this);
@@ -1450,7 +1450,7 @@ function _mkws_jquery_plugin ($) {
 		if (windowid) s += " [windowid '" + windowid + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
-		debug(s);
+		console.log(s);
 		newSearch(query, sort, targets, windowid);
 	    }
 	});
