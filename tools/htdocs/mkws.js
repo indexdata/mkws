@@ -1294,11 +1294,6 @@ function _mkws_jquery_plugin ($) {
 	    }
 	}
 
-	// Backwards compatibility: the special-case undefined team
-	// ### Will not be necessary when non-default teams are working
-	mkws.teams['AUTO'] = _make_mkws_team(j, "AUTO");
-	log("Made the unnamed MKWS team");
-
 	// Find all nodes with class (NOT id) mkwsRecords, and
 	// determine their team from the mkwsTeam_* class. So:
 	//	<div class="mkwsRecords mkwsTeam_foo"/>
@@ -1318,9 +1313,6 @@ function _mkws_jquery_plugin ($) {
 
 	    if (mkws.teams[tname]) {
 		log("MKWS team '" + tname + "' already exists, skipping");
-	    } else if (tname === "AUTO") {
-		// ### For now: later, this will be how the backwards-compatibility is done
-		log("Skipping MKWS team '" + tname + "'");
 	    } else {
 		mkws.teams[tname] = _make_mkws_team(j, tname);
 		log("Made MKWS team '" + tname + "'");
