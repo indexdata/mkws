@@ -1299,24 +1299,14 @@ function _mkws_jquery_plugin ($) {
 	//	<div class="mkwsRecords mkwsTeam_foo"/>
 	$('.mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
 	    var node = this;
-	    var classes = this.className;
- 	    var list = classes.split(/\s+/)
-	    var tname;
-	    for (var i = 0; i < list.length; i++) {
-		var cname = list[i];
-		if (cname.match(/^mkwsTeam_/)) {
-		    tname = cname.replace(/^mkwsTeam_/, '');
+	    mkws.handle_node_with_team(node, function(tname) {
+		if (mkws.teams[tname]) {
+		    log("MKWS team '" + tname + "' already exists, skipping");
+		} else {
+		    mkws.teams[tname] = _make_mkws_team(j, tname);
+		    log("Made MKWS team '" + tname + "'");
 		}
-	    }
-	    if (!tname)
-		tname = "AUTO";
-
-	    if (mkws.teams[tname]) {
-		log("MKWS team '" + tname + "' already exists, skipping");
-	    } else {
-		mkws.teams[tname] = _make_mkws_team(j, tname);
-		log("Made MKWS team '" + tname + "'");
-	    }
+	    });
 	});
 
 	if (mkws_config.use_service_proxy) {
@@ -1328,6 +1318,22 @@ function _mkws_jquery_plugin ($) {
 	    run_auto_searches();
 	}
     });
+
+
+    mkws.handle_node_with_team = function(node, callback) {
+	var classes = node.className;
+ 	var list = classes.split(/\s+/)
+	var tname;
+	for (var i = 0; i < list.length; i++) {
+	    var cname = list[i];
+	    if (cname.match(/^mkwsTeam_/)) {
+		tname = cname.replace(/^mkwsTeam_/, '');
+	    }
+	}
+	if (!tname)
+	    tname = "AUTO";
+	callback(tname);
+    }
 
 
     function default_mkws_config() {
