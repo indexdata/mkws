@@ -180,7 +180,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div#mkwsFacetSources").length == 1 ? true : false;
-        }, "check for facet sources", 2 * jasmine_config.second);
+        }, "check for facet sources", 4 * jasmine_config.second);
 
 
         // everything displayed?
