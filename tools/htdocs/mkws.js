@@ -1341,8 +1341,8 @@ function _mkws_jquery_plugin ($) {
 	/* default mkws config */
 	var config_default = {
 	    use_service_proxy: true,
-	    pazpar2_url: "http://mkws.indexdata.com/service-proxy/",
-	    service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth",
+	    pazpar2_url: "//mkws.indexdata.com/service-proxy/",
+	    service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
 	    lang: "",
 	    sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
 	    perpage_options: [10, 20, 30, 50],
