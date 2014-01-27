@@ -1313,9 +1313,10 @@ function _mkws_jquery_plugin ($) {
 		    tname = cname.replace(/^mkwsTeam_/, '');
 		}
 	    }
-	    if (!tname) {
-		alert("No MKWS team specified for mkwsRecords element with classes '" + classes + "'");
-	    } else if (mkws.teams[tname]) {
+	    if (!tname)
+		tname = "AUTO";
+
+	    if (mkws.teams[tname]) {
 		log("MKWS team '" + tname + "' already exists, skipping");
 	    } else if (tname === "AUTO") {
 		// ### For now: later, this will be how the backwards-compatibility is done
