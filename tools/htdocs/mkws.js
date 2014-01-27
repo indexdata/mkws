@@ -863,11 +863,16 @@ function _make_mkws_team($, teamName) {
 	// For some reason, doing this programmatically results in
 	// document.mkwsSearchForm.mkwsQuery being undefined, hence the raw HTML.
 	debug("HTML search form");
-	$("#mkwsSearch").html('\
-<form name="mkwsSearchForm" action="" >\
-  <input id="mkwsQuery" class="mkwsQuery mkwsTeam_AUTO" type="text" size="' + mkws_config.query_width + '" />\
-  <input id="mkwsButton" class="mkwsButton mkwsTeam_AUTO" type="submit" value="' + M('Search') + '" />\
+	$('.mkwsSearch').each(function (i, obj) {
+	    var node = this;
+	    mkws.handle_node_with_team(node, function(tname) {
+		$(node).html('\
+<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
+  <input id="mkwsQuery" class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
+  <input id="mkwsButton" class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
 </form>');
+	    });
+	});
 
 	debug("HTML records");
 	// If the application has an #mkwsResults, populate it in the
