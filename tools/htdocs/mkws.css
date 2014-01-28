@@ -1,6 +1,6 @@
 #mkwsLang,
 #mkwsSwitch,
-#mkwsSearch,
+#mkwsSearch, .mkwsSearch,
 #mkwsTermlists,
 #mkwsRanking,
 #mkwsPager,
@@ -28,7 +28,7 @@
     padding: 0px 3px;
 }
 
-#mkwsSearch {
+#mkwsSearch, .mkwsSearch {
     float: right;
 }
 
@@ -76,7 +76,7 @@
     text-decoration: line-through;
 }
 
-#mkwsSearch input#mkwsButton {
+#mkwsSearch input#mkwsButton, .mkwsSearch input.mkwsButton {
     border: 3px outset #132194;
     background-color: #132194;
     padding: 2px;
@@ -89,7 +89,7 @@
     cursor: pointer;
 }
 
-#mkwsSearch input#mkwsQuery {
+#mkwsSearch input#mkwsQuery, .mkwsSearch input.mkwsQuery {
     border: 2px inset #e0f0ff;
     padding: 3px;
     font-size: 12px;
