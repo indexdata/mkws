@@ -404,7 +404,14 @@ function _make_mkws_team($, teamName) {
     // wait until the DOM is ready
     function domReady ()
     {
-	document.mkwsSearchForm.onsubmit = onFormSubmitEventHandler;
+	$('.mkwsSearchForm').each(function (i, obj) {
+	    var node = this;
+	    debug("adding class 'foo' to node " + node);
+	    mkws.handle_node_with_team(node, function(tname) {
+		$(node).submit(onFormSubmitEventHandler);
+	    });
+	});
+
 	document.mkwsSearchForm.mkwsQuery.value = '';
 	if (document.mkwsSelect) {
 	    if (document.mkwsSelect.mkwsSort)
