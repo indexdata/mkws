@@ -1302,7 +1302,7 @@ function _mkws_jquery_plugin ($) {
 	// Find all nodes with class (NOT id) mkwsRecords, and
 	// determine their team from the mkwsTeam_* class. So:
 	//	<div class="mkwsRecords mkwsTeam_foo"/>
-	$('.mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
+	$('.mkwsSearch, .mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
 		if (mkws.teams[tname]) {
