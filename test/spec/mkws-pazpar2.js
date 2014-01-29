@@ -42,6 +42,8 @@ function init_jasmine_config() {
         }
         debug("jasmine config: " + key + " => " + jasmine_config[key]);
     }
+
+    mkws.jasmine_done = false;
 }
 
 var get_hit_counter = function () {
@@ -384,7 +386,10 @@ describe("Check status client counter", function () {
 
 });
 
-/* dummy EOF */
+/* done */
 describe("All tests are done", function () {
-    it(">>> hooray <<<", function () {});
+    it(">>> hooray <<<", function () {
+        mkws.jasmine_done = true;
+    });
 });
+
