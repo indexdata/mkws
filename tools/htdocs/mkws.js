@@ -230,6 +230,7 @@ function _make_mkws_team($, teamName) {
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
 		      "onrecord": my_onrecord });
+    that.m_paz = m_paz; // For access from non-member functions like mkws.showDetails
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	m_recPerPage = parseInt(mkws_config.perpage_default);
@@ -281,7 +282,7 @@ function _make_mkws_team($, teamName) {
     {
 	var template = loadTemplate("Summary");
 	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails(this.id);return false;"
+	hit._onclick = "mkws.showDetails(this.id, '" + m_teamName + "');return false;"
 	return template(hit);
     }
 
@@ -729,7 +730,7 @@ function _make_mkws_team($, teamName) {
 
 
     // detailed record drawing
-    mkws.showDetails = function (prefixRecId) {
+    mkws.showDetails = function (prefixRecId, tname) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
 	var oldRecId = m_curDetRecId;
 	m_curDetRecId = recId;
@@ -747,7 +748,9 @@ function _make_mkws_team($, teamName) {
             return;
 	}
 	// request the record
-	m_paz.record(recId);
+	var team = mkws.teams[tname];
+	if (!team) alert("no team '" + tname + "'");
+	team.m_paz.record(recId);
     }
 
 
