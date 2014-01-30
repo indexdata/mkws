@@ -24,7 +24,7 @@ terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 jsbeautifier jsb indent:
-	for i in ./spec/*.js ./js/*.js; do \
+	for i in ./spec*/*.js ./js/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
