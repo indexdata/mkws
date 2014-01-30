@@ -9,7 +9,6 @@ if (system.args.length === 1) {
     phantom.exit();
 }
 
-// page.paperSize = { format: 'A4', orientation: "landscape" };
 // page.zoomFactor = 1.0;
 page.viewportSize = {
     width: 1200,
@@ -20,7 +19,7 @@ page.open(url, function () {
     // small delay
     setTimeout(function () {
         page.render(file_png);
-        console.log(page);
         phantom.exit();
     }, 500);
 });
+
