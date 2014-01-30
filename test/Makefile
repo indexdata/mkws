@@ -3,6 +3,7 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 NPM_INSTALL_FLAGS=-q
+PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 
 all: check
 
@@ -23,6 +24,10 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
+phantomjs:
+	@# ${PHANTOMJS} phantom/evaluate.js https://mkws-dev.indexdata.com/jasmine-local-popup.html	
+	${PHANTOMJS} phantom/evaluate.js https://mkws-dev.indexdata.com/jasmine-popup.html	
+
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
@@ -33,5 +38,5 @@ node_modules:
 	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
 
 help:
-	@echo "make [ all | check | clean | distclean ]"
+	@echo "make [ all | check | phantomjs | clean | distclean ]"
 	@echo "     [ jsbeautifier | node-modules ]"
