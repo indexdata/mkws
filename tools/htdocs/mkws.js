@@ -166,6 +166,7 @@ function team($, teamName) {
 
 
     // Needs to be defined inside team() so it can see m_debug_time
+    // ### member access won't work: there is only one instance of this function
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
 	    return;
