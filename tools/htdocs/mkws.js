@@ -405,9 +405,11 @@ function team($, teamName) {
     // wait until the DOM is ready
     function domReady ()
     {
-	$('.mkwsSearchForm').each(function (i, obj) {
+	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
+	    debug("adding search-forms for team '" + m_teamName + "'");
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
+		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
 		$(node).submit(onFormSubmitEventHandler);
 	    });
 	});
