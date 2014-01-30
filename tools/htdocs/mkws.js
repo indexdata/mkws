@@ -426,7 +426,11 @@ function team($, teamName) {
     // when search button pressed
     function onFormSubmitEventHandler()
     {
-	that.newSearch(document.mkwsSearchForm.mkwsQuery.value);
+	mkws.handle_node_with_team(this, function (tname) {
+	    var val = $('.mkwsQuery.mkwsTeam_' + tname).val();
+	    mkws.teams[tname].newSearch(val);
+	});
+
 	return false;
     }
 
