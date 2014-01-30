@@ -1,15 +1,20 @@
-// run: phantomjs /path/to/this/file
-var url = 'http://www.indexdata.com/';
-var file_png = "indexdata.png";
+var page = require('webpage').create(),
+    system = require('system');
 
-var page = require('webpage').create();
+var url = system.args[1] || 'http://www.indexdata.com/';
+var file_png = system.args[2] || 'indexdata.png';
+
+if (system.args.length === 1) {
+    console.log('Usage: screenshot.js <some URL> <file.png>');
+    phantom.exit();
+}
 
 // page.paperSize = { format: 'A4', orientation: "landscape" };
+// page.zoomFactor = 1.0;
 page.viewportSize = {
-    width: 960,
-    height: 800
+    width: 1200,
+    height: 1000
 };
-page.zoomFactor = 1.0;
 
 page.open(url, function () {
     // small delay
