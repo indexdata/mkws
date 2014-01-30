@@ -7,7 +7,6 @@ var xmlstring = '<?xml version="1.0" encoding="UTF-8"?><process>yes</process>';
 jsdom.env('<html/>',
 // ["http://code.jquery.com/jquery.js"],
 
-
 function (errors, window) {
     // var $ = window.$; 
     var $ = require('jQuery');
