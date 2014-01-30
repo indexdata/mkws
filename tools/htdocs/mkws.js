@@ -407,7 +407,6 @@ function team($, teamName) {
     {
 	$('.mkwsSearchForm').each(function (i, obj) {
 	    var node = this;
-	    debug("adding class 'foo' to node " + node);
 	    mkws.handle_node_with_team(node, function(tname) {
 		$(node).submit(onFormSubmitEventHandler);
 	    });
