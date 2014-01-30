@@ -30,7 +30,7 @@ jsbeautifier jsb indent:
 
 node-modules: node_modules
 node_modules:
-	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node
+	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
