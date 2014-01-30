@@ -8,8 +8,9 @@ PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 all: check
 
 clean:
+	rm -f mkws-error.png
 
-distclean:
+distclean: clean
 	rm -rf node_modules
 
 mkws-complete-syntax-check:
