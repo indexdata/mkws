@@ -20,6 +20,7 @@ page.open(url, function () {
     // small delay
     setTimeout(function () {
         page.render(file_png);
+        console.log(page);
         phantom.exit();
     }, 500);
 });
