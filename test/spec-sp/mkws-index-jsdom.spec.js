@@ -53,4 +53,3 @@ function jsdom_check(file, tags_array, ignore_doctype) {
 jsdom_check('../examples/htdocs/language.html', [utils.tags.required, utils.tags.optional, utils.tags.optional2]);
 jsdom_check('../examples/htdocs/mobile.html', [utils.tags.required, utils.tags.optional]);
 jsdom_check('../examples/htdocs/index.html', [utils.tags.required, utils.tags.optional]);
-
