@@ -141,7 +141,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
 // wrapper for jQuery lib
-function _make_mkws_team($, teamName) {
+function team($, teamName) {
     var that = {};
     var m_teamName = teamName;
     var m_submitted = false;
@@ -162,10 +162,10 @@ function _make_mkws_team($, teamName) {
 
 
     // if (console && console.log) // disabled, will fail in IE8
-    //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
+    //	console.log("run team(" + (teamName ? teamName : "") + ")");
 
 
-    // Needs to be defined inside _make_mkws_team() so it can see m_debug_time
+    // Needs to be defined inside team() so it can see m_debug_time
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
 	    return;
@@ -1276,7 +1276,7 @@ function _mkws_jquery_plugin ($) {
 };
 
 
-// wrapper to call _make_mkws_team() after page load
+// wrapper to call team() after page load
 (function (j) {
     function log(s) {
         if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
@@ -1315,7 +1315,7 @@ function _mkws_jquery_plugin ($) {
 		if (mkws.teams[tname]) {
 		    log("MKWS team '" + tname + "' already exists, skipping");
 		} else {
-		    mkws.teams[tname] = _make_mkws_team(j, tname);
+		    mkws.teams[tname] = team(j, tname);
 		    log("Made MKWS team '" + tname + "'");
 		}
 	    });
