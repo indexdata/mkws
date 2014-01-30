@@ -355,7 +355,7 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onrecord(data, teamName) {
+    function my_onrecord(data, args, teamName) {
 	debug("record for " + teamName);
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
