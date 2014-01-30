@@ -24,7 +24,8 @@ page.open(url, function (status) {
     console.log("fetch " + url + " with status: " + status);
     console.log("polling MKWS test status...");
 
-    for (var i = 1; i < run_time; i++) {
+    var r;
+    for (var i = 1; i <= run_time; i++) {
         setTimeout(function () {
             var result = page.evaluate(function (s) {
                 // return document.querySelector(s).innerText;
@@ -39,11 +40,17 @@ page.open(url, function (status) {
                 console.log("MKWS tests are successfully done. Hooray!");
                 phantom.exit(0);
             }
+            r = result;
         }, i * 1000);
     }
 
+
     setTimeout(function () {
+        var error_png = "./mkws-error.png";
         console.log("MKWS tests failed after " + run_time + " seconds");
+        console.log("keep screenshot in '" + error_png + "'");
+
+        page.render(error_png);
         phantom.exit(1);
-    }, run_time * 1000);
+    }, (run_time + 1) * 1000);
 });
