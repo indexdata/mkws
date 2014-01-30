@@ -141,7 +141,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
 // wrapper for jQuery lib
-function _make_mkws_team($, teamName) {
+function team($, teamName) {
     var that = {};
     var m_teamName = teamName;
     var m_submitted = false;
@@ -162,10 +162,11 @@ function _make_mkws_team($, teamName) {
 
 
     // if (console && console.log) // disabled, will fail in IE8
-    //	console.log("run _make_mkws_team(" + (teamName ? teamName : "") + ")");
+    //	console.log("run team(" + (teamName ? teamName : "") + ")");
 
 
-    // Needs to be defined inside _make_mkws_team() so it can see m_debug_time
+    // Needs to be defined inside team() so it can see m_debug_time
+    // ### member access won't work: there is only one instance of this function
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
 	    return;
@@ -355,7 +356,7 @@ function _make_mkws_team($, teamName) {
     }
 
 
-    function my_onrecord(data, teamName) {
+    function my_onrecord(data, args, teamName) {
 	debug("record for " + teamName);
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
@@ -404,10 +405,11 @@ function _make_mkws_team($, teamName) {
     // wait until the DOM is ready
     function domReady ()
     {
-	$('.mkwsSearchForm').each(function (i, obj) {
+	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
+	    debug("adding search-forms for team '" + m_teamName + "'");
 	    var node = this;
-	    debug("adding class 'foo' to node " + node);
 	    mkws.handle_node_with_team(node, function(tname) {
+		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
 		$(node).submit(onFormSubmitEventHandler);
 	    });
 	});
@@ -425,7 +427,11 @@ function _make_mkws_team($, teamName) {
     // when search button pressed
     function onFormSubmitEventHandler()
     {
-	that.newSearch(document.mkwsSearchForm.mkwsQuery.value);
+	mkws.handle_node_with_team(this, function (tname) {
+	    var val = $('.mkwsQuery.mkwsTeam_' + tname).val();
+	    mkws.teams[tname].newSearch(val);
+	});
+
 	return false;
     }
 
@@ -1276,7 +1282,7 @@ function _mkws_jquery_plugin ($) {
 };
 
 
-// wrapper to call _make_mkws_team() after page load
+// wrapper to call team() after page load
 (function (j) {
     function log(s) {
         if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
@@ -1315,7 +1321,7 @@ function _mkws_jquery_plugin ($) {
 		if (mkws.teams[tname]) {
 		    log("MKWS team '" + tname + "' already exists, skipping");
 		} else {
-		    mkws.teams[tname] = _make_mkws_team(j, tname);
+		    mkws.teams[tname] = team(j, tname);
 		    log("Made MKWS team '" + tname + "'");
 		}
 	    });
