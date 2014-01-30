@@ -1,4 +1,5 @@
 // Workaround for broken XML parser in node.js/jquery
+// see https://github.com/coolaj86/node-jquery/issues/29
 
 var jsdom = require("jsdom");
 var DOMParser = require('xmldom').DOMParser;
