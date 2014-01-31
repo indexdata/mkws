@@ -17,6 +17,7 @@ mkws-complete-syntax-check:
 	${MAKE} -C../tools/htdocs $@
 
 check: mkws-complete-syntax-check
+	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
 	jasmine-node --noColor --captureExceptions --forceexit ./spec
 	jasmine-node --noColor --captureExceptions --forceexit ./spec-sp
 
