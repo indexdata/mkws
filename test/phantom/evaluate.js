@@ -1,7 +1,7 @@
 /*
     Fetch a mkws/jasmine based page into node.js, evaluate the page and check if test status
     This should make it possible to run the test on the command line in jenkins.  e.g.:
-    
+
       phantomjs evaluate.js https://mkws-dev.indexdata.com/jasmine-local-popup.html
 */
 
@@ -31,13 +31,16 @@ page.open(url, function (status) {
                 // return document.querySelector(s).innerText;
                 return {
                     mkws: window.mkws,
-                    string: "foo"
+                    duration: window.$(".duration").text(),
+                    passing: window.$(".passingAlert").text()
                 };
             }, 'title');
 
             console.log(".");
             if (result.mkws.jasmine_done) {
                 console.log("MKWS tests are successfully done. Hooray!");
+                console.log("duration: " + result.duration);
+                console.log("passing: " + result.passing);
                 phantom.exit(0);
             }
             r = result;
