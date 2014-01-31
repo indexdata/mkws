@@ -35,6 +35,7 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
         // success
         if (condition) {
             // console.log("'waitFor()' finished in " + (new Date().getTime() - start) + "ms.");
+            result.time = (new Date().getTime() - start);
             readyFx(result);
             clearInterval(interval);
             phantom.exit(0);
@@ -50,7 +51,8 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
         // checking
         else {
             result = checkFx();
-            condition = result.mkws.jasmine_done;
+            if (result)
+                condition = result.mkws.jasmine_done;
         }
 
     }, 500); //< repeat check every N ms
@@ -60,23 +62,30 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
 
 page.open(url, function (status) {
     console.log("fetch " + url + " with status: " + status);
-    console.log("polling MKWS test status...");
+    if (status != 'success') {
+        console.log("Failed to fetch page, give up");
+        phantom.exit(1);
+    }
+
+    console.log("polling MKWS jasmine test status...");
 
     var exit = wait_for_jasmine(function () {
         return page.evaluate(function () {
-            return {
-                mkws: window.mkws,
-                duration: window.$(".duration").text(),
-                passing: window.$(".passingAlert").text()
-            };
+            if (!window || !window.$ || !window.mkws) {
+                return false;
+            } else {
+                return {
+                    mkws: window.mkws,
+                    duration: window.$(".duration").text(),
+                    passing: window.$(".passingAlert").text()
+                };
+            }
         })},
 
         function(result) {
-            if (result.mkws.jasmine_done) {
-                console.log("MKWS tests are successfully done. Hooray!");
-                console.log("jasmine duration: " + result.duration);
-                console.log("jasmine passing: " + result.passing);
-            }
+            console.log("MKWS tests are successfully done in " + result.time/1000 + " seconds. Hooray!");
+            console.log("jasmine duration: " + result.duration);
+            console.log("jasmine passing: " + result.passing);
         },
 
         function (result) {
@@ -86,5 +95,4 @@ page.open(url, function (status) {
             page.render(error_png);
         },
         run_time * 1000);
-
 });
