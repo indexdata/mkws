@@ -4,6 +4,8 @@
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 NPM_INSTALL_FLAGS=-q
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
+PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
+PHANTOMJS_TIMEOUT=	8
 
 all: check
 
@@ -27,8 +29,7 @@ terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 phantomjs:
-	@# ${PHANTOMJS} phantom/evaluate.js https://mkws-dev.indexdata.com/jasmine-local-popup.html	
-	${PHANTOMJS} phantom/evaluate.js https://mkws-dev.indexdata.com/jasmine-popup.html	
+	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js; do \
