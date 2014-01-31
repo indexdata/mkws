@@ -90,7 +90,6 @@ page.open(url, function (status) {
             console.log("MKWS tests are successfully done in " + result.time/1000 + " seconds. Hooray!");
             console.log("jasmine duration: " + result.duration);
             console.log("jasmine passing: " + result.passing);
-            console.log("mkws: " + result.mkws_js);
         },
 
         function (result) {
