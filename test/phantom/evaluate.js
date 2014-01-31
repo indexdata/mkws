@@ -20,6 +20,9 @@ page.viewportSize = {
 };
 
 var run_time = 8; // poll up to seconds
+if (system.args[2] && parseFloat(system.args[2]) > 0){
+    run_time = parseFloat(system.args[2] );
+}
 
 /************************/
 
@@ -67,7 +70,7 @@ page.open(url, function (status) {
         phantom.exit(1);
     }
 
-    console.log("polling MKWS jasmine test status...");
+    console.log("polling MKWS jasmine test status for " + run_time + " seconds");
 
     var exit = wait_for_jasmine(function () {
         return page.evaluate(function () {
@@ -76,6 +79,7 @@ page.open(url, function (status) {
             } else {
                 return {
                     mkws: window.mkws,
+                    html: window.$("html").html(),
                     duration: window.$(".duration").text(),
                     passing: window.$(".passingAlert").text()
                 };
@@ -90,9 +94,15 @@ page.open(url, function (status) {
 
         function (result) {
             var error_png = "./mkws-error.png";
+            var error_html = "./mkws-error.html";
+
             console.log("MKWS tests failed after " + result.time/1000 + " seconds");
             console.log("keep screenshot in '" + error_png + "'");
             page.render(error_png);
+
+            console.log("keep html DOM in '" + error_html + "'");
+            var fs = require('fs');
+            fs.write(error_html, result.html ? result.html : "Argh!", "wb");
         },
         run_time * 1000);
 });
