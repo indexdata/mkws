@@ -19,7 +19,7 @@ page.viewportSize = {
     height: 1000
 };
 
-var run_time = 12; // poll up to seconds
+var run_time = 8; // poll up to seconds
 
 /************************/
 
