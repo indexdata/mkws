@@ -90,6 +90,7 @@ page.open(url, function (status) {
             console.log("MKWS tests are successfully done in " + result.time/1000 + " seconds. Hooray!");
             console.log("jasmine duration: " + result.duration);
             console.log("jasmine passing: " + result.passing);
+            console.log("mkws: " + result.mkws_js);
         },
 
         function (result) {
@@ -101,8 +102,9 @@ page.open(url, function (status) {
             page.render(error_png);
 
             console.log("keep html DOM in '" + error_html + "'");
+            var html = result.html + "\n\n<!-- mkws: " + JSON.stringify(result.mkws) + " -->\n";
             var fs = require('fs');
-            fs.write(error_html, result.html ? result.html : "Argh!", "wb");
+            fs.write(error_html, html, "wb");
         },
         run_time * 1000);
 });
