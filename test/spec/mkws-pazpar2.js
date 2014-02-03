@@ -263,7 +263,7 @@ describe("Check Termlist", function () {
             } else {
                 return false;
             }
-        }, "Search for source in navi bar", jasmine_config.second);
+        }, "Search for source in navi bar", 3 * jasmine_config.second);
 
         // Note: it may happens that limited source search returns the same number of hits
         // as before. Thats not really an error, but unfortunate
