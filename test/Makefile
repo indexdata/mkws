@@ -6,6 +6,7 @@ NPM_INSTALL_FLAGS=-q
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_TIMEOUT=	12	
+IMAGES=	./images
 
 all: check
 
@@ -30,6 +31,9 @@ terse:
 
 phantomjs:
 	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+
+screenshot:
+	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200
 
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
