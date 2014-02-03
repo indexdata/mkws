@@ -271,7 +271,8 @@ function team($, teamName) {
 		      renderSummary(hit),
       		      '</div>');
 	    if (hit.recid == m_curDetRecId) {
-		html.push(renderDetails(m_curDetRecData));
+		if (m_curDetRecData)
+		    html.push(renderDetails(m_curDetRecData));
 	    }
 	}
 	results.html(html.join(''));
