@@ -10,7 +10,7 @@ PHANTOMJS_TIMEOUT=	8
 all: check
 
 clean:
-	rm -f mkws-error.png
+	rm -f mkws-error.png mkws-error.html
 
 distclean: clean
 	rm -rf node_modules
