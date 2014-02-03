@@ -14,15 +14,19 @@ if (system.args.length === 1) {
 }
 var url = system.args[1];
 
+var run_time = 8; // poll up to seconds
+if (system.args[2] && parseFloat(system.args[2]) > 0) {
+    run_time = parseFloat(system.args[2]);
+}
+
 page.viewportSize = {
     width: 1200,
     height: 1000
 };
 
-var run_time = 8; // poll up to seconds
-if (system.args[2] && parseFloat(system.args[2]) > 0) {
-    run_time = parseFloat(system.args[2]);
-}
+// 0: silent, 1: some infos,  2: display console.log() output
+var debug = 2;
+
 
 /************************/
 
@@ -32,7 +36,7 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
         result, condition = false;
 
     var interval = setInterval(function () {
-        console.log(".");
+        if (debug == 1) console.log(".");
 
         // success
         if (condition) {
@@ -59,16 +63,27 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
     }, 500); //< repeat check every N ms
 };
 
+// redirect webkit console.log() output
+page.onConsoleMessage = function (message) {
+    if (debug >= 2) console.log(message);
+};
+
+// cat webkit alert()
+page.onAlert = function (msg) {
+    console.log("Alert: " + msg);
+};
 
 
 page.open(url, function (status) {
-    console.log("fetch " + url + " with status: " + status);
+    if (debug >= 1) console.log("fetch " + url + " with status: " + status);
+
     if (status != 'success') {
         console.log("Failed to fetch page, give up");
         phantom.exit(1);
     }
 
-    console.log("polling MKWS jasmine test status for " + run_time + " seconds");
+    if (debug >= 1) console.log("polling MKWS jasmine test status for " + run_time + " seconds");
+
 
     var exit = wait_for_jasmine(function () {
         return page.evaluate(function () {
@@ -86,6 +101,8 @@ page.open(url, function (status) {
     },
 
     function (result) {
+        if (debug < 1) return;
+
         console.log("MKWS tests are successfully done in " + result.time / 1000 + " seconds. Hooray!");
         console.log("jasmine duration: " + result.duration);
         console.log("jasmine passing: " + result.passing);
