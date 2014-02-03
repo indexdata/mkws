@@ -11,8 +11,8 @@ if (system.args.length === 1) {
 
 // page.zoomFactor = 1.0;
 page.viewportSize = {
-    width: 1200,
-    height: 1000
+    width: system.args[3] ? system.args[3] : 1200,
+    height: system.args[4] ? system.args[4] : 1000
 };
 
 page.open(url, function () {
@@ -20,6 +20,5 @@ page.open(url, function () {
     setTimeout(function () {
         page.render(file_png);
         phantom.exit();
-    }, 500);
+    }, 200);
 });
-
