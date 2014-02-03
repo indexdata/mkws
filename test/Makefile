@@ -38,12 +38,15 @@ screenshot:
 
 screenshot-mkws:
 	for i in ${SCREENSHOT_WIDTH}; do \
-	    ${PHANTOMJS} phantom/screenshot.js http://mkws.indexdata.com ${IMAGES}/mkws-$$i $$i 2800 & \
+	    ${PHANTOMJS} phantom/screenshot.js http://mkws.indexdata.com ${IMAGES}/mkws-$$i.png $$i 1000 &  \
 	done; wait
+	ls -l ${IMAGES}
+
 screenshot-indexdata:
 	for i in ${SCREENSHOT_WIDTH}; do \
-	    ${PHANTOMJS} phantom/screenshot.js http://www.indexdata.com ${IMAGES}/indexdata-$$i $$i 1200 & \
+	    ${PHANTOMJS} phantom/screenshot.js http://www.indexdata.com ${IMAGES}/indexdata-$$i.png $$i 1000 &  \
 	done; wait
+	ls -l ${IMAGES}
 
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \

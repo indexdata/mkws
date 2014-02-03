@@ -23,7 +23,8 @@ page.clipRect = {
 page.open(url, function () {
     // small delay
     setTimeout(function () {
-        page.render(file_png);
+        var ret = page.render(file_png);
         phantom.exit();
     }, 200);
 });
+
