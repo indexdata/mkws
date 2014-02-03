@@ -26,7 +26,7 @@ page.viewportSize = {
 
 // 0: silent, 1: some infos,  2: display console.log() output
 var debug = 2;
-if (system.env['DEBUG'] != 'undefined' && parseInt(system.env['DEBUG']) != NaN) {
+if (typeof system.env['DEBUG'] != 'undefined' && parseInt(system.env['DEBUG']) != NaN) {
     debug = system.env['DEBUG'];
     if (debug > 0) console.log("reset debug level to: " + debug);
 }
