@@ -7,11 +7,12 @@ PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_TIMEOUT=	12	
 IMAGES=	./images
+SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 
 all: check
 
 clean:
-	rm -f mkws-error.png mkws-error.html
+	rm -f mkws-error.png mkws-error.html images/*.png
 
 distclean: clean
 	rm -rf node_modules
@@ -34,6 +35,15 @@ phantomjs:
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
+
+screenshot-mkws:
+	for i in ${SCREENSHOT_WIDTH}; do \
+	    ${PHANTOMJS} phantom/screenshot.js http://mkws.indexdata.com ${IMAGES}/mkws-$$i $$i 2800 & \
+	done; wait
+screenshot-indexdata:
+	for i in ${SCREENSHOT_WIDTH}; do \
+	    ${PHANTOMJS} phantom/screenshot.js http://www.indexdata.com ${IMAGES}/indexdata-$$i $$i 1200 & \
+	done; wait
 
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
