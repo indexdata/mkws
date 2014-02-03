@@ -14,14 +14,21 @@ if (system.args.length === 1) {
 }
 var url = system.args[1];
 
+var run_time = 8; // poll up to seconds
+if (system.args[2] && parseFloat(system.args[2]) > 0) {
+    run_time = parseFloat(system.args[2]);
+}
+
 page.viewportSize = {
     width: 1200,
     height: 1000
 };
 
-var run_time = 8; // poll up to seconds
-if (system.args[2] && parseFloat(system.args[2]) > 0){
-    run_time = parseFloat(system.args[2] );
+// 0: silent, 1: some infos,  2: display console.log() output
+var debug = 2;
+if (system.env['DEBUG'] != 'undefined' && parseInt(system.env['DEBUG']) != NaN) {
+    debug = system.env['DEBUG'];
+    if (debug > 0) console.log("reset debug level to: " + debug);
 }
 
 /************************/
@@ -29,11 +36,10 @@ if (system.args[2] && parseFloat(system.args[2]) > 0){
 function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
     var max_timeout = timeout ? timeout : run_time * 1000,
         start = new Date().getTime(),
-        result,
-        condition = false;
+        result, condition = false;
 
-    var interval = setInterval(function() {
-        console.log(".");
+    var interval = setInterval(function () {
+        if (debug == 1) console.log(".");
 
         // success
         if (condition) {
@@ -45,7 +51,7 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
         }
 
         // timeout
-        else if ( new Date().getTime() - start >= max_timeout ) {
+        else if (new Date().getTime() - start >= max_timeout) {
             result.time = (new Date().getTime() - start);
             failFx(result);
             phantom.exit(1);
@@ -54,23 +60,33 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
         // checking
         else {
             result = checkFx();
-            if (result)
-                condition = result.mkws.jasmine_done;
+            if (result) condition = result.mkws.jasmine_done;
         }
 
     }, 500); //< repeat check every N ms
 };
 
+// redirect webkit console.log() output
+page.onConsoleMessage = function (message) {
+    if (debug >= 2) console.log(message);
+};
+
+// cat webkit alert()
+page.onAlert = function (msg) {
+    console.log("Alert: " + msg);
+};
 
 
 page.open(url, function (status) {
-    console.log("fetch " + url + " with status: " + status);
+    if (debug >= 1) console.log("fetch " + url + " with status: " + status);
+
     if (status != 'success') {
         console.log("Failed to fetch page, give up");
         phantom.exit(1);
     }
 
-    console.log("polling MKWS jasmine test status for " + run_time + " seconds");
+    if (debug >= 1) console.log("polling MKWS jasmine test status for " + run_time + " seconds");
+
 
     var exit = wait_for_jasmine(function () {
         return page.evaluate(function () {
@@ -84,26 +100,29 @@ page.open(url, function (status) {
                     passing: window.$(".passingAlert").text()
                 };
             }
-        })},
+        })
+    },
 
-        function(result) {
-            console.log("MKWS tests are successfully done in " + result.time/1000 + " seconds. Hooray!");
-            console.log("jasmine duration: " + result.duration);
-            console.log("jasmine passing: " + result.passing);
-        },
+    function (result) {
+        if (debug < 1) return;
 
-        function (result) {
-            var error_png = "./mkws-error.png";
-            var error_html = "./mkws-error.html";
+        console.log("");
+        console.log("MKWS tests are successfully done in " + result.time / 1000 + " seconds. Hooray!");
+        console.log("jasmine duration: " + result.duration);
+        console.log("jasmine passing: " + result.passing);
+    },
 
-            console.log("MKWS tests failed after " + result.time/1000 + " seconds");
-            console.log("keep screenshot in '" + error_png + "'");
-            page.render(error_png);
+    function (result) {
+        var error_png = "./mkws-error.png";
+        var error_html = "./mkws-error.html";
 
-            console.log("keep html DOM in '" + error_html + "'");
-            var html = result.html + "\n\n<!-- mkws: " + JSON.stringify(result.mkws) + " -->\n";
-            var fs = require('fs');
-            fs.write(error_html, html, "wb");
-        },
-        run_time * 1000);
+        console.log("MKWS tests failed after " + result.time / 1000 + " seconds");
+        console.log("keep screenshot in '" + error_png + "'");
+        page.render(error_png);
+
+        console.log("keep html DOM in '" + error_html + "'");
+        var html = result.html + "\n\n<!-- mkws: " + JSON.stringify(result.mkws) + " -->\n";
+        var fs = require('fs');
+        fs.write(error_html, html, "wb");
+    }, run_time * 1000);
 });

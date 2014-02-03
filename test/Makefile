@@ -32,7 +32,7 @@ phantomjs:
 	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 jsbeautifier jsb indent:
-	for i in ./spec*/*.js ./js/*.js; do \
+	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
