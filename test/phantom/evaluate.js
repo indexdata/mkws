@@ -26,7 +26,10 @@ page.viewportSize = {
 
 // 0: silent, 1: some infos,  2: display console.log() output
 var debug = 2;
-
+if (system.env['DEBUG'] != 'undefined' && parseInt(system.env['DEBUG']) != NaN) {
+    debug = system.env['DEBUG'];
+    if (debug > 0) console.log("reset debug level to: " + debug);
+}
 
 /************************/
 
@@ -103,6 +106,7 @@ page.open(url, function (status) {
     function (result) {
         if (debug < 1) return;
 
+        console.log("");
         console.log("MKWS tests are successfully done in " + result.time / 1000 + " seconds. Hooray!");
         console.log("jasmine duration: " + result.duration);
         console.log("jasmine passing: " + result.passing);
