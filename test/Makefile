@@ -33,7 +33,7 @@ phantomjs:
 	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 screenshot:
-	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200
+	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
 
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
@@ -45,5 +45,6 @@ node_modules:
 	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
 
 help:
-	@echo "make [ all | check | phantomjs | clean | distclean ]"
+	@echo "make [ all | check | clean | distclean ]"
+	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | node-modules ]"
