@@ -1,5 +1,5 @@
 #mkwsLang,
-#mkwsSwitch,
+#mkwsSwitch, .mkwsSwitch,
 #mkwsSearch, .mkwsSearch,
 #mkwsTermlists,
 #mkwsRanking,
@@ -32,7 +32,7 @@
     float: right;
 }
 
-#mkwsSwitch {
+#mkwsSwitch, .mkwsSwitch {
     float: right;
     padding-left: 1em;
     padding-top: 0.4em;
@@ -53,7 +53,7 @@
     font-weight: bold;
 }
 
-#mkwsSwitch a,
+#mkwsSwitch a, .mkwsSwitch a,
 #mkwsLang a,
 #mkwsTermlists a,
 #mkwsRanking a,
@@ -64,7 +64,7 @@
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover,
+#mkwsSwitch a:hover, .mkwsSwitch a:hover,
 #mkwsLang a:hover,
 #mkwsTermlists a:hover,
 #mkwsPager a:hover,
