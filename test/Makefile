@@ -49,7 +49,7 @@ screenshot-indexdata:
 	ls -l ${IMAGES}
 
 jsbeautifier jsb indent:
-	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
+	for i in package.json ./spec*/*.js ./js/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 

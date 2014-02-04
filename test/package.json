@@ -1,0 +1,21 @@
+{
+    "name": "MKWS",
+    "version": "0.9.1",
+    "license": "IndexData ApS, Copyright (c) 2013-2014",
+    "contributors": [{
+        "name": "Mike Taylor",
+        "email": "mike@indexdata.com"
+    }, {
+        "name": "Wolfram Schneider",
+        "email": "wosch@indexdata.com"
+    }],
+    "devDependencies": {
+        "jQuery": "*",
+        "xmlhttprequest": "*",
+        "jsdom": "*",
+        "request": "*",
+        "jasmine-node": "*",
+        "phantomjs": "*"
+    },
+    "dummy": "EOF"
+}
