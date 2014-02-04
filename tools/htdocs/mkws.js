@@ -1423,11 +1423,11 @@ function _mkws_jquery_plugin ($) {
      * for the site.
      */
     function authenticate_session(auth_url, auth_domain, pp2_url) {
-	console.log("Run service proxy auth URL: " + auth_url);
+	log("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    console.log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1446,7 +1446,7 @@ function _mkws_jquery_plugin ($) {
 		return;
 	    }
 
-	    console.log("Service proxy auth successfully done");
+	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    run_auto_searches();
 	});
@@ -1454,13 +1454,13 @@ function _mkws_jquery_plugin ($) {
 
 
     function run_auto_searches() {
-	console.log("running auto searches");
+	log("running auto searches");
 
 	for (var teamName in mkws.teams) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
-	    console.log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
+	    log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
 		var sort = node.attr('sort');
@@ -1469,9 +1469,9 @@ function _mkws_jquery_plugin ($) {
 		if (teamName) s += " [teamName '" + teamName + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
-		console.log(s);
+		log(s);
 		var team = mkws.teams[teamName];
-		console.log($.toJSON(team));
+		log($.toJSON(team));
 		team.newSearch(query, sort, targets, teamName);
 	    }
 	}
