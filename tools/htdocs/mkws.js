@@ -988,9 +988,9 @@ function team($, teamName) {
 	debug("HTML switch for team " + m_teamName);
 
 	var node = $(".mkwsSwitch.mkwsTeam_" + m_teamName);
-	node.append($('<a href="#" class="mkwsSwitch_records" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
+	node.append($('<a href="#" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
 	node.append($("<span/>", { text: " | " }));
-	node.append($('<a href="#" class="mkwsSwitch_targets" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
+	node.append($('<a href="#" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
 
 	debug("HTML targets");
 	var node = $(".mkwsTargets.mkwsTeam_" + m_teamName);
