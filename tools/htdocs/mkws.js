@@ -451,7 +451,7 @@ function team($, teamName) {
 	resetPage(); // ### the globals it resents should be indexed by windowid
 	loadSelect(); // ### should use windowid
 	triggerSearch(query, sort, targets, windowid);
-	mkws.switchView('records'); // In case it's configured to start off as hidden
+	mkws.switchView(m_teamName, 'records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
 
@@ -701,12 +701,12 @@ function team($, teamName) {
 
 
     // switching view between targets and records
-    mkws.switchView = function(view) {
-	debug("switchView: " + view);
+    mkws.switchView = function(tname, view) {
+	debug("switchView(" + tname + ", " + view + ")");
 
 	//var targets = document.getElementById('mkwsTargets');
-	var targets = $('#mkwsTargets');
-	var results = $('#mkwsResults,#mkwsRecords');
+	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
+	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
 	var blanket = $('#mkwsBlanket');
 	var motd    = $('#mkwsMOTD');
 
@@ -724,7 +724,7 @@ function team($, teamName) {
             if (motd) motd.css('display', 'none');
             break;
 	case 'none':
-	    alert("mkws.switchView('none') shouldn't happen");
+	    alert("mkws.switchView(" + tname + ", 'none') shouldn't happen");
             if (targets) targets.css('display', 'none');
             if (results) results.css('display', 'none');
             if (blanket) blanket.css('display', 'none');
@@ -878,7 +878,8 @@ function team($, teamName) {
 	// For some reason, doing this programmatically results in
 	// document.mkwsSearchForm.mkwsQuery being undefined, hence the raw HTML.
 	debug("HTML search form");
-	$('.mkwsSearch').each(function (i, obj) {
+	// ### There is only one match here by design: fix not to bother looping
+	$('.mkwsSearch.mkwsTeam_' + m_teamName).each(function (i, obj) {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
 		$(node).html('\
@@ -890,16 +891,17 @@ function team($, teamName) {
 	});
 
 	debug("HTML records");
-	// If the application has an #mkwsResults, populate it in the
-	// usual way. If not, assume that it's a smarter application that
-	// defines its own subcomponents:
-	//	#mkwsTermlists
-	//	#mkwsRanking
-	//	#mkwsPager
-	//	#mkwsNavi
-	//	#mkwsRecords
-	if ($("#mkwsResults").length) {
-	    $("#mkwsResults").html('\
+	// If the team has a .mkwsResults, populate it in the usual
+	// way. If not, assume that it's a smarter application that
+	// defines its own subcomponents, some or all of the
+	// following:
+	//	.mkwsTermlists
+	//	.mkwsRanking
+	//	.mkwsPager
+	//	.mkwsNavi
+	//	.mkwsRecords
+	if ($(".mkwsResults.mkwsTeam_" + m_teamName).length) {
+	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
     <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_AUTO" width="250" valign="top">\
@@ -988,9 +990,9 @@ function team($, teamName) {
 	debug("HTML switch for team " + m_teamName);
 
 	var node = $(".mkwsSwitch.mkwsTeam_" + m_teamName);
-	node.append($('<a href="#" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
+	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
 	node.append($("<span/>", { text: " | " }));
-	node.append($('<a href="#" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
+	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
 
 	debug("HTML targets");
 	var node = $(".mkwsTargets.mkwsTeam_" + m_teamName);
@@ -1311,10 +1313,19 @@ function _mkws_jquery_plugin ($) {
 	    var id = 'mkws' + ids[i];
 	    var node = $('#' + id);
 	    if (node.attr('id')) {
-		node.addClass(id + " mkwsTeam_AUTO");
-		log("added magic classes to '" + node.attr('id') + "'");
+		node.addClass(id);
+		log("added magic class to '" + node.attr('id') + "'");
 	    }
 	}
+
+	// For all MKWS-classed nodes that don't have a team
+	// specified, set the team to AUTO.
+	$('div[class^="mkws"],div[class*=" mkws"]').each(function () {
+	    if (!this.className.match(/mkwsTeam_/)) {
+		log("adding AUTO team to node with class '" + this.className + "'");
+		$(this).addClass('mkwsTeam_AUTO');
+	    }
+	});
 
 	// Find all nodes with class (NOT id) mkwsRecords, and
 	// determine their team from the mkwsTeam_* class. So:
@@ -1352,8 +1363,6 @@ function _mkws_jquery_plugin ($) {
 		tname = cname.replace(/^mkwsTeam_/, '');
 	    }
 	}
-	if (!tname)
-	    tname = "AUTO";
 	callback(tname);
     }
 
