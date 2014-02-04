@@ -76,12 +76,18 @@ page.onAlert = function (msg) {
     console.log("Alert: " + msg);
 };
 
+// display HTTP errors
+page.onResourceError = function (resourceError) {
+    // console.log('phantomjs error code: ' + resourceError.errorCode);
+    console.log(resourceError.errorString);
+    phantom.exit(3);
+};
 
 page.open(url, function (status) {
     if (debug >= 1) console.log("fetch " + url + " with status: " + status);
 
     if (status != 'success') {
-        console.log("Failed to fetch page, give up");
+        console.log("Failed to fetch page, give up. Network error?");
         phantom.exit(1);
     }
 
