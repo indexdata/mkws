@@ -704,30 +704,31 @@ function team($, teamName) {
     mkws.switchView = function(view) {
 	debug("switchView: " + view);
 
-	var targets = document.getElementById('mkwsTargets');
-	var results = document.getElementById('mkwsResults') ||
-	    document.getElementById('mkwsRecords');
-	var blanket = document.getElementById('mkwsBlanket');
-	var motd    = document.getElementById('mkwsMOTD');
+	//var targets = document.getElementById('mkwsTargets');
+	var targets = $('#mkwsTargets');
+	var results = $('#mkwsResults,#mkwsRecords');
+	var blanket = $('#mkwsBlanket');
+	var motd    = $('#mkwsMOTD');
 
 	switch(view) {
         case 'targets':
-            if (targets) targets.style.display = "block";
-            if (results) results.style.display = "none";
-            if (blanket) blanket.style.display = "none";
-            if (motd) motd.style.display = "none";
+            if (targets) targets.css('display', 'block');
+            if (results) results.css('display', 'none');
+            if (blanket) blanket.css('display', 'none');
+            if (motd) motd.css('display', 'none');
             break;
         case 'records':
-            if (targets) targets.style.display = "none";
-            if (results) results.style.display = "block";
-            if (blanket) blanket.style.display = "block";
-            if (motd) motd.style.display = "none";
+            if (targets) targets.css('display', 'none');
+            if (results) results.css('display', 'block');
+            if (blanket) blanket.css('display', 'block');
+            if (motd) motd.css('display', 'none');
             break;
 	case 'none':
-            if (targets) targets.style.display = "none";
-            if (results) results.style.display = "none";
-            if (blanket) blanket.style.display = "none";
-            if (motd) motd.style.display = "none";
+	    alert("mkws.switchView('none') shouldn't happen");
+            if (targets) targets.css('display', 'none');
+            if (results) results.css('display', 'none');
+            if (blanket) blanket.css('display', 'none');
+            if (motd) motd.css('display', 'none');
             break;
         default:
             alert("Unknown view '" + view + "'");
