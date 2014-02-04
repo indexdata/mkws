@@ -55,7 +55,7 @@ jsbeautifier jsb indent:
 
 node-modules: node_modules
 node_modules:
-	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
+	npm install ${NPM_INSTALL_FLAGS}
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
