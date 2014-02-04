@@ -53,8 +53,7 @@ jsbeautifier jsb indent:
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
-node-modules: node_modules
-node_modules:
+node_modules node-modules:
 	npm install ${NPM_INSTALL_FLAGS}
 
 help:
