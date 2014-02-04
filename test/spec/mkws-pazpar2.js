@@ -325,7 +325,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch to target view", function () {
-        var click = $("a.mkwsSwitch_targets").trigger("click");
+        var click = $("div.mkwsSwitch").children('a').eq(1).trigger("click");
         debug("target view click is success: " + click.length);
         expect(click.length).toBe(1);
 
@@ -346,7 +346,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch back to record view", function () {
-        var click = $("a.mkwsSwitch_records").trigger("click");
+        var click = $("div.mkwsSwitch").children('a').eq(0).trigger("click");
         debug("record view click is success: " + click.length);
         expect(click.length).toBe(1);
 
