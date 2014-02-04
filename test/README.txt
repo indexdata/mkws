@@ -21,6 +21,8 @@ Finished in 2.024 seconds
 $ make phantomjs
 [ headless jasmine test with console.log() messages
 
+$ DEBUG=1 make phantomjs PHANTOM_URL=https://mkws-dev.indexdata.com/jasmine-popup.html
+[ less debug noise ]
 
 To get a basic help, run:
 $ make help

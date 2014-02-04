@@ -61,3 +61,6 @@ help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | node-modules ]"
+	@echo ""
+	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOM_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
+
