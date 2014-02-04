@@ -375,7 +375,6 @@ function team($, teamName) {
 	debug("target for " + teamName);
 	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
-	    // No mkwsTargets div.
 	    return;
 	}
 
@@ -704,7 +703,6 @@ function team($, teamName) {
     mkws.switchView = function(tname, view) {
 	debug("switchView(" + tname + ", " + view + ")");
 
-	//var targets = document.getElementById('mkwsTargets');
 	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
 	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
 	var blanket = $('#mkwsBlanket');
