@@ -1311,10 +1311,19 @@ function _mkws_jquery_plugin ($) {
 	    var id = 'mkws' + ids[i];
 	    var node = $('#' + id);
 	    if (node.attr('id')) {
-		node.addClass(id + " mkwsTeam_AUTO");
-		log("added magic classes to '" + node.attr('id') + "'");
+		node.addClass(id);
+		log("added magic class to '" + node.attr('id') + "'");
 	    }
 	}
+
+	// For all MKWS-classed nodes that don't have a team
+	// specified, set the team to AUTO.
+	$('div[class^="mkws"],div[class*=" mkws"]').each(function () {
+	    if (!this.className.match(/mkwsTeam_/)) {
+		log("adding AUTO team to node with class '" + this.className + "'");
+		$(this).addClass('mkwsTeam_AUTO');
+	    }
+	});
 
 	// Find all nodes with class (NOT id) mkwsRecords, and
 	// determine their team from the mkwsTeam_* class. So:
@@ -1352,8 +1361,6 @@ function _mkws_jquery_plugin ($) {
 		tname = cname.replace(/^mkwsTeam_/, '');
 	    }
 	}
-	if (!tname)
-	    tname = "AUTO";
 	callback(tname);
     }
 
