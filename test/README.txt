@@ -6,7 +6,7 @@ This directory contains the MasterKey Widget Set (MKWS) Test framework.
 To install (some) prerequisites, run:
 
 $ sudo apt-get install npm
-$ sudo npm install jasmine-node -g
+$ sudo npm install -g
 
 To run the tests, run:
 
@@ -18,6 +18,10 @@ Finished in 2.024 seconds
 39 tests, 194 assertions, 0 failures, 0 skipped
 
 
+$ make phantomjs
+[ headless jasmine test with console.log() messages
+
+
 To get a basic help, run:
 $ make help
 
@@ -26,14 +30,14 @@ File system hierarchy
 --------------------------------------
 ./spec		contains *spec.js files
 ./js		jasmine runtime JS lib
-
-README.txt	this file
+./phantom	scripts for phantomjs tests
 
 
 Documentation
 ---------------------------------------
 http://pivotal.github.io/jasmine/
 https://github.com/pivotal/jasmine
+http://phantomjs.org/
 
 
 Installation
@@ -43,5 +47,5 @@ Installation
 $ make node-modules
 
 --
-Copyright (c) 2013 IndexData ApS. http://indexdata.com
-Dec 2013, Wolfram
+Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+Feb 2014, Wolfram
