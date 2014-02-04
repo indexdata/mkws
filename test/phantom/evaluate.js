@@ -99,11 +99,13 @@ page.open(url, function (status) {
             if (!window || !window.$ || !window.mkws) {
                 return false;
             } else {
+                var passing = window.$(".passingAlert").text() || window.$(".failingAlert").text();
+
                 return {
                     mkws: window.mkws,
                     html: window.$("html").html(),
                     duration: window.$(".duration").text(),
-                    passing: window.$(".passingAlert").text()
+                    passing: passing
                 };
             }
         })
