@@ -373,7 +373,7 @@ function team($, teamName) {
 
     function my_onbytarget(data, teamName) {
 	debug("target for " + teamName);
-	var targetDiv = document.getElementById("mkwsBytarget");
+	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
 	    // No mkwsTargets div.
 	    return;
@@ -396,7 +396,7 @@ function team($, teamName) {
 	}
 
 	table += '</tbody></table>';
-	targetDiv.innerHTML = table;
+	targetDiv.html(table);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -704,30 +704,31 @@ function team($, teamName) {
     mkws.switchView = function(view) {
 	debug("switchView: " + view);
 
-	var targets = document.getElementById('mkwsTargets');
-	var results = document.getElementById('mkwsResults') ||
-	    document.getElementById('mkwsRecords');
-	var blanket = document.getElementById('mkwsBlanket');
-	var motd    = document.getElementById('mkwsMOTD');
+	//var targets = document.getElementById('mkwsTargets');
+	var targets = $('#mkwsTargets');
+	var results = $('#mkwsResults,#mkwsRecords');
+	var blanket = $('#mkwsBlanket');
+	var motd    = $('#mkwsMOTD');
 
 	switch(view) {
         case 'targets':
-            if (targets) targets.style.display = "block";
-            if (results) results.style.display = "none";
-            if (blanket) blanket.style.display = "none";
-            if (motd) motd.style.display = "none";
+            if (targets) targets.css('display', 'block');
+            if (results) results.css('display', 'none');
+            if (blanket) blanket.css('display', 'none');
+            if (motd) motd.css('display', 'none');
             break;
         case 'records':
-            if (targets) targets.style.display = "none";
-            if (results) results.style.display = "block";
-            if (blanket) blanket.style.display = "block";
-            if (motd) motd.style.display = "none";
+            if (targets) targets.css('display', 'none');
+            if (results) results.css('display', 'block');
+            if (blanket) blanket.css('display', 'block');
+            if (motd) motd.css('display', 'none');
             break;
 	case 'none':
-            if (targets) targets.style.display = "none";
-            if (results) results.style.display = "none";
-            if (blanket) blanket.style.display = "none";
-            if (motd) motd.style.display = "none";
+	    alert("mkws.switchView('none') shouldn't happen");
+            if (targets) targets.css('display', 'none');
+            if (results) results.css('display', 'none');
+            if (blanket) blanket.css('display', 'none');
+            if (motd) motd.css('display', 'none');
             break;
         default:
             alert("Unknown view '" + view + "'");
@@ -984,18 +985,20 @@ function team($, teamName) {
 
 
     function mkws_html_switch() {
-	debug("HTML switch");
+	debug("HTML switch for team " + m_teamName);
 
-	$("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_records" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
-	$("#mkwsSwitch").append($("<span/>", { text: " | " }));
-	$("#mkwsSwitch").append($('<a href="#" id="mkwsSwitch_targets" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
+	var node = $(".mkwsSwitch.mkwsTeam_" + m_teamName);
+	node.append($('<a href="#" onclick="mkws.switchView(\'records\')">' + M('Records') + '</a>'));
+	node.append($("<span/>", { text: " | " }));
+	node.append($('<a href="#" onclick="mkws.switchView(\'targets\')">' + M('Targets') + '</a>'));
 
 	debug("HTML targets");
-	$("#mkwsTargets").html('\
-<div id="mkwsBytarget" class="mkwsBytarget mkwsTeam_AUTO">\
+	var node = $(".mkwsTargets.mkwsTeam_" + m_teamName);
+	node.html('\
+<div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
   No information available yet.\
 </div>');
-	$("#mkwsTargets").css("display", "none");
+	node.css("display", "none");
     }
 
 
@@ -1095,7 +1098,7 @@ function team($, teamName) {
 	    $("#mkwsTermlistContainer1").hide();
 	    $("#mkwsTermlistContainer2").show();
 	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).hide();
+		$("#" + list[i]).hide(); // ### make team-aware
 	    }
 	} else if ($(window).width() > width &&
 		   parentId === "mkwsTermlistContainer2") {
@@ -1104,7 +1107,7 @@ function team($, teamName) {
 	    $("#mkwsTermlistContainer1").show();
 	    $("#mkwsTermlistContainer2").hide();
 	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).show();
+		$("#" + list[i]).show(); // ### make team-aware
 	    }
 	}
     };

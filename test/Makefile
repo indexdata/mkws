@@ -6,11 +6,13 @@ NPM_INSTALL_FLAGS=-q
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_TIMEOUT=	12	
+IMAGES=	./images
+SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 
 all: check
 
 clean:
-	rm -f mkws-error.png mkws-error.html
+	rm -f mkws-error.png mkws-error.html images/*.png
 
 distclean: clean
 	rm -rf node_modules
@@ -31,6 +33,21 @@ terse:
 phantomjs:
 	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
+screenshot:
+	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
+
+screenshot-mkws:
+	for i in ${SCREENSHOT_WIDTH}; do \
+	    ${PHANTOMJS} phantom/screenshot.js http://mkws.indexdata.com ${IMAGES}/mkws-$$i.png $$i 1000 &  \
+	done; wait
+	ls -l ${IMAGES}
+
+screenshot-indexdata:
+	for i in ${SCREENSHOT_WIDTH}; do \
+	    ${PHANTOMJS} phantom/screenshot.js http://www.indexdata.com ${IMAGES}/indexdata-$$i.png $$i 1000 &  \
+	done; wait
+	ls -l ${IMAGES}
+
 jsbeautifier jsb indent:
 	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
@@ -41,5 +58,6 @@ node_modules:
 	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
 
 help:
-	@echo "make [ all | check | phantomjs | clean | distclean ]"
+	@echo "make [ all | check | clean | distclean ]"
+	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | node-modules ]"

@@ -318,19 +318,19 @@ describe("Show record", function () {
 
 describe("Check switch menu Records/Targets", function () {
     it("check mkwsSwitch", function () {
-        expect($("div#mkwsSwitch").length).toBe(1);
+        expect($("div.mkwsSwitch").length).toBe(1);
 
         // expect 2 clickable links
-        expect($("div#mkwsSwitch a").length).toBe(2);
+        expect($("div.mkwsSwitch a").length).toBe(2);
     });
 
     it("switch to target view", function () {
-        var click = $("a#mkwsSwitch_targets").trigger("click");
+        var click = $("div.mkwsSwitch").children('a').eq(1).trigger("click");
         debug("target view click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // now the target table must be visible
-        expect($("div#mkwsBytarget").is(":visible")).toBe(true);
+        expect($("div.mkwsBytarget").is(":visible")).toBe(true);
         expect($("div#mkwsRecords").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
@@ -341,12 +341,12 @@ describe("Check switch menu Records/Targets", function () {
 
         // look for table header
         runs(function () {
-            expect($("div#mkwsBytarget").html()).toMatch(/Target ID/);
+            expect($("div.mkwsBytarget").html()).toMatch(/Target ID/);
         });
     });
 
     it("switch back to record view", function () {
-        var click = $("a#mkwsSwitch_records").trigger("click");
+        var click = $("div.mkwsSwitch").children('a').eq(0).trigger("click");
         debug("record view click is success: " + click.length);
         expect(click.length).toBe(1);
 

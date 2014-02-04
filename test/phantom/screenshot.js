@@ -15,10 +15,16 @@ page.viewportSize = {
     height: system.args[4] ? system.args[4] : 1000
 };
 
+page.clipRect = {
+    width: page.viewportSize.width,
+    height: page.viewportSize.height
+};
+
 page.open(url, function () {
     // small delay
     setTimeout(function () {
-        page.render(file_png);
+        var ret = page.render(file_png);
         phantom.exit();
     }, 200);
 });
+

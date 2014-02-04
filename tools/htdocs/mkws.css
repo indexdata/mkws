@@ -1,12 +1,12 @@
 #mkwsLang,
-#mkwsSwitch,
+#mkwsSwitch, .mkwsSwitch,
 #mkwsSearch, .mkwsSearch,
 #mkwsTermlists,
 #mkwsRanking,
 #mkwsPager,
 #mkwsNavi,
 #mkwsRecords,
-#mkwsTargets,
+#mkwsTargets, .mkwsTargets,
 #mkwsStat,
 #mkwsMOTD {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
@@ -32,13 +32,13 @@
     float: right;
 }
 
-#mkwsSwitch {
+#mkwsSwitch, .mkwsSwitch {
     float: right;
     padding-left: 1em;
     padding-top: 0.4em;
 }
 
-#mkwsTargets {
+#mkwsTargets, .mkwsTargets {
     background-color: #fafafa;
 }
 
@@ -53,7 +53,7 @@
     font-weight: bold;
 }
 
-#mkwsSwitch a,
+#mkwsSwitch a, .mkwsSwitch a,
 #mkwsLang a,
 #mkwsTermlists a,
 #mkwsRanking a,
@@ -64,7 +64,7 @@
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover,
+#mkwsSwitch a:hover, .mkwsSwitch a:hover,
 #mkwsLang a:hover,
 #mkwsTermlists a:hover,
 #mkwsPager a:hover,
@@ -166,21 +166,21 @@
     padding: 0.3em;
 }
 
-#mkwsBytarget table thead tr td {
+.mkwsBytarget table thead tr td {
     background-color: #132194;
     color: white;
     font-weight: bold;
     padding: 0.2em 0.5em;
 }
 
-#mkwsBytarget table tbody tr:nth-child(odd) {
+.mkwsBytarget table tbody tr:nth-child(odd) {
     background-color: #e0f0ff;
 }
 
-#mkwsBytarget table tbody tr:nth-child(even) {
+.mkwsBytarget table tbody tr:nth-child(even) {
     background-color: #d0e0ff;
 }
 
-#mkwsBytarget table tbody tr td {
+.mkwsBytarget table tbody tr td {
     padding: 0.2em 0.5em;
 }
