@@ -17,5 +17,8 @@
         "jasmine-node": "*",
         "phantomjs": "*"
     },
-    "dummy": "EOF"
+    "repository": {
+        "type": "git",
+        "url": "http://git.indexdata.com/mkws.git"
+    }
 }
