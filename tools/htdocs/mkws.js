@@ -1293,17 +1293,16 @@ function _mkws_jquery_plugin ($) {
 
 	// For all MKWS-classed nodes that don't have a team
 	// specified, set the team to AUTO.
-	$('div[class^="mkws"],div[class*=" mkws"]').each(function () {
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    if (!this.className.match(/mkwsTeam_/)) {
 		log("adding AUTO team to node with class '" + this.className + "'");
 		$(this).addClass('mkwsTeam_AUTO');
 	    }
 	});
 
-	// Find all nodes with class (NOT id) mkwsRecords, and
-	// determine their team from the mkwsTeam_* class. So:
-	//	<div class="mkwsRecords mkwsTeam_foo"/>
-	$('.mkwsSearch, .mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
+	// Find all nodes with an class, and determine their team from
+	// the mkwsTeam_* class. Make all team objects.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
 		if (mkws.teams[tname]) {
