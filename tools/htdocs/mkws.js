@@ -1050,18 +1050,18 @@ function team($, teamName) {
 
 	/* display a list of configured languages, or all */
 	var lang_options = mkws_config.lang_options || [];
-	var hash = {};
+	var toBeIncluded = {};
 	for (var i = 0; i < lang_options.length; i++) {
-	    hash[lang_options[i]] = 1;
+	    toBeIncluded[lang_options[i]] = 1;
 	}
 
 	for (var k in mkws.locale_lang) {
-	    if (hash[k] == 1 || lang_options.length == 0)
+	    if (toBeIncluded[k] == 1 || lang_options.length == 0)
 		list.push(k);
 	}
 
 	// add english link
-	if (lang_options.length == 0 || hash[lang_default] == 1)
+	if (lang_options.length == 0 || toBeIncluded[lang_default] == 1)
             list.push(lang_default);
 
 	debug("Language menu for: " + list.join(", "));
