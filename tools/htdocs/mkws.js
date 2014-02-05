@@ -1081,7 +1081,7 @@ function team($, teamName) {
 	    }
 	}
 
-	$("#mkwsLang").html(data);
+	$(".mkwsLang.mkwsTeam_" + m_teamName).html(data);
     }
 
 
