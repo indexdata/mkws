@@ -309,12 +309,12 @@ function team($, teamName) {
 	debug("term for " + teamName);
 	// no facets
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    $("#mkwsTermlists").hide();
+	    $(".mkwsTermlists.mkwsTeam_" + teamName).hide();
 	    return;
 	}
 
 	// display if we first got results
-	$("#mkwsTermlists").show();
+	$(".mkwsTermlists.mkwsTeam_" + teamName).show();
 
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
@@ -332,7 +332,7 @@ function team($, teamName) {
 	    }
 	}
 
-	var termlist = $("#mkwsTermlists");
+	var termlist = $(".mkwsTermlists.mkwsTeam_" + teamName);
 	if (termlist)
 	    termlist.html(acc.join(''));
     }
