@@ -1052,16 +1052,16 @@ function team($, teamName) {
 	var lang_options = mkws_config.lang_options || [];
 	var toBeIncluded = {};
 	for (var i = 0; i < lang_options.length; i++) {
-	    toBeIncluded[lang_options[i]] = 1;
+	    toBeIncluded[lang_options[i]] = true;
 	}
 
 	for (var k in mkws.locale_lang) {
-	    if (toBeIncluded[k] == 1 || lang_options.length == 0)
+	    if (toBeIncluded[k] || lang_options.length == 0)
 		list.push(k);
 	}
 
 	// add english link
-	if (lang_options.length == 0 || toBeIncluded[lang_default] == 1)
+	if (lang_options.length == 0 || toBeIncluded[lang_default])
             list.push(lang_default);
 
 	debug("Language menu for: " + list.join(", "));
