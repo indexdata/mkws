@@ -1,4 +1,7 @@
-/*! MKWS, the MasterKey Widget Set. Copyright (C) 2013-2014, Index Data */
+/*! MKWS, the MasterKey Widget Set. 
+ *  Copyright (C) 2013-2014 Index Data 
+ *  See the file LICENSE for details
+ */
 
 "use strict"; // HTML5: disable for debug_level >= 2
 

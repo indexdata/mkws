@@ -56,6 +56,7 @@ mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLE
 	fi
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
+	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
