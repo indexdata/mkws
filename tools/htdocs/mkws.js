@@ -290,15 +290,15 @@ function team($, teamName) {
 
     function my_onstat(data, teamName) {
 	debug("stat for " + teamName);
-	var stat = document.getElementById("mkwsStat");
-	if (stat == null)
+	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
+	if (stat.length === 0)
 	    return;
 
-	stat.innerHTML = '<span class="head">' + M('Status info') + '</span>' +
+	stat.html('<span class="head">' + M('Status info') + '</span>' +
 	    ' -- ' +
 	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	    ' -- ' +
-            '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
+	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
     }
 
 
