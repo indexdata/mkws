@@ -200,9 +200,9 @@ Refinements
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkwsMOTDContainer` division on the page next to `mkwsResults` or
-`mkwsRecords`. The contents of this element are initially displayed,
-but will be hidden when a search is made.
+`mkwsMOTD` division anywhere on the page. It will be moved into the
+`mkwsResults` area and initially displayed, but will be hidden when a
+search is made.
 
 
 ### Customised display using Handlebars templates
