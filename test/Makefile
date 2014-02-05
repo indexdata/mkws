@@ -49,15 +49,17 @@ screenshot-indexdata:
 	ls -l ${IMAGES}
 
 jsbeautifier jsb indent:
-	for i in ./spec*/*.js ./js/*.js ./phantom/*.js; do \
+	for i in package.json ./spec*/*.js ./js/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
-node-modules: node_modules
-node_modules:
-	npm install ${NPM_INSTALL_FLAGS} jQuery xmlhttprequest jsdom request jasmine-node phantomjs
+node_modules node-modules:
+	npm install ${NPM_INSTALL_FLAGS}
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | node-modules ]"
+	@echo ""
+	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOM_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
+

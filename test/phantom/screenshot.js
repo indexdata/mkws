@@ -27,4 +27,3 @@ page.open(url, function () {
         phantom.exit();
     }, 200);
 });
-
