@@ -939,9 +939,9 @@ function team($, teamName) {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws_resize_page() });
+	    $(window).resize(function(e) { mkws.resize_page() });
 	    // initial check after page load
-	    $(document).ready(function() { mkws_resize_page() });
+	    $(document).ready(function() { mkws.resize_page() });
 	}
 
 	domReady();
@@ -1085,7 +1085,7 @@ function team($, teamName) {
     }
 
 
-    function mkws_resize_page () {
+    mkws.resize_page = function () {
 	var list = ["mkwsSwitch"];
 
 	var width = mkws_config.responsive_design_width;
