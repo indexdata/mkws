@@ -1,4 +1,4 @@
-#mkwsLang,
+#mkwsLang, .mkwsLang,
 #mkwsSwitch, .mkwsSwitch,
 #mkwsSearch, .mkwsSearch,
 #mkwsTermlists,
@@ -12,18 +12,18 @@
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
-#mkwsLang {
+#mkwsLang, .mkwsLang {
     float: left;
     padding-left: 1em;
     padding-top: 0.4em;
 }
 
-#mkwsLang a {
+#mkwsLang a, .mkwsLang a {
     background: #d0e0ff;
     padding: 1px 4px;
 }
 
-#mkwsLang span {
+#mkwsLang span, .mkwsLang span {
     border: solid 1px #d0e0ff;
     padding: 0px 3px;
 }
@@ -54,7 +54,7 @@
 }
 
 #mkwsSwitch a, .mkwsSwitch a,
-#mkwsLang a,
+#mkwsLang a, .mkwsLang a,
 #mkwsTermlists a,
 #mkwsRanking a,
 #mkwsPager a,
@@ -65,7 +65,7 @@
 }
 
 #mkwsSwitch a:hover, .mkwsSwitch a:hover,
-#mkwsLang a:hover,
+#mkwsLang a:hover, .mkwsLang a:hover,
 #mkwsTermlists a:hover,
 #mkwsPager a:hover,
 #mkwsRecords a:hover {
