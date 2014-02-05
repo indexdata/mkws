@@ -1085,34 +1085,6 @@ function team($, teamName) {
     }
 
 
-    mkws.resize_page = function () {
-	var list = ["mkwsSwitch"];
-
-	var width = mkws_config.responsive_design_width;
-	var parentId = $("#mkwsTermlists").parent().attr('id');
-
-	if ($(window).width() <= width &&
-	    parentId === "mkwsTermlistContainer1") {
-	    debug("changing from wide to narrow: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
-	    $("#mkwsTermlistContainer1").hide();
-	    $("#mkwsTermlistContainer2").show();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).hide(); // ### make team-aware
-	    }
-	} else if ($(window).width() > width &&
-		   parentId === "mkwsTermlistContainer2") {
-	    debug("changing from narrow to wide: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
-	    $("#mkwsTermlistContainer1").show();
-	    $("#mkwsTermlistContainer2").hide();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).show(); // ### make team-aware
-	    }
-	}
-    };
-
-
     /* locale */
     function M(word) {
 	var lang = mkws_config.lang;
@@ -1363,6 +1335,34 @@ function _mkws_jquery_plugin ($) {
 	}
 	callback(tname);
     }
+
+
+    mkws.resize_page = function () {
+	var list = ["mkwsSwitch"];
+
+	var width = mkws_config.responsive_design_width;
+	var parentId = $("#mkwsTermlists").parent().attr('id');
+
+	if ($(window).width() <= width &&
+	    parentId === "mkwsTermlistContainer1") {
+	    log("changing from wide to narrow: " + $(window).width());
+	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
+	    $("#mkwsTermlistContainer1").hide();
+	    $("#mkwsTermlistContainer2").show();
+	    for(var i = 0; i < list.length; i++) {
+		$("#" + list[i]).hide(); // ### make team-aware
+	    }
+	} else if ($(window).width() > width &&
+		   parentId === "mkwsTermlistContainer2") {
+	    log("changing from narrow to wide: " + $(window).width());
+	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
+	    $("#mkwsTermlistContainer1").show();
+	    $("#mkwsTermlistContainer2").hide();
+	    for(var i = 0; i < list.length; i++) {
+		$("#" + list[i]).show(); // ### make team-aware
+	    }
+	}
+    };
 
 
     mkws.showDetails = function (prefixRecId, tname) {
