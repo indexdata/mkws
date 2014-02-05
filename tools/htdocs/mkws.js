@@ -290,15 +290,15 @@ function team($, teamName) {
 
     function my_onstat(data, teamName) {
 	debug("stat for " + teamName);
-	var stat = document.getElementById("mkwsStat");
-	if (stat == null)
+	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
+	if (stat.length === 0)
 	    return;
 
-	stat.innerHTML = '<span class="head">' + M('Status info') + '</span>' +
+	stat.html('<span class="head">' + M('Status info') + '</span>' +
 	    ' -- ' +
 	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	    ' -- ' +
-            '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
+	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
     }
 
 
@@ -375,7 +375,6 @@ function team($, teamName) {
 	debug("target for " + teamName);
 	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
-	    // No mkwsTargets div.
 	    return;
 	}
 
@@ -704,7 +703,6 @@ function team($, teamName) {
     mkws.switchView = function(tname, view) {
 	debug("switchView(" + tname + ", " + view + ")");
 
-	//var targets = document.getElementById('mkwsTargets');
 	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
 	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
 	var blanket = $('#mkwsBlanket');
@@ -1052,18 +1050,18 @@ function team($, teamName) {
 
 	/* display a list of configured languages, or all */
 	var lang_options = mkws_config.lang_options || [];
-	var hash = {};
+	var toBeIncluded = {};
 	for (var i = 0; i < lang_options.length; i++) {
-	    hash[lang_options[i]] = 1;
+	    toBeIncluded[lang_options[i]] = true;
 	}
 
 	for (var k in mkws.locale_lang) {
-	    if (hash[k] == 1 || lang_options.length == 0)
+	    if (toBeIncluded[k] || lang_options.length == 0)
 		list.push(k);
 	}
 
 	// add english link
-	if (lang_options.length == 0 || hash[lang_default] == 1)
+	if (lang_options.length == 0 || toBeIncluded[lang_default])
             list.push(lang_default);
 
 	debug("Language menu for: " + list.join(", "));
@@ -1083,7 +1081,7 @@ function team($, teamName) {
 	    }
 	}
 
-	$("#mkwsLang").html(data);
+	$(".mkwsLang.mkwsTeam_" + m_teamName).html(data);
     }
 
 
@@ -1423,11 +1421,11 @@ function _mkws_jquery_plugin ($) {
      * for the site.
      */
     function authenticate_session(auth_url, auth_domain, pp2_url) {
-	console.log("Run service proxy auth URL: " + auth_url);
+	log("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    console.log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1446,7 +1444,7 @@ function _mkws_jquery_plugin ($) {
 		return;
 	    }
 
-	    console.log("Service proxy auth successfully done");
+	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    run_auto_searches();
 	});
@@ -1454,13 +1452,13 @@ function _mkws_jquery_plugin ($) {
 
 
     function run_auto_searches() {
-	console.log("running auto searches");
+	log("running auto searches");
 
 	for (var teamName in mkws.teams) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
-	    console.log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
+	    log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
 		var sort = node.attr('sort');
@@ -1469,9 +1467,9 @@ function _mkws_jquery_plugin ($) {
 		if (teamName) s += " [teamName '" + teamName + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
-		console.log(s);
+		log(s);
 		var team = mkws.teams[teamName];
-		console.log($.toJSON(team));
+		log($.toJSON(team));
 		team.newSearch(query, sort, targets, teamName);
 	    }
 	}
