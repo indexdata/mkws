@@ -902,7 +902,7 @@ function team($, teamName) {
 	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
+    <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
       <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
     <td id="mkwsMOTDContainer" valign="top">\
@@ -914,7 +914,7 @@ function team($, teamName) {
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div id="mkwsTermlistContainer2" class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
 </table>');
@@ -1341,25 +1341,30 @@ function _mkws_jquery_plugin ($) {
 	var list = ["mkwsSwitch"];
 
 	var width = mkws_config.responsive_design_width;
-	var parentId = $("#mkwsTermlists").parent().attr('id');
+	var parent = $(".mkwsTermlists").parent();
+	log("parent = " + parent + ", length = " + parent.length);
 
 	if ($(window).width() <= width &&
-	    parentId === "mkwsTermlistContainer1") {
+	    parent.hasClass("mkwsTermlistContainer1")) {
 	    log("changing from wide to narrow: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
-	    $("#mkwsTermlistContainer1").hide();
-	    $("#mkwsTermlistContainer2").show();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).hide(); // ### make team-aware
+	    $(".mkwsTermlistContainer1").hide();
+	    $(".mkwsTermlistContainer2").show();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer2.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
+		}
 	    }
 	} else if ($(window).width() > width &&
-		   parentId === "mkwsTermlistContainer2") {
+		   parent.hasClass("mkwsTermlistContainer2")) {
 	    log("changing from narrow to wide: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
-	    $("#mkwsTermlistContainer1").show();
-	    $("#mkwsTermlistContainer2").hide();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).show(); // ### make team-aware
+	    $(".mkwsTermlistContainer1").show();
+	    $(".mkwsTermlistContainer2").hide();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer1.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).show();
+		}
 	    }
 	}
     };
