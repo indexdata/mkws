@@ -290,15 +290,15 @@ function team($, teamName) {
 
     function my_onstat(data, teamName) {
 	debug("stat for " + teamName);
-	var stat = document.getElementById("mkwsStat");
-	if (stat == null)
+	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
+	if (stat.length === 0)
 	    return;
 
-	stat.innerHTML = '<span class="head">' + M('Status info') + '</span>' +
+	stat.html('<span class="head">' + M('Status info') + '</span>' +
 	    ' -- ' +
 	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	    ' -- ' +
-            '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>';
+	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
     }
 
 
@@ -375,7 +375,6 @@ function team($, teamName) {
 	debug("target for " + teamName);
 	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
-	    // No mkwsTargets div.
 	    return;
 	}
 
@@ -704,7 +703,6 @@ function team($, teamName) {
     mkws.switchView = function(tname, view) {
 	debug("switchView(" + tname + ", " + view + ")");
 
-	//var targets = document.getElementById('mkwsTargets');
 	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
 	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
 	var blanket = $('#mkwsBlanket');
@@ -904,19 +902,19 @@ function team($, teamName) {
 	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_AUTO" width="250" valign="top">\
-      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_AUTO"></div>\
+    <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
+      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
     <td id="mkwsMOTDContainer" valign="top">\
-      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_AUTO"></div>\
-      <div id="mkwsPager" class="mkwsPager mkwsTeam_AUTO"></div>\
-      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_AUTO"></div>\
-      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_AUTO"></div>\
+      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsPager" class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div id="mkwsTermlistContainer2" class="mkwsTermlistContainer2 mkwsTeam_AUTO"></div>\
+      <div class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
 </table>');
@@ -941,9 +939,9 @@ function team($, teamName) {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws_resize_page() });
+	    $(window).resize(function(e) { mkws.resize_page() });
 	    // initial check after page load
-	    $(document).ready(function() { mkws_resize_page() });
+	    $(document).ready(function() { mkws.resize_page() });
 	}
 
 	domReady();
@@ -1052,18 +1050,18 @@ function team($, teamName) {
 
 	/* display a list of configured languages, or all */
 	var lang_options = mkws_config.lang_options || [];
-	var hash = {};
+	var toBeIncluded = {};
 	for (var i = 0; i < lang_options.length; i++) {
-	    hash[lang_options[i]] = 1;
+	    toBeIncluded[lang_options[i]] = true;
 	}
 
 	for (var k in mkws.locale_lang) {
-	    if (hash[k] == 1 || lang_options.length == 0)
+	    if (toBeIncluded[k] || lang_options.length == 0)
 		list.push(k);
 	}
 
 	// add english link
-	if (lang_options.length == 0 || hash[lang_default] == 1)
+	if (lang_options.length == 0 || toBeIncluded[lang_default])
             list.push(lang_default);
 
 	debug("Language menu for: " + list.join(", "));
@@ -1083,36 +1081,8 @@ function team($, teamName) {
 	    }
 	}
 
-	$("#mkwsLang").html(data);
+	$(".mkwsLang.mkwsTeam_" + m_teamName).html(data);
     }
-
-
-    function mkws_resize_page () {
-	var list = ["mkwsSwitch"];
-
-	var width = mkws_config.responsive_design_width;
-	var parentId = $("#mkwsTermlists").parent().attr('id');
-
-	if ($(window).width() <= width &&
-	    parentId === "mkwsTermlistContainer1") {
-	    debug("changing from wide to narrow: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
-	    $("#mkwsTermlistContainer1").hide();
-	    $("#mkwsTermlistContainer2").show();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).hide(); // ### make team-aware
-	    }
-	} else if ($(window).width() > width &&
-		   parentId === "mkwsTermlistContainer2") {
-	    debug("changing from narrow to wide: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
-	    $("#mkwsTermlistContainer1").show();
-	    $("#mkwsTermlistContainer2").hide();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).show(); // ### make team-aware
-	    }
-	}
-    };
 
 
     /* locale */
@@ -1367,6 +1337,38 @@ function _mkws_jquery_plugin ($) {
     }
 
 
+    mkws.resize_page = function () {
+	var list = ["mkwsSwitch", "mkwsLang"];
+
+	var width = mkws_config.responsive_design_width;
+	var parent = $(".mkwsTermlists").parent();
+
+	if ($(window).width() <= width &&
+	    parent.hasClass("mkwsTermlistContainer1")) {
+	    log("changing from wide to narrow: " + $(window).width());
+	    $(".mkwsTermlistContainer1").hide();
+	    $(".mkwsTermlistContainer2").show();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer2.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
+		}
+	    }
+	} else if ($(window).width() > width &&
+		   parent.hasClass("mkwsTermlistContainer2")) {
+	    log("changing from narrow to wide: " + $(window).width());
+	    $(".mkwsTermlistContainer1").show();
+	    $(".mkwsTermlistContainer2").hide();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer1.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).show();
+		}
+	    }
+	}
+    };
+
+
     mkws.showDetails = function (prefixRecId, tname) {
 	mkws.teams[tname].showDetails(prefixRecId);
     }
@@ -1423,11 +1425,11 @@ function _mkws_jquery_plugin ($) {
      * for the site.
      */
     function authenticate_session(auth_url, auth_domain, pp2_url) {
-	console.log("Run service proxy auth URL: " + auth_url);
+	log("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    console.log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1446,7 +1448,7 @@ function _mkws_jquery_plugin ($) {
 		return;
 	    }
 
-	    console.log("Service proxy auth successfully done");
+	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    run_auto_searches();
 	});
@@ -1454,13 +1456,13 @@ function _mkws_jquery_plugin ($) {
 
 
     function run_auto_searches() {
-	console.log("running auto searches");
+	log("running auto searches");
 
 	for (var teamName in mkws.teams) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
-	    console.log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
+	    log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
 		var sort = node.attr('sort');
@@ -1469,9 +1471,9 @@ function _mkws_jquery_plugin ($) {
 		if (teamName) s += " [teamName '" + teamName + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
-		console.log(s);
+		log(s);
 		var team = mkws.teams[teamName];
-		console.log($.toJSON(team));
+		log($.toJSON(team));
 		team.newSearch(query, sort, targets, teamName);
 	    }
 	}
