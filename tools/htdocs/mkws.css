@@ -7,7 +7,7 @@
 #mkwsNavi,
 #mkwsRecords,
 #mkwsTargets, .mkwsTargets,
-#mkwsStat,
+#mkwsStat, .mkwsStat,
 #mkwsMOTD {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
@@ -42,14 +42,14 @@
     background-color: #fafafa;
 }
 
-#mkwsStat {
+#mkwsStat, .mkwsStat {
     margin-top: 10px;
     border-top: 1px solid  #156a16;
     padding-top: 5px;
     font-size: small;
 }
 
-#mkwsStat span.head {
+#mkwsStat span.head, .mkwsStat span.head {
     font-weight: bold;
 }
 
