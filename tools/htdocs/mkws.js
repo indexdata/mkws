@@ -902,19 +902,19 @@ function team($, teamName) {
 	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_AUTO" width="250" valign="top">\
-      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_AUTO"></div>\
+    <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
+      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
     <td id="mkwsMOTDContainer" valign="top">\
-      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_AUTO"></div>\
-      <div id="mkwsPager" class="mkwsPager mkwsTeam_AUTO"></div>\
-      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_AUTO"></div>\
-      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_AUTO"></div>\
+      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsPager" class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div id="mkwsTermlistContainer2" class="mkwsTermlistContainer2 mkwsTeam_AUTO"></div>\
+      <div id="mkwsTermlistContainer2" class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
 </table>');
