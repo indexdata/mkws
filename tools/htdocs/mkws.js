@@ -1338,11 +1338,10 @@ function _mkws_jquery_plugin ($) {
 
 
     mkws.resize_page = function () {
-	var list = ["mkwsSwitch"];
+	var list = ["mkwsSwitch", "mkwsLang"];
 
 	var width = mkws_config.responsive_design_width;
 	var parent = $(".mkwsTermlists").parent();
-	log("parent = " + parent + ", length = " + parent.length);
 
 	if ($(window).width() <= width &&
 	    parent.hasClass("mkwsTermlistContainer1")) {
