@@ -410,7 +410,6 @@ function team($, teamName) {
     // wait until the DOM is ready
     function domReady ()
     {
-	debug("starting domReady()");
 	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
 	    debug("adding search-forms for team '" + m_teamName + "'");
 	    var node = this;
@@ -420,13 +419,6 @@ function team($, teamName) {
 	    });
 	});
 
-	debug("in domReady() 1");
-	debug("document = '" + document + "'");
-	debug("document.mkwsSearchForm = '" + document.mkwsSearchForm + "'");
-	debug("document.mkwsSearchForm.mkwsQuery = '" + document.mkwsSearchForm.mkwsQuery + "'");
-	debug("document.mkwsSearchForm.mkwsQuery.value = '" + document.mkwsSearchForm.mkwsQuery.value + "'");
-	document.mkwsSearchForm.mkwsQuery.value = '';
-	debug("in domReady() 2");
 	if (document.mkwsSelect) {
 	    debug("messing with mkwsSelect");
 	    if (document.mkwsSelect.mkwsSort)
@@ -434,7 +426,6 @@ function team($, teamName) {
 	    if (document.mkwsSelect.mkwsPerpage)
 		document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
 	}
-	debug("finished domReady()");
     }
 
 
@@ -963,7 +954,7 @@ function team($, teamName) {
 	debug("after domReady()");
 
 	// on first page, hide the termlist
-	$(document).ready(function() { $("#mkwsTermlists").hide(); });
+	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
 	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
 	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
 	debug("for team '" + m_teamName + "', motd=" + motd + "(" + motd.length + "), container=" + container + "(" + container.length + ")");
