@@ -77,7 +77,7 @@ possible options:
         show_perpage: true,         /* true, false: show/hide perpage menu */
         lang_options: ["en", "de", "da"],
                                     /* display languages links for given languages, [] for all */
-        facets: ["sources", "subjects", "authors"],
+        facets: ["xtargets", "subject", "author"],
                                     /* display facets, in this order, [] for none */
         sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
         query_width: 50,            /* 5..50 */
