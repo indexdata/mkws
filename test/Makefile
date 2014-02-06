@@ -3,7 +3,7 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 NPM_INSTALL_FLAGS=-q
-PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
+PHANTOMJS=	./bomb.pl ./node_modules/phantomjs/bin/phantomjs
 PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_TIMEOUT=	12	
 IMAGES=	./images
