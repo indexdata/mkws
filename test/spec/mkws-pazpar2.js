@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+/* Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
  *
  * perform papzpar2 / pz2.js search & retrieve request in the browser
  *
@@ -76,7 +76,7 @@ describe("Init jasmine config", function () {
 });
 
 describe("Check pazpar2 search", function () {
-    it("pazpar2 was successfully initialize", function () {
+    it("pazpar2 was successfully initialized", function () {
         expect(mkws_config.error).toBe(undefined);
     });
 

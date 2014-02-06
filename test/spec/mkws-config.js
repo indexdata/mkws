@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+/* Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
  *
  * check mkws_config = {} object in browser
  *
@@ -36,7 +36,7 @@ describe("Check pazpar2 config", function () {
 });
 
 describe("Check pazpar2 runtime", function () {
-    it("pazpar2 was successfully initialize", function () {
+    it("pazpar2 was successfully initialized", function () {
         expect(mkws_config.error).toBe(undefined);
     });
 });
