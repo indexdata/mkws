@@ -351,7 +351,7 @@ debug_level               int     1         Level of debugging output to emit. 0
                                             datestamps, 3 = messages with datestamps and stack-traces.
 
 facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
-                                            `sources`, `subjects` and `authors`.
+                                            `xtargets`, `subject` and `author`.
 
 lang                      string  en        Code of the default language to display the UI in. Supported language codes are `en` =
                                             English, `de` = German, `da` = Danish, and whatever additional languages are configured
