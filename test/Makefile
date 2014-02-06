@@ -25,7 +25,6 @@ mkws-complete-syntax-check:
 check: mkws-complete-syntax-check
 	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
 	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
-	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec-sp
 
 test: check
 
