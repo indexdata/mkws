@@ -9,18 +9,21 @@ irrespective of CMS or lack thereof, to enable MasterKey searching.
 WHAT'S WHAT
 ===========
 
-README -- this file
+README   -- this file
 Makefile -- delegates to tools/htdocs/Makefile
-tools -- the tools that make up the Widget Set
+tools 	 -- the tools that make up the Widget Set
 examples -- examples of applications that use MKWS
-notes -- internal documents, not for customers
+
+notes    -- internal documents, not for customers
 
 
 Required devel tools
 ====================
 
 on debian, you will need: 
-$ sudo apt-get install curl git-core pandoc yui-compressor
+$ sudo apt-get install curl git-core pandoc yui-compressor node-js
+
+for apache setup, see tools/apache2/README
 
 NEWS
 =========
