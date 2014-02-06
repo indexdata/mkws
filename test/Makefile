@@ -1,8 +1,10 @@
-# Copyright (c) 2013 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
+
 NPM_INSTALL_FLAGS=-q
+JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 PHANTOMJS=	./bomb.pl ./node_modules/phantomjs/bin/phantomjs
 PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_TIMEOUT=	12	
@@ -22,8 +24,8 @@ mkws-complete-syntax-check:
 
 check: mkws-complete-syntax-check
 	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
-	jasmine-node --noColor --captureExceptions --forceexit ./spec
-	jasmine-node --noColor --captureExceptions --forceexit ./spec-sp
+	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
+	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec-sp
 
 test: check
 

@@ -200,9 +200,9 @@ Refinements
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkwsMOTDContainer` division on the page next to `mkwsResults` or
-`mkwsRecords`. The contents of this element are initially displayed,
-but will be hidden when a search is made.
+`mkwsMOTD` division anywhere on the page. It will be moved into the
+`mkwsResults` area and initially displayed, but will be hidden when a
+search is made.
 
 
 ### Customised display using Handlebars templates
@@ -351,7 +351,7 @@ debug_level               int     1         Level of debugging output to emit. 0
                                             datestamps, 3 = messages with datestamps and stack-traces.
 
 facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are 
-                                            `sources`, `subjects` and `authors`.
+                                            `xtargets`, `subject` and `author`.
 
 lang                      string  en        Code of the default language to display the UI in. Supported language codes are `en` =
                                             English, `de` = German, `da` = Danish, and whatever additional languages are configured

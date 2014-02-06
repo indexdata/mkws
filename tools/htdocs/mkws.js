@@ -1,4 +1,7 @@
-/*! MKWS, the MasterKey Widget Set. Copyright (C) 2013-2014, Index Data */
+/*! MKWS, the MasterKey Widget Set. 
+ *  Copyright (C) 2013-2014 Index Data 
+ *  See the file LICENSE for details
+ */
 
 "use strict"; // HTML5: disable for debug_level >= 2
 
@@ -225,8 +228,8 @@ function team($, teamName) {
 		      "pazpar2path": mkws_config.pazpar2_url,
 		      "oninit": my_oninit,
 		      "onstat": my_onstat,
-		      "onterm": my_onterm,
-		      "termlist": "xtargets,subject,author",
+		      "onterm": (mkws_config.facets.length ? my_onterm : undefined),
+		      "termlist": mkws_config.facets.join(','),
 		      "onbytarget": my_onbytarget,
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
@@ -304,34 +307,36 @@ function team($, teamName) {
 
     function my_onterm(data, teamName) {
 	debug("term for " + teamName);
-	// no facets
+	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
+	if (node.length == 0) return;
+
+	// no facets: this should never happen
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    $("#mkwsTermlists").hide();
+	    alert("my_onterm called even though we have no facets: " + $.toJSON(data));
+	    node.hide();
 	    return;
 	}
 
 	// display if we first got results
-	$("#mkwsTermlists").show();
+	node.show();
 
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
 	var facets = mkws_config.facets;
 
 	for(var i = 0; i < facets.length; i++) {
-	    if (facets[i] == "sources") {
+	    if (facets[i] == "xtargets") {
 		add_single_facet(acc, "Sources",  data.xtargets, 16, null);
-	    } else if (facets[i] == "subjects") {
+	    } else if (facets[i] == "subject") {
 		add_single_facet(acc, "Subjects", data.subject,  10, "subject");
-	    } else if (facets[i] == "authors") {
+	    } else if (facets[i] == "author") {
 		add_single_facet(acc, "Authors",  data.author,   10, "author");
 	    } else {
 		alert("bad facet configuration: '" + facets[i] + "'");
 	    }
 	}
 
-	var termlist = $("#mkwsTermlists");
-	if (termlist)
-	    termlist.html(acc.join(''));
+	node.html(acc.join(''));
     }
 
 
@@ -414,8 +419,8 @@ function team($, teamName) {
 	    });
 	});
 
-	document.mkwsSearchForm.mkwsQuery.value = '';
 	if (document.mkwsSelect) {
+	    debug("messing with mkwsSelect");
 	    if (document.mkwsSelect.mkwsSort)
 		document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
 	    if (document.mkwsSelect.mkwsPerpage)
@@ -705,8 +710,8 @@ function team($, teamName) {
 
 	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
 	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
-	var blanket = $('#mkwsBlanket');
-	var motd    = $('#mkwsMOTD');
+	var blanket = $('.mkwsBlanket.mkwsTeam_' + tname);
+	var motd    = $('.mkwsMOTD.mkwsTeam_' + tname);
 
 	switch(view) {
         case 'targets':
@@ -902,19 +907,19 @@ function team($, teamName) {
 	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td id="mkwsTermlistContainer1" class="mkwsTermlistContainer1 mkwsTeam_AUTO" width="250" valign="top">\
-      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_AUTO"></div>\
+    <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
+      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
-    <td id="mkwsMOTDContainer" valign="top">\
-      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_AUTO"></div>\
-      <div id="mkwsPager" class="mkwsPager mkwsTeam_AUTO"></div>\
-      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_AUTO"></div>\
-      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_AUTO"></div>\
+    <td class="mkwsMOTDContainer mkwsTeam_' + m_teamName + '" valign="top">\
+      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsPager" class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
+      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div id="mkwsTermlistContainer2" class="mkwsTermlistContainer2 mkwsTeam_AUTO"></div>\
+      <div class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
 </table>');
@@ -939,21 +944,23 @@ function team($, teamName) {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws_resize_page() });
+	    $(window).resize(function(e) { mkws.resize_page() });
 	    // initial check after page load
-	    $(document).ready(function() { mkws_resize_page() });
+	    $(document).ready(function() { mkws.resize_page() });
 	}
 
+	debug("before domReady()");
 	domReady();
+	debug("after domReady()");
 
 	// on first page, hide the termlist
-	$(document).ready(function() { $("#mkwsTermlists").hide(); });
-	var motd = document.getElementById("mkwsMOTD");
-	var container = document.getElementById("mkwsMOTDContainer");
-	if (motd && container) {
+	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
+	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
+	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
+	debug("for team '" + m_teamName + "', motd=" + motd + "(" + motd.length + "), container=" + container + "(" + container.length + ")");
+	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
-            motd.parentNode.removeChild(motd);
-	    container.appendChild(motd);
+	    motd.appendTo(container);
 	}
     }
 
@@ -1083,34 +1090,6 @@ function team($, teamName) {
 
 	$(".mkwsLang.mkwsTeam_" + m_teamName).html(data);
     }
-
-
-    function mkws_resize_page () {
-	var list = ["mkwsSwitch"];
-
-	var width = mkws_config.responsive_design_width;
-	var parentId = $("#mkwsTermlists").parent().attr('id');
-
-	if ($(window).width() <= width &&
-	    parentId === "mkwsTermlistContainer1") {
-	    debug("changing from wide to narrow: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer2"));
-	    $("#mkwsTermlistContainer1").hide();
-	    $("#mkwsTermlistContainer2").show();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).hide(); // ### make team-aware
-	    }
-	} else if ($(window).width() > width &&
-		   parentId === "mkwsTermlistContainer2") {
-	    debug("changing from narrow to wide: " + $(window).width());
-	    $("#mkwsTermlists").appendTo($("#mkwsTermlistContainer1"));
-	    $("#mkwsTermlistContainer1").show();
-	    $("#mkwsTermlistContainer2").hide();
-	    for(var i = 0; i < list.length; i++) {
-		$("#" + list[i]).show(); // ### make team-aware
-	    }
-	}
-    };
 
 
     /* locale */
@@ -1318,17 +1297,16 @@ function _mkws_jquery_plugin ($) {
 
 	// For all MKWS-classed nodes that don't have a team
 	// specified, set the team to AUTO.
-	$('div[class^="mkws"],div[class*=" mkws"]').each(function () {
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    if (!this.className.match(/mkwsTeam_/)) {
 		log("adding AUTO team to node with class '" + this.className + "'");
 		$(this).addClass('mkwsTeam_AUTO');
 	    }
 	});
 
-	// Find all nodes with class (NOT id) mkwsRecords, and
-	// determine their team from the mkwsTeam_* class. So:
-	//	<div class="mkwsRecords mkwsTeam_foo"/>
-	$('.mkwsSearch, .mkwsResults, .mkwsRecords, .mkwsTermlists').each(function () {
+	// Find all nodes with an class, and determine their team from
+	// the mkwsTeam_* class. Make all team objects.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
 		if (mkws.teams[tname]) {
@@ -1365,6 +1343,38 @@ function _mkws_jquery_plugin ($) {
     }
 
 
+    mkws.resize_page = function () {
+	var list = ["mkwsSwitch", "mkwsLang"];
+
+	var width = mkws_config.responsive_design_width;
+	var parent = $(".mkwsTermlists").parent();
+
+	if ($(window).width() <= width &&
+	    parent.hasClass("mkwsTermlistContainer1")) {
+	    log("changing from wide to narrow: " + $(window).width());
+	    $(".mkwsTermlistContainer1").hide();
+	    $(".mkwsTermlistContainer2").show();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer2.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
+		}
+	    }
+	} else if ($(window).width() > width &&
+		   parent.hasClass("mkwsTermlistContainer2")) {
+	    log("changing from narrow to wide: " + $(window).width());
+	    $(".mkwsTermlistContainer1").show();
+	    $(".mkwsTermlistContainer2").hide();
+	    for (var tname in mkws.teams) {
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer1.mkwsTeam_" + tname));
+		for(var i = 0; i < list.length; i++) {
+		    $("." + list[i] + ".mkwsTeam_" + tname).show();
+		}
+	    }
+	}
+    };
+
+
     mkws.showDetails = function (prefixRecId, tname) {
 	mkws.teams[tname].showDetails(prefixRecId);
     }
@@ -1386,7 +1396,7 @@ function _mkws_jquery_plugin ($) {
 	    show_sort: true, 	/* show/hide sort menu */
 	    show_perpage: true, 	/* show/hide perpage menu */
 	    lang_options: [], 	/* display languages links for given languages, [] for all */
-	    facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+	    facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
 	    responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
 	    debug_level: 1,     /* debug level for development: 0..2 */
 
