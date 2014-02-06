@@ -228,8 +228,8 @@ function team($, teamName) {
 		      "pazpar2path": mkws_config.pazpar2_url,
 		      "oninit": my_oninit,
 		      "onstat": my_onstat,
-		      "onterm": my_onterm,
-		      "termlist": "xtargets,subject,author", // ### should only request the ones we actually want
+		      "onterm": (mkws_config.facets.length ? my_onterm : undefined),
+		      "termlist": mkws_config.facets.join(','),
 		      "onbytarget": my_onbytarget,
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
@@ -310,9 +310,9 @@ function team($, teamName) {
 	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
 	if (node.length == 0) return;
 
-	// no facets
+	// no facets: this should never happen
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    debug("my_onterm called even though we have no facets: " + $.toJSON(data));
+	    alert("my_onterm called even though we have no facets: " + $.toJSON(data));
 	    node.hide();
 	    return;
 	}
@@ -325,11 +325,11 @@ function team($, teamName) {
 	var facets = mkws_config.facets;
 
 	for(var i = 0; i < facets.length; i++) {
-	    if (facets[i] == "sources") {
+	    if (facets[i] == "xtargets") {
 		add_single_facet(acc, "Sources",  data.xtargets, 16, null);
-	    } else if (facets[i] == "subjects") {
+	    } else if (facets[i] == "subject") {
 		add_single_facet(acc, "Subjects", data.subject,  10, "subject");
-	    } else if (facets[i] == "authors") {
+	    } else if (facets[i] == "author") {
 		add_single_facet(acc, "Authors",  data.author,   10, "author");
 	    } else {
 		alert("bad facet configuration: '" + facets[i] + "'");
@@ -1405,7 +1405,7 @@ function _mkws_jquery_plugin ($) {
 	    show_sort: true, 	/* show/hide sort menu */
 	    show_perpage: true, 	/* show/hide perpage menu */
 	    lang_options: [], 	/* display languages links for given languages, [] for all */
-	    facets: ["sources", "subjects", "authors"], /* display facets, in this order, [] for none */
+	    facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
 	    responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
 	    debug_level: 1,     /* debug level for development: 0..2 */
 
