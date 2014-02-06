@@ -13,6 +13,8 @@ clean distclean:
 
 check-js:
 	${MAKE} -C./test check
+phantomjs:
+	${MAKE} -C./test $@
 
 # must be called once after GIT checkout
 setup:	pz2api-git-checkout
