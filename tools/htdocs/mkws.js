@@ -1,5 +1,5 @@
-/*! MKWS, the MasterKey Widget Set. 
- *  Copyright (C) 2013-2014 Index Data 
+/*! MKWS, the MasterKey Widget Set.
+ *  Copyright (C) 2013-2014 Index Data
  *  See the file LICENSE for details
  */
 
@@ -86,6 +86,7 @@ var mkws = {
 	    "Authors": "Autoren",
 	    "Subjects": "Schlagw&ouml;rter",
 	    "Sources": "Daten und Quellen",
+	    "source": "datenquelle",
 	    "Termlists": "Termlisten",
 	    "Next": "Weiter",
 	    "Prev": "Zur&uuml;ck",
@@ -99,8 +100,10 @@ var mkws = {
 	    "found": "gefunden",
 	    "Title": "Titel",
 	    "Author": "Autor",
+	    "author": "autor",
 	    "Date": "Datum",
 	    "Subject": "Schlagwort",
+	    "subject": "schlagwort",
 	    "Location": "Ort",
 	    "Records": "Datens&auml;tze",
 	    "Targets": "Datenbanken",
@@ -112,6 +115,7 @@ var mkws = {
 	    "Authors": "Forfattere",
 	    "Subjects": "Emner",
 	    "Sources": "Kilder",
+	    "source": "kilder",
 	    "Termlists": "Termlists",
 	    "Next": "N&aelig;ste",
 	    "Prev": "Forrige",
@@ -125,8 +129,10 @@ var mkws = {
 	    "found": "fandt",
 	    "Title": "Title",
 	    "Author": "Forfatter",
+	    "author": "forfatter",
 	    "Date": "Dato",
 	    "Subject": "Emneord",
+	    "subject": "emneord",
 	    "Location": "Lokation",
 	    "Records": "Poster",
 	    "Targets": "Baser",
@@ -622,10 +628,10 @@ function team($, teamName) {
 	    }
 	    var filter = m_filters[i];
 	    if (filter.id) {
-		text += 'Source: <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
+		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
 		    "'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
 	    } else {
-		text += filter.field + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
+		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
 		    "'" + filter.field + "', '" + filter.value + "'" +
 		    ');return false;">' + filter.value + '</a>';
 	    }
