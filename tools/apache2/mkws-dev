@@ -3,7 +3,7 @@
 # pazpar2 / service proxy config
 <VirtualHost *:80>
     ServerName mkws-dev.indexdata.com
-    ServerAlias mkws-dev a.mkws.indexdata.com
+    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com
 
     ServerAdmin webmaster@indexdata.com
     ErrorLog /var/log/apache2/mkws-dev-error.log
