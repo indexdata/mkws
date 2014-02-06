@@ -229,7 +229,7 @@ function team($, teamName) {
 		      "oninit": my_oninit,
 		      "onstat": my_onstat,
 		      "onterm": my_onterm,
-		      "termlist": "xtargets,subject,author",
+		      "termlist": "xtargets,subject,author", // ### should only request the ones we actually want
 		      "onbytarget": my_onbytarget,
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
@@ -307,14 +307,18 @@ function team($, teamName) {
 
     function my_onterm(data, teamName) {
 	debug("term for " + teamName);
+	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
+	if (node.length == 0) return;
+
 	// no facets
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    $(".mkwsTermlists.mkwsTeam_" + teamName).hide();
+	    debug("my_onterm called even though we have no facets: " + $.toJSON(data));
+	    node.hide();
 	    return;
 	}
 
 	// display if we first got results
-	$(".mkwsTermlists.mkwsTeam_" + teamName).show();
+	node.show();
 
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
@@ -332,9 +336,7 @@ function team($, teamName) {
 	    }
 	}
 
-	var termlist = $(".mkwsTermlists.mkwsTeam_" + teamName);
-	if (termlist)
-	    termlist.html(acc.join(''));
+	node.html(acc.join(''));
     }
 
 
@@ -408,6 +410,7 @@ function team($, teamName) {
     // wait until the DOM is ready
     function domReady ()
     {
+	debug("starting domReady()");
 	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
 	    debug("adding search-forms for team '" + m_teamName + "'");
 	    var node = this;
@@ -417,13 +420,21 @@ function team($, teamName) {
 	    });
 	});
 
+	debug("in domReady() 1");
+	debug("document = '" + document + "'");
+	debug("document.mkwsSearchForm = '" + document.mkwsSearchForm + "'");
+	debug("document.mkwsSearchForm.mkwsQuery = '" + document.mkwsSearchForm.mkwsQuery + "'");
+	debug("document.mkwsSearchForm.mkwsQuery.value = '" + document.mkwsSearchForm.mkwsQuery.value + "'");
 	document.mkwsSearchForm.mkwsQuery.value = '';
+	debug("in domReady() 2");
 	if (document.mkwsSelect) {
+	    debug("messing with mkwsSelect");
 	    if (document.mkwsSelect.mkwsSort)
 		document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
 	    if (document.mkwsSelect.mkwsPerpage)
 		document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
 	}
+	debug("finished domReady()");
     }
 
 
@@ -708,8 +719,8 @@ function team($, teamName) {
 
 	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
 	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
-	var blanket = $('#mkwsBlanket');
-	var motd    = $('#mkwsMOTD');
+	var blanket = $('.mkwsBlanket.mkwsTeam_' + tname);
+	var motd    = $('.mkwsMOTD.mkwsTeam_' + tname);
 
 	switch(view) {
         case 'targets':
@@ -908,7 +919,7 @@ function team($, teamName) {
     <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
       <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
-    <td id="mkwsMOTDContainer" valign="top">\
+    <td class="mkwsMOTDContainer mkwsTeam_' + m_teamName + '" valign="top">\
       <div id="mkwsRanking" class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
       <div id="mkwsPager" class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
       <div id="mkwsNavi" class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
@@ -947,16 +958,18 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
+	debug("before domReady()");
 	domReady();
+	debug("after domReady()");
 
 	// on first page, hide the termlist
 	$(document).ready(function() { $("#mkwsTermlists").hide(); });
-	var motd = document.getElementById("mkwsMOTD");
-	var container = document.getElementById("mkwsMOTDContainer");
-	if (motd && container) {
+	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
+	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
+	debug("for team '" + m_teamName + "', motd=" + motd + "(" + motd.length + "), container=" + container + "(" + container.length + ")");
+	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
-            motd.parentNode.removeChild(motd);
-	    container.appendChild(motd);
+	    motd.appendTo(container);
 	}
     }
 
