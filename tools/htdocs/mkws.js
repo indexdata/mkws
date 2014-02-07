@@ -568,7 +568,7 @@ function team($, teamName) {
     }
 
 
-    mkws.delimitQuery = function (field, value)
+    that.delimitQuery = function (field, value)
     {
 	debug("delimitQuery(field=" + field + ", value=" + value + ")");
 	var newFilters = [];
@@ -593,7 +593,7 @@ function team($, teamName) {
     }
 
 
-    mkws.delimitTarget = function (id)
+    that.delimitTarget = function (id)
     {
 	debug("delimitTarget(id=" + id + ")");
 	var newFilters = [];
@@ -628,11 +628,11 @@ function team($, teamName) {
 	    }
 	    var filter = m_filters[i];
 	    if (filter.id) {
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
-		    "'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + m_teamName +
+		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
 	    } else {
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
-		    "'" + filter.field + "', '" + filter.value + "'" +
+		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + m_teamName +
+		    "', '" + filter.field + "', '" + filter.value + "'" +
 		    ');return false;">' + filter.value + '</a>';
 	    }
 	}
@@ -1393,6 +1393,13 @@ function _mkws_jquery_plugin ($) {
 	mkws.teams[tname].limitQuery(field, value);
     }
 
+    mkws.delimitTarget = function (tname, id) {
+	mkws.teams[tname].delimitTarget(id);
+    }
+
+    mkws.delimitQuery = function (tname, field, value) {
+	mkws.teams[tname].delimitQuery(field, value);
+    }
 
     function default_mkws_config() {
 	/* default mkws config */
