@@ -568,18 +568,16 @@ function team($, teamName) {
     }
 
 
-    that.delimitQuery = function (field, value)
+    that.delimitTarget = function (id)
     {
-	debug("delimitQuery(field=" + field + ", value=" + value + ")");
+	debug("delimitTarget(id=" + id + ")");
 	var newFilters = [];
 	for (var i in m_filters) {
 	    var filter = m_filters[i];
-	    if (filter.field &&
-		field == filter.field &&
-		value == filter.value) {
-		debug("delimitQuery() removing filter " + $.toJSON(filter));
+	    if (filter.id) {
+		debug("delimitTarget() removing filter " + $.toJSON(filter));
 	    } else {
-		debug("delimitQuery() keeping filter " + $.toJSON(filter));
+		debug("delimitTarget() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
@@ -593,16 +591,18 @@ function team($, teamName) {
     }
 
 
-    that.delimitTarget = function (id)
+    that.delimitQuery = function (field, value)
     {
-	debug("delimitTarget(id=" + id + ")");
+	debug("delimitQuery(field=" + field + ", value=" + value + ")");
 	var newFilters = [];
 	for (var i in m_filters) {
 	    var filter = m_filters[i];
-	    if (filter.id) {
-		debug("delimitTarget() removing filter " + $.toJSON(filter));
+	    if (filter.field &&
+		field == filter.field &&
+		value == filter.value) {
+		debug("delimitQuery() removing filter " + $.toJSON(filter));
 	    } else {
-		debug("delimitTarget() keeping filter " + $.toJSON(filter));
+		debug("delimitQuery() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
