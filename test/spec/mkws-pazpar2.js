@@ -208,8 +208,8 @@ describe("Check Termlist", function () {
     });
 
     it("limit search to first author", function () {
-        if (!mkws_config.use_service_proxy) {
-            debug("running raw pp2, ignore non-functional limit search for authors");
+        if (mkws_config.disable_facet_authors_search) {
+            debug("Facets: ignore limit search for authors");
             return;
         }
 
