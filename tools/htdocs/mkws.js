@@ -292,7 +292,7 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Summary");
 	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails(this.id, '" + m_teamName + "');return false;"
+	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
 	return template(hit);
     }
 
@@ -1381,7 +1381,7 @@ function _mkws_jquery_plugin ($) {
     };
 
 
-    mkws.showDetails = function (prefixRecId, tname) {
+    mkws.showDetails = function (tname, prefixRecId) {
 	mkws.teams[tname].showDetails(prefixRecId);
     }
 
