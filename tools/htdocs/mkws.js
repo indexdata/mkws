@@ -262,12 +262,7 @@ function team($, teamName) {
 	// move it out
 	var pager = document.getElementById("mkwsPager");
 	if (pager) {
-	    pager.innerHTML = "";
-	    pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
-		+ (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-		' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-		+ data.total + ')</div>';
-	    drawPager(pager);
+	    drawPager(pager, data);
 	}
 
 	// navi
@@ -640,8 +635,13 @@ function team($, teamName) {
     }
 
 
-    function drawPager (pagerDiv)
+    function drawPager (pagerDiv, data)
     {
+	pagerDiv.innerHTML ='<div style="float: right">' + M('Displaying') + ': '
+	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+	    + data.total + ')</div>';
+
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
 	var pages = Math.ceil(m_totalRec / m_recPerPage);
