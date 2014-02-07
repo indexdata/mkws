@@ -260,8 +260,8 @@ function team($, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
 
-	var pager = document.getElementById("mkwsPager");
-	if (pager) {
+	var pager = $("#mkwsPager");
+	if (pager.length) {
 	    drawPager(pager, data);
 	}
 
@@ -684,7 +684,7 @@ function team($, teamName) {
 
 	s += '<div style="float: clear">'
             + prev + predots + middle + postdots + next + '</div>';
-	pagerDiv.innerHTML = s;
+	pagerDiv.html(s);
     }
 
 
