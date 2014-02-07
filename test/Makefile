@@ -3,11 +3,12 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
+PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+PHANTOMJS_TIMEOUT=12	
+
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 PHANTOMJS=	./bomb.pl ./node_modules/phantomjs/bin/phantomjs
-PHANTOMJS_URL=	https://mkws-dev.indexdata.com/jasmine-popup.html	
-PHANTOMJS_TIMEOUT=	12	
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 
