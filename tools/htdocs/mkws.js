@@ -194,7 +194,7 @@ function team($, teamName) {
 	} else if (mkws.debug_level >= 2) {
 	    console.log(timestamp + ">>> called from function " + arguments.callee.caller.name + ' <<<');
 	}
-	console.log(timestamp + string);
+	console.log(m_teamName + ": " + timestamp + string);
     }
     var debug = mkws.debug_function; // local alias
     debug("start running MKWS");
