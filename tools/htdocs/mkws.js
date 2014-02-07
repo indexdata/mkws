@@ -542,11 +542,11 @@ function team($, teamName) {
     }
 
 
-    // limit the query after clicking the facet
-    that.limitQuery = function (field, value)
+    // limit by target functions
+    that.limitTarget  = function (id, name)
     {
-	debug("limitQuery(field=" + field + ", value=" + value + ")");
-	m_filters.push({ field: field, value: value });
+	debug("limitTarget(id=" + id + ", name=" + name + ")");
+	m_filters.push({ id: id, name: name });
 	redraw_navi();
 	resetPage();
 	loadSelect();
@@ -555,11 +555,11 @@ function team($, teamName) {
     }
 
 
-    // limit by target functions
-    that.limitTarget  = function (id, name)
+    // limit the query after clicking the facet
+    that.limitQuery = function (field, value)
     {
-	debug("limitTarget(id=" + id + ", name=" + name + ")");
-	m_filters.push({ id: id, name: name });
+	debug("limitQuery(field=" + field + ", value=" + value + ")");
+	m_filters.push({ field: field, value: value });
 	redraw_navi();
 	resetPage();
 	loadSelect();
