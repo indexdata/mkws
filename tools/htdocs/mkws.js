@@ -250,14 +250,14 @@ function team($, teamName) {
     // pz2.js event handlers:
     //
     function my_oninit(teamName) {
-	debug("init for " + teamName);
+	debug("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
 
     function my_onshow(data, teamName) {
-	debug("show for " + teamName);
+	debug("show");
 	m_totalRec = data.merged;
 	// move it out
 	var pager = document.getElementById("mkwsPager");
@@ -298,7 +298,7 @@ function team($, teamName) {
 
 
     function my_onstat(data, teamName) {
-	debug("stat for " + teamName);
+	debug("stat");
 	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
 	if (stat.length === 0)
 	    return;
@@ -312,7 +312,7 @@ function team($, teamName) {
 
 
     function my_onterm(data, teamName) {
-	debug("term for " + teamName);
+	debug("term");
 	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
 	if (node.length == 0) return;
 
@@ -369,7 +369,7 @@ function team($, teamName) {
 
 
     function my_onrecord(data, args, teamName) {
-	debug("record for " + teamName);
+	debug("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// in case on_show was faster to redraw element
@@ -383,7 +383,7 @@ function team($, teamName) {
 
 
     function my_onbytarget(data, teamName) {
-	debug("target for " + teamName);
+	debug("target");
 	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
 	    return;
