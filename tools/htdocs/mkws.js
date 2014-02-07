@@ -262,7 +262,7 @@ function team($, teamName) {
 
 	var pager = $("#mkwsPager");
 	if (pager.length) {
-	    drawPager(pager, data);
+	    pager.html(drawPager(data))
 	}
 
 	// navi
@@ -635,7 +635,7 @@ function team($, teamName) {
     }
 
 
-    function drawPager (pagerDiv, data)
+    function drawPager (data)
     {
 	var s = '<div style="float: right">' + M('Displaying') + ': '
 	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
@@ -684,7 +684,8 @@ function team($, teamName) {
 
 	s += '<div style="float: clear">'
             + prev + predots + middle + postdots + next + '</div>';
-	pagerDiv.html(s);
+
+	return s;
     }
 
 
