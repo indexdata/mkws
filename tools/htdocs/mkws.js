@@ -259,7 +259,7 @@ function team($, teamName) {
     function my_onshow(data, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
-	// move it out
+
 	var pager = document.getElementById("mkwsPager");
 	if (pager) {
 	    drawPager(pager, data);
