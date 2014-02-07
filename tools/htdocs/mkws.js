@@ -426,7 +426,6 @@ function team($, teamName) {
 	});
 
 	if (document.mkwsSelect) {
-	    debug("messing with mkwsSelect");
 	    if (document.mkwsSelect.mkwsSort)
 		document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
 	    if (document.mkwsSelect.mkwsPerpage)
@@ -954,15 +953,12 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
-	debug("before domReady()");
 	domReady();
-	debug("after domReady()");
 
 	// on first page, hide the termlist
 	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
 	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
 	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
-	debug("for team '" + m_teamName + "', motd=" + motd + "(" + motd.length + "), container=" + container + "(" + container.length + ")");
 	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
 	    motd.appendTo(container);
@@ -1492,9 +1488,7 @@ function _mkws_jquery_plugin ($) {
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
-		if (mkws.teams[tname]) {
-		    log("MKWS team '" + tname + "' already exists, skipping");
-		} else {
+		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    log("Made MKWS team '" + tname + "'");
 		}
