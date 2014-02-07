@@ -637,7 +637,7 @@ function team($, teamName) {
 
     function drawPager (pagerDiv, data)
     {
-	pagerDiv.innerHTML ='<div style="float: right">' + M('Displaying') + ': '
+	var s = '<div style="float: right">' + M('Displaying') + ': '
 	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
 	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
 	    + data.total + ')</div>';
@@ -682,8 +682,9 @@ function team($, teamName) {
 	if (lastClkbl < pages)
             postdots = '...';
 
-	pagerDiv.innerHTML += '<div style="float: clear">'
+	s += '<div style="float: clear">'
             + prev + predots + middle + postdots + next + '</div>';
+	pagerDiv.innerHTML = s;
     }
 
 
