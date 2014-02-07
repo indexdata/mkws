@@ -764,6 +764,7 @@ function team($, teamName) {
             return;
 	}
 	// request the record
+	debug("showDetails() requesting record '" + recId + "'");
 	m_paz.record(recId);
     }
 
