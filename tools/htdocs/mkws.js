@@ -260,7 +260,7 @@ function team($, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
 
-	var pager = $("#mkwsPager");
+	var pager = $(".mkwsPager.mkwsTeam_" + m_teamName);
 	if (pager.length) {
 	    pager.html(drawPager(data))
 	}
