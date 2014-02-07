@@ -1401,6 +1401,7 @@ function _mkws_jquery_plugin ($) {
 	mkws.teams[tname].delimitQuery(field, value);
     }
 
+
     function default_mkws_config() {
 	/* default mkws config */
 	var config_default = {
