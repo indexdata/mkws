@@ -577,9 +577,9 @@ function team($, teamName) {
 	    if (filter.field &&
 		field == filter.field &&
 		value == filter.value) {
-		debug("delimitTarget() removing filter " + $.toJSON(filter));
+		debug("delimitQuery() removing filter " + $.toJSON(filter));
 	    } else {
-		debug("delimitTarget() keeping filter " + $.toJSON(filter));
+		debug("delimitQuery() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
