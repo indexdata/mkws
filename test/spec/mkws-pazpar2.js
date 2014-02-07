@@ -208,6 +208,11 @@ describe("Check Termlist", function () {
     });
 
     it("limit search to first author", function () {
+        if (!mkws_config.use_service_proxy) {
+            debug("running raw pp2, ignore non-functional limit search for authors");
+            return;
+        }
+
         var hits_all_targets = get_hit_counter();
         var author_number = 2; // 2=first author
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
