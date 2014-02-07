@@ -181,29 +181,29 @@ describe("Check Termlist", function () {
         expect(termlist.length).toBe(1);
 
         waitsFor(function () {
-            return $("div#mkwsFacetSources").length == 1 ? true : false;
+            return $("div.mkwsFacetSources").length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
 
 
         // everything displayed?
         runs(function () {
-            var sources = $("div#mkwsFacetSources");
+            var sources = $("div.mkwsFacetSources");
             debug("Termlist sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
-            var subjects = $("div#mkwsFacetSubjects");
+            var subjects = $("div.mkwsFacetSubjects");
             expect(subjects.length).toBe(1);
 
-            var authors = $("div#mkwsFacetAuthors");
+            var authors = $("div.mkwsFacetAuthors");
             expect(authors.length).toBe(1);
         });
 
         waitsFor(function () {
-            return $("div#mkwsFacetAuthors div.term").length >= 2 ? true : false;
+            return $("div.mkwsFacetAuthors div.term").length >= 2 ? true : false;
         }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($("div#mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
+            expect($("div.mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
         });
     });
 
@@ -223,7 +223,7 @@ describe("Check Termlist", function () {
             }
         }
 
-        var click = $("div#mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
+        var click = $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
         debug("limit author click is success: " + click.length);
         expect(click.length).toBe(1);
 
@@ -253,7 +253,7 @@ describe("Check Termlist", function () {
             }
         }
 
-        var click = $("div#mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
+        var click = $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
         debug("limit source click " + (source_number - 1) + " is success: " + click.length);
         expect(click.length).toBe(1);
 
