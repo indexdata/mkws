@@ -1283,57 +1283,6 @@ function _mkws_jquery_plugin ($) {
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 
-    $(document).ready(function() {
-	log("on load ready");
-	default_mkws_config();
-
-	// Backwards compatibility: set new magic class names on any
-	// elements that have the old magic IDs.
-	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
-		    "Results", "Records", "Targets", "Ranking",
-		    "Termlists", "Stat" ];
-	for (var i = 0; i < ids.length; i++) {
-	    var id = 'mkws' + ids[i];
-	    var node = $('#' + id);
-	    if (node.attr('id')) {
-		node.addClass(id);
-		log("added magic class to '" + node.attr('id') + "'");
-	    }
-	}
-
-	// For all MKWS-classed nodes that don't have a team
-	// specified, set the team to AUTO.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    if (!this.className.match(/mkwsTeam_/)) {
-		log("adding AUTO team to node with class '" + this.className + "'");
-		$(this).addClass('mkwsTeam_AUTO');
-	    }
-	});
-
-	// Find all nodes with an class, and determine their team from
-	// the mkwsTeam_* class. Make all team objects.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
-		if (mkws.teams[tname]) {
-		    log("MKWS team '" + tname + "' already exists, skipping");
-		} else {
-		    mkws.teams[tname] = team(j, tname);
-		    log("Made MKWS team '" + tname + "'");
-		}
-	    });
-	});
-
-	if (mkws_config.use_service_proxy) {
-	    authenticate_session(mkws_config.service_proxy_auth,
-				 mkws_config.service_proxy_auth_domain,
-				 mkws_config.pazpar2_url);
-	} else {
-	    // raw pp2
-	    run_auto_searches();
-	}
-    });
-
 
     mkws.handle_node_with_team = function(node, callback) {
 	var classes = node.className;
@@ -1506,4 +1455,56 @@ function _mkws_jquery_plugin ($) {
 	    }
 	}
     }
+
+
+    $(document).ready(function() {
+	log("on load ready");
+	default_mkws_config();
+
+	// Backwards compatibility: set new magic class names on any
+	// elements that have the old magic IDs.
+	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
+		    "Results", "Records", "Targets", "Ranking",
+		    "Termlists", "Stat" ];
+	for (var i = 0; i < ids.length; i++) {
+	    var id = 'mkws' + ids[i];
+	    var node = $('#' + id);
+	    if (node.attr('id')) {
+		node.addClass(id);
+		log("added magic class to '" + node.attr('id') + "'");
+	    }
+	}
+
+	// For all MKWS-classed nodes that don't have a team
+	// specified, set the team to AUTO.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	    if (!this.className.match(/mkwsTeam_/)) {
+		log("adding AUTO team to node with class '" + this.className + "'");
+		$(this).addClass('mkwsTeam_AUTO');
+	    }
+	});
+
+	// Find all nodes with an class, and determine their team from
+	// the mkwsTeam_* class. Make all team objects.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	    var node = this;
+	    mkws.handle_node_with_team(node, function(tname) {
+		if (mkws.teams[tname]) {
+		    log("MKWS team '" + tname + "' already exists, skipping");
+		} else {
+		    mkws.teams[tname] = team(j, tname);
+		    log("Made MKWS team '" + tname + "'");
+		}
+	    });
+	});
+
+	if (mkws_config.use_service_proxy) {
+	    authenticate_session(mkws_config.service_proxy_auth,
+				 mkws_config.service_proxy_auth_domain,
+				 mkws_config.pazpar2_url);
+	} else {
+	    // raw pp2
+	    run_auto_searches();
+	}
+    });
 })(jQuery);
