@@ -67,7 +67,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 // Some functions are visible to be called from outside code, namely
-// generated HTML: mkws.switchView(), showDetails(), limitTarget(),
+// generated HTML: that.switchView(), showDetails(), limitTarget(),
 // limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
 // pagerNext(), showPage(). Also mkws.M() is made available for the
 // Handlebars helper 'translate'
@@ -358,7 +358,7 @@ function team($, teamName) {
 		acc.push('target_id='+data[i].id+' ');
 		action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	    } else {
-		action = 'mkws.limitQuery(\'' + pzIndex + '\', this.firstChild.nodeValue)';
+		action = 'mkws.limitQuery(\'' + m_teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
 	    }
 	    acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 		     + ' <span>' + data[i].freq + '</span>');
@@ -543,7 +543,7 @@ function team($, teamName) {
 
 
     // limit the query after clicking the facet
-    mkws.limitQuery = function (field, value)
+    that.limitQuery = function (field, value)
     {
 	debug("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
@@ -1387,6 +1387,10 @@ function _mkws_jquery_plugin ($) {
 
     mkws.limitTarget  = function (tname, id, name) {
 	mkws.teams[tname].limitTarget(id, name);
+    }
+
+    mkws.limitQuery  = function (tname, field, value) {
+	mkws.teams[tname].limitQuery(field, value);
     }
 
 
