@@ -461,7 +461,7 @@ function team($, teamName) {
 	resetPage(); // ### the globals it resents should be indexed by windowid
 	loadSelect(); // ### should use windowid
 	triggerSearch(query, sort, targets, windowid);
-	mkws.switchView(m_teamName, 'records'); // In case it's configured to start off as hidden
+	that.switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
 
@@ -711,13 +711,11 @@ function team($, teamName) {
 
 
     // switching view between targets and records
-    mkws.switchView = function(tname, view) {
-	debug("switchView(" + tname + ", " + view + ")");
-
-	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
-	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
-	var blanket = $('.mkwsBlanket.mkwsTeam_' + tname);
-	var motd    = $('.mkwsMOTD.mkwsTeam_' + tname);
+    that.switchView = function(view) {
+	var targets = $('.mkwsTargets.mkwsTeam_' + m_teamName);
+	var results = $('.mkwsResults.mkwsTeam_' + m_teamName + ',.mkwsRecords.mkwsTeam_' + m_teamName);
+	var blanket = $('.mkwsBlanket.mkwsTeam_' + m_teamName);
+	var motd    = $('.mkwsMOTD.mkwsTeam_' + m_teamName);
 
 	switch(view) {
         case 'targets':
@@ -733,7 +731,7 @@ function team($, teamName) {
             if (motd) motd.css('display', 'none');
             break;
 	case 'none':
-	    alert("mkws.switchView(" + tname + ", 'none') shouldn't happen");
+	    alert("mkws.switchView(" + m_teamName + ", 'none') shouldn't happen");
             if (targets) targets.css('display', 'none');
             if (results) results.css('display', 'none');
             if (blanket) blanket.css('display', 'none');
@@ -1330,6 +1328,10 @@ function _mkws_jquery_plugin ($) {
 	}
     };
 
+
+    mkws.switchView = function(tname, view) {
+	mkws.teams[tname].switchView(view);
+    }
 
     mkws.showDetails = function (tname, prefixRecId) {
 	mkws.teams[tname].showDetails(prefixRecId);
