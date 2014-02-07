@@ -347,7 +347,7 @@ function team($, teamName) {
 
 
     function add_single_facet(acc, caption, data, max, pzIndex) {
-	acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
+	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
 	for (var i = 0; i < data.length && i < max; i++) {
 	    acc.push('<div class="term">');
@@ -356,7 +356,7 @@ function team($, teamName) {
 	    if (!pzIndex) {
 		// Special case: target selection
 		acc.push('target_id='+data[i].id+' ');
-		action = 'mkws.limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+		action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	    } else {
 		action = 'mkws.limitQuery(\'' + pzIndex + '\', this.firstChild.nodeValue)';
 	    }
@@ -457,7 +457,7 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	redraw_navi(); // ### should use windowid
+	redraw_navi();
 	resetPage(); // ### the globals it resents should be indexed by windowid
 	loadSelect(); // ### should use windowid
 	triggerSearch(query, sort, targets, windowid);
@@ -556,7 +556,7 @@ function team($, teamName) {
 
 
     // limit by target functions
-    mkws.limitTarget  = function (id, name)
+    that.limitTarget  = function (id, name)
     {
 	debug("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
@@ -618,7 +618,7 @@ function team($, teamName) {
 
     function redraw_navi ()
     {
-	var navi = document.getElementById('mkwsNavi');
+	var navi = $('.mkwsNavi.mkwsTeam_' + m_teamName);
 	if (!navi) return;
 
 	var text = "";
@@ -637,7 +637,7 @@ function team($, teamName) {
 	    }
 	}
 
-	navi.innerHTML = text;
+	navi.html(text);
     }
 
 
@@ -1383,6 +1383,10 @@ function _mkws_jquery_plugin ($) {
 
     mkws.showDetails = function (prefixRecId, tname) {
 	mkws.teams[tname].showDetails(prefixRecId);
+    }
+
+    mkws.limitTarget  = function (tname, id, name) {
+	mkws.teams[tname].limitTarget(id, name);
     }
 
 
