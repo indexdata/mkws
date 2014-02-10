@@ -931,9 +931,10 @@ function team($, teamName) {
 </table>');
 	}
 
-	if ($("#mkwsRanking").length) {
+	var node = $(".mkwsRanking.mkwsTeam_" + m_teamName);
+	if (node.length) {
 	    var ranking_data = '';
-	    ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
+	    ranking_data += '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	    if (mkws_config.show_sort) {
 		ranking_data +=  M('Sort by') + ' ' + mkws_html_sort() + ' ';
 	    }
@@ -942,7 +943,7 @@ function team($, teamName) {
 	    }
             ranking_data += '</form>';
 
-	    $("#mkwsRanking").html(ranking_data);
+	    node.html(ranking_data);
 	}
 
 	mkws_html_switch();
