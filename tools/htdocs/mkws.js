@@ -67,7 +67,7 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 // Some functions are visible to be called from outside code, namely
-// generated HTML: mkws.switchView(), showDetails(), limitTarget(),
+// generated HTML: that.switchView(), showDetails(), limitTarget(),
 // limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
 // pagerNext(), showPage(). Also mkws.M() is made available for the
 // Handlebars helper 'translate'
@@ -194,7 +194,7 @@ function team($, teamName) {
 	} else if (mkws.debug_level >= 2) {
 	    console.log(timestamp + ">>> called from function " + arguments.callee.caller.name + ' <<<');
 	}
-	console.log(timestamp + string);
+	console.log(m_teamName + ": " + timestamp + string);
     }
     var debug = mkws.debug_function; // local alias
     debug("start running MKWS");
@@ -250,24 +250,19 @@ function team($, teamName) {
     // pz2.js event handlers:
     //
     function my_oninit(teamName) {
-	debug("init for " + teamName);
+	debug("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
 
     function my_onshow(data, teamName) {
-	debug("show for " + teamName);
+	debug("show");
 	m_totalRec = data.merged;
-	// move it out
-	var pager = document.getElementById("mkwsPager");
-	if (pager) {
-	    pager.innerHTML = "";
-	    pager.innerHTML +='<div style="float: right">' + M('Displaying') + ': '
-		+ (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-		' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-		+ data.total + ')</div>';
-	    drawPager(pager);
+
+	var pager = $(".mkwsPager.mkwsTeam_" + m_teamName);
+	if (pager.length) {
+	    pager.html(drawPager(data))
 	}
 
 	// navi
@@ -292,13 +287,13 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Summary");
 	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails(this.id, '" + m_teamName + "');return false;"
+	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
 	return template(hit);
     }
 
 
     function my_onstat(data, teamName) {
-	debug("stat for " + teamName);
+	debug("stat");
 	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
 	if (stat.length === 0)
 	    return;
@@ -312,7 +307,7 @@ function team($, teamName) {
 
 
     function my_onterm(data, teamName) {
-	debug("term for " + teamName);
+	debug("term");
 	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
 	if (node.length == 0) return;
 
@@ -347,7 +342,7 @@ function team($, teamName) {
 
 
     function add_single_facet(acc, caption, data, max, pzIndex) {
-	acc.push('<div class="facet" id="mkwsFacet' + caption + '">');
+	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
 	for (var i = 0; i < data.length && i < max; i++) {
 	    acc.push('<div class="term">');
@@ -356,9 +351,9 @@ function team($, teamName) {
 	    if (!pzIndex) {
 		// Special case: target selection
 		acc.push('target_id='+data[i].id+' ');
-		action = 'mkws.limitTarget(this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+		action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 	    } else {
-		action = 'mkws.limitQuery(\'' + pzIndex + '\', this.firstChild.nodeValue)';
+		action = 'mkws.limitQuery(\'' + m_teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
 	    }
 	    acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 		     + ' <span>' + data[i].freq + '</span>');
@@ -369,7 +364,7 @@ function team($, teamName) {
 
 
     function my_onrecord(data, args, teamName) {
-	debug("record for " + teamName);
+	debug("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// in case on_show was faster to redraw element
@@ -383,7 +378,7 @@ function team($, teamName) {
 
 
     function my_onbytarget(data, teamName) {
-	debug("target for " + teamName);
+	debug("target");
 	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
 	if (!targetDiv) {
 	    return;
@@ -426,7 +421,6 @@ function team($, teamName) {
 	});
 
 	if (document.mkwsSelect) {
-	    debug("messing with mkwsSelect");
 	    if (document.mkwsSelect.mkwsSort)
 		document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
 	    if (document.mkwsSelect.mkwsPerpage)
@@ -457,11 +451,11 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	redraw_navi(); // ### should use windowid
+	redraw_navi();
 	resetPage(); // ### the globals it resents should be indexed by windowid
 	loadSelect(); // ### should use windowid
 	triggerSearch(query, sort, targets, windowid);
-	mkws.switchView(m_teamName, 'records'); // In case it's configured to start off as hidden
+	that.switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
 
@@ -542,21 +536,8 @@ function team($, teamName) {
     }
 
 
-    // limit the query after clicking the facet
-    mkws.limitQuery = function (field, value)
-    {
-	debug("limitQuery(field=" + field + ", value=" + value + ")");
-	m_filters.push({ field: field, value: value });
-	redraw_navi();
-	resetPage();
-	loadSelect();
-	triggerSearch();
-	return false;
-    }
-
-
     // limit by target functions
-    mkws.limitTarget  = function (id, name)
+    that.limitTarget  = function (id, name)
     {
 	debug("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
@@ -568,23 +549,11 @@ function team($, teamName) {
     }
 
 
-    mkws.delimitQuery = function (field, value)
+    // limit the query after clicking the facet
+    that.limitQuery = function (field, value)
     {
-	debug("delimitQuery(field=" + field + ", value=" + value + ")");
-	var newFilters = [];
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
-	    if (filter.field &&
-		field == filter.field &&
-		value == filter.value) {
-		debug("delimitTarget() removing filter " + $.toJSON(filter));
-	    } else {
-		debug("delimitTarget() keeping filter " + $.toJSON(filter));
-		newFilters.push(filter);
-	    }
-	}
-	m_filters = newFilters;
-
+	debug("limitQuery(field=" + field + ", value=" + value + ")");
+	m_filters.push({ field: field, value: value });
 	redraw_navi();
 	resetPage();
 	loadSelect();
@@ -593,7 +562,7 @@ function team($, teamName) {
     }
 
 
-    mkws.delimitTarget = function (id)
+    that.delimitTarget = function (id)
     {
 	debug("delimitTarget(id=" + id + ")");
 	var newFilters = [];
@@ -616,9 +585,34 @@ function team($, teamName) {
     }
 
 
+    that.delimitQuery = function (field, value)
+    {
+	debug("delimitQuery(field=" + field + ", value=" + value + ")");
+	var newFilters = [];
+	for (var i in m_filters) {
+	    var filter = m_filters[i];
+	    if (filter.field &&
+		field == filter.field &&
+		value == filter.value) {
+		debug("delimitQuery() removing filter " + $.toJSON(filter));
+	    } else {
+		debug("delimitQuery() keeping filter " + $.toJSON(filter));
+		newFilters.push(filter);
+	    }
+	}
+	m_filters = newFilters;
+
+	redraw_navi();
+	resetPage();
+	loadSelect();
+	triggerSearch();
+	return false;
+    }
+
+
     function redraw_navi ()
     {
-	var navi = document.getElementById('mkwsNavi');
+	var navi = $('.mkwsNavi.mkwsTeam_' + m_teamName);
 	if (!navi) return;
 
 	var text = "";
@@ -628,21 +622,26 @@ function team($, teamName) {
 	    }
 	    var filter = m_filters[i];
 	    if (filter.id) {
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(' +
-		    "'" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + m_teamName +
+		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
 	    } else {
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(' +
-		    "'" + filter.field + "', '" + filter.value + "'" +
+		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + m_teamName +
+		    "', '" + filter.field + "', '" + filter.value + "'" +
 		    ');return false;">' + filter.value + '</a>';
 	    }
 	}
 
-	navi.innerHTML = text;
+	navi.html(text);
     }
 
 
-    function drawPager (pagerDiv)
+    function drawPager (data)
     {
+	var s = '<div style="float: right">' + M('Displaying') + ': '
+	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+	    + data.total + ')</div>';
+
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
 	var pages = Math.ceil(m_totalRec / m_recPerPage);
@@ -683,8 +682,10 @@ function team($, teamName) {
 	if (lastClkbl < pages)
             postdots = '...';
 
-	pagerDiv.innerHTML += '<div style="float: clear">'
+	s += '<div style="float: clear">'
             + prev + predots + middle + postdots + next + '</div>';
+
+	return s;
     }
 
 
@@ -711,13 +712,11 @@ function team($, teamName) {
 
 
     // switching view between targets and records
-    mkws.switchView = function(tname, view) {
-	debug("switchView(" + tname + ", " + view + ")");
-
-	var targets = $('.mkwsTargets.mkwsTeam_' + tname);
-	var results = $('.mkwsResults.mkwsTeam_' + tname + ',.mkwsRecords.mkwsTeam_' + tname);
-	var blanket = $('.mkwsBlanket.mkwsTeam_' + tname);
-	var motd    = $('.mkwsMOTD.mkwsTeam_' + tname);
+    that.switchView = function(view) {
+	var targets = $('.mkwsTargets.mkwsTeam_' + m_teamName);
+	var results = $('.mkwsResults.mkwsTeam_' + m_teamName + ',.mkwsRecords.mkwsTeam_' + m_teamName);
+	var blanket = $('.mkwsBlanket.mkwsTeam_' + m_teamName);
+	var motd    = $('.mkwsMOTD.mkwsTeam_' + m_teamName);
 
 	switch(view) {
         case 'targets':
@@ -733,7 +732,7 @@ function team($, teamName) {
             if (motd) motd.css('display', 'none');
             break;
 	case 'none':
-	    alert("mkws.switchView(" + tname + ", 'none') shouldn't happen");
+	    alert("mkws.switchView(" + m_teamName + ", 'none') shouldn't happen");
             if (targets) targets.css('display', 'none');
             if (results) results.css('display', 'none');
             if (blanket) blanket.css('display', 'none');
@@ -764,6 +763,7 @@ function team($, teamName) {
             return;
 	}
 	// request the record
+	debug("showDetails() requesting record '" + recId + "'");
 	m_paz.record(recId);
     }
 
@@ -931,9 +931,10 @@ function team($, teamName) {
 </table>');
 	}
 
-	if ($("#mkwsRanking").length) {
+	var node = $(".mkwsRanking.mkwsTeam_" + m_teamName);
+	if (node.length) {
 	    var ranking_data = '';
-	    ranking_data += '<form name="mkwsSelect" id="mkwsSelect" action="" >';
+	    ranking_data += '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	    if (mkws_config.show_sort) {
 		ranking_data +=  M('Sort by') + ' ' + mkws_html_sort() + ' ';
 	    }
@@ -942,7 +943,7 @@ function team($, teamName) {
 	    }
             ranking_data += '</form>';
 
-	    $("#mkwsRanking").html(ranking_data);
+	    node.html(ranking_data);
 	}
 
 	mkws_html_switch();
@@ -955,15 +956,12 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
-	debug("before domReady()");
 	domReady();
-	debug("after domReady()");
 
 	// on first page, hide the termlist
 	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
 	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
 	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
-	debug("for team '" + m_teamName + "', motd=" + motd + "(" + motd.length + "), container=" + container + "(" + container.length + ")");
 	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
 	    motd.appendTo(container);
@@ -1283,57 +1281,6 @@ function _mkws_jquery_plugin ($) {
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 
-    $(document).ready(function() {
-	log("on load ready");
-	default_mkws_config();
-
-	// Backwards compatibility: set new magic class names on any
-	// elements that have the old magic IDs.
-	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
-		    "Results", "Records", "Targets", "Ranking",
-		    "Termlists", "Stat" ];
-	for (var i = 0; i < ids.length; i++) {
-	    var id = 'mkws' + ids[i];
-	    var node = $('#' + id);
-	    if (node.attr('id')) {
-		node.addClass(id);
-		log("added magic class to '" + node.attr('id') + "'");
-	    }
-	}
-
-	// For all MKWS-classed nodes that don't have a team
-	// specified, set the team to AUTO.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    if (!this.className.match(/mkwsTeam_/)) {
-		log("adding AUTO team to node with class '" + this.className + "'");
-		$(this).addClass('mkwsTeam_AUTO');
-	    }
-	});
-
-	// Find all nodes with an class, and determine their team from
-	// the mkwsTeam_* class. Make all team objects.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
-		if (mkws.teams[tname]) {
-		    log("MKWS team '" + tname + "' already exists, skipping");
-		} else {
-		    mkws.teams[tname] = team(j, tname);
-		    log("Made MKWS team '" + tname + "'");
-		}
-	    });
-	});
-
-	if (mkws_config.use_service_proxy) {
-	    authenticate_session(mkws_config.service_proxy_auth,
-				 mkws_config.service_proxy_auth_domain,
-				 mkws_config.pazpar2_url);
-	} else {
-	    // raw pp2
-	    run_auto_searches();
-	}
-    });
-
 
     mkws.handle_node_with_team = function(node, callback) {
 	var classes = node.className;
@@ -1381,8 +1328,28 @@ function _mkws_jquery_plugin ($) {
     };
 
 
-    mkws.showDetails = function (prefixRecId, tname) {
+    mkws.switchView = function(tname, view) {
+	mkws.teams[tname].switchView(view);
+    }
+
+    mkws.showDetails = function (tname, prefixRecId) {
 	mkws.teams[tname].showDetails(prefixRecId);
+    }
+
+    mkws.limitTarget  = function (tname, id, name) {
+	mkws.teams[tname].limitTarget(id, name);
+    }
+
+    mkws.limitQuery  = function (tname, field, value) {
+	mkws.teams[tname].limitQuery(field, value);
+    }
+
+    mkws.delimitTarget = function (tname, id) {
+	mkws.teams[tname].delimitTarget(id);
+    }
+
+    mkws.delimitQuery = function (tname, field, value) {
+	mkws.teams[tname].delimitQuery(field, value);
     }
 
 
@@ -1490,4 +1457,54 @@ function _mkws_jquery_plugin ($) {
 	    }
 	}
     }
+
+
+    $(document).ready(function() {
+	log("on load ready");
+	default_mkws_config();
+
+	// Backwards compatibility: set new magic class names on any
+	// elements that have the old magic IDs.
+	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
+		    "Results", "Records", "Targets", "Ranking",
+		    "Termlists", "Stat" ];
+	for (var i = 0; i < ids.length; i++) {
+	    var id = 'mkws' + ids[i];
+	    var node = $('#' + id);
+	    if (node.attr('id')) {
+		node.addClass(id);
+		log("added magic class to '" + node.attr('id') + "'");
+	    }
+	}
+
+	// For all MKWS-classed nodes that don't have a team
+	// specified, set the team to AUTO.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	    if (!this.className.match(/mkwsTeam_/)) {
+		log("adding AUTO team to node with class '" + this.className + "'");
+		$(this).addClass('mkwsTeam_AUTO');
+	    }
+	});
+
+	// Find all nodes with an class, and determine their team from
+	// the mkwsTeam_* class. Make all team objects.
+	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	    var node = this;
+	    mkws.handle_node_with_team(node, function(tname) {
+		if (!mkws.teams[tname]) {
+		    mkws.teams[tname] = team(j, tname);
+		    log("Made MKWS team '" + tname + "'");
+		}
+	    });
+	});
+
+	if (mkws_config.use_service_proxy) {
+	    authenticate_session(mkws_config.service_proxy_auth,
+				 mkws_config.service_proxy_auth_domain,
+				 mkws_config.pazpar2_url);
+	} else {
+	    // raw pp2
+	    run_auto_searches();
+	}
+    });
 })(jQuery);
