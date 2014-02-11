@@ -1116,16 +1116,8 @@ function team($, teamName) {
  * implement jQuery plugin $.pazpar2({})
  */
 function _mkws_jquery_plugin ($) {
-    var debug_level = 1;
-
     function debug (string) {
-	if (!debug_level)
-	    return;
-
-	if (typeof console === "undefined" || typeof console.log === "undefined")
-	    return;
-
-	console.log("jquery.pazpar2: " + string);
+	mkws.debug("jquery.pazpar2: " + string);
     }
 
     function init_popup(obj) {
