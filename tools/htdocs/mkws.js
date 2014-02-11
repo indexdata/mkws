@@ -155,7 +155,7 @@ function team($, teamName) {
     var m_teamName = teamName;
     var m_submitted = false;
     var m_query; // initially undefined
-    var m_sort = 'relevance';
+    var m_sort; // will be set below
     var m_filters = [];
     var m_totalRec = 0;
     var m_recPerPage = 20;
