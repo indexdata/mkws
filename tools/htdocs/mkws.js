@@ -171,12 +171,6 @@ function team($, teamName) {
     var m_paz; // will be initialised below
 
 
-    // if (console && console.log) // disabled, will fail in IE8
-    //	console.log("run team(" + (teamName ? teamName : "") + ")");
-
-
-    // Needs to be defined inside team() so it can see m_debug_time
-    // ### member access won't work: there is only one instance of this function
     mkws.debug_function = function (string) {
 	if (!mkws.debug_level)
 	    return;
