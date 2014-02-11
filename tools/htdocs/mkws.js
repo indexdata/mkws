@@ -185,19 +185,23 @@ function team($, teamName) {
 	    return;
 	}
 
+	// you need to disable use strict at the top of the file!!!
+	if (mkws.debug_level >= 3) {
+	    console.log(arguments.callee.caller);
+	} else if (mkws.debug_level >= 2) {
+	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+	}
+	console.log(string);
+    }
+
+    var debug = function (s) {
 	var now = $.now();
 	var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
 	m_debug_time.last = now;
 
-	// you need to disable use strict at the top of the file!!!
-	if (mkws.debug_level >= 3) {
-	    console.log(timestamp + arguments.callee.caller);
-	} else if (mkws.debug_level >= 2) {
-	    console.log(timestamp + ">>> called from function " + arguments.callee.caller.name + ' <<<');
-	}
-	console.log(m_teamName + ": " + timestamp + string);
+	mkws.debug_function(m_teamName + ": " + timestamp + s);
     }
-    var debug = mkws.debug_function; // local alias
+
     debug("start running MKWS");
 
     m_sort = mkws_config.sort_default;
