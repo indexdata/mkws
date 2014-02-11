@@ -1,0 +1,48 @@
+# A very simple configuration to proxy the irspy
+
+<VirtualHost *:443>
+    ServerName example.indexdata.com 
+    ServerAlias example-dev.indexdata.com
+
+  <IfModule mod_ssl.c>
+    SSLEngine on
+    SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown
+
+    #SSLCertificateFile /etc/ssl/certs/indexdata.com/id.cert
+    #SSLCertificateKeyFile /etc/ssl/certs/indexdata.com/id.key
+
+    SSLProxyEngine on
+  </IfModule>
+
+    # Remove the X-Forwarded-For header, as the proxy appends to it,
+    # and we need a clean ip address for the statistics
+    # RequestHeader unset X-Forwarded-For early
+    # Never mind
+
+    # ProxyRequests off
+    <Proxy *>
+      Order deny,allow
+      Allow from all
+    </Proxy>
+
+    ProxyPreserveHost On
+    ProxyPass         / http://caliban/
+    ProxyPassReverse  / http://caliban/
+
+    # Experiments to hunt down bu 3716
+    # Increase buffer size so that we don't go for chunked stuff
+    # ProxyIOBufferSize 8192
+    # Didn't help
+    # Disable gzipping
+    # RequestHeader unset Accept-Encoding
+    # Didn't help 
+    # ProxyReceiveBufferSize 8192
+    # Didn't help 
+    SetEnv force-proxy-request-1.0 1
+    SetEnv proxy-nokeepalive 1
+
+    # These are the logs for the proxying operation
+    ErrorLog     /var/log/apache2/example-ssl-error.log
+    CustomLog    /var/log/apache2/example-ssl-access.log combined
+</VirtualHost>
+
