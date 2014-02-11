@@ -1273,14 +1273,8 @@ function _mkws_jquery_plugin ($) {
 	}
 	console.log(string);
     }
+    var debug = mkws.debug;
 
-
-    function log(s) {
-        if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
-            return;
-        }
-	console.log(s);
-    }
 
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
@@ -1308,7 +1302,7 @@ function _mkws_jquery_plugin ($) {
 
 	if ($(window).width() <= width &&
 	    parent.hasClass("mkwsTermlistContainer1")) {
-	    log("changing from wide to narrow: " + $(window).width());
+	    debug("changing from wide to narrow: " + $(window).width());
 	    $(".mkwsTermlistContainer1").hide();
 	    $(".mkwsTermlistContainer2").show();
 	    for (var tname in mkws.teams) {
@@ -1319,7 +1313,7 @@ function _mkws_jquery_plugin ($) {
 	    }
 	} else if ($(window).width() > width &&
 		   parent.hasClass("mkwsTermlistContainer2")) {
-	    log("changing from narrow to wide: " + $(window).width());
+	    debug("changing from narrow to wide: " + $(window).width());
 	    $(".mkwsTermlistContainer1").show();
 	    $(".mkwsTermlistContainer2").hide();
 	    for (var tname in mkws.teams) {
@@ -1420,11 +1414,11 @@ function _mkws_jquery_plugin ($) {
      * for the site.
      */
     function authenticate_session(auth_url, auth_domain, pp2_url) {
-	log("Run service proxy auth URL: " + auth_url);
+	debug("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1443,7 +1437,7 @@ function _mkws_jquery_plugin ($) {
 		return;
 	    }
 
-	    log("Service proxy auth successfully done");
+	    debug("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    run_auto_searches();
 	});
@@ -1451,13 +1445,13 @@ function _mkws_jquery_plugin ($) {
 
 
     function run_auto_searches() {
-	log("running auto searches");
+	debug("running auto searches");
 
 	for (var teamName in mkws.teams) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
-	    log("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
+	    debug("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
 		var sort = node.attr('sort');
@@ -1466,9 +1460,9 @@ function _mkws_jquery_plugin ($) {
 		if (teamName) s += " [teamName '" + teamName + "']";
 		if (sort) s += " sorted by '" + sort + "'";
 		if (targets) s += " in targets '" + targets + "'";
-		log(s);
+		debug(s);
 		var team = mkws.teams[teamName];
-		log($.toJSON(team));
+		debug($.toJSON(team));
 		team.newSearch(query, sort, targets, teamName);
 	    }
 	}
@@ -1476,7 +1470,7 @@ function _mkws_jquery_plugin ($) {
 
 
     $(document).ready(function() {
-	log("on load ready");
+	debug("on load ready");
 	default_mkws_config();
 
 	// Backwards compatibility: set new magic class names on any
@@ -1489,7 +1483,7 @@ function _mkws_jquery_plugin ($) {
 	    var node = $('#' + id);
 	    if (node.attr('id')) {
 		node.addClass(id);
-		log("added magic class to '" + node.attr('id') + "'");
+		debug("added magic class to '" + node.attr('id') + "'");
 	    }
 	}
 
@@ -1497,7 +1491,7 @@ function _mkws_jquery_plugin ($) {
 	// specified, set the team to AUTO.
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    if (!this.className.match(/mkwsTeam_/)) {
-		log("adding AUTO team to node with class '" + this.className + "'");
+		debug("adding AUTO team to node with class '" + this.className + "'");
 		$(this).addClass('mkwsTeam_AUTO');
 	    }
 	});
@@ -1509,7 +1503,7 @@ function _mkws_jquery_plugin ($) {
 	    mkws.handle_node_with_team(node, function(tname) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
-		    log("Made MKWS team '" + tname + "'");
+		    debug("Made MKWS team '" + tname + "'");
 		}
 	    });
 	});
