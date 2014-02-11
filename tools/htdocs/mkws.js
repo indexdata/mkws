@@ -158,7 +158,7 @@ function team($, teamName) {
     var m_sort; // will be set below
     var m_filters = [];
     var m_totalRec = 0;
-    var m_recPerPage = 20;
+    var m_perpage = 20;
     var m_curPage = 1;
     var m_curDetRecId = '';
     var m_curDetRecData = null;
@@ -242,7 +242,7 @@ function team($, teamName) {
 		      "onrecord": my_onrecord });
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
-	m_recPerPage = parseInt(mkws_config.perpage_default);
+	m_perpage = parseInt(mkws_config.perpage_default);
     }
 
 
@@ -465,7 +465,7 @@ function team($, teamName) {
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
-	m_paz.show(0, m_recPerPage, m_sort);
+	m_paz.show(0, m_perpage, m_sort);
 	return false;
     }
 
@@ -521,7 +521,7 @@ function team($, teamName) {
 	}
 	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	m_paz.search(m_query, m_recPerPage, m_sort, pp2filter, undefined, params);
+	m_paz.search(m_query, m_perpage, m_sort, pp2filter, undefined, params);
     }
 
 
@@ -533,9 +533,9 @@ function team($, teamName) {
 	    m_sort = node.val();
 	}
 	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
-	if (node.length && node.val() != m_recPerPage) {
-	    debug("changing m_recPerPage from " + m_recPerPage + " to " + node.val());
-	    m_recPerPage = node.val();
+	if (node.length && node.val() != m_perpage) {
+	    debug("changing m_perpage from " + m_perpage + " to " + node.val());
+	    m_perpage = node.val();
 	}
     }
 
@@ -648,7 +648,7 @@ function team($, teamName) {
 
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
-	var pages = Math.ceil(m_totalRec / m_recPerPage);
+	var pages = Math.ceil(m_totalRec / m_perpage);
 
 	var firstClkbl = (m_curPage - onsides > 0)
             ? m_curPage - onsides
@@ -702,7 +702,7 @@ function team($, teamName) {
 
     // simple paging functions
     mkws.pagerNext = function () {
-	if (m_totalRec - m_recPerPage*m_curPage > 0) {
+	if (m_totalRec - m_perpage*m_curPage > 0) {
             m_paz.showNext();
             m_curPage++;
 	}
