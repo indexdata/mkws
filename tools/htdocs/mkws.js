@@ -1039,14 +1039,14 @@ function team($, teamName) {
 
 
     function mkws_html_perpage() {
-	debug("HTML perpage");
+	debug("HTML perpage, m_perpage = " + m_perpage);
 	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.perpage_options.length; i++) {
 	    var key = mkws_config.perpage_options[i];
 
 	    perpage_html += '<option value="' + key + '"';
-	    if (key == mkws_config.perpage_default) {
+	    if (key == m_perpage) {
 		perpage_html += ' selected="selected"';
 	    }
 	    perpage_html += '>' + key + '</option>';
