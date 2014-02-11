@@ -669,7 +669,7 @@ function team($, teamName) {
             if(i == m_curPage)
 		numLabel = '<b>' + i + '</b>';
 
-            middle += '<a href="#" onclick="mkws.showPage(' + i + ')"> '
+            middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
 		+ numLabel + ' </a>';
 	}
 
@@ -693,7 +693,7 @@ function team($, teamName) {
     }
 
 
-    mkws.showPage = function (pageNum)
+    that.showPage = function (pageNum)
     {
 	m_curPage = pageNum;
 	m_paz.showPage(m_curPage - 1);
@@ -1356,6 +1356,9 @@ function _mkws_jquery_plugin ($) {
 	mkws.teams[tname].delimitQuery(field, value);
     }
 
+    mkws.showPage = function (tname, pageNum) {
+	mkws.teams[tname].showPage(pageNum);
+    }
 
     function default_mkws_config() {
 	/* default mkws config */
