@@ -1,0 +1,11 @@
+# This is for the example-dev.indexdata.com, running on dart
+
+<VirtualHost *:80>
+    ServerName example-dev.indexdata.com
+    DocumentRoot /home/indexdata/mkws-dev/examples/htdocs/
+    ErrorLog /var/log/apache2/example-dev-error.log
+    CustomLog /var/log/apache2/example-dev.log combined
+
+    RewriteEngine on
+</VirtualHost>
+
