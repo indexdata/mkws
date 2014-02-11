@@ -71,7 +71,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 //
 var mkws = {
     authenticated: false,
-    debug_function: undefined, // will be set during initialisation
     debug_level: undefined, // will be initialised from mkws_config
     paz: undefined, // will be set up during initialisation
     teams: {},
