@@ -148,8 +148,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 // called from outside code -- specifically, from generated
 // HTML. These functions are that.switchView(), showDetails(),
 // limitTarget(), limitQuery(), delimitTarget(), delimitQuery(),
-// pagerPrev(), pagerNext(), showPage(). Also mkws.M() is made
-// available for the Handlebars helper 'translate'
+// pagerPrev(), pagerNext(), showPage().
 //
 function team($, teamName) {
     var that = {};
