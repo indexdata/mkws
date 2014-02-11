@@ -171,23 +171,6 @@ function team($, teamName) {
     var m_paz; // will be initialised below
 
 
-    mkws.debug_function = function (string) {
-	if (!mkws.debug_level)
-	    return;
-
-	if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
-	    return;
-	}
-
-	// you need to disable use strict at the top of the file!!!
-	if (mkws.debug_level >= 3) {
-	    console.log(arguments.callee.caller);
-	} else if (mkws.debug_level >= 2) {
-	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
-	}
-	console.log(string);
-    }
-
     var debug = function (s) {
 	var now = $.now();
 	var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
@@ -1274,6 +1257,24 @@ function _mkws_jquery_plugin ($) {
 
 // wrapper to call team() after page load
 (function (j) {
+    mkws.debug_function = function (string) {
+	if (!mkws.debug_level)
+	    return;
+
+	if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
+	    return;
+	}
+
+	// you need to disable use strict at the top of the file!!!
+	if (mkws.debug_level >= 3) {
+	    console.log(arguments.callee.caller);
+	} else if (mkws.debug_level >= 2) {
+	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+	}
+	console.log(string);
+    }
+
+
     function log(s) {
         if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
             return;
