@@ -912,6 +912,7 @@ function team($, teamName) {
 
 	mkws_html_switch();
 
+	// ### Should not be in the team code, since window size is global
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
