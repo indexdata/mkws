@@ -66,13 +66,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 
-// Some functions are visible to be called from outside code, namely
-// generated HTML: that.switchView(), showDetails(), limitTarget(),
-// limitQuery(), delimitTarget(), delimitQuery(), pagerPrev(),
-// pagerNext(), showPage(). Also mkws.M() is made available for the
-// Handlebars helper 'translate'
-
-
 // Set up global mkws object. Contains a hash of team objects,
 // indexed by windowid.
 var mkws = {
@@ -149,7 +142,15 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 
-// wrapper for jQuery lib
+// Factory function for team objects. As much as possible, this uses
+// only member variables (prefixed "m_") and inner functions with
+// private scope. Some functions are visibl as member-functions to be
+// called from outside code -- specifically, from generated
+// HTML. These functions are that.switchView(), showDetails(),
+// limitTarget(), limitQuery(), delimitTarget(), delimitQuery(),
+// pagerPrev(), pagerNext(), showPage(). Also mkws.M() is made
+// available for the Handlebars helper 'translate'
+//
 function team($, teamName) {
     var that = {};
     var m_teamName = teamName;
