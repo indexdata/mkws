@@ -156,9 +156,9 @@ function team($, teamName) {
     var m_submitted = false;
     var m_query; // initially undefined
     var m_sort; // will be set below
+    var m_perpage; // will be set below
     var m_filters = [];
     var m_totalRec = 0;
-    var m_perpage = 20;
     var m_curPage = 1;
     var m_curDetRecId = '';
     var m_curDetRecData = null;
