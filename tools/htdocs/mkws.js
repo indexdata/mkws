@@ -390,27 +390,6 @@ function team($, teamName) {
     ////////////////////////////////////////////////////////////////////////////////
 
 
-    // wait until the DOM is ready
-    function domReady ()
-    {
-	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
-	    debug("adding search-forms for team '" + m_teamName + "'");
-	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
-		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
-		$(node).submit(onFormSubmitEventHandler);
-	    });
-	});
-
-	var node = $('.mkwsSort.mkwsTeam_' + m_teamName);
-	if (node.length)
-	    node.change(onSelectDdChange);
-	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
-	if (node.length)
-	    node.change(onSelectDdChange);
-    }
-
-
     // when search button pressed
     function onFormSubmitEventHandler()
     {
@@ -942,7 +921,21 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
-	domReady();
+	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
+	    debug("adding search-forms for team '" + m_teamName + "'");
+	    var node = this;
+	    mkws.handle_node_with_team(node, function(tname) {
+		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
+		$(node).submit(onFormSubmitEventHandler);
+	    });
+	});
+
+	node = $('.mkwsSort.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.change(onSelectDdChange);
+	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.change(onSelectDdChange);
 
 	// on first page, hide the termlist
 	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
