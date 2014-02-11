@@ -66,8 +66,9 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 
-// Set up global mkws object. Contains a hash of team objects,
-// indexed by windowid.
+// Set up global mkws object. Contains truly global state such as SP
+// authentication, and a hash of team objects, indexed by windowid.
+//
 var mkws = {
     authenticated: false,
     debug_function: undefined, // will be set during initialisation
