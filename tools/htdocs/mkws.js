@@ -176,7 +176,7 @@ function team($, teamName) {
 	var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
 	m_debug_time.last = now;
 
-	mkws.debug_function(m_teamName + ": " + timestamp + s);
+	mkws.debug(m_teamName + ": " + timestamp + s);
     }
 
     debug("start running MKWS");
@@ -1257,7 +1257,7 @@ function _mkws_jquery_plugin ($) {
 
 // wrapper to call team() after page load
 (function (j) {
-    mkws.debug_function = function (string) {
+    mkws.debug = function (string) {
 	if (!mkws.debug_level)
 	    return;
 
