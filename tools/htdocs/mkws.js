@@ -452,7 +452,7 @@ function team($, teamName) {
 
 	m_filters = []
 	redraw_navi();
-	resetPage(); // ### the globals it resents should be indexed by windowid
+	resetPage();
 	loadSelect();
 	triggerSearch(query, sort, targets, windowid);
 	that.switchView('records'); // In case it's configured to start off as hidden
