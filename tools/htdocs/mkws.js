@@ -420,12 +420,12 @@ function team($, teamName) {
 	    });
 	});
 
-	if (document.mkwsSelect) {
-	    if (document.mkwsSelect.mkwsSort)
-		document.mkwsSelect.mkwsSort.onchange = onSelectDdChange;
-	    if (document.mkwsSelect.mkwsPerpage)
-		document.mkwsSelect.mkwsPerpage.onchange = onSelectDdChange;
-	}
+	var node = $('.mkwsSort.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.change(onSelectDdChange);
+	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.change(onSelectDdChange);
     }
 
 
@@ -453,7 +453,7 @@ function team($, teamName) {
 	m_filters = []
 	redraw_navi();
 	resetPage(); // ### the globals it resents should be indexed by windowid
-	loadSelect(); // ### should use windowid
+	loadSelect();
 	triggerSearch(query, sort, targets, windowid);
 	that.switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
@@ -527,11 +527,15 @@ function team($, teamName) {
 
     function loadSelect ()
     {
-	if (document.mkwsSelect) {
-	    if (document.mkwsSelect.mkwsSort)
-		m_sort = document.mkwsSelect.mkwsSort.value;
-	    if (document.mkwsSelect.mkwsPerpage)
-		m_recPerPage = document.mkwsSelect.mkwsPerpage.value;
+	var node = $('.mkwsSort.mkwsTeam_' + m_teamName);
+	if (node.length && node.val() != m_sort) {
+	    debug("changing m_sort from " + m_sort + " to " + node.val());
+	    m_sort = node.val();
+	}
+	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
+	if (node.length && node.val() != m_recPerPage) {
+	    debug("changing m_recPerPage from " + m_recPerPage + " to " + node.val());
+	    m_recPerPage = node.val();
 	}
     }
 
@@ -1015,7 +1019,7 @@ function team($, teamName) {
 
     function mkws_html_sort() {
 	debug("HTML sort, m_sort = '" + m_sort + "'");
-	var sort_html = '<select name="mkwsSort" id="mkwsSort">';
+	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.sort_options.length; i++) {
 	    var opt = mkws_config.sort_options[i];
@@ -1036,7 +1040,7 @@ function team($, teamName) {
 
     function mkws_html_perpage() {
 	debug("HTML perpage");
-	var perpage_html = '<select name="mkwsPerpage" id="mkwsPerpage">';
+	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.perpage_options.length; i++) {
 	    var key = mkws_config.perpage_options[i];
