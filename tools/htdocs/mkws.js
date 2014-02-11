@@ -660,7 +660,7 @@ function team($, teamName) {
 
 	var prev = '<span id="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
 	if (m_curPage > 1)
-            prev = '<a href="#" id="mkwsPrev" onclick="mkws.pagerPrev();">'
+            prev = '<a href="#" id="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
             +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 	var middle = '';
@@ -675,7 +675,7 @@ function team($, teamName) {
 
 	var next = '<b> | </b><span id="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
 	if (pages - m_curPage > 0)
-            next = '<b> | </b><a href="#" id="mkwsNext" onclick="mkws.pagerNext()">'
+            next = '<b> | </b><a href="#" id="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
             + M('Next') + ' &#62;&#62;</a>';
 
 	var predots = '';
@@ -701,7 +701,7 @@ function team($, teamName) {
 
 
     // simple paging functions
-    mkws.pagerNext = function () {
+    that.pagerNext = function () {
 	if (m_totalRec - m_perpage*m_curPage > 0) {
             m_paz.showNext();
             m_curPage++;
@@ -709,7 +709,7 @@ function team($, teamName) {
     }
 
 
-    mkws.pagerPrev = function () {
+    that.pagerPrev = function () {
 	if (m_paz.showPrev() != false)
             m_curPage--;
     }
@@ -1359,6 +1359,15 @@ function _mkws_jquery_plugin ($) {
     mkws.showPage = function (tname, pageNum) {
 	mkws.teams[tname].showPage(pageNum);
     }
+
+    mkws.pagerPrev = function (tname) {
+	mkws.teams[tname].pagerPrev();
+    }
+
+    mkws.pagerNext = function (tname) {
+	mkws.teams[tname].pagerNext();
+    }
+
 
     function default_mkws_config() {
 	/* default mkws config */
