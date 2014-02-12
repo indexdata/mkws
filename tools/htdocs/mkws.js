@@ -246,7 +246,6 @@ function team($, teamName) {
 	    pager.html(drawPager(data))
 	}
 
-	// navi
 	var results = $(".mkwsRecords.mkwsTeam_" + m_teamName);
 
 	var html = [];
