@@ -329,11 +329,13 @@ function team($, teamName) {
 	for (var i = 0; i < data.length && i < max; i++) {
 	    acc.push('<div class="term">');
             acc.push('<a href="#" ');
-	    var action;
+	    var action = '';
 	    if (!pzIndex) {
 		// Special case: target selection
 		acc.push('target_id='+data[i].id+' ');
-		action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+		if (!target_filtered(data[i].id)) {
+		    action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+		}
 	    } else {
 		action = 'mkws.limitQuery(\'' + m_teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
 	    }
@@ -342,6 +344,18 @@ function team($, teamName) {
 	    acc.push('</div>');
 	}
 	acc.push('</div>');
+    }
+
+
+    function target_filtered(id) {
+	debug("target_filtered(" + id + ")");
+	for (var i = 0; i < m_filters.length; i++) {
+	    if (m_filters[i].id === id ||
+		m_filters[i].id === 'pz:id=' + id) {
+		return true;
+	    }
+	}
+	return false;
     }
 
 
