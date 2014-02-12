@@ -53,9 +53,9 @@
         //console.log("click: " + sel + "  clicking=" + clicking );
         if ( sel != "" && ! clicking ) {
           clicking  = true;
-          $("input#mkwsQuery").val(sel);
+          $("input.mkwsQuery").val(sel);
           //console.log("click: Set value " + sel + "  clicking=" + clicking );
-          $("input#mkwsButton").trigger("click");
+          $("input.mkwsButton").trigger("click");
           clicking = false;
         }
       }
