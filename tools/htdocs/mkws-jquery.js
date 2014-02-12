@@ -19,8 +19,8 @@ function _mkws_jquery_plugin ($) {
 
 	var height = config.height || 760;
 	var width = config.width || 880;
-	var id_button = config.id_button || "input#mkwsButton";
-	var id_popup = config.id_popup || "#mkwsPopup";
+	var id_button = config.id_button || "input.mkwsButton";
+	var id_popup = config.id_popup || ".mkwsPopup";
 
 	debug("popup height: " + height + ", width: " + width);
 
