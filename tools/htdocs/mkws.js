@@ -247,6 +247,8 @@ function team($, teamName) {
 	}
 
 	var results = $(".mkwsRecords.mkwsTeam_" + m_teamName);
+	if (!results.length)
+	    return;
 
 	var html = [];
 	for (var i = 0; i < data.hits.length; i++) {
