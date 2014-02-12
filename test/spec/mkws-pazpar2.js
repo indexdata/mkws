@@ -48,9 +48,9 @@ function init_jasmine_config() {
 
 var get_hit_counter = function () {
         // not yet here
-        if ($("#mkwsPager").length == 0) return -1;
+        if ($(".mkwsPager").length == 0) return -1;
 
-        var found = $("#mkwsPager").text();
+        var found = $(".mkwsPager").text();
         var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
         re.exec(found);
         var hits = -1;
@@ -81,8 +81,8 @@ describe("Check pazpar2 search", function () {
     });
 
     it("validate HTML id's", function () {
-        expect($("input#mkwsQuery").length).toBe(1);
-        expect($("input#mkwsButton").length).toBe(1);
+        expect($("input.mkwsQuery").length).toBe(1);
+        expect($("input.mkwsButton").length).toBe(1);
 
         expect($(".mkwsNext").length).not.toBe(1);
         expect($(".mkwsPrev").length).not.toBe(1);
@@ -90,9 +90,9 @@ describe("Check pazpar2 search", function () {
 
     it("run search query", function () {
         var search_query = jasmine_config.search_query; // short hit counter with some paging
-        $("input#mkwsQuery").val(search_query);
+        $("input.mkwsQuery").val(search_query);
         debug("set search query: " + search_query)
-        expect($("input#mkwsQuery").val()).toMatch("^" + search_query + "$");
+        expect($("input.mkwsQuery").val()).toMatch("^" + search_query + "$");
 
         if (mkws_config.use_service_proxy) {
             // wait for service proxy auth
@@ -105,7 +105,7 @@ describe("Check pazpar2 search", function () {
 
         runs(function () {
             debug("Click on submit button");
-            var click = $("input#mkwsButton").trigger("click");
+            var click = $("input.mkwsButton").trigger("click");
             expect(click.length).toBe(1);
         })
     });
@@ -120,7 +120,7 @@ describe("Check pazpar2 search", function () {
 describe("Check pazpar2 navigation", function () {
     // Asynchronous part
     it("check running search next/prev", function () {
-        expect($("#mkwsPager").length).toBe(1);
+        expect($(".mkwsPager").length).toBe(1);
 
         function my_click(id, time) {
             setTimeout(function () {
@@ -133,7 +133,7 @@ describe("Check pazpar2 navigation", function () {
         }
 
         waitsFor(function () {
-            return $("div#mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
+            return $("div.mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
         }, "Expect next link 2", 10 * jasmine_config.second);
 
         runs(function () {
@@ -142,7 +142,7 @@ describe("Check pazpar2 navigation", function () {
         });
 
         waitsFor(function () {
-            return $("div#mkwsPager div:nth-child(2) a").length >= 3 ? true : false;
+            return $("div.mkwsPager div:nth-child(2) a").length >= 3 ? true : false;
         }, "Expect next link 3", 5 * jasmine_config.second);
 
         runs(function () {
@@ -168,7 +168,7 @@ describe("Check pazpar2 hit counter", function () {
 
         runs(function () {
             debug("mkws pager found records: '" + hits + "'");
-            expect($("#mkwsPager").length).toBe(1);
+            expect($(".mkwsPager").length).toBe(1);
             expect(hits).toBeGreaterThan(expected_hits);
         });
     });
@@ -176,7 +176,7 @@ describe("Check pazpar2 hit counter", function () {
 
 describe("Check Termlist", function () {
     it("found Termlist", function () {
-        var termlist = $("div#mkwsTermlists");
+        var termlist = $("div.mkwsTermlists");
         debug("Termlist success: " + termlist.length);
         expect(termlist.length).toBe(1);
 
@@ -217,7 +217,7 @@ describe("Check Termlist", function () {
         var author_number = 2; // 2=first author
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
-        var terms = $("div#mkwsFacetAuthors div.term a");
+        var terms = $("div.mkwsFacetAuthors div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -263,7 +263,7 @@ describe("Check Termlist", function () {
         expect(click.length).toBe(1);
 
         waitsFor(function () {
-            if ($("div#mkwsNavi").length && $("div#mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
+            if ($("div.mkwsNavi").length && $("div.mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
                 return true;
             } else {
                 return false;
@@ -293,13 +293,13 @@ describe("Show record", function () {
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div");
+            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
-            expect($("div#mkwsRecords div.record:nth-child(" + record_number + ") div")).not.toBe(null);
+            expect($("div.mkwsRecords div.record:nth-child(" + record_number + ") div")).not.toBe(null);
         });
     });
 
@@ -336,7 +336,7 @@ describe("Check switch menu Records/Targets", function () {
 
         // now the target table must be visible
         expect($("div.mkwsBytarget").is(":visible")).toBe(true);
-        expect($("div#mkwsRecords").is(":visible")).toBe(false);
+        expect($("div.mkwsRecords").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
         var time = (new Date).getTime();
@@ -356,8 +356,8 @@ describe("Check switch menu Records/Targets", function () {
         expect(click.length).toBe(1);
 
         // now the target table must be visible
-        expect($("div#mkwsBytarget").is(":visible")).toBe(false);
-        expect($("div#mkwsRecords").is(":visible")).toBe(true);
+        expect($("div.mkwsBytarget").is(":visible")).toBe(false);
+        expect($("div.mkwsRecords").is(":visible")).toBe(true);
     });
 });
 
