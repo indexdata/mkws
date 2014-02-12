@@ -253,7 +253,7 @@ function team($, teamName) {
 	var html = [];
 	for (var i = 0; i < data.hits.length; i++) {
             var hit = data.hits[i];
-	    html.push('<div class="record" id="mkwsRecdiv_' + hit.recid + '" >',
+	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
 		      renderSummary(hit),
       		      '</div>');
 	    if (hit.recid == m_curDetRecId) {
@@ -346,14 +346,14 @@ function team($, teamName) {
 
 
     function my_onrecord(data, args, teamName) {
-	debug("record");
+	debug("record: teamName=" + teamName + ", m_teamName=" + m_teamName);
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// in case on_show was faster to redraw element
-	var detRecordDiv = document.getElementById('mkwsDet_'+data.recid);
+	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
 	if (detRecordDiv) return;
 	m_curDetRecData = data;
-	var recordDiv = document.getElementById('mkwsRecdiv_'+m_curDetRecData.recid);
+	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
 	var html = renderDetails(m_curDetRecData);
 	recordDiv.innerHTML += html;
     }
@@ -716,7 +716,7 @@ function team($, teamName) {
 	m_curDetRecId = recId;
 
 	// remove current detailed view if any
-	var detRecordDiv = document.getElementById('mkwsDet_'+oldRecId);
+	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecId);
 	// lovin DOM!
 	if (detRecordDiv)
 	    detRecordDiv.parentNode.removeChild(detRecordDiv);
@@ -737,7 +737,7 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Record");
 	var details = template(data);
-	return '<div class="details" id="mkwsDet_' + data.recid + '">' + details + '</div>';
+	return '<div class="details" id="mkwsDet_' + m_teamName + '_' + data.recid + '">' + details + '</div>';
     }
 
 
