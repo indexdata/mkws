@@ -618,9 +618,9 @@ function team($, teamName) {
             ? firstClkbl + 2*onsides
             : pages;
 
-	var prev = '<span id="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
+	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
 	if (m_curPage > 1)
-            prev = '<a href="#" id="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
+            prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
             +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 	var middle = '';
@@ -633,9 +633,9 @@ function team($, teamName) {
 		+ numLabel + ' </a>';
 	}
 
-	var next = '<b> | </b><span id="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
+	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
 	if (pages - m_curPage > 0)
-            next = '<b> | </b><a href="#" id="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
+            next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
             + M('Next') + ' &#62;&#62;</a>';
 
 	var predots = '';
