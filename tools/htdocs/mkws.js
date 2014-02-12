@@ -348,7 +348,6 @@ function team($, teamName) {
 
 
     function target_filtered(id) {
-	debug("target_filtered(" + id + ")");
 	for (var i = 0; i < m_filters.length; i++) {
 	    if (m_filters[i].id === id ||
 		m_filters[i].id === 'pz:id=' + id) {
