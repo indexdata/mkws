@@ -863,8 +863,6 @@ function team($, teamName) {
 	if (mkws_config.show_lang)
 	    mkws_html_lang();
 
-	// For some reason, doing this programmatically results in
-	// document.mkwsSearchForm.mkwsQuery being undefined, hence the raw HTML.
 	debug("HTML search form");
 	// ### There is only one match here by design: fix not to bother looping
 	$('.mkwsSearch.mkwsTeam_' + m_teamName).each(function (i, obj) {
