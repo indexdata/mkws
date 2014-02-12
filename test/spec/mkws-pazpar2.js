@@ -84,8 +84,8 @@ describe("Check pazpar2 search", function () {
         expect($("input#mkwsQuery").length).toBe(1);
         expect($("input#mkwsButton").length).toBe(1);
 
-        expect($("#mkwsNext").length).not.toBe(1);
-        expect($("#mkwsPrev").length).not.toBe(1);
+        expect($(".mkwsNext").length).not.toBe(1);
+        expect($(".mkwsPrev").length).not.toBe(1);
     });
 
     it("run search query", function () {
@@ -138,7 +138,7 @@ describe("Check pazpar2 navigation", function () {
 
         runs(function () {
             // click next/prev after N seconds
-            my_click("#mkwsNext", 0);
+            my_click(".mkwsNext", 0);
         });
 
         waitsFor(function () {
@@ -147,8 +147,8 @@ describe("Check pazpar2 navigation", function () {
 
         runs(function () {
             // click next/prev after N seconds
-            my_click("#mkwsNext", 0);
-            my_click("#mkwsPrev", 0.2);
+            my_click(".mkwsNext", 0);
+            my_click(".mkwsPrev", 0.2);
         });
     });
 });
