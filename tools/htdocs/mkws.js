@@ -870,8 +870,8 @@ function team($, teamName) {
 	    mkws.handle_node_with_team(node, function(tname) {
 		$(node).html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
-  <input id="mkwsQuery" class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
-  <input id="mkwsButton" class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
+  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
+  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
 </form>');
 	    });
 	});
@@ -891,13 +891,13 @@ function team($, teamName) {
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
     <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
-      <div id="mkwsTermlists" class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
     </td>\
     <td class="mkwsMOTDContainer mkwsTeam_' + m_teamName + '" valign="top">\
-      <div id="mkwsRanking" class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
-      <div id="mkwsPager" class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
-      <div id="mkwsNavi" class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
-      <div id="mkwsRecords" class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
+      <div class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
     </td>\
   </tr>\
   <tr>\
