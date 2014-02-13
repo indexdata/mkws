@@ -31,7 +31,6 @@ function _mkws_jquery_plugin ($) {
 	    return;
 	}
 
-	debug("Calling dialog()");
 	$(id_popup).dialog({
 	    closeOnEscape: true,
 	    autoOpen: false,
@@ -46,12 +45,10 @@ function _mkws_jquery_plugin ($) {
 	    },
 	    close: function() { }
 	});
-	debug("Called dialog()");
 
 	$(id_button)
 	    .button()
 	    .click(function() {
-		debug("Opening dialog()");
 		$(id_popup).dialog("open");
 	    });
     };
