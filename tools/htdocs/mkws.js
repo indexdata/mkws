@@ -1310,6 +1310,14 @@ function team($, teamName) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
+	    if (query.match(/^!param!/)) {
+		var param = query.replace(/^!param!/, '');
+		query = getParameterByName(param);
+		debug("obtained query '" + query + "' from param '" + param + "'");
+		if (!query) {
+		    alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
+		}
+	    }
 	    debug("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
@@ -1325,6 +1333,16 @@ function team($, teamName) {
 		team.newSearch(query, sort, targets, teamName);
 	    }
 	}
+    }
+
+
+    // This function is taken from a StackOverflow answer
+    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
+    function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	    results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 
