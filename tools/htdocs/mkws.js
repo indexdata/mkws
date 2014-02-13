@@ -1310,6 +1310,7 @@ function team($, teamName) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
+
 	    if (query.match(/^!param!/)) {
 		var param = query.replace(/^!param!/, '');
 		query = getParameterByName(param);
@@ -1317,7 +1318,16 @@ function team($, teamName) {
 		if (!query) {
 		    alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
 		}
+	    } else if (query.match(/^!path!/)) {
+		var index = query.replace(/^!path!/, '');
+		var path = window.location.pathname.split('/');
+		query = path[path.length - index];
+		debug("obtained query '" + query + "' from path-component '" + index + "'");
+		if (!query) {
+		    alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+		}
 	    }
+
 	    debug("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
 	    if (query) {
