@@ -10,7 +10,6 @@
       mkws_config = {
         service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc",
 	perpage_default: 5,
-	sort_default: "position"
      };
     </script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
@@ -50,7 +49,7 @@
 
     <div class="panel">
       <h2>Reference results from Paratext</h2>
-      <div id='mkwsRecords' autosearch='!param!q' sort='relevance'></div>
+      <div id='mkwsRecords' autosearch='!param!q' sort='position'></div>
     </div>
 
     <div class="entrybody">
