@@ -3,36 +3,82 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Mike's playground</title>
-    <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
+    <title>MKWS demo: Automatic search</title>
+    <link rel="stylesheet" type="text/css" href="//x.mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="//x.mkws.indexdata.com/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="//x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="//x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
+    <script type="text/javascript" src="//x.mkws.indexdata.com/mkws.js"></script>
+    <style type="text/css">
+      .panel {
+	font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+	width: 25em;
+	float: right;
+        background: #f0f0f0;
+	border: 1px solid #b0b0b0;
+	border-radius: 1em;
+        margin-left: 1em;
+      }
+      .panel h2 {
+	color: #606060;
+	padding-left: 5px;
+      }
+      .entrybody {
+        max-width: 40em;
+      }
+      .wp-caption-text {
+        font-size: small;
+        background: #f0f0f0;
+        padding: 0.5em 1em;
+      }
+    </style>
   </head>
   <body>
-    <table width="100%" border="1">
-      <tr>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch"></div>
-	  <div class="mkwsLang"></div>
-	  <div class="mkwsSearch"></div>
-	  <div class="mkwsResults"></div>
-	  <div class="mkwsTargets"></div>
-	  <div class="mkwsStat"></div>
-	</td>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch mkwsTeam_2"></div>
-	  <div class="mkwsLang mkwsTeam_2"></div>
-	  <div class="mkwsSearch mkwsTeam_2"></div>
-	  <div class="mkwsResults mkwsTeam_2"></div>
-	  <div class="mkwsTargets mkwsTeam_2"></div>
-	  <div class="mkwsStat mkwsTeam_2"></div>
-	</td>
-      </tr>
-    </table>
-    <div class="mkwsMOTD">This is the first MOTD</div>
-    <div class="mkwsMOTD mkwsTeam_2">This is the second MOTD</div>
+    <h1>How big was <i>Amphicoelias fragillimus</i>?  I mean, really?</h1>
+    <p>
+      <i>February 19, 2010</i>
+    </p>
+
+    <div class="panel">
+      <h2>News</h2>
+      <div id='mkwsRecords' autosearch='!param!q' sort='relevance'></div>
+    </div>
+
+    <div class="entrybody">
+      <p>Lovers of fine sauropods will be well aware that, along with the inadequately described Indian titanosaur <em>Bruhathkayosarus</em>, the other of the truly super-giant sauropods is <em>Amphicoelias fragillimus</em>.  Known only from a single neural arch of a dorsal vertebra, which was figured and briefly described by Cope (1878) and almost immediately either lost or destroyed, it's the classic "one that got away", the animal that sauropod aficionados cry into their beer about late at night.</p>
+      <div id="attachment_2526" style="width: 471px" class="wp-caption alignnone"><a href="http://svpow.files.wordpress.com/2010/02/osbornmook1921-fig17-amphicoelias-fragillimus.png"><img class="size-full wp-image-2526" title="OsbornMook1921-fig17-amphicoelias-fragillimus" alt="" src="http://svpow.files.wordpress.com/2010/02/osbornmook1921-fig17-amphicoelias-fragillimus.png?w=360"   /></a><p class="wp-caption-text">Amphicoelias fragillimus, holotype dorsal vertebral neural arch in posterior view. From Osborn and Mook (1921:fig. 21), which in turn was gently tweaked from Cope (1878:unnumbered and only figure).</p></div>
+      <p>I'm not going to write about <em>A</em>. <em>fragillimus</em> in detail here, because Darren's so recently covered it in detail over at Tetrapod Zoology -- read <a href="http://scienceblogs.com/tetrapodzoology/2009/12/biggest_sauropod_ever_part_i.php">Part 1</a> and <a href="http://scienceblogs.com/tetrapodzoology/2010/01/biggest_sauropod_ever_part_ii.php">Part 2</a> right now if you've not already done so.  The bottom line is that it was a diplodocoid roughly twice as big as <em>Diplodocus</em> in linear dimension (so about eight times as heavy).  That makes it very very roughly 50 m long and 100 tonnes in mass.</p>
+      <p><em>But Mike!</em>, you say, <em>Isn't it terribly naive to go calculating masses and all from a single figure of part of a single bone?</em></p>
+      <p>Why, yes!  Yes, it is!  And that is what this post is about.</p>
+      <p>As I write, the go-to paper on <em>A</em>. <em>fragillimus</em> is Ken Carpenter's (2006) re-evaluation, which carefully and tentatively estimated a length of 58 m, and a mass of around 122,400 kg.</p>
+      <p>As it happens, Matt and a colleague submitted a conference abstract a few days ago, and he ran it past me for comments before finalising.  In passing, he'd written "there is no evidence for sauropods larger than 150 metric tons and it is possible that the largest sauropods did not exceed 100 tons".  I replied:</p>
+      <p style="padding-left:30px;">I think that is VERY unlikely. [...] the evidence for <em>Amphicoelias fragillimus</em> looks very convincing, Carpenter's (2006) mass estimate of 122.4 tonnes is conservative, being extrapolated from Greg Paul's ultra-light 11.5 tonne <em>Diplodocus</em>.</p>
+      <p>Carpenter's estimate is based on a reconstruction of the illustrated vertebra, which when complete he calculated would have been 2.7 m tall.  That is 2.2 times the height of the corresponding vertebra in <em>Diplodocus</em>, and the whole animal was considered as it might be if it were like Diplo scaled up by that factor.  Here is his reconstruction of the vertebra, based on Cope's figure of the smaller but better represented species <em>Amphicoelias altus</em>:</p>
+      <div id="attachment_2527" style="width: 490px" class="wp-caption alignnone"><a href="http://svpow.files.wordpress.com/2010/02/carpenter2006-fig1.png"><img class="size-full wp-image-2527" title="Carpenter2006-fig1" alt="" src="http://svpow.files.wordpress.com/2010/02/carpenter2006-fig1.png?w=480&#038;h=562" width="480" height="562" /></a><p class="wp-caption-text">One possible reconstruction of the Alphicoelias fragillimus vertebra, from Carpenter (2006:fig. 1).  Part A is Cope's original figure annotated with lamina designations; part C is Cope's illustration of an Amphocoelias altus dorsal; part B is Carpenter's reconstruction of the former after the latter.</p></div>
+      <p>Matt's answer to me was:</p>
+      <p style="padding-left:30px;">First, Paul's ultra-light 11.5 tonne Dippy is not far off from my 12 tonne version that you frequently cite, and mine should be lighter because it doesn't include large air sacs (density of 0.8 instead of a more likely 0.7). If my Dippy had an SG of 0.7, it would have massed only 10.25 tonnes. Second, Carpenter skewed [...] in the direction of large size for <em>Amphicoelias</em>. I don't <em>necessarily</em> think he's wrong, but his favoured estimate is at the extreme of what the data will support. Let's say that <em>Amphicoelias</em> was evenly twice as large as Dippy in linear terms; that could still give it a mass as low as 90 tonnes. And that's not including the near-certainty that <em>Amphicoelias</em> had a much higher ASP than <em>Diplodocus</em>. If <em>Amphicoelias</em> was to <em>Diplodocus</em> as <em>Sauroposeidon</em> was to <em>Brachiosaurus</em> -- pneumatic bones about half as dense -- then 1/10 of its volume weighed Â½ as much as it would if it were vanilla scaled up Dippy, and we might be able to knock off another 5 tonnes.</p>
+      <p>There's lots of good stuff here, and there was more back and forth following, which I won't trouble you with.  But what I came away with was the idea that maybe the scale factor was wrong.  And the thing to do, I thought, was to make my own sealed-room reconstruction and see how it compared.</p>
+      <p>So I extracted the A.f. figure from Osborn and Mook, and deleted their dotted reconstruction lines.  Then I went and did something else for a while, so that any memory of where those lines might have been had a chance to fade.  I was careful not look at Carpenter's reconstruction, so I could be confident mine would be indepedent.  Then I photoshopped the cleaned <em>A</em>. <em>fragillimus</em> figure into a copy the <em>A</em>. <em>altus</em> figure, scaled it to fit the best as I saw it, and measured the results.  Here it is:</p>
+      <div id="attachment_2532" style="width: 490px" class="wp-caption alignnone"><a href="http://svpow.files.wordpress.com/2010/02/scaled-composite-re-exported1.png"><img class="size-full wp-image-2532" title="scaled-composite-RE-EXPORTED" alt="" src="http://svpow.files.wordpress.com/2010/02/scaled-composite-re-exported1.png?w=480&#038;h=511" width="480" height="511" /></a><p class="wp-caption-text">My scaling of a complete Amphicoelias fragillimus vertebra: on the left, Cope's figure of the only known vertebra; on the right, Cope's figure of an A. altus dorsal vertebra, scaled to match the preserved parts of the former.  Height of the latter scaled according to the measured height of the former.</p></div>
+      <p>As you can see, when I measured my scaled-to-the-size-of-A.f. <em>Amphicoelias</em> vertebra, it was "only" 2293 mm tall, compared with 2700 mm in Ken's reconstruction.  In other words, mine is only 85% as tall, which translates to 0.85^3 = 61% as massive.  So if this reconstruction is right, the big boy is "only" 1.87 times as long as Diplodocus in linear dimension -- maybe 49 meters long -- and would likely come in well below the 100-tonne threshhold.  Using Matt's (2005) 12-tonne estimate for <em>Diplodocus</em>, we'd get a mere 78.5 tonnes for <em>Amphicoelias fragillimus</em>.  So maybe Matt called that right.</p>
+      <div id="attachment_2529" style="width: 490px" class="wp-caption alignnone"><a href="http://svpow.files.wordpress.com/2010/02/2006-09-28-amnh-dinos-124.jpg"><img class="size-full wp-image-2529" title="2006-09-28 AMNH dinos 124" alt="" src="http://svpow.files.wordpress.com/2010/02/2006-09-28-amnh-dinos-124.jpg?w=480&#038;h=360" width="480" height="360" /></a><p class="wp-caption-text">Amphicoelias altus dorsal vertebra, almost certainly the holotype, in left lateral view, lying on its back.  Photograph by Matt Wedel, from the collections of the AMNH.  I can't believe -- can't BELIEVE -- that I didn't take ten minutes to look at this vertebra when I was in that basement last February.  What a doofus.</p></div>
+      <h2>The Punchline</h2>
+      <p>Folks -- please remember, the punchline is not "<em>Amphicoelias fragillimus</em> only weighed 78.5 tonnes rather than 122.4 tonnes".  The punchline is "when you extrapolate the mass of an extinct animal of uncertain affinities from a 132-year-old figure of a partial bone which has not been seen in more than a century, you need to recognise that the error-bars are massive and anything resembling certainty is way misplaced."</p>
+      <p>Caveat estimator!</p>
+      <h2>References</h2>
+      <div id="_mcePaste">
+	<ul>
+	  <li>Carpenter, Kenneth.  2006.  Biggest of the big: A critical re-evalustion of the mega-sauropod <em>Amphicoelias fragillimus</em> Cope, 1878.  pp. 131-137 in J. Foster and S. G. Lucas (eds.), Paleontology and Geology of the Upper Jurassic Morrison Formation.  New Mexico Museum of Natural History and Science Bulletin 36.</li>
+	  <li>Cope, Edward Drinker.  1878.  Geology and Palaeontology: a new species of <em>Amphicoelias</em>.  The American Naturalist 12 (8): 563-566.</li>
+	  <li>Osborn, Henry Fairfield, and Charles C. Mook.  1921.  <em>Camarasaurus</em>, <em>Amphicoelias</em> and other sauropods of Cope.  Memoirs of the American Museum of Natural History, n.s. 3:247-387, and plates LX-LXXXV.</li>
+	</ul>
+      </div>
+    </div>
+
+    <p style="color:grey">
+      <a href="http://mkws.indexdata.com/">About MKWS</p>
+    </p>
   </body>
 </html>
