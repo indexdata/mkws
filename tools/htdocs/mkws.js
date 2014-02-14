@@ -66,7 +66,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 
 
 Handlebars.registerHelper('index1', function(obj) {
-    mkws.debug($.toJSON(obj));
     return obj.data.index + 1;
 });
 
