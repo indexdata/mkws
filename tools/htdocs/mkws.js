@@ -1094,6 +1094,43 @@ function team($, teamName) {
     }
 
 
+    that.run_auto_search = function() {
+	// ### should check mkwsTermlist as well, for facet-only teams
+	var node = $('.mkwsRecords.mkwsTeam_' + m_teamName);
+	var query = node.attr('autosearch');
+	if (!query)
+	    return;
+
+	if (query.match(/^!param!/)) {
+	    var param = query.replace(/^!param!/, '');
+	    query = getParameterByName(param);
+	    debug("obtained query '" + query + "' from param '" + param + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
+	    }
+	} else if (query.match(/^!path!/)) {
+	    var index = query.replace(/^!path!/, '');
+	    var path = window.location.pathname.split('/');
+	    query = path[path.length - index];
+	    debug("obtained query '" + query + "' from path-component '" + index + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+	    }
+	}
+
+	debug("node=" + node + ", class='" + node.className + "', query=" + query);
+
+	var sort = node.attr('sort');
+	var targets = node.attr('targets');
+	var s = "running auto search: '" + query + "'";
+	if (sort) s += " sorted by '" + sort + "'";
+	if (targets) s += " in targets '" + targets + "'";
+	debug(s);
+
+	this.newSearch(query, sort, targets, m_teamName);
+    }
+
+
     /* locale */
     function M(word) {
 	var lang = mkws_config.lang;
@@ -1313,41 +1350,7 @@ function team($, teamName) {
 	debug("running auto searches");
 
 	for (var teamName in mkws.teams) {
-	    // ### should check mkwsTermlist as well, for facet-only teams
-	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
-	    var query = node.attr('autosearch');
-	    if (!query)
-		continue;
-
-	    if (query.match(/^!param!/)) {
-		var param = query.replace(/^!param!/, '');
-		query = getParameterByName(param);
-		debug("obtained query '" + query + "' from param '" + param + "'");
-		if (!query) {
-		    alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-		}
-	    } else if (query.match(/^!path!/)) {
-		var index = query.replace(/^!path!/, '');
-		var path = window.location.pathname.split('/');
-		query = path[path.length - index];
-		debug("obtained query '" + query + "' from path-component '" + index + "'");
-		if (!query) {
-		    alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-		}
-	    }
-
-	    debug("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
-
-	    var sort = node.attr('sort');
-	    var targets = node.attr('targets');
-	    var s = "running auto search: '" + query + "'";
-	    if (teamName) s += " [teamName '" + teamName + "']";
-	    if (sort) s += " sorted by '" + sort + "'";
-	    if (targets) s += " in targets '" + targets + "'";
-	    debug(s);
-	    var team = mkws.teams[teamName];
-	    debug($.toJSON(team));
-	    team.newSearch(query, sort, targets, teamName);
+	    mkws.teams[teamName].run_auto_search();
 	}
     }
 
