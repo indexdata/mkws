@@ -824,7 +824,8 @@ function team($, teamName) {
     <td>\
       {{#first location having="md-subject"}}\
 	{{#if md-subject}}\
-	  {{md-subject}}\
+	  {{#commaList md-subject}}\
+	    {{this}}{{/commaList}}\
 	{{/if}}\
       {{/first}}\
     </td>\
