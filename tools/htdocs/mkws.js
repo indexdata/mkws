@@ -1316,6 +1316,8 @@ function team($, teamName) {
 	    // ### should check mkwsTermlist as well, for facet-only teams
 	    var node = $('.mkwsRecords.mkwsTeam_' + teamName);
 	    var query = node.attr('autosearch');
+	    if (!query)
+		continue;
 
 	    if (query.match(/^!param!/)) {
 		var param = query.replace(/^!param!/, '');
@@ -1336,18 +1338,16 @@ function team($, teamName) {
 
 	    debug("teamName '" + teamName + "', node=" + node + ", class='" + node.className + "', query=" + query);
 
-	    if (query) {
-		var sort = node.attr('sort');
-		var targets = node.attr('targets');
-		var s = "running auto search: '" + query + "'";
-		if (teamName) s += " [teamName '" + teamName + "']";
-		if (sort) s += " sorted by '" + sort + "'";
-		if (targets) s += " in targets '" + targets + "'";
-		debug(s);
-		var team = mkws.teams[teamName];
-		debug($.toJSON(team));
-		team.newSearch(query, sort, targets, teamName);
-	    }
+	    var sort = node.attr('sort');
+	    var targets = node.attr('targets');
+	    var s = "running auto search: '" + query + "'";
+	    if (teamName) s += " [teamName '" + teamName + "']";
+	    if (sort) s += " sorted by '" + sort + "'";
+	    if (targets) s += " in targets '" + targets + "'";
+	    debug(s);
+	    var team = mkws.teams[teamName];
+	    debug($.toJSON(team));
+	    team.newSearch(query, sort, targets, teamName);
 	}
     }
 
