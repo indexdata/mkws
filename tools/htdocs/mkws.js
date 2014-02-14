@@ -65,6 +65,12 @@ Handlebars.registerHelper('commaList', function(items, options) {
 });
 
 
+Handlebars.registerHelper('index1', function(obj) {
+    mkws.debug($.toJSON(obj));
+    return obj.data.index + 1;
+});
+
+
 
 // Set up global mkws object. Contains truly global state such as SP
 // authentication, and a hash of team objects, indexed by windowid.
@@ -805,10 +811,10 @@ function team($, teamName) {
   {{/if}}\
   {{#if md-electronic-url}}\
   <tr>\
-    <th>{{translate "URL"}}</th>\
+    <th>{{translate "Links"}}</th>\
     <td>\
       {{#each md-electronic-url}}\
-	<a href="{{this}}">{{this}}</a><br/>\
+	<a href="{{this}}">Link{{index1}}</a>\
       {{/each}}\
     </td>\
   </tr>\
