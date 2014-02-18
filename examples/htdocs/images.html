@@ -9,17 +9,17 @@
     <script id="mkwsTemplateSummary" type="text/x-handlebars-template">
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">
         {{#each md-thumburl}}
-	  <img src="{{this}}"/>
+	  <img src="{{this}}" alt="{{../md-title}}"/>
         {{/each}}
 	<br/>
-	<b>{{md-title}}</b>
-      </a>
+	{{md-title}}
       {{#if md-title-remainder}}
         <span>{{md-title-remainder}}</span>
       {{/if}}
       {{#if md-title-responsibility}}
     	<span><i>{{md-title-responsibility}}</i></span>
       {{/if}}
+      </a>
     </script>
   </head>
   <body>
