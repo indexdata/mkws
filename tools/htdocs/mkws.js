@@ -1131,6 +1131,16 @@ function team($, teamName) {
     }
 
 
+    // This function is taken from a StackOverflow answer
+    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
+    function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	    results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+
     /* locale */
     function M(word) {
 	var lang = mkws_config.lang;
@@ -1352,16 +1362,6 @@ function team($, teamName) {
 	for (var teamName in mkws.teams) {
 	    mkws.teams[teamName].run_auto_search();
 	}
-    }
-
-
-    // This function is taken from a StackOverflow answer
-    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
-    function getParameterByName(name) {
-	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	    results = regex.exec(location.search);
-	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 
