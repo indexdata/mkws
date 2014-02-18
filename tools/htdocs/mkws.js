@@ -767,9 +767,9 @@ function team($, teamName) {
 
 	if (template === undefined) {
 	    // Fall back to generic template if there is no team-specific one
-	    var node = $("#mkwsTemplate" + name + ".mkwsTeam_" + m_teamName)
+	    var node = $(".mkwsTemplate_" + name + ".mkwsTeam_" + m_teamName)
 	    if (!node.length) {
-		node = $("#mkwsTemplate" + name + ".mkwsTeam_ALL")
+		node = $(".mkwsTemplate_" + name + ".mkwsTeam_ALL")
 	    }
 
 	    var source = node.html();
