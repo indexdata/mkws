@@ -3,13 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Mike's playground</title>
-    <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <title>MKWS demo: Images</title>
+    <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
     <script id="mkwsTemplateSummary" type="text/x-handlebars-template">
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">
         {{#each md-thumburl}}
@@ -27,9 +23,7 @@
     </script>
   </head>
   <body>
-    <div id='mkwsRecords'
-	autosearch='!param!q'
-	sort='relevance'
+    <div class='mkwsRecords' autosearch='!param!q'
 	targets='pz:id=lui.indexdata.com:8080/solr4/#5853'
 	>results will appear here</div>
   </body>
