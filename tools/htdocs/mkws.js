@@ -174,6 +174,7 @@ function team($, teamName) {
 	"last": $.now()
     };
     var m_paz; // will be initialised below
+    var m_template = {};
 
 
     var debug = function (s) {
@@ -762,17 +763,23 @@ function team($, teamName) {
 
     function loadTemplate(name)
     {
-	var template = mkws['template' + name];
+	var template = m_template[name];
 
 	if (template === undefined) {
-	    var source = $("#mkwsTemplate" + name).html();
+	    // Fall back to generic template if there is no team-specific one
+	    var node = $("#mkwsTemplate" + name + ".mkwsTeam_" + m_teamName)
+	    if (!node.length) {
+		node = $("#mkwsTemplate" + name + ".mkwsTeam_ALL")
+	    }
+
+	    var source = node.html();
 	    if (!source) {
 		source = defaultTemplate(name);
 	    }
 
 	    template = Handlebars.compile(source);
 	    debug("compiled template '" + name + "'");
-	    mkws['template' + name] = template;
+	    m_template[name] = template;
 	}
 
 	return template;
