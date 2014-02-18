@@ -9,26 +9,20 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
+    <script type="text/javascript">mkws_config = { perpage_default: 1 }</script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
     <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-        {{#each md-thumburl}}
+        {{#first md-thumburl}}
 	  <img src="{{this}}" alt="{{../md-title}}"/>
-        {{/each}}
+        {{/first}}
 	<br/>
-	{{md-title}}
-      {{#if md-title-remainder}}
-        <span>{{md-title-remainder}}</span>
-      {{/if}}
-      {{#if md-title-responsibility}}
-    	<span><i>{{md-title-responsibility}}</i></span>
-      {{/if}}
       </a>
     </script>
   </head>
   <body>
-    <div class='mkwsRecords' autosearch='!param!q'
-	targets='pz:id=lui.indexdata.com:8080/solr4/#5853'
+    <div class='mkwsRecords' autosearch='lolcat'
+	targets='pz:id=connect.indexdata.com:9000/Google_Images'
 	>results will appear here</div>
   </body>
 </html>
