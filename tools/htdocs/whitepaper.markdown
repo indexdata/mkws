@@ -208,17 +208,17 @@ search is made.
 ### Customised display using Handlebars templates
 
 Certain aspects of the widget-set's display can be customised by
-providing Handlebars templates with well-known IDs that begin with the
-string `mkwsTemplate`. At present, the supported templates are:
+providing Handlebars templates with well-known classes that begin with
+the string `mkwsTemplate_`. At present, the supported templates are:
 
-* `mkwsTemplateSummary` -- used for each summary record in a list of
+* `mkwsTemplate_Summary` -- used for each summary record in a list of
   results.
 
-* `mkwsTemplateRecord` -- used when displaying a full record.
+* `mkwsTemplate_Record` -- used when displaying a full record.
 
 For both of these the metadata record is passed in, and its fields can
 be referenced in the template. As well as the metadata fields
-(`md-*`), two special fields are provided to the `mkwsTemplateSummary`
+(`md-*`), two special fields are provided to the `mkwsTemplate_Summary`
 template, for creating popup links for full records. These are `_id`,
 which must be provided as the `id` attribute of a link tag, and
 `_onclick`, which must be provided as the `onclick` attribute.
@@ -226,7 +226,7 @@ which must be provided as the `id` attribute of a link tag, and
 For example, an application can install a simple author+title summary
 record in place of the usual one providing the following template:
 
-        <script id="mkwsTemplateSummary" type="text/x-handlebars-template">
+        <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
           {{#if md-author}}
             <span>{{md-author}}</span>
           {{/if}}
