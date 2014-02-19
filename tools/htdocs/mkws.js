@@ -1401,6 +1401,7 @@ function team($, teamName) {
 
 	// Find all nodes with an class, and determine their team from
 	// the mkwsTeam_* class. Make all team objects.
+	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    var node = this;
 	    mkws.handle_node_with_team(node, function(tname) {
@@ -1410,6 +1411,8 @@ function team($, teamName) {
 		}
 	    });
 	});
+	var now = $.now();
+	debug("Walking MKWS nodes took " + (now-then) + " ms");
 
 	if (mkws_config.use_service_proxy) {
 	    authenticate_session(mkws_config.service_proxy_auth,
