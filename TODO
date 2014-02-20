@@ -1,0 +1,74 @@
+Make a demo widget that displays an image, like the "From the Digital
+Archive" panel of our Toronto Digital Library demo.
+
+Make a widget demo that displays the top-hit full record rather than a
+list of summary records. This can be used to pull in Wikipedia text to
+make the bulk of a topic page.
+
+Make an Amazon cover-art widget.
+
+Blog about changing role of librarians: used to be mediators of scarce
+information. Value now is increasingly as organisers of freely
+available information. Will become more true as OA takes over.
+
+Do target selection by UDB rather than ZURL. Needs SP changes.
+
+Index Data's 20th birthday is this year.
+
+--
+
+THE WAY FORWARD
+
+* Widget gallery
+	Mainly a marketing thing on mkws.indexdata.com
+	May also have a role in widget creation in MKAdmin
+	We will want a facets-only widget, e.g. to list top authors
+	Visualisations e.g. pie-chart of authors, bar-graph of records
+		Generate embedded SVG? Does that even work?
+	Demo of something embedded in our Koha installation
+	Blog entries with interesting new widgets
+* Administration
+* Architecture:
+  * Includes connectors
+  * Managed widgets
+  * 3rd party widget platforms
+* Integration guides
+* Use cases - workflows
+
+--
+
+In the widget builder, we want to expose capability information (from
+ZeeRex or a Torus record) in a human-consumable form: "this target can
+sort by recency", that kind of thing.
+
+Auto-widgets should be able to include limits (as a full set of
+MK2-like widgets does in order to implement facets).
+
+Auto-widgets should be able to include filters (as a full set of
+MK2-like widgets does in order to implement the Target facet). This
+can be used to implement target categories,
+
+Add a capability facet to MKAdmin. The right way to do this is to
+refactor the current hardwiry facet code to be more data-driven, then
+add a configuration element to include capabilities as a facet.
+
+In the widget builder, we should be able to filter the targets
+available to the widget on the basis of what requirements the widget
+has, e.g. ability to sort by recency. The capability facet in MKAdmin
+may suffice for this.
+
+We need additional image-URL fields in our records -- in the connector
+framework, in the Torus record's capabilities and elsewhere. Figure
+out what's needed, and who needs to do it.
+
+Can the IRSpy toroid be made to return a meaningful capability field?
+
+Make MKAdmin able to filter target list on whether we have access:
+that is, to targets that either are open-access or we have credentials
+or an IP proxy for.
+
+The widget-builder widget (WBW) should have a Save button that is
+customised by a callback, so that the widget in question can (for
+example) be copied into the clipboard, pasted into a nominated div,
+saved to a database or whatever.
+
