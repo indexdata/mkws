@@ -161,22 +161,21 @@
 
 *** Other ***
 
+	Get Charles to remove the testing proxy-IPs from open-access
+	databases.
+
 	We need additional image-URL fields in our records -- in the
 	connector framework, in the Torus record's capabilities and
 	elsewhere. Figure out what's needed, and who needs to do it.
+
+	Fix the Torus's timed refresh to run on its own in the
+	background, rather than waiting until the next time a request
+	is made after the refresh-time has expired.
 
 	Can the IRSpy toroid be made to return a meaningful capability
 	field?
 
 	Metasearch all targets and see what happens. Figure out why it
 	goes wrong.
-
-	Get Charles to remove the testing proxy-IPs from open-access
-	databases.
-
-	Fix the Torus's timed refresh to run on its own in the
-	background, rather than waiting until the next time a request
-	is made after the
-	refresh-time has expired.
 
 
