@@ -74,6 +74,17 @@
 
 *** MKAdmin ***
 
+	Superuser field should not be mandatory.
+
+	In end-user record, username and password should not be
+	mandatory any more. (Perhaps it should be mandatory to have at
+	least one of u/p, IP range, hostname, etc.)
+
+	Add an "Act As" link on the Edit Library page.
+
+	When making a new user-access record, default the displayName
+	to that of the ibrary that owns it.
+
 	Add a capability facet to MKAdmin. The right way to do this is
 	to refactor the current hardwiry facet code to be more
 	data-driven, then add a configuration element to include
@@ -86,17 +97,6 @@
 	Provide "select all targets" to they can be added.
 
 	Add batch edit on all targets found by the current search.
-
-	Superuser field should not be mandatory.
-
-	Add an "Act As" link on the Edit Library page.
-
-	When making a new user-access record, default the displayName
-	to that of the ibrary that owns it.
-
-	In end-user record, username and password should not be
-	mandatory any more. (Perhaps it should be mandatory to have at
-	least one of u/p, IP range, hostname, etc.)
 
 	We want a way to let customers change the Index Data branding
 	of the MKX front page, as well as the logo at top left of the
@@ -120,11 +120,18 @@
 
 *** MKAdmin-- ***
 
-	Lose Target Origin and Type columns from list.
+	Lose Target Origin and Type columns from target list.
 
-	Lose the A-Z list.
+ 	Lose the A-Z list from all tabs.
 
 	Remove "changed in last NUMBER days" from search form
+
+	In the target list, get rid of "Show record", make the target
+	title a link to the edit page, and discard the edit column
+	completely.
+
+	Lose the Create Target facility (from left panel and bottom
+	row).
 
 	Remove the the Edit facility and the New button from the
 	categories tab. Keep the category_id column, for some
@@ -135,15 +142,8 @@
 	for editing immediately. Remove everything that doesn't need
 	to be there.
 
-	Remove all help from MKAdmin until Seb sends help texts that
-	he is happy with.
-
 	D will get back to me with a detailed specification of which
 	reports to include in the Reports tab.
-
-	In the target list, get rid of "Show record", make the target
-	title a link to the edit page, and discard the edit column
-	completely.
 
 	In the edit page, lose all the top icons.
 
@@ -151,12 +151,12 @@
 	MKAdmin-- edit page. It may be just target name, categories
 	and credentials.
 
+	Remove all help from MKAdmin until Seb sends help texts that
+	he is happy with.
+
 	BIG CHANGE: lose the edit-form distinction between inherited
 	and local values. Have a single column of editable values and
 	override only those that are actually changed.
-
-	Lose the Create Target facility (from left panel and bottom
-	row).
 
 
 *** Other ***
