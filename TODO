@@ -1,24 +1,3 @@
-*** GENERAL ***
-
-	We need additional image-URL fields in our records -- in the
-	connector framework, in the Torus record's capabilities and
-	elsewhere. Figure out what's needed, and who needs to do it.
-
-	Can the IRSpy toroid be made to return a meaningful capability
-	field?
-
-	Metasearch all targets and see what happens. Figure out why it
-	goes wrong.
-
-	Get Charles to remove the testing proxy-IPs from open-access
-	databases.
-
-	Fix the Torus's timed refresh to run on its own in the
-	background, rather than waiting until the next time a request
-	is made after the
-	refresh-time has expired.
-
-
 *** MKWS ***
 
 	Make a demo widget that displays an image, like the "From the
@@ -93,7 +72,7 @@
 	Apache2 configuration.
 
 
-*** MKADMIN ***
+*** MKAdmin ***
 
 	Add a capability facet to MKAdmin. The right way to do this is
 	to refactor the current hardwiry facet code to be more
@@ -178,3 +157,26 @@
 
 	Lose the Create Target facility (from left panel and bottom
 	row).
+
+
+*** Other ***
+
+	We need additional image-URL fields in our records -- in the
+	connector framework, in the Torus record's capabilities and
+	elsewhere. Figure out what's needed, and who needs to do it.
+
+	Can the IRSpy toroid be made to return a meaningful capability
+	field?
+
+	Metasearch all targets and see what happens. Figure out why it
+	goes wrong.
+
+	Get Charles to remove the testing proxy-IPs from open-access
+	databases.
+
+	Fix the Torus's timed refresh to run on its own in the
+	background, rather than waiting until the next time a request
+	is made after the
+	refresh-time has expired.
+
+
