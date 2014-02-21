@@ -1,3 +1,24 @@
+*** GENERAL ***
+
+We need additional image-URL fields in our records -- in the connector
+framework, in the Torus record's capabilities and elsewhere. Figure
+out what's needed, and who needs to do it.
+
+Can the IRSpy toroid be made to return a meaningful capability field?
+
+Metasearch all targets and see what happens. Figure out why it goes
+wrong.
+
+Get Charles to remove the testing proxy-IPs from open-access
+databases.
+
+Fix the Torus's timed refresh to run on its own in the background,
+rather than waiting until the next time a request is made after the
+refresh-time has expired.
+
+
+*** MKWS ***
+
 Make a demo widget that displays an image, like the "From the Digital
 Archive" panel of our Toronto Digital Library demo.
 
@@ -7,35 +28,31 @@ make the bulk of a topic page.
 
 Make an Amazon cover-art widget.
 
-Blog about changing role of librarians: used to be mediators of scarce
-information. Value now is increasingly as organisers of freely
-available information. Will become more true as OA takes over.
-
 Do target selection by UDB rather than ZURL. Needs SP changes.
 
-Index Data's 20th birthday is this year.
+We will want a facets-only widget, e.g. to list top authors
 
---
+Visualisation widgets e.g. pie-chart of authors, bar-graph of records
+Generate embedded SVG? Does that even work?
 
-THE WAY FORWARD
+Make am MKWS/Fresco demo by embedding widgets in our Koha
+installation. Get Wolfram to do this, and find out which parts of the
+process are cumbersome for him.
 
-* Widget gallery
+Write about interesting new widgets on the Index Data blog.
+
+Widget gallery
 	Mainly a marketing thing on mkws.indexdata.com
 	May also have a role in widget creation in MKAdmin
-	We will want a facets-only widget, e.g. to list top authors
-	Visualisations e.g. pie-chart of authors, bar-graph of records
-		Generate embedded SVG? Does that even work?
-	Demo of something embedded in our Koha installation
-	Blog entries with interesting new widgets
-* Administration
-* Architecture:
-  * Includes connectors
-  * Managed widgets
-  * 3rd party widget platforms
-* Integration guides
-* Use cases - workflows
 
---
+Architecture:
+  * Separate objects for each widget
+  * Translucent configuration
+  * Decouple using publish/subscribe
+  * Managed widgets held in the Torus
+  * 3rd party widget platforms
+
+Write integration guides for various third-party CMSs.
 
 In the widget builder, we want to expose capability information (from
 ZeeRex or a Torus record) in a human-consumable form: "this target can
@@ -46,29 +63,27 @@ MK2-like widgets does in order to implement facets).
 
 Auto-widgets should be able to include filters (as a full set of
 MK2-like widgets does in order to implement the Target facet). This
-can be used to implement target categories,
-
-Add a capability facet to MKAdmin. The right way to do this is to
-refactor the current hardwiry facet code to be more data-driven, then
-add a configuration element to include capabilities as a facet.
+can be used to implement target categories as well as the current
+cruder target-selection-by-ID facility.
 
 In the widget builder, we should be able to filter the targets
 available to the widget on the basis of what requirements the widget
 has, e.g. ability to sort by recency. The capability facet in MKAdmin
 may suffice for this.
 
-We need additional image-URL fields in our records -- in the connector
-framework, in the Torus record's capabilities and elsewhere. Figure
-out what's needed, and who needs to do it.
-
-Can the IRSpy toroid be made to return a meaningful capability field?
-
-Make MKAdmin able to filter target list on whether we have access:
-that is, to targets that either are open-access or we have credentials
-or an IP proxy for.
+Check library selection by hostname works for MKWS.
 
 The widget-builder widget (WBW) should have a Save button that is
 customised by a callback, so that the widget in question can (for
 example) be copied into the clipboard, pasted into a nominated div,
 saved to a database or whatever.
+
+Allow debug() to be customised by setting a callback function that is
+passed the string rather than just giving it to console.log().
+
+Create a logging widget which displays the output of debug().
+
+Add library selection by secret key as an alternative to selection by
+user/pw. This is appropriate for security-conscious customers to embed
+in their own CORS-aware Apache2 configuration.
 
