@@ -42,8 +42,8 @@ process are cumbersome for him.
 Write about interesting new widgets on the Index Data blog.
 
 Widget gallery
-	Mainly a marketing thing on mkws.indexdata.com
-	May also have a role in widget creation in MKAdmin
+  * Mainly a marketing thing on mkws.indexdata.com
+  * May also have a role in widget creation in MKAdmin
 
 Architecture:
   * Separate objects for each widget
