@@ -17,16 +17,15 @@ JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
 HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
+PP2_URL= 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
 MKWS_JS=	mkws-complete.js
-PZ2API_JS=	../../../pazpar2/js/pz2.js
-PZ2API_GIT=	ssh://git.indexdata.com:222/home/git/pub/pazpar2
 
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
 HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
-PP2_FILE := $(shell basename ${PZ2API_JS})
+PP2_FILE = pz2.js
 ##############################
 
 DOCS = README.html README.odt README.pdf \
@@ -39,27 +38,13 @@ all: ${MKWS_JS} mkws-js-min $(DOCS)
 
 docs: $(DOCS)
 
-pz2api-git-checkout:
-	@if ! test -e ${PZ2API_JS}; then \
-	    ( cd ../../.. && git clone ${PZ2API_GIT} ); \
-	fi
-
 mkws-js ${MKWS_JS}: Makefile mkws.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
-	@if ! test -e ${PZ2API_JS}; then \
-	    echo "The pazpar2 JS file ${PZ2API_JS} does not exists."; \
-	    echo "Did you checked out the source from the git repo?"; \
-	    echo ""; \
-	    echo "Please run:"; \
-	    echo "$$ make pz2api-git-checkout"; \
-	    echo ""; \
-	    exit 1; \
-	fi
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
-	  echo "   $$(basename ${PZ2API_JS}) GIT id: $$(cd $$(dirname ${PZ2API_JS}) && git log $$(basename ${PZ2API_JS}) | head -n 1 | perl -npe 's,\S+\s+,,')"; \
+	  echo "   pz2.js GIT id: $$(curl -sSf 'http://git.indexdata.com/?p=pazpar2.git;a=rss' | egrep '<guid' | head -1 | perl -ne 'print "$$1\n" if m,.*=([0-9a-f]+)</guid>,')"; \
 	  echo "*/"; \
 	  cat ${JQUERY_FILE}; \
 	  cat ${JQUERY_JSON_FILE}; \
@@ -91,8 +76,9 @@ ${JQUERY_JSON_FILE}:
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@
 
-${PP2_FILE}: ${PZ2API_JS}
-	cp -pf ${PZ2API_JS} $@ 	
+${PP2_FILE}:
+	curl -sSf "${PP2_URL}" -o $@.tmp
+	mv -f $@.tmp $@
 
 release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 	@if [ -f releases/mkws-$(VERSION).js ]; then \
