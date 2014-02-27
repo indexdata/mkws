@@ -142,6 +142,29 @@ var mkws = {
 };
 
 
+// The following PubSub code is modified from the jQuery manual:
+// https://api.jquery.com/jQuery.Callbacks/
+//
+// Use as:
+//	mkws.queue("eventName").subscribe(function(param1, param2 ...) { ... });
+//	mkws.queue("eventName").publish(arg1, arg2, ...);
+
+(function() {
+  var queues = {};
+  mkws.queue = function(id) {
+    if (!queues[id]) {
+      var callbacks = $.Callbacks();
+      queues[id] = {
+	publish: callbacks.fire,
+	subscribe: callbacks.add,
+	unsubscribe: callbacks.remove
+      };
+    }
+    return queues[id];
+  }
+}());
+
+
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
