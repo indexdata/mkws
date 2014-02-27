@@ -142,9 +142,45 @@ var mkws = {
 };
 
 
+// The following PubSub code is modified from the jQuery manual:
+// https://api.jquery.com/jQuery.Callbacks/
+//
+// Use as:
+//	mkws.queue("eventName").subscribe(function(param1, param2 ...) { ... });
+//	mkws.queue("eventName").publish(arg1, arg2, ...);
+
+(function() {
+  var queues = {};
+  mkws.queue = function(id) {
+    if (!queues[id]) {
+      var callbacks = $.Callbacks();
+      queues[id] = {
+	publish: callbacks.fire,
+	subscribe: callbacks.add,
+	unsubscribe: callbacks.remove
+      };
+    }
+    return queues[id];
+  }
+}());
+
+
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
+}
+
+
+// Factory function for widget objects.
+function widget($, team, node) {
+    var that = {
+	team: team,
+	node: node
+    };
+
+    // ### More to do here, surely
+
+    return that;
 }
 
 
@@ -1405,12 +1441,13 @@ function team($, teamName) {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
+	    mkws.handle_node_with_team(this, function(tname) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
 		}
+		var myTeam = mkws.teams[tname]
+		var myWidget = widget(j, myTeam, this)
 	    });
 	});
 	var now = $.now();
