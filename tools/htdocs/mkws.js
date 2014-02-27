@@ -148,6 +148,19 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 
+// Factory function for widget objects.
+function widget($, team, node) {
+    var that = {
+	team: team,
+	node: node
+    };
+
+    // ### More to do here, surely
+
+    return that;
+}
+
+
 // Factory function for team objects. As much as possible, this uses
 // only member variables (prefixed "m_") and inner functions with
 // private scope. Some functions are visibl as member-functions to be
@@ -1411,6 +1424,8 @@ function team($, teamName) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
 		}
+		var myTeam = mkws.teams[tname]
+		var myWidget = widget(j, myTeam, node)
 	    });
 	});
 	var now = $.now();
