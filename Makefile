@@ -3,9 +3,6 @@
 all:
 	${MAKE} -C./tools/htdocs $@
 
-pz2api-git-checkout:
-	${MAKE} -C./tools/htdocs $@
-
 clean distclean:
 	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./examples/htdocs $@
@@ -17,7 +14,7 @@ phantomjs:
 	${MAKE} -C./test $@
 
 # must be called once after GIT checkout
-setup:	pz2api-git-checkout
+setup:	
 	${MAKE} -C./tools/htdocs mkws-js-min
 	${MAKE} -C./examples/htdocs jasmine-links
 	${MAKE} -C./test node-modules
@@ -26,5 +23,5 @@ check: setup check-js
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"
-	@echo "     [ pz2api-git-checkout | check-js ]"
+	@echo "     [ check | check-js | phantomjs ]"
 
