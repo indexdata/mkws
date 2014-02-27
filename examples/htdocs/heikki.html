@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MKWS demo: Heikki's playground</title>
+    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <script type="text/javascript">
+      var mkws_config = {
+	  // pazpar2_url : "/service-proxy/",
+	  show_perpage: false,
+	  show_sort: false,
+	  perpage_default: 10,
+	  sort_default: "title:1",
+	  // service_proxy_auth : "/service-proxy-auth"
+      };
+    </script>
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
+    <style type="text/css">
+      #mkwsTermlists div.facet {
+      float:left;
+      width: 30%;
+      margin: 0.3em;
+      }
+      #mkwsStat {
+      text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Heikki's test</h1>
+    <div id="mkwsMOTD">Welcome to Heikki's little test</div>
+    <table width="100%" border="0">
+      <tr>
+        <td>
+	  <div id="mkwsSwitch"></div>
+          <div id="mkwsLang"></div>
+          <div id="mkwsSearch"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="height:500px; overflow: auto">
+            <div id="mkwsPager"></div>
+            <div id="mkwsNavi"></div>
+            <div id="mkwsRecords"></div>
+            <div id="mkwsTargets"></div>
+            <div id="mkwsRanking"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style="height:300px; overflow: hidden">
+            <div id="mkwsTermlists"></div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="mkwsStat"></div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
