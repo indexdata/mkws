@@ -1418,14 +1418,13 @@ function team($, teamName) {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
+	    mkws.handle_node_with_team(this, function(tname) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
 		}
 		var myTeam = mkws.teams[tname]
-		var myWidget = widget(j, myTeam, node)
+		var myWidget = widget(j, myTeam, this)
 	    });
 	});
 	var now = $.now();
