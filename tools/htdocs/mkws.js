@@ -1247,7 +1247,7 @@ function team($, teamName) {
 		tname = cname.replace(/^mkwsTeam_/, '');
 	    }
 	}
-	callback(tname);
+	callback.call(this, tname);
     }
 
 
