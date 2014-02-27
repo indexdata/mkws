@@ -918,7 +918,7 @@ function team($, teamName) {
 	// ### There is only one match here by design: fix not to bother looping
 	$('.mkwsSearch.mkwsTeam_' + m_teamName).each(function (i, obj) {
 	    var node = this;
-	    mkws.handle_node_with_team(node, function(tname) {
+	    mkws.handle_node_with_team(this, function(tname) {
 		$(node).html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
