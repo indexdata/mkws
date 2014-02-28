@@ -172,13 +172,15 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
 // Factory function for widget objects.
-function widget($, team, node) {
+function widget($, team, type, node) {
     var that = {
 	team: team,
+	type: type,
 	node: node
     };
 
-    // ### More to do here, surely
+    // ### More to do here, surely: e.g. wiring into the team
+    mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
 
     return that;
 }
@@ -1240,14 +1242,17 @@ function team($, teamName) {
     mkws.handle_node_with_team = function(node, callback) {
 	var classes = node.className;
  	var list = classes.split(/\s+/)
-	var tname;
+	var tname, type;
+
 	for (var i = 0; i < list.length; i++) {
 	    var cname = list[i];
 	    if (cname.match(/^mkwsTeam_/)) {
 		tname = cname.replace(/^mkwsTeam_/, '');
+	    } else if (cname.match(/^mkws/)) {
+		type = cname.replace(/^mkws/, '');
 	    }
 	}
-	callback.call(this, tname);
+	callback.call(this, tname, type);
     }
 
 
@@ -1441,13 +1446,13 @@ function team($, teamName) {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    mkws.handle_node_with_team(this, function(tname) {
+	    mkws.handle_node_with_team(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
 		}
-		var myTeam = mkws.teams[tname]
-		var myWidget = widget(j, myTeam, this)
+		var myTeam = mkws.teams[tname];
+		var myWidget = widget(j, myTeam, type, this);
 	    });
 	});
 	var now = $.now();
