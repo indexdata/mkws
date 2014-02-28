@@ -1240,7 +1240,16 @@ function team($, teamName) {
 
 
     mkws.handle_node_with_team = function(node, callback) {
-	var classes = node.className;
+	// First branch for DOM objects; second branch for jQuery objects
+	var classes = node.className || node.attr('class');
+	if (!classes) {
+	    // For some reason, if we try to proceed when classes is
+	    // undefined, we don't get an error message, but this
+	    // function and its callers, up several stack level,
+	    // silently return. What a crock.
+	    mkws.debug("handle_node_with_team() called on node with no classes");
+	    return;
+	}
  	var list = classes.split(/\s+/)
 	var teamName, type;
 
