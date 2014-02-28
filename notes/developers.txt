@@ -180,3 +180,156 @@ worried this will be slow, hence the instrumentation. It's not :-)
 Last of all: start things off! SP-auth if used, otherwise straight to the
 auto-searches.
 
+
+OK, want to plough into the team object?
+
+... bearing in mind that some of this should be moved out of the team into the
+top-level code, and some other parts will be moved down into individual widgets
+once we have them.
+
+OK. So we start with a bunch of member variables for state. Many of them will be
+hauntingly familiar to anyone who's worked on jsdemo :-)
+
+A new one is m_debug_time, which is a structure used for keeping track of elapsed
+time. It's nice: it lets debug messages for each time note how long it's been
+since the last message in that same team, which means you can see how slow-ass
+our network operations can be. That's implemented in debug(), which is the very
+next thing in the file.
+
+Then a bunch of code to do with setting initial values from defaults.
+
+The stuff about languages is a great example of code that should be at the top
+level, not in the team: it deals only with global objects, yet gets run n times
+if there are n teams. (I am adding a ###-comment to this effect right now.)
+
+Then we make the pz2 object, which is our only channel of communication with the
+server outside of the HTTP GET hack in authenticate_session(). The callback
+functions are all closures with access to this team's member variables. Are you
+somewhat familiar with pz2.js already?
+
+Well, it's all driven by callbacks. You register them at object-creation time;
+then later when you call (say) m_paz.search(), it will invoke your my_onsearch()
+function when the search-response arrives.
+
+There are some oddities in the order things get done. For example, is m_perpage
+set AFTER this object is created, rather than at the same time as its stablemate
+m_sort up above? No reason. So plenty of tedious, error-prone, cleaning up of
+this sort to be done.
+
+Then come the pz2 callbacks. my_onshow() is an interesting representative. The
+team-name is passed back by pz2 (which has used it as the SP window-ID to keep
+sessions separate). I used to think it needed to be passed back like this so
+the invoked callback functions could know what team they're being called for,
+but now I realise they don't need to, because they're closures that can see
+m_teamName. Oh well.
+
+Indeed, you can see that my_onshow() doesn't even USE the teamName parameter.
+
+Anyway, the point is to find specific elements that belong to the right team,
+so they can be populated with relevant data. We do that for the pager, and of
+course the record-list.
+
+The meat of the record-list is filled in by invocations of renderSummary(),
+which loads a Handlebars template and uses that to generate the HTML. Needless
+to say, loadTemplate() caches compiled templates.
+
+my_onstat() and my_onterm() do similar things -- you can figure out the details.
+
+add_single_facet(), target_filtered() and others are uninteresting utility
+functions.
+
+my_onrecord() and my_onbytarget() are more of the same. There is some nastiness
+in my_onrecord() to handle poping up a full-record div in the right place and
+getting rid of any old ones. It doesn't work quite right.
+
+onFormSubmitEventHandler() is more interesting. This is a JS event handle (for
+form-submit, duh) but how does it know what team to work for? It checks `this'
+to see that classes the HTML element has, and so finds the relevant mkwsTeam_NAME
+class. Then it can fire newSearch() on the relevant team. But it now occurs to
+me that this too is a closure so it doesn't need to do any of that. It can just
+start the search in its own team.
+
+[Why can that simplifying change be made here but not in, say, switchView()?
+Because the former is assigned to a DOM object from within the JS code, so acts
+as a closure; but the latter is invoked by a fragment of JS text which the user
+clicks on, when there is no context.]
+
+An oddity of newSearch(): it's not defined as
+    function newSearch()
+like most of the other member functions, but
+    that.newSearch = function()
+That's because, unlike most other member function, it gets explicitly invoked
+on a team object:
+    mkws.teams[tname].newSearch(val);
+
+But in fact that won't be necessary once I fix the invoker
+(onFormSubmitEventHandler) to be aware of its own context, so that can simplify,
+too.
+
+The next interesting method is triggerSearch(). You can see that it assembles
+the pp2filter and pp2limit values for the search invocation by walking the
+array m_filters[], which is built by click on facets.
+
+That's done in a slightly clumsy way. I might make a Filters object at some
+point with some nice clean methods.
+
+BTW., more unnecessary context-jockying with the windowid parameter. I don't
+need it, I have m_teamName.
+
+loadSelect() is another fine example of a method that appears in a random
+place. It's just one of the HTML-generation helpers.
+
+Now we come to a bunch of externally invoked functions, that.limitTarget() etc.
+These are the meat that are called by the stubs in the top-level code -- remember
+those one-liners?
+
+They change state in various ways based on the user's clicks. The first four
+({un,}limit{Query,Target}()) do so by tweaking the m_filters[] array.
+
+More HTML-generation helpers: redraw_navi(), drawPager() -- note the inconsistent
+multi-word naming scheme
+
+We are *completely* schizophrenic over whether to use camelCase or
+underscore_separated
+
+Then more UI functions (that.X, that.Y)
+
+Anyway, onwards ... loadTemplate() you already know about.
+
+defaultTemplate() is the hardwired defaults, used for applications that don't
+define their own templates. For an application that does, see
+http://example.indexdata.com/lolcat.html
+
+As you can imagine, Lynn was WAY impressed by lolcat.html
+
+mkws_html_all() is a big ugly function that generates a buttload of HTML.
+Basically, it spots where you've used a magic name like <class="mkwsSearch">
+and expands it to contain the relevant HTML.
+
+Then it's just utility functions: parseQueryString() to read URL params,
+mkws_set_lang() and friends generate more HTML.
+
+All these HTML-generation functions should of course be together. Many of them
+should also use Handlebars templates, so that clever applications can redefine
+them. In places, too, they still need fixing to use CSS classes instead of inline
+markup, <b> and suchlike.
+
+that.run_auto_search() is interesting. It gets the term to search for from the
+"autosearch" attribute on the relevant element, but there are special forms for
+that string. !param!NAME gets the query from the URL parameter called NAME;
+!path!NUM gets it from the NUM'th last component of the URL path. There may be
+more of these in future.
+
+Once it's got that it's a pretty straightforward invocation of newSearch()
+
+M(string) yields the translation of string into the currently selected language.
+We use it a lot in the HTML generation, and it's one part of that process that's
+more cumbersome in Handlebars. The problem is that M() is a closure so it could
+in principle know what the language of THIS team is, and it could be different
+for different teams, even though that's not the case at the moment. But Handlebars
+helpers are set once for all time, so they can't be team-specific, which means
+they can only refer to the globally selected lan
+
+And that, really, is the end of the team object (and so of mkws.js). TA-DAH!
+
+
