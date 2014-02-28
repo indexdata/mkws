@@ -917,9 +917,9 @@ function team($, teamName) {
 	    mkws_html_lang();
 
 	debug("HTML search form");
-	var node = $('.mkwsSearch.mkwsTeam_' + m_teamName);
-	mkws.handle_node_with_team(node, function(tname) {
-	    node.html('\
+	mkws.handle_node_with_team($('.mkwsSearch.mkwsTeam_' + m_teamName),
+				   function(tname) {
+	    this.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
   <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
