@@ -984,15 +984,10 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
-	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
-	    debug("adding search-forms for team '" + m_teamName + "'");
-	    var node = this;
-	    mkws.handle_node_with_team(this, function(tname) {
-		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
-		$(node).submit(onFormSubmitEventHandler);
-	    });
-	});
-
+	var node;
+	node = $('.mkwsSearchForm.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.submit(onFormSubmitEventHandler);
 	node = $('.mkwsSort.mkwsTeam_' + m_teamName);
 	if (node.length)
 	    node.change(onSelectDdChange);
