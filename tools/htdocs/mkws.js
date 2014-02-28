@@ -917,16 +917,13 @@ function team($, teamName) {
 	    mkws_html_lang();
 
 	debug("HTML search form");
-	// ### There is only one match here by design: fix not to bother looping
-	$('.mkwsSearch.mkwsTeam_' + m_teamName).each(function (i, obj) {
-	    var node = this;
-	    mkws.handle_node_with_team(this, function(tname) {
-		$(node).html('\
+	var node = $('.mkwsSearch.mkwsTeam_' + m_teamName);
+	mkws.handle_node_with_team(node, function(tname) {
+	    node.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
   <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
 </form>');
-	    });
 	});
 
 	debug("HTML records");
