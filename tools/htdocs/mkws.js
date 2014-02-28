@@ -1004,7 +1004,7 @@ function team($, teamName) {
 	// on first page, hide the termlist
 	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
 	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
-	var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
+        var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
 	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
 	    motd.appendTo(container);
@@ -1418,7 +1418,7 @@ function team($, teamName) {
 	// elements that have the old magic IDs.
 	var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
 		    "Results", "Records", "Targets", "Ranking",
-		    "Termlists", "Stat" ];
+		    "Termlists", "Stat", "MOTD" ];
 	for (var i = 0; i < ids.length; i++) {
 	    var id = 'mkws' + ids[i];
 	    var node = $('#' + id);
