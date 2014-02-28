@@ -275,9 +275,17 @@ function team($, teamName) {
 
 
     // Finds the node of the specified class within the current team
+    // Multiple OR-clauses separated by commas are handled
+    // More complex cases may not work
+    //
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
-        return $(selector + '.mkwsTeam_' + teamName);
+
+	selector = selector.split(',').map(function(s) {
+	    return s + '.mkwsTeam_' + teamName;
+	}).join(',');
+
+	return $(selector);
     }
 
 
@@ -752,8 +760,7 @@ function team($, teamName) {
     // switching view between targets and records
     that.switchView = function(view) {
 	var targets = findnode('.mkwsTargets');
-	// ### Fix next line to use findnode()
-	var results = $('.mkwsResults.mkwsTeam_' + m_teamName + ',.mkwsRecords.mkwsTeam_' + m_teamName);
+	var results = findnode('.mkwsResults,.mkwsRecords');
 	var blanket = findnode('.mkwsBlanket');
 	var motd    = findnode('.mkwsMOTD');
 
