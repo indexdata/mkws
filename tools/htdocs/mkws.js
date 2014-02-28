@@ -172,13 +172,15 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
 // Factory function for widget objects.
-function widget($, team, node) {
+function widget($, team, type, node) {
     var that = {
 	team: team,
+	type: type,
 	node: node
     };
 
-    // ### More to do here, surely
+    // ### More to do here, surely: e.g. wiring into the team
+    mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
 
     return that;
 }
@@ -915,16 +917,13 @@ function team($, teamName) {
 	    mkws_html_lang();
 
 	debug("HTML search form");
-	// ### There is only one match here by design: fix not to bother looping
-	$('.mkwsSearch.mkwsTeam_' + m_teamName).each(function (i, obj) {
-	    var node = this;
-	    mkws.handle_node_with_team(this, function(tname) {
-		$(node).html('\
+	mkws.handle_node_with_team($('.mkwsSearch.mkwsTeam_' + m_teamName),
+				   function(tname) {
+	    this.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
   <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
 </form>');
-	    });
 	});
 
 	debug("HTML records");
@@ -985,15 +984,10 @@ function team($, teamName) {
 	    $(document).ready(function() { mkws.resize_page() });
 	}
 
-	$('.mkwsSearchForm.mkwsTeam_' + m_teamName).each(function (i, obj) {
-	    debug("adding search-forms for team '" + m_teamName + "'");
-	    var node = this;
-	    mkws.handle_node_with_team(this, function(tname) {
-		debug("adding search-form '" + tname + "' for team '" + m_teamName + "'");
-		$(node).submit(onFormSubmitEventHandler);
-	    });
-	});
-
+	var node;
+	node = $('.mkwsSearchForm.mkwsTeam_' + m_teamName);
+	if (node.length)
+	    node.submit(onFormSubmitEventHandler);
 	node = $('.mkwsSort.mkwsTeam_' + m_teamName);
 	if (node.length)
 	    node.change(onSelectDdChange);
@@ -1238,16 +1232,28 @@ function team($, teamName) {
 
 
     mkws.handle_node_with_team = function(node, callback) {
-	var classes = node.className;
+	// First branch for DOM objects; second branch for jQuery objects
+	var classes = node.className || node.attr('class');
+	if (!classes) {
+	    // For some reason, if we try to proceed when classes is
+	    // undefined, we don't get an error message, but this
+	    // function and its callers, up several stack level,
+	    // silently return. What a crock.
+	    mkws.debug("handle_node_with_team() called on node with no classes");
+	    return;
+	}
  	var list = classes.split(/\s+/)
-	var tname;
+	var teamName, type;
+
 	for (var i = 0; i < list.length; i++) {
 	    var cname = list[i];
 	    if (cname.match(/^mkwsTeam_/)) {
-		tname = cname.replace(/^mkwsTeam_/, '');
+		teamName = cname.replace(/^mkwsTeam_/, '');
+	    } else if (cname.match(/^mkws/)) {
+		type = cname.replace(/^mkws/, '');
 	    }
 	}
-	callback.call(this, tname);
+	callback.call(node, teamName, type);
     }
 
 
@@ -1441,13 +1447,13 @@ function team($, teamName) {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    mkws.handle_node_with_team(this, function(tname) {
+	    mkws.handle_node_with_team(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
 		}
-		var myTeam = mkws.teams[tname]
-		var myWidget = widget(j, myTeam, this)
+		var myTeam = mkws.teams[tname];
+		var myWidget = widget(j, myTeam, type, this);
 	    });
 	});
 	var now = $.now();
