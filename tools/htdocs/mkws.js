@@ -228,11 +228,13 @@ function team($, teamName) {
     m_sort = mkws_config.sort_default;
     debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
 
+    // ### should be in global code
     if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
 	debug("Reset query width: " + mkws_config.query_width);
 	mkws_config.query_width = 50;
     }
 
+    // ### should be in global code
     for (var key in mkws_config) {
 	if (mkws_config.hasOwnProperty(key)) {
 	    if (key.match(/^language_/)) {
@@ -286,6 +288,7 @@ function team($, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
 
+	// ### Here and elsewhere we should use a findnode() utility function
 	var pager = $(".mkwsPager.mkwsTeam_" + m_teamName);
 	if (pager.length) {
 	    pager.html(drawPager(data))
@@ -449,6 +452,7 @@ function team($, teamName) {
 
 
     // when search button pressed
+    // ### This is closure, so can always just operate on its own team
     function onFormSubmitEventHandler()
     {
 	mkws.handle_node_with_team(this, function (tname) {
@@ -460,6 +464,8 @@ function team($, teamName) {
     }
 
 
+    // ### won't need to be externally visible once onFormSubmitEventHandler() is fixed.
+    // ### doesn't need windowid
     that.newSearch = function(query, sort, targets, windowid)
     {
 	debug("newSearch: " + query);
@@ -496,6 +502,7 @@ function team($, teamName) {
     }
 
 
+    // ### doesn't need windowid
     function triggerSearch (query, sort, targets, windowid)
     {
 	var pp2filter = "";
@@ -911,6 +918,7 @@ function team($, teamName) {
      * All the HTML stuff to render the search forms and
      * result pages.
      */
+    // ### This and other multi-word identifiers should be camelCase
     function mkws_html_all() {
 	mkws_set_lang();
 	if (mkws_config.show_lang)
@@ -1172,6 +1180,7 @@ function team($, teamName) {
 
     // This function is taken from a StackOverflow answer
     // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
+    // ### should we unify this and parseQuerystring()?
     function getParameterByName(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
