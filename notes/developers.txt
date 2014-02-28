@@ -61,7 +61,8 @@ and mkws/test/spec/mkws-pazpar2.js . See also mkws/test/README.txt
 Structure of mkws.js
 --------------------
 (This will soon be out of date, but should provide some kind of starting
-point even then)
+point even then. This is taken directly from a Skype chat with Mike, where
+he explained the whole thing.)
 
 First page is just helper functions for the Handlebars template library, which we
 use to generate some of the HTML output. (Down the line, we will use this more
@@ -77,7 +78,7 @@ That is not yet used: shifting much of the code to do so is a big part of what I
 am working on right now.
 
 Next, a very short stanza of code that just makes sure mkws_config is defined:
-simple applications won't bother to define it at all since they override node
+simple applications won't bother to define it at all since they override none
 of the defaults.
 
 Next, a factory method for making widget objects. At present this is trivial
@@ -106,7 +107,7 @@ the next thing after the end of that function (or class, if you like).
 
 You're familiar with this JS idiom?
   (function() { code ... })();
- Runs the code immediately, but within its own namespace. That's what we do for
+Runs the code immediately, but within its own namespace. That's what we do for
 all the remaining code in mkws.js. In this case, we pass the jQuery object into
 that namespace under the name `j' for reasons that are frankly opaque to me.
 
@@ -125,7 +126,7 @@ named logging types that are not in a sequence.
 (You will notice that the teams have a debug() function which delegates to this
 but adds some other useful team-specific stuff.)
 
- Next up: the utility function mkws.handle_node_with_team(). We use a LOT of nodes
+Next up: the utility function mkws.handle_node_with_team(). We use a LOT of nodes
 that have their team-name in a class (as in "mkwsTeam_NAME" outlined above).
 All the utility does is parse out that team-name, and the widget-type, from the
 classes, and pass them through to the callback.
@@ -170,10 +171,10 @@ The first thing it does is patch up the HTML so that old-style MKWS apps work
 using new-style elements. This is the code you just fixed.
 
 Straight after that, more fixup: elements that have an mkws* class but no
-team are given an extra class kwsTeam_AUTO. This is the ONLY thing that's special
+team are given an extra class mkwsTeam_AUTO. This is the ONLY thing that's special
 about the team "AUTO" -- it has no other privileges.
 
- Very near the end now: we walk through all nodes with an mkws* class, and create
+Very near the end now: we walk through all nodes with an mkws* class, and create
 the team and widget objects using the factories we described earlier. Jason is
 worried this will be slow, hence the instrumentation. It's not :-)
 
