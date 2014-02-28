@@ -1242,17 +1242,17 @@ function team($, teamName) {
     mkws.handle_node_with_team = function(node, callback) {
 	var classes = node.className;
  	var list = classes.split(/\s+/)
-	var tname, type;
+	var teamName, type;
 
 	for (var i = 0; i < list.length; i++) {
 	    var cname = list[i];
 	    if (cname.match(/^mkwsTeam_/)) {
-		tname = cname.replace(/^mkwsTeam_/, '');
+		teamName = cname.replace(/^mkwsTeam_/, '');
 	    } else if (cname.match(/^mkws/)) {
 		type = cname.replace(/^mkws/, '');
 	    }
 	}
-	callback.call(this, tname, type);
+	callback.call(this, teamName, type);
     }
 
 
