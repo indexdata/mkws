@@ -10,29 +10,18 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">
+        {{#first md-thumburl}}
+	  <img src="{{this}}" alt="{{../md-title}}"/>
+        {{/first}}
+	<br/>
+      </a>
+    </script>
   </head>
   <body>
-    <table width="100%" border="1">
-      <tr>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch"></div>
-	  <div class="mkwsLang"></div>
-	  <div class="mkwsSearch"></div>
-	  <div class="mkwsResults"></div>
-	  <div class="mkwsTargets"></div>
-	  <div class="mkwsStat"></div>
-	</td>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch mkwsTeam_2"></div>
-	  <div class="mkwsLang mkwsTeam_2"></div>
-	  <div class="mkwsSearch mkwsTeam_2"></div>
-	  <div class="mkwsResults mkwsTeam_2"></div>
-	  <div class="mkwsTargets mkwsTeam_2"></div>
-	  <div class="mkwsStat mkwsTeam_2"></div>
-	</td>
-      </tr>
-    </table>
-    <div class="mkwsMOTD">This is the first MOTD</div>
-    <div class="mkwsMOTD mkwsTeam_2">This is the second MOTD</div>
+    <div class='mkwsRecords' autosearch='cat' sort='date:0'
+	targets='pz:id=connect.indexdata.com:9000/flickr_api'
+	>kitteh will appear here</div>
   </body>
 </html>
