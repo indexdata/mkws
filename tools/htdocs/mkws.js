@@ -275,8 +275,8 @@ function team($, teamName) {
 
 
     // Finds the node of the specified class within the current team
-    function findnode(s) {
-        return $(s + '.mkwsTeam_' + m_teamName);
+    function findnode(selector) {
+        return $(selector + '.mkwsTeam_' + m_teamName);
     }
 
 
