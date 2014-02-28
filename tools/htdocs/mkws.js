@@ -957,8 +957,8 @@ function team($, teamName) {
 	//	.mkwsPager
 	//	.mkwsNavi
 	//	.mkwsRecords
-	if ($(".mkwsResults.mkwsTeam_" + m_teamName).length) {
-	    $(".mkwsResults.mkwsTeam_" + m_teamName).html('\
+	if (findnode(".mkwsResults").length) {
+	    findnode(".mkwsResults").html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
     <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
