@@ -1252,7 +1252,7 @@ function team($, teamName) {
 		type = cname.replace(/^mkws/, '');
 	    }
 	}
-	callback.call(this, teamName, type);
+	callback.call(node, teamName, type);
     }
 
 
