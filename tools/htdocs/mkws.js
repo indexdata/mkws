@@ -274,6 +274,12 @@ function team($, teamName) {
     }
 
 
+    // Finds the node of the specified class within the current team
+    function findnode(s) {
+        return $(s + '.mkwsTeam_' + m_teamName);
+    }
+
+
     //
     // pz2.js event handlers:
     //
@@ -288,13 +294,12 @@ function team($, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
 
-	// ### Here and elsewhere we should use a findnode() utility function
-	var pager = $(".mkwsPager.mkwsTeam_" + m_teamName);
+	var pager = findnode(".mkwsPager");
 	if (pager.length) {
 	    pager.html(drawPager(data))
 	}
 
-	var results = $(".mkwsRecords.mkwsTeam_" + m_teamName);
+	var results = findnode(".mkwsRecords");
 	if (!results.length)
 	    return;
 
@@ -324,7 +329,7 @@ function team($, teamName) {
 
     function my_onstat(data, teamName) {
 	debug("stat");
-	var stat = $('.mkwsStat.mkwsTeam_' + teamName);
+	var stat = findnode('.mkwsStat');
 	if (stat.length === 0)
 	    return;
 
@@ -338,7 +343,7 @@ function team($, teamName) {
 
     function my_onterm(data, teamName) {
 	debug("term");
-	var node = $(".mkwsTermlists.mkwsTeam_" + teamName);
+	var node = findnode(".mkwsTermlists");
 	if (node.length == 0) return;
 
 	// no facets: this should never happen
@@ -422,7 +427,7 @@ function team($, teamName) {
 
     function my_onbytarget(data, teamName) {
 	debug("target");
-	var targetDiv = $('.mkwsBytarget.mkwsTeam_' + teamName);
+	var targetDiv = findnode('.mkwsBytarget');
 	if (!targetDiv) {
 	    return;
 	}
@@ -456,7 +461,7 @@ function team($, teamName) {
     function onFormSubmitEventHandler()
     {
 	mkws.handle_node_with_team(this, function (tname) {
-	    var val = $('.mkwsQuery.mkwsTeam_' + tname).val();
+	    var val = findnode('.mkwsQuery').val();
 	    mkws.teams[tname].newSearch(val);
 	});
 
@@ -555,12 +560,12 @@ function team($, teamName) {
 
     function loadSelect ()
     {
-	var node = $('.mkwsSort.mkwsTeam_' + m_teamName);
+	var node = findnode('.mkwsSort');
 	if (node.length && node.val() != m_sort) {
 	    debug("changing m_sort from " + m_sort + " to " + node.val());
 	    m_sort = node.val();
 	}
-	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
+	node = findnode('.mkwsPerpage');
 	if (node.length && node.val() != m_perpage) {
 	    debug("changing m_perpage from " + m_perpage + " to " + node.val());
 	    m_perpage = node.val();
@@ -644,7 +649,7 @@ function team($, teamName) {
 
     function redraw_navi ()
     {
-	var navi = $('.mkwsNavi.mkwsTeam_' + m_teamName);
+	var navi = findnode('.mkwsNavi');
 	if (!navi) return;
 
 	var text = "";
@@ -745,10 +750,11 @@ function team($, teamName) {
 
     // switching view between targets and records
     that.switchView = function(view) {
-	var targets = $('.mkwsTargets.mkwsTeam_' + m_teamName);
+	var targets = findnode('.mkwsTargets');
+	// ### Fix next line to use findnode()
 	var results = $('.mkwsResults.mkwsTeam_' + m_teamName + ',.mkwsRecords.mkwsTeam_' + m_teamName);
-	var blanket = $('.mkwsBlanket.mkwsTeam_' + m_teamName);
-	var motd    = $('.mkwsMOTD.mkwsTeam_' + m_teamName);
+	var blanket = findnode('.mkwsBlanket');
+	var motd    = findnode('.mkwsMOTD');
 
 	switch(view) {
         case 'targets':
@@ -814,9 +820,9 @@ function team($, teamName) {
 
 	if (template === undefined) {
 	    // Fall back to generic template if there is no team-specific one
-	    var node = $(".mkwsTemplate_" + name + ".mkwsTeam_" + m_teamName)
+	    var node = findnode(".mkwsTemplate_" + name);
 	    if (!node.length) {
-		node = $(".mkwsTemplate_" + name + ".mkwsTeam_ALL")
+		node = $(".mkwsTemplate_" + name + ".mkwsTeam_ALL");
 	    }
 
 	    var source = node.html();
@@ -925,8 +931,7 @@ function team($, teamName) {
 	    mkws_html_lang();
 
 	debug("HTML search form");
-	mkws.handle_node_with_team($('.mkwsSearch.mkwsTeam_' + m_teamName),
-				   function(tname) {
+	mkws.handle_node_with_team(findnode('.mkwsSearch'), function(tname) {
 	    this.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
@@ -966,7 +971,7 @@ function team($, teamName) {
 </table>');
 	}
 
-	var node = $(".mkwsRanking.mkwsTeam_" + m_teamName);
+	var node = findnode(".mkwsRanking");
 	if (node.length) {
 	    var ranking_data = '';
 	    ranking_data += '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
@@ -993,20 +998,20 @@ function team($, teamName) {
 	}
 
 	var node;
-	node = $('.mkwsSearchForm.mkwsTeam_' + m_teamName);
+	node = findnode('.mkwsSearchForm');
 	if (node.length)
 	    node.submit(onFormSubmitEventHandler);
-	node = $('.mkwsSort.mkwsTeam_' + m_teamName);
+	node = findnode('.mkwsSort');
 	if (node.length)
 	    node.change(onSelectDdChange);
-	node = $('.mkwsPerpage.mkwsTeam_' + m_teamName);
+	node = findnode('.mkwsPerpage');
 	if (node.length)
 	    node.change(onSelectDdChange);
 
 	// on first page, hide the termlist
-	$(document).ready(function() { $(".mkwsTermlists.mkwsTeam_" + m_teamName).hide(); });
-	var motd = $(".mkwsMOTD.mkwsTeam_" + m_teamName);
-        var container = $(".mkwsMOTDContainer.mkwsTeam_" + m_teamName);
+	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
+	var motd = findnode(".mkwsMOTD");
+        var container = findnode(".mkwsMOTDContainer");
 	if (motd.length && container.length) {
 	    // Move the MOTD from the provided element down into the container
 	    motd.appendTo(container);
@@ -1043,13 +1048,13 @@ function team($, teamName) {
     function mkws_html_switch() {
 	debug("HTML switch for team " + m_teamName);
 
-	var node = $(".mkwsSwitch.mkwsTeam_" + m_teamName);
+	var node = findnode(".mkwsSwitch");
 	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
 	node.append($("<span/>", { text: " | " }));
 	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
 
 	debug("HTML targets");
-	var node = $(".mkwsTargets.mkwsTeam_" + m_teamName);
+	var node = findnode(".mkwsTargets");
 	node.html('\
 <div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
   No information available yet.\
@@ -1137,13 +1142,13 @@ function team($, teamName) {
 	    }
 	}
 
-	$(".mkwsLang.mkwsTeam_" + m_teamName).html(data);
+	findnode(".mkwsLang").html(data);
     }
 
 
     that.run_auto_search = function() {
 	// ### should check mkwsTermlist as well, for facet-only teams
-	var node = $('.mkwsRecords.mkwsTeam_' + m_teamName);
+	var node = findnode('.mkwsRecords');
 	var query = node.attr('autosearch');
 	if (!query)
 	    return;
