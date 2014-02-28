@@ -1,0 +1,182 @@
+Notes for developers
+
+These notes are collected by Heikki, mostly from skype chats with Wolfram
+and Mike. I collected them for my own use, but I hope they will turn out
+to be helpful to anyone who needs to get started with mkws.
+
+
+Libraries
+---------
+
+* We are using jquery as a browser indepent layer to access the dom, so we
+don't have to worry about IE bugs.  Wolfram looked why we are using
+jquery.json-2.4.js ... it turns out we needed it because the standard functions
+in IE8 are broken.
+
+* jasmine is a test framework (mkws dev). you will not use jasmine in a
+production site.  the nice thing with the jasmine test framework is that it
+will work with any browser. I can start a virtual machine with IE8, open the
+test page, wait 3 seconds for success and shutdown windows.
+
+* handlebar is a template engine
+
+
+
+Include files
+-------------
+
+The whitepaper says to include mkws-complete.js. This file is made by concatenating
+a number of files (see Makefile). For us developers, it is easier to include the
+raw files, as in
+
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
+
+You can also include the css directly in your test page:
+    <style type="text/css">
+      #mkwsTermlists div.facet {
+      float:left;
+      width: 30%;
+      margin: 0.3em;
+      }
+      #mkwsStat {
+      text-align: right;
+      }
+    </style>
+
+
+Most (all?) code work happens in mkws.js.
+
+
+Unit tests
+----------
+
+if you want understand the test than you can look at mkws/test/spec/mkws-config.js
+and mkws/test/spec/mkws-pazpar2.js . See also mkws/test/README.txt
+
+
+Structure of mkws.js
+--------------------
+(This will soon be out of date, but should provide some kind of starting
+point even then)
+
+First page is just helper functions for the Handlebars template library, which we
+use to generate some of the HTML output. (Down the line, we will use this more
+heavilty -- right now it's only used for records).
+
+Then we define the mkws object, which contains all global state -- which hopefully
+there is not much of. It is one of only two objects we place in the global namespace:
+the other is mkws_config, which is a hash supplied by the application if it wants
+to override default configs.
+
+Next is a very short function defined to allow us to publish and subscribe events.
+That is not yet used: shifting much of the code to do so is a big part of what I
+am working on right now.
+
+Next, a very short stanza of code that just makes sure mkws_config is defined:
+simple applications won't bother to define it at all since they override node
+of the defaults.
+
+Next, a factory method for making widget objects. At present this is trivial
+because we are only now starting to need a representation of individual widgets
+as JS objects. More of the functionality will get moved into these objects over
+the next week.
+
+Next, a factory method for making widget-team objects. This is where all the
+awesomeness is at the moment. A team is a bunch of widgets that work together
+to achieve a common goal, e.g. the search-box, search-button and results-pane
+widgets.
+
+HTML elements are defined as belonging to the same team if they have an
+mkwsTeam_NAME class for the same NAME. You can have multiple teams (as in
+two-teams.html that I linked to earlier) which are completely independent of
+each other.
+
+I guess you're familiar with the JS idiom where the factory function for a kind
+of object also acts as a namespace where all the object's member-variables live,
+invisible to the outside world? That's what we do here. All the member variables
+have names of the form m_NAME.
+
+Now I sugges you skip over all the team-object code for now -- we'll return to it
+later. For now, page down to "// wrapper to call team() after page load" which is
+the next thing after the end of that function (or class, if you like).
+
+You're familiar with this JS idiom?
+  (function() { code ... })();
+ Runs the code immediately, but within its own namespace. That's what we do for
+all the remaining code in mkws.js. In this case, we pass the jQuery object into
+that namespace under the name `j' for reasons that are frankly opaque to me.
+
+There's still a few places in the code where oddities live on, either from jsdemo
+or from work Wolfram's done, where I don't really understand why it's that way
+but I'm scared to change it. In this case, IIRC, it's something to do with
+protecting our copy of the jQuery object, or something.
+
+Aaanyway, within that namespaced area, where's what we do.
+
+First, we set up the mkws.debug() function, which just logs to the console in a
+form that doesn't explode IE. I have plans for this function, make it understand
+debugging levels a bit like log4j or maybe more like yaz-log where there are
+named logging types that are not in a sequence.
+
+(You will notice that the teams have a debug() function which delegates to this
+but adds some other useful team-specific stuff.)
+
+ Next up: the utility function mkws.handle_node_with_team(). We use a LOT of nodes
+that have their team-name in a class (as in "mkwsTeam_NAME" outlined above).
+All the utility does is parse out that team-name, and the widget-type, from the
+classes, and pass them through to the callback.
+
+mkws.resize_page() does what it says. Gets called when window-size changes, and
+allows us to move the facers to the side or the bottom as the screen is wide or
+narrow (e.g. when you turn your iPad 90 degrees)
+
+(Aside: I thought we'd have to iterate over all teams to move their facet lists
+but it turns out we don't: jQuery just Does The Right Thing if you call
+   $(".mkwsTermlistContainer1").hide();
+or similar and there are multiple hits.)
+
+Next come a bunch of JS functions that are invoked from the MKWS UIs --
+swithching between target and record views, stepping through pages of results,
+etc. All of these are team-specific, but the global code in the HTML can't
+invoke a team's member function directly. So these stub functions just invoke
+the relevant member of the appropriate team.
+
+default_mkws_config() fills in the mkws_config structure from hardwired defaults.
+This is the wrong way round: instead, whenever we want to find a config value, we
+should default our way up a tree, starting with the individual widget's config,
+falling back to the team's config if the widget doesn't define that value, then
+the global config, and finally the default. I'll make that change once widget
+objects are fully real.
+
+authenticate_session() authenticates onto the SP when we're using it (rather
+than raw pp2). It's a bit sellotape-and-string, to be honest, just does a wget.
+It would be better if this was supported by pz2.js
+
+run_auto_searches() is what makes pages like
+  http://example.indexdata.com/auto3.html
+work. THere are two places it's invoked from. Either directly when all the HTML
+has been set up if we're using raw pp2; or when SP authentication has been
+completed if we're using that. As with the UI functions, it just delegates down
+into the teams.
+
+Finally, code that runs when the page has finished loading -- this is really
+the main() function
+
+The first thing it does is patch up the HTML so that old-style MKWS apps work
+using new-style elements. This is the code you just fixed.
+
+Straight after that, more fixup: elements that have an mkws* class but no
+team are given an extra class kwsTeam_AUTO. This is the ONLY thing that's special
+about the team "AUTO" -- it has no other privileges.
+
+ Very near the end now: we walk through all nodes with an mkws* class, and create
+the team and widget objects using the factories we described earlier. Jason is
+worried this will be slow, hence the instrumentation. It's not :-)
+
+Last of all: start things off! SP-auth if used, otherwise straight to the
+auto-searches.
+
