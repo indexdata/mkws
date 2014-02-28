@@ -823,7 +823,7 @@ function team($, teamName) {
 	    // Fall back to generic template if there is no team-specific one
 	    var node = findnode(".mkwsTemplate_" + name);
 	    if (!node.length) {
-		node = $(".mkwsTemplate_" + name + ".mkwsTeam_ALL");
+		node = findnode(".mkwsTemplate_" + name, "ALL");
 	    }
 
 	    var source = node.html();
