@@ -242,18 +242,19 @@ function team($, teamName) {
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
-    m_paz = new pz2({ "onshow": onShow,
-		      "windowid": teamName,
-		      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
+    m_paz = new pz2({ "windowid": teamName,
 		      "pazpar2path": mkws_config.pazpar2_url,
+		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "oninit": onInit,
+		      "onbytarget": onBytarget,
 		      "onstat": onStat,
 		      "onterm": (mkws_config.facets.length ? onTerm : undefined),
+		      "onshow": onShow,
+		      "onrecord": onRecord,
+		      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
 		      "termlist": mkws_config.facets.join(','),
-		      "onbytarget": onBytarget,
-		      "usesessions" : mkws_config.use_service_proxy ? false : true,
-		      "showResponseType": '', // or "json" (for debugging?)
-		      "onrecord": onRecord });
+		      "showResponseType": '' // or "json" (for debugging?)
+		    });
 
 
     // Finds the node of the specified class within the current team
