@@ -10,21 +10,12 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript">
-	var mkws_config = {
-		lang: "da",
-		debug_level: 1,
-		use_service_proxy: true,
-		show_lang: true,
-		lang_options: ["da", "en"],
-		sort_default: "relevance",
-		query_width: 50,
-		responsive_design_width: 990,
-		perpage_default: 20
-	 };
+      var mkws_config = { responsive_design_width: 990 };
     </script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
   </head>
   <body>
+    <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
     <div id="mkwsResults"></div>
