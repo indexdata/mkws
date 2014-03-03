@@ -228,24 +228,6 @@ function team($, teamName) {
     m_sort = mkws_config.sort_default;
     debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
 
-    // ### should be in global code
-    if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	debug("Reset query width: " + mkws_config.query_width);
-	mkws_config.query_width = 50;
-    }
-
-    // ### should be in global code
-    for (var key in mkws_config) {
-	if (mkws_config.hasOwnProperty(key)) {
-	    if (key.match(/^language_/)) {
-		var lang = key.replace(/^language_/, "");
-		// Copy custom languages into list
-		mkws.locale_lang[lang] = mkws_config[key];
-		debug("Added locally configured language '" + lang + "'");
-	    }
-	}
-    }
-
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws_config.pazpar2_url.match(/^\/\//)) {
 	mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
@@ -1441,6 +1423,22 @@ function team($, teamName) {
     $(document).ready(function() {
 	debug("on load ready");
 	default_mkws_config();
+
+	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
+	    debug("Reset query width: " + mkws_config.query_width);
+	    mkws_config.query_width = 50;
+	}
+
+	for (var key in mkws_config) {
+	    if (mkws_config.hasOwnProperty(key)) {
+		if (key.match(/^language_/)) {
+		    var lang = key.replace(/^language_/, "");
+		    // Copy custom languages into list
+		    mkws.locale_lang[lang] = mkws_config[key];
+		    debug("Added locally configured language '" + lang + "'");
+		}
+	    }
+	}
 
 	// Backwards compatibility: set new magic class names on any
 	// elements that have the old magic IDs.
