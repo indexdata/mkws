@@ -505,7 +505,6 @@ function team($, teamName) {
 	    m_sort = sort;
 	}
 	if (targets) {
-	    // ### should support multiple |-separated targets
 	    m_filters.push({ id: targets, name: targets });
 	}
 
