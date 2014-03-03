@@ -978,19 +978,6 @@ function team($, teamName) {
     }
 
 
-    // implement $.parseQuerystring() for parsing URL parameters
-    function parseQuerystring() {
-	var nvpair = {};
-	var qs = window.location.search.replace('?', '');
-	var pairs = qs.split('&');
-	$.each(pairs, function(i, v){
-	    var pair = v.split('=');
-	    nvpair[pair[0]] = pair[1];
-	});
-	return nvpair;
-    }
-
-
     function mkwsSetLang()  {
 	var lang = parseQuerystring().lang || mkws_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
@@ -1139,6 +1126,19 @@ function team($, teamName) {
 	debug(s);
 
 	newSearch(query, sort, targets);
+    }
+
+
+    // implement $.parseQuerystring() for parsing URL parameters
+    function parseQuerystring() {
+	var nvpair = {};
+	var qs = window.location.search.replace('?', '');
+	var pairs = qs.split('&');
+	$.each(pairs, function(i, v){
+	    var pair = v.split('=');
+	    nvpair[pair[0]] = pair[1];
+	});
+	return nvpair;
     }
 
 
