@@ -281,40 +281,31 @@ function team($, teamName) {
     }
 
 
-    function onShow(data, teamName) {
-	debug("show");
-	m_totalRec = data.merged;
-
-	var pager = findnode(".mkwsPager");
-	if (pager.length) {
-	    pager.html(drawPager(data))
-	}
-
-	var results = findnode(".mkwsRecords");
-	if (!results.length)
+    function onBytarget(data, teamName) {
+	debug("target");
+	var targetDiv = findnode('.mkwsBytarget');
+	if (!targetDiv) {
 	    return;
-
-	var html = [];
-	for (var i = 0; i < data.hits.length; i++) {
-            var hit = data.hits[i];
-	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
-		      renderSummary(hit),
-      		      '</div>');
-	    if (hit.recid == m_curDetRecId) {
-		if (m_curDetRecData)
-		    html.push(renderDetails(m_curDetRecData));
-	    }
 	}
-	results.html(html.join(''));
-    }
 
+	var table ='<table><thead><tr>' +
+	    '<td>' + M('Target ID') + '</td>' +
+	    '<td>' + M('Hits') + '</td>' +
+	    '<td>' + M('Diags') + '</td>' +
+	    '<td>' + M('Records') + '</td>' +
+	    '<td>' + M('State') + '</td>' +
+	    '</tr></thead><tbody>';
 
-    function renderSummary(hit)
-    {
-	var template = loadTemplate("Summary");
-	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
-	return template(hit);
+	for (var i = 0; i < data.length; i++) {
+            table += "<tr><td>" + data[i].id +
+		"</td><td>" + data[i].hits +
+		"</td><td>" + data[i].diagnostic +
+		"</td><td>" + data[i].records +
+		"</td><td>" + data[i].state + "</td></tr>";
+	}
+
+	table += '</tbody></table>';
+	targetDiv.html(table);
     }
 
 
@@ -367,6 +358,57 @@ function team($, teamName) {
     }
 
 
+    function onShow(data, teamName) {
+	debug("show");
+	m_totalRec = data.merged;
+
+	var pager = findnode(".mkwsPager");
+	if (pager.length) {
+	    pager.html(drawPager(data))
+	}
+
+	var results = findnode(".mkwsRecords");
+	if (!results.length)
+	    return;
+
+	var html = [];
+	for (var i = 0; i < data.hits.length; i++) {
+            var hit = data.hits[i];
+	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
+		      renderSummary(hit),
+      		      '</div>');
+	    if (hit.recid == m_curDetRecId) {
+		if (m_curDetRecData)
+		    html.push(renderDetails(m_curDetRecData));
+	    }
+	}
+	results.html(html.join(''));
+    }
+
+
+    function onRecord(data, args, teamName) {
+	debug("record: teamName=" + teamName + ", m_teamName=" + m_teamName);
+	// FIXME: record is async!!
+	clearTimeout(m_paz.recordTimer);
+	// in case on_show was faster to redraw element
+	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
+	if (detRecordDiv) return;
+	m_curDetRecData = data;
+	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
+	var html = renderDetails(m_curDetRecData);
+	recordDiv.innerHTML += html;
+    }
+
+
+    function renderSummary(hit)
+    {
+	var template = loadTemplate("Summary");
+	hit._id = "mkwsRec_" + hit.recid;
+	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
+	return template(hit);
+    }
+
+
     function addSingleFacet(acc, caption, data, max, pzIndex) {
 	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
@@ -401,47 +443,6 @@ function team($, teamName) {
 	return false;
     }
 
-
-    function onRecord(data, args, teamName) {
-	debug("record: teamName=" + teamName + ", m_teamName=" + m_teamName);
-	// FIXME: record is async!!
-	clearTimeout(m_paz.recordTimer);
-	// in case on_show was faster to redraw element
-	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
-	if (detRecordDiv) return;
-	m_curDetRecData = data;
-	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
-	var html = renderDetails(m_curDetRecData);
-	recordDiv.innerHTML += html;
-    }
-
-
-    function onBytarget(data, teamName) {
-	debug("target");
-	var targetDiv = findnode('.mkwsBytarget');
-	if (!targetDiv) {
-	    return;
-	}
-
-	var table ='<table><thead><tr>' +
-	    '<td>' + M('Target ID') + '</td>' +
-	    '<td>' + M('Hits') + '</td>' +
-	    '<td>' + M('Diags') + '</td>' +
-	    '<td>' + M('Records') + '</td>' +
-	    '<td>' + M('State') + '</td>' +
-	    '</tr></thead><tbody>';
-
-	for (var i = 0; i < data.length; i++) {
-            table += "<tr><td>" + data[i].id +
-		"</td><td>" + data[i].hits +
-		"</td><td>" + data[i].diagnostic +
-		"</td><td>" + data[i].records +
-		"</td><td>" + data[i].state + "</td></tr>";
-	}
-
-	table += '</tbody></table>';
-	targetDiv.html(table);
-    }
 
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
