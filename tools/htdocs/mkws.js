@@ -256,21 +256,6 @@ function team($, teamName) {
 		    });
 
 
-    // Finds the node of the specified class within the current team
-    // Multiple OR-clauses separated by commas are handled
-    // More complex cases may not work
-    //
-    function findnode(selector, teamName) {
-	teamName = teamName || m_teamName;
-
-	selector = selector.split(',').map(function(s) {
-	    return s + '.mkwsTeam_' + teamName;
-	}).join(',');
-
-	return $(selector);
-    }
-
-
     //
     // pz2.js event handlers:
     //
@@ -1178,6 +1163,21 @@ function team($, teamName) {
 	return mkws.locale_lang[lang][word] || word;
     }
     mkws.M = M; // so the Handlebars helper can use it
+
+
+    // Finds the node of the specified class within the current team
+    // Multiple OR-clauses separated by commas are handled
+    // More complex cases may not work
+    //
+    function findnode(selector, teamName) {
+	teamName = teamName || m_teamName;
+
+	selector = selector.split(',').map(function(s) {
+	    return s + '.mkwsTeam_' + teamName;
+	}).join(',');
+
+	return $(selector);
+    }
 
 
     // main
