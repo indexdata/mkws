@@ -353,11 +353,11 @@ function team($, teamName) {
 
 	for(var i = 0; i < facets.length; i++) {
 	    if (facets[i] == "xtargets") {
-		add_single_facet(acc, "Sources",  data.xtargets, 16, null);
+		addSingleFacet(acc, "Sources",  data.xtargets, 16, null);
 	    } else if (facets[i] == "subject") {
-		add_single_facet(acc, "Subjects", data.subject,  10, "subject");
+		addSingleFacet(acc, "Subjects", data.subject,  10, "subject");
 	    } else if (facets[i] == "author") {
-		add_single_facet(acc, "Authors",  data.author,   10, "author");
+		addSingleFacet(acc, "Authors",  data.author,   10, "author");
 	    } else {
 		alert("bad facet configuration: '" + facets[i] + "'");
 	    }
@@ -367,7 +367,7 @@ function team($, teamName) {
     }
 
 
-    function add_single_facet(acc, caption, data, max, pzIndex) {
+    function addSingleFacet(acc, caption, data, max, pzIndex) {
 	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
 	for (var i = 0; i < data.length && i < max; i++) {
@@ -377,7 +377,7 @@ function team($, teamName) {
 	    if (!pzIndex) {
 		// Special case: target selection
 		acc.push('target_id='+data[i].id+' ');
-		if (!target_filtered(data[i].id)) {
+		if (!targetFiltered(data[i].id)) {
 		    action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 		}
 	    } else {
@@ -391,7 +391,7 @@ function team($, teamName) {
     }
 
 
-    function target_filtered(id) {
+    function targetFiltered(id) {
 	for (var i = 0; i < m_filters.length; i++) {
 	    if (m_filters[i].id === id ||
 		m_filters[i].id === 'pz:id=' + id) {
@@ -466,7 +466,7 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	redraw_navi();
+	redrawNavi();
 	resetPage();
 	loadSelect();
 	triggerSearch(query, sort, targets);
@@ -559,7 +559,7 @@ function team($, teamName) {
     {
 	debug("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
-	redraw_navi();
+	redrawNavi();
 	resetPage();
 	loadSelect();
 	triggerSearch();
@@ -572,7 +572,7 @@ function team($, teamName) {
     {
 	debug("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
-	redraw_navi();
+	redrawNavi();
 	resetPage();
 	loadSelect();
 	triggerSearch();
@@ -595,7 +595,7 @@ function team($, teamName) {
 	}
 	m_filters = newFilters;
 
-	redraw_navi();
+	redrawNavi();
 	resetPage();
 	loadSelect();
 	triggerSearch();
@@ -620,7 +620,7 @@ function team($, teamName) {
 	}
 	m_filters = newFilters;
 
-	redraw_navi();
+	redrawNavi();
 	resetPage();
 	loadSelect();
 	triggerSearch();
@@ -628,7 +628,7 @@ function team($, teamName) {
     }
 
 
-    function redraw_navi ()
+    function redrawNavi ()
     {
 	var navi = findnode('.mkwsNavi');
 	if (!navi) return;
@@ -907,14 +907,13 @@ function team($, teamName) {
      * All the HTML stuff to render the search forms and
      * result pages.
      */
-    // ### This and other multi-word identifiers should be camelCase
-    function mkws_html_all() {
-	mkws_set_lang();
+    function mkwsHtmlAll() {
+	mkwsSetLang();
 	if (mkws_config.show_lang)
-	    mkws_html_lang();
+	    mkwsHtmlLang();
 
 	debug("HTML search form");
-	mkws.handle_node_with_team(findnode('.mkwsSearch'), function(tname) {
+	mkws.handleNodeWithTeam(findnode('.mkwsSearch'), function(tname) {
 	    this.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
@@ -959,17 +958,17 @@ function team($, teamName) {
 	    var ranking_data = '';
 	    ranking_data += '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	    if (mkws_config.show_sort) {
-		ranking_data +=  M('Sort by') + ' ' + mkws_html_sort() + ' ';
+		ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
 	    }
 	    if (mkws_config.show_perpage) {
-		ranking_data += M('and show') + ' ' + mkws_html_perpage() + ' ' + M('per page') + '.';
+		ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
 	    }
             ranking_data += '</form>';
 
 	    node.html(ranking_data);
 	}
 
-	mkws_html_switch();
+	mkwsHtmlSwitch();
 
 	var node;
 	node = findnode('.mkwsSearchForm');
@@ -1006,7 +1005,7 @@ function team($, teamName) {
     }
 
 
-    function mkws_set_lang()  {
+    function mkwsSetLang()  {
 	var lang = parseQuerystring().lang || mkws_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
 	    mkws_config.lang = ""
@@ -1019,7 +1018,7 @@ function team($, teamName) {
     }
 
 
-    function mkws_html_switch() {
+    function mkwsHtmlSwitch() {
 	debug("HTML switch for team " + m_teamName);
 
 	var node = findnode(".mkwsSwitch");
@@ -1037,7 +1036,7 @@ function team($, teamName) {
     }
 
 
-    function mkws_html_sort() {
+    function mkwsHtmlSort() {
 	debug("HTML sort, m_sort = '" + m_sort + "'");
 	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
@@ -1058,7 +1057,7 @@ function team($, teamName) {
     }
 
 
-    function mkws_html_perpage() {
+    function mkwsHtmlPerpage() {
 	debug("HTML perpage, m_perpage = " + m_perpage);
 	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
 
@@ -1078,7 +1077,7 @@ function team($, teamName) {
 
 
     /* create locale language menu */
-    function mkws_html_lang() {
+    function mkwsHtmlLang() {
 	var lang_default = "en";
 	var lang = mkws_config.lang || lang_default;
 	var list = [];
@@ -1120,7 +1119,7 @@ function team($, teamName) {
     }
 
 
-    that.run_auto_search = function() {
+    that.runAutoSearch = function() {
 	// ### should check mkwsTermlist as well, for facet-only teams
 	var node = findnode('.mkwsRecords');
 	var query = node.attr('autosearch');
@@ -1183,7 +1182,7 @@ function team($, teamName) {
     // main
     (function() {
 	try {
-	    mkws_html_all()
+	    mkwsHtmlAll()
 	}
 
 	catch (e) {
@@ -1219,7 +1218,7 @@ function team($, teamName) {
     var debug = mkws.debug;
 
 
-    mkws.handle_node_with_team = function(node, callback) {
+    mkws.handleNodeWithTeam = function(node, callback) {
 	// First branch for DOM objects; second branch for jQuery objects
 	var classes = node.className || node.attr('class');
 	if (!classes) {
@@ -1227,7 +1226,7 @@ function team($, teamName) {
 	    // undefined, we don't get an error message, but this
 	    // function and its callers, up several stack level,
 	    // silently return. What a crock.
-	    mkws.debug("handle_node_with_team() called on node with no classes");
+	    mkws.debug("handleNodeWithTeam() called on node with no classes");
 	    return;
 	}
  	var list = classes.split(/\s+/)
@@ -1245,7 +1244,7 @@ function team($, teamName) {
     }
 
 
-    mkws.resize_page = function () {
+    mkws.resizePage = function () {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
 	var width = mkws_config.responsive_design_width;
@@ -1314,7 +1313,7 @@ function team($, teamName) {
     }
 
 
-    function default_mkws_config() {
+    function defaultMkwsConfig() {
 	/* default mkws config */
 	var config_default = {
 	    use_service_proxy: true,
@@ -1364,7 +1363,7 @@ function team($, teamName) {
      * The username/password is configured in the apache config file
      * for the site.
      */
-    function authenticate_session(auth_url, auth_domain, pp2_url) {
+    function authenticateSession(auth_url, auth_domain, pp2_url) {
 	debug("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
@@ -1390,23 +1389,23 @@ function team($, teamName) {
 
 	    debug("Service proxy auth successfully done");
 	    mkws.authenticated = true;
-	    run_auto_searches();
+	    runAutoSearches();
 	});
     }
 
 
-    function run_auto_searches() {
+    function runAutoSearches() {
 	debug("running auto searches");
 
 	for (var teamName in mkws.teams) {
-	    mkws.teams[teamName].run_auto_search();
+	    mkws.teams[teamName].runAutoSearch();
 	}
     }
 
 
     $(document).ready(function() {
 	debug("on load ready");
-	default_mkws_config();
+	defaultMkwsConfig();
 
 	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
 	    debug("Reset query width: " + mkws_config.query_width);
@@ -1427,9 +1426,9 @@ function team($, teamName) {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws.resize_page() });
+	    $(window).resize(function(e) { mkws.resizePage() });
 	    // initial check after page load
-	    $(document).ready(function() { mkws.resize_page() });
+	    $(document).ready(function() { mkws.resizePage() });
 	}
 
 	// Backwards compatibility: set new magic class names on any
@@ -1459,7 +1458,7 @@ function team($, teamName) {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    mkws.handle_node_with_team(this, function(tname, type) {
+	    mkws.handleNodeWithTeam(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    debug("Made MKWS team '" + tname + "'");
@@ -1472,12 +1471,12 @@ function team($, teamName) {
 	debug("Walking MKWS nodes took " + (now-then) + " ms");
 
 	if (mkws_config.use_service_proxy) {
-	    authenticate_session(mkws_config.service_proxy_auth,
-				 mkws_config.service_proxy_auth_domain,
-				 mkws_config.pazpar2_url);
+	    authenticateSession(mkws_config.service_proxy_auth,
+				mkws_config.service_proxy_auth_domain,
+				mkws_config.pazpar2_url);
 	} else {
 	    // raw pp2
-	    run_auto_searches();
+	    runAutoSearches();
 	}
     });
 })(jQuery);
