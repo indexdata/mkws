@@ -72,7 +72,7 @@ Handlebars.registerHelper('index1', function(obj) {
 
 
 // Set up global mkws object. Contains truly global state such as SP
-// authentication, and a hash of team objects, indexed by windowid.
+// authentication, and a hash of team objects, indexed by team-name.
 //
 var mkws = {
     authenticated: false,
