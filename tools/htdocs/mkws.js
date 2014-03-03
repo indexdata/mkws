@@ -228,6 +228,10 @@ function team($, teamName) {
     m_sort = mkws_config.sort_default;
     debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
 
+    if (!isNaN(parseInt(mkws_config.perpage_default))) {
+	m_perpage = parseInt(mkws_config.perpage_default);
+    }
+
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws_config.pazpar2_url.match(/^\/\//)) {
 	mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
@@ -250,10 +254,6 @@ function team($, teamName) {
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
 		      "onrecord": onRecord });
-
-    if (!isNaN(parseInt(mkws_config.perpage_default))) {
-	m_perpage = parseInt(mkws_config.perpage_default);
-    }
 
 
     // Finds the node of the specified class within the current team
