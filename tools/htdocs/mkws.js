@@ -385,15 +385,6 @@ function team($, teamName) {
     }
 
 
-    function renderSummary(hit)
-    {
-	var template = loadTemplate("Summary");
-	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
-	return template(hit);
-    }
-
-
     function addSingleFacet(acc, caption, data, max, pzIndex) {
 	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
 	acc.push('<div class="termtitle">' + M(caption) + '</div>');
@@ -775,120 +766,6 @@ function team($, teamName) {
     }
 
 
-    function renderDetails(data, marker)
-    {
-	var template = loadTemplate("Record");
-	var details = template(data);
-	return '<div class="details" id="mkwsDet_' + m_teamName + '_' + data.recid + '">' + details + '</div>';
-    }
-
-
-    function loadTemplate(name)
-    {
-	var template = m_template[name];
-
-	if (template === undefined) {
-	    // Fall back to generic template if there is no team-specific one
-	    var node = findnode(".mkwsTemplate_" + name);
-	    if (!node.length) {
-		node = findnode(".mkwsTemplate_" + name, "ALL");
-	    }
-
-	    var source = node.html();
-	    if (!source) {
-		source = defaultTemplate(name);
-	    }
-
-	    template = Handlebars.compile(source);
-	    debug("compiled template '" + name + "'");
-	    m_template[name] = template;
-	}
-
-	return template;
-    }
-
-
-    function defaultTemplate(name)
-    {
-	if (name === 'Record') {
-	    return '\
-<table>\
-  <tr>\
-    <th>{{translate "Title"}}</th>\
-    <td>\
-      {{md-title}}\
-      {{#if md-title-remainder}}\
-	({{md-title-remainder}})\
-      {{/if}}\
-      {{#if md-title-responsibility}}\
-	<i>{{md-title-responsibility}}</i>\
-      {{/if}}\
-    </td>\
-  </tr>\
-  {{#if md-date}}\
-  <tr>\
-    <th>{{translate "Date"}}</th>\
-    <td>{{md-date}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-author}}\
-  <tr>\
-    <th>{{translate "Author"}}</th>\
-    <td>{{md-author}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-electronic-url}}\
-  <tr>\
-    <th>{{translate "Links"}}</th>\
-    <td>\
-      {{#each md-electronic-url}}\
-	<a href="{{this}}">Link{{index1}}</a>\
-      {{/each}}\
-    </td>\
-  </tr>\
-  {{/if}}\
-  {{#if-any location having="md-subject"}}\
-  <tr>\
-    <th>{{translate "Subject"}}</th>\
-    <td>\
-      {{#first location having="md-subject"}}\
-	{{#if md-subject}}\
-	  {{#commaList md-subject}}\
-	    {{this}}{{/commaList}}\
-	{{/if}}\
-      {{/first}}\
-    </td>\
-  </tr>\
-  {{/if-any}}\
-  <tr>\
-    <th>{{translate "Locations"}}</th>\
-    <td>\
-      {{#commaList location}}\
-	{{attr "@name"}}{{/commaList}}\
-    </td>\
-  </tr>\
-</table>\
-';
-	} else if (name === "Summary") {
-	    return '\
-<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-  <b>{{md-title}}</b>\
-</a>\
-{{#if md-title-remainder}}\
-  <span>{{md-title-remainder}}</span>\
-{{/if}}\
-{{#if md-title-responsibility}}\
-  <span><i>{{md-title-responsibility}}</i></span>\
-{{/if}}\
-';
-	}
-
-	var s = "There is no default '" + name +"' template!";
-	alert(s);
-	return s;
-    }
-
-
     /*
      * All the HTML stuff to render the search forms and
      * result pages.
@@ -1177,6 +1054,129 @@ function team($, teamName) {
 	}).join(',');
 
 	return $(selector);
+    }
+
+
+    function renderSummary(hit)
+    {
+	var template = loadTemplate("Summary");
+	hit._id = "mkwsRec_" + hit.recid;
+	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
+	return template(hit);
+    }
+
+
+    function renderDetails(data, marker)
+    {
+	var template = loadTemplate("Record");
+	var details = template(data);
+	return '<div class="details" id="mkwsDet_' + m_teamName + '_' + data.recid + '">' + details + '</div>';
+    }
+
+
+    function loadTemplate(name)
+    {
+	var template = m_template[name];
+
+	if (template === undefined) {
+	    // Fall back to generic template if there is no team-specific one
+	    var node = findnode(".mkwsTemplate_" + name);
+	    if (!node.length) {
+		node = findnode(".mkwsTemplate_" + name, "ALL");
+	    }
+
+	    var source = node.html();
+	    if (!source) {
+		source = defaultTemplate(name);
+	    }
+
+	    template = Handlebars.compile(source);
+	    debug("compiled template '" + name + "'");
+	    m_template[name] = template;
+	}
+
+	return template;
+    }
+
+
+    function defaultTemplate(name)
+    {
+	if (name === 'Record') {
+	    return '\
+<table>\
+  <tr>\
+    <th>{{translate "Title"}}</th>\
+    <td>\
+      {{md-title}}\
+      {{#if md-title-remainder}}\
+	({{md-title-remainder}})\
+      {{/if}}\
+      {{#if md-title-responsibility}}\
+	<i>{{md-title-responsibility}}</i>\
+      {{/if}}\
+    </td>\
+  </tr>\
+  {{#if md-date}}\
+  <tr>\
+    <th>{{translate "Date"}}</th>\
+    <td>{{md-date}}</td>\
+  </tr>\
+  {{/if}}\
+  {{#if md-author}}\
+  <tr>\
+    <th>{{translate "Author"}}</th>\
+    <td>{{md-author}}</td>\
+  </tr>\
+  {{/if}}\
+  {{#if md-electronic-url}}\
+  <tr>\
+    <th>{{translate "Links"}}</th>\
+    <td>\
+      {{#each md-electronic-url}}\
+	<a href="{{this}}">Link{{index1}}</a>\
+      {{/each}}\
+    </td>\
+  </tr>\
+  {{/if}}\
+  {{#if-any location having="md-subject"}}\
+  <tr>\
+    <th>{{translate "Subject"}}</th>\
+    <td>\
+      {{#first location having="md-subject"}}\
+	{{#if md-subject}}\
+	  {{#commaList md-subject}}\
+	    {{this}}{{/commaList}}\
+	{{/if}}\
+      {{/first}}\
+    </td>\
+  </tr>\
+  {{/if-any}}\
+  <tr>\
+    <th>{{translate "Locations"}}</th>\
+    <td>\
+      {{#commaList location}}\
+	{{attr "@name"}}{{/commaList}}\
+    </td>\
+  </tr>\
+</table>\
+';
+	} else if (name === "Summary") {
+	    return '\
+<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+  <b>{{md-title}}</b>\
+</a>\
+{{#if md-title-remainder}}\
+  <span>{{md-title-remainder}}</span>\
+{{/if}}\
+{{#if md-title-responsibility}}\
+  <span><i>{{md-title-responsibility}}</i></span>\
+{{/if}}\
+';
+	}
+
+	var s = "There is no default '" + name +"' template!";
+	alert(s);
+	return s;
     }
 
 
