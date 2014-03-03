@@ -448,21 +448,17 @@ function team($, teamName) {
 
 
     // when search button pressed
-    // ### This is closure, so can always just operate on its own team
     function onFormSubmitEventHandler()
     {
-	mkws.handle_node_with_team(this, function (tname) {
-	    var val = findnode('.mkwsQuery').val();
-	    mkws.teams[tname].newSearch(val);
-	});
-
+	var val = findnode('.mkwsQuery').val();
+	newSearch(val);
 	return false;
     }
 
 
     // ### won't need to be externally visible once onFormSubmitEventHandler() is fixed.
     // ### doesn't need windowid
-    that.newSearch = function(query, sort, targets, windowid)
+    function newSearch(query, sort, targets, windowid)
     {
 	debug("newSearch: " + query);
 
@@ -476,7 +472,7 @@ function team($, teamName) {
 	resetPage();
 	loadSelect();
 	triggerSearch(query, sort, targets, windowid);
-	that.switchView('records'); // In case it's configured to start off as hidden
+	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
 
@@ -740,7 +736,7 @@ function team($, teamName) {
 
 
     // switching view between targets and records
-    that.switchView = function(view) {
+    function switchView(view) {
 	var targets = findnode('.mkwsTargets');
 	var results = findnode('.mkwsResults,.mkwsRecords');
 	var blanket = findnode('.mkwsBlanket');
@@ -770,6 +766,9 @@ function team($, teamName) {
             alert("Unknown view '" + view + "'");
 	}
     }
+
+
+    that.switchView = switchView;
 
 
     // detailed record drawing
@@ -1169,7 +1168,7 @@ function team($, teamName) {
 	if (targets) s += " in targets '" + targets + "'";
 	debug(s);
 
-	this.newSearch(query, sort, targets, m_teamName);
+	newSearch(query, sort, targets, m_teamName);
     }
 
 
