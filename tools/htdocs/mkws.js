@@ -456,7 +456,6 @@ function team($, teamName) {
     }
 
 
-    // ### won't need to be externally visible once onFormSubmitEventHandler() is fixed.
     // ### doesn't need windowid
     function newSearch(query, sort, targets, windowid)
     {
