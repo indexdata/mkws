@@ -252,8 +252,7 @@ function team($, teamName) {
 		      "onshow": onShow,
 		      "onrecord": onRecord,
 		      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-		      "termlist": mkws_config.facets.join(','),
-		      "showResponseType": '' // or "json" (for debugging?)
+		      "termlist": mkws_config.facets.join(',')
 		    });
 
 
