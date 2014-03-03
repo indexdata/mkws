@@ -972,15 +972,6 @@ function team($, teamName) {
 
 	mkws_html_switch();
 
-	// ### Should not be in the team code, since window size is global
-	if (mkws_config.responsive_design_width) {
-	    // Responsive web design - change layout on the fly based on
-	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws.resize_page() });
-	    // initial check after page load
-	    $(document).ready(function() { mkws.resize_page() });
-	}
-
 	var node;
 	node = findnode('.mkwsSearchForm');
 	if (node.length)
@@ -1432,6 +1423,14 @@ function team($, teamName) {
 		    debug("Added locally configured language '" + lang + "'");
 		}
 	    }
+	}
+
+	if (mkws_config.responsive_design_width) {
+	    // Responsive web design - change layout on the fly based on
+	    // current screen width. Required for mobile devices.
+	    $(window).resize(function(e) { mkws.resize_page() });
+	    // initial check after page load
+	    $(document).ready(function() { mkws.resize_page() });
 	}
 
 	// Backwards compatibility: set new magic class names on any
