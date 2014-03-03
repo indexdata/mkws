@@ -456,8 +456,7 @@ function team($, teamName) {
     }
 
 
-    // ### doesn't need windowid
-    function newSearch(query, sort, targets, windowid)
+    function newSearch(query, sort, targets)
     {
 	debug("newSearch: " + query);
 
@@ -470,7 +469,7 @@ function team($, teamName) {
 	redraw_navi();
 	resetPage();
 	loadSelect();
-	triggerSearch(query, sort, targets, windowid);
+	triggerSearch(query, sort, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
@@ -493,8 +492,7 @@ function team($, teamName) {
     }
 
 
-    // ### doesn't need windowid
-    function triggerSearch (query, sort, targets, windowid)
+    function triggerSearch (query, sort, targets)
     {
 	var pp2filter = "";
 	var pp2limit = "";
@@ -533,9 +531,7 @@ function team($, teamName) {
 	if (pp2limit) {
 	    params.limit = pp2limit;
 	}
-	if (windowid) {
-	    params.windowid = windowid;
-	}
+
 	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
 	// We can use: params.torusquery = "udb=NAME"
@@ -1167,7 +1163,7 @@ function team($, teamName) {
 	if (targets) s += " in targets '" + targets + "'";
 	debug(s);
 
-	newSearch(query, sort, targets, m_teamName);
+	newSearch(query, sort, targets);
     }
 
 
