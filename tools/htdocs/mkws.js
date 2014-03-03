@@ -238,18 +238,18 @@ function team($, teamName) {
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
-    m_paz = new pz2({ "onshow": my_onshow,
+    m_paz = new pz2({ "onshow": onShow,
 		      "windowid": teamName,
 		      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
 		      "pazpar2path": mkws_config.pazpar2_url,
-		      "oninit": my_oninit,
-		      "onstat": my_onstat,
-		      "onterm": (mkws_config.facets.length ? my_onterm : undefined),
+		      "oninit": onInit,
+		      "onstat": onStat,
+		      "onterm": (mkws_config.facets.length ? onTerm : undefined),
 		      "termlist": mkws_config.facets.join(','),
-		      "onbytarget": my_onbytarget,
+		      "onbytarget": onBytarget,
 		      "usesessions" : mkws_config.use_service_proxy ? false : true,
 		      "showResponseType": '', // or "json" (for debugging?)
-		      "onrecord": my_onrecord });
+		      "onrecord": onRecord });
 
     if (!isNaN(parseInt(mkws_config.perpage_default))) {
 	m_perpage = parseInt(mkws_config.perpage_default);
@@ -274,14 +274,14 @@ function team($, teamName) {
     //
     // pz2.js event handlers:
     //
-    function my_oninit(teamName) {
+    function onInit(teamName) {
 	debug("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
 
-    function my_onshow(data, teamName) {
+    function onShow(data, teamName) {
 	debug("show");
 	m_totalRec = data.merged;
 
@@ -318,7 +318,7 @@ function team($, teamName) {
     }
 
 
-    function my_onstat(data, teamName) {
+    function onStat(data, teamName) {
 	debug("stat");
 	var stat = findnode('.mkwsStat');
 	if (stat.length === 0)
@@ -332,14 +332,14 @@ function team($, teamName) {
     }
 
 
-    function my_onterm(data, teamName) {
+    function onTerm(data, teamName) {
 	debug("term");
 	var node = findnode(".mkwsTermlists");
 	if (node.length == 0) return;
 
 	// no facets: this should never happen
 	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    alert("my_onterm called even though we have no facets: " + $.toJSON(data));
+	    alert("onTerm called even though we have no facets: " + $.toJSON(data));
 	    node.hide();
 	    return;
 	}
@@ -402,7 +402,7 @@ function team($, teamName) {
     }
 
 
-    function my_onrecord(data, args, teamName) {
+    function onRecord(data, args, teamName) {
 	debug("record: teamName=" + teamName + ", m_teamName=" + m_teamName);
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
@@ -416,7 +416,7 @@ function team($, teamName) {
     }
 
 
-    function my_onbytarget(data, teamName) {
+    function onBytarget(data, teamName) {
 	debug("target");
 	var targetDiv = findnode('.mkwsBytarget');
 	if (!targetDiv) {
