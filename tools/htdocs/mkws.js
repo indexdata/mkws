@@ -286,11 +286,11 @@ function team($, teamName) {
 
     function onStat(data, teamName) {
 	debug("stat");
-	var stat = findnode('.mkwsStat');
-	if (stat.length === 0)
+	var statDiv = findnode('.mkwsStat');
+	if (statDiv.length === 0)
 	    return;
 
-	stat.html('<span class="head">' + M('Status info') + '</span>' +
+	statDiv.html('<span class="head">' + M('Status info') + '</span>' +
 	    ' -- ' +
 	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	    ' -- ' +
