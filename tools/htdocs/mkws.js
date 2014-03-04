@@ -407,6 +407,60 @@ function team($, teamName) {
     }
 
 
+    function drawPager (data)
+    {
+	var s = '<div style="float: right">' + M('Displaying') + ': '
+	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+	    + data.total + ')</div>';
+
+	//client indexes pages from 1 but pz2 from 0
+	var onsides = 6;
+	var pages = Math.ceil(m_totalRec / m_perpage);
+
+	var firstClkbl = (m_curPage - onsides > 0)
+            ? m_curPage - onsides
+            : 1;
+
+	var lastClkbl = firstClkbl + 2*onsides < pages
+            ? firstClkbl + 2*onsides
+            : pages;
+
+	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
+	if (m_curPage > 1)
+            prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
+            +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
+
+	var middle = '';
+	for(var i = firstClkbl; i <= lastClkbl; i++) {
+            var numLabel = i;
+            if(i == m_curPage)
+		numLabel = '<b>' + i + '</b>';
+
+            middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
+		+ numLabel + ' </a>';
+	}
+
+	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
+	if (pages - m_curPage > 0)
+            next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
+            + M('Next') + ' &#62;&#62;</a>';
+
+	var predots = '';
+	if (firstClkbl > 1)
+            predots = '...';
+
+	var postdots = '';
+	if (lastClkbl < pages)
+            postdots = '...';
+
+	s += '<div style="float: clear">'
+            + prev + predots + middle + postdots + next + '</div>';
+
+	return s;
+    }
+
+
     ////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////
 
@@ -614,60 +668,6 @@ function team($, teamName) {
 	}
 
 	navi.html(text);
-    }
-
-
-    function drawPager (data)
-    {
-	var s = '<div style="float: right">' + M('Displaying') + ': '
-	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-	    + data.total + ')</div>';
-
-	//client indexes pages from 1 but pz2 from 0
-	var onsides = 6;
-	var pages = Math.ceil(m_totalRec / m_perpage);
-
-	var firstClkbl = (m_curPage - onsides > 0)
-            ? m_curPage - onsides
-            : 1;
-
-	var lastClkbl = firstClkbl + 2*onsides < pages
-            ? firstClkbl + 2*onsides
-            : pages;
-
-	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
-	if (m_curPage > 1)
-            prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
-            +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
-
-	var middle = '';
-	for(var i = firstClkbl; i <= lastClkbl; i++) {
-            var numLabel = i;
-            if(i == m_curPage)
-		numLabel = '<b>' + i + '</b>';
-
-            middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
-		+ numLabel + ' </a>';
-	}
-
-	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-	if (pages - m_curPage > 0)
-            next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
-            + M('Next') + ' &#62;&#62;</a>';
-
-	var predots = '';
-	if (firstClkbl > 1)
-            predots = '...';
-
-	var postdots = '';
-	if (lastClkbl < pages)
-            postdots = '...';
-
-	s += '<div style="float: clear">'
-            + prev + predots + middle + postdots + next + '</div>';
-
-	return s;
     }
 
 
