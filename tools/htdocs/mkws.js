@@ -190,6 +190,7 @@ function widget($, team, type, node) {
     }
 
     mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
+    return that;
 
 
     function promoteTargets() {
@@ -230,9 +231,6 @@ function widget($, team, type, node) {
 		'<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
 	});
     }
-
-
-    return that;
 }
 
 
