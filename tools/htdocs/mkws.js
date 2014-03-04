@@ -503,6 +503,31 @@ function team($, teamName) {
     }
 
 
+    function redrawNavi ()
+    {
+	var navi = findnode('.mkwsNavi');
+	if (!navi) return;
+
+	var text = "";
+	for (var i in m_filters) {
+	    if (text) {
+		text += " | ";
+	    }
+	    var filter = m_filters[i];
+	    if (filter.id) {
+		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + m_teamName +
+		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+	    } else {
+		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + m_teamName +
+		    "', '" + filter.field + "', '" + filter.value + "'" +
+		    ');return false;">' + filter.value + '</a>';
+	    }
+	}
+
+	navi.html(text);
+    }
+
+
     function resetPage()
     {
 	m_curPage = 1;
@@ -643,31 +668,6 @@ function team($, teamName) {
 	loadSelect();
 	triggerSearch();
 	return false;
-    }
-
-
-    function redrawNavi ()
-    {
-	var navi = findnode('.mkwsNavi');
-	if (!navi) return;
-
-	var text = "";
-	for (var i in m_filters) {
-	    if (text) {
-		text += " | ";
-	    }
-	    var filter = m_filters[i];
-	    if (filter.id) {
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + m_teamName +
-		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
-	    } else {
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + m_teamName +
-		    "', '" + filter.field + "', '" + filter.value + "'" +
-		    ');return false;">' + filter.value + '</a>';
-	    }
-	}
-
-	navi.html(text);
     }
 
 
