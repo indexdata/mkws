@@ -170,6 +170,10 @@ function widget($, team, type, node) {
     return that;
 
 
+    // Functions follow for promoting the regular widget object into
+    // widgets of specific types. These could be moved outside of the
+    // widget object, or even into their own source files.
+
     function promoteTargets() {
 	team.queue("targets").subscribe(function(data) {
 	    if (node.length === 0) alert("huh?!");
