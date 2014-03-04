@@ -194,7 +194,7 @@ function widget($, team, type, node) {
 
 
     function promoteTargets() {
-	mkws.queue("targets").subscribe(function(data) {
+	mkws.queue("targets." + team.name()).subscribe(function(data) {
 	    if (node.length === 0) alert("huh?!");
 
 	    var table ='<table><thead><tr>' +
@@ -245,6 +245,7 @@ function widget($, team, type, node) {
 function team($, teamName) {
     var that = {};
     var m_teamName = teamName;
+    that.name = function() { return m_teamName; }
     var m_submitted = false;
     var m_query; // initially undefined
     var m_sort; // will be set below
@@ -306,7 +307,7 @@ function team($, teamName) {
 
     function onBytarget(data) {
 	debug("target");
-	mkws.queue("targets").publish(data);
+	mkws.queue("targets." + m_teamName).publish(data);
     }
 
 
