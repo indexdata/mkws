@@ -221,7 +221,7 @@ function widget($, team, type, node) {
 
 
     function promoteStat() {
-	mkws.queue("stat").subscribe(function(data) {
+	mkws.queue("stat." + team.name()).subscribe(function(data) {
 	    if (node.length === 0)  alert("huh?!");
 
 	    $(node).html('<span class="head">' + M('Status info') + '</span>' +
@@ -313,7 +313,7 @@ function team($, teamName) {
 
     function onStat(data) {
 	debug("stat");
-	mkws.queue("stat").publish(data);
+	mkws.queue("stat." + m_teamName).publish(data);
     }
 
 
