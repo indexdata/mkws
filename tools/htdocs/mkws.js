@@ -232,12 +232,6 @@ function team($, teamName) {
 	m_perpage = parseInt(mkws_config.perpage_default);
     }
 
-    // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-    if (mkws_config.pazpar2_url.match(/^\/\//)) {
-	mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
-	debug("adjust protocol independent links: " + mkws_config.pazpar2_url);
-    }
-
     debug("Create main pz2 object");
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
@@ -1430,6 +1424,12 @@ function team($, teamName) {
 	    $(window).resize(function(e) { mkws.resizePage() });
 	    // initial check after page load
 	    $(document).ready(function() { mkws.resizePage() });
+	}
+
+	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
+	if (mkws_config.pazpar2_url.match(/^\/\//)) {
+	    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
+	    debug("adjust protocol independent links: " + mkws_config.pazpar2_url);
 	}
 
 	// Backwards compatibility: set new magic class names on any
