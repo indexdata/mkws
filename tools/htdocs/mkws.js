@@ -300,26 +300,26 @@ function team($, teamName) {
     //
     // pz2.js event handlers:
     //
-    function onInit(teamName) {
+    function onInit() {
 	debug("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
 
-    function onBytarget(data, teamName) {
+    function onBytarget(data) {
 	debug("target");
 	mkws.queue("targets").publish(data);
     }
 
 
-    function onStat(data, teamName) {
+    function onStat(data) {
 	debug("stat");
 	mkws.queue("stat").publish(data);
     }
 
 
-    function onTerm(data, teamName) {
+    function onTerm(data) {
 	debug("term");
 	var node = findnode(".mkwsTermlists");
 	if (node.length == 0) return;
