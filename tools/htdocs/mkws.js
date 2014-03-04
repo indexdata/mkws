@@ -359,7 +359,7 @@ function team($, teamName) {
 
 
     function onRecord(data, args, teamName) {
-	debug("record: teamName=" + teamName + ", m_teamName=" + m_teamName);
+	debug("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// in case on_show was faster to redraw element
