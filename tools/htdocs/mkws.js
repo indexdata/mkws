@@ -183,10 +183,15 @@ function widget($, team, type, node) {
 
     if (type === 'Targets') {
 	promoteTargets();
+    } else if (type === 'Stat') {
+	promoteStat();
+    } else {
+	// Unsupported widget type: call an extension?
     }
 
     // ### More to do here, surely: e.g. wiring into the team
     mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
+
 
     function promoteTargets() {
 	mkws.queue("targets").subscribe(function(data) {
@@ -213,6 +218,20 @@ function widget($, team, type, node) {
 	    subnode.html(table);
 	});
     }
+
+
+    function promoteStat() {
+	mkws.queue("stat").subscribe(function(data) {
+	    if (node.length === 0)  alert("huh?!");
+
+	    $(node).html('<span class="head">' + M('Status info') + '</span>' +
+		' -- ' +
+		'<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
+		' -- ' +
+		'<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
+	});
+    }
+
 
     return that;
 }
@@ -296,14 +315,7 @@ function team($, teamName) {
 
     function onStat(data, teamName) {
 	debug("stat");
-	var node = findnode('.mkwsStat');
-	if (node.length === 0) return;
-
-	node.html('<span class="head">' + M('Status info') + '</span>' +
-	    ' -- ' +
-	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
-	    ' -- ' +
-	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
+	mkws.queue("stat").publish(data);
     }
 
 
