@@ -258,10 +258,8 @@ function team($, teamName) {
 
     function onBytarget(data, teamName) {
 	debug("target");
-	var targetDiv = findnode('.mkwsBytarget');
-	if (targetDiv.length === 0) {
-	    return;
-	}
+	var node = findnode('.mkwsBytarget');
+	if (node.length === 0) return;
 
 	var table ='<table><thead><tr>' +
 	    '<td>' + M('Target ID') + '</td>' +
@@ -280,17 +278,16 @@ function team($, teamName) {
 	}
 
 	table += '</tbody></table>';
-	targetDiv.html(table);
+	node.html(table);
     }
 
 
     function onStat(data, teamName) {
 	debug("stat");
-	var statDiv = findnode('.mkwsStat');
-	if (statDiv.length === 0)
-	    return;
+	var node = findnode('.mkwsStat');
+	if (node.length === 0) return;
 
-	statDiv.html('<span class="head">' + M('Status info') + '</span>' +
+	node.html('<span class="head">' + M('Status info') + '</span>' +
 	    ' -- ' +
 	    '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 	    ' -- ' +
