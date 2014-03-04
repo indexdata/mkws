@@ -189,10 +189,7 @@ function widget($, team, type, node) {
     mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
 
     function promoteTargets() {
-	mkws.debug("promoting widget to type Targets");
 	mkws.queue("targets").subscribe(function(data) {
-	    mkws.debug("notified that there are targets");
-
 	    if (node.length === 0) alert("huh?!");
 
 	    var table ='<table><thead><tr>' +
