@@ -259,7 +259,7 @@ function team($, teamName) {
     function onBytarget(data, teamName) {
 	debug("target");
 	var targetDiv = findnode('.mkwsBytarget');
-	if (!targetDiv) {
+	if (targetDiv.length === 0) {
 	    return;
 	}
 
