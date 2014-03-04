@@ -179,8 +179,42 @@ function widget($, team, type, node) {
 	node: node
     };
 
+    var M = mkws.M;
+
+    if (type === 'Targets') {
+	promoteTargets();
+    }
+
     // ### More to do here, surely: e.g. wiring into the team
     mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
+
+    function promoteTargets() {
+	mkws.debug("promoting widget to type Targets");
+	mkws.queue("targets").subscribe(function(data) {
+	    mkws.debug("notified that there are targets");
+
+	    if (node.length === 0) alert("huh?!");
+
+	    var table ='<table><thead><tr>' +
+		'<td>' + M('Target ID') + '</td>' +
+		'<td>' + M('Hits') + '</td>' +
+		'<td>' + M('Diags') + '</td>' +
+		'<td>' + M('Records') + '</td>' +
+		'<td>' + M('State') + '</td>' +
+		'</tr></thead><tbody>';
+
+	    for (var i = 0; i < data.length; i++) {
+		table += "<tr><td>" + data[i].id +
+		    "</td><td>" + data[i].hits +
+		    "</td><td>" + data[i].diagnostic +
+		    "</td><td>" + data[i].records +
+		    "</td><td>" + data[i].state + "</td></tr>";
+	    }
+	    
+	    table += '</tbody></table>';
+	    $(node).html(table);
+	});
+    }
 
     return that;
 }
@@ -258,27 +292,7 @@ function team($, teamName) {
 
     function onBytarget(data, teamName) {
 	debug("target");
-	var node = findnode('.mkwsBytarget');
-	if (node.length === 0) return;
-
-	var table ='<table><thead><tr>' +
-	    '<td>' + M('Target ID') + '</td>' +
-	    '<td>' + M('Hits') + '</td>' +
-	    '<td>' + M('Diags') + '</td>' +
-	    '<td>' + M('Records') + '</td>' +
-	    '<td>' + M('State') + '</td>' +
-	    '</tr></thead><tbody>';
-
-	for (var i = 0; i < data.length; i++) {
-            table += "<tr><td>" + data[i].id +
-		"</td><td>" + data[i].hits +
-		"</td><td>" + data[i].diagnostic +
-		"</td><td>" + data[i].records +
-		"</td><td>" + data[i].state + "</td></tr>";
-	}
-
-	table += '</tbody></table>';
-	node.html(table);
+	mkws.queue("targets").publish(data);
     }
 
 
