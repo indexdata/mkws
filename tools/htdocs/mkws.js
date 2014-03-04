@@ -226,11 +226,7 @@ function team($, teamName) {
     debug("start running MKWS");
 
     m_sort = mkws_config.sort_default;
-    debug("copied mkws_config.sort_default '" + mkws_config.sort_default + "' to m_sort");
-
-    if (!isNaN(parseInt(mkws_config.perpage_default))) {
-	m_perpage = parseInt(mkws_config.perpage_default);
-    }
+    m_perpage = mkws_config.perpage_default;
 
     debug("Create main pz2 object");
     // create a parameters array and pass it to the pz2's constructor
