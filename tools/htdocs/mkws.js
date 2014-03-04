@@ -855,21 +855,46 @@ function team($, teamName) {
     }
 
 
-    function mkwsHtmlSwitch() {
-	debug("HTML switch for team " + m_teamName);
+    /* create locale language menu */
+    function mkwsHtmlLang() {
+	var lang_default = "en";
+	var lang = mkws_config.lang || lang_default;
+	var list = [];
 
-	var node = findnode(".mkwsSwitch");
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
-	node.append($("<span/>", { text: " | " }));
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
+	/* display a list of configured languages, or all */
+	var lang_options = mkws_config.lang_options || [];
+	var toBeIncluded = {};
+	for (var i = 0; i < lang_options.length; i++) {
+	    toBeIncluded[lang_options[i]] = true;
+	}
 
-	debug("HTML targets");
-	var node = findnode(".mkwsTargets");
-	node.html('\
-<div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
-  No information available yet.\
-</div>');
-	node.css("display", "none");
+	for (var k in mkws.locale_lang) {
+	    if (toBeIncluded[k] || lang_options.length == 0)
+		list.push(k);
+	}
+
+	// add english link
+	if (lang_options.length == 0 || toBeIncluded[lang_default])
+            list.push(lang_default);
+
+	debug("Language menu for: " + list.join(", "));
+
+	/* the HTML part */
+	var data = "";
+	for(var i = 0; i < list.length; i++) {
+	    var l = list[i];
+
+	    if (data)
+		data += ' | ';
+
+	    if (lang == l) {
+		data += ' <span>' + l + '</span> ';
+	    } else {
+		data += ' <a href="?lang=' + l + '">' + l + '</a> '
+	    }
+	}
+
+	findnode(".mkwsLang").html(data);
     }
 
 
@@ -913,46 +938,21 @@ function team($, teamName) {
     }
 
 
-    /* create locale language menu */
-    function mkwsHtmlLang() {
-	var lang_default = "en";
-	var lang = mkws_config.lang || lang_default;
-	var list = [];
+    function mkwsHtmlSwitch() {
+	debug("HTML switch for team " + m_teamName);
 
-	/* display a list of configured languages, or all */
-	var lang_options = mkws_config.lang_options || [];
-	var toBeIncluded = {};
-	for (var i = 0; i < lang_options.length; i++) {
-	    toBeIncluded[lang_options[i]] = true;
-	}
+	var node = findnode(".mkwsSwitch");
+	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
+	node.append($("<span/>", { text: " | " }));
+	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
 
-	for (var k in mkws.locale_lang) {
-	    if (toBeIncluded[k] || lang_options.length == 0)
-		list.push(k);
-	}
-
-	// add english link
-	if (lang_options.length == 0 || toBeIncluded[lang_default])
-            list.push(lang_default);
-
-	debug("Language menu for: " + list.join(", "));
-
-	/* the HTML part */
-	var data = "";
-	for(var i = 0; i < list.length; i++) {
-	    var l = list[i];
-
-	    if (data)
-		data += ' | ';
-
-	    if (lang == l) {
-		data += ' <span>' + l + '</span> ';
-	    } else {
-		data += ' <a href="?lang=' + l + '">' + l + '</a> '
-	    }
-	}
-
-	findnode(".mkwsLang").html(data);
+	debug("HTML targets");
+	var node = findnode(".mkwsTargets");
+	node.html('\
+<div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
+  No information available yet.\
+</div>');
+	node.css("display", "none");
     }
 
 
