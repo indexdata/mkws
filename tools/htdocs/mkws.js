@@ -142,29 +142,6 @@ var mkws = {
 };
 
 
-// The following PubSub code is modified from the jQuery manual:
-// https://api.jquery.com/jQuery.Callbacks/
-//
-// Use as:
-//	mkws.queue("eventName").subscribe(function(param1, param2 ...) { ... });
-//	mkws.queue("eventName").publish(arg1, arg2, ...);
-
-(function() {
-  var queues = {};
-  mkws.queue = function(id) {
-    if (!queues[id]) {
-      var callbacks = $.Callbacks();
-      queues[id] = {
-	publish: callbacks.fire,
-	subscribe: callbacks.add,
-	unsubscribe: callbacks.remove
-      };
-    }
-    return queues[id];
-  }
-}());
-
-
 // Define empty mkws_config for simple applications that don't define it.
 if (mkws_config == null || typeof mkws_config != 'object') {
     var mkws_config = {};
@@ -194,7 +171,7 @@ function widget($, team, type, node) {
 
 
     function promoteTargets() {
-	mkws.queue("targets." + team.name()).subscribe(function(data) {
+	team.queue("targets").subscribe(function(data) {
 	    if (node.length === 0) alert("huh?!");
 
 	    var table ='<table><thead><tr>' +
@@ -221,7 +198,7 @@ function widget($, team, type, node) {
 
 
     function promoteStat() {
-	mkws.queue("stat." + team.name()).subscribe(function(data) {
+	team.queue("stat").subscribe(function(data) {
 	    if (node.length === 0)  alert("huh?!");
 
 	    $(node).html('<span class="head">' + M('Status info') + '</span>' +
@@ -307,13 +284,13 @@ function team($, teamName) {
 
     function onBytarget(data) {
 	debug("target");
-	mkws.queue("targets." + m_teamName).publish(data);
+	queue("targets").publish(data);
     }
 
 
     function onStat(data) {
 	debug("stat");
-	mkws.queue("stat." + m_teamName).publish(data);
+	queue("stat").publish(data);
     }
 
 
@@ -1187,6 +1164,29 @@ function team($, teamName) {
 	alert(s);
 	return s;
     }
+
+
+    // The following PubSub code is modified from the jQuery manual:
+    // https://api.jquery.com/jQuery.Callbacks/
+    //
+    // Use as:
+    //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
+    //	team.queue("eventName").publish(arg1, arg2, ...);
+
+    var queues = {};
+    var queue = function(id) {
+	if (!queues[id]) {
+	    var callbacks = $.Callbacks();
+	    queues[id] = {
+		publish: callbacks.fire,
+		subscribe: callbacks.add,
+		unsubscribe: callbacks.remove
+	    };
+	}
+	return queues[id];
+    }
+
+    that.queue = queue;
 
 
     // main
