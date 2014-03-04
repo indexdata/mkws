@@ -186,10 +186,9 @@ function widget($, team, type, node) {
     } else if (type === 'Stat') {
 	promoteStat();
     } else {
-	// Unsupported widget type: call an extension?
+	// ### Handle other types here
     }
 
-    // ### More to do here, surely: e.g. wiring into the team
     mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
 
 
