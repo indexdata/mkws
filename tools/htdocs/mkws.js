@@ -212,7 +212,8 @@ function widget($, team, type, node) {
 	    }
 	    
 	    table += '</tbody></table>';
-	    $(node).html(table);
+	    var subnode = $(node).children('.mkwsBytarget');
+	    subnode.html(table);
 	});
     }
 
