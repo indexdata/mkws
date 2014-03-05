@@ -369,9 +369,10 @@ function team($, teamName) {
 	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
 	if (detRecordDiv) return;
 	m_curDetRecData = data;
+	// Can't use jQuery's $('#x') syntax to find this ID, because it contains spaces.
 	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
 	var html = renderDetails(m_curDetRecData);
-	recordDiv.innerHTML += html;
+	$(recordDiv).append(html);
     }
 
 
