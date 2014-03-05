@@ -68,7 +68,7 @@
 .mkwsLang a:hover,
 .mkwsTermlists a:hover,
 .mkwsPager a:hover,
-.mkwsRecords a:hover{ 
+.mkwsRecords a:hover {
     text-decoration: underline;
 }
 
