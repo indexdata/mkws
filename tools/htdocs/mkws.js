@@ -847,7 +847,7 @@ function team($, teamName) {
 
 
     function mkwsSetLang()  {
-	var lang = mkws.parseQuerystring().lang || mkws_config.lang;
+	var lang = mkws.getParameterByName("lang") || mkws_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
 	    mkws_config.lang = ""
 	} else {
@@ -1227,22 +1227,8 @@ function team($, teamName) {
     }
 
 
-    // implement $.parseQuerystring() for parsing URL parameters
-    mkws.parseQuerystring = function() {
-	var nvpair = {};
-	var qs = window.location.search.replace('?', '');
-	var pairs = qs.split('&');
-	$.each(pairs, function(i, v){
-	    var pair = v.split('=');
-	    nvpair[pair[0]] = pair[1];
-	});
-	return nvpair;
-    }
-
-
     // This function is taken from a StackOverflow answer
     // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
-    // ### should we unify this and parseQuerystring()?
     mkws.getParameterByName = function(name) {
 	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
