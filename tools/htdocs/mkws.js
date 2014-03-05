@@ -961,8 +961,7 @@ function team($, teamName) {
 
 
     that.runAutoSearch = function() {
-	// ### should check mkwsTermlist as well, for facet-only teams
-	var node = findnode('.mkwsRecords');
+	var node = findnode('.mkwsRecords,.mkwsTermlists');
 	var query = node.attr('autosearch');
 	if (!query)
 	    return;
