@@ -1,82 +1,82 @@
-#mkwsLang, .mkwsLang,
-#mkwsSwitch, .mkwsSwitch,
-#mkwsSearch, .mkwsSearch,
-#mkwsTermlists, .mkwsTermlists,
-#mkwsRanking, .mkwsRanking,
-#mkwsPager, .mkwsPager,
-#mkwsNavi, .mkwsNavi,
-#mkwsRecords, .mkwsRecords,
-#mkwsTargets, .mkwsTargets,
-#mkwsStat, .mkwsStat,
-#mkwsMOTD, .mkwsMOTD {
+.mkwsLang,
+.mkwsSwitch,
+.mkwsSearch,
+.mkwsTermlists,
+.mkwsRanking,
+.mkwsPager,
+.mkwsNavi,
+.mkwsRecords,
+.mkwsTargets,
+.mkwsStat,
+.mkwsMOTD {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
-#mkwsLang, .mkwsLang {
+.mkwsLang {
     float: left;
     padding-left: 1em;
     padding-top: 0.4em;
 }
 
-#mkwsLang a, .mkwsLang a {
+.mkwsLang a {
     background: #d0e0ff;
     padding: 1px 4px;
 }
 
-#mkwsLang span, .mkwsLang span {
+.mkwsLang span {
     border: solid 1px #d0e0ff;
     padding: 0px 3px;
 }
 
-#mkwsSearch, .mkwsSearch {
+.mkwsSearch {
     float: right;
 }
 
-#mkwsSwitch, .mkwsSwitch {
+.mkwsSwitch {
     float: right;
     padding-left: 1em;
     padding-top: 0.4em;
 }
 
-#mkwsTargets, .mkwsTargets {
+.mkwsTargets {
     background-color: #fafafa;
 }
 
-#mkwsStat, .mkwsStat {
+.mkwsStat {
     margin-top: 10px;
     border-top: 1px solid  #156a16;
     padding-top: 5px;
     font-size: small;
 }
 
-#mkwsStat span.head, .mkwsStat span.head {
+.mkwsStat span.head {
     font-weight: bold;
 }
 
-#mkwsSwitch a, .mkwsSwitch a,
-#mkwsLang a, .mkwsLang a,
-#mkwsTermlists a, .mkwsTermlists a,
-#mkwsRanking a, .mkwsRanking a,
-#mkwsPager a, .mkwsPager a,
-#mkwsNavi a, .mkwsNavi a,
-#mkwsRecords a, .mkwsRecords a {
+.mkwsSwitch a,
+.mkwsLang a,
+.mkwsTermlists a,
+.mkwsRanking a,
+.mkwsPager a,
+.mkwsNavi a,
+.mkwsRecords a {
     color: #005701;
     text-decoration: none;
 }
 
-#mkwsSwitch a:hover, .mkwsSwitch a:hover,
-#mkwsLang a:hover, .mkwsLang a:hover,
-#mkwsTermlists a:hover, .mkwsTermlists a:hover,
-#mkwsPager a:hover, .mkwsPager a:hover,
-#mkwsRecords a:hover, .mkwsRecords a:hover{ 
+.mkwsSwitch a:hover,
+.mkwsLang a:hover,
+.mkwsTermlists a:hover,
+.mkwsPager a:hover,
+.mkwsRecords a:hover{ 
     text-decoration: underline;
 }
 
-#mkwsNavi a.crossout:hover, .mkwsNavi a.crossout:hover {
+.mkwsNavi a.crossout:hover {
     text-decoration: line-through;
 }
 
-#mkwsSearch input#mkwsButton, .mkwsSearch input.mkwsButton {
+.mkwsSearch input.mkwsButton {
     border: 3px outset #132194;
     background-color: #132194;
     padding: 2px;
@@ -89,20 +89,20 @@
     cursor: pointer;
 }
 
-#mkwsSearch input#mkwsQuery, .mkwsSearch input.mkwsQuery {
+.mkwsSearch input.mkwsQuery {
     border: 2px inset #e0f0ff;
     padding: 3px;
     font-size: 12px;
     background: #f0f8ff;
 }
 
-#mkwsTermlists .title, .mkwsTermlists .title {
+.mkwsTermlists .title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
 }
 
-#mkwsTermlists, .mkwsTermlists {
+.mkwsTermlists {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -112,7 +112,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.facet, .mkwsTermlists div.facet {
+.mkwsTermlists div.facet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -122,23 +122,23 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsTermlists div.facet div.term, .mkwsTermlists div.facet div.term {
+.mkwsTermlists div.facet div.term {
     clear: both;
 }
 
-#mkwsTermlists div.facet div.term span, .mkwsTermlists div.facet div.term span {
+.mkwsTermlists div.facet div.term span {
     float: right;
 }
 
-#mkwsTermlists div.termtitle, .mkwsTermlists div.termtitle {
+.mkwsTermlists div.termtitle {
     font-weight: bold;
 }
 
-#mkwsRecords div.record, .mkwsRecords div.record {
+.mkwsRecords div.record {
     padding: 5px;
 }
 
-#mkwsRecords div.details, .mkwsRecords div.details {
+.mkwsRecords div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: #A9A9A9;
@@ -151,17 +151,17 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-#mkwsRecords div.details th, .mkwsRecords div.details th {
+.mkwsRecords div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-#mkwsRecords div.details th:after, .mkwsRecords div.details th:after {
+.mkwsRecords div.details th:after {
     content: ":";
 }
 
-#mkwsPager, .mkwsPager {
+.mkwsPager {
     background: #e0e0e0;
     padding: 0.3em;
 }
