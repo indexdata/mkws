@@ -9,33 +9,11 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript">
-      var mkws_config = { responsive_design_width: 990 };
-    </script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
   </head>
-  <body>
-    <table width="100%" border="1">
-      <tr>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch"></div>
-	  <div class="mkwsLang"></div>
-	  <div class="mkwsSearch"></div>
-	  <div class="mkwsResults"></div>
-	  <div class="mkwsTargets"></div>
-	  <div class="mkwsStat"></div>
-	</td>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch mkwsTeam_2"></div>
-	  <div class="mkwsLang mkwsTeam_2"></div>
-	  <div class="mkwsSearch mkwsTeam_2"></div>
-	  <div class="mkwsResults mkwsTeam_2"></div>
-	  <div class="mkwsTargets mkwsTeam_2"></div>
-	  <div class="mkwsStat mkwsTeam_2"></div>
-	</td>
-      </tr>
-    </table>
-    <div class="mkwsMOTD">This is the first MOTD</div>
-    <div class="mkwsMOTD mkwsTeam_2">This is the second MOTD</div>
-  </body>
+   <div id='mkwsRecords'
+	autosearch='mike'
+	sort='relevance'
+	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
+>results will appear here</div>
 </html>
