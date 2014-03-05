@@ -997,7 +997,11 @@ function team($, teamName) {
     }
 
 
-    /* locale */
+    // Translation function. At present, this is properly a
+    // global-level function (hence the assignment to mkws.M) but we
+    // want to make it per-team so different teams can operate in
+    // different languages.
+    //
     function M(word) {
 	var lang = mkws_config.lang;
 
