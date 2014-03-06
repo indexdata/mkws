@@ -75,6 +75,27 @@ describe("Init jasmine config", function () {
     });
 });
 
+describe("Check MOTD before search", function () {
+    // Check that the MOTD has been moved into its container, and
+    // is visible before the search.
+    // the mkwsMOTD div was originally inside a testMOTD div, which should
+    // now be emtpy
+    // Note that the testMOTD is a regular div, and uses #testMOTD,
+    // since the automagic class-making does not apply to it.
+    it("MOTD is hidden", function () {
+        expect($(".mkwsMOTD").length).toBe(1);
+        expect($("#testMOTD").length).toBe(1);
+        expect($("#testMOTD").text()).toMatch("^ *$");
+    });
+    
+    it("mkwsMOTDContainer has received the text", function () {
+        expect($(".mkwsMOTDContainer").length).toBe(1);
+        expect($(".mkwsMOTDContainer").text()).toMatch(/MOTD/);
+    });
+
+  
+});
+
 describe("Check pazpar2 search", function () {
     it("pazpar2 was successfully initialized", function () {
         expect(mkws_config.error).toBe(undefined);
@@ -110,6 +131,18 @@ describe("Check pazpar2 search", function () {
         })
     });
 });
+
+describe("Check MOTD after search", function () {
+    it("MOTD is hidden", function () {
+        expect($(".mkwsMOTD").length).toBe(1);
+        expect($(".mkwsMOTD").is(":hidden")).toBe(true);
+        debug("motd " + $(".mkwsMOTD") );
+        debug("motd t=" + $(".mkwsMOTD").text() );
+        debug("motd v=" + $(".mkwsMOTD").is(":visible") );
+        //expect($("div.mkwsBytarget").is(":visible")).toBe(true);
+    });
+});
+
 
 
 /*

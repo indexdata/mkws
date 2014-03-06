@@ -62,8 +62,16 @@ Most (all?) code work happens in mkws.js.
 Unit tests
 ----------
 
+Tests are based on jasmine. a general description of jasmine is on
+http://jasmine.github.io/1.3/introduction.html
+
 If you want understand the test than you can look at mkws/test/spec/mkws-config.js
 and mkws/test/spec/mkws-pazpar2.js . See also mkws/test/README.txt
+
+The test scripts are included from the test page, for example
+mkws/examples/htdocs/jasmine-popup.html has 
+<script type="text/javascript" src="test/spec/mkws-pazpar2.js"></script>
+
 
 
 
