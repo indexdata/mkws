@@ -135,7 +135,7 @@ describe("Check MOTD after search", function () {
     it("MOTD is hidden", function () {
         expect($(".mkwsMOTD").length).toBe(1);
         expect($(".mkwsMOTD").is(":hidden")).toBe(true);
-        debug("motd " + $(".mkwsMOTD"));
+        //debug("motd " + $(".mkwsMOTD"));
         debug("motd t=" + $(".mkwsMOTD").text());
         debug("motd v=" + $(".mkwsMOTD").is(":visible"));
         //expect($("div.mkwsBytarget").is(":visible")).toBe(true);
