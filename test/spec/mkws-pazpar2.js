@@ -6,7 +6,7 @@
 
 // get references from mkws.js, lazy evaluation
 var debug = function (text) {
-        mkws.debug(text)
+        mkws.debug("Jasmine: " + text)
     }
 
     // Define empty mkws_config for simple applications that don't define it.
@@ -87,13 +87,13 @@ describe("Check MOTD before search", function () {
         expect($("#testMOTD").length).toBe(1);
         expect($("#testMOTD").text()).toMatch("^ *$");
     });
-    
+
     it("mkwsMOTDContainer has received the text", function () {
         expect($(".mkwsMOTDContainer").length).toBe(1);
         expect($(".mkwsMOTDContainer").text()).toMatch(/MOTD/);
     });
 
-  
+
 });
 
 describe("Check pazpar2 search", function () {
