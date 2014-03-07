@@ -312,7 +312,24 @@ describe("Check Termlist", function () {
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
+        // make sure we have a link.
+        var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
+        var waitcount = 0;
+        waitsFor(function() {
+          waitcount++;
+          debug("waiting for the link " + waitcount + " "  + $(linkaddr) + 
+              " =" + $(linkaddr).length +  " " + $(linkaddr).text() );          
+          return ( $(linkaddr).length >0  );
+        }, "wait until we see a link", 1 * jasmine_config.second);
+        
+        runs(function(){
+          var link =  $(linkaddr);
+          debug("== waited (" + waitcount + ") for the link..." + $(linkaddr) + 
+            " =" + $(linkaddr).length +  " " + $(linkaddr).text() );
+          expect(link.length).toBe(1);
+          link.trigger("click");
+        });
+        
         // wait until the record pops up
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
