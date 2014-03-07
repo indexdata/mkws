@@ -365,14 +365,17 @@ describe("Show record", function () {
             return;
         }
 
-        var urls = $("div#mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
+        var urls = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
+        expect(urls.length).toBeGreaterThan(0);
+
         for (var i = 0; i < urls.length; i++) {
             var url = $(urls[i]);
-            debug("URL: " + url.attr('href'));
+            debug("URL: " + url.attr('href') + " text: " + url.text());
+
             expect(url.attr('href')).not.toBe(null);
             expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
-            expect(url.attr('href')).toBe(url.text());
+            expect(url.text()).not.toBe("");
         }
     });
 });
