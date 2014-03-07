@@ -13,6 +13,18 @@ get nodejs, sudo make install, ln -s /usr/local/bin/npm ~/bin/npm if needed
 cd .../mkws; make check
 
 
+Apache
+------
+You need to set up a local apache. 
+  * add 'mkws' in /etc/hosts to point to 127.0.0.2
+  * symlinked .../mkws/tools/apache2/mkws-heikki to /etc/apache/sites-available
+  * a2ensite mkws-heikki
+  * a2enmod rewrite
+  * a2enmod headers
+  * service apache2 reload
+  * Check that your browser sees somethig in http://mkws/ and 
+    http://mkws/jasmine-popup.html. If need be, enable javascript etc. 
+
 Libraries
 ---------
 
