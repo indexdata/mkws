@@ -10,8 +10,6 @@ JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.9.1.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.8.3.min.js
 #JQUERY_URL=	http://code.jquery.com/jquery-1.7.2.min.js
-#JQUERY_URL=	http://code.jquery.com/jquery-1.6.4.min.js
-#JQUERY_URL=	http://code.jquery.com/jquery-1.4.4.min.js
 
 JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
