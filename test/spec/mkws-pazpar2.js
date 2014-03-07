@@ -314,12 +314,12 @@ describe("Check Termlist", function () {
     });
 });
 
-describe("Show record", function () {
-    var record_number = 1; // the Nth record in hit list
-    it("show record author", function () {
+describe("Check record list", function () {
+    it("got a record", function () {
         // make sure we have a link.
         var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
         var waitcount = 0;
+
         waitsFor(function () {
             waitcount++;
             debug("waiting for the link " + waitcount + " " + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
@@ -330,8 +330,18 @@ describe("Show record", function () {
             var link = $(linkaddr);
             debug("== waited (" + waitcount + ") for the link..." + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
             expect(link.length).toBe(1);
-            link.trigger("click");
+            // link.trigger("click");
         });
+    });
+});
+
+
+describe("Show record", function () {
+    var record_number = 1; // the Nth record in hit list
+    it("show record author", function () {
+        var click = $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
+        debug("show record click is success: " + click.length);
+        expect(click.length).toBe(1);
 
         // wait until the record pops up
         waitsFor(function () {
