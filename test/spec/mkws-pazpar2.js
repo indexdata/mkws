@@ -313,7 +313,6 @@ describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
         $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
-
         // wait until the record pops up
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
