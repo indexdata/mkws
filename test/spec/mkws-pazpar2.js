@@ -126,8 +126,7 @@ describe("Check pazpar2 search", function () {
 
         runs(function () {
             debug("Click on submit button");
-            var click = $("input.mkwsButton").trigger("click");
-            expect(click.length).toBe(1);
+            $("input.mkwsButton").trigger("click");
         })
     });
 });
@@ -158,10 +157,7 @@ describe("Check pazpar2 navigation", function () {
         function my_click(id, time) {
             setTimeout(function () {
                 debug("trigger click on id: " + id);
-                var click = $(id).trigger("click");
-
-                debug("next/prev: " + id + " click is success: " + click.length);
-                expect(click.length).toBe(1);
+                $(id).trigger("click");
             }, time * jasmine_config.second);
         }
 
@@ -261,9 +257,7 @@ describe("Check Termlist", function () {
             }
         }
 
-        var click = $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
-        debug("limit author click is success: " + click.length);
-        expect(click.length).toBe(1);
+        $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
@@ -291,10 +285,8 @@ describe("Check Termlist", function () {
             }
         }
 
-        var click = $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
-        debug("limit source click " + (source_number - 1) + " is success: " + click.length);
-        expect(click.length).toBe(1);
-
+        $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
+        
         waitsFor(function () {
             if ($("div.mkwsNavi").length && $("div.mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
                 return true;
@@ -320,9 +312,7 @@ describe("Check Termlist", function () {
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
-        debug("show record click is success: " + click.length);
-        expect(click.length).toBe(1);
+        $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
 
         // wait until the record pops up
         waitsFor(function () {
@@ -363,9 +353,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch to target view", function () {
-        var click = $("div.mkwsSwitch").children('a').eq(1).trigger("click");
-        debug("target view click is success: " + click.length);
-        expect(click.length).toBe(1);
+        $("div.mkwsSwitch").children('a').eq(1).trigger("click");
 
         // now the target table must be visible
         expect($("div.mkwsBytarget").is(":visible")).toBe(true);
@@ -384,9 +372,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch back to record view", function () {
-        var click = $("div.mkwsSwitch").children('a').eq(0).trigger("click");
-        debug("record view click is success: " + click.length);
-        expect(click.length).toBe(1);
+        $("div.mkwsSwitch").children('a').eq(0).trigger("click");
 
         // now the target table must be visible
         expect($("div.mkwsBytarget").is(":visible")).toBe(false);
