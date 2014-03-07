@@ -135,9 +135,9 @@ describe("Check MOTD after search", function () {
     it("MOTD is hidden", function () {
         expect($(".mkwsMOTD").length).toBe(1);
         expect($(".mkwsMOTD").is(":hidden")).toBe(true);
-        debug("motd " + $(".mkwsMOTD") );
-        debug("motd t=" + $(".mkwsMOTD").text() );
-        debug("motd v=" + $(".mkwsMOTD").is(":visible") );
+        debug("motd " + $(".mkwsMOTD"));
+        debug("motd t=" + $(".mkwsMOTD").text());
+        debug("motd v=" + $(".mkwsMOTD").is(":visible"));
         //expect($("div.mkwsBytarget").is(":visible")).toBe(true);
     });
 });
@@ -257,12 +257,11 @@ describe("Check Termlist", function () {
             }
         }
         if ($("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text().length == 0) {
-          debug("No good authors found. Not clicking on the bad ones");
-          return;
+            debug("No good authors found. Not clicking on the bad ones");
+            return;
         }
-        
-        debug("Clicking on author (" + author_number +") " +        
-          $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text() );
+
+        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text());
         $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
@@ -292,7 +291,7 @@ describe("Check Termlist", function () {
         }
 
         $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
-        
+
         waitsFor(function () {
             if ($("div.mkwsNavi").length && $("div.mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
                 return true;
@@ -321,21 +320,19 @@ describe("Show record", function () {
         // make sure we have a link.
         var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
         var waitcount = 0;
-        waitsFor(function() {
-          waitcount++;
-          debug("waiting for the link " + waitcount + " "  + $(linkaddr) + 
-              " =" + $(linkaddr).length +  " " + $(linkaddr).text() );          
-          return ( $(linkaddr).length >0  );
+        waitsFor(function () {
+            waitcount++;
+            debug("waiting for the link " + waitcount + " " + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
+            return ($(linkaddr).length > 0);
         }, "wait until we see a link", 1 * jasmine_config.second);
-        
-        runs(function(){
-          var link =  $(linkaddr);
-          debug("== waited (" + waitcount + ") for the link..." + $(linkaddr) + 
-            " =" + $(linkaddr).length +  " " + $(linkaddr).text() );
-          expect(link.length).toBe(1);
-          link.trigger("click");
+
+        runs(function () {
+            var link = $(linkaddr);
+            debug("== waited (" + waitcount + ") for the link..." + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
+            expect(link.length).toBe(1);
+            link.trigger("click");
         });
-        
+
         // wait until the record pops up
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
