@@ -289,6 +289,10 @@ describe("Check Termlist", function () {
                 break;
             }
         }
+        if ($("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").text().length == 0) {
+            debug("No good source found. Not clicking on the bad ones");
+            return;
+        }
 
         $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
 
