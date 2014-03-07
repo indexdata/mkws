@@ -256,7 +256,13 @@ describe("Check Termlist", function () {
                 break;
             }
         }
-
+        if ($("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text().length == 0) {
+          debug("No good authors found. Not clicking on the bad ones");
+          return;
+        }
+        
+        debug("Clicking on author (" + author_number +") " +        
+          $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text() );
         $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
