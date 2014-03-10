@@ -321,6 +321,7 @@ describe("Check Termlist", function () {
 
 describe("Check record list", function () {
     it("got a record", function () {
+        var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
         var waitcount = 0;
 
         // wait for new records
@@ -330,14 +331,13 @@ describe("Check record list", function () {
         });
 
         waitsFor(function () {
-            return waitcount;
-        }, "wait until we see a record", 1.5 * jasmine_config.second);
+            return waitcount > 0 && $(linkaddr).length > 0;
+        }, "wait until we see a new record", 2.2 * jasmine_config.second);
 
         runs(function () {
             expect(waitcount).toBeGreaterThan(0);
             $("div.mkwsRecords").unbind("DOMSubtreeModified");
         });
-
     });
 });
 
