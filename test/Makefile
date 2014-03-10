@@ -4,11 +4,11 @@
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
 PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
-PHANTOMJS_TIMEOUT=12	
+PHANTOMJS_TIMEOUT=12
 
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
-PHANTOMJS=	./bomb.pl ./node_modules/phantomjs/bin/phantomjs
+PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 
@@ -33,7 +33,7 @@ terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 phantomjs p:
-	${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
