@@ -318,24 +318,26 @@ describe("Check Termlist", function () {
     });
 });
 
+
 describe("Check record list", function () {
     it("got a record", function () {
-        // make sure we have a link.
-        var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
         var waitcount = 0;
 
-        waitsFor(function () {
+        // wait for new records
+        $("div.mkwsRecords").bind("DOMSubtreeModified", function () {
             waitcount++;
-            debug("waiting for the link " + waitcount + " " + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
-            return ($(linkaddr).length > 0);
-        }, "wait until we see a link", 1 * jasmine_config.second);
+            debug("DOM div.mkwsRecords changed");
+        });
+
+        waitsFor(function () {
+            return waitcount;
+        }, "wait until we see a record", 1.5 * jasmine_config.second);
 
         runs(function () {
-            var link = $(linkaddr);
-            debug("== waited (" + waitcount + ") for the link..." + $(linkaddr) + " =" + $(linkaddr).length + " " + $(linkaddr).text());
-            expect(link.length).toBe(1);
-            // link.trigger("click");
+            expect(waitcount).toBeGreaterThan(0);
+            $("div.mkwsRecords").unbind("DOMSubtreeModified");
         });
+
     });
 });
 
