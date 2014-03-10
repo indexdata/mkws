@@ -92,8 +92,6 @@ describe("Check MOTD before search", function () {
         expect($(".mkwsMOTDContainer").length).toBe(1);
         expect($(".mkwsMOTDContainer").text()).toMatch(/MOTD/);
     });
-
-
 });
 
 describe("Check pazpar2 search", function () {
@@ -135,13 +133,10 @@ describe("Check MOTD after search", function () {
     it("MOTD is hidden", function () {
         expect($(".mkwsMOTD").length).toBe(1);
         expect($(".mkwsMOTD").is(":hidden")).toBe(true);
-        //debug("motd " + $(".mkwsMOTD"));
         debug("motd t=" + $(".mkwsMOTD").text());
         debug("motd v=" + $(".mkwsMOTD").is(":visible"));
-        //expect($("div.mkwsBytarget").is(":visible")).toBe(true);
     });
 });
-
 
 
 /*
@@ -190,10 +185,8 @@ describe("Check pazpar2 hit counter", function () {
 
         waitsFor(function () {
             hits = get_hit_counter();
-
             return hits > expected_hits;
         }, "Expect " + expected_hits + " hits", max_time * jasmine_config.second);
-
 
         runs(function () {
             debug("mkws pager found records: '" + hits + "'");
@@ -212,7 +205,6 @@ describe("Check Termlist", function () {
         waitsFor(function () {
             return $("div.mkwsFacetSources").length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
-
 
         // everything displayed?
         runs(function () {
@@ -246,6 +238,7 @@ describe("Check Termlist", function () {
         var author_number = 2; // 2=first author
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
+        // because searching on such authors won't find anything.
         var terms = $("div.mkwsFacetAuthors div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
@@ -341,7 +334,6 @@ describe("Check record list", function () {
     });
 });
 
-
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
@@ -432,9 +424,7 @@ describe("Check status client counter", function () {
             } else {
                 return false;
             }
-
         }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
-
 /*
         runs(function () {
             var clients = $("div#mkwsStat span.clients");
@@ -442,9 +432,7 @@ describe("Check status client counter", function () {
             expect(clients.text()).toEqual("0/1");
         });
         */
-
     });
-
 });
 
 /* done */
