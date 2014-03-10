@@ -368,8 +368,7 @@ describe("Show record", function () {
 
         var urls = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
-        expect(urls.length).toBeGreaterThan(0);
-
+        // expect(urls.length).toBeGreaterThan(0); // LoC has records without links
         for (var i = 0; i < urls.length; i++) {
             var url = $(urls[i]);
             debug("URL: " + url.attr('href') + " text: " + url.text());
