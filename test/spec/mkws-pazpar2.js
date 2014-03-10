@@ -246,6 +246,7 @@ describe("Check Termlist", function () {
         var author_number = 2; // 2=first author
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
+        // because searching on such authors won't find anything.
         var terms = $("div.mkwsFacetAuthors div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
