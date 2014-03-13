@@ -1019,7 +1019,7 @@ function team($, teamName) {
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
 
-	selector = selector.split(',').map(function(s) {
+	selector = $.map(selector.split(','), function(s, i) {
 	    return s + '.mkwsTeam_' + teamName;
 	}).join(',');
 
