@@ -318,7 +318,7 @@ describe("Check record list", function () {
         var waitcount = 0;
 
         // wait for new records
-        $("div.mkwsRecords").bind("DOMSubtreeModified", function () {
+        $("div.mkwsRecords").bind("DOMSubtreeModified propertychange", function () {
             waitcount++;
             debug("DOM div.mkwsRecords changed");
         });
