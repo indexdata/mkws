@@ -65,6 +65,19 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
     }, 500); //< repeat check every N ms
 };
 
+function dump_html(file) {
+    // not yet implemented
+    var spawn = require('child_process').spawn,
+        lynx = spawn("lynx", ["-nolist", "-dump", file]);
+
+    lynx.stdout.on('data', function (data) {
+        console.log('lynx >> ' + data);
+    });
+
+    // lynx.stderr.on('data', function (data) { console.log('stderr: ' + data); });
+    // lynx.on('close', function (code) { console.log('child process exited with code ' + code) });
+};
+
 // redirect webkit console.log() output
 page.onConsoleMessage = function (message) {
     if (debug >= 2) console.log(message);
@@ -142,15 +155,17 @@ page.open(url, function (status) {
         var error_png = "./mkws-error.png";
         var error_html = "./mkws-error.html";
 
+        var html = result.html + "\n\n<!-- mkws: " + JSON.stringify(result.mkws) + " -->\n";
+        var fs = require('fs');
+        fs.write(error_html, html, "wb");
+        dump_html(error_html);
+
         console.log("MKWS tests failed after " + result.time / 1000 + " seconds");
         console.log(result.error_msg.join("\n"));
         console.log("keep screenshot in '" + error_png + "'");
         page.render(error_png);
 
         console.log("keep html DOM in '" + error_html + "'");
-        console.log("you may run: lynx -nolist -dump " + error_html);
-        var html = result.html + "\n\n<!-- mkws: " + JSON.stringify(result.mkws) + " -->\n";
-        var fs = require('fs');
-        fs.write(error_html, html, "wb");
+        // console.log("you may run: lynx -nolist -dump " + error_html);
     }, run_time * 1000);
 });
