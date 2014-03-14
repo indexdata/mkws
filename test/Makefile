@@ -33,7 +33,7 @@ terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 phantomjs p:
-	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/evaluate.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
