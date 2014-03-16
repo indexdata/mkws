@@ -11,6 +11,7 @@ JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
+PERL_SCRIPTS=	bomb.pl
 
 all: check
 
@@ -55,13 +56,19 @@ jsbeautifier jsb indent:
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
+perltidy:
+	@ls ${PERL_SCRIPTS} | xargs -n1 -P16 perl -c 2>/dev/null
+	@ls ${PERL_SCRIPTS} | xargs -n2 -P8 perltidy -b
+
+
 node_modules node-modules:
 	npm install ${NPM_INSTALL_FLAGS}
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | screenshot ]"
-	@echo "     [ jsbeautifier | node-modules ]"
+	@echo "     [ jsbeautifier | perltidy ]"
+	@echo "     [ node-modules ]"
 	@echo ""
 	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
 
