@@ -57,6 +57,7 @@ function _mkws_jquery_plugin ($) {
 
 	// service-proxy or pazpar2
 	pazpar2: function(config) {
+	    if (!config) config = {};
 	    var id_popup = config.id_popup || "#mkwsPopup";
 	    id_popup = id_popup.replace(/^#/, "");
 
