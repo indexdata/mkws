@@ -4,16 +4,19 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Mike's playground</title>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws-jquery.js"></script>
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
   </head>
-   <div id='mkwsRecords'
-	autosearch='mike'
-	sort='relevance'
-	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
->results will appear here</div>
+  <body>
+    <script type="text/javascript">
+    jQuery.pazpar2();
+    </script>
+  </body>
 </html>
