@@ -384,7 +384,7 @@ service_proxy_auth        url     *Note 4*  A URL which, when `use_service_proxy
                                             session to authenticate the user and establish a session that encompasses a defined set
                                             of targets to search in.
 
-service_proxy_auth_domain domain            Can be set to the domain for which `service_proxy_auth` proxies authenticationm, so
+service_proxy_auth_domain domain            Can be set to the domain for which `service_proxy_auth` proxies authentication, so
                                             that cookies are rewritten to appear to be from this domain. In general, this is not
                                             necessary, as this setting defaults to the domain of `pazpar2_url`.
 
