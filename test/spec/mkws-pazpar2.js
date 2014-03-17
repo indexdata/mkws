@@ -289,6 +289,13 @@ describe("Check Termlist", function () {
 
         $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
 
+        // wait for a stat response
+        var waitcount = 0;
+        $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            waitcount++;
+            debug("DOM wait for stat: " + waitcount);
+        });
+
         waitsFor(function () {
             if ($("div.mkwsNavi").length && $("div.mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
                 return true;
@@ -300,13 +307,15 @@ describe("Check Termlist", function () {
         // Note: it may happens that limited source search returns the same number of hits
         // as before. Thats not really an error, but unfortunate
         waitsFor(function () {
-            return get_hit_counter() <= hits_all_targets ? true : false;
+            return waitcount >= 2 && get_hit_counter() <= hits_all_targets ? true : false;
         }, "Limited source search for less than " + hits_all_targets + " hits", 5 * jasmine_config.second);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
+
+            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
@@ -315,21 +324,28 @@ describe("Check Termlist", function () {
 describe("Check record list", function () {
     it("got a record", function () {
         var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
-        var waitcount = 0;
+        var waitcount = 2;
 
-        // wait for new records
-        $("div.mkwsRecords").bind("DOMSubtreeModified propertychange", function () {
+/*
+        // wait for new records, propertychange is for IE8
+        $("div.mkwsRecords").bind("DOMNodeInserted propertychange", function () {
             waitcount++;
-            debug("DOM div.mkwsRecords changed");
+            debug("DOM DOMNodeInserted:" + waitcount + " " + $("div.mkwsRecords div.record").length);
         });
+        $("div.mkwsRecords").bind("DOMNodeRemoved", function () {
+            waitcount++;
+            debug("DOM DOMNodeRemoved:" + waitcount + " " + $("div.mkwsRecords div.record").length);
+        });
+        */
 
         waitsFor(function () {
-            return waitcount > 0 && $(linkaddr).length > 0;
-        }, "wait until we see a new record", 2.2 * jasmine_config.second);
+            // remove + insert node: must be at least 2
+            return waitcount >= 2 && $(linkaddr).length > 0;
+        }, "wait until we see a new record: " + waitcount, 2.2 * jasmine_config.second);
 
         runs(function () {
             expect(waitcount).toBeGreaterThan(0);
-            $("div.mkwsRecords").unbind("DOMSubtreeModified");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved");
         });
     });
 });
@@ -344,8 +360,10 @@ describe("Show record", function () {
         // wait until the record pops up
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
+            debug($("div.mkwsRecords div.record").text());
+
             return show != null && show.length ? true : false;
-        }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
+        }, "wait some miliseconds to show up a record", 4 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
