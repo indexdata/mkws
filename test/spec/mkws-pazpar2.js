@@ -367,7 +367,7 @@ describe("Show record", function () {
             debug("URL: " + url.attr('href') + " text: " + url.text());
 
             expect(url.attr('href')).not.toBe(null);
-            expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9]+\.[0-9a-z].*\//i);
+            expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9\-]+\.[0-9a-z].*\//i);
             expect(url.text()).not.toBe("");
         }
     });
