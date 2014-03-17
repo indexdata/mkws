@@ -57,7 +57,7 @@ EOF
 GetOptions(
     "help"      => \$help,
     "debug=i"   => \$debug,
-    "timeout=i" => \$timeout,
+    "timeout=f" => \$timeout,
 ) or die usage;
 
 my @system = @ARGV;

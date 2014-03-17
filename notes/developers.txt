@@ -4,6 +4,26 @@ These notes are collected by Heikki, mostly from skype chats with Wolfram
 and Mike. I collected them for my own use, but I hope they will turn out
 to be helpful to anyone who needs to get started with mkws.
 
+Environment
+-----------
+
+apt-get install yui-compressor
+get nodejs, sudo make install, ln -s /usr/local/bin/npm ~/bin/npm if needed
+
+cd .../mkws; make check
+
+
+Apache
+------
+You need to set up a local apache. 
+  * add 'mkws' in /etc/hosts to point to 127.0.0.2
+  * symlinked .../mkws/tools/apache2/mkws-heikki to /etc/apache/sites-available
+  * a2ensite mkws-heikki
+  * a2enmod rewrite
+  * a2enmod headers
+  * service apache2 reload
+  * Check that your browser sees somethig in http://mkws/ and 
+    http://mkws/jasmine-popup.html. If need be, enable javascript etc. 
 
 Libraries
 ---------
@@ -54,8 +74,17 @@ Most (all?) code work happens in mkws.js.
 Unit tests
 ----------
 
-if you want understand the test than you can look at mkws/test/spec/mkws-config.js
+Tests are based on jasmine. a general description of jasmine is on
+http://jasmine.github.io/1.3/introduction.html
+
+If you want understand the test than you can look at mkws/test/spec/mkws-config.js
 and mkws/test/spec/mkws-pazpar2.js . See also mkws/test/README.txt
+
+The test scripts are included from the test page, for example
+mkws/examples/htdocs/jasmine-popup.html has 
+<script type="text/javascript" src="test/spec/mkws-pazpar2.js"></script>
+
+
 
 
 Structure of mkws.js
