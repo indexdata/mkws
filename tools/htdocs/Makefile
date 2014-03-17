@@ -69,10 +69,12 @@ ${JQUERY_FILE}:
 	rm -f $@.new
 
 ${JQUERY_JSON_FILE}:
-	curl -sSf ${JQUERY_JSON_URL} -o $@
+	curl -sSf ${JQUERY_JSON_URL} -o $@.tmp
+	mv -f $@.tmp $@
 
 ${HANDLEBARS_FILE}:
-	curl -sSf ${HANDLEBARS_URL} -o $@
+	curl -sSf ${HANDLEBARS_URL} -o $@.tmp
+	mv -f $@.tmp $@
 
 ${PP2_FILE}:
 	curl -sSf "${PP2_URL}" -o $@.tmp
