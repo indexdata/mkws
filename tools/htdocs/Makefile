@@ -14,7 +14,7 @@ JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
 JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 #JQUERY_UI_URL=	http://code.jquery.com/ui/1.8.0/jquery-ui.min.js
 JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
-HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js -o $@
+HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js
 PP2_URL= 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
