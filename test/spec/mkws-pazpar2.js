@@ -322,30 +322,31 @@ describe("Check Termlist", function () {
 
 
 describe("Check record list", function () {
+    it("check for single active client", function () {
+        waitsFor(function () {
+            var clients = $("div#mkwsStat span.clients");
+            debug("clients: " + clients.text());
+
+            return clients.length == 1 && clients.text().match("/1$");
+        }, "wait for Active clients: x/1", 5 * jasmine_config.second);
+
+        runs(function () {
+            var clients = $("div#mkwsStat span.clients");
+            debug("span.clients: " + clients.text());
+            expect(clients.text()).toMatch("/1$");
+        });
+    });
+
     it("got a record", function () {
         var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
-        var waitcount = 2;
-
-        /*
-        // wait for new records, propertychange is for IE8
-        $("div.mkwsRecords").bind("DOMNodeInserted propertychange", function () {
-            waitcount++;
-            debug("DOM DOMNodeInserted:" + waitcount + " " + $("div.mkwsRecords div.record").length);
-        });
-        $("div.mkwsRecords").bind("DOMNodeRemoved", function () {
-            waitcount++;
-            debug("DOM DOMNodeRemoved:" + waitcount + " " + $("div.mkwsRecords div.record").length);
-        });
-        */
 
         waitsFor(function () {
             // remove + insert node: must be at least 2
-            return waitcount >= 2 && $(linkaddr).length > 0;
-        }, "wait until we see a new record: " + waitcount, 2.2 * jasmine_config.second);
+            return $(linkaddr).length > 0;
+        }, "wait until we see a new record: " + waitcount, 2.5 * jasmine_config.second);
 
         runs(function () {
             expect(waitcount).toBeGreaterThan(0);
-            // $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved");
         });
     });
 });
@@ -359,11 +360,11 @@ describe("Show record", function () {
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div");
-            debug($("div.mkwsRecords div.record").text());
+            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.details");
+            debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
 
             return show != null && show.length ? true : false;
-        }, "wait some miliseconds to show up a record", 3 * jasmine_config.second);
+        }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
@@ -444,7 +445,7 @@ describe("Check status client counter", function () {
                 return false;
             }
         }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
-        
+
         runs(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("span.clients: " + clients.text());
