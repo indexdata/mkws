@@ -229,7 +229,7 @@ function team($, teamName) {
     that.name = function() { return m_teamName; }
     var m_submitted = false;
     var m_query; // initially undefined
-    var m_sort; // will be set below
+    var m_sortOrder; // will be set below
     var m_perpage; // will be set below
     var m_filters = [];
     var m_totalRec = 0;
@@ -255,7 +255,7 @@ function team($, teamName) {
 
     debug("start running MKWS");
 
-    m_sort = mkws_config.sort_default;
+    m_sortOrder = mkws_config.sort_default;
     m_perpage = mkws_config.perpage_default;
 
     debug("Create main pz2 object");
@@ -502,7 +502,7 @@ function team($, teamName) {
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
-	m_paz.show(0, m_perpage, m_sort);
+	m_paz.show(0, m_perpage, m_sortOrder);
 	return false;
     }
 
@@ -542,9 +542,9 @@ function team($, teamName) {
     function loadSelect ()
     {
 	var node = findnode('.mkwsSort');
-	if (node.length && node.val() != m_sort) {
-	    debug("changing m_sort from " + m_sort + " to " + node.val());
-	    m_sort = node.val();
+	if (node.length && node.val() != m_sortOrder) {
+	    debug("changing m_sortOrder from " + m_sortOrder + " to " + node.val());
+	    m_sortOrder = node.val();
 	}
 	node = findnode('.mkwsPerpage');
 	if (node.length && node.val() != m_perpage) {
@@ -564,7 +564,7 @@ function team($, teamName) {
 	    m_query = query;
 	}
 	if (sort) {
-	    m_sort = sort;
+	    m_sortOrder = sort;
 	}
 	if (targets) {
 	    m_filters.push({ id: targets, name: targets });
@@ -597,7 +597,7 @@ function team($, teamName) {
 
 	// We can use: params.torusquery = "udb=NAME"
 	// Note: that won't work when running against raw pazpar2
-	m_paz.search(m_query, m_perpage, m_sort, pp2filter, undefined, params);
+	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
 
 
@@ -903,7 +903,7 @@ function team($, teamName) {
 
 
     function mkwsHtmlSort() {
-	debug("HTML sort, m_sort = '" + m_sort + "'");
+	debug("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
 	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.sort_options.length; i++) {
@@ -912,7 +912,7 @@ function team($, teamName) {
 	    var val = opt.length == 1 ? opt[0] : opt[1];
 
 	    sort_html += '<option value="' + key + '"';
-	    if (m_sort == key || m_sort == val) {
+	    if (m_sortOrder == key || m_sortOrder == val) {
 		sort_html += ' selected="selected"';
 	    }
 	    sort_html += '>' + M(val) + '</option>';
