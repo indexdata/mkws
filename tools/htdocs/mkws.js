@@ -236,7 +236,7 @@ function team($, teamName) {
     var m_curPage = 1;
     var m_curDetRecId = '';
     var m_curDetRecData = null;
-    var m_debug_time = {
+    var m_debugTime = {
 	// Timestamps for logging
 	"start": $.now(),
 	"last": $.now()
@@ -247,8 +247,8 @@ function team($, teamName) {
 
     var debug = function (s) {
 	var now = $.now();
-	var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
-	m_debug_time.last = now;
+	var timestamp = ((now - m_debugTime.start)/1000).toFixed(3) + " (+" + ((now - m_debugTime.last)/1000).toFixed(3) + ") "
+	m_debugTime.last = now;
 
 	mkws.debug(m_teamName + ": " + timestamp + s);
     }
