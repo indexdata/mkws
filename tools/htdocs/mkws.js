@@ -234,7 +234,7 @@ function team($, teamName) {
     var m_filters = [];
     var m_totalRecordCount = 0;
     var m_currentPage = 1;
-    var m_curDetRecId = '';
+    var m_currentRecordId = '';
     var m_curDetRecData = null;
     var m_debugTime = {
 	// Timestamps for logging
@@ -352,7 +352,7 @@ function team($, teamName) {
 	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
 		      renderSummary(hit),
       		      '</div>');
-	    if (hit.recid == m_curDetRecId) {
+	    if (hit.recid == m_currentRecordId) {
 		if (m_curDetRecData)
 		    html.push(renderDetails(m_curDetRecData));
 	    }
@@ -736,8 +736,8 @@ function team($, teamName) {
     // detailed record drawing
     that.showDetails = function (prefixRecId) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
-	var oldRecordId = m_curDetRecId;
-	m_curDetRecId = recId;
+	var oldRecordId = m_currentRecordId;
+	m_currentRecordId = recId;
 
 	// remove current detailed view if any
 	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecordId);
@@ -747,7 +747,7 @@ function team($, teamName) {
 
 	// if the same clicked, just hide
 	if (recId == oldRecordId) {
-            m_curDetRecId = '';
+            m_currentRecordId = '';
             m_curDetRecData = null;
             return;
 	}
