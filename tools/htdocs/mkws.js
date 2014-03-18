@@ -232,7 +232,7 @@ function team($, teamName) {
     var m_sortOrder; // will be set below
     var m_perpage; // will be set below
     var m_filters = [];
-    var m_totalRec = 0;
+    var m_totalRecordCount = 0;
     var m_curPage = 1;
     var m_curDetRecId = '';
     var m_curDetRecData = null;
@@ -335,7 +335,7 @@ function team($, teamName) {
 
     function onShow(data, teamName) {
 	debug("show");
-	m_totalRec = data.merged;
+	m_totalRecordCount = data.merged;
 
 	var pager = findnode(".mkwsPager");
 	if (pager.length) {
@@ -420,7 +420,7 @@ function team($, teamName) {
 
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
-	var pages = Math.ceil(m_totalRec / m_perpage);
+	var pages = Math.ceil(m_totalRecordCount / m_perpage);
 
 	var firstClkbl = (m_curPage - onsides > 0)
             ? m_curPage - onsides
@@ -535,7 +535,7 @@ function team($, teamName) {
     function resetPage()
     {
 	m_curPage = 1;
-	m_totalRec = 0;
+	m_totalRecordCount = 0;
     }
 
 
@@ -684,7 +684,7 @@ function team($, teamName) {
 
     // simple paging functions
     that.pagerNext = function () {
-	if (m_totalRec - m_perpage*m_curPage > 0) {
+	if (m_totalRecordCount - m_perpage*m_curPage > 0) {
             m_paz.showNext();
             m_curPage++;
 	}
