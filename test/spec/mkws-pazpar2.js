@@ -326,7 +326,7 @@ describe("Check record list", function () {
         var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
         var waitcount = 2;
 
-/*
+        /*
         // wait for new records, propertychange is for IE8
         $("div.mkwsRecords").bind("DOMNodeInserted propertychange", function () {
             waitcount++;
@@ -345,7 +345,7 @@ describe("Check record list", function () {
 
         runs(function () {
             expect(waitcount).toBeGreaterThan(0);
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved");
+            // $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved");
         });
     });
 });
@@ -363,7 +363,7 @@ describe("Show record", function () {
             debug($("div.mkwsRecords div.record").text());
 
             return show != null && show.length ? true : false;
-        }, "wait some miliseconds to show up a record", 4 * jasmine_config.second);
+        }, "wait some miliseconds to show up a record", 3 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
