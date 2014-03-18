@@ -229,14 +229,14 @@ function team($, teamName) {
     that.name = function() { return m_teamName; }
     var m_submitted = false;
     var m_query; // initially undefined
-    var m_sort; // will be set below
+    var m_sortOrder; // will be set below
     var m_perpage; // will be set below
     var m_filters = [];
-    var m_totalRec = 0;
-    var m_curPage = 1;
-    var m_curDetRecId = '';
-    var m_curDetRecData = null;
-    var m_debug_time = {
+    var m_totalRecordCount = 0;
+    var m_currentPage = 1;
+    var m_currentRecordId = '';
+    var m_currentRecordData = null;
+    var m_debugTime = {
 	// Timestamps for logging
 	"start": $.now(),
 	"last": $.now()
@@ -247,15 +247,15 @@ function team($, teamName) {
 
     var debug = function (s) {
 	var now = $.now();
-	var timestamp = ((now - m_debug_time.start)/1000).toFixed(3) + " (+" + ((now - m_debug_time.last)/1000).toFixed(3) + ") "
-	m_debug_time.last = now;
+	var timestamp = ((now - m_debugTime.start)/1000).toFixed(3) + " (+" + ((now - m_debugTime.last)/1000).toFixed(3) + ") "
+	m_debugTime.last = now;
 
 	mkws.debug(m_teamName + ": " + timestamp + s);
     }
 
     debug("start running MKWS");
 
-    m_sort = mkws_config.sort_default;
+    m_sortOrder = mkws_config.sort_default;
     m_perpage = mkws_config.perpage_default;
 
     debug("Create main pz2 object");
@@ -335,7 +335,7 @@ function team($, teamName) {
 
     function onShow(data, teamName) {
 	debug("show");
-	m_totalRec = data.merged;
+	m_totalRecordCount = data.merged;
 
 	var pager = findnode(".mkwsPager");
 	if (pager.length) {
@@ -352,9 +352,9 @@ function team($, teamName) {
 	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
 		      renderSummary(hit),
       		      '</div>');
-	    if (hit.recid == m_curDetRecId) {
-		if (m_curDetRecData)
-		    html.push(renderDetails(m_curDetRecData));
+	    if (hit.recid == m_currentRecordId) {
+		if (m_currentRecordData)
+		    html.push(renderDetails(m_currentRecordData));
 	    }
 	}
 	results.html(html.join(''));
@@ -368,10 +368,10 @@ function team($, teamName) {
 	// in case on_show was faster to redraw element
 	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
 	if (detRecordDiv) return;
-	m_curDetRecData = data;
+	m_currentRecordData = data;
 	// Can't use jQuery's $('#x') syntax to find this ID, because it contains spaces.
-	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
-	var html = renderDetails(m_curDetRecData);
+	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_currentRecordData.recid);
+	var html = renderDetails(m_currentRecordData);
 	$(recordDiv).append(html);
     }
 
@@ -420,10 +420,10 @@ function team($, teamName) {
 
 	//client indexes pages from 1 but pz2 from 0
 	var onsides = 6;
-	var pages = Math.ceil(m_totalRec / m_perpage);
+	var pages = Math.ceil(m_totalRecordCount / m_perpage);
 
-	var firstClkbl = (m_curPage - onsides > 0)
-            ? m_curPage - onsides
+	var firstClkbl = (m_currentPage - onsides > 0)
+            ? m_currentPage - onsides
             : 1;
 
 	var lastClkbl = firstClkbl + 2*onsides < pages
@@ -431,14 +431,14 @@ function team($, teamName) {
             : pages;
 
 	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
-	if (m_curPage > 1)
+	if (m_currentPage > 1)
             prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
             +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 	var middle = '';
 	for(var i = firstClkbl; i <= lastClkbl; i++) {
             var numLabel = i;
-            if(i == m_curPage)
+            if(i == m_currentPage)
 		numLabel = '<b>' + i + '</b>';
 
             middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
@@ -446,7 +446,7 @@ function team($, teamName) {
 	}
 
 	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-	if (pages - m_curPage > 0)
+	if (pages - m_currentPage > 0)
             next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
             + M('Next') + ' &#62;&#62;</a>';
 
@@ -478,7 +478,7 @@ function team($, teamName) {
     }
 
 
-    function newSearch(query, sort, targets)
+    function newSearch(query, sortOrder, targets)
     {
 	debug("newSearch: " + query);
 
@@ -491,7 +491,7 @@ function team($, teamName) {
 	redrawNavi();
 	resetPage();
 	loadSelect();
-	triggerSearch(query, sort, targets);
+	triggerSearch(query, sortOrder, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
@@ -502,7 +502,7 @@ function team($, teamName) {
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
-	m_paz.show(0, m_perpage, m_sort);
+	m_paz.show(0, m_perpage, m_sortOrder);
 	return false;
     }
 
@@ -534,17 +534,17 @@ function team($, teamName) {
 
     function resetPage()
     {
-	m_curPage = 1;
-	m_totalRec = 0;
+	m_currentPage = 1;
+	m_totalRecordCount = 0;
     }
 
 
     function loadSelect ()
     {
 	var node = findnode('.mkwsSort');
-	if (node.length && node.val() != m_sort) {
-	    debug("changing m_sort from " + m_sort + " to " + node.val());
-	    m_sort = node.val();
+	if (node.length && node.val() != m_sortOrder) {
+	    debug("changing m_sortOrder from " + m_sortOrder + " to " + node.val());
+	    m_sortOrder = node.val();
 	}
 	node = findnode('.mkwsPerpage');
 	if (node.length && node.val() != m_perpage) {
@@ -554,17 +554,17 @@ function team($, teamName) {
     }
 
 
-    function triggerSearch (query, sort, targets)
+    function triggerSearch (query, sortOrder, targets)
     {
 	var pp2filter = "";
 	var pp2limit = "";
 
-	// Re-use previous query/sort if new ones are not specified
+	// Re-use previous query/sort-order if new ones are not specified
 	if (query) {
 	    m_query = query;
 	}
-	if (sort) {
-	    m_sort = sort;
+	if (sortOrder) {
+	    m_sortOrder = sortOrder;
 	}
 	if (targets) {
 	    m_filters.push({ id: targets, name: targets });
@@ -597,7 +597,7 @@ function team($, teamName) {
 
 	// We can use: params.torusquery = "udb=NAME"
 	// Note: that won't work when running against raw pazpar2
-	m_paz.search(m_query, m_perpage, m_sort, pp2filter, undefined, params);
+	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
 
 
@@ -677,23 +677,23 @@ function team($, teamName) {
 
     that.showPage = function (pageNum)
     {
-	m_curPage = pageNum;
-	m_paz.showPage(m_curPage - 1);
+	m_currentPage = pageNum;
+	m_paz.showPage(m_currentPage - 1);
     }
 
 
     // simple paging functions
     that.pagerNext = function () {
-	if (m_totalRec - m_perpage*m_curPage > 0) {
+	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
             m_paz.showNext();
-            m_curPage++;
+            m_currentPage++;
 	}
     }
 
 
     that.pagerPrev = function () {
 	if (m_paz.showPrev() != false)
-            m_curPage--;
+            m_currentPage--;
     }
 
 
@@ -736,19 +736,19 @@ function team($, teamName) {
     // detailed record drawing
     that.showDetails = function (prefixRecId) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
-	var oldRecId = m_curDetRecId;
-	m_curDetRecId = recId;
+	var oldRecordId = m_currentRecordId;
+	m_currentRecordId = recId;
 
 	// remove current detailed view if any
-	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecId);
+	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecordId);
 	// lovin DOM!
 	if (detRecordDiv)
 	    detRecordDiv.parentNode.removeChild(detRecordDiv);
 
 	// if the same clicked, just hide
-	if (recId == oldRecId) {
-            m_curDetRecId = '';
-            m_curDetRecData = null;
+	if (recId == oldRecordId) {
+            m_currentRecordId = '';
+            m_currentRecordData = null;
             return;
 	}
 	// request the record
@@ -903,7 +903,7 @@ function team($, teamName) {
 
 
     function mkwsHtmlSort() {
-	debug("HTML sort, m_sort = '" + m_sort + "'");
+	debug("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
 	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.sort_options.length; i++) {
@@ -912,7 +912,7 @@ function team($, teamName) {
 	    var val = opt.length == 1 ? opt[0] : opt[1];
 
 	    sort_html += '<option value="' + key + '"';
-	    if (m_sort == key || m_sort == val) {
+	    if (m_sortOrder == key || m_sortOrder == val) {
 		sort_html += ' selected="selected"';
 	    }
 	    sort_html += '>' + M(val) + '</option>';
@@ -985,14 +985,14 @@ function team($, teamName) {
 
 	debug("node=" + node + ", class='" + node.className + "', query=" + query);
 
-	var sort = node.attr('sort');
+	var sortOrder = node.attr('sort');
 	var targets = node.attr('targets');
 	var s = "running auto search: '" + query + "'";
-	if (sort) s += " sorted by '" + sort + "'";
+	if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	if (targets) s += " in targets '" + targets + "'";
 	debug(s);
 
-	newSearch(query, sort, targets);
+	newSearch(query, sortOrder, targets);
     }
 
 
