@@ -162,6 +162,8 @@ function widget($, team, type, node) {
 	promoteTargets();
     } else if (type === 'Stat') {
 	promoteStat();
+    } else if (type === 'Termlists') {
+	promoteTermlists();
     } else {
 	// ### Handle other types here
     }
@@ -210,6 +212,68 @@ function widget($, team, type, node) {
 		'<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 		' -- ' +
 		'<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
+	});
+    }
+
+
+    function promoteTermlists() {
+	team.queue("termlists").subscribe(function(data) {
+	    mkws.debug("in termlist consumer");
+	    if (!node) {
+		alert("termlists event when there are no termlists");
+		return;
+	    }
+
+	    // no facets: this should never happen
+	    if (!mkws_config.facets || mkws_config.facets.length == 0) {
+		alert("onTerm called even though we have no facets: " + $.toJSON(data));
+		$(node).hide();
+		return;
+	    }
+
+	    // display if we first got results
+	    $(node).show();
+
+	    var acc = [];
+	    acc.push('<div class="title">' + M('Termlists') + '</div>');
+	    var facets = mkws_config.facets;
+
+	    for (var i = 0; i < facets.length; i++) {
+		if (facets[i] == "xtargets") {
+		    addSingleFacet(acc, "Sources",  data.xtargets, 16, null);
+		} else if (facets[i] == "subject") {
+		    addSingleFacet(acc, "Subjects", data.subject,  10, "subject");
+		} else if (facets[i] == "author") {
+		    addSingleFacet(acc, "Authors",  data.author,   10, "author");
+		} else {
+		    alert("bad facet configuration: '" + facets[i] + "'");
+		}
+	    }
+
+	    $(node).html(acc.join(''));
+
+	    function addSingleFacet(acc, caption, data, max, pzIndex) {
+		acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + team.name() + '">');
+		acc.push('<div class="termtitle">' + M(caption) + '</div>');
+		for (var i = 0; i < data.length && i < max; i++) {
+		    acc.push('<div class="term">');
+		    acc.push('<a href="#" ');
+		    var action = '';
+		    if (!pzIndex) {
+			// Special case: target selection
+			acc.push('target_id='+data[i].id+' ');
+			if (!team.targetFiltered(data[i].id)) {
+			    action = 'mkws.limitTarget(\'' + team.name() + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+			}
+		    } else {
+			action = 'mkws.limitQuery(\'' + team.name() + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
+		    }
+		    acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
+			     + ' <span>' + data[i].freq + '</span>');
+		    acc.push('</div>');
+		}
+		acc.push('</div>');
+	    }
 	});
     }
 }
@@ -300,36 +364,7 @@ function team($, teamName) {
 
     function onTerm(data) {
 	debug("term");
-	var node = findnode(".mkwsTermlists");
-	if (node.length == 0) return;
-
-	// no facets: this should never happen
-	if (!mkws_config.facets || mkws_config.facets.length == 0) {
-	    alert("onTerm called even though we have no facets: " + $.toJSON(data));
-	    node.hide();
-	    return;
-	}
-
-	// display if we first got results
-	node.show();
-
-	var acc = [];
-	acc.push('<div class="title">' + M('Termlists') + '</div>');
-	var facets = mkws_config.facets;
-
-	for(var i = 0; i < facets.length; i++) {
-	    if (facets[i] == "xtargets") {
-		addSingleFacet(acc, "Sources",  data.xtargets, 16, null);
-	    } else if (facets[i] == "subject") {
-		addSingleFacet(acc, "Subjects", data.subject,  10, "subject");
-	    } else if (facets[i] == "author") {
-		addSingleFacet(acc, "Authors",  data.author,   10, "author");
-	    } else {
-		alert("bad facet configuration: '" + facets[i] + "'");
-	    }
-	}
-
-	node.html(acc.join(''));
+	queue("termlists").publish(data);
     }
 
 
@@ -376,31 +411,7 @@ function team($, teamName) {
     }
 
 
-    function addSingleFacet(acc, caption, data, max, pzIndex) {
-	acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + m_teamName + '">');
-	acc.push('<div class="termtitle">' + M(caption) + '</div>');
-	for (var i = 0; i < data.length && i < max; i++) {
-	    acc.push('<div class="term">');
-            acc.push('<a href="#" ');
-	    var action = '';
-	    if (!pzIndex) {
-		// Special case: target selection
-		acc.push('target_id='+data[i].id+' ');
-		if (!targetFiltered(data[i].id)) {
-		    action = 'mkws.limitTarget(\'' + m_teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
-		}
-	    } else {
-		action = 'mkws.limitQuery(\'' + m_teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
-	    }
-	    acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-		     + ' <span>' + data[i].freq + '</span>');
-	    acc.push('</div>');
-	}
-	acc.push('</div>');
-    }
-
-
-    function targetFiltered(id) {
+    that.targetFiltered = function(id) {
 	for (var i = 0; i < m_filters.length; i++) {
 	    if (m_filters[i].id === id ||
 		m_filters[i].id === 'pz:id=' + id) {
