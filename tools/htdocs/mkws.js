@@ -736,17 +736,17 @@ function team($, teamName) {
     // detailed record drawing
     that.showDetails = function (prefixRecId) {
 	var recId = prefixRecId.replace('mkwsRec_', '');
-	var oldRecId = m_curDetRecId;
+	var oldRecordId = m_curDetRecId;
 	m_curDetRecId = recId;
 
 	// remove current detailed view if any
-	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecId);
+	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecordId);
 	// lovin DOM!
 	if (detRecordDiv)
 	    detRecordDiv.parentNode.removeChild(detRecordDiv);
 
 	// if the same clicked, just hide
-	if (recId == oldRecId) {
+	if (recId == oldRecordId) {
             m_curDetRecId = '';
             m_curDetRecData = null;
             return;
