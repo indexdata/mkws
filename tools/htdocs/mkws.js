@@ -235,7 +235,7 @@ function team($, teamName) {
     var m_totalRecordCount = 0;
     var m_currentPage = 1;
     var m_currentRecordId = '';
-    var m_curDetRecData = null;
+    var m_currentRecordData = null;
     var m_debugTime = {
 	// Timestamps for logging
 	"start": $.now(),
@@ -353,8 +353,8 @@ function team($, teamName) {
 		      renderSummary(hit),
       		      '</div>');
 	    if (hit.recid == m_currentRecordId) {
-		if (m_curDetRecData)
-		    html.push(renderDetails(m_curDetRecData));
+		if (m_currentRecordData)
+		    html.push(renderDetails(m_currentRecordData));
 	    }
 	}
 	results.html(html.join(''));
@@ -368,10 +368,10 @@ function team($, teamName) {
 	// in case on_show was faster to redraw element
 	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
 	if (detRecordDiv) return;
-	m_curDetRecData = data;
+	m_currentRecordData = data;
 	// Can't use jQuery's $('#x') syntax to find this ID, because it contains spaces.
-	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_curDetRecData.recid);
-	var html = renderDetails(m_curDetRecData);
+	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_currentRecordData.recid);
+	var html = renderDetails(m_currentRecordData);
 	$(recordDiv).append(html);
     }
 
@@ -748,7 +748,7 @@ function team($, teamName) {
 	// if the same clicked, just hide
 	if (recId == oldRecordId) {
             m_currentRecordId = '';
-            m_curDetRecData = null;
+            m_currentRecordData = null;
             return;
 	}
 	// request the record
