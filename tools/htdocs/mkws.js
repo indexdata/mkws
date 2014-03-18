@@ -570,7 +570,7 @@ function team($, teamName) {
 	var pp2filter = "";
 	var pp2limit = "";
 
-	// Re-use previous query/sort-order if new ones are not specified
+	// Continue to use previous query/sort-order unless new ones are specified
 	if (query) {
 	    m_query = query;
 	}
