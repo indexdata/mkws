@@ -478,7 +478,7 @@ function team($, teamName) {
     }
 
 
-    function newSearch(query, sort, targets)
+    function newSearch(query, sortOrder, targets)
     {
 	debug("newSearch: " + query);
 
@@ -491,7 +491,7 @@ function team($, teamName) {
 	redrawNavi();
 	resetPage();
 	loadSelect();
-	triggerSearch(query, sort, targets);
+	triggerSearch(query, sortOrder, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
@@ -554,17 +554,17 @@ function team($, teamName) {
     }
 
 
-    function triggerSearch (query, sort, targets)
+    function triggerSearch (query, sortOrder, targets)
     {
 	var pp2filter = "";
 	var pp2limit = "";
 
-	// Re-use previous query/sort if new ones are not specified
+	// Re-use previous query/sort-order if new ones are not specified
 	if (query) {
 	    m_query = query;
 	}
-	if (sort) {
-	    m_sortOrder = sort;
+	if (sortOrder) {
+	    m_sortOrder = sortOrder;
 	}
 	if (targets) {
 	    m_filters.push({ id: targets, name: targets });
@@ -985,14 +985,14 @@ function team($, teamName) {
 
 	debug("node=" + node + ", class='" + node.className + "', query=" + query);
 
-	var sort = node.attr('sort');
+	var sortOrder = node.attr('sort');
 	var targets = node.attr('targets');
 	var s = "running auto search: '" + query + "'";
-	if (sort) s += " sorted by '" + sort + "'";
+	if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	if (targets) s += " in targets '" + targets + "'";
 	debug(s);
 
-	newSearch(query, sort, targets);
+	newSearch(query, sortOrder, targets);
     }
 
 
