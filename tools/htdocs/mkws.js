@@ -1475,7 +1475,7 @@ function team($, teamName) {
 	    }
 	});
 
-	// Find all nodes with an class, and determine their team from
+	// Find all nodes with an MKWS class, and determine their team from
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
