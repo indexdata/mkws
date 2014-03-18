@@ -343,10 +343,10 @@ describe("Check record list", function () {
         waitsFor(function () {
             // remove + insert node: must be at least 2
             return $(linkaddr).length > 0;
-        }, "wait until we see a new record: " + waitcount, 2.5 * jasmine_config.second);
+        }, "wait until we see a new record", 2.5 * jasmine_config.second);
 
         runs(function () {
-            expect(waitcount).toBeGreaterThan(0);
+            expect($(linkaddr).length).toBeGreaterThan(0);
         });
     });
 });
