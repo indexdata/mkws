@@ -233,7 +233,7 @@ function team($, teamName) {
     var m_perpage; // will be set below
     var m_filters = [];
     var m_totalRecordCount = 0;
-    var m_curPage = 1;
+    var m_currentPage = 1;
     var m_curDetRecId = '';
     var m_curDetRecData = null;
     var m_debugTime = {
@@ -422,8 +422,8 @@ function team($, teamName) {
 	var onsides = 6;
 	var pages = Math.ceil(m_totalRecordCount / m_perpage);
 
-	var firstClkbl = (m_curPage - onsides > 0)
-            ? m_curPage - onsides
+	var firstClkbl = (m_currentPage - onsides > 0)
+            ? m_currentPage - onsides
             : 1;
 
 	var lastClkbl = firstClkbl + 2*onsides < pages
@@ -431,14 +431,14 @@ function team($, teamName) {
             : pages;
 
 	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
-	if (m_curPage > 1)
+	if (m_currentPage > 1)
             prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
             +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 	var middle = '';
 	for(var i = firstClkbl; i <= lastClkbl; i++) {
             var numLabel = i;
-            if(i == m_curPage)
+            if(i == m_currentPage)
 		numLabel = '<b>' + i + '</b>';
 
             middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
@@ -446,7 +446,7 @@ function team($, teamName) {
 	}
 
 	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-	if (pages - m_curPage > 0)
+	if (pages - m_currentPage > 0)
             next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
             + M('Next') + ' &#62;&#62;</a>';
 
@@ -534,7 +534,7 @@ function team($, teamName) {
 
     function resetPage()
     {
-	m_curPage = 1;
+	m_currentPage = 1;
 	m_totalRecordCount = 0;
     }
 
@@ -677,23 +677,23 @@ function team($, teamName) {
 
     that.showPage = function (pageNum)
     {
-	m_curPage = pageNum;
-	m_paz.showPage(m_curPage - 1);
+	m_currentPage = pageNum;
+	m_paz.showPage(m_currentPage - 1);
     }
 
 
     // simple paging functions
     that.pagerNext = function () {
-	if (m_totalRecordCount - m_perpage*m_curPage > 0) {
+	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
             m_paz.showNext();
-            m_curPage++;
+            m_currentPage++;
 	}
     }
 
 
     that.pagerPrev = function () {
 	if (m_paz.showPrev() != false)
-            m_curPage--;
+            m_currentPage--;
     }
 
 
