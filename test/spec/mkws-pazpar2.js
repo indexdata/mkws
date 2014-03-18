@@ -437,19 +437,19 @@ describe("Check status client counter", function () {
     it("check status clients", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
+            debug("clients: " + clients.text());
             if (clients.length == 1 && clients.text().match("0/1$")) {
                 return true;
             } else {
                 return false;
             }
         }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
-/*
+        
         runs(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("span.clients: " + clients.text());
-            expect(clients.text()).toEqual("0/1");
+            expect(clients.text()).toMatch("0/1$");
         });
-        */
     });
 });
 
