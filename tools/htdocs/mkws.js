@@ -164,6 +164,8 @@ function widget($, team, type, node) {
 	promoteStat();
     } else if (type === 'Termlists') {
 	promoteTermlists();
+    } else if (type === 'Pager') {
+	promotePager();
     } else {
 	// ### Handle other types here
     }
@@ -276,6 +278,68 @@ function widget($, team, type, node) {
 	    }
 	});
     }
+
+
+    function promotePager() {
+	team.queue("pager").subscribe(function(data) {
+	    if (node) {
+		$(node).html(drawPager(data))
+	    }
+
+	    function drawPager(data) {
+		var s = '<div style="float: right">' + M('Displaying') + ': '
+		    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+		    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+		    + data.total + ')</div>';
+
+		//client indexes pages from 1 but pz2 from 0
+		var onsides = 6;
+		var pages = Math.ceil(team.totalRecordCount() / team.perpage());
+		var currentPage = team.currentPage();
+
+		var firstClkbl = (currentPage - onsides > 0)
+		    ? currentPage - onsides
+		    : 1;
+
+		var lastClkbl = firstClkbl + 2*onsides < pages
+		    ? firstClkbl + 2*onsides
+		    : pages;
+
+		var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
+		if (currentPage > 1)
+		    prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + team.name() + '\');">'
+		    +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
+
+		var middle = '';
+		for(var i = firstClkbl; i <= lastClkbl; i++) {
+		    var numLabel = i;
+		    if(i == currentPage)
+			numLabel = '<b>' + i + '</b>';
+
+		    middle += '<a href="#" onclick="mkws.showPage(\'' + team.name() + '\', ' + i + ')"> '
+			+ numLabel + ' </a>';
+		}
+
+		var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
+		if (pages - currentPage > 0)
+		    next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + team.name() + '\')">'
+		    + M('Next') + ' &#62;&#62;</a>';
+
+		var predots = '';
+		if (firstClkbl > 1)
+		    predots = '...';
+
+		var postdots = '';
+		if (lastClkbl < pages)
+		    postdots = '...';
+
+		s += '<div style="float: clear">'
+		    + prev + predots + middle + postdots + next + '</div>';
+
+		return s;
+	    }
+	});
+    }			     
 }
 
 
@@ -290,7 +354,6 @@ function widget($, team, type, node) {
 function team($, teamName) {
     var that = {};
     var m_teamName = teamName;
-    that.name = function() { return m_teamName; }
     var m_submitted = false;
     var m_query; // initially undefined
     var m_sortOrder; // will be set below
@@ -308,6 +371,10 @@ function team($, teamName) {
     var m_paz; // will be initialised below
     var m_template = {};
 
+    that.name = function() { return m_teamName; }
+    that.perpage = function() { return m_perpage; }
+    that.totalRecordCount = function() { return m_totalRecordCount; }
+    that.currentPage = function() { return m_currentPage; }
 
     var debug = function (s) {
 	var now = $.now();
@@ -372,10 +439,7 @@ function team($, teamName) {
 	debug("show");
 	m_totalRecordCount = data.merged;
 
-	var pager = findnode(".mkwsPager");
-	if (pager.length) {
-	    pager.html(drawPager(data))
-	}
+	queue("pager").publish(data);
 
 	var results = findnode(".mkwsRecords");
 	if (!results.length)
@@ -419,60 +483,6 @@ function team($, teamName) {
 	    }
 	}
 	return false;
-    }
-
-
-    function drawPager (data)
-    {
-	var s = '<div style="float: right">' + M('Displaying') + ': '
-	    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-	    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-	    + data.total + ')</div>';
-
-	//client indexes pages from 1 but pz2 from 0
-	var onsides = 6;
-	var pages = Math.ceil(m_totalRecordCount / m_perpage);
-
-	var firstClkbl = (m_currentPage - onsides > 0)
-            ? m_currentPage - onsides
-            : 1;
-
-	var lastClkbl = firstClkbl + 2*onsides < pages
-            ? firstClkbl + 2*onsides
-            : pages;
-
-	var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
-	if (m_currentPage > 1)
-            prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + m_teamName + '\');">'
-            +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
-
-	var middle = '';
-	for(var i = firstClkbl; i <= lastClkbl; i++) {
-            var numLabel = i;
-            if(i == m_currentPage)
-		numLabel = '<b>' + i + '</b>';
-
-            middle += '<a href="#" onclick="mkws.showPage(\'' + m_teamName + '\', ' + i + ')"> '
-		+ numLabel + ' </a>';
-	}
-
-	var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-	if (pages - m_currentPage > 0)
-            next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + m_teamName + '\')">'
-            + M('Next') + ' &#62;&#62;</a>';
-
-	var predots = '';
-	if (firstClkbl > 1)
-            predots = '...';
-
-	var postdots = '';
-	if (lastClkbl < pages)
-            postdots = '...';
-
-	s += '<div style="float: clear">'
-            + prev + predots + middle + postdots + next + '</div>';
-
-	return s;
     }
 
 
