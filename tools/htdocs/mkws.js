@@ -166,6 +166,8 @@ function widget($, team, type, node) {
 	promoteTermlists();
     } else if (type === 'Pager') {
 	promotePager();
+    } else if (type === 'Records') {
+	promoteRecords();
     } else {
 	// ### Handle other types here
     }
@@ -338,6 +340,35 @@ function widget($, team, type, node) {
 	    }
 	});
     }			     
+
+
+    function promoteRecords() {
+	team.queue("records").subscribe(function(data) {
+	    var html = [];
+	    for (var i = 0; i < data.hits.length; i++) {
+		var hit = data.hits[i];
+		html.push('<div class="record" id="mkwsRecdiv_' + team.name() + '_' + hit.recid + '" >',
+			  renderSummary(hit),
+      			  '</div>');
+		// ### At some point, we may be able to move the
+		// m_currentRecordId and m_currentRecordData members
+		// from the team object into this widget.
+		if (hit.recid == team.currentRecordId()) {
+		    if (team.currentRecordData())
+			html.push(renderDetails(team.currentRecordData()));
+		}
+	    }
+	    $(node).html(html.join(''));
+
+	    function renderSummary(hit)
+	    {
+		var template = team.loadTemplate("Summary");
+		hit._id = "mkwsRec_" + hit.recid;
+		hit._onclick = "mkws.showDetails('" + team.name() + "', this.id);return false;"
+		return template(hit);
+	    }
+	});
+    }
 }
 
 
@@ -373,6 +404,8 @@ function team($, teamName) {
     that.perpage = function() { return m_perpage; }
     that.totalRecordCount = function() { return m_totalRecordCount; }
     that.currentPage = function() { return m_currentPage; }
+    that.currentRecordId = function() { return m_currentRecordId; }
+    that.currentRecordData = function() { return m_currentRecordData; }
 
     var debug = function (s) {
 	var now = $.now();
@@ -436,25 +469,8 @@ function team($, teamName) {
     function onShow(data, teamName) {
 	debug("show");
 	m_totalRecordCount = data.merged;
-
 	queue("pager").publish(data);
-
-	var results = findnode(".mkwsRecords");
-	if (!results.length)
-	    return;
-
-	var html = [];
-	for (var i = 0; i < data.hits.length; i++) {
-            var hit = data.hits[i];
-	    html.push('<div class="record" id="mkwsRecdiv_' + teamName + '_' + hit.recid + '" >',
-		      renderSummary(hit),
-      		      '</div>');
-	    if (hit.recid == m_currentRecordId) {
-		if (m_currentRecordData)
-		    html.push(renderDetails(m_currentRecordData));
-	    }
-	}
-	results.html(html.join(''));
+	queue("records").publish(data);
     }
 
 
@@ -1046,15 +1062,6 @@ function team($, teamName) {
     }
 
 
-    function renderSummary(hit)
-    {
-	var template = loadTemplate("Summary");
-	hit._id = "mkwsRec_" + hit.recid;
-	hit._onclick = "mkws.showDetails('" + m_teamName + "', this.id);return false;"
-	return template(hit);
-    }
-
-
     function renderDetails(data, marker)
     {
 	var template = loadTemplate("Record");
@@ -1086,6 +1093,7 @@ function team($, teamName) {
 
 	return template;
     }
+    that.loadTemplate = loadTemplate;
 
 
     // The following PubSub code is modified from the jQuery manual:
