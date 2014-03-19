@@ -172,7 +172,7 @@ function widget($, team, type, node) {
 	// ### Handle other types here
     }
 
-    mkws.debug("made widget(team=" + team.name() + ", type=" + type + ", node=" + node);
+    team.debug("made widget(type=" + type + ", node=" + node);
     return that;
 
 
@@ -414,6 +414,7 @@ function team($, teamName) {
 
 	mkws.debug(m_teamName + ": " + timestamp + s);
     }
+    that.debug = debug;
 
     debug("start running MKWS");
 
