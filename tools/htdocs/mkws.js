@@ -282,9 +282,7 @@ function widget($, team, type, node) {
 
     function promotePager() {
 	team.queue("pager").subscribe(function(data) {
-	    if (node) {
-		$(node).html(drawPager(data))
-	    }
+	    $(node).html(drawPager(data))
 
 	    function drawPager(data) {
 		var s = '<div style="float: right">' + M('Displaying') + ': '
