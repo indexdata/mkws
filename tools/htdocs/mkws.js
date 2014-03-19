@@ -172,7 +172,7 @@ function widget($, team, type, node) {
 	// ### Handle other types here
     }
 
-    mkws.debug("made widget(team=" + team + ", type=" + type + ", node=" + node);
+    mkws.debug("made widget(team=" + team.name() + ", type=" + type + ", node=" + node);
     return that;
 
 
