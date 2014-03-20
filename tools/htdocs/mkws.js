@@ -163,7 +163,8 @@ function widget($, team, type, node) {
 	Stat: promoteStat,
 	Termlists: promoteTermlists,
 	Pager: promotePager,
-	Records: promoteRecords
+	Records: promoteRecords,
+	Navi: promoteNavi
     };
 
     var promote = type2fn[type];
@@ -370,6 +371,31 @@ function widget($, team, type, node) {
 	    }
 	});
     }
+
+
+    function promoteNavi() {
+	team.queue("navi").subscribe(function() {
+	    var filters = team.filters();
+	    var text = "";
+
+	    for (var i in filters) {
+		if (text) {
+		    text += " | ";
+		}
+		var filter = filters[i];
+		if (filter.id) {
+		    text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + team.name() +
+			"', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
+		} else {
+		    text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + team.name() +
+			"', '" + filter.field + "', '" + filter.value + "'" +
+			');return false;">' + filter.value + '</a>';
+		}
+	    }
+
+	    $(node).html(text);
+	});
+    }
 }
 
 
@@ -407,6 +433,7 @@ function team($, teamName) {
     that.currentPage = function() { return m_currentPage; }
     that.currentRecordId = function() { return m_currentRecordId; }
     that.currentRecordData = function() { return m_currentRecordData; }
+    that.filters = function() { return m_filters; }
 
     var debug = function (s) {
 	var now = $.now();
@@ -546,26 +573,7 @@ function team($, teamName) {
 
     function redrawNavi ()
     {
-	var navi = findnode('.mkwsNavi');
-	if (!navi) return;
-
-	var text = "";
-	for (var i in m_filters) {
-	    if (text) {
-		text += " | ";
-	    }
-	    var filter = m_filters[i];
-	    if (filter.id) {
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + m_teamName +
-		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
-	    } else {
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + m_teamName +
-		    "', '" + filter.field + "', '" + filter.value + "'" +
-		    ');return false;">' + filter.value + '</a>';
-	    }
-	}
-
-	navi.html(text);
+	queue("navi").publish();
     }
 
 
