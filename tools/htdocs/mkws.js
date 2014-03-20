@@ -158,24 +158,20 @@ function widget($, team, type, node) {
 
     var M = mkws.M;
 
-    if (type === 'Targets') {
-	promoteTargets();
-	team.debug("made targets widget(node=" + node + ")");
-    } else if (type === 'Stat') {
-	promoteStat();
-	team.debug("made stat widget(node=" + node + ")");
-    } else if (type === 'Termlists') {
-	promoteTermlists();
-	team.debug("made termlists widget(node=" + node + ")");
-    } else if (type === 'Pager') {
-	promotePager();
-	team.debug("made pager widget(node=" + node + ")");
-    } else if (type === 'Records') {
-	promoteRecords();
-	team.debug("made records widget(node=" + node + ")");
+    var type2fn = {
+	Targets: promoteTargets,
+	Stat: promoteStat,
+	Termlists: promoteTermlists,
+	Pager: promotePager,
+	Records: promoteRecords
+    };
+
+    var promote = type2fn[type];
+    if (promote) {
+	promote();
+	team.debug("made " + type + " widget(node=" + node + ")");
     } else {
-	// ### Handle other types here
-	team.debug("made unencapsulated widget(type=" + type + ", node=" + node + ")");
+	team.debug("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
     }
 
     return that;
