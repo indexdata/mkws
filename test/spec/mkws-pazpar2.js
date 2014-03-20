@@ -325,7 +325,7 @@ describe("Check record list", function () {
     it("check for single active client", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
-            debug("clients: " + clients.text());
+            //debug("clients: " + clients.text());
 
             return clients.length == 1 && clients.text().match("/1$");
         }, "wait for Active clients: x/1", 5 * jasmine_config.second);
@@ -361,7 +361,7 @@ describe("Show record", function () {
         // wait until the record pops up
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.details");
-            debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
+            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
 
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
