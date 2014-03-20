@@ -184,8 +184,6 @@ function widget($, team, type, node) {
 
     function promoteTargets() {
 	team.queue("targets").subscribe(function(data) {
-	    if (node.length === 0) alert("huh?!");
-
 	    var table ='<table><thead><tr>' +
 		'<td>' + M('Target ID') + '</td>' +
 		'<td>' + M('Hits') + '</td>' +
