@@ -1515,7 +1515,7 @@ function team($, teamName) {
 	// Second pass: make the individual widget objects. This has
 	// to be done separately, and after the team-creation, since
 	// that sometimes makes new widget nodes (e.g. creating
-	// mkwsTermlists instead mkwsResults.
+	// mkwsTermlists inside mkwsResults.
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    mkws.handleNodeWithTeam(this, function(tname, type) {
 		var myTeam = mkws.teams[tname];
