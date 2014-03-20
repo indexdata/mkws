@@ -854,8 +854,7 @@ function team($, teamName) {
 
 	var node = findnode(".mkwsRanking");
 	if (node.length) {
-	    var ranking_data = '';
-	    ranking_data += '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
+	    var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	    if (mkws_config.show_sort) {
 		ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
 	    }
