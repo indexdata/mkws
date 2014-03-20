@@ -360,7 +360,7 @@ function widget($, team, type, node) {
 		// from the team object into this widget.
 		if (hit.recid == team.currentRecordId()) {
 		    if (team.currentRecordData())
-			html.push(renderDetails(team.currentRecordData()));
+			html.push(team.renderDetails(team.currentRecordData()));
 		}
 	    }
 	    $(node).html(html.join(''));
@@ -1074,6 +1074,7 @@ function team($, teamName) {
 	var details = template(data);
 	return '<div class="details" id="mkwsDet_' + m_teamName + '_' + data.recid + '">' + details + '</div>';
     }
+    that.renderDetails = renderDetails;
 
 
     function loadTemplate(name)
