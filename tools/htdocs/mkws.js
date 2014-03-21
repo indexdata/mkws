@@ -404,9 +404,10 @@ function widget($, team, type, node) {
 	// than consuming them.
 	$(node).change(function () {
 	    team.set_sortOrder($(node).val());
-	    if (!team.submitted()) return false;
-	    team.resetPage();
-	    team.reShow();
+	    if (team.submitted()) {
+		team.resetPage();
+		team.reShow();
+	    }
 	    return false;
 	});
     }
@@ -415,9 +416,10 @@ function widget($, team, type, node) {
     function promotePerpage() {
 	$(node).change(function() {
 	    team.set_perpage($(node).val());
-	    if (!team.submitted()) return false;
-	    team.resetPage();
-	    team.reShow();
+	    if (team.submitted()) {
+		team.resetPage();
+		team.reShow();
+	    }
 	    return false;
 	});
     }
