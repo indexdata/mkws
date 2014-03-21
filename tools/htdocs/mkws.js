@@ -748,8 +748,6 @@ function team($, teamName) {
             alert("Unknown view '" + view + "'");
 	}
     }
-
-
     that.switchView = switchView;
 
 
@@ -1100,7 +1098,6 @@ function team($, teamName) {
 	}
 	return queues[id];
     }
-
     that.queue = queue;
 
 
