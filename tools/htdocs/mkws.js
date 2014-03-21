@@ -552,7 +552,6 @@ function team($, teamName) {
 	m_filters = []
 	redrawNavi();
 	resetPage();
-	loadSelect();
 	triggerSearch(query, sortOrder, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
@@ -564,7 +563,6 @@ function team($, teamName) {
 	m_sortOrder = findnode('.mkwsSort').val();
 	if (!m_submitted) return false;
 	resetPage();
-	loadSelect();
 	m_paz.show(0, m_perpage, m_sortOrder);
 	return false;
     }
@@ -575,7 +573,6 @@ function team($, teamName) {
 	m_perpage = findnode('.mkwsPerpage').val();
 	if (!m_submitted) return false;
 	resetPage();
-	loadSelect();
 	m_paz.show(0, m_perpage, m_sortOrder);
 	return false;
     }
@@ -591,19 +588,6 @@ function team($, teamName) {
     {
 	m_currentPage = 1;
 	m_totalRecordCount = 0;
-    }
-
-
-    function loadSelect ()
-    {
-	var node = findnode('.mkwsSort');
-	if (node.length && node.val() != m_sortOrder) {
-	    alert("m_sortOrder '" + m_sortOrder + "' != node.val() '" + node.val() + "'");
-	}
-	node = findnode('.mkwsPerpage');
-	if (node.length && node.val() != m_perpage) {
-	    alert("m_perpage '" + m_perpage + "' != node.val() '" + node.val() + "'");
-	}
     }
 
 
@@ -661,7 +645,6 @@ function team($, teamName) {
 	m_filters.push({ id: id, name: name });
 	redrawNavi();
 	resetPage();
-	loadSelect();
 	triggerSearch();
 	return false;
     }
@@ -674,7 +657,6 @@ function team($, teamName) {
 	m_filters.push({ field: field, value: value });
 	redrawNavi();
 	resetPage();
-	loadSelect();
 	triggerSearch();
 	return false;
     }
@@ -697,7 +679,6 @@ function team($, teamName) {
 
 	redrawNavi();
 	resetPage();
-	loadSelect();
 	triggerSearch();
 	return false;
     }
@@ -722,7 +703,6 @@ function team($, teamName) {
 
 	redrawNavi();
 	resetPage();
-	loadSelect();
 	triggerSearch();
 	return false;
     }
