@@ -576,63 +576,6 @@ function team($, teamName) {
     }
 
 
-    function resetPage()
-    {
-	m_currentPage = 1;
-	m_totalRecordCount = 0;
-    }
-
-
-    function triggerSearch (query, sortOrder, targets)
-    {
-	resetPage();
-	queue("navi").publish();
-
-	var pp2filter = "";
-	var pp2limit = "";
-
-	// Continue to use previous query/sort-order unless new ones are specified
-	if (query) {
-	    m_query = query;
-	}
-	if (sortOrder) {
-	    m_sortOrder = sortOrder;
-	}
-	if (targets) {
-	    m_filters.push({ id: targets, name: targets });
-	}
-
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
-	    if (filter.id) {
-		if (pp2filter)
-		    pp2filter += ",";
-		if (filter.id.match(/^[a-z:]+[=~]/)) {
-		    debug("filter '" + filter.id + "' already begins with SETTING OP");
-		} else {
-		    filter.id = 'pz:id=' + filter.id;
-		}
-		pp2filter += filter.id;
-	    } else {
-		if (pp2limit)
-		    pp2limit += ",";
-		pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
-	    }
-	}
-
-	var params = {};
-	if (pp2limit) {
-	    params.limit = pp2limit;
-	}
-
-	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
-
-	// We can use: params.torusquery = "udb=NAME"
-	// Note: that won't work when running against raw pazpar2
-	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
-    }
-
-
     // limit by target functions
     that.limitTarget  = function (id, name)
     {
@@ -692,6 +635,63 @@ function team($, teamName) {
 
 	triggerSearch();
 	return false;
+    }
+
+
+    function resetPage()
+    {
+	m_currentPage = 1;
+	m_totalRecordCount = 0;
+    }
+
+
+    function triggerSearch (query, sortOrder, targets)
+    {
+	resetPage();
+	queue("navi").publish();
+
+	var pp2filter = "";
+	var pp2limit = "";
+
+	// Continue to use previous query/sort-order unless new ones are specified
+	if (query) {
+	    m_query = query;
+	}
+	if (sortOrder) {
+	    m_sortOrder = sortOrder;
+	}
+	if (targets) {
+	    m_filters.push({ id: targets, name: targets });
+	}
+
+	for (var i in m_filters) {
+	    var filter = m_filters[i];
+	    if (filter.id) {
+		if (pp2filter)
+		    pp2filter += ",";
+		if (filter.id.match(/^[a-z:]+[=~]/)) {
+		    debug("filter '" + filter.id + "' already begins with SETTING OP");
+		} else {
+		    filter.id = 'pz:id=' + filter.id;
+		}
+		pp2filter += filter.id;
+	    } else {
+		if (pp2limit)
+		    pp2limit += ",";
+		pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
+	    }
+	}
+
+	var params = {};
+	if (pp2limit) {
+	    params.limit = pp2limit;
+	}
+
+	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+
+	// We can use: params.torusquery = "udb=NAME"
+	// Note: that won't work when running against raw pazpar2
+	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
 
 
