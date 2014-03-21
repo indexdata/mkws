@@ -550,8 +550,6 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	redrawNavi();
-	resetPage();
 	triggerSearch(query, sortOrder, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
@@ -593,6 +591,9 @@ function team($, teamName) {
 
     function triggerSearch (query, sortOrder, targets)
     {
+	redrawNavi();
+	resetPage();
+
 	var pp2filter = "";
 	var pp2limit = "";
 
@@ -643,8 +644,6 @@ function team($, teamName) {
     {
 	debug("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
-	redrawNavi();
-	resetPage();
 	triggerSearch();
 	return false;
     }
@@ -655,8 +654,6 @@ function team($, teamName) {
     {
 	debug("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
-	redrawNavi();
-	resetPage();
 	triggerSearch();
 	return false;
     }
@@ -677,8 +674,6 @@ function team($, teamName) {
 	}
 	m_filters = newFilters;
 
-	redrawNavi();
-	resetPage();
 	triggerSearch();
 	return false;
     }
@@ -701,8 +696,6 @@ function team($, teamName) {
 	}
 	m_filters = newFilters;
 
-	redrawNavi();
-	resetPage();
 	triggerSearch();
 	return false;
     }
