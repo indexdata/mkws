@@ -561,6 +561,7 @@ function team($, teamName) {
 
     function onSortChange()
     {
+	m_sortOrder = findnode('.mkwsSort').val();
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
@@ -571,6 +572,7 @@ function team($, teamName) {
 
     function onPerpageChange()
     {
+	m_perpage = findnode('.mkwsPerpage').val();
 	if (!m_submitted) return false;
 	resetPage();
 	loadSelect();
@@ -596,13 +598,11 @@ function team($, teamName) {
     {
 	var node = findnode('.mkwsSort');
 	if (node.length && node.val() != m_sortOrder) {
-	    debug("changing m_sortOrder from " + m_sortOrder + " to " + node.val());
-	    m_sortOrder = node.val();
+	    alert("m_sortOrder '" + m_sortOrder + "' != node.val() '" + node.val() + "'");
 	}
 	node = findnode('.mkwsPerpage');
 	if (node.length && node.val() != m_perpage) {
-	    debug("changing m_perpage from " + m_perpage + " to " + node.val());
-	    m_perpage = node.val();
+	    alert("m_perpage '" + m_perpage + "' != node.val() '" + node.val() + "'");
 	}
     }
 
