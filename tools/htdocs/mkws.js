@@ -399,8 +399,10 @@ function widget($, team, type, node) {
 
 
     function promoteSort() {
+	// It seems this and the Perpage widget doen't need to
+	// subscribe to anything, since they produce events rather
+	// than consuming them.
 	$(node).change(onSortChange);
-	team.queue("navi").subscribe(function() {})
 
 	function onSortChange()
 	{
@@ -415,7 +417,6 @@ function widget($, team, type, node) {
 
     function promotePerpage() {
 	$(node).change(onPerpageChange);
-	team.queue("navi").subscribe(function() {})
 
 	function onPerpageChange()
 	{
