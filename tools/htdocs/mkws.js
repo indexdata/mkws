@@ -164,7 +164,9 @@ function widget($, team, type, node) {
 	Termlists: promoteTermlists,
 	Pager: promotePager,
 	Records: promoteRecords,
-	Navi: promoteNavi
+	Navi: promoteNavi,
+	Sort: promoteSort,
+	Perpage: promotePerpage
     };
 
     var promote = type2fn[type];
@@ -394,6 +396,36 @@ function widget($, team, type, node) {
 	    $(node).html(text);
 	});
     }
+
+
+    function promoteSort() {
+	team.queue("navi").subscribe(function() {})
+	$(node).change(onSortChange);
+
+	function onSortChange()
+	{
+	    team.set_sortOrder($(node).val());
+	    if (!team.submitted()) return false;
+	    team.resetPage();
+	    team.reShow();
+	    return false;
+	}
+    }
+
+
+    function promotePerpage() {
+	team.queue("navi").subscribe(function() {})
+	$(node).change(onPerpageChange);
+
+	function onPerpageChange()
+	{
+	    team.set_perpage($(node).val());
+	    if (!team.submitted()) return false;
+	    team.resetPage();
+	    team.reShow();
+	    return false;
+	}
+    }
 }
 
 
@@ -426,12 +458,17 @@ function team($, teamName) {
     var m_template = {};
 
     that.name = function() { return m_teamName; }
+    that.submitted = function() { return m_submitted; }
     that.perpage = function() { return m_perpage; }
     that.totalRecordCount = function() { return m_totalRecordCount; }
     that.currentPage = function() { return m_currentPage; }
     that.currentRecordId = function() { return m_currentRecordId; }
     that.currentRecordData = function() { return m_currentRecordData; }
     that.filters = function() { return m_filters; }
+
+    that.set_sortOrder = function(val) { m_sortOrder = val };
+    that.set_perpage = function(val) { m_perpage = val };
+
 
     var debug = function (s) {
 	var now = $.now();
@@ -556,26 +593,6 @@ function team($, teamName) {
     }
 
 
-    function onSortChange()
-    {
-	m_sortOrder = findnode('.mkwsSort').val();
-	if (!m_submitted) return false;
-	resetPage();
-	m_paz.show(0, m_perpage, m_sortOrder);
-	return false;
-    }
-
-
-    function onPerpageChange()
-    {
-	m_perpage = findnode('.mkwsPerpage').val();
-	if (!m_submitted) return false;
-	resetPage();
-	m_paz.show(0, m_perpage, m_sortOrder);
-	return false;
-    }
-
-
     // limit by target functions
     that.limitTarget  = function (id, name)
     {
@@ -643,6 +660,7 @@ function team($, teamName) {
 	m_currentPage = 1;
 	m_totalRecordCount = 0;
     }
+    that.resetPage = resetPage;
 
 
     function triggerSearch (query, sortOrder, targets)
@@ -693,6 +711,12 @@ function team($, teamName) {
 	// Note: that won't work when running against raw pazpar2
 	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
+
+
+    that.reShow = function() {
+	m_paz.show(0, m_perpage, m_sortOrder);
+    }
+
 
 
     that.showPage = function (pageNum)
@@ -836,8 +860,6 @@ function team($, teamName) {
 	mkwsHtmlSwitch();
 
 	findnode('.mkwsSearchForm').submit(onFormSubmitEventHandler);
-	findnode('.mkwsSort').change(onSortChange);
-	findnode('.mkwsPerpage').change(onPerpageChange);
 
 	// on first page, hide the termlist
 	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
