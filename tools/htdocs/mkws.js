@@ -591,8 +591,8 @@ function team($, teamName) {
 
     function triggerSearch (query, sortOrder, targets)
     {
-	redrawNavi();
 	resetPage();
+	redrawNavi();
 
 	var pp2filter = "";
 	var pp2limit = "";
