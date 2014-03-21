@@ -559,7 +559,17 @@ function team($, teamName) {
     }
 
 
-    function onSelectDdChange()
+    function onSortChange()
+    {
+	if (!m_submitted) return false;
+	resetPage();
+	loadSelect();
+	m_paz.show(0, m_perpage, m_sortOrder);
+	return false;
+    }
+
+
+    function onPerpageChange()
     {
 	if (!m_submitted) return false;
 	resetPage();
@@ -872,10 +882,10 @@ function team($, teamName) {
 	    node.submit(onFormSubmitEventHandler);
 	node = findnode('.mkwsSort');
 	if (node.length)
-	    node.change(onSelectDdChange);
+	    node.change(onSortChange);
 	node = findnode('.mkwsPerpage');
 	if (node.length)
-	    node.change(onSelectDdChange);
+	    node.change(onPerpageChange);
 
 	// on first page, hide the termlist
 	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
