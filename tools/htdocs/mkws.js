@@ -402,30 +402,24 @@ function widget($, team, type, node) {
 	// It seems this and the Perpage widget doen't need to
 	// subscribe to anything, since they produce events rather
 	// than consuming them.
-	$(node).change(onSortChange);
-
-	function onSortChange()
-	{
+	$(node).change(function () {
 	    team.set_sortOrder($(node).val());
 	    if (!team.submitted()) return false;
 	    team.resetPage();
 	    team.reShow();
 	    return false;
-	}
+	});
     }
 
 
     function promotePerpage() {
-	$(node).change(onPerpageChange);
-
-	function onPerpageChange()
-	{
+	$(node).change(function() {
 	    team.set_perpage($(node).val());
 	    if (!team.submitted()) return false;
 	    team.resetPage();
 	    team.reShow();
 	    return false;
-	}
+	});
     }
 }
 
