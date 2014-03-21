@@ -576,12 +576,6 @@ function team($, teamName) {
     }
 
 
-    function redrawNavi ()
-    {
-	queue("navi").publish();
-    }
-
-
     function resetPage()
     {
 	m_currentPage = 1;
@@ -592,7 +586,7 @@ function team($, teamName) {
     function triggerSearch (query, sortOrder, targets)
     {
 	resetPage();
-	redrawNavi();
+	queue("navi").publish();
 
 	var pp2filter = "";
 	var pp2limit = "";
