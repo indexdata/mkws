@@ -224,7 +224,6 @@ function widget($, team, type, node) {
 
     function promoteTermlists() {
 	team.queue("termlists").subscribe(function(data) {
-	    mkws.debug("in termlist consumer");
 	    if (!node) {
 		alert("termlists event when there are no termlists");
 		return;
