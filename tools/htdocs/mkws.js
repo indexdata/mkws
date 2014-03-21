@@ -803,8 +803,7 @@ function team($, teamName) {
 	//	.mkwsPager
 	//	.mkwsNavi
 	//	.mkwsRecords
-	if (findnode(".mkwsResults").length) {
-	    findnode(".mkwsResults").html('\
+	findnode(".mkwsResults").html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
     <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
@@ -823,42 +822,29 @@ function team($, teamName) {
     </td>\
   </tr>\
 </table>');
-	}
 
-	var node = findnode(".mkwsRanking");
-	if (node.length) {
-	    var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
-	    if (mkws_config.show_sort) {
-		ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
-	    }
-	    if (mkws_config.show_perpage) {
-		ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
-	    }
-            ranking_data += '</form>';
-
-	    node.html(ranking_data);
+	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
+	if (mkws_config.show_sort) {
+	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
 	}
+	if (mkws_config.show_perpage) {
+	    ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
+	}
+        ranking_data += '</form>';
+	findnode(".mkwsRanking").html(ranking_data);
 
 	mkwsHtmlSwitch();
 
-	var node;
-	node = findnode('.mkwsSearchForm');
-	if (node.length)
-	    node.submit(onFormSubmitEventHandler);
-	node = findnode('.mkwsSort');
-	if (node.length)
-	    node.change(onSortChange);
-	node = findnode('.mkwsPerpage');
-	if (node.length)
-	    node.change(onPerpageChange);
+	findnode('.mkwsSearchForm').submit(onFormSubmitEventHandler);
+	findnode('.mkwsSort').change(onSortChange);
+	findnode('.mkwsPerpage').change(onPerpageChange);
 
 	// on first page, hide the termlist
 	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
-	var motd = findnode(".mkwsMOTD");
         var container = findnode(".mkwsMOTDContainer");
-	if (motd.length && container.length) {
+	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
-	    motd.appendTo(container);
+	    findnode(".mkwsMOTD").appendTo(container);
 	}
     }
 
