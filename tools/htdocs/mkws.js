@@ -399,8 +399,8 @@ function widget($, team, type, node) {
 
 
     function promoteSort() {
-	team.queue("navi").subscribe(function() {})
 	$(node).change(onSortChange);
+	team.queue("navi").subscribe(function() {})
 
 	function onSortChange()
 	{
@@ -414,8 +414,8 @@ function widget($, team, type, node) {
 
 
     function promotePerpage() {
-	team.queue("navi").subscribe(function() {})
 	$(node).change(onPerpageChange);
+	team.queue("navi").subscribe(function() {})
 
 	function onPerpageChange()
 	{
