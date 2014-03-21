@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Mike's playground</title>
     <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
@@ -15,7 +15,24 @@
     <div id="mkwsSwitch"></div>
     <div id="mkwsLang"></div>
     <div id="mkwsSearch"></div>
-    <div id="mkwsResults"></div>
+    <table width="100%" border="0" cellpadding="6" cellspacing="0">
+      <tr>
+	<td class="mkwsTermlistContainer1" width="250" valign="top">
+	  <div class="mkwsTermlists"></div>
+	</td>
+	<td class="mkwsMOTDContainer" valign="top">
+	  <div class="mkwsRanking"></div>
+	  <div class="mkwsPager"></div>
+	  <div class="mkwsNavi"></div>
+	  <div class="mkwsRecords"></div>
+	</td>
+      </tr>
+      <tr>
+	<td colspan="2">
+	  <div class="mkwsTermlistContainer2"></div>
+	</td>
+      </tr>
+    </table>
     <div id="mkwsTargets"></div>
     <div id="mkwsStat"></div>
   </body>
