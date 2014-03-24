@@ -348,9 +348,8 @@ function widget($, team, type, node) {
 	    var html = [];
 	    for (var i = 0; i < data.hits.length; i++) {
 		var hit = data.hits[i];
-		html.push('<div class="record" id="mkwsRecdiv_' + team.name() + '_' + hit.recid + '" >',
-			  renderSummary(hit),
-      			  '</div>');
+		var divId = team.recordElementId(hit.recid[0]);
+		html.push('<div class="record" id="' + divId + '">', renderSummary(hit), '</div>');
 		// ### At some point, we may be able to move the
 		// m_currentRecordId and m_currentRecordData members
 		// from the team object into this widget.
@@ -543,10 +542,17 @@ function team($, teamName) {
 	if (detRecordDiv) return;
 	m_currentRecordData = data;
 	// Can't use jQuery's $('#x') syntax to find this ID, because it contains spaces.
-	var recordDiv = document.getElementById('mkwsRecdiv_' + teamName + '_' + m_currentRecordData.recid);
+	var recordDiv = document.getElementById(recordElementId(m_currentRecordData.recid[0]));
 	var html = renderDetails(m_currentRecordData);
 	$(recordDiv).append(html);
     }
+
+
+    // Used by promoteRecords() and onRecord()
+    function recordElementId(s) {
+	return 'mkwsRec_' + m_teamName + '_' + s.replace(/[^a-z0-9]/ig, '_');
+    }
+    that.recordElementId = recordElementId;
 
 
     that.targetFiltered = function(id) {
