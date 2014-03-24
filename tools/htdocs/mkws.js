@@ -538,7 +538,8 @@ function team($, teamName) {
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// in case on_show was faster to redraw element
-	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
+	// ##### restrict to current team
+	var detRecordDiv = document.getElementById('mkwsDet_' + data.recid);
 	if (detRecordDiv) return;
 	m_currentRecordData = data;
 	var recordDiv = findnode(recordElementId(m_currentRecordData.recid[0]));
@@ -783,7 +784,8 @@ function team($, teamName) {
 	m_currentRecordId = recId;
 
 	// remove current detailed view if any
-	var detRecordDiv = document.getElementById('mkwsDet_' + m_teamName + '_' + oldRecordId);
+	// ##### restrict to current team
+	var detRecordDiv = document.getElementById('mkwsDet_' + oldRecordId);
 	// lovin DOM!
 	if (detRecordDiv)
 	    detRecordDiv.parentNode.removeChild(detRecordDiv);
@@ -1057,7 +1059,7 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Record");
 	var details = template(data);
-	return '<div class="details" id="mkwsDet_' + m_teamName + '_' + data.recid + '">' + details + '</div>';
+	return '<div class="details mkwsTeam_' + m_teamName + '" id="mkwsDet_' + data.recid + '">' + details + '</div>';
     }
     that.renderDetails = renderDetails;
 
