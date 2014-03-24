@@ -349,7 +349,7 @@ function widget($, team, type, node) {
 	    for (var i = 0; i < data.hits.length; i++) {
 		var hit = data.hits[i];
 		var divId = team.recordElementId(hit.recid[0]);
-		html.push('<div class="record" id="' + divId + '">', renderSummary(hit), '</div>');
+		html.push('<div class="record mkwsTeam_' + team.name() + '" id="' + divId + '">', renderSummary(hit), '</div>');
 		// ### At some point, we may be able to move the
 		// m_currentRecordId and m_currentRecordData members
 		// from the team object into this widget.
@@ -541,8 +541,7 @@ function team($, teamName) {
 	var detRecordDiv = document.getElementById('mkwsDet_' + teamName + '_' + data.recid);
 	if (detRecordDiv) return;
 	m_currentRecordData = data;
-	// Can't use jQuery's $('#x') syntax to find this ID, because it contains spaces.
-	var recordDiv = document.getElementById(recordElementId(m_currentRecordData.recid[0]));
+	var recordDiv = findnode(recordElementId(m_currentRecordData.recid[0]));
 	var html = renderDetails(m_currentRecordData);
 	$(recordDiv).append(html);
     }
@@ -550,7 +549,7 @@ function team($, teamName) {
 
     // Used by promoteRecords() and onRecord()
     function recordElementId(s) {
-	return 'mkwsRec_' + m_teamName + '_' + s.replace(/[^a-z0-9]/ig, '_');
+	return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
     }
     that.recordElementId = recordElementId;
 
