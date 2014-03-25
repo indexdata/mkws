@@ -20,7 +20,7 @@ INSTALLABLE = handlebars-v1.1.2.js jquery-1.10.0.min.js \
 	jquery.json-2.4.js mkws-complete.js mkws-complete.min.js \
 	mkws.min.js pz2.js
 
-all: mkws-complete.js mkws-js-min
+all: mkws-js-min
 
 mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	( set -e; \
