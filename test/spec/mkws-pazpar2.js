@@ -79,7 +79,7 @@ describe("Check MOTD before search", function () {
     // Check that the MOTD has been moved into its container, and
     // is visible before the search.
     // the mkwsMOTD div was originally inside a testMOTD div, which should
-    // now be emtpy
+    // now be empty
     // Note that the testMOTD is a regular div, and uses #testMOTD,
     // since the automagic class-making does not apply to it.
     it("MOTD is hidden", function () {
