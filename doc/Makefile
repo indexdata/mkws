@@ -1,7 +1,7 @@
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
-INSTALLABLE = README.html whitepaper.html
+INSTALLABLE = README.html whitepaper.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 install: $(INSTALLED)
