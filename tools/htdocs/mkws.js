@@ -349,7 +349,7 @@ function widget($, team, type, node) {
 	    for (var i = 0; i < data.hits.length; i++) {
 		var hit = data.hits[i];
 		var divId = team.recordElementId(hit.recid[0]);
-		html.push('<div class="record mkwsTeam_' + team.name() + '" id="' + divId + '">', renderSummary(hit), '</div>');
+		html.push('<div class="record mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
 		// ### At some point, we may be able to move the
 		// m_currentRecordId and m_currentRecordData members
 		// from the team object into this widget.
@@ -363,8 +363,8 @@ function widget($, team, type, node) {
 	    function renderSummary(hit)
 	    {
 		var template = team.loadTemplate("Summary");
-		hit._id = "mkwsRec_" + hit.recid;
-		hit._onclick = "mkws.showDetails('" + team.name() + "', this.id);return false;"
+		hit._id = team.recordElementId(hit.recid[0]);
+		hit._onclick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
 		return template(hit);
 	    }
 	});
@@ -537,12 +537,14 @@ function team($, teamName) {
 	debug("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
-	// in case on_show was faster to redraw element
 	// ##### restrict to current team
-	var detRecordDiv = document.getElementById('mkwsDet_' + data.recid);
-	if (detRecordDiv) return;
+	var detRecordDiv = document.getElementById(recordDetailsId(data.recid[0]));
+	if (detRecordDiv) {
+	    // in case on_show was faster to redraw element
+	    return;
+	}
 	m_currentRecordData = data;
-	var recordDiv = findnode(recordElementId(m_currentRecordData.recid[0]));
+	var recordDiv = findnode('.' + recordElementId(m_currentRecordData.recid[0]));
 	var html = renderDetails(m_currentRecordData);
 	$(recordDiv).append(html);
     }
@@ -551,6 +553,12 @@ function team($, teamName) {
     // Used by promoteRecords() and onRecord()
     function recordElementId(s) {
 	return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
+    }
+    that.recordElementId = recordElementId;
+
+    // Used by onRecord(), showDetails() and renderDetails()
+    function recordDetailsId(s) {
+	return 'mkwsDet_' + s.replace(/[^a-z0-9]/ig, '_');
     }
     that.recordElementId = recordElementId;
 
@@ -778,14 +786,13 @@ function team($, teamName) {
 
 
     // detailed record drawing
-    that.showDetails = function (prefixRecId) {
-	var recId = prefixRecId.replace('mkwsRec_', '');
+    that.showDetails = function (recId) {
 	var oldRecordId = m_currentRecordId;
 	m_currentRecordId = recId;
 
 	// remove current detailed view if any
 	// ##### restrict to current team
-	var detRecordDiv = document.getElementById('mkwsDet_' + oldRecordId);
+	var detRecordDiv = document.getElementById(recordDetailsId(oldRecordId));
 	// lovin DOM!
 	if (detRecordDiv)
 	    detRecordDiv.parentNode.removeChild(detRecordDiv);
@@ -1059,7 +1066,7 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Record");
 	var details = template(data);
-	return '<div class="details mkwsTeam_' + m_teamName + '" id="mkwsDet_' + data.recid + '">' + details + '</div>';
+	return '<div class="details mkwsTeam_' + m_teamName + '" id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
     }
     that.renderDetails = renderDetails;
 
