@@ -1,9 +1,6 @@
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
-# Default rule when "make" is invoked without a target
-**default**: README.html whitepaper.html
-
 INSTALLABLE = README.html whitepaper.html
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
@@ -11,6 +8,11 @@ install: $(INSTALLED)
 
 uninstall:
 	rm -f $(INSTALLED)
+
+../tools/htdocs/%: %
+	rm -f $@
+	cp -p $? $@
+	chmod -w $@
 
 all: $(DOCS)
 
