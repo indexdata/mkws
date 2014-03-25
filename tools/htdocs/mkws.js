@@ -3,7 +3,7 @@
  *  See the file LICENSE for details
  */
 
-"use strict"; // HTML5: disable for debug_level >= 2
+"use strict"; // HTML5: disable for log_level >= 2
 
 
 // Handlebars helpers
@@ -76,8 +76,8 @@ Handlebars.registerHelper('index1', function(obj) {
 //
 var mkws = {
     authenticated: false,
-    debug_level: 1, // Will be overridden from mkws_config, but
-		    // initial value allows jQuery popup to use logging.
+    log_level: 1, // Will be overridden from mkws_config, but
+                  // initial value allows jQuery popup to use logging.
     paz: undefined, // will be set up during initialisation
     teams: {},
     locale_lang: {
@@ -172,16 +172,16 @@ function widget($, team, type, node) {
     var promote = type2fn[type];
     if (promote) {
 	promote();
-	debug("made " + type + " widget(node=" + node + ")");
+	log("made " + type + " widget(node=" + node + ")");
     } else {
-	debug("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
+	log("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
     }
 
     return that;
 
 
-    function debug(s) {
-	team.debug(s);
+    function log(s) {
+	team.log(s);
     }
 
     // Functions follow for promoting the regular widget object into
@@ -448,7 +448,7 @@ function team($, teamName) {
     var m_currentPage = 1;
     var m_currentRecordId = '';
     var m_currentRecordData = null;
-    var m_debugTime = {
+    var m_logTime = {
 	// Timestamps for logging
 	"start": $.now(),
 	"last": $.now()
@@ -469,21 +469,21 @@ function team($, teamName) {
     that.set_perpage = function(val) { m_perpage = val };
 
 
-    var debug = function (s) {
+    var log = function (s) {
 	var now = $.now();
-	var timestamp = ((now - m_debugTime.start)/1000).toFixed(3) + " (+" + ((now - m_debugTime.last)/1000).toFixed(3) + ") "
-	m_debugTime.last = now;
+	var timestamp = ((now - m_logTime.start)/1000).toFixed(3) + " (+" + ((now - m_logTime.last)/1000).toFixed(3) + ") "
+	m_logTime.last = now;
 
-	mkws.debug(m_teamName + ": " + timestamp + s);
+	mkws.log(m_teamName + ": " + timestamp + s);
     }
-    that.debug = debug;
+    that.log = log;
 
-    debug("start running MKWS");
+    log("start running MKWS");
 
     m_sortOrder = mkws_config.sort_default;
     m_perpage = mkws_config.perpage_default;
 
-    debug("Create main pz2 object");
+    log("Create main pz2 object");
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
@@ -505,32 +505,32 @@ function team($, teamName) {
     // pz2.js event handlers:
     //
     function onInit() {
-	debug("init");
+	log("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
 
     function onBytarget(data) {
-	debug("target");
+	log("target");
 	queue("targets").publish(data);
     }
 
 
     function onStat(data) {
-	debug("stat");
+	log("stat");
 	queue("stat").publish(data);
     }
 
 
     function onTerm(data) {
-	debug("term");
+	log("term");
 	queue("termlists").publish(data);
     }
 
 
     function onShow(data, teamName) {
-	debug("show");
+	log("show");
 	m_totalRecordCount = data.merged;
 	queue("pager").publish(data);
 	queue("records").publish(data);
@@ -538,7 +538,7 @@ function team($, teamName) {
 
 
     function onRecord(data, args, teamName) {
-	debug("record");
+	log("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
 	// ##### restrict to current team
@@ -593,7 +593,7 @@ function team($, teamName) {
 
     function newSearch(query, sortOrder, targets)
     {
-	debug("newSearch: " + query);
+	log("newSearch: " + query);
 
 	if (mkws_config.use_service_proxy && !mkws.authenticated) {
 	    alert("searching before authentication");
@@ -610,7 +610,7 @@ function team($, teamName) {
     // limit by target functions
     that.limitTarget  = function (id, name)
     {
-	debug("limitTarget(id=" + id + ", name=" + name + ")");
+	log("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
 	triggerSearch();
 	return false;
@@ -620,7 +620,7 @@ function team($, teamName) {
     // limit the query after clicking the facet
     that.limitQuery = function (field, value)
     {
-	debug("limitQuery(field=" + field + ", value=" + value + ")");
+	log("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
 	triggerSearch();
 	return false;
@@ -629,14 +629,14 @@ function team($, teamName) {
 
     that.delimitTarget = function (id)
     {
-	debug("delimitTarget(id=" + id + ")");
+	log("delimitTarget(id=" + id + ")");
 	var newFilters = [];
 	for (var i in m_filters) {
 	    var filter = m_filters[i];
 	    if (filter.id) {
-		debug("delimitTarget() removing filter " + $.toJSON(filter));
+		log("delimitTarget() removing filter " + $.toJSON(filter));
 	    } else {
-		debug("delimitTarget() keeping filter " + $.toJSON(filter));
+		log("delimitTarget() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
@@ -649,16 +649,16 @@ function team($, teamName) {
 
     that.delimitQuery = function (field, value)
     {
-	debug("delimitQuery(field=" + field + ", value=" + value + ")");
+	log("delimitQuery(field=" + field + ", value=" + value + ")");
 	var newFilters = [];
 	for (var i in m_filters) {
 	    var filter = m_filters[i];
 	    if (filter.field &&
 		field == filter.field &&
 		value == filter.value) {
-		debug("delimitQuery() removing filter " + $.toJSON(filter));
+		log("delimitQuery() removing filter " + $.toJSON(filter));
 	    } else {
-		debug("delimitQuery() keeping filter " + $.toJSON(filter));
+		log("delimitQuery() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
@@ -702,7 +702,7 @@ function team($, teamName) {
 		if (pp2filter)
 		    pp2filter += ",";
 		if (filter.id.match(/^[a-z:]+[=~]/)) {
-		    debug("filter '" + filter.id + "' already begins with SETTING OP");
+		    log("filter '" + filter.id + "' already begins with SETTING OP");
 		} else {
 		    filter.id = 'pz:id=' + filter.id;
 		}
@@ -719,7 +719,7 @@ function team($, teamName) {
 	    params.limit = pp2limit;
 	}
 
-	debug("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
 	// We can use: params.torusquery = "udb=NAME"
 	// Note: that won't work when running against raw pazpar2
@@ -808,7 +808,7 @@ function team($, teamName) {
             return;
 	}
 	// request the record
-	debug("showDetails() requesting record '" + recId + "'");
+	log("showDetails() requesting record '" + recId + "'");
 	m_paz.record(recId);
     }
 
@@ -822,7 +822,7 @@ function team($, teamName) {
 	if (mkws_config.show_lang)
 	    mkwsHtmlLang();
 
-	debug("HTML search form");
+	log("HTML search form");
 	mkws.handleNodeWithTeam(findnode('.mkwsSearch'), function(tname) {
 	    this.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
@@ -831,7 +831,7 @@ function team($, teamName) {
 </form>');
 	});
 
-	debug("HTML records");
+	log("HTML records");
 	// If the team has a .mkwsResults, populate it in the usual
 	// way. If not, assume that it's a smarter application that
 	// defines its own subcomponents, some or all of the
@@ -893,7 +893,7 @@ function team($, teamName) {
 	    mkws_config.lang = lang;
 	}
 
-	debug("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
+	log("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
 	return mkws_config.lang;
     }
 
@@ -920,7 +920,7 @@ function team($, teamName) {
 	if (lang_options.length == 0 || toBeIncluded[lang_default])
             list.push(lang_default);
 
-	debug("Language menu for: " + list.join(", "));
+	log("Language menu for: " + list.join(", "));
 
 	/* the HTML part */
 	var data = "";
@@ -942,7 +942,7 @@ function team($, teamName) {
 
 
     function mkwsHtmlSort() {
-	debug("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
+	log("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
 	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.sort_options.length; i++) {
@@ -963,7 +963,7 @@ function team($, teamName) {
 
 
     function mkwsHtmlPerpage() {
-	debug("HTML perpage, m_perpage = " + m_perpage);
+	log("HTML perpage, m_perpage = " + m_perpage);
 	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
 
 	for(var i = 0; i < mkws_config.perpage_options.length; i++) {
@@ -982,14 +982,14 @@ function team($, teamName) {
 
 
     function mkwsHtmlSwitch() {
-	debug("HTML switch for team " + m_teamName);
+	log("HTML switch for team " + m_teamName);
 
 	var node = findnode(".mkwsSwitch");
 	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
 	node.append($("<span/>", { text: " | " }));
 	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
 
-	debug("HTML targets");
+	log("HTML targets");
 	var node = findnode(".mkwsTargets");
 	node.html('\
 <div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
@@ -1008,7 +1008,7 @@ function team($, teamName) {
 	if (query.match(/^!param!/)) {
 	    var param = query.replace(/^!param!/, '');
 	    query = mkws.getParameterByName(param);
-	    debug("obtained query '" + query + "' from param '" + param + "'");
+	    log("obtained query '" + query + "' from param '" + param + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
 	    }
@@ -1016,20 +1016,20 @@ function team($, teamName) {
 	    var index = query.replace(/^!path!/, '');
 	    var path = window.location.pathname.split('/');
 	    query = path[path.length - index];
-	    debug("obtained query '" + query + "' from path-component '" + index + "'");
+	    log("obtained query '" + query + "' from path-component '" + index + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
 	    }
 	}
 
-	debug("node=" + node + ", class='" + node.className + "', query=" + query);
+	log("node=" + node + ", class='" + node.className + "', query=" + query);
 
 	var sortOrder = node.attr('sort');
 	var targets = node.attr('targets');
 	var s = "running auto search: '" + query + "'";
 	if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	if (targets) s += " in targets '" + targets + "'";
-	debug(s);
+	log(s);
 
 	newSearch(query, sortOrder, targets);
     }
@@ -1092,7 +1092,7 @@ function team($, teamName) {
 	    }
 
 	    template = Handlebars.compile(source);
-	    debug("compiled template '" + name + "'");
+	    log("compiled template '" + name + "'");
 	    m_template[name] = template;
 	}
 
@@ -1143,8 +1143,8 @@ function team($, teamName) {
 
 // wrapper to call team() after page load
 (function (j) {
-    mkws.debug = function (string) {
-	if (!mkws.debug_level)
+    mkws.log = function (string) {
+	if (!mkws.log_level)
 	    return;
 
 	if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
@@ -1152,14 +1152,14 @@ function team($, teamName) {
 	}
 
 	// you need to disable use strict at the top of the file!!!
-	if (mkws.debug_level >= 3) {
+	if (mkws.log_level >= 3) {
 	    console.log(arguments.callee.caller);
-	} else if (mkws.debug_level >= 2) {
+	} else if (mkws.log_level >= 2) {
 	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
 	}
 	console.log(string);
     }
-    var debug = mkws.debug;
+    var log = mkws.log;
 
 
     mkws.handleNodeWithTeam = function(node, callback) {
@@ -1170,7 +1170,7 @@ function team($, teamName) {
 	    // undefined, we don't get an error message, but this
 	    // function and its callers, up several stack level,
 	    // silently return. What a crock.
-	    mkws.debug("handleNodeWithTeam() called on node with no classes");
+	    mkws.log("handleNodeWithTeam() called on node with no classes");
 	    return;
 	}
  	var list = classes.split(/\s+/)
@@ -1196,7 +1196,7 @@ function team($, teamName) {
 
 	if ($(window).width() <= width &&
 	    parent.hasClass("mkwsTermlistContainer1")) {
-	    debug("changing from wide to narrow: " + $(window).width());
+	    log("changing from wide to narrow: " + $(window).width());
 	    $(".mkwsTermlistContainer1").hide();
 	    $(".mkwsTermlistContainer2").show();
 	    for (var tname in mkws.teams) {
@@ -1207,7 +1207,7 @@ function team($, teamName) {
 	    }
 	} else if ($(window).width() > width &&
 		   parent.hasClass("mkwsTermlistContainer2")) {
-	    debug("changing from narrow to wide: " + $(window).width());
+	    log("changing from narrow to wide: " + $(window).width());
 	    $(".mkwsTermlistContainer1").show();
 	    $(".mkwsTermlistContainer2").hide();
 	    for (var tname in mkws.teams) {
@@ -1366,21 +1366,21 @@ function team($, teamName) {
 	    lang_options: [], 	/* display languages links for given languages, [] for all */
 	    facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
 	    responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
-	    debug_level: 1,     /* debug level for development: 0..2 */
+	    log_level: 1,     /* log level for development: 0..2 */
 
 	    dummy: "dummy"
 	};
 
-	/* Set global debug_level flag early so that debug() works */
-	if (typeof mkws_config.debug_level !== 'undefined') {
-	    mkws.debug_level = mkws_config.debug_level;
-	} else if (typeof config_default.debug_level !== 'undefined') {
-	    mkws.debug_level = config_default.debug_level;
+	/* Set global log_level flag early so that log() works */
+	if (typeof mkws_config.log_level !== 'undefined') {
+	    mkws.log_level = mkws_config.log_level;
+	} else if (typeof config_default.log_level !== 'undefined') {
+	    mkws.log_level = config_default.log_level;
 	}
 
 	// make sure the mkws_config is a valid hash
 	if (!$.isPlainObject(mkws_config)) {
-	    debug("ERROR: mkws_config is not an JS object, ignore it....");
+	    log("ERROR: mkws_config is not an JS object, ignore it....");
 	    mkws_config = {};
 	}
 
@@ -1388,7 +1388,7 @@ function team($, teamName) {
 	for (var k in config_default) {
 	    if (typeof mkws_config[k] === 'undefined')
 		mkws_config[k] = config_default[k];
-	    //debug("Set config: " + k + ' => ' + mkws_config[k]);
+	    //log("Set config: " + k + ' => ' + mkws_config[k]);
 	}
     }
 
@@ -1399,11 +1399,11 @@ function team($, teamName) {
      * for the site.
      */
     function authenticateSession(auth_url, auth_domain, pp2_url) {
-	debug("Run service proxy auth URL: " + auth_url);
+	log("Run service proxy auth URL: " + auth_url);
 
 	if (!auth_domain) {
 	    auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-	    debug("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+	    log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
 	}
 
 	var request = new pzHttpRequest(auth_url, function(err) {
@@ -1422,7 +1422,7 @@ function team($, teamName) {
 		return;
 	    }
 
-	    debug("Service proxy auth successfully done");
+	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    runAutoSearches();
 	});
@@ -1430,7 +1430,7 @@ function team($, teamName) {
 
 
     function runAutoSearches() {
-	debug("running auto searches");
+	log("running auto searches");
 
 	for (var teamName in mkws.teams) {
 	    mkws.teams[teamName].runAutoSearch();
@@ -1439,11 +1439,11 @@ function team($, teamName) {
 
 
     $(document).ready(function() {
-	debug("on load ready");
+	log("on load ready");
 	defaultMkwsConfig();
 
 	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	    debug("Reset query width: " + mkws_config.query_width);
+	    log("Reset query width: " + mkws_config.query_width);
 	    mkws_config.query_width = 50;
 	}
 
@@ -1453,7 +1453,7 @@ function team($, teamName) {
 		    var lang = key.replace(/^language_/, "");
 		    // Copy custom languages into list
 		    mkws.locale_lang[lang] = mkws_config[key];
-		    debug("Added locally configured language '" + lang + "'");
+		    log("Added locally configured language '" + lang + "'");
 		}
 	    }
 	}
@@ -1469,7 +1469,7 @@ function team($, teamName) {
 	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
 	if (mkws_config.pazpar2_url.match(/^\/\//)) {
 	    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
-	    debug("adjust protocol independent links: " + mkws_config.pazpar2_url);
+	    log("adjust protocol independent links: " + mkws_config.pazpar2_url);
 	}
 
 	// Backwards compatibility: set new magic class names on any
@@ -1482,7 +1482,7 @@ function team($, teamName) {
 	    var node = $('#' + id);
 	    if (node.attr('id')) {
 		node.addClass(id);
-		debug("added magic class to '" + node.attr('id') + "'");
+		log("added magic class to '" + node.attr('id') + "'");
 	    }
 	}
 
@@ -1490,7 +1490,7 @@ function team($, teamName) {
 	// specified, set the team to AUTO.
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
 	    if (!this.className.match(/mkwsTeam_/)) {
-		debug("adding AUTO team to node with class '" + this.className + "'");
+		log("adding AUTO team to node with class '" + this.className + "'");
 		$(this).addClass('mkwsTeam_AUTO');
 	    }
 	});
@@ -1502,7 +1502,7 @@ function team($, teamName) {
 	    mkws.handleNodeWithTeam(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
-		    debug("Made MKWS team '" + tname + "'");
+		    log("Made MKWS team '" + tname + "'");
 		}
 	    });
 	});
@@ -1517,7 +1517,7 @@ function team($, teamName) {
 	    });
 	});
 	var now = $.now();
-	debug("Walking MKWS nodes took " + (now-then) + " ms");
+	log("Walking MKWS nodes took " + (now-then) + " ms");
 
 	if (mkws_config.use_service_proxy) {
 	    authenticateSession(mkws_config.service_proxy_auth,
