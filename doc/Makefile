@@ -4,6 +4,14 @@ DOCS = README.html README.odt README.pdf \
 # Default rule when "make" is invoked without a target
 **default**: README.html whitepaper.html
 
+INSTALLABLE = README.html whitepaper.html
+INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
+
+install: $(INSTALLED)
+
+uninstall:
+	rm -f $(INSTALLED)
+
 all: $(DOCS)
 
 # For a description of pandoc's markdown format, see:
