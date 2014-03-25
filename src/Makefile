@@ -19,6 +19,17 @@ PP2_FILE = pz2.js
 INSTALLABLE = handlebars-v1.1.2.js jquery-1.10.0.min.js \
 	jquery.json-2.4.js mkws-complete.js mkws-complete.min.js \
 	mkws.min.js pz2.js
+INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
+
+install: $(INSTALLED)
+
+uninstall:
+	rm -f $(INSTALLED)
+
+../tools/htdocs/%: %
+	rm -f $@
+	cp -p $? $@
+	chmod -w $@
 
 all: mkws.min.js mkws-complete.min.js
 
