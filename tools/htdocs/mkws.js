@@ -1371,10 +1371,14 @@ function team($, teamName) {
 	    dummy: "dummy"
 	};
 
-	/* Set global log_level flag early so that log() works */
-	if (typeof mkws_config.log_level !== 'undefined') {
-	    mkws.log_level = mkws_config.log_level;
-	} else if (typeof config_default.log_level !== 'undefined') {
+	// Set global log_level flag early so that log() works
+	// Fall back to old "debug_level" setting for backwards compatibility
+	var tmp = mkws_config.log_level;
+	if (typeof(tmp) === 'undefined') tmp = mkws_config.debug_level;
+
+	if (typeof(tmp) !== 'undefined') {
+	    mkws.log_level = tmp;
+	} else if (typeof(config_default.log_level) !== 'undefined') {
 	    mkws.log_level = config_default.log_level;
 	}
 
