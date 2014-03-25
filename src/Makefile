@@ -16,8 +16,9 @@ JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
 HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
 PP2_FILE = pz2.js
 
-INSTALLABLE = handlebars-v1.1.2.js jquery-1.10.0.min.js \
-	jquery.json-2.4.js pz2.js mkws.js mkws-complete.js \
+INSTALLABLE = handlebars-v1.1.2.js \
+	jquery-1.10.0.min.js jquery.json-2.4.js \
+	pz2.js mkws.js mkws-jquery.js mkws-complete.js \
 	mkws.min.js mkws-complete.min.js
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
