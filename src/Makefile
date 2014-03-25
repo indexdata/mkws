@@ -44,8 +44,6 @@ mkws-js-min: mkws.min.js mkws-complete.min.js
 mkws-syntax-check:
 	yui-compressor mkws.js >/dev/null
 
-mkws-complete-syntax-check: mkws-js-min
-
 ${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.new
 	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
@@ -85,9 +83,7 @@ clean:
 	rm -f mkws.min.js ${MKWS_JS} mkws-complete.min.js
 
 help:
-	@echo "make [ help | clean ]"
-	@echo "     [ mkws-js | mkws-js-min ]"
-	@echo "     [ mkws-syntax-check | mkws-complete-syntax-check ]"
+	@echo "make [ help | clean | mkws-js | mkws-js-min ]"
 	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
