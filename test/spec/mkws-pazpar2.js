@@ -6,7 +6,7 @@
 
 // get references from mkws.js, lazy evaluation
 var debug = function (text) {
-        mkws.debug("Jasmine: " + text)
+        mkws.log("Jasmine: " + text)
     }
 
     // Define empty mkws_config for simple applications that don't define it.
