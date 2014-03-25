@@ -172,13 +172,17 @@ function widget($, team, type, node) {
     var promote = type2fn[type];
     if (promote) {
 	promote();
-	team.debug("made " + type + " widget(node=" + node + ")");
+	debug("made " + type + " widget(node=" + node + ")");
     } else {
-	team.debug("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
+	debug("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
     }
 
     return that;
 
+
+    function debug(s) {
+	team.debug(s);
+    }
 
     // Functions follow for promoting the regular widget object into
     // widgets of specific types. These could be moved outside of the
