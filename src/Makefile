@@ -74,9 +74,6 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 		echo "Made release $(VERSION)"; \
 	fi
 
-##############################
-# helper targets
-#
 distclean: clean
 	rm -f *.orig *.bak *.rej
 
