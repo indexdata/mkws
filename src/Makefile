@@ -83,7 +83,4 @@ clean:
 
 help:
 	@echo "make [ help | clean | mkws-js ]"
-	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
-	@echo ""
-	@echo "Please check ./README file too!"
