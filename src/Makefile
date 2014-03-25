@@ -20,7 +20,7 @@ INSTALLABLE = handlebars-v1.1.2.js jquery-1.10.0.min.js \
 	jquery.json-2.4.js mkws-complete.js mkws-complete.min.js \
 	mkws.min.js pz2.js
 
-all: mkws-js-min
+all: mkws.min.js mkws-complete.min.js
 
 mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	( set -e; \
@@ -38,8 +38,6 @@ mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUER
 	  cat  mkws-jquery.js; \
 	) > mkws-complete.js.new
 	mv -f mkws-complete.js.new mkws-complete.js
-
-mkws-js-min: mkws.min.js mkws-complete.min.js
 
 %.min.js: %.js
 	yui-compressor $? > $@.new
@@ -87,7 +85,7 @@ clean:
 	rm -f mkws.min.js mkws-complete.js mkws-complete.min.js
 
 help:
-	@echo "make [ help | clean | mkws-js | mkws-js-min ]"
+	@echo "make [ help | clean | mkws-js ]"
 	@echo ""
 	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
 	@echo ""
