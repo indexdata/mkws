@@ -20,9 +20,9 @@ INSTALLABLE = handlebars-v1.1.2.js jquery-1.10.0.min.js \
 	jquery.json-2.4.js mkws-complete.js mkws-complete.min.js \
 	mkws.min.js pz2.js
 
-all: ${MKWS_JS} mkws-js-min
+all: mkws-complete.js mkws-js-min
 
-mkws-js ${MKWS_JS}: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
@@ -36,8 +36,8 @@ mkws-js ${MKWS_JS}: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
 	  cat  mkws-jquery.js; \
-	) > ${MKWS_JS}.new
-	mv -f ${MKWS_JS}.new ${MKWS_JS}
+	) > mkws-complete.js.new
+	mv -f mkws-complete.js.new mkws-complete.js
 
 mkws-js-min: mkws.min.js mkws-complete.min.js
 
@@ -84,7 +84,7 @@ distclean: clean
 
 clean:
 	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE} ${PP2_FILE}
-	rm -f mkws.min.js ${MKWS_JS} mkws-complete.min.js
+	rm -f mkws.min.js mkws-complete.js mkws-complete.min.js
 
 help:
 	@echo "make [ help | clean | mkws-js | mkws-js-min ]"
