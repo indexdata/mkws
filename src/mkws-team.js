@@ -157,15 +157,6 @@ function team($, teamName) {
     ////////////////////////////////////////////////////////////////////////////////
 
 
-    // when search button pressed
-    function onFormSubmitEventHandler()
-    {
-	var val = findnode('.mkwsQuery').val();
-	newSearch(val);
-	return false;
-    }
-
-
     // limit by target functions
     that.limitTarget  = function (id, name)
     {
@@ -444,7 +435,11 @@ function team($, teamName) {
 
 	mkwsHtmlSwitch();
 
-	findnode('.mkwsSearchForm').submit(onFormSubmitEventHandler);
+	findnode('.mkwsSearchForm').submit(function() {
+	    var val = findnode('.mkwsQuery').val();
+	    newSearch(val);
+	    return false;
+	});
 
 	// on first page, hide the termlist
 	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
