@@ -6,6 +6,15 @@ function widget($, team, type, node) {
 	node: node
     };
 
+    function log(s) {
+	team.log(s);
+    }
+    that.log = log;
+
+    that.toString = function() {
+	return '[Widget ' + team.name() + ':' + type + ']';
+    }
+
     mkws.registerWidgetType('Targets', promoteTargets);
     mkws.registerWidgetType('Stat', promoteStat);
     mkws.registerWidgetType('Termlists', promoteTermlists);
@@ -15,29 +24,27 @@ function widget($, team, type, node) {
     mkws.registerWidgetType('Sort', promoteSort);
     mkws.registerWidgetType('Perpage', promotePerpage);
 
-    var M = mkws.M;
-
     var promote = mkws.promotionFunction(type);
     if (promote) {
-	promote();
+	promote.call(that);
 	log("made " + type + " widget(node=" + node + ")");
     } else {
 	log("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
     }
 
     return that;
+}
 
-
-    function log(s) {
-	team.log(s);
-    }
 
     // Functions follow for promoting the regular widget object into
     // widgets of specific types. These could be moved outside of the
     // widget object, or even into their own source files.
 
     function promoteTargets() {
-	team.queue("targets").subscribe(function(data) {
+	var that = this;
+	var M = mkws.M;
+
+	this.team.queue("targets").subscribe(function(data) {
 	    var table ='<table><thead><tr>' +
 		'<td>' + M('Target ID') + '</td>' +
 		'<td>' + M('Hits') + '</td>' +
@@ -55,17 +62,20 @@ function widget($, team, type, node) {
 	    }
 	    
 	    table += '</tbody></table>';
-	    var subnode = $(node).children('.mkwsBytarget');
+	    var subnode = $(that.node).children('.mkwsBytarget');
 	    subnode.html(table);
 	});
     }
 
 
     function promoteStat() {
-	team.queue("stat").subscribe(function(data) {
-	    if (node.length === 0)  alert("huh?!");
+	var that = this;
+	var M = mkws.M;
 
-	    $(node).html('<span class="head">' + M('Status info') + '</span>' +
+	this.team.queue("stat").subscribe(function(data) {
+	    if (that.node.length === 0)  alert("huh?!");
+
+	    $(that.node).html('<span class="head">' + M('Status info') + '</span>' +
 		' -- ' +
 		'<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
 		' -- ' +
@@ -75,8 +85,11 @@ function widget($, team, type, node) {
 
 
     function promoteTermlists() {
-	team.queue("termlists").subscribe(function(data) {
-	    if (!node) {
+	var that = this;
+	var M = mkws.M;
+
+	this.team.queue("termlists").subscribe(function(data) {
+	    if (!that.node) {
 		alert("termlists event when there are no termlists");
 		return;
 	    }
@@ -84,12 +97,12 @@ function widget($, team, type, node) {
 	    // no facets: this should never happen
 	    if (!mkws_config.facets || mkws_config.facets.length == 0) {
 		alert("onTerm called even though we have no facets: " + $.toJSON(data));
-		$(node).hide();
+		$(that.node).hide();
 		return;
 	    }
 
 	    // display if we first got results
-	    $(node).show();
+	    $(that.node).show();
 
 	    var acc = [];
 	    acc.push('<div class="title">' + M('Termlists') + '</div>');
@@ -107,10 +120,11 @@ function widget($, team, type, node) {
 		}
 	    }
 
-	    $(node).html(acc.join(''));
+	    $(that.node).html(acc.join(''));
 
 	    function addSingleFacet(acc, caption, data, max, pzIndex) {
-		acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + team.name() + '">');
+		var teamName = that.team.name();
+		acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
 		acc.push('<div class="termtitle">' + M(caption) + '</div>');
 		for (var i = 0; i < data.length && i < max; i++) {
 		    acc.push('<div class="term">');
@@ -119,11 +133,11 @@ function widget($, team, type, node) {
 		    if (!pzIndex) {
 			// Special case: target selection
 			acc.push('target_id='+data[i].id+' ');
-			if (!team.targetFiltered(data[i].id)) {
-			    action = 'mkws.limitTarget(\'' + team.name() + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+			if (!that.team.targetFiltered(data[i].id)) {
+			    action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
 			}
 		    } else {
-			action = 'mkws.limitQuery(\'' + team.name() + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
+			action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
 		    }
 		    acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
 			     + ' <span>' + data[i].freq + '</span>');
@@ -136,10 +150,14 @@ function widget($, team, type, node) {
 
 
     function promotePager() {
-	team.queue("pager").subscribe(function(data) {
-	    $(node).html(drawPager(data))
+	var that = this;
+	var M = mkws.M;
+
+	this.team.queue("pager").subscribe(function(data) {
+	    $(that.node).html(drawPager(data))
 
 	    function drawPager(data) {
+		var teamName = that.team.name();
 		var s = '<div style="float: right">' + M('Displaying') + ': '
 		    + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
 		    ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
@@ -147,8 +165,8 @@ function widget($, team, type, node) {
 
 		//client indexes pages from 1 but pz2 from 0
 		var onsides = 6;
-		var pages = Math.ceil(team.totalRecordCount() / team.perpage());
-		var currentPage = team.currentPage();
+		var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
+		var currentPage = that.team.currentPage();
 
 		var firstClkbl = (currentPage - onsides > 0)
 		    ? currentPage - onsides
@@ -160,7 +178,7 @@ function widget($, team, type, node) {
 
 		var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
 		if (currentPage > 1)
-		    prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + team.name() + '\');">'
+		    prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
 		    +'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
 
 		var middle = '';
@@ -169,13 +187,13 @@ function widget($, team, type, node) {
 		    if(i == currentPage)
 			numLabel = '<b>' + i + '</b>';
 
-		    middle += '<a href="#" onclick="mkws.showPage(\'' + team.name() + '\', ' + i + ')"> '
+		    middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
 			+ numLabel + ' </a>';
 		}
 
 		var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
 		if (pages - currentPage > 0)
-		    next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + team.name() + '\')">'
+		    next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
 		    + M('Next') + ' &#62;&#62;</a>';
 
 		var predots = '';
@@ -196,7 +214,10 @@ function widget($, team, type, node) {
 
 
     function promoteRecords() {
-	team.queue("records").subscribe(function(data) {
+	var that = this;
+	var team = this.team;
+
+	this.team.queue("records").subscribe(function(data) {
 	    var html = [];
 	    for (var i = 0; i < data.hits.length; i++) {
 		var hit = data.hits[i];
@@ -210,7 +231,7 @@ function widget($, team, type, node) {
 			html.push(team.renderDetails(team.currentRecordData()));
 		}
 	    }
-	    $(node).html(html.join(''));
+	    $(that.node).html(html.join(''));
 
 	    function renderSummary(hit)
 	    {
@@ -224,8 +245,12 @@ function widget($, team, type, node) {
 
 
     function promoteNavi() {
-	team.queue("navi").subscribe(function() {
-	    var filters = team.filters();
+	var that = this;
+	var teamName = this.team.name();
+	var M = mkws.M;
+
+	this.team.queue("navi").subscribe(function() {
+	    var filters = that.team.filters();
 	    var text = "";
 
 	    for (var i in filters) {
@@ -234,16 +259,16 @@ function widget($, team, type, node) {
 		}
 		var filter = filters[i];
 		if (filter.id) {
-		    text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + team.name() +
+		    text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
 			"', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
 		} else {
-		    text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + team.name() +
+		    text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
 			"', '" + filter.field + "', '" + filter.value + "'" +
 			');return false;">' + filter.value + '</a>';
 		}
 	    }
 
-	    $(node).html(text);
+	    $(that.node).html(text);
 	});
     }
 
@@ -252,11 +277,11 @@ function widget($, team, type, node) {
 	// It seems this and the Perpage widget doen't need to
 	// subscribe to anything, since they produce events rather
 	// than consuming them.
-	$(node).change(function () {
-	    team.set_sortOrder($(node).val());
-	    if (team.submitted()) {
-		team.resetPage();
-		team.reShow();
+	$(this.node).change(function () {
+	    this.team.set_sortOrder($(node).val());
+	    if (this.team.submitted()) {
+		this.team.resetPage();
+		this.team.reShow();
 	    }
 	    return false;
 	});
@@ -264,13 +289,12 @@ function widget($, team, type, node) {
 
 
     function promotePerpage() {
-	$(node).change(function() {
-	    team.set_perpage($(node).val());
-	    if (team.submitted()) {
-		team.resetPage();
-		team.reShow();
+	$(this.node).change(function() {
+	    this.team.set_perpage($(node).val());
+	    if (this.team.submitted()) {
+		this.team.resetPage();
+		this.team.reShow();
 	    }
 	    return false;
 	});
     }
-}
