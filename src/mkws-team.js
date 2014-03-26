@@ -307,7 +307,6 @@ function team($, teamName) {
     }
 
 
-
     that.showPage = function (pageNum)
     {
 	m_currentPage = pageNum;
