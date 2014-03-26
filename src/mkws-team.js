@@ -122,7 +122,7 @@ function team($, teamName) {
     }
 
 
-    // Used by promoteRecords() and onRecord()
+    // Used by the Records widget and onRecord()
     function recordElementId(s) {
 	return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
     }
