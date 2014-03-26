@@ -1,3 +1,8 @@
+mkws.type2fn = {}
+mkws.registerWidget = function(name, fn) {
+    mkws.type2fn[name] = fn;
+}
+
 // Factory function for widget objects.
 function widget($, team, type, node) {
     var that = {
@@ -6,20 +11,18 @@ function widget($, team, type, node) {
 	node: node
     };
 
+    mkws.registerWidget('Targets', promoteTargets);
+    mkws.registerWidget('Stat', promoteStat);
+    mkws.registerWidget('Termlists', promoteTermlists);
+    mkws.registerWidget('Pager', promotePager);
+    mkws.registerWidget('Records', promoteRecords);
+    mkws.registerWidget('Navi', promoteNavi);
+    mkws.registerWidget('Sort', promoteSort);
+    mkws.registerWidget('Perpage', promotePerpage);
+
     var M = mkws.M;
 
-    var type2fn = {
-	Targets: promoteTargets,
-	Stat: promoteStat,
-	Termlists: promoteTermlists,
-	Pager: promotePager,
-	Records: promoteRecords,
-	Navi: promoteNavi,
-	Sort: promoteSort,
-	Perpage: promotePerpage
-    };
-
-    var promote = type2fn[type];
+    var promote = mkws.type2fn[type];
     if (promote) {
 	promote();
 	log("made " + type + " widget(node=" + node + ")");
