@@ -624,7 +624,9 @@ function team($, teamName) {
 	    return s + '.mkwsTeam_' + teamName;
 	}).join(',');
 
-	return $(selector);
+	var node = $(selector);
+	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
+	return node;
     }
 
 
