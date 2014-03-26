@@ -314,7 +314,6 @@ function team($, teamName) {
     }
 
 
-    // simple paging functions
     that.pagerNext = function () {
 	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
             m_paz.showNext();
