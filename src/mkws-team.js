@@ -28,6 +28,8 @@ function team($, teamName) {
     var m_paz; // will be initialised below
     var m_template = {};
 
+
+    // Accessor methods for individual widgets: readers
     that.name = function() { return m_teamName; }
     that.submitted = function() { return m_submitted; }
     that.perpage = function() { return m_perpage; }
@@ -37,6 +39,7 @@ function team($, teamName) {
     that.currentRecordData = function() { return m_currentRecordData; }
     that.filters = function() { return m_filters; }
 
+    // Accessor methods for individual widgets: writers
     that.set_sortOrder = function(val) { m_sortOrder = val };
     that.set_perpage = function(val) { m_perpage = val };
 
