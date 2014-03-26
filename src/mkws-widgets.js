@@ -271,10 +271,10 @@ function promoteToNavi() {
 mkws.registerWidgetType('Navi', promoteToNavi);
 
 
+// It seems this and the Perpage widget doen't need to subscribe to
+// anything, since they produce events rather than consuming them.
+//
 function promoteToSort() {
-    // It seems this and the Perpage widget doen't need to
-    // subscribe to anything, since they produce events rather
-    // than consuming them.
     $(this.node).change(function () {
 	this.team.set_sortOrder($(node).val());
 	if (this.team.submitted()) {
