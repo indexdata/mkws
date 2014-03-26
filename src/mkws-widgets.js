@@ -58,6 +58,7 @@ function promoteToTargets() {
 	subnode.html(table);
     });
 }
+mkws.registerWidgetType('Targets', promoteToTargets);
 
 
 function promoteToStat() {
@@ -74,6 +75,7 @@ function promoteToStat() {
 	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
     });
 }
+mkws.registerWidgetType('Stat', promoteToStat);
 
 
 function promoteToTermlists() {
@@ -139,6 +141,7 @@ function promoteToTermlists() {
 	}
     });
 }
+mkws.registerWidgetType('Termlists', promoteToTermlists);
 
 
 function promoteToPager() {
@@ -203,6 +206,7 @@ function promoteToPager() {
 	}
     });
 }			     
+mkws.registerWidgetType('Pager', promoteToPager);
 
 
 function promoteToRecords() {
@@ -234,6 +238,7 @@ function promoteToRecords() {
 	}
     });
 }
+mkws.registerWidgetType('Records', promoteToRecords);
 
 
 function promoteToNavi() {
@@ -263,6 +268,7 @@ function promoteToNavi() {
 	$(that.node).html(text);
     });
 }
+mkws.registerWidgetType('Navi', promoteToNavi);
 
 
 function promoteToSort() {
@@ -278,6 +284,7 @@ function promoteToSort() {
 	return false;
     });
 }
+mkws.registerWidgetType('Sort', promoteToSort);
 
 
 function promoteToPerpage() {
@@ -290,14 +297,4 @@ function promoteToPerpage() {
 	return false;
     });
 }
-
-mkws.registerWidgetType('Targets', promoteToTargets);
-mkws.registerWidgetType('Stat', promoteToStat);
-mkws.registerWidgetType('Termlists', promoteToTermlists);
-mkws.registerWidgetType('Pager', promoteToPager);
-mkws.registerWidgetType('Records', promoteToRecords);
-mkws.registerWidgetType('Navi', promoteToNavi);
-mkws.registerWidgetType('Sort', promoteToSort);
 mkws.registerWidgetType('Perpage', promoteToPerpage);
-
-
