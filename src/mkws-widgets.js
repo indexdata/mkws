@@ -31,7 +31,7 @@ function widget($, team, type, node) {
 // widgets of specific types. These could be moved outside of the
 // widget object, or even into their own source files.
 
-function promoteTargets() {
+function promoteToTargets() {
     var that = this;
     var M = mkws.M;
 
@@ -59,7 +59,7 @@ function promoteTargets() {
 }
 
 
-function promoteStat() {
+function promoteToStat() {
     var that = this;
     var M = mkws.M;
 
@@ -75,7 +75,7 @@ function promoteStat() {
 }
 
 
-function promoteTermlists() {
+function promoteToTermlists() {
     var that = this;
     var M = mkws.M;
 
@@ -140,7 +140,7 @@ function promoteTermlists() {
 }
 
 
-function promotePager() {
+function promoteToPager() {
     var that = this;
     var M = mkws.M;
 
@@ -204,7 +204,7 @@ function promotePager() {
 }			     
 
 
-function promoteRecords() {
+function promoteToRecords() {
     var that = this;
     var team = this.team;
 
@@ -235,7 +235,7 @@ function promoteRecords() {
 }
 
 
-function promoteNavi() {
+function promoteToNavi() {
     var that = this;
     var teamName = this.team.name();
     var M = mkws.M;
@@ -264,7 +264,7 @@ function promoteNavi() {
 }
 
 
-function promoteSort() {
+function promoteToSort() {
     // It seems this and the Perpage widget doen't need to
     // subscribe to anything, since they produce events rather
     // than consuming them.
@@ -279,7 +279,7 @@ function promoteSort() {
 }
 
 
-function promotePerpage() {
+function promoteToPerpage() {
     $(this.node).change(function() {
 	this.team.set_perpage($(node).val());
 	if (this.team.submitted()) {
@@ -290,13 +290,13 @@ function promotePerpage() {
     });
 }
 
-mkws.registerWidgetType('Targets', promoteTargets);
-mkws.registerWidgetType('Stat', promoteStat);
-mkws.registerWidgetType('Termlists', promoteTermlists);
-mkws.registerWidgetType('Pager', promotePager);
-mkws.registerWidgetType('Records', promoteRecords);
-mkws.registerWidgetType('Navi', promoteNavi);
-mkws.registerWidgetType('Sort', promoteSort);
-mkws.registerWidgetType('Perpage', promotePerpage);
+mkws.registerWidgetType('Targets', promoteToTargets);
+mkws.registerWidgetType('Stat', promoteToStat);
+mkws.registerWidgetType('Termlists', promoteToTermlists);
+mkws.registerWidgetType('Pager', promoteToPager);
+mkws.registerWidgetType('Records', promoteToRecords);
+mkws.registerWidgetType('Navi', promoteToNavi);
+mkws.registerWidgetType('Sort', promoteToSort);
+mkws.registerWidgetType('Perpage', promoteToPerpage);
 
 
