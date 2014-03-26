@@ -43,3 +43,5 @@ all: $(DOCS)
 clean:
 	rm -f $(DOCS)
 
+distclean: clean
+
