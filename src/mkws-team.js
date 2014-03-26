@@ -393,13 +393,11 @@ function team($, teamName) {
 	    mkwsHtmlLang();
 
 	log("HTML search form");
-	mkws.handleNodeWithTeam(findnode('.mkwsSearch'), function(tname) {
-	    this.html('\
-<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + mkws_config.query_width + '" />\
-  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
+	findnode('.mkwsSearch').html('\
+<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + m_teamName + '" action="" >\
+  <input class="mkwsQuery mkwsTeam_' + m_teamName + '" type="text" size="' + mkws_config.query_width + '" />\
+  <input class="mkwsButton mkwsTeam_' + m_teamName + '" type="submit" value="' + M('Search') + '" />\
 </form>');
-	});
 
 	log("HTML records");
 	// If the team has a .mkwsResults, populate it in the usual
