@@ -166,22 +166,6 @@ function team($, teamName) {
     }
 
 
-    function newSearch(query, sortOrder, targets)
-    {
-	log("newSearch: " + query);
-
-	if (mkws_config.use_service_proxy && !mkws.authenticated) {
-	    alert("searching before authentication");
-	    return;
-	}
-
-	m_filters = []
-	triggerSearch(query, sortOrder, targets);
-	switchView('records'); // In case it's configured to start off as hidden
-	m_submitted = true;
-    }
-
-
     // limit by target functions
     that.limitTarget  = function (id, name)
     {
@@ -244,12 +228,54 @@ function team($, teamName) {
     }
 
 
+    that.showPage = function (pageNum)
+    {
+	m_currentPage = pageNum;
+	m_paz.showPage(m_currentPage - 1);
+    }
+
+
+    that.pagerNext = function () {
+	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
+            m_paz.showNext();
+            m_currentPage++;
+	}
+    }
+
+
+    that.pagerPrev = function () {
+	if (m_paz.showPrev() != false)
+            m_currentPage--;
+    }
+
+
+    that.reShow = function() {
+	m_paz.show(0, m_perpage, m_sortOrder);
+    }
+
+
     function resetPage()
     {
 	m_currentPage = 1;
 	m_totalRecordCount = 0;
     }
     that.resetPage = resetPage;
+
+
+    function newSearch(query, sortOrder, targets)
+    {
+	log("newSearch: " + query);
+
+	if (mkws_config.use_service_proxy && !mkws.authenticated) {
+	    alert("searching before authentication");
+	    return;
+	}
+
+	m_filters = []
+	triggerSearch(query, sortOrder, targets);
+	switchView('records'); // In case it's configured to start off as hidden
+	m_submitted = true;
+    }
 
 
     function triggerSearch (query, sortOrder, targets)
@@ -299,32 +325,6 @@ function team($, teamName) {
 	// We can use: params.torusquery = "udb=NAME"
 	// Note: that won't work when running against raw pazpar2
 	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
-    }
-
-
-    that.reShow = function() {
-	m_paz.show(0, m_perpage, m_sortOrder);
-    }
-
-
-    that.showPage = function (pageNum)
-    {
-	m_currentPage = pageNum;
-	m_paz.showPage(m_currentPage - 1);
-    }
-
-
-    that.pagerNext = function () {
-	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
-            m_paz.showNext();
-            m_currentPage++;
-	}
-    }
-
-
-    that.pagerPrev = function () {
-	if (m_paz.showPrev() != false)
-            m_currentPage--;
     }
 
 
