@@ -456,7 +456,7 @@ function team($, teamName) {
 
 
     function mkwsSetLang()  {
-	var lang = mkws.getParameterByName("lang") || mkws_config.lang;
+	var lang = getParameterByName("lang") || mkws_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
 	    mkws_config.lang = ""
 	} else {
@@ -577,7 +577,7 @@ function team($, teamName) {
 
 	if (query.match(/^!param!/)) {
 	    var param = query.replace(/^!param!/, '');
-	    query = mkws.getParameterByName(param);
+	    query = getParameterByName(param);
 	    log("obtained query '" + query + "' from param '" + param + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
@@ -602,6 +602,16 @@ function team($, teamName) {
 	log(s);
 
 	newSearch(query, sortOrder, targets);
+    }
+
+
+    // This function is taken from a StackOverflow answer
+    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
+    function getParameterByName(name) {
+	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+	    results = regex.exec(location.search);
+	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 

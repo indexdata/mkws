@@ -199,16 +199,6 @@ if (mkws_config == null || typeof mkws_config != 'object') {
     }
 
 
-    // This function is taken from a StackOverflow answer
-    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
-    mkws.getParameterByName = function(name) {
-	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	    results = regex.exec(location.search);
-	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-    }
-
-
     mkws.defaultTemplate = function(name)
     {
 	if (name === 'Record') {
