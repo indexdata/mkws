@@ -45,7 +45,7 @@ all: $(DOCS)
 clean:
 	rm -f $(DOCS)
 
-distclean: clean
+distclean: clean uninstall
 
 help:
 	@echo "make [ all | install | clean | distclean ]"
