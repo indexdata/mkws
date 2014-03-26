@@ -109,9 +109,8 @@ function team($, teamName) {
 	log("record");
 	// FIXME: record is async!!
 	clearTimeout(m_paz.recordTimer);
-	// ##### restrict to current team
-	var detRecordDiv = document.getElementById(recordDetailsId(data.recid[0]));
-	if (detRecordDiv) {
+	var detRecordDiv = findnode(recordDetailsId(data.recid[0]));
+	if (detRecordDiv.length) {
 	    // in case on_show was faster to redraw element
 	    return;
 	}
