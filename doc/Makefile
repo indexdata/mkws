@@ -1,3 +1,5 @@
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+
 DOCS = README.html README.odt README.pdf \
        whitepaper.html whitepaper.odt whitepaper.pdf
 
