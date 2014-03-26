@@ -13,7 +13,6 @@ var mkws = {
     authenticated: false,
     log_level: 1, // Will be overridden from mkws_config, but
                   // initial value allows jQuery popup to use logging.
-    paz: undefined, // will be set up during initialisation
     teams: {},
     locale_lang: {
 	"de": {
