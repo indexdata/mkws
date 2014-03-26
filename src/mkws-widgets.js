@@ -289,7 +289,7 @@ function promoteToSort() {
 mkws.registerWidgetType('Sort', promoteToSort);
 
 
-function promoteToPerpage() {
+mkws.registerWidgetType('Perpage', function() {
     var that = this;
 
     $(this.node).change(function() {
@@ -300,5 +300,4 @@ function promoteToPerpage() {
 	}
 	return false;
     });
-}
-mkws.registerWidgetType('Perpage', promoteToPerpage);
+});
