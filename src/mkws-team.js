@@ -4,7 +4,7 @@
 // called from outside code -- specifically, from generated
 // HTML. These functions are that.switchView(), showDetails(),
 // limitTarget(), limitQuery(), delimitTarget(), delimitQuery(),
-// pagerPrev(), pagerNext(), showPage().
+// showPage(), pagerPrev(), pagerNext().
 //
 function team($, teamName) {
     var that = {};
