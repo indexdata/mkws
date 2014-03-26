@@ -129,7 +129,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
     }
 
 
-    mkws.resizePage = function () {
+    function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
 	var width = mkws_config.responsive_design_width;
@@ -315,9 +315,9 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
-	    $(window).resize(function(e) { mkws.resizePage() });
+	    $(window).resize(function(e) { resizePage() });
 	    // initial check after page load
-	    $(document).ready(function() { mkws.resizePage() });
+	    $(document).ready(function() { resizePage() });
 	}
 
 	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
