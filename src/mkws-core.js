@@ -84,7 +84,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 // wrapper to call team() after page load
 (function (j) {
-    mkws.log = function (string) {
+    function log(string) {
 	if (!mkws.log_level)
 	    return;
 
@@ -100,7 +100,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	}
 	console.log(string);
     }
-    var log = mkws.log;
+    mkws.log = log;
 
 
     function handleNodeWithTeam(node, callback) {
