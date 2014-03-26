@@ -15,15 +15,6 @@ function widget($, team, type, node) {
 	return '[Widget ' + team.name() + ':' + type + ']';
     }
 
-    mkws.registerWidgetType('Targets', promoteTargets);
-    mkws.registerWidgetType('Stat', promoteStat);
-    mkws.registerWidgetType('Termlists', promoteTermlists);
-    mkws.registerWidgetType('Pager', promotePager);
-    mkws.registerWidgetType('Records', promoteRecords);
-    mkws.registerWidgetType('Navi', promoteNavi);
-    mkws.registerWidgetType('Sort', promoteSort);
-    mkws.registerWidgetType('Perpage', promotePerpage);
-
     var promote = mkws.promotionFunction(type);
     if (promote) {
 	promote.call(that);
@@ -298,3 +289,13 @@ function widget($, team, type, node) {
 	    return false;
 	});
     }
+
+    mkws.registerWidgetType('Targets', promoteTargets);
+    mkws.registerWidgetType('Stat', promoteStat);
+    mkws.registerWidgetType('Termlists', promoteTermlists);
+    mkws.registerWidgetType('Pager', promotePager);
+    mkws.registerWidgetType('Records', promoteRecords);
+    mkws.registerWidgetType('Navi', promoteNavi);
+    mkws.registerWidgetType('Sort', promoteSort);
+    mkws.registerWidgetType('Perpage', promotePerpage);
+
