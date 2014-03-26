@@ -45,3 +45,6 @@ clean:
 
 distclean: clean
 
+help:
+	@echo "make [ all | install | clean | distclean ]"
+
