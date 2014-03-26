@@ -14,6 +14,8 @@ var mkws = {
     log_level: 1, // Will be overridden from mkws_config, but
                   // initial value allows jQuery popup to use logging.
     teams: {},
+    widgetType2function: {},
+
     locale_lang: {
 	"de": {
 	    "Authors": "Autoren",
@@ -101,6 +103,16 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	console.log(string);
     }
     mkws.log = log;
+
+
+    mkws.registerWidgetType = function(name, fn) {
+	mkws.widgetType2function[name] = fn;
+	log("registered widget-type '" + name + "'");
+    }
+
+    mkws.promotionFunction = function(name) {
+	return mkws.widgetType2function[name];
+    }
 
 
     function handleNodeWithTeam(node, callback) {
