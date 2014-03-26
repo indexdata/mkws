@@ -294,6 +294,8 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
+	    mkws.authName = $(data).find("displayName").text();
+	    log("authName='" + mkws.authName + "'");
 	    runAutoSearches();
 	});
     }
