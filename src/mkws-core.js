@@ -162,7 +162,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
     // The following functions are dispatchers for team methods that
-    // are called from the UI using a te3am-name rather than implicit
+    // are called from the UI using a team-name rather than implicit
     // context.
     mkws.switchView = function(tname, view) {
 	mkws.teams[tname].switchView(view);
