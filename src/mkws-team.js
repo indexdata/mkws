@@ -786,7 +786,5 @@ function team($, teamName) {
 	}
     })();
 
-    // Bizarrely, 'that' is just an empty hash. All its state is in
-    // the closure variables defined earlier in this function.
     return that;
 };
