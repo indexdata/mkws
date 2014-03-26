@@ -163,7 +163,8 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
     // The following functions are dispatchers for team methods that
     // are called from the UI using a team-name rather than implicit
-    // context.
+    // context. Apart from mkws.log, they are the ONLY public UI to
+    // this module.
     mkws.switchView = function(tname, view) {
 	mkws.teams[tname].switchView(view);
     }
