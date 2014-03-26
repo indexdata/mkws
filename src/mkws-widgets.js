@@ -275,11 +275,13 @@ mkws.registerWidgetType('Navi', promoteToNavi);
 // anything, since they produce events rather than consuming them.
 //
 function promoteToSort() {
+    var that = this;
+
     $(this.node).change(function () {
-	this.team.set_sortOrder($(node).val());
-	if (this.team.submitted()) {
-	    this.team.resetPage();
-	    this.team.reShow();
+	that.team.set_sortOrder($(that.node).val());
+	if (that.team.submitted()) {
+	    that.team.resetPage();
+	    that.team.reShow();
 	}
 	return false;
     });
@@ -288,11 +290,13 @@ mkws.registerWidgetType('Sort', promoteToSort);
 
 
 function promoteToPerpage() {
+    var that = this;
+
     $(this.node).change(function() {
-	this.team.set_perpage($(node).val());
-	if (this.team.submitted()) {
-	    this.team.resetPage();
-	    this.team.reShow();
+	that.team.set_perpage($(that.node).val());
+	if (that.team.submitted()) {
+	    that.team.resetPage();
+	    that.team.reShow();
 	}
 	return false;
     });
