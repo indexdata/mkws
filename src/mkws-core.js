@@ -296,7 +296,6 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
     $(document).ready(function() {
-	log("on load ready");
 	defaultMkwsConfig();
 
 	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
