@@ -11,8 +11,6 @@ VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-core.js
 
-MKWS_JS=	mkws-complete.js
-
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
 HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
