@@ -44,7 +44,7 @@ function team($, teamName) {
     that.set_perpage = function(val) { m_perpage = val };
 
 
-    var log = function (s) {
+    function log(s) {
 	var now = $.now();
 	var timestamp = ((now - m_logTime.start)/1000).toFixed(3) + " (+" + ((now - m_logTime.last)/1000).toFixed(3) + ") "
 	m_logTime.last = now;
