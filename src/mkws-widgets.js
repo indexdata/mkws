@@ -28,8 +28,9 @@ function widget($, team, type, node) {
 
 
 // Functions follow for promoting the regular widget object into
-// widgets of specific types. These could be moved outside of the
-// widget object, or even into their own source files.
+// widgets of specific types. These could be moved into their own
+// source files.
+
 
 function promoteToTargets() {
     var that = this;
