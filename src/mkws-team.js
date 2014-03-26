@@ -1,6 +1,6 @@
 // Factory function for team objects. As much as possible, this uses
 // only member variables (prefixed "m_") and inner functions with
-// private scope. Some functions are visibl as member-functions to be
+// private scope. Some functions are visible as member-functions to be
 // called from outside code -- specifically, from generated
 // HTML. These functions are that.switchView(), showDetails(),
 // limitTarget(), limitQuery(), delimitTarget(), delimitQuery(),
