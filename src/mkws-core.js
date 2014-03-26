@@ -11,6 +11,7 @@
 //
 var mkws = {
     authenticated: false,
+    authName: undefined,
     log_level: 1, // Will be overridden from mkws_config, but
                   // initial value allows jQuery popup to use logging.
     teams: {},
@@ -295,7 +296,6 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    mkws.authName = $(data).find("displayName").text();
-	    log("authName='" + mkws.authName + "'");
 	    runAutoSearches();
 	});
     }
