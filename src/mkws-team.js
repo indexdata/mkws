@@ -28,6 +28,7 @@ function team($, teamName) {
     var m_paz; // will be initialised below
     var m_template = {};
 
+    that.toString = function() { return '[Team ' + teamName + ']'; }
 
     // Accessor methods for individual widgets: readers
     that.name = function() { return m_teamName; }
