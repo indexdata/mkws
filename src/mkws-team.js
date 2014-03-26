@@ -153,11 +153,6 @@ function team($, teamName) {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////
-
-
-    // limit by target functions
     that.limitTarget  = function (id, name)
     {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
@@ -167,7 +162,6 @@ function team($, teamName) {
     }
 
 
-    // limit the query after clicking the facet
     that.limitQuery = function (field, value)
     {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
