@@ -103,7 +103,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
     var log = mkws.log;
 
 
-    mkws.handleNodeWithTeam = function(node, callback) {
+    function handleNodeWithTeam(node, callback) {
 	// First branch for DOM objects; second branch for jQuery objects
 	var classes = node.className || node.attr('class');
 	if (!classes) {
@@ -353,7 +353,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    mkws.handleNodeWithTeam(this, function(tname, type) {
+	    handleNodeWithTeam(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
 		    log("Made MKWS team '" + tname + "'");
@@ -365,7 +365,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	// that sometimes makes new widget nodes (e.g. creating
 	// mkwsTermlists inside mkwsResults.
 	$('[class^="mkws"],[class*=" mkws"]').each(function () {
-	    mkws.handleNodeWithTeam(this, function(tname, type) {
+	    handleNodeWithTeam(this, function(tname, type) {
 		var myTeam = mkws.teams[tname];
 		var myWidget = widget(j, myTeam, type, this);
 	    });
