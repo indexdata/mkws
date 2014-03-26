@@ -9,7 +9,7 @@ HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.
 PP2_URL= 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
-COMPONENTS = mkws-core.js
+COMPONENTS = mkws-core.js mkws-handlebars.js
 
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
@@ -86,7 +86,7 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 		echo "Made release $(VERSION)"; \
 	fi
 
-mkws.js: $(COMPONENTS)
+mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
 	cat $(COMPONENTS) > $@
 	chmod -w $@
