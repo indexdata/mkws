@@ -76,33 +76,27 @@ function team($, teamName) {
 		    });
 
 
-    //
     // pz2.js event handlers:
-    //
     function onInit() {
 	log("init");
 	m_paz.stat();
 	m_paz.bytarget();
     }
 
-
     function onBytarget(data) {
 	log("target");
 	queue("targets").publish(data);
     }
-
 
     function onStat(data) {
 	log("stat");
 	queue("stat").publish(data);
     }
 
-
     function onTerm(data) {
 	log("term");
 	queue("termlists").publish(data);
     }
-
 
     function onShow(data, teamName) {
 	log("show");
@@ -110,7 +104,6 @@ function team($, teamName) {
 	queue("pager").publish(data);
 	queue("records").publish(data);
     }
-
 
     function onRecord(data, args, teamName) {
 	log("record");
