@@ -275,7 +275,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	    }
 	    var status = $(data).find("status");
 	    if (status.text() != "OK") {
-		alert("service proxy auth repsonse status: " + status.text() + ", give up!");
+		alert("service proxy auth response status: " + status.text() + ", give up!");
 		return;
 	    }
 
