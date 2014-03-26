@@ -15,9 +15,9 @@ function widget($, team, type, node) {
 	return '[Widget ' + team.name() + ':' + type + ']';
     }
 
-    var promote = mkws.promotionFunction(type);
-    if (promote) {
-	promote.call(that);
+    var fn = mkws.promotionFunction(type);
+    if (fn) {
+	fn.call(that);
 	log("made " + type + " widget(node=" + node + ")");
     } else {
 	log("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
