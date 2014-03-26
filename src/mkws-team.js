@@ -773,11 +773,7 @@ function team($, teamName) {
     }
     that.queue = queue;
 
-
-    // main
-    (function() {
-	mkwsHtmlAll()
-    })();
+    mkwsHtmlAll()
 
     return that;
 };
