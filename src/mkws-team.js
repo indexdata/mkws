@@ -776,14 +776,7 @@ function team($, teamName) {
 
     // main
     (function() {
-	try {
-	    mkwsHtmlAll()
-	}
-
-	catch (e) {
-	    mkws_config.error = e.message;
-	    // alert(e.message);
-	}
+	mkwsHtmlAll()
     })();
 
     return that;
