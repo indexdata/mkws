@@ -132,7 +132,6 @@ function team($, teamName) {
     function recordDetailsId(s) {
 	return 'mkwsDet_' + s.replace(/[^a-z0-9]/ig, '_');
     }
-    that.recordElementId = recordElementId;
 
 
     that.targetFiltered = function(id) {
