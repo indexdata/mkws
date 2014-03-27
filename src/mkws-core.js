@@ -326,18 +326,18 @@ mkws.pagerNext = function(tname) {
 	    mkws_config.query_width = 50;
 	}
 
+	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
+	if (mkws_config.pazpar2_url.match(/^\/\//)) {
+	    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
+	    log("adjust protocol independent links: " + mkws_config.pazpar2_url);
+	}
+
 	if (mkws_config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
 	    $(window).resize(resizePage);
 	    // initial check after page load
 	    $(document).ready(resizePage);
-	}
-
-	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-	if (mkws_config.pazpar2_url.match(/^\/\//)) {
-	    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
-	    log("adjust protocol independent links: " + mkws_config.pazpar2_url);
 	}
 
 	// Backwards compatibility: set new magic class names on any
