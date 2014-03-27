@@ -84,22 +84,22 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 
-    mkws.log = function(string) {
-	if (!mkws.log_level)
-	    return;
+mkws.log = function(string) {
+    if (!mkws.log_level)
+	return;
 
-	if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
-	    return;
-	}
+    if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
+	return;
+    }
 
-	// you need to disable use strict at the top of the file!!!
-	if (mkws.log_level >= 3) {
-	    console.log(arguments.callee.caller);
-	} else if (mkws.log_level >= 2) {
-	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
-	}
-	console.log(string);
-    };
+    // you need to disable use strict at the top of the file!!!
+    if (mkws.log_level >= 3) {
+	console.log(arguments.callee.caller);
+    } else if (mkws.log_level >= 2) {
+	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+    }
+    console.log(string);
+};
 
 
 
