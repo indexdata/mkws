@@ -102,20 +102,19 @@ mkws.log = function(string) {
 };
 
 
+mkws.registerWidgetType = function(name, fn) {
+    mkws.widgetType2function[name] = fn;
+    mkws.log("registered widget-type '" + name + "'");
+};
+
+mkws.promotionFunction = function(name) {
+    return mkws.widgetType2function[name];
+};
+
 
 // wrapper to call team() after page load
 (function(j) {
     var log = mkws.log;
-
-    mkws.registerWidgetType = function(name, fn) {
-	mkws.widgetType2function[name] = fn;
-	log("registered widget-type '" + name + "'");
-    };
-
-    mkws.promotionFunction = function(name) {
-	return mkws.widgetType2function[name];
-    };
-
 
     function handleNodeWithTeam(node, callback) {
 	// First branch for DOM objects; second branch for jQuery objects
