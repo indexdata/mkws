@@ -310,11 +310,6 @@ mkws.pagerNext = function(tname) {
     $(document).ready(function() {
 	mkws.defaultMkwsConfig();
 
-	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	    log("Reset query width: " + mkws_config.query_width);
-	    mkws_config.query_width = 50;
-	}
-
 	for (var key in mkws_config) {
 	    if (mkws_config.hasOwnProperty(key)) {
 		if (key.match(/^language_/)) {
@@ -324,6 +319,11 @@ mkws.pagerNext = function(tname) {
 		    log("Added locally configured language '" + lang + "'");
 		}
 	    }
+	}
+
+	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
+	    log("Reset query width: " + mkws_config.query_width);
+	    mkws_config.query_width = 50;
 	}
 
 	if (mkws_config.responsive_design_width) {
