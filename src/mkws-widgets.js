@@ -271,7 +271,7 @@ mkws.registerWidgetType('Navi', function() {
 mkws.registerWidgetType('Sort', function() {
     var that = this;
 
-    $(this.node).change(function () {
+    $(this.node).change(function() {
 	that.team.set_sortOrder($(that.node).val());
 	if (that.team.submitted()) {
 	    that.team.resetPage();
