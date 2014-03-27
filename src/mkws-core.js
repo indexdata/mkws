@@ -124,7 +124,7 @@ mkws.promotionFunction = function(name) {
 	    // undefined, we don't get an error message, but this
 	    // function and its callers, up several stack level,
 	    // silently return. What a crock.
-	    mkws.log("handleNodeWithTeam() called on node with no classes");
+	    log("handleNodeWithTeam() called on node with no classes");
 	    return;
 	}
  	var list = classes.split(/\s+/)
