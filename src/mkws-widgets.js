@@ -32,7 +32,7 @@ function widget($, team, type, node) {
 // source files.
 
 
-function promoteToTargets() {
+mkws.registerWidgetType('Targets', function() {
     var that = this;
     var M = mkws.M;
 
@@ -57,11 +57,10 @@ function promoteToTargets() {
 	var subnode = $(that.node).children('.mkwsBytarget');
 	subnode.html(table);
     });
-}
-mkws.registerWidgetType('Targets', promoteToTargets);
+});
 
 
-function promoteToStat() {
+mkws.registerWidgetType('Stat', function() {
     var that = this;
     var M = mkws.M;
 
@@ -74,11 +73,10 @@ function promoteToStat() {
 	    ' -- ' +
 	    '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
     });
-}
-mkws.registerWidgetType('Stat', promoteToStat);
+});
 
 
-function promoteToTermlists() {
+mkws.registerWidgetType('Termlists', function() {
     var that = this;
     var M = mkws.M;
 
@@ -140,11 +138,10 @@ function promoteToTermlists() {
 	    acc.push('</div>');
 	}
     });
-}
-mkws.registerWidgetType('Termlists', promoteToTermlists);
+});
 
 
-function promoteToPager() {
+mkws.registerWidgetType('Pager', function() {
     var that = this;
     var M = mkws.M;
 
@@ -205,11 +202,10 @@ function promoteToPager() {
 	    return s;
 	}
     });
-}			     
-mkws.registerWidgetType('Pager', promoteToPager);
+});
 
 
-function promoteToRecords() {
+mkws.registerWidgetType('Records', function() {
     var that = this;
     var team = this.team;
 
@@ -237,11 +233,10 @@ function promoteToRecords() {
 	    return template(hit);
 	}
     });
-}
-mkws.registerWidgetType('Records', promoteToRecords);
+});
 
 
-function promoteToNavi() {
+mkws.registerWidgetType('Navi', function() {
     var that = this;
     var teamName = this.team.name();
     var M = mkws.M;
@@ -267,14 +262,13 @@ function promoteToNavi() {
 
 	$(that.node).html(text);
     });
-}
-mkws.registerWidgetType('Navi', promoteToNavi);
+});
 
 
 // It seems this and the Perpage widget doen't need to subscribe to
 // anything, since they produce events rather than consuming them.
 //
-function promoteToSort() {
+mkws.registerWidgetType('Sort', function() {
     var that = this;
 
     $(this.node).change(function () {
@@ -285,8 +279,7 @@ function promoteToSort() {
 	}
 	return false;
     });
-}
-mkws.registerWidgetType('Sort', promoteToSort);
+});
 
 
 mkws.registerWidgetType('Perpage', function() {
