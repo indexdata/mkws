@@ -155,6 +155,46 @@ mkws.defaultMkwsConfig = function() {
 };
 
 
+// The following functions are dispatchers for team methods that
+// are called from the UI using a team-name rather than implicit
+// context.
+mkws.switchView = function(tname, view) {
+    mkws.teams[tname].switchView(view);
+};
+
+mkws.showDetails = function(tname, prefixRecId) {
+    mkws.teams[tname].showDetails(prefixRecId);
+};
+
+mkws.limitTarget  = function(tname, id, name) {
+    mkws.teams[tname].limitTarget(id, name);
+};
+
+mkws.limitQuery  = function(tname, field, value) {
+    mkws.teams[tname].limitQuery(field, value);
+};
+
+mkws.delimitTarget = function(tname, id) {
+    mkws.teams[tname].delimitTarget(id);
+};
+
+mkws.delimitQuery = function(tname, field, value) {
+    mkws.teams[tname].delimitQuery(field, value);
+};
+
+mkws.showPage = function(tname, pageNum) {
+    mkws.teams[tname].showPage(pageNum);
+};
+
+mkws.pagerPrev = function(tname) {
+    mkws.teams[tname].pagerPrev();
+};
+
+mkws.pagerNext = function(tname) {
+    mkws.teams[tname].pagerNext();
+};
+
+
 // wrapper to call team() after page load
 (function(j) {
     var log = mkws.log;
@@ -214,47 +254,6 @@ mkws.defaultMkwsConfig = function() {
 		}
 	    }
 	}
-    };
-
-
-    // The following functions are dispatchers for team methods that
-    // are called from the UI using a team-name rather than implicit
-    // context. Apart from mkws.log, they are the ONLY public UI to
-    // this module.
-    mkws.switchView = function(tname, view) {
-	mkws.teams[tname].switchView(view);
-    };
-
-    mkws.showDetails = function(tname, prefixRecId) {
-	mkws.teams[tname].showDetails(prefixRecId);
-    };
-
-    mkws.limitTarget  = function(tname, id, name) {
-	mkws.teams[tname].limitTarget(id, name);
-    };
-
-    mkws.limitQuery  = function(tname, field, value) {
-	mkws.teams[tname].limitQuery(field, value);
-    };
-
-    mkws.delimitTarget = function(tname, id) {
-	mkws.teams[tname].delimitTarget(id);
-    };
-
-    mkws.delimitQuery = function(tname, field, value) {
-	mkws.teams[tname].delimitQuery(field, value);
-    };
-
-    mkws.showPage = function(tname, pageNum) {
-	mkws.teams[tname].showPage(pageNum);
-    };
-
-    mkws.pagerPrev = function(tname) {
-	mkws.teams[tname].pagerPrev();
-    };
-
-    mkws.pagerNext = function(tname) {
-	mkws.teams[tname].pagerNext();
     };
 
 
