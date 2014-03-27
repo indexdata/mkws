@@ -144,7 +144,5 @@ function _mkws_jquery_plugin($) {
 };
 
 
-(function(j) {
-    // enable before page load, so we could call it before mkws() runs
-    _mkws_jquery_plugin(j);
-})(jQuery);
+// enable before page load, so we could call it before mkws() runs
+_mkws_jquery_plugin(j);
