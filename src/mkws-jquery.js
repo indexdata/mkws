@@ -9,7 +9,7 @@
 /*
  * implement jQuery plugin $.pazpar2({})
  */
-function _mkws_jquery_plugin ($) {
+function _mkws_jquery_plugin($) {
     function debug (string) {
 	mkws.log("jquery.pazpar2: " + string);
     }
@@ -144,7 +144,7 @@ function _mkws_jquery_plugin ($) {
 };
 
 
-(function (j) {
+(function(j) {
     // enable before page load, so we could call it before mkws() runs
     _mkws_jquery_plugin(j);
 })(jQuery);
