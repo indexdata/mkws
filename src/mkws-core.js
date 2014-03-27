@@ -249,12 +249,6 @@ mkws.promotionFunction = function(name) {
 	    mkws.log_level = config_default.log_level;
 	}
 
-	// make sure the mkws_config is a valid hash
-	if (!$.isPlainObject(mkws_config)) {
-	    log("ERROR: mkws_config is not an JS object, ignore it....");
-	    mkws_config = {};
-	}
-
 	/* override standard config values by function parameters */
 	for (var k in config_default) {
 	    if (typeof mkws_config[k] === 'undefined')
