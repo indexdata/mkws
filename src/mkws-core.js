@@ -84,9 +84,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 }
 
 
-// wrapper to call team() after page load
-(function(j) {
-    function log(string) {
+    mkws.log = function(string) {
 	if (!mkws.log_level)
 	    return;
 
@@ -101,9 +99,13 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
 	}
 	console.log(string);
-    }
-    mkws.log = log;
+    };
 
+
+
+// wrapper to call team() after page load
+(function(j) {
+    var log = mkws.log;
 
     mkws.registerWidgetType = function(name, fn) {
 	mkws.widgetType2function[name] = fn;
