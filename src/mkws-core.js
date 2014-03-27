@@ -110,11 +110,11 @@ mkws.log = function(string) {
     mkws.registerWidgetType = function(name, fn) {
 	mkws.widgetType2function[name] = fn;
 	log("registered widget-type '" + name + "'");
-    }
+    };
 
     mkws.promotionFunction = function(name) {
 	return mkws.widgetType2function[name];
-    }
+    };
 
 
     function handleNodeWithTeam(node, callback) {
@@ -181,39 +181,39 @@ mkws.log = function(string) {
     // this module.
     mkws.switchView = function(tname, view) {
 	mkws.teams[tname].switchView(view);
-    }
+    };
 
     mkws.showDetails = function(tname, prefixRecId) {
 	mkws.teams[tname].showDetails(prefixRecId);
-    }
+    };
 
     mkws.limitTarget  = function(tname, id, name) {
 	mkws.teams[tname].limitTarget(id, name);
-    }
+    };
 
     mkws.limitQuery  = function(tname, field, value) {
 	mkws.teams[tname].limitQuery(field, value);
-    }
+    };
 
     mkws.delimitTarget = function(tname, id) {
 	mkws.teams[tname].delimitTarget(id);
-    }
+    };
 
     mkws.delimitQuery = function(tname, field, value) {
 	mkws.teams[tname].delimitQuery(field, value);
-    }
+    };
 
     mkws.showPage = function(tname, pageNum) {
 	mkws.teams[tname].showPage(pageNum);
-    }
+    };
 
     mkws.pagerPrev = function(tname) {
 	mkws.teams[tname].pagerPrev();
-    }
+    };
 
     mkws.pagerNext = function(tname) {
 	mkws.teams[tname].pagerNext();
-    }
+    };
 
 
     function defaultMkwsConfig() {
