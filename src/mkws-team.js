@@ -28,17 +28,17 @@ function team($, teamName) {
     var m_paz; // will be initialised below
     var m_template = {};
 
-    that.toString = function() { return '[Team ' + teamName + ']'; }
+    that.toString = function() { return '[Team ' + teamName + ']'; };
 
     // Accessor methods for individual widgets: readers
-    that.name = function() { return m_teamName; }
-    that.submitted = function() { return m_submitted; }
-    that.perpage = function() { return m_perpage; }
-    that.totalRecordCount = function() { return m_totalRecordCount; }
-    that.currentPage = function() { return m_currentPage; }
-    that.currentRecordId = function() { return m_currentRecordId; }
-    that.currentRecordData = function() { return m_currentRecordData; }
-    that.filters = function() { return m_filters; }
+    that.name = function() { return m_teamName; };
+    that.submitted = function() { return m_submitted; };
+    that.perpage = function() { return m_perpage; };
+    that.totalRecordCount = function() { return m_totalRecordCount; };
+    that.currentPage = function() { return m_currentPage; };
+    that.currentRecordId = function() { return m_currentRecordId; };
+    that.currentRecordData = function() { return m_currentRecordData; };
+    that.filters = function() { return m_filters; };
 
     // Accessor methods for individual widgets: writers
     that.set_sortOrder = function(val) { m_sortOrder = val };
@@ -142,7 +142,7 @@ function team($, teamName) {
 	    }
 	}
 	return false;
-    }
+    };
 
 
     that.limitTarget = function(id, name)
@@ -151,7 +151,7 @@ function team($, teamName) {
 	m_filters.push({ id: id, name: name });
 	triggerSearch();
 	return false;
-    }
+    };
 
 
     that.limitQuery = function(field, value)
@@ -160,7 +160,7 @@ function team($, teamName) {
 	m_filters.push({ field: field, value: value });
 	triggerSearch();
 	return false;
-    }
+    };
 
 
     that.delimitTarget = function(id)
@@ -180,7 +180,7 @@ function team($, teamName) {
 
 	triggerSearch();
 	return false;
-    }
+    };
 
 
     that.delimitQuery = function(field, value)
@@ -202,14 +202,14 @@ function team($, teamName) {
 
 	triggerSearch();
 	return false;
-    }
+    };
 
 
     that.showPage = function(pageNum)
     {
 	m_currentPage = pageNum;
 	m_paz.showPage(m_currentPage - 1);
-    }
+    };
 
 
     that.pagerNext = function() {
@@ -217,18 +217,18 @@ function team($, teamName) {
             m_paz.showNext();
             m_currentPage++;
 	}
-    }
+    };
 
 
     that.pagerPrev = function() {
 	if (m_paz.showPrev() != false)
             m_currentPage--;
-    }
+    };
 
 
     that.reShow = function() {
 	m_paz.show(0, m_perpage, m_sortOrder);
-    }
+    };
 
 
     function resetPage()
@@ -360,7 +360,7 @@ function team($, teamName) {
 	// request the record
 	log("showDetails() requesting record '" + recId + "'");
 	m_paz.record(recId);
-    }
+    };
 
 
     /*
@@ -584,7 +584,7 @@ function team($, teamName) {
 	log(s);
 
 	newSearch(query, sortOrder, targets);
-    }
+    };
 
 
     // This function is taken from a StackOverflow answer
@@ -764,7 +764,7 @@ function team($, teamName) {
 	    };
 	}
 	return queues[id];
-    }
+    };
     that.queue = queue;
 
     mkwsHtmlAll()
