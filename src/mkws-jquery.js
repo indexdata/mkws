@@ -145,4 +145,4 @@ function _mkws_jquery_plugin($) {
 
 
 // enable before page load, so we could call it before mkws() runs
-_mkws_jquery_plugin(j);
+_mkws_jquery_plugin(jQuery);
