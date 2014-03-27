@@ -112,6 +112,49 @@ mkws.promotionFunction = function(name) {
 };
 
 
+mkws.defaultMkwsConfig = function() {
+    /* default mkws config */
+    var config_default = {
+	use_service_proxy: true,
+	pazpar2_url: "//mkws.indexdata.com/service-proxy/",
+	service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
+	lang: "",
+	sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
+	perpage_options: [10, 20, 30, 50],
+	sort_default: "relevance",
+	perpage_default: 20,
+	query_width: 50,
+	show_lang: true, 	/* show/hide language menu */
+	show_sort: true, 	/* show/hide sort menu */
+	show_perpage: true, 	/* show/hide perpage menu */
+	lang_options: [], 	/* display languages links for given languages, [] for all */
+	facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
+	responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
+	log_level: 1,     /* log level for development: 0..2 */
+
+	dummy: "dummy"
+    };
+
+    // Set global log_level flag early so that log() works
+    // Fall back to old "debug_level" setting for backwards compatibility
+    var tmp = mkws_config.log_level;
+    if (typeof(tmp) === 'undefined') tmp = mkws_config.debug_level;
+
+    if (typeof(tmp) !== 'undefined') {
+	mkws.log_level = tmp;
+    } else if (typeof(config_default.log_level) !== 'undefined') {
+	mkws.log_level = config_default.log_level;
+    }
+
+    /* override standard config values by function parameters */
+    for (var k in config_default) {
+	if (typeof mkws_config[k] === 'undefined')
+	    mkws_config[k] = config_default[k];
+	//log("Set config: " + k + ' => ' + mkws_config[k]);
+    }
+};
+
+
 // wrapper to call team() after page load
 (function(j) {
     var log = mkws.log;
@@ -215,49 +258,6 @@ mkws.promotionFunction = function(name) {
     };
 
 
-    function defaultMkwsConfig() {
-	/* default mkws config */
-	var config_default = {
-	    use_service_proxy: true,
-	    pazpar2_url: "//mkws.indexdata.com/service-proxy/",
-	    service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
-	    lang: "",
-	    sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
-	    perpage_options: [10, 20, 30, 50],
-	    sort_default: "relevance",
-	    perpage_default: 20,
-	    query_width: 50,
-	    show_lang: true, 	/* show/hide language menu */
-	    show_sort: true, 	/* show/hide sort menu */
-	    show_perpage: true, 	/* show/hide perpage menu */
-	    lang_options: [], 	/* display languages links for given languages, [] for all */
-	    facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
-	    responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
-	    log_level: 1,     /* log level for development: 0..2 */
-
-	    dummy: "dummy"
-	};
-
-	// Set global log_level flag early so that log() works
-	// Fall back to old "debug_level" setting for backwards compatibility
-	var tmp = mkws_config.log_level;
-	if (typeof(tmp) === 'undefined') tmp = mkws_config.debug_level;
-
-	if (typeof(tmp) !== 'undefined') {
-	    mkws.log_level = tmp;
-	} else if (typeof(config_default.log_level) !== 'undefined') {
-	    mkws.log_level = config_default.log_level;
-	}
-
-	/* override standard config values by function parameters */
-	for (var k in config_default) {
-	    if (typeof mkws_config[k] === 'undefined')
-		mkws_config[k] = config_default[k];
-	    //log("Set config: " + k + ' => ' + mkws_config[k]);
-	}
-    }
-
-
     /*
      * Run service-proxy authentication in background (after page load).
      * The username/password is configured in the apache config file
@@ -309,7 +309,7 @@ mkws.promotionFunction = function(name) {
 
 
     $(document).ready(function() {
-	defaultMkwsConfig();
+	mkws.defaultMkwsConfig();
 
 	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
 	    log("Reset query width: " + mkws_config.query_width);
