@@ -145,7 +145,7 @@ function team($, teamName) {
     }
 
 
-    that.limitTarget  = function (id, name)
+    that.limitTarget = function(id, name)
     {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
@@ -154,7 +154,7 @@ function team($, teamName) {
     }
 
 
-    that.limitQuery = function (field, value)
+    that.limitQuery = function(field, value)
     {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
@@ -163,7 +163,7 @@ function team($, teamName) {
     }
 
 
-    that.delimitTarget = function (id)
+    that.delimitTarget = function(id)
     {
 	log("delimitTarget(id=" + id + ")");
 	var newFilters = [];
@@ -183,7 +183,7 @@ function team($, teamName) {
     }
 
 
-    that.delimitQuery = function (field, value)
+    that.delimitQuery = function(field, value)
     {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
 	var newFilters = [];
@@ -205,14 +205,14 @@ function team($, teamName) {
     }
 
 
-    that.showPage = function (pageNum)
+    that.showPage = function(pageNum)
     {
 	m_currentPage = pageNum;
 	m_paz.showPage(m_currentPage - 1);
     }
 
 
-    that.pagerNext = function () {
+    that.pagerNext = function() {
 	if (m_totalRecordCount - m_perpage*m_currentPage > 0) {
             m_paz.showNext();
             m_currentPage++;
@@ -220,7 +220,7 @@ function team($, teamName) {
     }
 
 
-    that.pagerPrev = function () {
+    that.pagerPrev = function() {
 	if (m_paz.showPrev() != false)
             m_currentPage--;
     }
@@ -255,7 +255,7 @@ function team($, teamName) {
     }
 
 
-    function triggerSearch (query, sortOrder, targets)
+    function triggerSearch(query, sortOrder, targets)
     {
 	resetPage();
 	queue("navi").publish();
@@ -340,7 +340,7 @@ function team($, teamName) {
 
 
     // detailed record drawing
-    that.showDetails = function (recId) {
+    that.showDetails = function(recId) {
 	var oldRecordId = m_currentRecordId;
 	m_currentRecordId = recId;
 
