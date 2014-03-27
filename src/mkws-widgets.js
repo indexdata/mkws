@@ -13,7 +13,7 @@ function widget($, team, type, node) {
 
     that.toString = function() {
 	return '[Widget ' + team.name() + ':' + type + ']';
-    }
+    };
 
     var fn = mkws.promotionFunction(type);
     if (fn) {
