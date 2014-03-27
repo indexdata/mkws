@@ -20,7 +20,7 @@ function widget($, team, type, node) {
 	fn.call(that);
 	log("made " + type + " widget(node=" + node + ")");
     } else {
-	log("made UNENCAPSULATED widget(type=" + type + ", node=" + node + ")");
+	log("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
     }
 
     return that;
