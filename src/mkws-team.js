@@ -166,18 +166,7 @@ function team($, teamName) {
     that.delimitTarget = function(id)
     {
 	log("delimitTarget(id=" + id + ")");
-	var newFilters = [];
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
-	    if (filter.id) {
-		log("delimitTarget() removing filter " + $.toJSON(filter));
-	    } else {
-		log("delimitTarget() keeping filter " + $.toJSON(filter));
-		newFilters.push(filter);
-	    }
-	}
-	m_filters = newFilters;
-
+	removeMatchingFilters(function(f) { return f.id });
 	triggerSearch();
 	return false;
     };
@@ -186,23 +175,25 @@ function team($, teamName) {
     that.delimitQuery = function(field, value)
     {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
+	removeMatchingFilters(function(f) { return f.field && field == f.field && value == f.value });
+	triggerSearch();
+	return false;
+    };
+
+
+    function removeMatchingFilters(matchFn) {
 	var newFilters = [];
 	for (var i in m_filters) {
 	    var filter = m_filters[i];
-	    if (filter.field &&
-		field == filter.field &&
-		value == filter.value) {
-		log("delimitQuery() removing filter " + $.toJSON(filter));
+	    if (matchFn(filter)) {
+		log("removeMatchingFilters() removing filter " + $.toJSON(filter));
 	    } else {
-		log("delimitQuery() keeping filter " + $.toJSON(filter));
+		log("removeMatchingFilters() keeping filter " + $.toJSON(filter));
 		newFilters.push(filter);
 	    }
 	}
 	m_filters = newFilters;
-
-	triggerSearch();
-	return false;
-    };
+    }
 
 
     that.showPage = function(pageNum)
