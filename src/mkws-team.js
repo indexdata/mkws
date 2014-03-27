@@ -47,9 +47,9 @@ function team($, teamName) {
 
     function log(s) {
 	var now = $.now();
-	var timestamp = ((now - m_logTime.start)/1000).toFixed(3) + " (+" + ((now - m_logTime.last)/1000).toFixed(3) + ") "
+	var timestamp = (((now - m_logTime.start)/1000).toFixed(3) + " (+" +
+			 ((now - m_logTime.last)/1000).toFixed(3) + ") ");
 	m_logTime.last = now;
-
 	mkws.log(m_teamName + ": " + timestamp + s);
     }
     that.log = log;
@@ -288,7 +288,8 @@ function team($, teamName) {
 	    params.limit = pp2limit;
 	}
 
-	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", " +
+	    "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
 	// We can use: params.torusquery = "udb=NAME"
 	// Note: that won't work when running against raw pazpar2
@@ -625,7 +626,8 @@ function team($, teamName) {
     {
 	var template = loadTemplate("Record");
 	var details = template(data);
-	return '<div class="details mkwsTeam_' + m_teamName + '" id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
+	return '<div class="details mkwsTeam_' + m_teamName + '" ' +
+	    'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
     }
     that.renderDetails = renderDetails;
 
