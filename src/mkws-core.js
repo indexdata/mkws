@@ -85,7 +85,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 
 // wrapper to call team() after page load
-(function (j) {
+(function(j) {
     function log(string) {
 	if (!mkws.log_level)
 	    return;
@@ -181,35 +181,35 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	mkws.teams[tname].switchView(view);
     }
 
-    mkws.showDetails = function (tname, prefixRecId) {
+    mkws.showDetails = function(tname, prefixRecId) {
 	mkws.teams[tname].showDetails(prefixRecId);
     }
 
-    mkws.limitTarget  = function (tname, id, name) {
+    mkws.limitTarget  = function(tname, id, name) {
 	mkws.teams[tname].limitTarget(id, name);
     }
 
-    mkws.limitQuery  = function (tname, field, value) {
+    mkws.limitQuery  = function(tname, field, value) {
 	mkws.teams[tname].limitQuery(field, value);
     }
 
-    mkws.delimitTarget = function (tname, id) {
+    mkws.delimitTarget = function(tname, id) {
 	mkws.teams[tname].delimitTarget(id);
     }
 
-    mkws.delimitQuery = function (tname, field, value) {
+    mkws.delimitQuery = function(tname, field, value) {
 	mkws.teams[tname].delimitQuery(field, value);
     }
 
-    mkws.showPage = function (tname, pageNum) {
+    mkws.showPage = function(tname, pageNum) {
 	mkws.teams[tname].showPage(pageNum);
     }
 
-    mkws.pagerPrev = function (tname) {
+    mkws.pagerPrev = function(tname) {
 	mkws.teams[tname].pagerPrev();
     }
 
-    mkws.pagerNext = function (tname) {
+    mkws.pagerNext = function(tname) {
 	mkws.teams[tname].pagerNext();
     }
 
@@ -362,7 +362,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 
 	// For all MKWS-classed nodes that don't have a team
 	// specified, set the team to AUTO.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	$('[class^="mkws"],[class*=" mkws"]').each(function() {
 	    if (!this.className.match(/mkwsTeam_/)) {
 		log("adding AUTO team to node with class '" + this.className + "'");
 		$(this).addClass('mkwsTeam_AUTO');
@@ -372,7 +372,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	// Find all nodes with an MKWS class, and determine their team from
 	// the mkwsTeam_* class. Make all team objects.
 	var then = $.now();
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	$('[class^="mkws"],[class*=" mkws"]').each(function() {
 	    handleNodeWithTeam(this, function(tname, type) {
 		if (!mkws.teams[tname]) {
 		    mkws.teams[tname] = team(j, tname);
@@ -384,7 +384,7 @@ if (mkws_config == null || typeof mkws_config != 'object') {
 	// to be done separately, and after the team-creation, since
 	// that sometimes makes new widget nodes (e.g. creating
 	// mkwsTermlists inside mkwsResults.
-	$('[class^="mkws"],[class*=" mkws"]').each(function () {
+	$('[class^="mkws"],[class*=" mkws"]').each(function() {
 	    handleNodeWithTeam(this, function(tname, type) {
 		var myTeam = mkws.teams[tname];
 		var myWidget = widget(j, myTeam, type, this);
