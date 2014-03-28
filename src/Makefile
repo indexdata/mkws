@@ -28,9 +28,7 @@ uninstall:
 	rm -f $(INSTALLED)
 
 ../tools/htdocs/%: %
-	rm -f $@
-	cp -p $? $@
-	chmod -w $@
+	rm -f $@ && cp -p $? $@ && chmod -w $@
 
 all: mkws.min.js mkws-complete.min.js
 
