@@ -87,7 +87,7 @@ mkws.registerWidgetType('Termlists', function() {
 	}
 
 	// no facets: this should never happen
-	if (!mkws_config.facets || mkws_config.facets.length == 0) {
+	if (!mkws.config.facets || mkws.config.facets.length == 0) {
 	    alert("onTerm called even though we have no facets: " + $.toJSON(data));
 	    $(that.node).hide();
 	    return;
@@ -98,7 +98,7 @@ mkws.registerWidgetType('Termlists', function() {
 
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
-	var facets = mkws_config.facets;
+	var facets = mkws.config.facets;
 
 	for (var i = 0; i < facets.length; i++) {
 	    if (facets[i] == "xtargets") {

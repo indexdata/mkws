@@ -56,24 +56,24 @@ function team($, teamName) {
 
     log("start running MKWS");
 
-    m_sortOrder = mkws_config.sort_default;
-    m_perpage = mkws_config.perpage_default;
+    m_sortOrder = mkws.config.sort_default;
+    m_perpage = mkws.config.perpage_default;
 
     log("Create main pz2 object");
     // create a parameters array and pass it to the pz2's constructor
     // then register the form submit event with the pz2.search function
     // autoInit is set to true on default
     m_paz = new pz2({ "windowid": teamName,
-		      "pazpar2path": mkws_config.pazpar2_url,
-		      "usesessions" : mkws_config.use_service_proxy ? false : true,
+		      "pazpar2path": mkws.config.pazpar2_url,
+		      "usesessions" : mkws.config.use_service_proxy ? false : true,
 		      "oninit": onInit,
 		      "onbytarget": onBytarget,
 		      "onstat": onStat,
-		      "onterm": (mkws_config.facets.length ? onTerm : undefined),
+		      "onterm": (mkws.config.facets.length ? onTerm : undefined),
 		      "onshow": onShow,
 		      "onrecord": onRecord,
 		      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-		      "termlist": mkws_config.facets.join(',')
+		      "termlist": mkws.config.facets.join(',')
 		    });
 
 
@@ -234,7 +234,7 @@ function team($, teamName) {
     {
 	log("newSearch: " + query);
 
-	if (mkws_config.use_service_proxy && !mkws.authenticated) {
+	if (mkws.config.use_service_proxy && !mkws.authenticated) {
 	    alert("searching before authentication");
 	    return;
 	}
@@ -361,13 +361,13 @@ function team($, teamName) {
      */
     function mkwsHtmlAll() {
 	mkwsSetLang();
-	if (mkws_config.show_lang)
+	if (mkws.config.show_lang)
 	    mkwsHtmlLang();
 
 	log("HTML search form");
 	findnode('.mkwsSearch').html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + m_teamName + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + m_teamName + '" type="text" size="' + mkws_config.query_width + '" />\
+  <input class="mkwsQuery mkwsTeam_' + m_teamName + '" type="text" size="' + mkws.config.query_width + '" />\
   <input class="mkwsButton mkwsTeam_' + m_teamName + '" type="submit" value="' + M('Search') + '" />\
 </form>');
 
@@ -402,10 +402,10 @@ function team($, teamName) {
 </table>');
 
 	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
-	if (mkws_config.show_sort) {
+	if (mkws.config.show_sort) {
 	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
 	}
-	if (mkws_config.show_perpage) {
+	if (mkws.config.show_perpage) {
 	    ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
 	}
         ranking_data += '</form>';
@@ -430,26 +430,26 @@ function team($, teamName) {
 
 
     function mkwsSetLang()  {
-	var lang = getParameterByName("lang") || mkws_config.lang;
+	var lang = getParameterByName("lang") || mkws.config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
-	    mkws_config.lang = ""
+	    mkws.config.lang = ""
 	} else {
-	    mkws_config.lang = lang;
+	    mkws.config.lang = lang;
 	}
 
-	log("Locale language: " + (mkws_config.lang ? mkws_config.lang : "none"));
-	return mkws_config.lang;
+	log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+	return mkws.config.lang;
     }
 
 
     /* create locale language menu */
     function mkwsHtmlLang() {
 	var lang_default = "en";
-	var lang = mkws_config.lang || lang_default;
+	var lang = mkws.config.lang || lang_default;
 	var list = [];
 
 	/* display a list of configured languages, or all */
-	var lang_options = mkws_config.lang_options || [];
+	var lang_options = mkws.config.lang_options || [];
 	var toBeIncluded = {};
 	for (var i = 0; i < lang_options.length; i++) {
 	    toBeIncluded[lang_options[i]] = true;
@@ -489,8 +489,8 @@ function team($, teamName) {
 	log("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
 	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
 
-	for(var i = 0; i < mkws_config.sort_options.length; i++) {
-	    var opt = mkws_config.sort_options[i];
+	for(var i = 0; i < mkws.config.sort_options.length; i++) {
+	    var opt = mkws.config.sort_options[i];
 	    var key = opt[0];
 	    var val = opt.length == 1 ? opt[0] : opt[1];
 
@@ -510,8 +510,8 @@ function team($, teamName) {
 	log("HTML perpage, m_perpage = " + m_perpage);
 	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
 
-	for(var i = 0; i < mkws_config.perpage_options.length; i++) {
-	    var key = mkws_config.perpage_options[i];
+	for(var i = 0; i < mkws.config.perpage_options.length; i++) {
+	    var key = mkws.config.perpage_options[i];
 
 	    perpage_html += '<option value="' + key + '"';
 	    if (key == m_perpage) {
@@ -595,7 +595,7 @@ function team($, teamName) {
     // different languages.
     //
     function M(word) {
-	var lang = mkws_config.lang;
+	var lang = mkws.config.lang;
 
 	if (!lang || !mkws.locale_lang[lang])
 	    return word;

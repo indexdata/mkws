@@ -11,7 +11,7 @@
 //
 var mkws = {
     authenticated: false,
-    log_level: 1, // Will be overridden from mkws_config, but
+    log_level: 1, // Will be overridden from mkws.config, but
                   // initial value allows jQuery popup to use logging.
     teams: {},
     widgetType2function: {},
@@ -123,6 +123,8 @@ mkws.promotionFunction = function(name) {
 
 
 mkws.defaultMkwsConfig = function() {
+    mkws.config = mkws_config;
+
     /* default mkws config */
     var config_default = {
 	use_service_proxy: true,
@@ -147,8 +149,8 @@ mkws.defaultMkwsConfig = function() {
 
     // Set global log_level flag early so that log() works
     // Fall back to old "debug_level" setting for backwards compatibility
-    var tmp = mkws_config.log_level;
-    if (typeof(tmp) === 'undefined') tmp = mkws_config.debug_level;
+    var tmp = mkws.config.log_level;
+    if (typeof(tmp) === 'undefined') tmp = mkws.config.debug_level;
 
     if (typeof(tmp) !== 'undefined') {
 	mkws.log_level = tmp;
@@ -158,9 +160,9 @@ mkws.defaultMkwsConfig = function() {
 
     /* override standard config values by function parameters */
     for (var k in config_default) {
-	if (typeof mkws_config[k] === 'undefined')
-	    mkws_config[k] = config_default[k];
-	//log("Set config: " + k + ' => ' + mkws_config[k]);
+	if (typeof mkws.config[k] === 'undefined')
+	    mkws.config[k] = config_default[k];
+	//log("Set config: " + k + ' => ' + mkws.config[k]);
     }
 };
 
@@ -238,7 +240,7 @@ mkws.pagerNext = function(tname) {
     function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
-	var width = mkws_config.responsive_design_width;
+	var width = mkws.config.responsive_design_width;
 	var parent = $(".mkwsTermlists").parent();
 
 	if ($(window).width() <= width &&
@@ -320,29 +322,29 @@ mkws.pagerNext = function(tname) {
     $(document).ready(function() {
 	mkws.defaultMkwsConfig();
 
-	for (var key in mkws_config) {
-	    if (mkws_config.hasOwnProperty(key)) {
+	for (var key in mkws.config) {
+	    if (mkws.config.hasOwnProperty(key)) {
 		if (key.match(/^language_/)) {
 		    var lang = key.replace(/^language_/, "");
 		    // Copy custom languages into list
-		    mkws.locale_lang[lang] = mkws_config[key];
+		    mkws.locale_lang[lang] = mkws.config[key];
 		    log("Added locally configured language '" + lang + "'");
 		}
 	    }
 	}
 
-	if (mkws_config.query_width < 5 || mkws_config.query_width > 150) {
-	    log("Reset query width: " + mkws_config.query_width);
-	    mkws_config.query_width = 50;
+	if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
+	    log("Reset query width: " + mkws.config.query_width);
+	    mkws.config.query_width = 50;
 	}
 
 	// protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-	if (mkws_config.pazpar2_url.match(/^\/\//)) {
-	    mkws_config.pazpar2_url = document.location.protocol + mkws_config.pazpar2_url;
-	    log("adjust protocol independent links: " + mkws_config.pazpar2_url);
+	if (mkws.config.pazpar2_url.match(/^\/\//)) {
+	    mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
+	    log("adjust protocol independent links: " + mkws.config.pazpar2_url);
 	}
 
-	if (mkws_config.responsive_design_width) {
+	if (mkws.config.responsive_design_width) {
 	    // Responsive web design - change layout on the fly based on
 	    // current screen width. Required for mobile devices.
 	    $(window).resize(resizePage);
@@ -397,10 +399,10 @@ mkws.pagerNext = function(tname) {
 	var now = $.now();
 	log("Walking MKWS nodes took " + (now-then) + " ms");
 
-	if (mkws_config.use_service_proxy) {
-	    authenticateSession(mkws_config.service_proxy_auth,
-				mkws_config.service_proxy_auth_domain,
-				mkws_config.pazpar2_url);
+	if (mkws.config.use_service_proxy) {
+	    authenticateSession(mkws.config.service_proxy_auth,
+				mkws.config.service_proxy_auth_domain,
+				mkws.config.pazpar2_url);
 	} else {
 	    // raw pp2
 	    runAutoSearches();
