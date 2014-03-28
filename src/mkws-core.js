@@ -78,12 +78,6 @@ var mkws = {
 };
 
 
-// Define empty mkws_config for simple applications that don't define it.
-if (mkws_config == null || typeof mkws_config != 'object') {
-    var mkws_config = {};
-}
-
-
 mkws.log = function(string) {
     if (!mkws.log_level)
 	return;
@@ -123,6 +117,11 @@ mkws.promotionFunction = function(name) {
 
 
 mkws.defaultMkwsConfig = function() {
+    // Define empty mkws_config for simple applications that don't define it.
+    if (mkws_config == null || typeof mkws_config != 'object') {
+	var mkws_config = {};
+    }
+
     mkws.config = mkws_config;
 
     /* default mkws config */
