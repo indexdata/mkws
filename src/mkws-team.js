@@ -40,6 +40,7 @@ function team($, teamName) {
     that.currentRecordId = function() { return m_currentRecordId; };
     that.currentRecordData = function() { return m_currentRecordData; };
     that.filters = function() { return m_filters; };
+    that.config = function() { return m_config; };
 
     // Accessor methods for individual widgets: writers
     that.set_sortOrder = function(val) { m_sortOrder = val };
