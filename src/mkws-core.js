@@ -102,6 +102,16 @@ mkws.log = function(string) {
 };
 
 
+mkws.objectWithParent = function(parent) {
+    function thing() {} // Must be function so `prototype' works
+
+    thing.prototype = parent;
+    var res = new thing();
+    thing.prototype = null;
+    return res;
+};
+
+
 mkws.registerWidgetType = function(name, fn) {
     mkws.widgetType2function[name] = fn;
     mkws.log("registered widget-type '" + name + "'");
