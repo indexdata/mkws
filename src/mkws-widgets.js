@@ -3,7 +3,8 @@ function widget($, team, type, node) {
     var that = {
 	team: team,
 	type: type,
-	node: node
+	node: node,
+	config: Object.create(team.config())
     };
 
     function log(s) {
@@ -87,7 +88,7 @@ mkws.registerWidgetType('Termlists', function() {
 	}
 
 	// no facets: this should never happen
-	var facets = mkws.config.facets;
+	var facets = that.config.facets;
 	if (!facets || facets.length == 0) {
 	    alert("onTerm called even though we have no facets: " + $.toJSON(data));
 	    $(that.node).hide();
