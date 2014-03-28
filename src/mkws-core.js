@@ -116,10 +116,13 @@ mkws.promotionFunction = function(name) {
 };
 
 
-mkws.defaultMkwsConfig = function() {
-    mkws.config = mkws_config || {};
+mkws.setMkwsConfig = function(overrides) {
+    // Set global log_level flag early so that mkws.log() works
+    // Fall back to old "debug_level" setting for backwards compatibility
+    var tmp = overrides.log_level;
+    if (typeof(tmp) === 'undefined') tmp = overrides.debug_level;
+    if (typeof(tmp) !== 'undefined') mkws.log_level = tmp;
 
-    /* default mkws config */
     var config_default = {
 	use_service_proxy: true,
 	pazpar2_url: "//mkws.indexdata.com/service-proxy/",
@@ -141,22 +144,9 @@ mkws.defaultMkwsConfig = function() {
 	dummy: "dummy"
     };
 
-    // Set global log_level flag early so that log() works
-    // Fall back to old "debug_level" setting for backwards compatibility
-    var tmp = mkws.config.log_level;
-    if (typeof(tmp) === 'undefined') tmp = mkws.config.debug_level;
-
-    if (typeof(tmp) !== 'undefined') {
-	mkws.log_level = tmp;
-    } else if (typeof(config_default.log_level) !== 'undefined') {
-	mkws.log_level = config_default.log_level;
-    }
-
-    /* override standard config values by function parameters */
-    for (var k in config_default) {
-	if (typeof mkws.config[k] === 'undefined')
-	    mkws.config[k] = config_default[k];
-	//log("Set config: " + k + ' => ' + mkws.config[k]);
+    mkws.config = Object.create(config_default);
+    for (var k in overrides) {
+	mkws.config[k] = overrides[k];
     }
 };
 
@@ -313,8 +303,21 @@ mkws.pagerNext = function(tname) {
     }
 
 
+    // I don't understand why I need this copy, but I do: mkws_config
+    // is not visible inside the document.ready function, but the
+    // saved copy is.
+    var saved_config;
+    if (typeof mkws_config === 'undefined') {
+	log("setting empty config");
+	saved_config = {};
+    } else {
+	log("using config: " + $.toJSON(mkws_config));
+	saved_config = mkws_config;
+    }
+
+
     $(document).ready(function() {
-	mkws.defaultMkwsConfig();
+	mkws.setMkwsConfig(saved_config);
 
 	for (var key in mkws.config) {
 	    if (mkws.config.hasOwnProperty(key)) {
