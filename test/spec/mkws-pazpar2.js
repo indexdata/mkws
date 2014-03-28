@@ -9,7 +9,7 @@ var debug = function (text) {
         mkws.log("Jasmine: " + text)
     }
 
-    // Define empty mkws_config for simple applications that don't define it.
+// Define empty jasmine_config for simple applications that don't define it.
 if (jasmine_config == null || typeof jasmine_config != 'object') {
     var jasmine_config = {};
 }
