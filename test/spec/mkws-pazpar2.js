@@ -96,7 +96,7 @@ describe("Check MOTD before search", function () {
 
 describe("Check pazpar2 search", function () {
     it("pazpar2 was successfully initialized", function () {
-        expect(mkws_config.error).toBe(undefined);
+        expect(mkws.config.error).toBe(undefined);
     });
 
     it("validate HTML id's", function () {
@@ -113,7 +113,7 @@ describe("Check pazpar2 search", function () {
         debug("set search query: " + search_query)
         expect($("input.mkwsQuery").val()).toMatch("^" + search_query + "$");
 
-        if (mkws_config.use_service_proxy) {
+        if (mkws.config.use_service_proxy) {
             // wait for service proxy auth
             waitsFor(function () {
                 return mkws.authenticated;
@@ -229,7 +229,7 @@ describe("Check Termlist", function () {
     });
 
     it("limit search to first author", function () {
-        if (mkws_config.disable_facet_authors_search) {
+        if (mkws.config.disable_facet_authors_search) {
             debug("Facets: ignore limit search for authors");
             return;
         }
