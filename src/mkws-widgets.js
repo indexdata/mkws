@@ -27,10 +27,15 @@ function widget($, team, type, node) {
 	if (a.name === 'data-mkws-config') {
 	    // Treat as a JSON fragment configuring just this widget
 	    log(node + ": parsing config fragment '" + a.value + "'");
-	    var data = $.parseJSON(a.value);
-	    for (var key in data) {
-		log(node + ": adding config element " + key + "='" + data[key] + "'");
-		that.config[key] = data[key];
+	    var data;
+	    try {
+		data = $.parseJSON(a.value);
+		for (var key in data) {
+		    log(node + ": adding config element " + key + "='" + data[key] + "'");
+		    that.config[key] = data[key];
+		}
+	    } catch (err) {
+		alert("Can't parse " + node + " data-mkws-config as JSON: " + a.value);
 	    }
 	} else if (a.name.match (/^data-mkws-/)) {
 	    var name = a.name.replace(/^data-mkws-/, '')
