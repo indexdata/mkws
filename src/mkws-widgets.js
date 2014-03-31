@@ -1,5 +1,11 @@
 // Factory function for widget objects.
 function widget($, team, type, node) {
+    // Static register of attributes that do not contribute to config
+    var ignoreAttrs = {
+	id:1, class:1, style:1, name:1, action:1, type:1, size:1,
+	value:1, width:1, valign:1
+    };
+
     var that = {
 	team: team,
 	type: type,
@@ -15,6 +21,26 @@ function widget($, team, type, node) {
     that.toString = function() {
 	return '[Widget ' + team.name() + ':' + type + ']';
     };
+
+    for (var i = 0; i < node.attributes.length; i++) {
+	var a = node.attributes[i];
+	if (a.name === 'data-mkws-config') {
+	    // Treat as a JSON fragment configuring just this widget
+	    log(node + ": parsing config fragment '" + a.value + "'");
+	    var data = $.parseJSON(a.value);
+	    for (var key in data) {
+		log(node + ": adding config element " + key + "='" + data[key] + "'");
+		that.config[key] = data[key];
+	    }
+	} else if (a.name.match (/^data-mkws-/)) {
+	    var name = a.name.replace(/^data-mkws-/, '')
+	    that.config[name] = a.value;
+	    log(node + ": set data-mkws attribute " + name + "='" + a.value + "'");
+	} else if (!ignoreAttrs[a.name]) {
+	    that.config[a.name] = a.value;
+	    log(node + ": set regular attribute " + a.name + "='" + a.value + "'");
+	}
+    }
 
     var fn = mkws.promotionFunction(type);
     if (fn) {
