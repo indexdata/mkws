@@ -9,7 +9,9 @@ HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.
 PP2_URL= 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
-COMPONENTS = mkws-handlebars.js mkws-core.js mkws-team.js mkws-widgets.js mkws-widget-authname.js
+COMPONENTS = mkws-handlebars.js \
+	mkws-core.js mkws-team.js mkws-widgets.js \
+	mkws-widget-authname.js mkws-widget-log.js
 
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
 JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
