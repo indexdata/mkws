@@ -47,14 +47,38 @@ function team($, teamName) {
     that.set_perpage = function(val) { m_perpage = val };
 
 
+    // The following PubSub code is modified from the jQuery manual:
+    // https://api.jquery.com/jQuery.Callbacks/
+    //
+    // Use as:
+    //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
+    //	team.queue("eventName").publish(arg1, arg2, ...);
+
+    var queues = {};
+    function queue(id) {
+	if (!queues[id]) {
+	    var callbacks = $.Callbacks();
+	    queues[id] = {
+		publish: callbacks.fire,
+		subscribe: callbacks.add,
+		unsubscribe: callbacks.remove
+	    };
+	}
+	return queues[id];
+    };
+    that.queue = queue;
+
+
     function log(s) {
 	var now = $.now();
 	var timestamp = (((now - m_logTime.start)/1000).toFixed(3) + " (+" +
 			 ((now - m_logTime.last)/1000).toFixed(3) + ") ");
 	m_logTime.last = now;
 	mkws.log(m_teamName + ": " + timestamp + s);
+	that.queue("log").publish(m_teamName, timestamp, s);
     }
     that.log = log;
+
 
     log("start running MKWS");
 
@@ -740,27 +764,6 @@ function team($, teamName) {
 	return s;
     }
 
-
-    // The following PubSub code is modified from the jQuery manual:
-    // https://api.jquery.com/jQuery.Callbacks/
-    //
-    // Use as:
-    //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
-    //	team.queue("eventName").publish(arg1, arg2, ...);
-
-    var queues = {};
-    var queue = function(id) {
-	if (!queues[id]) {
-	    var callbacks = $.Callbacks();
-	    queues[id] = {
-		publish: callbacks.fire,
-		subscribe: callbacks.add,
-		unsubscribe: callbacks.remove
-	    };
-	}
-	return queues[id];
-    };
-    that.queue = queue;
 
     mkwsHtmlAll()
 
