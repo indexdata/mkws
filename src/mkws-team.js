@@ -102,10 +102,6 @@ function team($, teamName) {
 		      "termlist": m_config.facets.join(',')
 		    });
 
-    queue("ready").subscribe(function() {
-	that.runAutoSearch();
-    });
-
     // pz2.js event handlers:
     function onInit() {
 	log("init");
