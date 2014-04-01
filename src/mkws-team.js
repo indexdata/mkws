@@ -269,6 +269,7 @@ function team($, teamName) {
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
+    that.newSearch = newSearch;
 
 
     function triggerSearch(query, sortOrder, targets)
