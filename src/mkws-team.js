@@ -255,7 +255,7 @@ function team($, teamName) {
     that.resetPage = resetPage;
 
 
-    function newSearch(query, sortOrder, targets)
+    function newSearch(query, sortOrder, perpage, targets)
     {
 	log("newSearch: " + query);
 
@@ -265,14 +265,14 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	triggerSearch(query, sortOrder, targets);
+	triggerSearch(query, sortOrder, perpage, targets);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
     that.newSearch = newSearch;
 
 
-    function triggerSearch(query, sortOrder, targets)
+    function triggerSearch(query, sortOrder, perpage, targets)
     {
 	resetPage();
 	queue("navi").publish();
@@ -286,6 +286,9 @@ function team($, teamName) {
 	}
 	if (sortOrder) {
 	    m_sortOrder = sortOrder;
+	}
+	if (perpage) {
+	    m_perpage = perpage;
 	}
 	if (targets) {
 	    m_filters.push({ id: targets, name: targets });
