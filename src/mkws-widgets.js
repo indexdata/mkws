@@ -267,7 +267,7 @@ mkws.registerWidgetType('Records', function() {
     });
 
     var node = $(that.node);
-    var query = node.attr('autosearch');
+    var query = that.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
 	    var param = query.replace(/^!param!/, '');
@@ -288,8 +288,8 @@ mkws.registerWidgetType('Records', function() {
 	that.log("node=" + node + ", class='" + node.className + "', query=" + query);
 
 	this.team.queue("ready").subscribe(function() {
-	    var sortOrder = node.attr('sort');
-	    var targets = node.attr('targets');
+	    var sortOrder = that.config.sort;
+	    var targets = that.config.targets;
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	    if (targets) s += " in targets '" + targets + "'";
