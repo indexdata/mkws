@@ -22,7 +22,7 @@ distclean: clean
 	rm -rf node_modules
 
 mkws-complete-syntax-check:
-	${MAKE} -C../tools/htdocs $@
+	${MAKE} -C../src mkws-complete.min.js
 
 check: mkws-complete-syntax-check
 	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
