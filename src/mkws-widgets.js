@@ -269,26 +269,25 @@ mkws.registerWidgetType('Records', function() {
     var node = $(that.node);
     var query = node.attr('autosearch');
     if (query) {
-	this.team.queue("ready").subscribe(function() {
-	    if (query.match(/^!param!/)) {
-		var param = query.replace(/^!param!/, '');
-		query = getParameterByName(param);
-		that.log("obtained query '" + query + "' from param '" + param + "'");
-		if (!query) {
-		    alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-		}
-	    } else if (query.match(/^!path!/)) {
-		var index = query.replace(/^!path!/, '');
-		var path = window.location.pathname.split('/');
-		query = path[path.length - index];
-		that.log("obtained query '" + query + "' from path-component '" + index + "'");
-		if (!query) {
-		    alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-		}
+	if (query.match(/^!param!/)) {
+	    var param = query.replace(/^!param!/, '');
+	    query = getParameterByName(param);
+	    that.log("obtained query '" + query + "' from param '" + param + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
 	    }
+	} else if (query.match(/^!path!/)) {
+	    var index = query.replace(/^!path!/, '');
+	    var path = window.location.pathname.split('/');
+	    query = path[path.length - index];
+	    that.log("obtained query '" + query + "' from path-component '" + index + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+	    }
+	}
+	that.log("node=" + node + ", class='" + node.className + "', query=" + query);
 
-	    that.log("node=" + node + ", class='" + node.className + "', query=" + query);
-
+	this.team.queue("ready").subscribe(function() {
 	    var sortOrder = node.attr('sort');
 	    var targets = node.attr('targets');
 	    var s = "running auto search: '" + query + "'";
