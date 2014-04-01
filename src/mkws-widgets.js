@@ -285,7 +285,6 @@ mkws.registerWidgetType('Records', function() {
 		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
 	    }
 	}
-	that.log("node=" + node + ", class='" + node.className + "', query=" + query);
 
 	this.team.queue("ready").subscribe(function() {
 	    var sortOrder = that.config.sort;
