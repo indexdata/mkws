@@ -456,7 +456,7 @@ function team($, teamName) {
 
 
     function mkwsSetLang()  {
-	var lang = getParameterByName("lang") || m_config.lang;
+	var lang = mkws.getParameterByName("lang") || m_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
 	    m_config.lang = ""
 	} else {
@@ -566,16 +566,6 @@ function team($, teamName) {
   No information available yet.\
 </div>');
 	node.css("display", "none");
-    }
-
-
-    // This function is taken from a StackOverflow answer
-    // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
-    function getParameterByName(name) {
-	name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-	var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-	    results = regex.exec(location.search);
-	return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 
