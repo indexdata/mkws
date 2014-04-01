@@ -569,42 +569,6 @@ function team($, teamName) {
     }
 
 
-    that.runAutoSearch = function() {
-	var node = findnode('.mkwsRecords,.mkwsTermlists');
-	var query = node.attr('autosearch');
-	if (!query)
-	    return;
-
-	if (query.match(/^!param!/)) {
-	    var param = query.replace(/^!param!/, '');
-	    query = getParameterByName(param);
-	    log("obtained query '" + query + "' from param '" + param + "'");
-	    if (!query) {
-		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-	    }
-	} else if (query.match(/^!path!/)) {
-	    var index = query.replace(/^!path!/, '');
-	    var path = window.location.pathname.split('/');
-	    query = path[path.length - index];
-	    log("obtained query '" + query + "' from path-component '" + index + "'");
-	    if (!query) {
-		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-	    }
-	}
-
-	log("node=" + node + ", class='" + node.className + "', query=" + query);
-
-	var sortOrder = node.attr('sort');
-	var targets = node.attr('targets');
-	var s = "running auto search: '" + query + "'";
-	if (sortOrder) s += " sorted by '" + sortOrder + "'";
-	if (targets) s += " in targets '" + targets + "'";
-	log(s);
-
-	newSearch(query, sortOrder, targets);
-    };
-
-
     // This function is taken from a StackOverflow answer
     // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
     function getParameterByName(name) {
