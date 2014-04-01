@@ -270,7 +270,7 @@ mkws.registerWidgetType('Records', function() {
     if (query) {
 	if (query.match(/^!param!/)) {
 	    var param = query.replace(/^!param!/, '');
-	    query = getParameterByName(param);
+	    query = mkws.getParameterByName(param);
 	    that.log("obtained query '" + query + "' from param '" + param + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
