@@ -266,7 +266,6 @@ mkws.registerWidgetType('Records', function() {
 	}
     });
 
-    var node = $(that.node);
     var query = that.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
