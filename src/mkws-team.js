@@ -103,7 +103,6 @@ function team($, teamName) {
 		    });
 
     queue("ready").subscribe(function() {
-	log("in 'ready' consumer");
 	that.runAutoSearch();
     });
 
