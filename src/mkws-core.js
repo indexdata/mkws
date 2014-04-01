@@ -298,7 +298,7 @@ mkws.pagerNext = function(tname) {
 	log("running auto searches");
 
 	for (var teamName in mkws.teams) {
-	    mkws.teams[teamName].runAutoSearch();
+	    mkws.teams[teamName].queue("ready").publish();
 	}
     }
 
