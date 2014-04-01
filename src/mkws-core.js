@@ -96,16 +96,6 @@ mkws.log = function(string) {
 };
 
 
-mkws.objectWithParent = function(parent) {
-    function thing() {} // Must be function so `prototype' works
-
-    thing.prototype = parent;
-    var res = new thing();
-    thing.prototype = null;
-    return res;
-};
-
-
 // This function is taken from a StackOverflow answer
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
 mkws.getParameterByName = function(name) {
