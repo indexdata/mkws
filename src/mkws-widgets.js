@@ -287,13 +287,15 @@ mkws.registerWidgetType('Records', function() {
 
 	this.team.queue("ready").subscribe(function() {
 	    var sortOrder = that.config.sort;
+	    var perpage = that.config.perpage;
 	    var targets = that.config.targets;
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
+	    if (perpage) s += " with " + perpage + " per page";
 	    if (targets) s += " in targets '" + targets + "'";
 	    that.log(s);
 
-	    that.team.newSearch(query, sortOrder, targets);
+	    that.team.newSearch(query, sortOrder, perpage, targets);
 	});
     }
 });
