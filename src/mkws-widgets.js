@@ -59,12 +59,8 @@ function widget($, team, type, node) {
 }
 
 
-// This is a utility function that can be used by all widgets that can
-// invoke an autosearch. It properly belongs to the widget superclass,
-// but since there are no classes in JavaScript there's no scope for
-// it to live in, hence its being put into the mkws object.
-
-mkws.maybeAutosearch = function(widget) {
+// Utility function for use by all widgets that can invoke autosearch.
+widget.maybeAutosearch = function(widget) {
     var query = widget.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
@@ -310,7 +306,7 @@ mkws.registerWidgetType('Records', function() {
 	}
     });
 
-    mkws.maybeAutosearch(that);
+    widget.maybeAutosearch(that);
 });
 
 
