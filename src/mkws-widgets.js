@@ -289,17 +289,16 @@ mkws.registerWidgetType('Records', function() {
 	    var perpage = that.config.perpage;
 	    var limit = that.config.limit;
 	    var targets = that.config.targets;
-	    var torusquery = that.config.torusquery;
-	    that.log("torusquery='" + torusquery + "'");
+	    var targetfilter = that.config.targetfilter;
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	    if (perpage) s += " with " + perpage + " per page";
 	    if (limit) s += " limited by '" + limit + "'";
 	    if (targets) s += " in targets '" + targets + "'";
-	    if (torusquery) s += " constrained by torusquery '" + torusquery + "'";
+	    if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
 	    that.log(s);
 
-	    that.team.newSearch(query, sortOrder, perpage, limit, targets, torusquery);
+	    that.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
 	});
     }
 });
