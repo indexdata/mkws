@@ -249,7 +249,7 @@ function team($, teamName) {
     that.resetPage = resetPage;
 
 
-    function newSearch(query, sortOrder, perpage, targets) {
+    function newSearch(query, sortOrder, perpage, targets, torusquery) {
 	log("newSearch: " + query);
 
 	if (m_config.use_service_proxy && !mkws.authenticated) {
@@ -258,14 +258,14 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	triggerSearch(query, sortOrder, perpage, targets);
+	triggerSearch(query, sortOrder, perpage, targets, torusquery);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
     that.newSearch = newSearch;
 
 
-    function triggerSearch(query, sortOrder, perpage, targets) {
+    function triggerSearch(query, sortOrder, perpage, targets, torusquery) {
 	resetPage();
 	queue("navi").publish();
 
@@ -307,6 +307,11 @@ function team($, teamName) {
 	var params = {};
 	if (pp2limit) {
 	    params.limit = pp2limit;
+	}
+	if (torusquery) {
+	    if (!mkws.config.use_service_proxy)
+		alert("can't narrow search by torusquery when Service Proxy is not in use");
+	    params.torusquery = torusquery;
 	}
 
 	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", " +
