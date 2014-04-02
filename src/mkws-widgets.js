@@ -269,13 +269,13 @@ mkws.registerWidgetType('Records', function() {
 });
 
 
-mkws.maybeAutosearch = function(that) {
-    var query = that.config.autosearch;
+mkws.maybeAutosearch = function(widget) {
+    var query = widget.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
 	    var param = query.replace(/^!param!/, '');
 	    query = mkws.getParameterByName(param);
-	    that.log("obtained query '" + query + "' from param '" + param + "'");
+	    widget.log("obtained query '" + query + "' from param '" + param + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
 	    }
@@ -283,27 +283,27 @@ mkws.maybeAutosearch = function(that) {
 	    var index = query.replace(/^!path!/, '');
 	    var path = window.location.pathname.split('/');
 	    query = path[path.length - index];
-	    that.log("obtained query '" + query + "' from path-component '" + index + "'");
+	    widget.log("obtained query '" + query + "' from path-component '" + index + "'");
 	    if (!query) {
 		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
 	    }
 	}
 
-	that.team.queue("ready").subscribe(function() {
-	    var sortOrder = that.config.sort;
-	    var perpage = that.config.perpage;
-	    var limit = that.config.limit;
-	    var targets = that.config.targets;
-	    var targetfilter = that.config.targetfilter;
+	widget.team.queue("ready").subscribe(function() {
+	    var sortOrder = widget.config.sort;
+	    var perpage = widget.config.perpage;
+	    var limit = widget.config.limit;
+	    var targets = widget.config.targets;
+	    var targetfilter = widget.config.targetfilter;
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	    if (perpage) s += " with " + perpage + " per page";
 	    if (limit) s += " limited by '" + limit + "'";
 	    if (targets) s += " in targets '" + targets + "'";
 	    if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
-	    that.log(s);
+	    widget.log(s);
 
-	    that.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
+	    widget.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
 	});
     }
 };
