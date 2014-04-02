@@ -265,6 +265,11 @@ mkws.registerWidgetType('Records', function() {
 	}
     });
 
+    mkws.maybeAutosearch(that);
+});
+
+
+mkws.maybeAutosearch = function(that) {
     var query = that.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
@@ -284,7 +289,7 @@ mkws.registerWidgetType('Records', function() {
 	    }
 	}
 
-	this.team.queue("ready").subscribe(function() {
+	that.team.queue("ready").subscribe(function() {
 	    var sortOrder = that.config.sort;
 	    var perpage = that.config.perpage;
 	    var limit = that.config.limit;
@@ -301,7 +306,7 @@ mkws.registerWidgetType('Records', function() {
 	    that.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
 	});
     }
-});
+};
 
 
 mkws.registerWidgetType('Navi', function() {
