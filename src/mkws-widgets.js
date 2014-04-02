@@ -211,6 +211,8 @@ mkws.registerWidgetType('Termlists', function() {
 	    acc.push('</div>');
 	}
     });
+
+    widget.maybeAutosearch(that);
 });
 
 
