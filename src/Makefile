@@ -30,7 +30,7 @@ uninstall:
 	rm -f $(INSTALLED)
 
 ../tools/htdocs/%: %
-	rm -f $@ && cp -p $? $@ && chmod -w $@
+	rm -f $@ && cp -p $? $@ && chmod 444 $@
 
 all: mkws.min.js mkws-complete.min.js
 
@@ -89,7 +89,7 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
 	cat $(COMPONENTS) > $@
-	chmod -w $@
+	chmod 444 $@
 
 distclean: clean
 	rm -f *.orig *.bak *.rej
