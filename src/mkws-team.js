@@ -170,8 +170,7 @@ function team($, teamName) {
     };
 
 
-    that.limitTarget = function(id, name)
-    {
+    that.limitTarget = function(id, name) {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filters.push({ id: id, name: name });
 	triggerSearch();
@@ -179,8 +178,7 @@ function team($, teamName) {
     };
 
 
-    that.limitQuery = function(field, value)
-    {
+    that.limitQuery = function(field, value) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
 	triggerSearch();
@@ -188,8 +186,7 @@ function team($, teamName) {
     };
 
 
-    that.delimitTarget = function(id)
-    {
+    that.delimitTarget = function(id) {
 	log("delimitTarget(id=" + id + ")");
 	removeMatchingFilters(function(f) { return f.id });
 	triggerSearch();
@@ -197,8 +194,7 @@ function team($, teamName) {
     };
 
 
-    that.delimitQuery = function(field, value)
-    {
+    that.delimitQuery = function(field, value) {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
 	removeMatchingFilters(function(f) { return f.field && field == f.field && value == f.value });
 	triggerSearch();
@@ -221,8 +217,7 @@ function team($, teamName) {
     }
 
 
-    that.showPage = function(pageNum)
-    {
+    that.showPage = function(pageNum) {
 	m_currentPage = pageNum;
 	m_paz.showPage(m_currentPage - 1);
     };
@@ -247,16 +242,14 @@ function team($, teamName) {
     };
 
 
-    function resetPage()
-    {
+    function resetPage() {
 	m_currentPage = 1;
 	m_totalRecordCount = 0;
     }
     that.resetPage = resetPage;
 
 
-    function newSearch(query, sortOrder, perpage, targets)
-    {
+    function newSearch(query, sortOrder, perpage, targets) {
 	log("newSearch: " + query);
 
 	if (m_config.use_service_proxy && !mkws.authenticated) {
@@ -272,8 +265,7 @@ function team($, teamName) {
     that.newSearch = newSearch;
 
 
-    function triggerSearch(query, sortOrder, perpage, targets)
-    {
+    function triggerSearch(query, sortOrder, perpage, targets) {
 	resetPage();
 	queue("navi").publish();
 
@@ -601,8 +593,7 @@ function team($, teamName) {
     }
 
 
-    function renderDetails(data, marker)
-    {
+    function renderDetails(data, marker) {
 	var template = loadTemplate("Record");
 	var details = template(data);
 	return '<div class="details mkwsTeam_' + m_teamName + '" ' +
@@ -611,8 +602,7 @@ function team($, teamName) {
     that.renderDetails = renderDetails;
 
 
-    function loadTemplate(name)
-    {
+    function loadTemplate(name) {
 	var template = m_template[name];
 
 	if (template === undefined) {
@@ -637,8 +627,7 @@ function team($, teamName) {
     that.loadTemplate = loadTemplate;
 
 
-    function defaultTemplate(name)
-    {
+    function defaultTemplate(name) {
 	if (name === 'Record') {
 	    return '\
 <table>\
