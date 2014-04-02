@@ -366,11 +366,7 @@ function team($, teamName) {
 	m_currentRecordId = recId;
 
 	// remove current detailed view if any
-	// ##### restrict to current team
-	var detRecordDiv = document.getElementById(recordDetailsId(oldRecordId));
-	// lovin DOM!
-	if (detRecordDiv)
-	    detRecordDiv.parentNode.removeChild(detRecordDiv);
+	findnode('#' + recordDetailsId(oldRecordId)).remove();
 
 	// if the same clicked, just hide
 	if (recId == oldRecordId) {
