@@ -249,7 +249,7 @@ function team($, teamName) {
     that.resetPage = resetPage;
 
 
-    function newSearch(query, sortOrder, perpage, targets, torusquery) {
+    function newSearch(query, sortOrder, perpage, limit, targets, torusquery) {
 	log("newSearch: " + query);
 
 	if (m_config.use_service_proxy && !mkws.authenticated) {
@@ -258,19 +258,19 @@ function team($, teamName) {
 	}
 
 	m_filters = []
-	triggerSearch(query, sortOrder, perpage, targets, torusquery);
+	triggerSearch(query, sortOrder, perpage, limit, targets, torusquery);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
     }
     that.newSearch = newSearch;
 
 
-    function triggerSearch(query, sortOrder, perpage, targets, torusquery) {
+    function triggerSearch(query, sortOrder, perpage, limit, targets, torusquery) {
 	resetPage();
 	queue("navi").publish();
 
 	var pp2filter = "";
-	var pp2limit = "";
+	var pp2limit = limit || "";
 
 	// Continue to use previous query/sort-order unless new ones are specified
 	if (query) {
