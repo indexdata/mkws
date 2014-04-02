@@ -59,6 +59,51 @@ function widget($, team, type, node) {
 }
 
 
+// This is a utility function that can be used by all widgets that can
+// invoke an autosearch. It properly belongs to the widget superclass,
+// but since there are no classes in JavaScript there's no scope for
+// it to live in, hence its being put into the mkws object.
+
+mkws.maybeAutosearch = function(widget) {
+    var query = widget.config.autosearch;
+    if (query) {
+	if (query.match(/^!param!/)) {
+	    var param = query.replace(/^!param!/, '');
+	    query = mkws.getParameterByName(param);
+	    widget.log("obtained query '" + query + "' from param '" + param + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
+	    }
+	} else if (query.match(/^!path!/)) {
+	    var index = query.replace(/^!path!/, '');
+	    var path = window.location.pathname.split('/');
+	    query = path[path.length - index];
+	    widget.log("obtained query '" + query + "' from path-component '" + index + "'");
+	    if (!query) {
+		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+	    }
+	}
+
+	widget.team.queue("ready").subscribe(function() {
+	    var sortOrder = widget.config.sort;
+	    var perpage = widget.config.perpage;
+	    var limit = widget.config.limit;
+	    var targets = widget.config.targets;
+	    var targetfilter = widget.config.targetfilter;
+	    var s = "running auto search: '" + query + "'";
+	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
+	    if (perpage) s += " with " + perpage + " per page";
+	    if (limit) s += " limited by '" + limit + "'";
+	    if (targets) s += " in targets '" + targets + "'";
+	    if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
+	    widget.log(s);
+
+	    widget.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
+	});
+    }
+};
+
+
 // Functions follow for promoting the regular widget object into
 // widgets of specific types. These could be moved into their own
 // source files.
@@ -267,46 +312,6 @@ mkws.registerWidgetType('Records', function() {
 
     mkws.maybeAutosearch(that);
 });
-
-
-mkws.maybeAutosearch = function(widget) {
-    var query = widget.config.autosearch;
-    if (query) {
-	if (query.match(/^!param!/)) {
-	    var param = query.replace(/^!param!/, '');
-	    query = mkws.getParameterByName(param);
-	    widget.log("obtained query '" + query + "' from param '" + param + "'");
-	    if (!query) {
-		alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-	    }
-	} else if (query.match(/^!path!/)) {
-	    var index = query.replace(/^!path!/, '');
-	    var path = window.location.pathname.split('/');
-	    query = path[path.length - index];
-	    widget.log("obtained query '" + query + "' from path-component '" + index + "'");
-	    if (!query) {
-		alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-	    }
-	}
-
-	widget.team.queue("ready").subscribe(function() {
-	    var sortOrder = widget.config.sort;
-	    var perpage = widget.config.perpage;
-	    var limit = widget.config.limit;
-	    var targets = widget.config.targets;
-	    var targetfilter = widget.config.targetfilter;
-	    var s = "running auto search: '" + query + "'";
-	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
-	    if (perpage) s += " with " + perpage + " per page";
-	    if (limit) s += " limited by '" + limit + "'";
-	    if (targets) s += " in targets '" + targets + "'";
-	    if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
-	    widget.log(s);
-
-	    widget.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
-	});
-    }
-};
 
 
 mkws.registerWidgetType('Navi', function() {
