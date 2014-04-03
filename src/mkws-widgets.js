@@ -87,6 +87,7 @@ widget.autosearch = function(widget) {
 	    var limit = widget.config.limit;
 	    var targets = widget.config.targets;
 	    var targetfilter = widget.config.targetfilter;
+
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
 	    if (maxrecs) s += " restricted to " + maxrecs + " records";
