@@ -7,3 +7,8 @@ mkws.registerWidgetType('GoogleImage', function() {
     mkws.promotionFunction('Image').call(this);
     if (!this.config.target) this.config.target = 'Google_Images';
 });
+
+mkws.registerWidgetType('Lolcat', function() {
+    mkws.promotionFunction('GoogleImage').call(this);
+    if (!this.config.autosearch) this.config.autosearch = 'kitteh';
+});
