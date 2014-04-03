@@ -82,19 +82,21 @@ widget.maybeAutosearch = function(widget) {
 
 	widget.team.queue("ready").subscribe(function() {
 	    var sortOrder = widget.config.sort;
+	    var maxrecs = widget.config.maxrecs;
 	    var perpage = widget.config.perpage;
 	    var limit = widget.config.limit;
 	    var targets = widget.config.targets;
 	    var targetfilter = widget.config.targetfilter;
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
+	    if (maxrecs) s += " restricted to " + maxrecs + " records";
 	    if (perpage) s += " with " + perpage + " per page";
 	    if (limit) s += " limited by '" + limit + "'";
 	    if (targets) s += " in targets '" + targets + "'";
 	    if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
 	    widget.log(s);
 
-	    widget.team.newSearch(query, sortOrder, perpage, limit, targets, targetfilter);
+	    widget.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
 	});
     }
 };
