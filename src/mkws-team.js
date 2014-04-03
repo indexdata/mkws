@@ -708,6 +708,15 @@ function team($, teamName) {
   <span><i>{{md-title-responsibility}}</i></span>\
 {{/if}}\
 ';
+	} else if (name === "Image") {
+	    return '\
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+        {{#first md-thumburl}}\
+	  <img src="{{this}}" alt="{{../md-title}}"/>\
+        {{/first}}\
+	<br/>\
+      </a>\
+';
 	}
 
 	var s = "There is no default '" + name +"' template!";
