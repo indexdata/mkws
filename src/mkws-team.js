@@ -127,6 +127,7 @@ function team($, teamName) {
     function onShow(data, teamName) {
 	log("show");
 	m_totalRecordCount = data.merged;
+	log("found " + m_totalRecordCount + " records");
 	queue("pager").publish(data);
 	queue("records").publish(data);
     }
