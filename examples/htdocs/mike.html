@@ -23,17 +23,9 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
-    <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-        {{#first md-thumburl}}
-	  <img src="{{this}}" alt="{{../md-title}}"/>
-        {{/first}}
-	<br/>
-      </a>
-    </script>
   </head>
   <body>
-    <div class='mkwsRecord' autosearch='sauropod' targetfilter='udb==Google_Images'>Sauropod!</div>
+    <div class='mkwsRecord' autosearch='sauropod' targetfilter='udb==Google_Images' template='Image'>Sauropod!</div>
     <div id="mkwsSwitch"></div>
     <div id="mkwsTargets"></div>
     <div id="mkwsStat"></div>
