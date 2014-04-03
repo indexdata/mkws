@@ -304,7 +304,7 @@ mkws.registerWidgetType('Records', function() {
 	$(that.node).html(html.join(''));
 
 	function renderSummary(hit) {
-	    var template = team.loadTemplate("Summary");
+	    var template = team.loadTemplate(that.config.template || "Summary");
 	    hit._id = team.recordElementId(hit.recid[0]);
 	    hit._onclick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
 	    return template(hit);
