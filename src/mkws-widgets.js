@@ -87,6 +87,8 @@ widget.autosearch = function(widget) {
 	    var limit = widget.config.limit;
 	    var targets = widget.config.targets;
 	    var targetfilter = widget.config.targetfilter;
+	    var target = widget.config.target;
+	    if (target) targetfilter = 'udb=="' + target + '"';
 
 	    var s = "running auto search: '" + query + "'";
 	    if (sortOrder) s += " sorted by '" + sortOrder + "'";
