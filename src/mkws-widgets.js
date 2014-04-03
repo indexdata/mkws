@@ -60,7 +60,7 @@ function widget($, team, type, node) {
 
 
 // Utility function for use by all widgets that can invoke autosearch.
-widget.maybeAutosearch = function(widget) {
+widget.autosearch = function(widget) {
     var query = widget.config.autosearch;
     if (query) {
 	if (query.match(/^!param!/)) {
@@ -214,7 +214,7 @@ mkws.registerWidgetType('Termlists', function() {
 	}
     });
 
-    widget.maybeAutosearch(that);
+    widget.autosearch(that);
 });
 
 
@@ -310,7 +310,7 @@ mkws.registerWidgetType('Records', function() {
 	}
     });
 
-    widget.maybeAutosearch(that);
+    widget.autosearch(that);
 });
 
 
