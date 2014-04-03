@@ -1,4 +1,4 @@
 mkws.registerWidgetType('Record', function() {
     mkws.promotionFunction('Records').call(this);
-    this.config.maxrecs = 1;
+    if (!this.config.maxrecs) this.config.maxrecs = 1;
 });
