@@ -6,6 +6,7 @@
 .mkwsPager,
 .mkwsNavi,
 .mkwsRecords,
+.mkwsRecord,
 .mkwsTargets,
 .mkwsStat,
 .mkwsMOTD {
@@ -59,7 +60,8 @@
 .mkwsRanking a,
 .mkwsPager a,
 .mkwsNavi a,
-.mkwsRecords a {
+.mkwsRecords a,
+.mkwsRecord a {
     color: #005701;
     text-decoration: none;
 }
@@ -68,7 +70,8 @@
 .mkwsLang a:hover,
 .mkwsTermlists a:hover,
 .mkwsPager a:hover,
-.mkwsRecords a:hover {
+.mkwsRecords a:hover,
+.mkwsRecord a:hover {
     text-decoration: underline;
 }
 
@@ -134,11 +137,13 @@
     font-weight: bold;
 }
 
-.mkwsRecords div.record {
+.mkwsRecords div.record,
+.mkwsRecord div.record {
     padding: 5px;
 }
 
-.mkwsRecords div.details {
+.mkwsRecords div.details,
+.mkwsRecord div.details {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: #A9A9A9;
@@ -151,13 +156,15 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsRecords div.details th {
+.mkwsRecords div.details th,
+.mkwsRecord div.details th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-.mkwsRecords div.details th:after {
+.mkwsRecords div.details th:after,
+.mkwsRecord div.details th:after {
     content: ":";
 }
 
