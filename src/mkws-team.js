@@ -600,6 +600,7 @@ function team($, teamName) {
 	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
 	return node;
     }
+    that.findnode = findnode;
 
 
     function renderDetails(data, marker) {
