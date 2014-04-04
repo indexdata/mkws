@@ -5,7 +5,7 @@ mkws.registerWidgetType('Termlists', function() {
     var facetConfig = {
 	xtargets: [ "Sources",  16, false ],
 	subject:  [ "Subjects", 10, true ],
-	author:   [ "Author",   10, true ]
+	author:   [ "Authors",  10, true ]
     }
 
     this.team.queue("termlists").subscribe(function(data) {
