@@ -31,6 +31,11 @@ mkws.registerWidgetType('Termlists', function() {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
 		addSingleScaffold(acc, ref[0]);
+		function addSingleScaffold(acc, caption) {
+		    var teamName = that.team.name();
+		    acc.push('<div class="mkwsFacet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
+		    acc.push('</div>');
+		}
 	    }
 	}
 
@@ -53,12 +58,6 @@ mkws.registerWidgetType('Termlists', function() {
 
 	    that.log("setting HTML for facet '" + name + "'");
 	    that.team.findnode('.mkwsFacet' + caption).html(output[name]);
-	}
-
-	function addSingleScaffold(acc, caption) {
-	    var teamName = that.team.name();
-	    acc.push('<div class="mkwsFacet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
-	    acc.push('</div>');
 	}
 
 
