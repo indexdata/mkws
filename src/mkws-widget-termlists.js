@@ -33,7 +33,7 @@ mkws.registerWidgetType('Termlists', function() {
 
 	function addSingleFacet(acc, caption, data, max, pzIndex) {
 	    var teamName = that.team.name();
-	    acc.push('<div class="facet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
+	    acc.push('<div class="mkwsFacet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
 	    acc.push('<div class="termtitle">' + M(caption) + '</div>');
 	    for (var i = 0; i < data.length && i < max; i++) {
 		acc.push('<div class="term">');
