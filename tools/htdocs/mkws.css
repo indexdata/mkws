@@ -115,7 +115,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsTermlists div.facet {
+.mkwsFacet {
     background: #e0f0ff;
     padding: 0.7em;
     margin-top: 0.7em;
@@ -125,11 +125,11 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsTermlists div.facet div.term {
+.mkwsFacet div.term {
     clear: both;
 }
 
-.mkwsTermlists div.facet div.term span {
+.mkwsFacet div.term span {
     float: right;
 }
 
