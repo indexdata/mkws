@@ -3,7 +3,7 @@ mkws.registerWidgetType('Termlists', function() {
     var facets = that.config.facets;
     var M = mkws.M;
 
-    var facetConfig = {
+    mkws.facetConfig = {
 	xtargets: [ "Sources",  16, false ],
 	subject:  [ "Subjects", 10, true ],
 	author:   [ "Authors",  10, true ]
@@ -13,7 +13,7 @@ mkws.registerWidgetType('Termlists', function() {
     acc.push('<div class="title">' + M('Termlists') + '</div>');
     for (var i = 0; i < facets.length; i++) {
 	var name = facets[i]
-	var ref = facetConfig[name];
+	var ref = mkws.facetConfig[name];
 	if (!ref) {
 	    alert("bad facet configuration: '" + name + "'");
 	} else {
@@ -30,7 +30,7 @@ mkws.registerWidgetType('Termlists', function() {
 
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
-	    var ref = facetConfig[name];
+	    var ref = mkws.facetConfig[name];
 	    var caption = ref[0];
 	    if (!ref) {
 		alert("bad facet configuration: '" + name + "'");
