@@ -11,6 +11,7 @@ VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-widgets.js \
+	mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-log.js mkws-widget-record.js
 
 JQUERY_FILE := $(shell basename ${JQUERY_URL})
