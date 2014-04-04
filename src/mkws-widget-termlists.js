@@ -3,11 +3,6 @@ mkws.registerWidgetType('Termlists', function() {
     var M = mkws.M;
 
     this.team.queue("termlists").subscribe(function(data) {
-	if (!that.node) {
-	    alert("termlists event when there are no termlists");
-	    return;
-	}
-
 	// no facets: this should never happen
 	var facets = that.config.facets;
 	if (!facets || facets.length == 0) {
