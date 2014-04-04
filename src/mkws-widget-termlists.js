@@ -2,6 +2,12 @@ mkws.registerWidgetType('Termlists', function() {
     var that = this;
     var M = mkws.M;
 
+    var facetConfig = {
+	xtargets: [ "Sources",  16, false ],
+	subject:  [ "Subjects", 10, true ],
+	author:   [ "Author",   10, true ]
+    }
+
     this.team.queue("termlists").subscribe(function(data) {
 	// no facets: this should never happen
 	var facets = that.config.facets;
@@ -18,14 +24,12 @@ mkws.registerWidgetType('Termlists', function() {
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
 
 	for (var i = 0; i < facets.length; i++) {
-	    if (facets[i] == "xtargets") {
-		addSingleFacet(acc, "Sources",  data.xtargets, 16, null);
-	    } else if (facets[i] == "subject") {
-		addSingleFacet(acc, "Subjects", data.subject,  10, "subject");
-	    } else if (facets[i] == "author") {
-		addSingleFacet(acc, "Authors",  data.author,   10, "author");
+	    var name = facets[i]
+	    var ref = facetConfig[name];
+	    if (!ref) {
+		alert("bad facet configuration: '" + name + "'");
 	    } else {
-		alert("bad facet configuration: '" + facets[i] + "'");
+		addSingleFacet(acc, ref[0], data[name], ref[1], ref[2] ? name : null);
 	    }
 	}
 
