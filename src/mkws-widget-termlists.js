@@ -30,12 +30,8 @@ mkws.registerWidgetType('Termlists', function() {
 	    if (!ref) {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
-		addSingleScaffold(acc, ref[0]);
-		function addSingleScaffold(acc, caption) {
-		    var teamName = that.team.name();
-		    acc.push('<div class="mkwsFacet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
-		    acc.push('</div>');
-		}
+		acc.push('<div class="mkwsFacet mkwsFacet' + ref[0] + ' mkwsTeam_' + that.team.name() + '">');
+		acc.push('</div>');
 	    }
 	}
 
