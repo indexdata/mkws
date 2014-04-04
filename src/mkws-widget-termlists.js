@@ -20,10 +20,8 @@ mkws.registerWidgetType('Termlists', function() {
 	// display if we first got results
 	$(that.node).show();
 
-	var output = {};
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
-
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
 	    var ref = facetConfig[name];
@@ -34,7 +32,10 @@ mkws.registerWidgetType('Termlists', function() {
 		acc.push('</div>');
 	    }
 	}
+	$(that.node).html(acc.join(''));
 
+
+	var output = {};
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
 	    var ref = facetConfig[name];
@@ -44,8 +45,6 @@ mkws.registerWidgetType('Termlists', function() {
 		output[name] = makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
 	    }
 	}
-
-	$(that.node).html(acc.join(''));
 
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
