@@ -30,8 +30,8 @@ mkws.registerWidgetType('Termlists', function() {
 	    if (!ref) {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
-		addSingleScaffold(acc, ref[0], data[name], ref[1], ref[2] ? name : null);
-		output[name] = makeSingleFacet(acc, ref[0], data[name], ref[1], ref[2] ? name : null);
+		addSingleScaffold(acc, ref[0]);
+		output[name] = makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
 	    }
 	}
 
@@ -46,14 +46,14 @@ mkws.registerWidgetType('Termlists', function() {
 	    that.team.findnode('.mkwsFacet' + caption).html(output[name]);
 	}
 
-	function addSingleScaffold(acc, caption, data, max, pzIndex) {
+	function addSingleScaffold(acc, caption) {
 	    var teamName = that.team.name();
 	    acc.push('<div class="mkwsFacet mkwsFacet' + caption + ' mkwsTeam_' + teamName + '">');
 	    acc.push('</div>');
 	}
 
 
-	function makeSingleFacet(acc, caption, data, max, pzIndex) {
+	function makeSingleFacet(caption, data, max, pzIndex) {
 	    var teamName = that.team.name();
 
 	    var a2 = [];
