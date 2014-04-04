@@ -12,3 +12,8 @@ mkws.registerWidgetType('Lolcat', function() {
     mkws.promotionFunction('GoogleImage').call(this);
     if (!this.config.autosearch) this.config.autosearch = 'kitteh';
 });
+
+mkws.registerWidgetType('Coverart', function() {
+    mkws.promotionFunction('Image').call(this);
+    if (!this.config.target) this.config.target = 'AmazonBooks';
+});
