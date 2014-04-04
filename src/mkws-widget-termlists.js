@@ -1,5 +1,6 @@
 mkws.registerWidgetType('Termlists', function() {
     var that = this;
+    var facets = that.config.facets;
     var M = mkws.M;
 
     var facetConfig = {
@@ -8,27 +9,24 @@ mkws.registerWidgetType('Termlists', function() {
 	author:   [ "Authors",  10, true ]
     }
 
-    this.team.queue("termlists").subscribe(function(data) {
-	// no facets: this should never happen
-	var facets = that.config.facets;
+    var acc = [];
+    acc.push('<div class="title">' + M('Termlists') + '</div>');
+    for (var i = 0; i < facets.length; i++) {
+	var name = facets[i]
+	var ref = facetConfig[name];
+	if (!ref) {
+	    alert("bad facet configuration: '" + name + "'");
+	} else {
+	    acc.push('<div class="mkwsFacet mkwsFacet' + ref[0] + ' mkwsTeam_' + that.team.name() + '">');
+	    acc.push('</div>');
+	}
+    }
+    $(that.node).html(acc.join(''));
 
+
+    this.team.queue("termlists").subscribe(function(data) {
 	// display if we first got results
 	$(that.node).show();
-
-	var acc = [];
-	acc.push('<div class="title">' + M('Termlists') + '</div>');
-	for (var i = 0; i < facets.length; i++) {
-	    var name = facets[i]
-	    var ref = facetConfig[name];
-	    if (!ref) {
-		alert("bad facet configuration: '" + name + "'");
-	    } else {
-		acc.push('<div class="mkwsFacet mkwsFacet' + ref[0] + ' mkwsTeam_' + that.team.name() + '">');
-		acc.push('</div>');
-	    }
-	}
-	$(that.node).html(acc.join(''));
-
 
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
