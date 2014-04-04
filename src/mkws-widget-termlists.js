@@ -31,6 +31,15 @@ mkws.registerWidgetType('Termlists', function() {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
 		addSingleScaffold(acc, ref[0]);
+	    }
+	}
+
+	for (var i = 0; i < facets.length; i++) {
+	    var name = facets[i]
+	    var ref = facetConfig[name];
+	    if (!ref) {
+		alert("bad facet configuration: '" + name + "'");
+	    } else {
 		output[name] = makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
 	    }
 	}
