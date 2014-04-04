@@ -11,15 +11,9 @@ mkws.registerWidgetType('Termlists', function() {
     this.team.queue("termlists").subscribe(function(data) {
 	// no facets: this should never happen
 	var facets = that.config.facets;
-	if (!facets || facets.length == 0) {
-	    alert("onTerm called even though we have no facets: " + $.toJSON(data));
-	    $(that.node).hide();
-	    return;
-	}
 
 	// display if we first got results
 	$(that.node).show();
-
 
 	var acc = [];
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
