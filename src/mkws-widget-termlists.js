@@ -44,7 +44,6 @@ mkws.registerWidgetType('Termlists', function() {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
 		var output = makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
-		that.log("setting HTML for facet '" + name + "'");
 		that.team.findnode('.mkwsFacet' + caption).html(output);
 	    }
 	}
