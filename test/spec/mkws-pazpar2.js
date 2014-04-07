@@ -14,6 +14,10 @@ if (jasmine_config == null || typeof jasmine_config != 'object') {
     var jasmine_config = {};
 }
 
+var jasmine_status = {
+    source_click: 0
+};
+
 /* check config for jasmine test
  *
  * you can override the default values in the config
@@ -314,6 +318,7 @@ describe("Check Termlist", function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
+            jasmine_status.source_click = 1;
 
             $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
@@ -323,6 +328,11 @@ describe("Check Termlist", function () {
 
 describe("Check record list", function () {
     it("check for single active client", function () {
+        if (!jasmine_status.source_click) {
+            debug("skip clients check due missing source click");
+            return;
+        }
+        
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             //debug("clients: " + clients.text());
@@ -436,6 +446,11 @@ describe("Check status client counter", function () {
     var time = get_time();
 
     it("check status clients", function () {
+        if (!jasmine_status.source_click) {
+            debug("skip clients check due missing source click");
+            return;
+        }
+        
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("clients: " + clients.text());
