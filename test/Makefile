@@ -3,7 +3,8 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
-PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+#PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+PHANTOMJS_URL=http://localhost:4040/jasmine-popup.html
 PHANTOMJS_TIMEOUT=16
 
 NPM_INSTALL_FLAGS=-q
@@ -39,8 +40,9 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
-phantomjs p:
+phantomjs p: apache-stop apache-start
 	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	${MAKE} apache-stop
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
@@ -70,11 +72,24 @@ perltidy:
 node_modules node-modules:
 	npm install ${NPM_INSTALL_FLAGS}
 
+apache-start:
+	bin/apache-template-update
+	/usr/sbin/apache2 -f `pwd`/../tools/apache2/jasmine-dev
+	
+apache-stop:
+	-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
+	   kill `cat ${TMP_DIR}/mkws-jasmine.pid`; \
+	else \
+	   killall apache2 2> /dev/null; \
+	fi
+	sleep 0.3
+
 help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | perltidy ]"
 	@echo "     [ node-modules ]"
+	@echo "     [ apache-stop apache-start ]"
 	@echo ""
 	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
 
