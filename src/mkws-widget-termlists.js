@@ -4,6 +4,7 @@ mkws.facetConfig = {
     author:   [ "Authors",  10, true ]
 }
 
+
 mkws.registerWidgetType('Termlists', function() {
     var that = this;
     var facets = that.config.facets;
@@ -13,14 +14,6 @@ mkws.registerWidgetType('Termlists', function() {
 	$(that.node).show();
     });
 
-    for (var i = 0; i < facets.length; i++) {
-	var name = facets[i]
-	var ref = mkws.facetConfig[name];
-	if (!ref) {
-	    alert("bad facet configuration: '" + name + "'");
-	}
-    }
-    
     widget.autosearch(that);
 });
 
