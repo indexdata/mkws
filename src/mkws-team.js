@@ -427,6 +427,15 @@ function team($, teamName) {
   </tr>\
 </table>');
 
+	var acc = [];
+	var facets = m_config.facets;
+	acc.push('<div class="title">' + M('Termlists') + '</div>');
+	for (var i = 0; i < facets.length; i++) {
+	    acc.push('<div class="mkwsFacet mkwsTeam_' + m_teamName + '" data-mkws-facet="' + facets[i] + '">');
+	    acc.push('</div>');
+	}
+	findnode(".mkwsTermlists").html(acc.join(''));
+
 	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	if (m_config.show_sort) {
 	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
