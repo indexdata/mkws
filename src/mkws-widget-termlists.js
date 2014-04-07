@@ -6,7 +6,9 @@ mkws.registerWidgetType('Termlists', function() {
     this.team.queue("termlists").subscribe(function(data) {
 	// display if we first got results
 	$(that.node).show();
+    });
 
+    this.team.queue("termlists").subscribe(function(data) {
 	for (var i = 0; i < facets.length; i++) {
 	    var name = facets[i]
 	    var ref = mkws.facetConfig[name];
@@ -14,8 +16,7 @@ mkws.registerWidgetType('Termlists', function() {
 	    if (!ref) {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
-		var output = makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
-		that.team.findnode('.mkwsFacet' + caption).html(output);
+		makeSingleFacet(ref[0], data[name], ref[1], ref[2] ? name : null);
 	    }
 	}
 
@@ -42,7 +43,7 @@ mkws.registerWidgetType('Termlists', function() {
 			 + ' <span>' + data[i].freq + '</span>');
 		acc.push('</div>');
 	    }
-	    return acc.join('');
+	    that.team.findnode('.mkwsFacet' + caption).html(acc.join(''));
 	}
     });
 
