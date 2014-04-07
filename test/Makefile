@@ -12,14 +12,20 @@ PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bomb.pl
+TMP_DIR=	./logs
 
 all: check
 
 clean:
 	rm -f mkws-error.png mkws-error.html images/*.png
 
-distclean: clean
+distclean: clean clean-tmp
 	rm -rf node_modules
+
+clean-tmp:
+	rm -rf ${TMP_DIR}
+	mkdir -p ${TMP_DIR}
+	touch ${TMP_DIR}/.gitkeep
 
 mkws-complete-syntax-check:
 	${MAKE} -C../src mkws-complete.min.js
