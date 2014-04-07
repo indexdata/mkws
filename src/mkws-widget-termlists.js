@@ -1,7 +1,6 @@
 mkws.registerWidgetType('Termlists', function() {
     var that = this;
     var facets = that.config.facets;
-    var M = mkws.M;
 
     this.team.queue("termlists").subscribe(function(data) {
 	// display if we first got results
@@ -13,22 +12,27 @@ mkws.registerWidgetType('Termlists', function() {
 	var ref = mkws.facetConfig[name];
 	if (!ref) {
 	    alert("bad facet configuration: '" + name + "'");
-	} else {
-	    (function(ref, name) {
-		var caption = ref[0];
-		that.team.queue("termlists").subscribe(function(data) {
-		    makeSingleFacet(caption, data[name], ref[1], ref[2] ? name : null);
-		})
-	    }(ref, name));
 	}
     }
     
-    function makeSingleFacet(caption, data, max, pzIndex) {
-	that.log("in makeSingleFacet(" + caption + ")");
-	var teamName = that.team.name();
+    widget.autosearch(that);
+});
+
+
+mkws.registerWidgetType('Facet', function() {
+    var that = this;
+    var teamName = that.team.name();
+    var name = that.config.facet;
+    var ref = mkws.facetConfig[name] || alert("no facet definition for '" + name + "'");
+    var caption = ref[0];
+    var max = ref[1];
+    var pzIndex = ref[2] ? name : null;
+
+    that.team.queue("termlists").subscribe(function(data) {
+	data = data[name];
 
 	var acc = [];
-	acc.push('<div class="termtitle">' + M(caption) + '</div>');
+	acc.push('<div class="termtitle">' + mkws.M(caption) + '</div>');
 	for (var i = 0; i < data.length && i < max; i++) {
 	    acc.push('<div class="term">');
 	    acc.push('<a href="#" ');
@@ -46,8 +50,7 @@ mkws.registerWidgetType('Termlists', function() {
 		     + ' <span>' + data[i].freq + '</span>');
 	    acc.push('</div>');
 	}
-	that.team.findnode('.mkwsFacet' + caption).html(acc.join(''));
-    }
 
-    widget.autosearch(that);
+	$(that.node).html(acc.join(''));
+    });
 });
