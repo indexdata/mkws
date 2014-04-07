@@ -207,28 +207,28 @@ describe("Check Termlist", function () {
         expect(termlist.length).toBe(1);
 
         waitsFor(function () {
-            return $("div.mkwsFacetSources").length == 1 ? true : false;
+            return $("div.mkwsFacet[data-mkws-facet='xtargets']").length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
 
         // everything displayed?
         runs(function () {
-            var sources = $("div.mkwsFacetSources");
+            var sources = $("div.mkwsFacet[data-mkws-facet='xtargets']");
             debug("Termlist sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
-            var subjects = $("div.mkwsFacetSubjects");
+            var subjects = $("div.mkwsFacet[data-mkws-facet='subject']");
             expect(subjects.length).toBe(1);
 
-            var authors = $("div.mkwsFacetAuthors");
+            var authors = $("div.mkwsFacet[data-mkws-facet='author']");
             expect(authors.length).toBe(1);
         });
 
         waitsFor(function () {
-            return $("div.mkwsFacetAuthors div.term").length >= 2 ? true : false;
+            return $("div.mkwsFacet[data-mkws-facet='author'] div.term").length >= 2 ? true : false;
         }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($("div.mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
+            expect($("div.mkwsFacet[data-mkws-facet='author'] div.term").length).toBeGreaterThan(1);
         });
     });
 
@@ -243,7 +243,7 @@ describe("Check Termlist", function () {
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
-        var terms = $("div.mkwsFacetAuthors div.term a");
+        var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -253,13 +253,13 @@ describe("Check Termlist", function () {
                 break;
             }
         }
-        if ($("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text().length == 0) {
+        if ($("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text().length == 0) {
             debug("No good authors found. Not clicking on the bad ones");
             return;
         }
 
-        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text());
-        $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
+        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text());
+        $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
