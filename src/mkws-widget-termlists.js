@@ -1,10 +1,3 @@
-mkws.facetConfig = {
-    xtargets: [ "Sources",  16, false ],
-    subject:  [ "Subjects", 10, true ],
-    author:   [ "Authors",  10, true ]
-}
-
-
 mkws.registerWidgetType('Termlists', function() {
     var that = this;
     var facets = that.config.facets;
@@ -19,6 +12,12 @@ mkws.registerWidgetType('Termlists', function() {
 
 
 mkws.registerWidgetType('Facet', function() {
+    mkws.facetConfig = {
+	xtargets: [ "Sources",  16, false ],
+	subject:  [ "Subjects", 10, true ],
+	author:   [ "Authors",  10, true ]
+    }
+
     var that = this;
     var teamName = that.team.name();
     var name = that.config.facet;
