@@ -296,7 +296,7 @@ describe("Check Termlist", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
         // do not click on wikipedia link - no author or subject facets possible
-        var terms = $("div.mkwsFacetSources div.term a");
+        var terms = $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/wikipedia/i)) {
@@ -306,12 +306,12 @@ describe("Check Termlist", function () {
                 break;
             }
         }
-        if ($("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").text().length == 0) {
+        if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
             debug("No good source found. Not clicking on the bad ones");
             return;
         }
 
-        $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
+        $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").trigger("click");
 
         // wait for a stat response
         var waitcount = 0;
