@@ -1,20 +1,20 @@
 # Configuration for the apache web server                 -*- apache -*-
 
 # pazpar2 / service proxy config
-<VirtualHost *:80>
-    ServerName mkws-dev.indexdata.com
-    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com
+<VirtualHost *:4040>
+    ServerName localhost
+    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
 
     ServerAdmin webmaster@indexdata.com
-    ErrorLog /var/log/apache2/mkws-dev-error.log
-    CustomLog /var/log/apache2/mkws-dev-access.log combined
+    ErrorLog %APACHE_LOG%/mkws-dev-error.log
+    CustomLog %APACHE_LOG%/mkws-dev-access.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
+    RewriteLog %APACHE_LOG%/mkws-dev-rewrite.log 
 
-    DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
-    Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
+    DocumentRoot %MKWS_ROOT%/examples/htdocs
+    Alias /tools/htdocs %MKWS_ROOT%/tools/htdocs
 
     # CORS setting
     Header set Access-Control-Allow-Credentials true
