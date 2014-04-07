@@ -1,21 +1,44 @@
 # Configuration for the apache web server                 -*- apache -*-
 
+#####################################################################
+# global apache2 config
+#
 User ${APACHE_RUN_USER}
 Group ${APACHE_RUN_GROUP}
 PidFile ${APACHE_PID_FILE}
 
+ServerRoot ${APACHE_SERVER_ROOT}
+NameVirtualHost *:${APACHE_PORT}
+Listen ${APACHE_PORT}
+
+LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+
+Include /etc/apache2/mods-enabled/alias.load
+Include /etc/apache2/mods-enabled/authz*.load
+Include /etc/apache2/mods-enabled/proxy*.load
+Include /etc/apache2/mods-enabled/rewrite.load
+Include /etc/apache2/mods-enabled/headers.load
+Include /etc/apache2/mods-enabled/mime.load
+Include /etc/apache2/mods-enabled/deflate.load
+
+Include /etc/apache2/mods-enabled/alias*.conf
+Include /etc/apache2/mods-enabled/authz*.conf
+Include /etc/apache2/mods-enabled/proxy*.conf
+Include /etc/apache2/mods-enabled/mime.conf
+Include /etc/apache2/mods-enabled/deflate.conf
+
 # pazpar2 / service proxy config
-<VirtualHost *:4040>
+<VirtualHost *:${APACHE_PORT}>
     ServerName localhost
     ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
 
     ServerAdmin webmaster@indexdata.com
-    ErrorLog ${APACHE_LOG_DIR}/mkws-dev-error.log
-    CustomLog ${APACHE_LOG_DIR}/mkws-dev-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog ${APACHE_LOG_DIR}/mkws-dev-rewrite.log 
+    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite.log 
 
     DocumentRoot ${MKWS_ROOT}/examples/htdocs
     Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs
