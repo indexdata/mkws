@@ -427,13 +427,6 @@ function team($, teamName) {
   </tr>\
 </table>');
 
-	// Can't be local, as the "Facet" widget also needs to consult this.
-	mkws.facetConfig = {
-	    xtargets: [ "Sources",  16, false ],
-	    subject:  [ "Subjects", 10, true ],
-	    author:   [ "Authors",  10, true ]
-	}
-
 	var acc = [];
 	var facets = m_config.facets;
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
