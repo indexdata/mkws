@@ -12,7 +12,7 @@ mkws.registerWidgetType('Termlists', function() {
 
 
 mkws.registerWidgetType('Facet', function() {
-    mkws.facetConfig = {
+    var facetConfig = {
 	xtargets: [ "Sources",  16, false ],
 	subject:  [ "Subjects", 10, true ],
 	author:   [ "Authors",  10, true ]
@@ -21,7 +21,7 @@ mkws.registerWidgetType('Facet', function() {
     var that = this;
     var teamName = that.team.name();
     var name = that.config.facet;
-    var ref = mkws.facetConfig[name] || alert("no facet definition for '" + name + "'");
+    var ref = facetConfig[name] || alert("no facet definition for '" + name + "'");
     var caption = ref[0];
     var max = ref[1];
     var pzIndex = ref[2] ? name : null;
