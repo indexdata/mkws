@@ -203,28 +203,28 @@ describe("Check Termlist", function () {
         expect(termlist.length).toBe(1);
 
         waitsFor(function () {
-            return $("div.mkwsFacetSources").length == 1 ? true : false;
+            return $('div.mkwsFacet[data-mkws-facet="xtargets"]').length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
 
         // everything displayed?
         runs(function () {
-            var sources = $("div.mkwsFacetSources");
+            var sources = $('div.mkwsFacet[data-mkws-facet="xtargets"]');
             debug("Termlist sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
-            var subjects = $("div.mkwsFacetSubjects");
+            var subjects = $('div.mkwsFacet[data-mkws-facet="subject"]');
             expect(subjects.length).toBe(1);
 
-            var authors = $("div.mkwsFacetAuthors");
+            var authors = $('div.mkwsFacet[data-mkws-facet="author"]');
             expect(authors.length).toBe(1);
         });
 
         waitsFor(function () {
-            return $("div.mkwsFacetAuthors div.term").length >= 2 ? true : false;
+            return $('div.mkwsFacet[data-mkws-facet="author"] div.term').length >= 2 ? true : false;
         }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($("div.mkwsFacetAuthors div.term").length).toBeGreaterThan(1);
+            expect($('div.mkwsFacet[data-mkws-facet="author"] div.term').length).toBeGreaterThan(1);
         });
     });
 
