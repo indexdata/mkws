@@ -427,6 +427,7 @@ function team($, teamName) {
   </tr>\
 </table>');
 
+	// Can't be local, as the "Facet" widget also needs to consult this.
 	mkws.facetConfig = {
 	    xtargets: [ "Sources",  16, false ],
 	    subject:  [ "Subjects", 10, true ],
@@ -437,14 +438,8 @@ function team($, teamName) {
 	var facets = m_config.facets;
 	acc.push('<div class="title">' + M('Termlists') + '</div>');
 	for (var i = 0; i < facets.length; i++) {
-	    var name = facets[i]
-	    var ref = mkws.facetConfig[name];
-	    if (!ref) {
-		alert("bad facet configuration: '" + name + "'");
-	    } else {
-		acc.push('<div class="mkwsFacet mkwsTeam_' + m_teamName + '" data-mkws-facet="' + name + '">');
-		acc.push('</div>');
-	    }
+	    acc.push('<div class="mkwsFacet mkwsTeam_' + m_teamName + '" data-mkws-facet="' + facets[i] + '">');
+	    acc.push('</div>');
 	}
 	findnode(".mkwsTermlists").html(acc.join(''));
 
