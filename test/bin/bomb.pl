@@ -1,4 +1,4 @@
-#!/usr/local/bin/perl
+#!/usr/bin/perl
 # Copyright (c) 2014 IndexData ApS. http://indexdata.com
 #
 # bomb.pl - wrapper to stop a process after N seconds
@@ -57,7 +57,7 @@ EOF
 GetOptions(
     "help"      => \$help,
     "debug=i"   => \$debug,
-    "timeout=i" => \$timeout,
+    "timeout=f" => \$timeout,
 ) or die usage;
 
 my @system = @ARGV;
@@ -68,6 +68,6 @@ die usage if !@system;
 set_alarm( $timeout, join( " ", @system ) );
 
 system(@system) == 0
-  or die "system @system failed: $?";
+  or die "@system failed with exit code: $?\n";
 
 exit(0);
