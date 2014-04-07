@@ -42,6 +42,9 @@ Include /etc/apache2/mods-enabled/deflate.conf
 
     DocumentRoot ${MKWS_ROOT}/examples/htdocs
     Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs
+    Alias /src ${MKWS_ROOT}/src
+    Alias /test ${MKWS_ROOT}/test
+    Alias /jasmine ${MKWS_ROOT}/examples/jasmine
 
     # CORS setting
     Header set Access-Control-Allow-Credentials true
