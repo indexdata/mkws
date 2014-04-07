@@ -4,7 +4,7 @@
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
 #PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
-PHANTOMJS_URL=http://localhost:4040/jasmine-popup.html
+PHANTOMJS_URL=http://localhost:4040/jasmine-local-popup.html
 PHANTOMJS_TIMEOUT=16
 
 NPM_INSTALL_FLAGS=-q
