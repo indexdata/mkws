@@ -77,12 +77,12 @@ apache-start:
 	/usr/sbin/apache2 -f `pwd`/../tools/apache2/jasmine-dev
 	
 apache-stop:
-	-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
+	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
 	   kill `cat ${TMP_DIR}/mkws-jasmine.pid`; \
 	else \
 	   killall apache2 2> /dev/null; \
 	fi
-	sleep 0.3
+	@sleep 0.3
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
