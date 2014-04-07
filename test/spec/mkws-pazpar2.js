@@ -9,7 +9,7 @@ var debug = function (text) {
         mkws.log("Jasmine: " + text)
     }
 
-// Define empty jasmine_config for simple applications that don't define it.
+    // Define empty jasmine_config for simple applications that don't define it.
 if (jasmine_config == null || typeof jasmine_config != 'object') {
     var jasmine_config = {};
 }
@@ -272,6 +272,26 @@ describe("Check Termlist", function () {
         });
     });
 
+    it("check for active clients", function () {
+        waitsFor(function () {
+            var clients = $("div#mkwsStat span.clients");
+            //debug("clients: " + clients.text());
+            return clients.length == 1 && clients.text().match("/[1-9]+[0-9]+$");
+        }, "wait for Active clients: x/y", 5 * jasmine_config.second);
+
+        runs(function () {
+            var clients = $("div#mkwsStat span.clients");
+            debug("span.clients: " + clients.text());
+            expect(clients.text()).toMatch("/[1-9]+[0-9]+$");
+
+            // exact match of active clients (e.g. a SP misconfiguration)            
+            if (jasmine_config.active_clients) {
+                debug("check for " + jasmine_config.active_clients + " active connections");
+                expect(clients.text()).toMatch(" [0-9]+/" + jasmine_config.active_clients + "$");
+            }
+        });
+    });
+
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
@@ -332,11 +352,10 @@ describe("Check record list", function () {
             debug("skip clients check due missing source click");
             return;
         }
-        
+
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             //debug("clients: " + clients.text());
-
             return clients.length == 1 && clients.text().match("/1$");
         }, "wait for Active clients: x/1", 5 * jasmine_config.second);
 
@@ -372,7 +391,6 @@ describe("Show record", function () {
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.details");
             //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
-
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
@@ -450,7 +468,7 @@ describe("Check status client counter", function () {
             debug("skip clients check due missing source click");
             return;
         }
-        
+
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("clients: " + clients.text());
