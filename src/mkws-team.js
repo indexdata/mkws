@@ -442,7 +442,7 @@ function team($, teamName) {
 	    if (!ref) {
 		alert("bad facet configuration: '" + name + "'");
 	    } else {
-		acc.push('<div class="mkwsFacet mkwsFacet' + ref[0] + ' mkwsTeam_' + m_teamName + '">');
+		acc.push('<div class="mkwsFacet' + ref[0] + ' mkwsFacet mkwsTeam_' + m_teamName + '">');
 		acc.push('</div>');
 	    }
 	}
