@@ -14,6 +14,7 @@ IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bomb.pl
 TMP_DIR=	./logs
+APACHE_HTTPD=	/usr/sbin/apache2
 
 all: check
 
@@ -75,7 +76,7 @@ node_modules node-modules:
 
 apache-start:
 	bin/apache-template-update
-	/usr/sbin/apache2 -f `pwd`/${TMP_DIR}/jasmine-dev
+	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev
 	
 apache-stop:
 	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
@@ -92,5 +93,5 @@ help:
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
+	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=${PHANTOMJS_URL}"
 
