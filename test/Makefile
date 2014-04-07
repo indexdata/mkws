@@ -12,7 +12,7 @@ JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
-PERL_SCRIPTS=	bomb.pl
+PERL_SCRIPTS=	bin/bomb.pl
 TMP_DIR=	./logs
 APACHE_HTTPD=	/usr/sbin/apache2
 
@@ -43,7 +43,7 @@ terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
 phantomjs p: apache-stop apache-start
-	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 	${MAKE} apache-stop
 
 screenshot:
