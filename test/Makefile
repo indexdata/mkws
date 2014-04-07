@@ -22,6 +22,7 @@ clean:
 
 distclean: clean clean-tmp
 	rm -rf node_modules
+	rm -f ${TMP_DIR}/jasmine-dev
 
 clean-tmp:
 	rm -rf ${TMP_DIR}
@@ -74,7 +75,7 @@ node_modules node-modules:
 
 apache-start:
 	bin/apache-template-update
-	/usr/sbin/apache2 -f `pwd`/../tools/apache2/jasmine-dev
+	/usr/sbin/apache2 -f `pwd`/${TMP_DIR}/jasmine-dev
 	
 apache-stop:
 	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \

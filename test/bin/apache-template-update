@@ -8,14 +8,15 @@
 export APACHE_SERVER_ROOT=$(pwd)
 export APACHE_RUN_USER=$(whoami)
 export APACHE_RUN_GROUP=$(groups | awk '{ print $1 }')
-export APACHE_PID_FILE=$PWD/logs/mkws-jasmine.pid
-export APACHE_LOG_DIR=$PWD/logs
+
+export APACHE_LOG_DIR=$APACHE_SERVER_ROOT/logs
+export APACHE_PID_FILE=$APACHE_LOG_DIR/mkws-jasmine.pid
 export APACHE_PORT=4040
 
 export MKWS_ROOT=$(pwd)/..
 
 : ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template"}
-: ${MKWS_APACHE_FILE="$MKWS_ROOT/tools/apache2/jasmine-dev"}
+: ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev"}
 
 perl -npe 's,\${(.*?)},$ENV{$1},g; ' $MKWS_APACHE_TEMPLATE > $MKWS_APACHE_FILE.tmp
 mv -f $MKWS_APACHE_FILE.tmp $MKWS_APACHE_FILE
