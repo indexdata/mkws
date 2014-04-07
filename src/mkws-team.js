@@ -427,6 +427,27 @@ function team($, teamName) {
   </tr>\
 </table>');
 
+	mkws.facetConfig = {
+	    xtargets: [ "Sources",  16, false ],
+	    subject:  [ "Subjects", 10, true ],
+	    author:   [ "Authors",  10, true ]
+	}
+
+	var acc = [];
+	var facets = m_config.facets;
+	acc.push('<div class="title">' + M('Termlists') + '</div>');
+	for (var i = 0; i < facets.length; i++) {
+	    var name = facets[i]
+	    var ref = mkws.facetConfig[name];
+	    if (!ref) {
+		alert("bad facet configuration: '" + name + "'");
+	    } else {
+		acc.push('<div class="mkwsFacet mkwsFacet' + ref[0] + ' mkwsTeam_' + m_teamName + '">');
+		acc.push('</div>');
+	    }
+	}
+	findnode(".mkwsTermlists").html(acc.join(''));
+
 	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	if (m_config.show_sort) {
 	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
