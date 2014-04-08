@@ -144,11 +144,23 @@ mkws.setMkwsConfig = function(overrides) {
 	dummy: "dummy"
     };
 
-    mkws.config = Object.create(config_default);
+    mkws.config = mkws.objectInheritingFrom(config_default);
     for (var k in overrides) {
 	mkws.config[k] = overrides[k];
     }
 };
+
+
+// This code is from Douglas Crockford's article "Prototypal Inheritance in JavaScript"
+// http://javascript.crockford.com/prototypal.html
+// mkws.objectInheritingFrom behaves the same as Object.create,
+// but since the latter is not available in IE8 we can't use it.
+//
+mkws.objectInheritingFrom = function(o) {
+    function F() {}
+    F.prototype = o;
+    return new F();
+}
 
 
 // The following functions are dispatchers for team methods that
