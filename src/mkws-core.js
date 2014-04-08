@@ -302,21 +302,15 @@ mkws.pagerNext = function(tname) {
 	}
     }
 
-
-    // I don't understand why I need this copy, but I do: mkws_config
-    // is not visible inside the document.ready function, but the
-    // saved copy is.
-    var saved_config;
-    if (typeof mkws_config === 'undefined') {
-	log("setting empty config");
-	saved_config = {};
-    } else {
-	log("using config: " + $.toJSON(mkws_config));
-	saved_config = mkws_config;
-    }
-
-
     $(document).ready(function() {
+	var saved_config;
+	if (typeof mkws_config === 'undefined') {
+	    log("setting empty config");
+	    saved_config = {};
+	} else {
+	    log("using config: " + $.toJSON(mkws_config));
+	    saved_config = mkws_config;
+	}
 	mkws.setMkwsConfig(saved_config);
 
 	for (var key in mkws.config) {
