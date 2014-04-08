@@ -27,7 +27,7 @@ function team($, teamName) {
     };
     var m_paz; // will be initialised below
     var m_template = {};
-    var m_config = Object.create(mkws.config);
+    var m_config = mkws.objectInheritingFrom(mkws.config);
 
     that.toString = function() { return '[Team ' + teamName + ']'; };
 

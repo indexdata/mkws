@@ -10,7 +10,7 @@ function widget($, team, type, node) {
 	team: team,
 	type: type,
 	node: node,
-	config: Object.create(team.config())
+	config: mkws.objectInheritingFrom(team.config())
     };
 
     function log(s) {
