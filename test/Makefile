@@ -28,7 +28,7 @@ distclean: clean clean-tmp
 clean-tmp:
 	rm -rf ${TMP_DIR}
 	mkdir -p ${TMP_DIR}
-	touch ${TMP_DIR}/.gitkeep
+	touch ${TMP_DIR}/.gitignore
 
 mkws-complete-syntax-check:
 	${MAKE} -C../src mkws-complete.min.js
