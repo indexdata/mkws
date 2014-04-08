@@ -1,7 +1,7 @@
 <VirtualHost *:80>
     ServerName x.example.indexdata.com
     DocumentRoot /usr/local/src/git/mkws/examples/htdocs/
-    Alias /tools/htdocs/ /usr/local/src/git/mkws/tools/htdocs/
+    Alias /src/ /usr/local/src/git/mkws/tools/htdocs/
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 
