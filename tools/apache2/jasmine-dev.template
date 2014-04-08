@@ -13,19 +13,19 @@ Listen ${APACHE_PORT}
 
 LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
 
-Include /etc/apache2/mods-enabled/alias.load
-Include /etc/apache2/mods-enabled/authz*.load
-Include /etc/apache2/mods-enabled/proxy*.load
-Include /etc/apache2/mods-enabled/rewrite.load
-Include /etc/apache2/mods-enabled/headers.load
-Include /etc/apache2/mods-enabled/mime.load
-Include /etc/apache2/mods-enabled/deflate.load
+Include /etc/apache2/mods-available/alias.load
+Include /etc/apache2/mods-available/authz*.load
+Include /etc/apache2/mods-available/proxy*.load
+Include /etc/apache2/mods-available/rewrite.load
+Include /etc/apache2/mods-available/headers.load
+Include /etc/apache2/mods-available/mime.load
+Include /etc/apache2/mods-available/deflate.load
 
-Include /etc/apache2/mods-enabled/alias*.conf
-Include /etc/apache2/mods-enabled/authz*.conf
-Include /etc/apache2/mods-enabled/proxy*.conf
-Include /etc/apache2/mods-enabled/mime.conf
-Include /etc/apache2/mods-enabled/deflate.conf
+Include /etc/apache2/mods-available/alias*.conf
+Include /etc/apache2/mods-available/authz*.conf
+Include /etc/apache2/mods-available/proxy*.conf
+Include /etc/apache2/mods-available/mime.conf
+Include /etc/apache2/mods-available/deflate.conf
 
 # pazpar2 / service proxy config
 <VirtualHost *:${APACHE_PORT}>
