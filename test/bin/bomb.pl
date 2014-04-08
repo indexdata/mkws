@@ -5,6 +5,7 @@
 #
 
 use Getopt::Long;
+use POSIX ":sys_wait_h";
 
 use strict;
 use warnings;
@@ -12,37 +13,10 @@ use warnings;
 my $debug = 0;
 my $help;
 my $timeout = 100;
+my $pid;
 
 binmode \*STDOUT, ":utf8";
 binmode \*STDERR, ":utf8";
-
-# timeout handler
-sub set_alarm {
-    my $time = shift;
-    my $message = shift || "";
-
-    $time = 100 if !defined $time;
-
-    $SIG{ALRM} = sub {
-
-        warn "Time out alarm $time\n";
-
-        # sends a hang-up signal to all processes in the current process group
-        local $SIG{HUP} = "IGNORE";
-        kill 1, -$$;
-        sleep 0.2;
-
-        local $SIG{TERM} = "IGNORE";
-        kill 15, -$$;
-        sleep 0.2;
-        kill 15, -$$;
-
-        warn "Send a hang-up to all childs.\n";
-    };
-
-    warn "set alarm time to: $time seconds $message\n" if $debug >= 1;
-    alarm($time);
-}
 
 sub usage () {
     <<EOF;
@@ -64,9 +38,20 @@ my @system = @ARGV;
 die usage if $help;
 die usage if !@system;
 
-set_alarm( $timeout, join( " ", @system ) );
+#
+# use fork/exec instead system()
+#
+$pid = fork();
+die "fork() failed: $!" unless defined $pid;
 
-system(@system) == 0
-  or die "@system failed with exit code: $?\n";
+# child
+if ($pid) {
+    alarm($timeout);
+    exec(@system) or die "exec @system: $!\n";
+}
 
-exit(0);
+# parent
+else { }
+
+1;
+
