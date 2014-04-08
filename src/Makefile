@@ -25,6 +25,8 @@ INSTALLABLE = handlebars-v1.1.2.js \
 	mkws.min.js mkws-complete.min.js VERSION NEWS
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
+**make-default**: ../tools/htdocs/mkws.js
+
 install: $(INSTALLED)
 
 uninstall:
