@@ -308,3 +308,12 @@ mkws.registerWidgetType('Perpage', function() {
 	return false;
     });
 });
+
+
+mkws.registerWidgetType('Done', function() {
+    var that = this;
+
+    this.team.queue("complete").subscribe(function(n) {
+	$(that.node).html("Search complete: found " + n + " records");
+    });
+});
