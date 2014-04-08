@@ -15,6 +15,9 @@
 
     DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
     Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
+    Alias /src /home/indexdata/mkws-dev/src
+    Alias /test /home/indexdata/mkws-dev/test
+    Alias /jasmine /home/indexdata/mkws-dev/examples/jasmine
 
     # CORS setting
     Header set Access-Control-Allow-Credentials true

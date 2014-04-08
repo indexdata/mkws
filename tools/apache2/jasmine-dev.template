@@ -1,0 +1,72 @@
+# Configuration for the apache web server                 -*- apache -*-
+
+#####################################################################
+# global apache2 config
+#
+User ${APACHE_RUN_USER}
+Group ${APACHE_RUN_GROUP}
+PidFile ${APACHE_PID_FILE}
+
+ServerRoot ${APACHE_SERVER_ROOT}
+NameVirtualHost *:${APACHE_PORT}
+Listen ${APACHE_PORT}
+
+LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+
+Include /etc/apache2/mods-enabled/alias.load
+Include /etc/apache2/mods-enabled/authz*.load
+Include /etc/apache2/mods-enabled/proxy*.load
+Include /etc/apache2/mods-enabled/rewrite.load
+Include /etc/apache2/mods-enabled/headers.load
+Include /etc/apache2/mods-enabled/mime.load
+Include /etc/apache2/mods-enabled/deflate.load
+
+Include /etc/apache2/mods-enabled/alias*.conf
+Include /etc/apache2/mods-enabled/authz*.conf
+Include /etc/apache2/mods-enabled/proxy*.conf
+Include /etc/apache2/mods-enabled/mime.conf
+Include /etc/apache2/mods-enabled/deflate.conf
+
+# pazpar2 / service proxy config
+<VirtualHost *:${APACHE_PORT}>
+    ServerName localhost
+    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
+
+    ServerAdmin webmaster@indexdata.com
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite.log 
+
+    DocumentRoot ${MKWS_ROOT}/examples/htdocs
+    Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs
+    Alias /src ${MKWS_ROOT}/src
+    Alias /test ${MKWS_ROOT}/test
+    Alias /jasmine ${MKWS_ROOT}/examples/jasmine
+
+    # CORS setting
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Origin "*"
+
+    # compress text output
+    <Location />
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml
+        SetOutputFilter DEFLATE 
+    </Location> 
+
+    # jasmine test account
+    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
+
+    # mkws devel account (e.g. memached testing)
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkwsdev&password=mkwsdev [P] # [NE,P]
+
+    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+
+    ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
+    ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
+
+</VirtualHost>
+

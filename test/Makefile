@@ -3,7 +3,8 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
-PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+#PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+PHANTOMJS_URL=http://localhost:4040/jasmine-local-popup.html
 PHANTOMJS_TIMEOUT=16
 
 NPM_INSTALL_FLAGS=-q
@@ -11,15 +12,23 @@ JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
-PERL_SCRIPTS=	bomb.pl
+PERL_SCRIPTS=	bin/bomb.pl
+TMP_DIR=	./logs
+APACHE_HTTPD=	/usr/sbin/apache2
 
 all: check
 
 clean:
 	rm -f mkws-error.png mkws-error.html images/*.png
 
-distclean: clean
+distclean: clean clean-tmp
 	rm -rf node_modules
+	rm -f ${TMP_DIR}/jasmine-dev
+
+clean-tmp:
+	rm -rf ${TMP_DIR}
+	mkdir -p ${TMP_DIR}
+	touch ${TMP_DIR}/.gitkeep
 
 mkws-complete-syntax-check:
 	${MAKE} -C../src mkws-complete.min.js
@@ -33,8 +42,9 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
-phantomjs p:
-	./bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+phantomjs p: apache-stop apache-start
+	./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	${MAKE} apache-stop
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
@@ -64,11 +74,24 @@ perltidy:
 node_modules node-modules:
 	npm install ${NPM_INSTALL_FLAGS}
 
+apache-start:
+	bin/apache-template-update
+	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev
+	
+apache-stop:
+	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
+	   kill `cat ${TMP_DIR}/mkws-jasmine.pid`; \
+	else \
+	   killall apache2 2> /dev/null; \
+	fi
+	@sleep 0.3
+
 help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | screenshot ]"
 	@echo "     [ jsbeautifier | perltidy ]"
 	@echo "     [ node-modules ]"
+	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html"
+	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=${PHANTOMJS_URL}"
 

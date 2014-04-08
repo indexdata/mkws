@@ -8,8 +8,6 @@ apache-config.txt: ../apache2/mkws-examples-mike
 	chmod ugo-w $@
 
 jasmine-links:
-	ln -fs ../jasmine .
-	ln -fs ../../test .
 
 help:
 	@echo "make [ all | clean | jasmine-links ]"

@@ -9,10 +9,14 @@ var debug = function (text) {
         mkws.log("Jasmine: " + text)
     }
 
-// Define empty jasmine_config for simple applications that don't define it.
+    // Define empty jasmine_config for simple applications that don't define it.
 if (jasmine_config == null || typeof jasmine_config != 'object') {
     var jasmine_config = {};
 }
+
+var jasmine_status = {
+    source_click: 0
+};
 
 /* check config for jasmine test
  *
@@ -203,28 +207,28 @@ describe("Check Termlist", function () {
         expect(termlist.length).toBe(1);
 
         waitsFor(function () {
-            return $('div.mkwsFacet[data-mkws-facet="xtargets"]').length == 1 ? true : false;
+            return $("div.mkwsFacet[data-mkws-facet='xtargets']").length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
 
         // everything displayed?
         runs(function () {
-            var sources = $('div.mkwsFacet[data-mkws-facet="xtargets"]');
+            var sources = $("div.mkwsFacet[data-mkws-facet='xtargets']");
             debug("Termlist sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
-            var subjects = $('div.mkwsFacet[data-mkws-facet="subject"]');
+            var subjects = $("div.mkwsFacet[data-mkws-facet='subject']");
             expect(subjects.length).toBe(1);
 
-            var authors = $('div.mkwsFacet[data-mkws-facet="author"]');
+            var authors = $("div.mkwsFacet[data-mkws-facet='author']");
             expect(authors.length).toBe(1);
         });
 
         waitsFor(function () {
-            return $('div.mkwsFacet[data-mkws-facet="author"] div.term').length >= 2 ? true : false;
+            return $("div.mkwsFacet[data-mkws-facet='author'] div.term").length >= 2 ? true : false;
         }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($('div.mkwsFacet[data-mkws-facet="author"] div.term').length).toBeGreaterThan(1);
+            expect($("div.mkwsFacet[data-mkws-facet='author'] div.term").length).toBeGreaterThan(1);
         });
     });
 
@@ -239,7 +243,7 @@ describe("Check Termlist", function () {
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
-        var terms = $("div.mkwsFacetAuthors div.term a");
+        var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -249,13 +253,13 @@ describe("Check Termlist", function () {
                 break;
             }
         }
-        if ($("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text().length == 0) {
+        if ($("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text().length == 0) {
             debug("No good authors found. Not clicking on the bad ones");
             return;
         }
 
-        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").text());
-        $("div.mkwsFacetAuthors div.term:nth-child(" + author_number + ") a").trigger("click");
+        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text());
+        $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
             return get_hit_counter() < hits_all_targets ? true : false;
@@ -268,11 +272,31 @@ describe("Check Termlist", function () {
         });
     });
 
+    it("check for active clients", function () {
+        waitsFor(function () {
+            var clients = $("div#mkwsStat span.clients");
+            //debug("clients: " + clients.text());
+            return clients.length == 1 && clients.text().match("/[1-9]+[0-9]+$");
+        }, "wait for Active clients: x/y", 5 * jasmine_config.second);
+
+        runs(function () {
+            var clients = $("div#mkwsStat span.clients");
+            debug("span.clients: " + clients.text());
+            expect(clients.text()).toMatch("/[1-9]+[0-9]+$");
+
+            // exact match of active clients (e.g. a SP misconfiguration)            
+            if (jasmine_config.active_clients) {
+                debug("check for " + jasmine_config.active_clients + " active connections");
+                expect(clients.text()).toMatch(" [0-9]+/" + jasmine_config.active_clients + "$");
+            }
+        });
+    });
+
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
         // do not click on wikipedia link - no author or subject facets possible
-        var terms = $("div.mkwsFacetSources div.term a");
+        var terms = $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/wikipedia/i)) {
@@ -282,12 +306,12 @@ describe("Check Termlist", function () {
                 break;
             }
         }
-        if ($("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").text().length == 0) {
+        if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
             debug("No good source found. Not clicking on the bad ones");
             return;
         }
 
-        $("div.mkwsFacetSources div.term:nth-child(" + source_number + ") a").trigger("click");
+        $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").trigger("click");
 
         // wait for a stat response
         var waitcount = 0;
@@ -314,6 +338,7 @@ describe("Check Termlist", function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
+            jasmine_status.source_click = 1;
 
             $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
@@ -323,10 +348,14 @@ describe("Check Termlist", function () {
 
 describe("Check record list", function () {
     it("check for single active client", function () {
+        if (!jasmine_status.source_click) {
+            debug("skip clients check due missing source click");
+            return;
+        }
+
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             //debug("clients: " + clients.text());
-
             return clients.length == 1 && clients.text().match("/1$");
         }, "wait for Active clients: x/1", 5 * jasmine_config.second);
 
@@ -362,7 +391,6 @@ describe("Show record", function () {
         waitsFor(function () {
             var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.details");
             //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
-
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
@@ -436,6 +464,11 @@ describe("Check status client counter", function () {
     var time = get_time();
 
     it("check status clients", function () {
+        if (!jasmine_status.source_click) {
+            debug("skip clients check due missing source click");
+            return;
+        }
+
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             debug("clients: " + clients.text());

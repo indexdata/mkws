@@ -19,7 +19,6 @@ phantomjs:
 # must be called once after GIT checkout
 setup:	
 #why?	${MAKE} -C./tools/htdocs mkws-js-min
-	${MAKE} -C./examples/htdocs jasmine-links
 	${MAKE} -C./test node-modules
 
 check: setup check-js
