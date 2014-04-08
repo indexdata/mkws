@@ -2,6 +2,7 @@
 .mkwsSwitch,
 .mkwsSearch,
 .mkwsTermlists,
+.mkwsFacet,
 .mkwsRanking,
 .mkwsPager,
 .mkwsNavi,
@@ -56,7 +57,7 @@
 
 .mkwsSwitch a,
 .mkwsLang a,
-.mkwsTermlists a,
+.mkwsFacet a,
 .mkwsRanking a,
 .mkwsPager a,
 .mkwsNavi a,
@@ -68,7 +69,7 @@
 
 .mkwsSwitch a:hover,
 .mkwsLang a:hover,
-.mkwsTermlists a:hover,
+.mkwsFacet a:hover,
 .mkwsPager a:hover,
 .mkwsRecords a:hover,
 .mkwsRecord a:hover {
@@ -133,7 +134,7 @@
     float: right;
 }
 
-.mkwsTermlists div.termtitle {
+.mkwsFacet div.termtitle {
     font-weight: bold;
 }
 
