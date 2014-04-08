@@ -28,17 +28,16 @@ sub set_alarm {
         warn "Time out alarm $time\n";
 
         # sends a hang-up signal to all processes in the current process group
-        # and kill running java processes
         local $SIG{HUP} = "IGNORE";
         kill 1, -$$;
+        sleep 0.2;
 
         local $SIG{TERM} = "IGNORE";
         kill 15, -$$;
+        sleep 0.2;
         kill 15, -$$;
 
         warn "Send a hang-up to all childs.\n";
-
-        #exit 1;
     };
 
     warn "set alarm time to: $time seconds $message\n" if $debug >= 1;
