@@ -18,6 +18,9 @@
 
   DocumentRoot /home/heikki/proj/mkws/examples/htdocs
   Alias /tools/htdocs /home/heikki/proj/mkws/tools/htdocs
+  Alias /src /home/heikki/proj/mkws/src
+  Alias /test /home/heikki/proj/mkws/test
+  Alias /jasmine /home/heikki/proj/mkws/examples/jasmine
 
   # allow cors
   Header set Access-Control-Allow-Credentials true
