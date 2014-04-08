@@ -7,6 +7,7 @@ User ${APACHE_RUN_USER}
 Group ${APACHE_RUN_GROUP}
 PidFile ${APACHE_PID_FILE}
 
+ServerName localhost
 ServerRoot ${APACHE_SERVER_ROOT}
 NameVirtualHost *:${APACHE_PORT}
 Listen ${APACHE_PORT}
