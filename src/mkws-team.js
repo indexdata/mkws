@@ -115,8 +115,9 @@ function team($, teamName) {
     }
 
     function onStat(data) {
-	log("stat");
 	queue("stat").publish(data);
+	if (parseInt(data.activeclients[0], 10) === 0)
+	    queue("complete").publish(parseInt(data.hits[0], 10));
     }
 
     function onTerm(data) {
