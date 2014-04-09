@@ -53,7 +53,7 @@ function team($, teamName) {
     // Use as:
     //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
     //	team.queue("eventName").publish(arg1, arg2, ...);
-
+    //
     var queues = {};
     function queue(id) {
 	if (!queues[id]) {
