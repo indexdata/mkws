@@ -106,23 +106,23 @@ this.log(string) -- a function to log a string for debugging
 TEAM PROPERTIES AND METHODS
 ===========================
 
-team.queue
-team.name
-team.targetFiltered(data[i].id)
-team.config()
-team.log()
-team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
+team.queue(eventName)
+team.name()
+team.targetFiltered(targetId)
+team.config() -- no reason to use this.
+team.log(string)
+team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)
 team.totalRecordCount()
 team.perpage()
 team.currentPage();
-team.recordElementId(hit.recid[0])
+team.recordElementId(recordId)
 team.currentRecordId()
 team.currentRecordData()
-team.renderDetails()
-team.loadTemplate()
+team.renderDetails(recordData)
+team.loadTemplate(templateName)
 team.filters()
-team.set_sortOrder()
+team.set_sortOrder(string)
 team.submitted()
 team.resetPage()
 team.reShow()
-team.set_perpage()
+team.set_perpage(number)
