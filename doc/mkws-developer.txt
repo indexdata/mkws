@@ -1,12 +1,15 @@
+INTRODUCTION
+============
+
 Development with MKWS consists primarily of defining new types of
 widgets. These can interact with the core functionality is several
 defined ways.
 
-You cleare a new widget ttpe this by calling the
-mkws.registerWidgetType function, passing in the widget name and a
-function. The name is used to recognise HTML elements as being widgets
-of this type -- for example, if you register a "Foo" widget, elements
-like <div class="mkwsFoo"> will be widgets of this type.
+You create a new widget type by calling the mkws.registerWidgetType
+function, passing in the widget name and a function. The name is used
+to recognise HTML elements as being widgets of this type -- for
+example, if you register a "Foo" widget, elements like <div
+class="mkwsFoo"> will be widgets of this type.
 
 The function promotes a bare widget object (passed as `this') into a
 widget of the appropriate type. MKWS doesn't use classes or explicit
@@ -42,4 +45,34 @@ This simple widget illustrates several important points:
   using this.team.queue("EVENT").subscribe. The argument is a function
   which is called whenever the event is published. The arguments to
   the function are different for different events.
+
+* The value of `this' is lost inside the subscribe callback, so it
+  must be saved if it's to be used inside that callback (typically as
+  a local variable named `that').
+
+
+SPECIALISATION (INHERITANCE)
+============================
+
+Many widgets are simple specialisations of existing widgets. For
+example, the "Record" widget is the same as the "Records" widget
+except that it defaults to displaying a single record. It's defined as
+follows:
+
+	mkws.registerWidgetType('Record', function() {
+	    mkws.promotionFunction('Records').call(this);
+	    if (!this.config.maxrecs) this.config.maxrecs = 1;
+	});
+
+Remember that when a promotion function is called, it's passed a base
+widget object that's not specialised for any particular task. To make
+a specialised widget, first promote that base widget into the type
+that you want to specialise from -- in this case, "Records" -- using
+the promotion function that's been registered for that type.
+
+Once this has been done, the specialisations can be introduced. In
+this case, it's a very matter of changing the "maxrecs" configuration
+setting to 1 unless it's already been given an explicit value. (That
+would occur if the HTML used an element like <div class="mkwsRecord"
+maxrecs="2">, though it's not obvious why anyone would do that.
 
