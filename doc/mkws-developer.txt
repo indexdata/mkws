@@ -80,49 +80,74 @@ maxrecs="2">, though it's not obvious why anyone would do that.)
 WIDGET PROPERTIES AND METHODS
 =============================
 
-this.type -- a string containing the type of the widget.
+String this.type -- a string containing the type of the widget.
 
-this.team -- the team object to which this widget belongs. The team
-	has several additional important properties and methods,
+Team this.team -- the team object to which this widget belongs. The
+	team has several additional important properties and methods,
 	described below.
 
-this.node -- the DOM element of the widget
+DOMElement this.node -- the DOM element of the widget
 
-this.config -- a table of configuration values for the widget. This
-	table inherits missing values from the team's configuration,
-	which in turn inherits from the top-level MKWS configuration,
-	which inherits from the default configuration. Instances of
-	widgets in HTML can set configuration items as HTML
-	attributes, as in <div class="mkwsRecords" maxrecs="2">.
+Hash this.config -- a table of configuration values for the
+	widget. This table inherits missing values from the team's
+	configuration, which in turn inherits from the top-level MKWS
+	configuration, which inherits from the default
+	configuration. Instances of widgets in HTML can set
+	configuration items as HTML attributes, as in <div
+	class="mkwsRecords" maxrecs="2">.
 
-this.toString() -- a function returning a string that briefly names
-	this widget. Can be useful in logging.
+String this.toString() -- a function returning a string that briefly
+	names this widget. Can be useful in logging.
 
-this.log(string) -- a function to log a string for debugging
+Void this.log(string) -- a function to log a string for debugging
 	purposes. The string is written on the browser console, and
 	also published to any "log" subcribers.
 
 
-TEAM PROPERTIES AND METHODS
-===========================
+TEAM METHODS
+============
 
-team.queue(eventName)
-team.name()
-team.targetFiltered(targetId)
-team.config() -- no reason to use this.
+Since the team object is supposed to be opaque to widgets, all access
+is via the following API methods rather than direct access to
+properties.
+
+String team.name()
+Bool team.submitted()
+Num team.perpage()
+Num team.totalRecordCount()
+Num team.currentPage();
+String team.currentRecordId() -- simple accessor functions that
+	provide the ability to read properties of the team.
+
+Array team.filters() -- another accessor function, providing access to
+	the array of prevailing filters (which narrow the search
+	results by means of Pazpar2 filters and limits). This is
+	really too complicated an object for the widgets to be given
+	access to, but it's convenient to do it this way. See the
+	"Navi" widget, which is the only place it's used.
+
+Hash team.config() -- access to the team's configuration
+	settings. There is almost certainly no reason to use this: the
+	settings that haven't been overridden are accessible via
+	this.config.
+
+Void team.set_sortOrder(string)
+Void team.set_perpage(number) -- "setter" functions for the team's
+	sortOrder and perpage functions. Unlikely to be needed outside
+	of the "Sort" and "Perpage" widgets.
+
+Queue team.queue(eventName)
+	Returns the queue associated with the named event: this can be
+	used to subscribe to the event (or more rarely to publish it).
+
+Bool team.targetFiltered(targetId)
+	
+
 team.log(string)
 team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)
-team.totalRecordCount()
-team.perpage()
-team.currentPage();
 team.recordElementId(recordId)
-team.currentRecordId()
 team.currentRecordData()
 team.renderDetails(recordData)
 team.loadTemplate(templateName)
-team.filters()
-team.set_sortOrder(string)
-team.submitted()
 team.resetPage()
 team.reShow()
-team.set_perpage(number)
