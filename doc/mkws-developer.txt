@@ -74,5 +74,55 @@ Once this has been done, the specialisations can be introduced. In
 this case, it's a very matter of changing the "maxrecs" configuration
 setting to 1 unless it's already been given an explicit value. (That
 would occur if the HTML used an element like <div class="mkwsRecord"
-maxrecs="2">, though it's not obvious why anyone would do that.
+maxrecs="2">, though it's not obvious why anyone would do that.)
 
+
+WIDGET PROPERTIES AND METHODS
+=============================
+
+this.type -- a string containing the type of the widget.
+
+this.team -- the team object to which this widget belongs. The team
+	has several additional important properties and methods,
+	described below.
+
+this.node -- the DOM element of the widget
+
+this.config -- a table of configuration values for the widget. This
+	table inherits missing values from the team's configuration,
+	which in turn inherits from the top-level MKWS configuration,
+	which inherits from the default configuration. Instances of
+	widgets in HTML can set configuration items as HTML
+	attributes, as in <div class="mkwsRecords" maxrecs="2">.
+
+this.toString() -- a function returning a string that briefly names
+	this widget. Can be useful in logging.
+
+this.log(string) -- a function to log a string for debugging
+	purposes. The string is written on the browser console, and
+	also published to any "log" subcribers.
+
+
+TEAM PROPERTIES AND METHODS
+===========================
+
+team.queue
+team.name
+team.targetFiltered(data[i].id)
+team.config()
+team.log()
+team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
+team.totalRecordCount()
+team.perpage()
+team.currentPage();
+team.recordElementId(hit.recid[0])
+team.currentRecordId()
+team.currentRecordData()
+team.renderDetails()
+team.loadTemplate()
+team.filters()
+team.set_sortOrder()
+team.submitted()
+team.resetPage()
+team.reShow()
+team.set_perpage()
