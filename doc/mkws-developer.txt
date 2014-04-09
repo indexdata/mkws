@@ -122,6 +122,7 @@ Num team.perpage()
 Num team.totalRecordCount()
 Num team.currentPage();
 String team.currentRecordId()
+String team.currentRecordData()
 	Simple accessor functions that provide the ability to read
 	properties of the team.
 
@@ -149,13 +150,35 @@ Queue team.queue(eventName)
 	used to subscribe to the event (or more rarely to publish it).
 
 Bool team.targetFiltered(targetId)
-	
+	Indicates whether the specified target has been filtered by
+	selection as a facet.
 
-team.log(string)
-team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)
-team.recordElementId(recordId)
-team.currentRecordData()
-team.renderDetails(recordData)
-team.loadTemplate(templateName)
-team.resetPage()
-team.reShow()
+Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)
+	Starts a new search with the specified parameters. All but the
+	query may be omitted, in which case the prevailing defaults
+	are used.
+
+Void team.reShow()
+	Using the existing search, re-shows the result records after a
+	change in sort-order, per-page count, etc.
+
+String team.recordElementId(recordId)
+	Utility function for converting a record identifer (returned
+	from Pazpar2) into a version suitable for use as an HTML
+	element ID.
+
+String team.renderDetails(recordData)
+	Utility function returns an HTML rendering of the record
+	represented by the specified data.
+
+Template team.loadTemplate(templateName)
+	Loads (or retrieves from cache) the named Handlebars template,
+	and returns it in a form that can be invoked as a function,
+	passed a data-set.
+
+Some of these methods either (A) are really too low-level and should
+not be exposed, or (B) should be widget-level methods. The present
+infelicities reflect the fact that some code that rightly belongs in
+widgets is still in the team. When we finish migrating it, the widget
+API should get simpler.
+
