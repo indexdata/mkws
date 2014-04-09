@@ -240,6 +240,7 @@ function team($, teamName) {
 
 
     that.reShow = function() {
+	resetPage();
 	m_paz.show(0, m_perpage, m_sortOrder);
     };
 
