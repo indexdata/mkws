@@ -48,7 +48,7 @@ function team($, teamName) {
 
 
     // The following PubSub code is modified from the jQuery manual:
-    // https://api.jquery.com/jQuery.Callbacks/
+    // http://api.jquery.com/jQuery.Callbacks/
     //
     // Use as:
     //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
