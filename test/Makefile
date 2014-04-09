@@ -19,11 +19,15 @@ APACHE_HTTPD=	/usr/sbin/apache2
 all: check
 
 clean:
-	rm -f mkws-error.png mkws-error.html images/*.png
+	rm -f mkws-error.png mkws-error.html 
+	rm -f images/*.png
 
-distclean: clean clean-tmp
+distclean: clean clean-tmp clean-error
 	rm -rf node_modules
 	rm -f ${TMP_DIR}/jasmine-dev
+
+clean-error:
+	rm -f mkws-error.png.* mkws-error.html.*
 
 clean-tmp:
 	rm -rf ${TMP_DIR}
