@@ -181,10 +181,10 @@ mkws.registerWidgetType('Pager', function() {
 		? firstClkbl + 2*onsides
 		: pages;
 
-	    var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span><b> | </b>';
+	    var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span> | ';
 	    if (currentPage > 1)
 		prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
-		+'&#60;&#60; ' + M('Prev') + '</a><b> | </b>';
+		+'&#60;&#60; ' + M('Prev') + '</a> | ';
 
 	    var middle = '';
 	    for(var i = firstClkbl; i <= lastClkbl; i++) {
@@ -196,9 +196,9 @@ mkws.registerWidgetType('Pager', function() {
 		    + numLabel + ' </a>';
 	    }
 
-	    var next = '<b> | </b><span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
+	    var next = ' | <span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
 	    if (pages - currentPage > 0)
-		next = '<b> | </b><a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
+		next = ' | <a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
 		+ M('Next') + ' &#62;&#62;</a>';
 
 	    var predots = '';
