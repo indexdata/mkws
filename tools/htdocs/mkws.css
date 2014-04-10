@@ -192,3 +192,9 @@
 .mkwsBytarget table tbody tr td {
     padding: 0.2em 0.5em;
 }
+
+.mkwsSelected {
+    padding: 0.1em 0.5em;
+    background: #508751;
+    color: white;
+}
