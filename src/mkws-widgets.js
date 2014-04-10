@@ -288,7 +288,6 @@ mkws.registerWidgetType('Sort', function() {
     $(this.node).change(function() {
 	that.team.set_sortOrder($(that.node).val());
 	if (that.team.submitted()) {
-	    that.team.resetPage();
 	    that.team.reShow();
 	}
 	return false;
@@ -302,7 +301,6 @@ mkws.registerWidgetType('Perpage', function() {
     $(this.node).change(function() {
 	that.team.set_perpage($(that.node).val());
 	if (that.team.submitted()) {
-	    that.team.resetPage();
 	    that.team.reShow();
 	}
 	return false;

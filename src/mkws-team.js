@@ -48,12 +48,12 @@ function team($, teamName) {
 
 
     // The following PubSub code is modified from the jQuery manual:
-    // https://api.jquery.com/jQuery.Callbacks/
+    // http://api.jquery.com/jQuery.Callbacks/
     //
     // Use as:
     //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
     //	team.queue("eventName").publish(arg1, arg2, ...);
-
+    //
     var queues = {};
     function queue(id) {
 	if (!queues[id]) {
@@ -240,6 +240,7 @@ function team($, teamName) {
 
 
     that.reShow = function() {
+	resetPage();
 	m_paz.show(0, m_perpage, m_sortOrder);
     };
 
