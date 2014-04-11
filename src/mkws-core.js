@@ -229,6 +229,8 @@ mkws.pagerNext = function(tname) {
 		type = cname.replace(/^mkws/, '');
 	    }
 	}
+
+        if (!teamName) teamName = "AUTO";
 	callback.call(node, teamName, type);
     }
 
