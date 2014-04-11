@@ -19,7 +19,6 @@ mkws.registerWidgetType('Facet', function() {
     }
 
     var that = this;
-    var teamName = that.team.name();
     var name = that.config.facet;
     var ref = facetConfig[name] || alert("no facet definition for '" + name + "'");
     var caption = ref[0];
@@ -29,6 +28,7 @@ mkws.registerWidgetType('Facet', function() {
     that.team.queue("termlists").subscribe(function(data) {
 	data = data[name];
 
+	var teamName = that.team.name();
 	var acc = [];
 	acc.push('<div class="termtitle">' + mkws.M(caption) + '</div>');
 	for (var i = 0; i < data.length && i < max; i++) {
