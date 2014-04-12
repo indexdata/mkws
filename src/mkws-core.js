@@ -229,6 +229,8 @@ mkws.pagerNext = function(tname) {
 		type = cname.replace(/^mkws/, '');
 	    }
 	}
+
+        if (!teamName) teamName = "AUTO";
 	callback.call(node, teamName, type);
     }
 
@@ -368,15 +370,6 @@ mkws.pagerNext = function(tname) {
 		log("added magic class to '" + node.attr('id') + "'");
 	    }
 	}
-
-	// For all MKWS-classed nodes that don't have a team
-	// specified, set the team to AUTO.
-	$('[class^="mkws"],[class*=" mkws"]').each(function() {
-	    if (!this.className.match(/mkwsTeam_/)) {
-		log("adding AUTO team to node with class '" + this.className + "'");
-		$(this).addClass('mkwsTeam_AUTO');
-	    }
-	});
 
 	// Find all nodes with an MKWS class, and determine their team from
 	// the mkwsTeam_* class. Make all team objects.

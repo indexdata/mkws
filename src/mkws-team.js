@@ -604,7 +604,12 @@ function team($, teamName) {
 	teamName = teamName || m_teamName;
 
 	selector = $.map(selector.split(','), function(s, i) {
-	    return s + '.mkwsTeam_' + teamName;
+	    if (teamName === 'AUTO') {
+		return (s + '.mkwsTeam_' + teamName + ',' +
+			s + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+	    } else {
+		return s + '.mkwsTeam_' + teamName;
+	    }
 	}).join(',');
 
 	var node = $(selector);
