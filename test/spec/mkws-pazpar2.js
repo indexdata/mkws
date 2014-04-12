@@ -332,7 +332,9 @@ describe("Check Termlist", function () {
         // Note: it may happens that limited source search returns the same number of hits
         // as before. Thats not really an error, but unfortunate
         waitsFor(function () {
-            return waitcount >= 2 && get_hit_counter() <= hits_all_targets ? true : false;
+            var hits_single_target = get_hit_counter();
+
+            return waitcount >= 2 && hits_single_target > 0 && hits_single_target <= hits_all_targets ? true : false;
         }, "Limited source search for less than " + hits_all_targets + " hits", 5 * jasmine_config.second);
 
         runs(function () {
