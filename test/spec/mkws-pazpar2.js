@@ -262,7 +262,8 @@ describe("Check Termlist", function () {
         $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
 
         waitsFor(function () {
-            return get_hit_counter() < hits_all_targets ? true : false;
+            var hits_single_target = get_hit_counter();
+            return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
         }, "Limited author search for less than " + hits_all_targets + " hits", 6 * jasmine_config.second);
 
         runs(function () {
