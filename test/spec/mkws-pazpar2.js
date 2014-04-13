@@ -296,9 +296,12 @@ describe("Check Termlist", function () {
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
+        // wait for a stat response
+        var waitcount = 0;
         // do not click on wikipedia link - no author or subject facets possible
         var link = "div.mkwsFacet[data-mkws-facet='xtargets'] div.term a";
 
+        // wait for a visible source link in facets
         waitsFor(function () {
             var terms = $(link);
             return terms && terms.length > 0;
@@ -309,6 +312,8 @@ describe("Check Termlist", function () {
             var terms = $(link);
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text();
+                debug("check for good source: " + term);
+
                 if (term.match(/wikipedia/i)) {
                     debug("ignore source facet: " + term);
                     source_number++;
@@ -316,21 +321,20 @@ describe("Check Termlist", function () {
                     break;
                 }
             }
-            debug("Source count: " + terms.length + ", click on: " + source_number);
-        });
+            debug("Source counter: " + terms.length + ", select: " + (source_number - 1));
 
-        if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
-            debug("No good source found. Not clicking on the bad ones");
-            return;
-        }
+            if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
+                debug("No good source found. Not clicking on the bad ones");
+                return;
+            }
 
-        $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").trigger("click");
+            debug("click on source link nth-child(): " + source_number);
+            $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").trigger("click");
 
-        // wait for a stat response
-        var waitcount = 0;
-        $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
-            waitcount++;
-            debug("DOM wait for stat: " + waitcount);
+            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM wait for stat: " + waitcount);
+            });
         });
 
         waitsFor(function () {
