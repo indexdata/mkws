@@ -297,16 +297,28 @@ describe("Check Termlist", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
         // do not click on wikipedia link - no author or subject facets possible
-        var terms = $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term a");
-        for (var i = 0; i < terms.length; i++) {
-            var term = $(terms[i]).text();
-            if (term.match(/wikipedia/i)) {
-                debug("ignore source facet: " + term);
-                source_number++;
-            } else {
-                break;
+        var link = "div.mkwsFacet[data-mkws-facet='xtargets'] div.term a";
+
+        waitsFor(function () {
+            var terms = $(link);
+            return terms && terms.length > 0;
+        }, "wait for source facets after author search", 5 * jasmine_config.second);
+
+
+        runs(function () {
+            var terms = $(link);
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                if (term.match(/wikipedia/i)) {
+                    debug("ignore source facet: " + term);
+                    source_number++;
+                } else {
+                    break;
+                }
             }
-        }
+            debug("Source count: " + terms.length + ", click on: " + source_number);
+        });
+
         if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
             debug("No good source found. Not clicking on the bad ones");
             return;
