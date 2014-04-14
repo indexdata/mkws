@@ -231,7 +231,9 @@ describe("Check Termlist", function () {
             expect($("div.mkwsFacet[data-mkws-facet='author'] div.term").length).toBeGreaterThan(1);
         });
     });
+});
 
+describe("Check Author Facets", function () {
     it("limit search to first author", function () {
         if (mkws.config.disable_facet_authors_search) {
             debug("Facets: ignore limit search for authors");
@@ -273,7 +275,7 @@ describe("Check Termlist", function () {
         });
     });
 
-    it("check for active clients", function () {
+    it("check for active clients after limited author search", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
             //debug("clients: " + clients.text());
@@ -285,14 +287,16 @@ describe("Check Termlist", function () {
             debug("span.clients: " + clients.text());
             expect(clients.text()).toMatch("/[1-9]+[0-9]+$");
 
-            // exact match of active clients (e.g. a SP misconfiguration)            
+            // exact match of active clients (e.g. a SP misconfiguration)
             if (jasmine_config.active_clients) {
                 debug("check for " + jasmine_config.active_clients + " active connections");
                 expect(clients.text()).toMatch(" [0-9]+/" + jasmine_config.active_clients + "$");
             }
         });
     });
+});
 
+describe("Check Source Facets", function () {
     it("limit search to first source", function () {
         var hits_all_targets = get_hit_counter();
         var source_number = 2; // 2=first source
