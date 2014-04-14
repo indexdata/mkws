@@ -245,23 +245,25 @@ describe("Check Author Facets", function () {
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
-        var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.term a");
-        for (var i = 0; i < terms.length; i++) {
-            var term = $(terms[i]).text();
-            if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
-                debug("ignore author facet: " + term);
-                author_number++;
-            } else {
-                break;
+        runs(function () {
+            var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.term a");
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
+                    debug("ignore author facet: " + term);
+                    author_number++;
+                } else {
+                    break;
+                }
             }
-        }
-        if ($("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text().length == 0) {
-            debug("No good authors found. Not clicking on the bad ones");
-            return;
-        }
+            if ($("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text().length == 0) {
+                debug("No good authors found. Not clicking on the bad ones");
+                return;
+            }
 
-        debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text());
-        $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
+            debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text());
+            $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
+        });
 
         waitsFor(function () {
             var hits_single_target = get_hit_counter();
