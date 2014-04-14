@@ -79,7 +79,8 @@ describe("Init jasmine config", function () {
     });
 });
 
-describe("Check MOTD before search", function () {
+//disabled
+xdescribe("Check MOTD before search", function () {
     // Check that the MOTD has been moved into its container, and
     // is visible before the search.
     // the mkwsMOTD div was originally inside a testMOTD div, which should
