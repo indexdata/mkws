@@ -11,8 +11,7 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HE
 VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
-	mkws-core.js mkws-team.js mkws-widgets.js \
-	mkws-widget-termlists.js \
+	mkws-core.js mkws-team.js mkws-widgets.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-log.js mkws-widget-record.js
 
 PP2_FILE = pz2.js
