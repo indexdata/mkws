@@ -334,8 +334,8 @@ function team($, teamName) {
     function switchView(view) {
 	var targets = widgetNode('Targets');
 	var results = findnode('.mkwsResults,.mkwsRecords');
-	var blanket = findnode('.mkwsBlanket');
-	var motd    = findnode('.mkwsMOTD');
+	var blanket = widgetNode('Blanket');
+	var motd    = widgetNode('MOTD');
 
 	switch(view) {
         case 'targets':
