@@ -396,6 +396,16 @@ mkws.pagerNext = function(tname) {
 	var now = $.now();
 	log("Walking MKWS nodes took " + (now-then) + " ms");
 
+//        for (var tName in mkws.teams) {
+//            var myTeam = mkws.teams[tName]
+//            var types = myTeam.widgetTypes();
+//            log("TEAM '" + tName + "' = " + myTeam + " has widget types " + types);
+//            for (var i = 0; i < types.length; i++) {
+//                var type = types[i];
+//                log("  has widget of type '" + type + "': " + myTeam.widget(type));
+//            }
+//        }
+
 	if (mkws.config.use_service_proxy) {
 	    authenticateSession(mkws.config.service_proxy_auth,
 				mkws.config.service_proxy_auth_domain,
