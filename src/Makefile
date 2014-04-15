@@ -1,11 +1,12 @@
-# select a jquery version
-#JQUERY_URL=	http://code.jquery.com/jquery-2.0.3.min.js
-JQUERY_URL=	http://code.jquery.com/jquery-1.10.0.min.js
-#JQUERY_URL=	http://code.jquery.com/jquery-1.9.1.min.js
+HANDLEBARS_FILE = handlebars-v1.1.2.js
+JQUERY_FILE = jquery-1.10.0.min.js
+JQUERY_JSON_FILE = jquery.json-2.4.js
+
+HANDLEBARS_URL = http://builds.handlebarsjs.com.s3.amazonaws.com/${HANDLEBARS_FILE}
+JQUERY_URL = http://code.jquery.com/${JQUERY_FILE}
+JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
 
 JQUERY_UI_URL=	http://code.jquery.com/ui/1.10.3/jquery-ui.js
-JQUERY_JSON_URL= https://jquery-json.googlecode.com/files/jquery.json-2.4.js
-HANDLEBARS_URL=	http://builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v1.1.2.js
 PP2_URL= 	http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
@@ -14,13 +15,10 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-log.js mkws-widget-record.js
 
-JQUERY_FILE := $(shell basename ${JQUERY_URL})
-JQUERY_JSON_FILE := $(shell basename ${JQUERY_JSON_URL})
-HANDLEBARS_FILE := $(shell basename ${HANDLEBARS_URL})
 PP2_FILE = pz2.js
 
-INSTALLABLE = handlebars-v1.1.2.js \
-	jquery-1.10.0.min.js jquery.json-2.4.js \
+INSTALLABLE = ${HANDLEBARS_FILE} \
+	${JQUERY_FILE} ${JQUERY_JSON_FILE} \
 	pz2.js mkws.js mkws-jquery.js mkws-complete.js \
 	mkws.min.js mkws-complete.min.js VERSION NEWS
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
