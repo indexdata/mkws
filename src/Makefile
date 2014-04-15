@@ -1,25 +1,25 @@
 HANDLEBARS_FILE = handlebars-v1.1.2.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
+PP2_FILE = pz2.js
 
 HANDLEBARS_URL = http://builds.handlebarsjs.com.s3.amazonaws.com/${HANDLEBARS_FILE}
 JQUERY_URL = http://code.jquery.com/${JQUERY_FILE}
 JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
+PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};hb=HEAD
 
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
-PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD
 VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-widgets.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-log.js mkws-widget-record.js
 
-PP2_FILE = pz2.js
 
-INSTALLABLE = ${HANDLEBARS_FILE} \
-	${JQUERY_FILE} ${JQUERY_JSON_FILE} \
-	pz2.js mkws.js mkws-jquery.js mkws-complete.js \
-	mkws.min.js mkws-complete.min.js VERSION NEWS
+INSTALLABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
+	mkws.js mkws-jquery.js mkws-complete.js \
+	mkws.min.js mkws-complete.min.js \
+	VERSION NEWS
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 **make-default**: ../tools/htdocs/mkws.js
@@ -34,7 +34,7 @@ uninstall:
 
 all: mkws.min.js mkws-complete.min.js
 
-mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
