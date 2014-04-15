@@ -28,6 +28,7 @@ function team($, teamName) {
     var m_paz; // will be initialised below
     var m_template = {};
     var m_config = mkws.objectInheritingFrom(mkws.config);
+    var m_widgets = {}; // Maps widget-type to object
 
     that.toString = function() { return '[Team ' + teamName + ']'; };
 
@@ -741,6 +742,22 @@ function team($, teamName) {
 	return s;
     }
 
+    that.addWidget = function(w) {
+        if (!m_widgets[w.type]) {
+            m_widgets[w.type] = widget;
+            log("Registered '" + w.type + "' widget in team '" + m_teamName + "'");
+        } else if (typeof(m_widgets[w.type]) !== 'number') {
+            m_widgets[w.type] = 2;
+            log("Registered duplicate '" + w.type + "' widget in team '" + m_teamName + "'");
+        } else {
+            m_widgets[w.type] += 1;
+            log("Registered '" + w.type + "' widget #" + m_widgets[w.type] + "' in team '" + m_teamName + "'");
+        }
+    }
+
+    that.widget =function(type) {
+        return m_widgets[type];
+    }
 
     mkwsHtmlAll()
 
