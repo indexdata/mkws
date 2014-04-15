@@ -85,7 +85,7 @@ node_modules node-modules:
 apache-start:
 	bin/apache-template-update
 	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev
-	
+
 apache-stop:
 	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
 	   kill `cat ${TMP_DIR}/mkws-jasmine.pid`; \
