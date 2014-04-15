@@ -332,7 +332,7 @@ function team($, teamName) {
 
     // switching view between targets and records
     function switchView(view) {
-	var targets = findnode('.mkwsTargets');
+	var targets = widgetNode('Targets');
 	var results = findnode('.mkwsResults,.mkwsRecords');
 	var blanket = findnode('.mkwsBlanket');
 	var motd    = findnode('.mkwsMOTD');
@@ -619,6 +619,13 @@ function team($, teamName) {
     }
     that.findnode = findnode;
 
+
+    // This much simpler and more efficient function should be usable
+    // in place of most uses of findnode.
+    function widgetNode(type) {
+        var w = that.widget(type);
+        return w ? $(w.node) : undefined;
+    }
 
     function renderDetails(data, marker) {
 	var template = loadTemplate("Record");
