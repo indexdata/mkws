@@ -46,9 +46,10 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
-phantomjs p: apache-stop apache-start
+phantomjs p: apache-stop apache-start _phantomjs apache-stop
+
+_phantomjs:
 	./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
-	${MAKE} apache-stop
 
 screenshot:
 	${PHANTOMJS} phantom/screenshot.js ${PHANTOMJS_URL} ${IMAGES}/screenshot.png 1200 1000
