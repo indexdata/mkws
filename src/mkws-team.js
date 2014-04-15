@@ -755,6 +755,12 @@ function team($, teamName) {
         }
     }
 
+    that.widgetTypes = function() {
+        var keys = [];
+        for (var k in m_widgets) keys.push(k);
+        return keys.sort();
+    }
+
     that.widget = function(type) {
         return m_widgets[type];
     }
