@@ -61,6 +61,9 @@ var get_hit_counter = function () {
 
         if (RegExp.$1) {
             hits = parseInt(RegExp.$1);
+            if (hits <= 0) {
+                debug("Oooops in get_hit_counter: " + RegExp.$1);
+            }
             expect(hits).toBeGreaterThan(0);
         }
 
@@ -269,7 +272,7 @@ describe("Check Author Facets", function () {
         waitsFor(function () {
             var hits_single_target = get_hit_counter();
             return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
-        }, "Limited author search for less than " + hits_all_targets + " hits", 6 * jasmine_config.second);
+        }, "Limited author search for less than " + hits_all_targets + " hits", 4.5 * jasmine_config.second);
 
         runs(function () {
             var hits_single_target = get_hit_counter();
@@ -277,7 +280,9 @@ describe("Check Author Facets", function () {
             expect(hits_all_targets).toBeGreaterThan(hits_single_target);
         });
     });
+});
 
+describe("Check active clients author", function () {
     it("check for active clients after limited author search", function () {
         waitsFor(function () {
             var clients = $("div#mkwsStat span.clients");
