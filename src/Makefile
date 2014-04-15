@@ -98,6 +98,3 @@ clean:
 	rm -f ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	rm -f mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 
-help:
-	@echo "make [ help | clean | mkws-js ]"
-	@echo "make JQUERY_URL=http://code.jquery.com/jquery-2.0.3.min.js clean mkws-js"
