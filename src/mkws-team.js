@@ -755,7 +755,7 @@ function team($, teamName) {
         }
     }
 
-    that.widget =function(type) {
+    that.widget = function(type) {
         return m_widgets[type];
     }
 
