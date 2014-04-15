@@ -390,6 +390,7 @@ mkws.pagerNext = function(tname) {
 	    handleNodeWithTeam(this, function(tname, type) {
 		var myTeam = mkws.teams[tname];
 		var myWidget = widget(j, myTeam, type, this);
+                myTeam.addWidget(myWidget);
 	    });
 	});
 	var now = $.now();
