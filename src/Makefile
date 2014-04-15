@@ -95,7 +95,7 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
-	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE} ${PP2_FILE}
+	rm -f ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${HANDLEBARS_FILE} ${PP2_FILE}
 	rm -f mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 
 help:
