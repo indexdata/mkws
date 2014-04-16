@@ -641,12 +641,15 @@ function team($, teamName) {
 
 	if (template === undefined) {
 	    // Fall back to generic template if there is no team-specific one
+	    var source;
 	    var node = widgetNode("Template_" + name);
-	    if (!node.length) {
+	    if (!node) {
 		node = widgetNode("Template_" + name, "ALL");
 	    }
+            if (node) {
+	        source = node.html();
+            }
 
-	    var source = node.html();
 	    if (!source) {
 		source = defaultTemplate(name);
 	    }
