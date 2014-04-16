@@ -20,7 +20,7 @@ function _mkws_jquery_plugin($) {
 	var height = config.height || 760;
 	var width = config.width || 880;
 	var id_button = config.id_button || "input.mkwsButton";
-	var id_popup = config.id_popup || "#mkwsPopup";
+	var id_popup = config.id_popup || ".mkwsPopup";
 
 	debug("popup height: " + height + ", width: " + width);
 
@@ -57,30 +57,30 @@ function _mkws_jquery_plugin($) {
 
 	// service-proxy or pazpar2
 	pazpar2: function(config) {
-	    if (config == null || typeof config != 'object') { 
+	    if (config == null || typeof config != 'object') {
 		config = {};
 	    }
-	    var id_popup = config.id_popup || "#mkwsPopup";
-	    id_popup = id_popup.replace(/^#/, "");
+	    var id_popup = config.id_popup || ".mkwsPopup";
+	    id_popup = id_popup.replace(/^[#\.]/, "");
 
 	    // simple layout
 	    var div = '\
-<div id="mkwsSwitch"></div>\
-<div id="mkwsLang"></div>\
-<div id="mkwsSearch"></div>\
-<div id="mkwsResults"></div>\
-<div id="mkwsTargets"></div>\
-<div id="mkwsStat"></div>';
+<div class="mkwsSwitch"></div>\
+<div class="mkwsLang"></div>\
+<div class="mkwsSearch"></div>\
+<div class="mkwsResults"></div>\
+<div class="mkwsTargets"></div>\
+<div class="mkwsStat"></div>';
 
 	    // new table layout
 	    var table = '\
 <style type="text/css">\
-  #mkwsTermlists div.facet {\
+  .mkwsTermlists div.facet {\
   float:left;\
   width: 30%;\
   margin: 0.3em;\
   }\
-  #mkwsStat {\
+  .mkwsStat {\
   text-align: right;\
   }\
 </style>\
@@ -88,44 +88,44 @@ function _mkws_jquery_plugin($) {
 <table width="100%" border="0">\
   <tr>\
     <td>\
-      <div id="mkwsSwitch"></div>\
-      <div id="mkwsLang"></div>\
-      <div id="mkwsSearch"></div>\
+      <div class="mkwsSwitch"></div>\
+      <div class="mkwsLang"></div>\
+      <div class="mkwsSearch"></div>\
     </td>\
   </tr>\
   <tr>\
     <td>\
       <div style="height:500px; overflow: auto">\
-	<div id="mkwsPager"></div>\
-	<div id="mkwsNavi"></div>\
-	<div id="mkwsRecords"></div>\
-	<div id="mkwsTargets"></div>\
-	<div id="mkwsRanking"></div>\
+	<div class="mkwsPager"></div>\
+	<div class="mkwsNavi"></div>\
+	<div class="mkwsRecords"></div>\
+	<div class="mkwsTargets"></div>\
+	<div class="mkwsRanking"></div>\
       </div>\
     </td>\
   </tr>\
   <tr>\
     <td>\
       <div style="height:300px; overflow: hidden">\
-	<div id="mkwsTermlists"></div>\
+	<div class="mkwsTermlists"></div>\
       </div>\
     </td>\
   </tr>\
   <tr>\
     <td>\
-      <div id="mkwsStat"></div>\
+      <div class="mkwsStat"></div>\
     </td>\
   </tr>\
 </table>';
 
 	    var popup = '\
-<div id="mkwsSearch"></div>\
-<div id="' + id_popup + '">\
-  <div id="mkwsSwitch"></div>\
-  <div id="mkwsLang"></div>\
-  <div id="mkwsResults"></div>\
-  <div id="mkwsTargets"></div>\
-  <div id="mkwsStat"></div>\
+<div class="mkwsSearch"></div>\
+<div class="' + id_popup + '">\
+  <div class="mkwsSwitch"></div>\
+  <div class="mkwsLang"></div>\
+  <div class="mkwsResults"></div>\
+  <div class="mkwsTargets"></div>\
+  <div class="mkwsStat"></div>\
 </div>'
 
 	    if (config && config.layout == 'div') {
