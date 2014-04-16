@@ -333,7 +333,7 @@ function team($, teamName) {
     // switching view between targets and records
     function switchView(view) {
 	var targets = widgetNode('Targets');
-	var results = findnode('.mkwsResults,.mkwsRecords');
+	var results = widgetNode('Results') || widgetNode('Records');
 	var blanket = widgetNode('Blanket');
 	var motd    = widgetNode('MOTD');
 
