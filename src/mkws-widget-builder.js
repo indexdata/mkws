@@ -1,4 +1,5 @@
 mkws.registerWidgetType('Builder', function() {
+    var that = this;
     var team = this.team;
 
     this.button = $('<button/>', {
@@ -15,6 +16,14 @@ mkws.registerWidgetType('Builder', function() {
                     'autosearch="' + query + '" ' +
                     'sort="' + sort + '" ' +
                     'perpage="' + perpage + '"></div>');
-        alert(html);
+        var fn = that.callback || alert;
+        fn(html);
     });
+});
+
+mkws.registerWidgetType('ConsoleBuilder', function() {
+    mkws.promotionFunction('Builder').call(this);    
+    this.callback = function(s) {
+        console.log("Generated widget: " + s);
+    }
 });
