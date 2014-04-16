@@ -46,7 +46,8 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
-phantomjs p: apache-stop apache-start _phantomjs apache-stop
+phantomjs p: apache-stop apache-start _phantomjs 
+	${MAKE} apache-stop
 
 _phantomjs:
 	./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
@@ -93,6 +94,7 @@ apache-stop:
 	   killall apache2 2> /dev/null; \
 	fi
 	@sleep 0.3
+	rm -f ${TMP_DIR}/mkws-jasmine.pid
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
