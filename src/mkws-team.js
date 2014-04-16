@@ -604,14 +604,12 @@ function team($, teamName) {
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
 
-	selector = $.map(selector.split(','), function(s, i) {
-	    if (teamName === 'AUTO') {
-		return (s + '.mkwsTeam_' + teamName + ',' +
-			s + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
-	    } else {
-		return s + '.mkwsTeam_' + teamName;
-	    }
-	}).join(',');
+	if (teamName === 'AUTO') {
+	    selector = (selector + '.mkwsTeam_' + teamName + ',' +
+			selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+	} else {
+	    selector = selector + '.mkwsTeam_' + teamName;
+	}
 
 	var node = $(selector);
 	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
