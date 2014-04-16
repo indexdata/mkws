@@ -598,9 +598,6 @@ function team($, teamName) {
 
 
     // Finds the node of the specified class within the current team
-    // Multiple OR-clauses separated by commas are handled
-    // More complex cases may not work
-    //
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
 
