@@ -641,9 +641,9 @@ function team($, teamName) {
 
 	if (template === undefined) {
 	    // Fall back to generic template if there is no team-specific one
-	    var node = findnode(".mkwsTemplate_" + name);
+	    var node = widgetNode("Template_" + name);
 	    if (!node.length) {
-		node = findnode(".mkwsTemplate_" + name, "ALL");
+		node = widgetNode("Template_" + name, "ALL");
 	    }
 
 	    var source = node.html();
