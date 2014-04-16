@@ -22,6 +22,10 @@ function widget($, team, type, node) {
 	return '[Widget ' + team.name() + ':' + type + ']';
     };
 
+    that.value = function() {
+        return node.value;
+    }
+
     for (var i = 0; i < node.attributes.length; i++) {
 	var a = node.attributes[i];
 	if (a.name === 'data-mkws-config') {

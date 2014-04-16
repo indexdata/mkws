@@ -108,6 +108,9 @@ Void this.log(string)
 	is written on the browser console, and also published to any
 	"log" subcribers.
 
+String this.value()
+	A function returning the value of the widget's HTML element.
+
 
 TEAM METHODS
 ============

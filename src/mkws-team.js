@@ -333,7 +333,7 @@ function team($, teamName) {
     // switching view between targets and records
     function switchView(view) {
 	var targets = widgetNode('Targets');
-	var results = findnode('.mkwsResults,.mkwsRecords');
+	var results = widgetNode('Results') || widgetNode('Records');
 	var blanket = widgetNode('Blanket');
 	var motd    = widgetNode('MOTD');
 
@@ -452,13 +452,13 @@ function team($, teamName) {
 	mkwsHtmlSwitch();
 
 	findnode('.mkwsSearchForm').submit(function() {
-	    var val = findnode('.mkwsQuery').val();
+	    var val = widgetNode('Query').val();
 	    newSearch(val);
 	    return false;
 	});
 
 	// on first page, hide the termlist
-	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
+	$(document).ready(function() { widgetNode("Termlists").hide(); });
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
@@ -598,20 +598,15 @@ function team($, teamName) {
 
 
     // Finds the node of the specified class within the current team
-    // Multiple OR-clauses separated by commas are handled
-    // More complex cases may not work
-    //
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
 
-	selector = $.map(selector.split(','), function(s, i) {
-	    if (teamName === 'AUTO') {
-		return (s + '.mkwsTeam_' + teamName + ',' +
-			s + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
-	    } else {
-		return s + '.mkwsTeam_' + teamName;
-	    }
-	}).join(',');
+	if (teamName === 'AUTO') {
+	    selector = (selector + '.mkwsTeam_' + teamName + ',' +
+			selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+	} else {
+	    selector = selector + '.mkwsTeam_' + teamName;
+	}
 
 	var node = $(selector);
 	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
@@ -641,12 +636,15 @@ function team($, teamName) {
 
 	if (template === undefined) {
 	    // Fall back to generic template if there is no team-specific one
-	    var node = findnode(".mkwsTemplate_" + name);
-	    if (!node.length) {
-		node = findnode(".mkwsTemplate_" + name, "ALL");
+	    var source;
+	    var node = widgetNode("Template_" + name);
+	    if (!node) {
+		node = widgetNode("Template_" + name, "ALL");
 	    }
+            if (node) {
+	        source = node.html();
+            }
 
-	    var source = node.html();
 	    if (!source) {
 		source = defaultTemplate(name);
 	    }
