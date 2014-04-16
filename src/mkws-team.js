@@ -452,7 +452,7 @@ function team($, teamName) {
 	mkwsHtmlSwitch();
 
 	findnode('.mkwsSearchForm').submit(function() {
-	    var val = findnode('.mkwsQuery').val();
+	    var val = widgetNode('Query').val();
 	    newSearch(val);
 	    return false;
 	});
