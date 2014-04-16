@@ -458,7 +458,7 @@ function team($, teamName) {
 	});
 
 	// on first page, hide the termlist
-	$(document).ready(function() { findnode(".mkwsTermlists").hide(); });
+	$(document).ready(function() { widgetNode("Termlists").hide(); });
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
