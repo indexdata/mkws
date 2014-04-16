@@ -93,6 +93,7 @@ apache-stop:
 	   killall apache2 2> /dev/null; \
 	fi
 	@sleep 0.3
+	rm -f ${TMP_DIR}/mkws-jasmine.pid
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
