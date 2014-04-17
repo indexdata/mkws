@@ -285,13 +285,13 @@ describe("Check Author Facets", function () {
 describe("Check active clients author", function () {
     it("check for active clients after limited author search", function () {
         waitsFor(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             //debug("clients: " + clients.text());
             return clients.length == 1 && clients.text().match("/[1-9]+[0-9]+$");
         }, "wait for Active clients: x/y", 5 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             debug("span.clients: " + clients.text());
             expect(clients.text()).toMatch("/[1-9]+[0-9]+$");
 
@@ -385,13 +385,13 @@ describe("Check record list", function () {
         }
 
         waitsFor(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             //debug("clients: " + clients.text());
             return clients.length == 1 && clients.text().match("/1$");
         }, "wait for Active clients: x/1", 5 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             debug("span.clients: " + clients.text());
             expect(clients.text()).toMatch("/1$");
         });
@@ -501,7 +501,7 @@ describe("Check status client counter", function () {
         }
 
         waitsFor(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             debug("clients: " + clients.text());
             if (clients.length == 1 && clients.text().match("0/1$")) {
                 return true;
@@ -511,7 +511,7 @@ describe("Check status client counter", function () {
         }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div#mkwsStat span.clients");
+            var clients = $("div.mkwsStat span.clients");
             debug("span.clients: " + clients.text());
             expect(clients.text()).toMatch("0/1$");
         });

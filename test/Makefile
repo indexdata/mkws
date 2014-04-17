@@ -32,7 +32,7 @@ clean-error:
 clean-tmp:
 	rm -rf ${TMP_DIR}
 	mkdir -p ${TMP_DIR}
-	touch ${TMP_DIR}/.gitignore
+	touch ${TMP_DIR}/.gitkeep
 
 mkws-complete-syntax-check:
 	${MAKE} -C../src mkws-complete.min.js
