@@ -7,7 +7,6 @@ mkws.registerWidgetType('Categories', function() {
     }
 
     this.team.queue("authenticated").subscribe(function(authName, realm) {
-	$(that.node).append("<p><b>Categories for " + realm + "</b></p>");	
 	var req = new pzHttpRequest(that.config.pazpar2_url + "?command=categories", function(err) {
 	    alert("HTTP call for categories failed: " + err)
 	});
@@ -18,7 +17,19 @@ mkws.registerWidgetType('Categories', function() {
 		return;
 	    }
 	    that.log("got categories: " + data);
-	    // Parse once we've figured out the format
+
+            var text = [];
+            text.push("<p><b>Categories for " + realm + "</b></p>");
+            text.push("<ul>");
+            $(data).find('category').each(function() {
+                var name = $(this).find('categoryName').text();
+                var id = $(this).find('categoryId').text();
+                text.push("<li>");
+                text.push('<a href="#" onclick="mkws.setCategory(' + "'" + id + "'" + ')">' + name + '</a>');
+                text.push("</li>");
+            });
+            text.push("</ul>");
+	    $(that.node).html(text.join(''));
 	});
     });
 });
