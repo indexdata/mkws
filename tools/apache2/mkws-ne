@@ -14,8 +14,8 @@
     RewriteLog /var/log/apache2/mkws-dev-rewrite.log
 
     DocumentRoot /indexdata/gitprojects/mkws/examples/htdocs
-    #Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
-    #Alias /src /home/indexdata/mkws-dev/src
+    Alias /tools/htdocs /indexdata/gitprojects/mkws/tools/htdocs
+    Alias /src /indexdata/gitprojects/mkws/src
     #Alias /test /home/indexdata/mkws-dev/test
     #Alias /jasmine /home/indexdata/mkws-dev/examples/jasmine
 
