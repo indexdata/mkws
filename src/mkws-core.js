@@ -299,8 +299,10 @@ mkws.pagerNext = function(tname) {
 	    log("Service proxy auth successfully done");
 	    mkws.authenticated = true;
 	    var authName = $(data).find("displayName").text();
+	    // You'd think there would be a better way to do this:
+	    var realm = $(data).find("realm:not(realmAttributes realm)").text();
 	    for (var teamName in mkws.teams) {
-		mkws.teams[teamName].queue("authenticated").publish(authName);
+		mkws.teams[teamName].queue("authenticated").publish(authName, realm);
 	    }
 
 	    runAutoSearches();

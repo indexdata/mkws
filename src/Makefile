@@ -13,8 +13,8 @@ VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-widgets.js mkws-widget-termlists.js \
-	mkws-widget-authname.js mkws-widget-log.js mkws-widget-record.js \
-	mkws-widget-builder.js
+	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
+	mkws-widget-record.js mkws-widget-builder.js
 
 INSTALLABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws-jquery.js mkws-complete.js \

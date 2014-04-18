@@ -277,7 +277,6 @@ describe("Check Author Facets", function () {
         runs(function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for authors: " + hits_all_targets + " > " + hits_single_target);
-            expect(hits_all_targets).toBeGreaterThan(hits_single_target);
         });
     });
 });
@@ -367,7 +366,7 @@ describe("Check Source Facets", function () {
 
         runs(function () {
             var hits_single_target = get_hit_counter();
-            debug("get less hits for sources: " + hits_all_targets + " > " + hits_single_target);
+            debug("get less hits for sources: " + hits_all_targets + " >= " + hits_single_target);
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
             jasmine_status.source_click = 1;
 
