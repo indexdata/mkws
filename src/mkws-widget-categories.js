@@ -22,6 +22,7 @@ mkws.registerWidgetType('Categories', function() {
             text.push("Select category: ");
             text.push("<select name='mkwsCategory' " +
 		      "onchange='mkws.limitCategory(\"" + that.team.name() + "\", this.value)'>");
+            text.push("<option value=''>[All]</option>");
             $(data).find('category').each(function() {
                 var name = $(this).find('categoryName').text();
                 var id = $(this).find('categoryId').text();
