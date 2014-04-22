@@ -191,7 +191,7 @@ function team($, teamName) {
 
     that.limitCategory = function(id) {
 	log("limitCategory(id=" + id + ")");
-	m_filters.push({ id: id });
+	m_filters.push({ category: id });
 	//triggerSearch();
 	return false;
     };
