@@ -56,34 +56,6 @@ function filterSet(team) {
     };
 
     that.pp2filter = function() {
-	var OLD = that.OLD_pp2filter();
-	var NEW = that.NEW_pp2filter();
-	if (OLD !== NEW) {
-	    alert("pp2filter(): OLD[" + OLD + "] !== NEW[" + NEW + "]");
-	}
-	return OLD;
-    };
-
-    that.OLD_pp2filter = function() {
-	var res = "";
-
-	for (var i in m_list) {
-	    var filter = m_list[i];
-	    if (filter.id) {
-		if (res) res += ",";
-		if (filter.id.match(/^[a-z:]+[=~]/)) {
-		    m_team.log("filter '" + filter.id + "' already begins with SETTING OP");
-		} else {
-		    filter.id = 'pz:id=' + filter.id;
-		}
-		res += filter.id;
-	    }
-	}
-
-	return res;
-    };
-
-    that.NEW_pp2filter = function() {
 	var res = "";
 
 	that.visitTargets(function(id, name) {
