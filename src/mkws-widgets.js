@@ -267,6 +267,7 @@ mkws.registerWidgetType('Navi', function() {
     var M = mkws.M;
 
     this.team.queue("navi").subscribe(function() {
+	// This is very low-level poking around inside the filter structure
 	var filters = that.team.filters();
 	var text = "";
 
