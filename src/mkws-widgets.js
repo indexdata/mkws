@@ -267,28 +267,21 @@ mkws.registerWidgetType('Navi', function() {
     var M = mkws.M;
 
     this.team.queue("navi").subscribe(function() {
-	// This is very low-level poking around inside the filter structure
-	var list = that.team.filters().list();
+	var filters = that.team.filters();
 	var text = "";
 
-	for (var i in list) {
-	    var filter = list[i];
-	    if (filter.id) {
-		if (text) text += " | ";
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
-		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
-	    }
-	}
+	filters.visitTargets(function(id, name) {
+	    if (text) text += " | ";
+	    text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
+		"', '" + id + "'" + ');return false;">' + name + '</a>';
+	});
 
-	for (var i in list) {
-	    var filter = list[i];
-	    if (!filter.id) {
-		if (text) text += " | ";
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
-		    "', '" + filter.field + "', '" + filter.value + "'" +
-		    ');return false;">' + filter.value + '</a>';
-	    }
-	}
+	filters.visitFields(function(field, value) {
+	    if (text) text += " | ";
+	    text += M(field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
+		"', '" + field + "', '" + value + "'" +
+		');return false;">' + value + '</a>';
+	});
 
 	$(that.node).html(text);
     });
