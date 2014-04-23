@@ -279,7 +279,7 @@ function team($, teamName) {
 	    params.torusquery = torusquery;
 	}
 
-	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filterSet.list()) + ", " +
+	log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
 	    "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
 	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
