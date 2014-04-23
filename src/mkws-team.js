@@ -40,7 +40,7 @@ function team($, teamName) {
     that.currentPage = function() { return m_currentPage; };
     that.currentRecordId = function() { return m_currentRecordId; };
     that.currentRecordData = function() { return m_currentRecordData; };
-    that.filters = function() { return m_filterSet.list(); };
+    that.filters = function() { return m_filterSet; };
     that.config = function() { return m_config; };
 
     // Accessor methods for individual widgets: writers
