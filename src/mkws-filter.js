@@ -1,7 +1,9 @@
 // Factory function for sets of filters.
-function filterSet() {
-    var that = {};
+function filterSet(team) {
+    var m_team = team;
     var m_list = [];
+
+    var that = {};
 
     that.list = function() {
 	return m_list;
@@ -16,9 +18,9 @@ function filterSet() {
 	for (var i in m_list) {
 	    var filter = m_list[i];
 	    if (matchFn(filter)) {
-		log("removeMatching() removing filter " + $.toJSON(filter));
+		m_team.log("removeMatching() removing filter " + $.toJSON(filter));
 	    } else {
-		log("removeMatching() keeping filter " + $.toJSON(filter));
+		m_team.log("removeMatching() keeping filter " + $.toJSON(filter));
 		newList.push(filter);
 	    }
 	}
