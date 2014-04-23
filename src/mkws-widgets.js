@@ -268,11 +268,11 @@ mkws.registerWidgetType('Navi', function() {
 
     this.team.queue("navi").subscribe(function() {
 	// This is very low-level poking around inside the filter structure
-	var filters = that.team.filters().list();
+	var list = that.team.filters().list();
 	var text = "";
 
-	for (var i in filters) {
-	    var filter = filters[i];
+	for (var i in list) {
+	    var filter = list[i];
 	    if (filter.id) {
 		if (text) text += " | ";
 		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
@@ -280,8 +280,8 @@ mkws.registerWidgetType('Navi', function() {
 	    }
 	}
 
-	for (var i in filters) {
-	    var filter = filters[i];
+	for (var i in list) {
+	    var filter = list[i];
 	    if (!filter.id) {
 		if (text) text += " | ";
 		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
