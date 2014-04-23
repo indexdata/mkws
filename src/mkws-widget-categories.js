@@ -19,16 +19,16 @@ mkws.registerWidgetType('Categories', function() {
 	    that.log("got categories: " + data);
 
             var text = [];
-            text.push("<p><b>Categories for " + realm + "</b></p>");
-            text.push("<ul>");
+            text.push("Select category: ");
+            text.push("<select name='mkwsCategory' " +
+		      "onchange='mkws.limitCategory(\"" + that.team.name() + "\", this.value)'>");
+            text.push("<option value=''>[All]</option>");
             $(data).find('category').each(function() {
                 var name = $(this).find('categoryName').text();
                 var id = $(this).find('categoryId').text();
-                text.push("<li>");
-                text.push('<a href="#" onclick="mkws.setCategory(' + "'" + id + "'" + ')">' + name + '</a>');
-                text.push("</li>");
+                text.push("<option value='", id, "'>", name, "</option>");
             });
-            text.push("</ul>");
+            text.push("</select>");
 	    $(that.node).html(text.join(''));
 	});
     });

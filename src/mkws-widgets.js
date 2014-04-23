@@ -271,10 +271,10 @@ mkws.registerWidgetType('Navi', function() {
 	var text = "";
 
 	for (var i in filters) {
+	    var filter = filters[i];
 	    if (text) {
 		text += " | ";
 	    }
-	    var filter = filters[i];
 	    if (filter.id) {
 		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
 		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';

@@ -182,6 +182,10 @@ mkws.limitQuery  = function(tname, field, value) {
     mkws.teams[tname].limitQuery(field, value);
 };
 
+mkws.limitCategory  = function(tname, id) {
+    mkws.teams[tname].limitCategory(id);
+};
+
 mkws.delimitTarget = function(tname, id) {
     mkws.teams[tname].delimitTarget(id);
 };
