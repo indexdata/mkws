@@ -15,7 +15,7 @@ function team($, teamName) {
     var m_query; // initially undefined
     var m_sortOrder; // will be set below
     var m_perpage; // will be set below
-    var m_filters = [];
+    var m_filterSet = filterSet();
     var m_totalRecordCount = 0;
     var m_currentPage = 1;
     var m_currentRecordId = '';
@@ -40,7 +40,7 @@ function team($, teamName) {
     that.currentPage = function() { return m_currentPage; };
     that.currentRecordId = function() { return m_currentRecordId; };
     that.currentRecordData = function() { return m_currentRecordData; };
-    that.filters = function() { return m_filters; };
+    that.filters = function() { return m_filterSet.list(); };
     that.config = function() { return m_config; };
 
     // Accessor methods for individual widgets: writers
@@ -163,9 +163,9 @@ function team($, teamName) {
 
 
     that.targetFiltered = function(id) {
-	for (var i = 0; i < m_filters.length; i++) {
-	    if (m_filters[i].id === id ||
-		m_filters[i].id === 'pz:id=' + id) {
+	for (var i = 0; i < m_filterSet.list().length; i++) {
+	    if (m_filterSet.list()[i].id === id ||
+		m_filterSet.list()[i].id === 'pz:id=' + id) {
 		return true;
 	    }
 	}
@@ -175,7 +175,7 @@ function team($, teamName) {
 
     that.limitTarget = function(id, name) {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
-	m_filters.push(filter(id, name));
+	m_filterSet.add(filter(id, name));
 	triggerSearch();
 	return false;
     };
@@ -183,7 +183,7 @@ function team($, teamName) {
 
     that.limitQuery = function(field, value) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
-	m_filters.push(filter(null, null, field, value));
+	m_filterSet.add(filter(null, null, field, value));
 	triggerSearch();
 	return false;
     };
@@ -215,8 +215,8 @@ function team($, teamName) {
 
     function removeMatchingFilters(matchFn) {
 	var newFilters = [];
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
+	for (var i in m_filterSet.list()) {
+	    var filter = m_filterSet.list()[i];
 	    if (matchFn(filter)) {
 		log("removeMatchingFilters() removing filter " + $.toJSON(filter));
 	    } else {
@@ -224,7 +224,10 @@ function team($, teamName) {
 		newFilters.push(filter);
 	    }
 	}
-	m_filters = newFilters;
+	m_filterSet = filterSet();
+	for (var i = 0; i < newFilters.length; i++) {
+	    m_filterSet.add(newFilters[i]);
+	}
     }
 
 
@@ -269,7 +272,7 @@ function team($, teamName) {
 	    return;
 	}
 
-	m_filters = []
+	m_filterSet = filterSet();
 	triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
@@ -295,11 +298,11 @@ function team($, teamName) {
 	    m_perpage = perpage;
 	}
 	if (targets) {
-	    m_filters.push(filter(id, id));
+	    m_filterSet.add(filter(id, id));
 	}
 
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
+	for (var i in m_filterSet.list()) {
+	    var filter = m_filterSet.list()[i];
 	    if (filter.id) {
 		if (pp2filter)
 		    pp2filter += ",";
@@ -311,8 +314,8 @@ function team($, teamName) {
 		pp2filter += filter.id;
 	    }
 	}
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
+	for (var i in m_filterSet.list()) {
+	    var filter = m_filterSet.list()[i];
 	    if (!filter.id) {
 		if (pp2limit)
 		    pp2limit += ",";
@@ -333,7 +336,7 @@ function team($, teamName) {
 	    params.torusquery = torusquery;
 	}
 
-	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", " +
+	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filterSet.list()) + ", " +
 	    "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
 	// We can use: params.torusquery = "udb=NAME"
