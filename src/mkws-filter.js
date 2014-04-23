@@ -43,8 +43,7 @@ function filterSet(team) {
 	for (var i in m_list) {
 	    var filter = m_list[i];
 	    if (filter.id) {
-		if (res)
-		    res += ",";
+		if (res) res += ",";
 		if (filter.id.match(/^[a-z:]+[=~]/)) {
 		    m_team.log("filter '" + filter.id + "' already begins with SETTING OP");
 		} else {
@@ -56,6 +55,21 @@ function filterSet(team) {
 
 	return res;
     }
+
+    that.pp2limit = function(initial) {
+	var res = initial || "";
+
+	for (var i in m_list) {
+	    var filter = m_list[i];
+	    if (!filter.id) {
+		if (res) res += ",";
+		res += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
+	    }
+	}
+
+	return res;
+    }
+
 
     return that;
 }
