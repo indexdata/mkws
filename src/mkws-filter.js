@@ -37,6 +37,26 @@ function filterSet(team) {
 	return false;
     }
 
+    that.pp2filter = function() {
+	var res = "";
+
+	for (var i in m_list) {
+	    var filter = m_list[i];
+	    if (filter.id) {
+		if (res)
+		    res += ",";
+		if (filter.id.match(/^[a-z:]+[=~]/)) {
+		    m_team.log("filter '" + filter.id + "' already begins with SETTING OP");
+		} else {
+		    filter.id = 'pz:id=' + filter.id;
+		}
+		res += filter.id;
+	    }
+	}
+
+	return res;
+    }
+
     return that;
 }
 
