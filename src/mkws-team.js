@@ -277,19 +277,7 @@ function team($, teamName) {
 	    m_filterSet.add(filter(id, id));
 	}
 
-	for (var i in m_filterSet.list()) {
-	    var filter = m_filterSet.list()[i];
-	    if (filter.id) {
-		if (pp2filter)
-		    pp2filter += ",";
-		if (filter.id.match(/^[a-z:]+[=~]/)) {
-		    log("filter '" + filter.id + "' already begins with SETTING OP");
-		} else {
-		    filter.id = 'pz:id=' + filter.id;
-		}
-		pp2filter += filter.id;
-	    }
-	}
+	pp2filter = m_filterSet.pp2filter();
 	for (var i in m_filterSet.list()) {
 	    var filter = m_filterSet.list()[i];
 	    if (!filter.id) {
