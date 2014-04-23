@@ -5,9 +5,9 @@ function filterSet(team) {
 
     var that = {};
 
-    that.list = function() {
-	return m_list;
-    };
+    that.toJSON = function() {
+	return $.toJSON(m_list);
+    }
 
     that.add = function(filter) {
 	m_list.push(filter);
