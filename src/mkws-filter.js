@@ -72,29 +72,6 @@ function filterSet(team) {
     };
 
     that.pp2limit = function(initial) {
-	var OLD = that.OLD_pp2limit(initial);
-	var NEW = that.NEW_pp2limit(initial);
-	if (OLD !== NEW) {
-	    alert("pp2limit(): OLD[" + OLD + "] !== NEW[" + NEW + "]");
-	}
-	return OLD;
-    };
-
-    that.OLD_pp2limit = function(initial) {
-	var res = initial || "";
-
-	for (var i in m_list) {
-	    var filter = m_list[i];
-	    if (!filter.id) {
-		if (res) res += ",";
-		res += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
-	    }
-	}
-
-	return res;
-    };
-
-    that.NEW_pp2limit = function(initial) {
 	var res = initial || "";
 
 	that.visitFields(function(field, value) {
