@@ -163,13 +163,7 @@ function team($, teamName) {
 
 
     that.targetFiltered = function(id) {
-	for (var i = 0; i < m_filterSet.list().length; i++) {
-	    if (m_filterSet.list()[i].id === id ||
-		m_filterSet.list()[i].id === 'pz:id=' + id) {
-		return true;
-	    }
-	}
-	return false;
+	return m_filterSet.targetFiltered(id);
     };
 
 
