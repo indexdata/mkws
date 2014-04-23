@@ -273,13 +273,17 @@ mkws.registerWidgetType('Navi', function() {
 
 	for (var i in filters) {
 	    var filter = filters[i];
-	    if (text) {
-		text += " | ";
-	    }
 	    if (filter.id) {
+		if (text) text += " | ";
 		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
 		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
-	    } else {
+	    }
+	}
+
+	for (var i in filters) {
+	    var filter = filters[i];
+	    if (!filter.id) {
+		if (text) text += " | ";
 		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
 		    "', '" + filter.field + "', '" + filter.value + "'" +
 		    ');return false;">' + filter.value + '</a>';
