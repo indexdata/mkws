@@ -309,7 +309,11 @@ function team($, teamName) {
 		    filter.id = 'pz:id=' + filter.id;
 		}
 		pp2filter += filter.id;
-	    } else {
+	    }
+	}
+	for (var i in m_filters) {
+	    var filter = m_filters[i];
+	    if (!filter.id) {
 		if (pp2limit)
 		    pp2limit += ",";
 		pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
