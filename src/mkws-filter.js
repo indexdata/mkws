@@ -7,7 +7,7 @@ function filterSet(team) {
 
     that.toJSON = function() {
 	return $.toJSON(m_list);
-    }
+    };
 
     that.add = function(filter) {
 	m_list.push(filter);
@@ -53,9 +53,18 @@ function filterSet(team) {
 	    }
 	}
 	return false;
-    }
+    };
 
     that.pp2filter = function() {
+	var OLD = that.OLD_pp2filter();
+	var NEW = that.NEW_pp2filter();
+	if (OLD !== NEW) {
+	    alert("pp2filter(): OLD[" + OLD + "] !== NEW[" + NEW + "]");
+	}
+	return OLD;
+    };
+
+    that.OLD_pp2filter = function() {
 	var res = "";
 
 	for (var i in m_list) {
@@ -72,7 +81,11 @@ function filterSet(team) {
 	}
 
 	return res;
-    }
+    };
+
+    that.NEW_pp2filter = function() {
+	return that.OLD_pp2filter();
+    };
 
     that.pp2limit = function(initial) {
 	var res = initial || "";
@@ -86,7 +99,7 @@ function filterSet(team) {
 	}
 
 	return res;
-    }
+    };
 
 
     return that;
