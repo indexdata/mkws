@@ -294,8 +294,6 @@ function team($, teamName) {
 	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filterSet.list()) + ", " +
 	    "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	// We can use: params.torusquery = "udb=NAME"
-	// Note: that won't work when running against raw pazpar2
 	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
 
