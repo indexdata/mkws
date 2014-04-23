@@ -15,7 +15,7 @@ function team($, teamName) {
     var m_query; // initially undefined
     var m_sortOrder; // will be set below
     var m_perpage; // will be set below
-    var m_filterSet = filterSet();
+    var m_filterSet = filterSet(that);
     var m_totalRecordCount = 0;
     var m_currentPage = 1;
     var m_currentRecordId = '';
@@ -193,7 +193,7 @@ function team($, teamName) {
 
     that.delimitTarget = function(id) {
 	log("delimitTarget(id=" + id + ")");
-	removeMatchingFilters(function(f) { return f.id });
+	m_filterSet.removeMatching(function(f) { return f.id });
 	triggerSearch();
 	return false;
     };
@@ -201,28 +201,10 @@ function team($, teamName) {
 
     that.delimitQuery = function(field, value) {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
-	removeMatchingFilters(function(f) { return f.field && field == f.field && value == f.value });
+	m_filterSet.removeMatching(function(f) { return f.field && field == f.field && value == f.value });
 	triggerSearch();
 	return false;
     };
-
-
-    function removeMatchingFilters(matchFn) {
-	var newFilters = [];
-	for (var i in m_filterSet.list()) {
-	    var filter = m_filterSet.list()[i];
-	    if (matchFn(filter)) {
-		log("removeMatchingFilters() removing filter " + $.toJSON(filter));
-	    } else {
-		log("removeMatchingFilters() keeping filter " + $.toJSON(filter));
-		newFilters.push(filter);
-	    }
-	}
-	m_filterSet = filterSet();
-	for (var i = 0; i < newFilters.length; i++) {
-	    m_filterSet.add(newFilters[i]);
-	}
-    }
 
 
     that.showPage = function(pageNum) {
@@ -266,7 +248,7 @@ function team($, teamName) {
 	    return;
 	}
 
-	m_filterSet = filterSet();
+	m_filterSet = filterSet(that);
 	triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
