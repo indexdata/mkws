@@ -262,29 +262,17 @@ function team($, teamName) {
 
 
 	// Continue to use previous query/sort-order unless new ones are specified
-	if (query) {
-	    m_query = query;
-	}
-	if (sortOrder) {
-	    m_sortOrder = sortOrder;
-	}
-	if (perpage) {
-	    m_perpage = perpage;
-	}
-	if (targets) {
-	    m_filterSet.add(filter(id, id));
-	}
+	if (query) m_query = query;
+	if (sortOrder) m_sortOrder = sortOrder;
+	if (perpage) m_perpage = perpage;
+	if (targets) m_filterSet.add(filter(id, id));
 
 	var pp2filter = m_filterSet.pp2filter();
 	var pp2limit = m_filterSet.pp2limit(limit);
 
 	var params = {};
-	if (pp2limit) {
-	    params.limit = pp2limit;
-	}
-	if (maxrecs) {
-	    params.maxrecs = maxrecs;
-	}
+	if (pp2limit) params.limit = pp2limit;
+	if (maxrecs) params.maxrecs = maxrecs;
 	if (torusquery) {
 	    if (!mkws.config.use_service_proxy)
 		alert("can't narrow search by torusquery when Service Proxy is not in use");
