@@ -84,7 +84,19 @@ function filterSet(team) {
     };
 
     that.NEW_pp2filter = function() {
-	return that.OLD_pp2filter();
+	var res = "";
+
+	that.visitTargets(function(id, name) {
+	    if (res) res += ",";
+	    if (id.match(/^[a-z:]+[=~]/)) {
+		m_team.log("filter '" + id + "' already begins with SETTING OP");
+	    } else {
+		id = 'pz:id=' + id;
+	    }
+	    res += id;
+	});
+
+	return res;
     };
 
     that.pp2limit = function(initial) {
