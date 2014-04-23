@@ -13,6 +13,24 @@ function filterSet(team) {
 	m_list.push(filter);
     };
 
+    that.visitTargets = function(callback) {
+	for (var i in m_list) {
+	    var filter = m_list[i];
+	    if (filter.id) {
+		callback(filter.id, filter.name);
+	    }
+	}
+    };
+
+    that.visitFields = function(callback) {
+	for (var i in m_list) {
+	    var filter = m_list[i];
+	    if (!filter.id) {
+		callback(filter.field, filter.value);
+	    }
+	}
+    };
+
     that.removeMatching = function(matchFn) {
 	var newList = [];
 	for (var i in m_list) {
