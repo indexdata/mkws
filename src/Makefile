@@ -12,7 +12,8 @@ JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
-	mkws-core.js mkws-team.js mkws-widgets.js mkws-widget-termlists.js \
+	mkws-core.js mkws-team.js mkws-filter.js \
+	mkws-widgets.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
 	mkws-widget-record.js mkws-widget-builder.js
 

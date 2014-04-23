@@ -284,14 +284,14 @@ describe("Check active clients author", function () {
     it("check for active clients after limited author search", function () {
         waitsFor(function () {
             var clients = $("div.mkwsStat span.clients");
-            //debug("clients: " + clients.text());
-            return clients.length == 1 && clients.text().match("/[1-9]+[0-9]+$");
-        }, "wait for Active clients: x/y", 5 * jasmine_config.second);
+            // debug("clients: " + clients.text());
+            return clients.length == 1 && clients.text().match("/[1-9]+[0-9]*$");
+        }, "wait for Active clients: x/y", 5.5 * jasmine_config.second);
 
         runs(function () {
             var clients = $("div.mkwsStat span.clients");
             debug("span.clients: " + clients.text());
-            expect(clients.text()).toMatch("/[1-9]+[0-9]+$");
+            expect(clients.text()).toMatch("/[1-9]+[0-9]*$");
 
             // exact match of active clients (e.g. a SP misconfiguration)
             if (jasmine_config.active_clients) {

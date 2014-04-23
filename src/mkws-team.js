@@ -5,8 +5,8 @@
 // Some functions are visible as member-functions to be called from
 // outside code -- specifically, from generated HTML. These functions
 // are that.switchView(), showDetails(), limitTarget(), limitQuery(),
-// delimitTarget(), delimitQuery(), showPage(), pagerPrev(),
-// pagerNext().
+// limitCategory(), delimitTarget(), delimitQuery(), showPage(),
+// pagerPrev(), pagerNext().
 //
 function team($, teamName) {
     var that = {};
@@ -185,6 +185,14 @@ function team($, teamName) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filters.push({ field: field, value: value });
 	triggerSearch();
+	return false;
+    };
+
+
+    that.limitCategory = function(id) {
+	log("limitCategory(id=" + id + ")");
+	m_filters.push({ category: id });
+	//triggerSearch();
 	return false;
     };
 
