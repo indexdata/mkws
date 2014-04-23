@@ -95,7 +95,13 @@ function filterSet(team) {
     };
 
     that.NEW_pp2limit = function(initial) {
-	return that.OLD_pp2limit(initial);
+	var res = initial || "";
+
+	that.visitFields(function(field, value) {
+	    if (res) res += ",";
+	    res += field + "=" + value.replace(/[\\|,]/g, '\\$&');
+	});
+	return res;
     }
 
     return that;
