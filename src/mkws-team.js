@@ -260,7 +260,6 @@ function team($, teamName) {
 	resetPage();
 	queue("navi").publish();
 
-	var pp2filter = "";
 	var pp2limit = limit || "";
 
 	// Continue to use previous query/sort-order unless new ones are specified
@@ -277,7 +276,7 @@ function team($, teamName) {
 	    m_filterSet.add(filter(id, id));
 	}
 
-	pp2filter = m_filterSet.pp2filter();
+	var pp2filter = m_filterSet.pp2filter();
 	for (var i in m_filterSet.list()) {
 	    var filter = m_filterSet.list()[i];
 	    if (!filter.id) {
