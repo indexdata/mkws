@@ -25,6 +25,16 @@ function filterSet() {
 	m_list = newList;
     };
 
+    that.targetFiltered = function(id) {
+	for (var i = 0; i < m_list.length; i++) {
+	    if (m_list[i].id === id ||
+		m_list[i].id === 'pz:id=' + id) {
+		return true;
+	    }
+	}
+	return false;
+    }
+
     return that;
 }
 
