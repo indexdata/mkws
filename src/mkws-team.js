@@ -261,7 +261,6 @@ function team($, teamName) {
 	resetPage();
 	queue("navi").publish();
 
-
 	// Continue to use previous query/sort-order unless new ones are specified
 	if (query) m_query = query;
 	if (sortOrder) m_sortOrder = sortOrder;
