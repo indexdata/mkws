@@ -267,7 +267,7 @@ function team($, teamName) {
 	if (query) m_query = query;
 	if (sortOrder) m_sortOrder = sortOrder;
 	if (perpage) m_perpage = perpage;
-	if (targets) m_filterSet.add(targetFilter(id, id));
+	if (targets) m_filterSet.add(targetFilter(targets, targets));
 
 	var pp2filter = m_filterSet.pp2filter();
 	var pp2limit = m_filterSet.pp2limit(limit);
