@@ -169,7 +169,7 @@ function team($, teamName) {
 
     that.limitTarget = function(id, name) {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
-	m_filterSet.add(filter(id, name));
+	m_filterSet.add(targetFilter(id, name));
 	triggerSearch();
 	return false;
     };
@@ -177,7 +177,7 @@ function team($, teamName) {
 
     that.limitQuery = function(field, value) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
-	m_filterSet.add(filter(null, null, field, value));
+	m_filterSet.add(fieldFilter(field, value));
 	triggerSearch();
 	return false;
     };
@@ -265,7 +265,7 @@ function team($, teamName) {
 	if (query) m_query = query;
 	if (sortOrder) m_sortOrder = sortOrder;
 	if (perpage) m_perpage = perpage;
-	if (targets) m_filterSet.add(filter(id, id));
+	if (targets) m_filterSet.add(targetFilter(id, id));
 
 	var pp2filter = m_filterSet.pp2filter();
 	var pp2limit = m_filterSet.pp2limit(limit);
