@@ -193,7 +193,7 @@ function team($, teamName) {
 
     that.delimitTarget = function(id) {
 	log("delimitTarget(id=" + id + ")");
-	m_filterSet.removeMatching(function(f) { return f.id });
+	m_filterSet.removeMatching(function(f) { return f.type === 'target' });
 	triggerSearch();
 	return false;
     };
@@ -201,7 +201,8 @@ function team($, teamName) {
 
     that.delimitQuery = function(field, value) {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
-	m_filterSet.removeMatching(function(f) { return f.field && field == f.field && value == f.value });
+	m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
+                                                 field == f.field && value == f.value });
 	triggerSearch();
 	return false;
     };
