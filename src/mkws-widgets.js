@@ -270,20 +270,18 @@ mkws.registerWidgetType('Navi', function() {
 	var filters = that.team.filters();
 	var text = "";
 
-	for (var i in filters) {
-	    var filter = filters[i];
-	    if (text) {
-		text += " | ";
-	    }
-	    if (filter.id) {
-		text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
-		    "', '" + filter.id + "'" + ');return false;">' + filter.name + '</a>';
-	    } else {
-		text += M(filter.field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
-		    "', '" + filter.field + "', '" + filter.value + "'" +
-		    ');return false;">' + filter.value + '</a>';
-	    }
-	}
+	filters.visitTargets(function(id, name) {
+	    if (text) text += " | ";
+	    text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
+		"', '" + id + "'" + ');return false;">' + name + '</a>';
+	});
+
+	filters.visitFields(function(field, value) {
+	    if (text) text += " | ";
+	    text += M(field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
+		"', '" + field + "', '" + value + "'" +
+		');return false;">' + value + '</a>';
+	});
 
 	$(that.node).html(text);
     });

@@ -15,7 +15,7 @@ function team($, teamName) {
     var m_query; // initially undefined
     var m_sortOrder; // will be set below
     var m_perpage; // will be set below
-    var m_filters = [];
+    var m_filterSet = filterSet(that);
     var m_totalRecordCount = 0;
     var m_currentPage = 1;
     var m_currentRecordId = '';
@@ -40,7 +40,7 @@ function team($, teamName) {
     that.currentPage = function() { return m_currentPage; };
     that.currentRecordId = function() { return m_currentRecordId; };
     that.currentRecordData = function() { return m_currentRecordData; };
-    that.filters = function() { return m_filters; };
+    that.filters = function() { return m_filterSet; };
     that.config = function() { return m_config; };
 
     // Accessor methods for individual widgets: writers
@@ -163,69 +163,51 @@ function team($, teamName) {
 
 
     that.targetFiltered = function(id) {
-	for (var i = 0; i < m_filters.length; i++) {
-	    if (m_filters[i].id === id ||
-		m_filters[i].id === 'pz:id=' + id) {
-		return true;
-	    }
-	}
-	return false;
+	return m_filterSet.targetFiltered(id);
     };
 
 
     that.limitTarget = function(id, name) {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
-	m_filters.push({ id: id, name: name });
-	triggerSearch();
+	m_filterSet.add(targetFilter(id, name));
+	if (m_query) triggerSearch();
 	return false;
     };
 
 
     that.limitQuery = function(field, value) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
-	m_filters.push({ field: field, value: value });
-	triggerSearch();
+	m_filterSet.add(fieldFilter(field, value));
+        if (m_query) triggerSearch();
 	return false;
     };
 
 
     that.limitCategory = function(id) {
 	log("limitCategory(id=" + id + ")");
-	m_filters.push({ category: id });
-	//triggerSearch();
+        // Only one category filter at a time
+	m_filterSet.removeMatching(function(f) { return f.type === 'category' });
+        if (id !== '') m_filterSet.add(categoryFilter(id));
+        if (m_query) triggerSearch();
 	return false;
     };
 
 
     that.delimitTarget = function(id) {
 	log("delimitTarget(id=" + id + ")");
-	removeMatchingFilters(function(f) { return f.id });
-	triggerSearch();
+	m_filterSet.removeMatching(function(f) { return f.type === 'target' });
+        if (m_query) triggerSearch();
 	return false;
     };
 
 
     that.delimitQuery = function(field, value) {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
-	removeMatchingFilters(function(f) { return f.field && field == f.field && value == f.value });
-	triggerSearch();
+	m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
+                                                 field == f.field && value == f.value });
+        if (m_query) triggerSearch();
 	return false;
     };
-
-
-    function removeMatchingFilters(matchFn) {
-	var newFilters = [];
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
-	    if (matchFn(filter)) {
-		log("removeMatchingFilters() removing filter " + $.toJSON(filter));
-	    } else {
-		log("removeMatchingFilters() keeping filter " + $.toJSON(filter));
-		newFilters.push(filter);
-	    }
-	}
-	m_filters = newFilters;
-    }
 
 
     that.showPage = function(pageNum) {
@@ -269,7 +251,7 @@ function team($, teamName) {
 	    return;
 	}
 
-	m_filters = []
+	m_filterSet.removeMatching(function(f) { return f.type !== 'category' });
 	triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery);
 	switchView('records'); // In case it's configured to start off as hidden
 	m_submitted = true;
@@ -281,59 +263,29 @@ function team($, teamName) {
 	resetPage();
 	queue("navi").publish();
 
-	var pp2filter = "";
-	var pp2limit = limit || "";
-
 	// Continue to use previous query/sort-order unless new ones are specified
-	if (query) {
-	    m_query = query;
-	}
-	if (sortOrder) {
-	    m_sortOrder = sortOrder;
-	}
-	if (perpage) {
-	    m_perpage = perpage;
-	}
-	if (targets) {
-	    m_filters.push({ id: targets, name: targets });
-	}
+	if (query) m_query = query;
+	if (sortOrder) m_sortOrder = sortOrder;
+	if (perpage) m_perpage = perpage;
+	if (targets) m_filterSet.add(targetFilter(id, id));
 
-	for (var i in m_filters) {
-	    var filter = m_filters[i];
-	    if (filter.id) {
-		if (pp2filter)
-		    pp2filter += ",";
-		if (filter.id.match(/^[a-z:]+[=~]/)) {
-		    log("filter '" + filter.id + "' already begins with SETTING OP");
-		} else {
-		    filter.id = 'pz:id=' + filter.id;
-		}
-		pp2filter += filter.id;
-	    } else {
-		if (pp2limit)
-		    pp2limit += ",";
-		pp2limit += filter.field + "=" + filter.value.replace(/[\\|,]/g, '\\$&');
-	    }
-	}
+	var pp2filter = m_filterSet.pp2filter();
+	var pp2limit = m_filterSet.pp2limit(limit);
+        var pp2catLimit = m_filterSet.pp2catLimit();
 
 	var params = {};
-	if (pp2limit) {
-	    params.limit = pp2limit;
-	}
-	if (maxrecs) {
-	    params.maxrecs = maxrecs;
-	}
+	if (pp2limit) params.limit = pp2limit;
+	if (pp2catLimit) params.categoryfilter = pp2catLimit;
+	if (maxrecs) params.maxrecs = maxrecs;
 	if (torusquery) {
 	    if (!mkws.config.use_service_proxy)
 		alert("can't narrow search by torusquery when Service Proxy is not in use");
 	    params.torusquery = torusquery;
 	}
 
-	log("triggerSearch(" + m_query + "): filters = " + $.toJSON(m_filters) + ", " +
+	log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
 	    "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-	// We can use: params.torusquery = "udb=NAME"
-	// Note: that won't work when running against raw pazpar2
 	m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     }
 
@@ -487,7 +439,27 @@ function team($, teamName) {
 	return m_config.lang;
     }
 
+    // set or re-set "lang" URL parameter
+    function lang_url(lang) {
+	var query = location.search;
+	// no query parameters? done
+	if (!query) {
+	    return "?lang=" + lang;
+	}
 
+	// parameter does not exists
+	if (!query.match(/[\?&]lang=/)) {
+            return query + "&lang=" + lang;
+        }
+
+	// replace existing parameter
+	query = query.replace(/\?lang=([^&#;]*)/, "?lang=" + lang);
+	query = query.replace(/\&lang=([^&#;]*)/, "&lang=" + lang);
+
+	return query;
+    }
+   
+	// dynamic URL or static page? /path/foo?query=test
     /* create locale language menu */
     function mkwsHtmlLang() {
 	var lang_default = "en";
@@ -523,7 +495,7 @@ function team($, teamName) {
 	    if (lang == l) {
 		data += ' <span>' + l + '</span> ';
 	    } else {
-		data += ' <a href="?lang=' + l + '">' + l + '</a> '
+		data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
 	    }
 	}
 
