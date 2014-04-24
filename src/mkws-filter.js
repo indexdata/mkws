@@ -16,7 +16,7 @@ function filterSet(team) {
     that.visitTargets = function(callback) {
 	for (var i in m_list) {
 	    var filter = m_list[i];
-	    if (filter.id) {
+	    if (filter.type === 'target') {
 		callback(filter.id, filter.name);
 	    }
 	}
@@ -25,7 +25,7 @@ function filterSet(team) {
     that.visitFields = function(callback) {
 	for (var i in m_list) {
 	    var filter = m_list[i];
-	    if (!filter.id) {
+	    if (filter.type === 'field') {
 		callback(filter.field, filter.value);
 	    }
 	}
@@ -47,7 +47,7 @@ function filterSet(team) {
 
     that.targetFiltered = function(id) {
 	for (var i = 0; i < m_list.length; i++) {
-	    if (m_list[i].id === id ||
+	    if (m_list[i].type === 'target' ||
 		m_list[i].id === 'pz:id=' + id) {
 		return true;
 	    }
