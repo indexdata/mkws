@@ -31,6 +31,15 @@ function filterSet(team) {
 	}
     };
 
+    that.visitCategories = function(callback) {
+	for (var i in m_list) {
+	    var filter = m_list[i];
+	    if (filter.type === 'category') {
+		callback(filter.id);
+	    }
+	}
+    };
+
     that.removeMatching = function(matchFn) {
 	var newList = [];
 	for (var i in m_list) {
@@ -77,6 +86,16 @@ function filterSet(team) {
 	that.visitFields(function(field, value) {
 	    if (res) res += ",";
 	    res += field + "=" + value.replace(/[\\|,]/g, '\\$&');
+	});
+	return res;
+    }
+
+    that.pp2catLimit = function() {
+	var res = "";
+
+	that.visitCategories(function(id) {
+	    if (res) res += ",";
+	    res += "category~" + id.replace(/[\\|,]/g, '\\$&');
 	});
 	return res;
     }
