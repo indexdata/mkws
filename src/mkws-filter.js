@@ -85,15 +85,21 @@ function filterSet(team) {
 }
 
 
-// Factory function for filters. These can be of several types.
-function filter(id, name, field, value) {
-    var res;
-
-    if (id) {
-	res = { id: id, name: name };
-    } else {
-	res = { field: field, value: value };
-    }
+// Factory functions for filters. These can be of several types.
+function targetFilter(id, name) {
+    return {
+        type: 'target',
+        id: id,
+        name: name
+    };
 
     return res;
+}
+
+function fieldFilter(field, value) {
+    return {
+        type: 'field',
+        field: field,
+        value: value
+    };
 }
