@@ -170,7 +170,7 @@ function team($, teamName) {
     that.limitTarget = function(id, name) {
 	log("limitTarget(id=" + id + ", name=" + name + ")");
 	m_filterSet.add(targetFilter(id, name));
-	triggerSearch();
+	if (m_query) triggerSearch();
 	return false;
     };
 
@@ -178,7 +178,7 @@ function team($, teamName) {
     that.limitQuery = function(field, value) {
 	log("limitQuery(field=" + field + ", value=" + value + ")");
 	m_filterSet.add(fieldFilter(field, value));
-	triggerSearch();
+        if (m_query) triggerSearch();
 	return false;
     };
 
@@ -194,7 +194,7 @@ function team($, teamName) {
     that.delimitTarget = function(id) {
 	log("delimitTarget(id=" + id + ")");
 	m_filterSet.removeMatching(function(f) { return f.type === 'target' });
-	triggerSearch();
+        if (m_query) triggerSearch();
 	return false;
     };
 
@@ -203,7 +203,7 @@ function team($, teamName) {
 	log("delimitQuery(field=" + field + ", value=" + value + ")");
 	m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
                                                  field == f.field && value == f.value });
-	triggerSearch();
+        if (m_query) triggerSearch();
 	return false;
     };
 
