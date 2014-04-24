@@ -28,7 +28,7 @@ function init_jasmine_config() {
 
     var jasmine_config_default = {
         search_query: "freebsd",
-        max_time: 16,
+        max_time: 17,
         // in seconds
         expected_hits: 80,
         // at least expected hit counter
