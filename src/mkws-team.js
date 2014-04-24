@@ -186,7 +186,7 @@ function team($, teamName) {
     that.limitCategory = function(id) {
 	log("limitCategory(id=" + id + ")");
         // Only one category filter at a time
-	m_filterSet.removeMatching(function(f) { return f.type === 'category' });        
+	m_filterSet.removeMatching(function(f) { return f.type === 'category' });
         if (id !== '') m_filterSet.add(categoryFilter(id));
         if (m_query) triggerSearch();
 	return false;
@@ -441,7 +441,27 @@ function team($, teamName) {
 	return m_config.lang;
     }
 
+    // set or re-set "lang" URL parameter
+    function lang_url(lang) {
+	var query = location.search;
+	// no query parameters? done
+	if (!query) {
+	    return "?lang=" + lang;
+	}
 
+	// parameter does not exists
+	if (!query.match(/[\?&]lang=/)) {
+            return query + "&lang=" + lang;
+        }
+
+	// replace existing parameter
+	query = query.replace(/\?lang=([^&#;]*)/, "?lang=" + lang);
+	query = query.replace(/\&lang=([^&#;]*)/, "&lang=" + lang);
+
+	return query;
+    }
+   
+	// dynamic URL or static page? /path/foo?query=test
     /* create locale language menu */
     function mkwsHtmlLang() {
 	var lang_default = "en";
@@ -477,7 +497,7 @@ function team($, teamName) {
 	    if (lang == l) {
 		data += ' <span>' + l + '</span> ';
 	    } else {
-		data += ' <a href="?lang=' + l + '">' + l + '</a> '
+		data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
 	    }
 	}
 
