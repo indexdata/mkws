@@ -185,7 +185,9 @@ function team($, teamName) {
 
     that.limitCategory = function(id) {
 	log("limitCategory(id=" + id + ")");
-	m_filterSet.add(categoryFilter(id));
+        // Only one category filter at a time
+	m_filterSet.removeMatching(function(f) { return f.type === 'category' });        
+        if (id !== '') m_filterSet.add(categoryFilter(id));
         if (m_query) triggerSearch();
 	return false;
     };
