@@ -92,8 +92,6 @@ function targetFilter(id, name) {
         id: id,
         name: name
     };
-
-    return res;
 }
 
 function fieldFilter(field, value) {
@@ -101,5 +99,12 @@ function fieldFilter(field, value) {
         type: 'field',
         field: field,
         value: value
+    };
+}
+
+function categoryFilter(id) {
+    return {
+        type: 'category',
+        id: id,
     };
 }
