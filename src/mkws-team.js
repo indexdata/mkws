@@ -272,10 +272,12 @@ function team($, teamName) {
 	var pp2filter = m_filterSet.pp2filter();
 	var pp2limit = m_filterSet.pp2limit(limit);
         var pp2catLimit = m_filterSet.pp2catLimit();
+	if (pp2catLimit) {
+            pp2filter = pp2filter ? pp2filter + "," + pp2catLimit : pp2catLimit;
+        }
 
 	var params = {};
 	if (pp2limit) params.limit = pp2limit;
-	if (pp2catLimit) params.categoryfilter = pp2catLimit;
 	if (maxrecs) params.maxrecs = maxrecs;
 	if (torusquery) {
 	    if (!mkws.config.use_service_proxy)
