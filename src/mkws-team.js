@@ -267,15 +267,17 @@ function team($, teamName) {
 	if (query) m_query = query;
 	if (sortOrder) m_sortOrder = sortOrder;
 	if (perpage) m_perpage = perpage;
-	if (targets) m_filterSet.add(targetFilter(id, id));
+	if (targets) m_filterSet.add(targetFilter(targets, targets));
 
 	var pp2filter = m_filterSet.pp2filter();
 	var pp2limit = m_filterSet.pp2limit(limit);
         var pp2catLimit = m_filterSet.pp2catLimit();
+	if (pp2catLimit) {
+            pp2filter = pp2filter ? pp2filter + "," + pp2catLimit : pp2catLimit;
+        }
 
 	var params = {};
 	if (pp2limit) params.limit = pp2limit;
-	if (pp2catLimit) params.categoryfilter = pp2catLimit;
 	if (maxrecs) params.maxrecs = maxrecs;
 	if (torusquery) {
 	    if (!mkws.config.use_service_proxy)
@@ -418,7 +420,10 @@ function team($, teamName) {
 	});
 
 	// on first page, hide the termlist
-	$(document).ready(function() { widgetNode("Termlists").hide(); });
+	$(document).ready(function() {
+            var t = widgetNode("Termlists");
+            if (t) t.hide();
+        });
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
