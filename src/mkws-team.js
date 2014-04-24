@@ -185,8 +185,8 @@ function team($, teamName) {
 
     that.limitCategory = function(id) {
 	log("limitCategory(id=" + id + ")");
-	// ### Add a filter
-	// ### triggerSearch() if there's a query
+	m_filterSet.add(categoryFilter(id));
+        if (m_query) triggerSearch();
 	return false;
     };
 
