@@ -1,4 +1,5 @@
 .mkwsReference {
+    max-width: 40em;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
     background: #f0f0e0;
     padding: 0.5em 1em;
