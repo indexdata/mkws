@@ -16,3 +16,9 @@
 .mkwsReference a {
     text-decoration: none;
 }
+
+.mkwsReference img {
+    float:right;
+    margin: 0 0 1em 3em;
+    border: 0.5em solid white;
+}
