@@ -12,7 +12,7 @@ mkws.registerWidgetType('Reference', function() {
   <i>{{md-title-responsibility}}</i>\
 {{/if}}\
   <p>\
-    <img style="float:right; margin: 0 0 1em 3em" src="{{md-thumburl}}" alt="{{md-title}}">\
+    <img src="{{md-thumburl}}" alt="{{md-title}}">\
     {{md-description}}\
   </p>\
 ');
