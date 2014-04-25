@@ -18,9 +18,4 @@ mkws.registerWidgetType('Reference', function() {
     {{md-description}}\
   </p>\
 ');
-
-    var that = this;
-    this.team.queue("record").subscribe(function(data) {
-        that.log("got data " + $.toJSON(data));
-    });
 });
