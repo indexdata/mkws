@@ -36,6 +36,7 @@ function init_jasmine_config() {
         // miliseconds to seconds
         show_record_url: true,
         // check for valid URL in records
+        check_motd: true,
         dummy: false
     };
 
@@ -138,6 +139,10 @@ describe("Check pazpar2 search", function () {
 
 describe("Check MOTD after search", function () {
     it("MOTD is hidden", function () {
+        if (!jasmine_config.check_motd) {
+            return;
+        }
+
         expect($(".mkwsMOTD").length).toBe(1);
         expect($(".mkwsMOTD").is(":hidden")).toBe(true);
         debug("motd t=" + $(".mkwsMOTD").text());
