@@ -237,6 +237,7 @@ mkws.registerWidgetType('Records', function() {
 	var html = [];
 	for (var i = 0; i < data.hits.length; i++) {
 	    var hit = data.hits[i];
+            that.team.queue("record").publish(hit);
 	    var divId = team.recordElementId(hit.recid[0]);
 	    html.push('<div class="record mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
 	    // ### At some point, we may be able to move the
