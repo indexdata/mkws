@@ -4,6 +4,7 @@ mkws.registerWidgetType('Reference', function() {
     if (!this.config.template) this.config.template = 'Reference';
 
     this.team.registerTemplate('Reference', '\
+  <img src="{{md-thumburl}}" alt="{{md-title}}">\
   <h1><a href="{{md-electronic-url}}">{{md-title}}</a></h1>\
 {{#if md-title-remainder}}\
   <b>{{md-title-remainder}}</b>\
@@ -12,7 +13,6 @@ mkws.registerWidgetType('Reference', function() {
   <i>{{md-title-responsibility}}</i>\
 {{/if}}\
   <p>\
-    <img src="{{md-thumburl}}" alt="{{md-title}}">\
     {{md-description}}\
   </p>\
 ');
