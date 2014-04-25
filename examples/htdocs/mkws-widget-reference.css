@@ -1,0 +1,17 @@
+.mkwsReference {
+    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+    background: #f0f0e0;
+    padding: 0.5em 1em;
+    border: 1px solid #c0c0a0;
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+}
+
+.mkwsReference h1 {
+    color: #806020;
+}
+
+.mkwsReference a {
+    text-decoration: none;
+}
