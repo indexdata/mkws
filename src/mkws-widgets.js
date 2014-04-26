@@ -83,6 +83,13 @@ widget.autosearch = function(widget) {
 		if (!query) {
 		    alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
 		}
+            } else if (query.match(/^!var!/)) {
+		var name = query.replace(/^!var!/, '');
+		query = window[name]; // It's ridiculous that this works
+		widget.log("obtained query '" + query + "' from variable '" + name + "'");
+		if (!query) {
+		    alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
+		}
 	    }
 
 	    var sortOrder = widget.config.sort;
