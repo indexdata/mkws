@@ -356,13 +356,6 @@ function team($, teamName) {
 	if (m_config.show_lang)
 	    mkwsHtmlLang();
 
-	log("HTML search form");
-	findnode('.mkwsSearch').html('\
-<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + m_teamName + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + m_teamName + '" type="text" size="' + m_config.query_width + '" />\
-  <input class="mkwsButton mkwsTeam_' + m_teamName + '" type="submit" value="' + M('Search') + '" />\
-</form>');
-
 	log("HTML records");
 	// If the team has a .mkwsResults, populate it in the usual
 	// way. If not, assume that it's a smarter application that
@@ -411,12 +404,6 @@ function team($, teamName) {
 	}
         ranking_data += '</form>';
 	findnode(".mkwsRanking").html(ranking_data);
-
-	findnode('.mkwsSearchForm').submit(function() {
-	    var val = widgetNode('Query').val();
-	    newSearch(val);
-	    return false;
-	});
 
 	// on first page, hide the termlist
 	$(document).ready(function() {
