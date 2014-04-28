@@ -17,6 +17,7 @@
     </style>
     <script type="text/javascript">
       var mkws_config = { service_proxy_auth: "//mkws.indexdata.com/service-proxy-testauth" };
+      var ourQuery = 'dinosaur';
     </script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
@@ -24,73 +25,11 @@
     <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
   </head>
-<!--
   <body>
-    <svg width="100" height="100">
-      <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-    </svg>
+<div class='mkwsRecords'
+	autosearch='!var!ourQuery'
+	sort='relevance'
+	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
+>results will appear here</div>
   </body>
--->
-  <body>
-    <div class="mkwsSwitch"></div>
-    <div class="mkwsLang"></div>
-    <div class="mkwsAuthname"></div>
-    <div class="mkwsSearch"></div>
-    <br/>
-    <div class="mkwsCategories"></div>
-    <table width="100%" border="0" cellpadding="6" cellspacing="0">
-      <tr>
-	<td class="mkwsTermlistContainer1" width="250" valign="top">
-	  <div class="mkwsTermlists mkwsTeam_AUTO">
-	    <div class="title">Termlists</div>
-	    <div class="mkwsFacet mkwsTeam_AUTO" data-mkws-facet="subject"></div>
-	    <div class="mkwsFacet mkwsTeam_AUTO" data-mkws-facet="xtargets"></div>
-	    <div class="mkwsFacet mkwsTeam_AUTO" data-mkws-facet="author"></div>
-	  </div>
-	</td>
-	<td class="mkwsMOTDContainer" valign="top">
-	  <div class="mkwsRanking"></div>
-	  <div class="mkwsPager"></div>
-	  <div class="mkwsNavi"></div>
-	  <div class="mkwsRecords"></div>
-	  <div class="mkwsTargets"></div>
-	</td>
-      </tr>
-      <tr>
-	<td colspan="2">
-	  <div class="mkwsTermlistContainer2"></div>
-	</td>
-      </tr>
-    </table>
-    <div class="mkwsStat"></div>
-    <div class="mkwsConsoleBuilder" text="Make Widget"></div>
-    <div class="mkwsDone"></div>
-    <div class="mkwsMOTD">Speak, friend, and enter!</div>
-  </body>
-<!--
-  <body>
-    <table width="100%" border="1">
-      <tr>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch"></div>
-	  <div class="mkwsLang"></div>
-	  <div class="mkwsSearch"></div>
-	  <div class="mkwsResults"></div>
-	  <div class="mkwsTargets"></div>
-	  <div class="mkwsStat"></div>
-	</td>
-	<td valign="top" width="50%">
-	  <div class="mkwsSwitch mkwsTeam_2"></div>
-	  <div class="mkwsLang mkwsTeam_2"></div>
-	  <div class="mkwsSearch mkwsTeam_2"></div>
-	  <div class="mkwsResults mkwsTeam_2"></div>
-	  <div class="mkwsTargets mkwsTeam_2"></div>
-	  <div class="mkwsStat mkwsTeam_2"></div>
-	</td>
-      </tr>
-    </table>
-    <div class="mkwsMOTD">This is the first MOTD</div>
-    <div class="mkwsMOTD mkwsTeam_2">This is the second MOTD</div>
-  </body>
--->
 </html>

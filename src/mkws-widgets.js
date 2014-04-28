@@ -83,6 +83,13 @@ widget.autosearch = function(widget) {
 		if (!query) {
 		    alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
 		}
+            } else if (query.match(/^!var!/)) {
+		var name = query.replace(/^!var!/, '');
+		query = window[name]; // It's ridiculous that this works
+		widget.log("obtained query '" + query + "' from variable '" + name + "'");
+		if (!query) {
+		    alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
+		}
 	    }
 
 	    var sortOrder = widget.config.sort;
@@ -237,6 +244,7 @@ mkws.registerWidgetType('Records', function() {
 	var html = [];
 	for (var i = 0; i < data.hits.length; i++) {
 	    var hit = data.hits[i];
+            that.team.queue("record").publish(hit);
 	    var divId = team.recordElementId(hit.recid[0]);
 	    html.push('<div class="record mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
 	    // ### At some point, we may be able to move the
