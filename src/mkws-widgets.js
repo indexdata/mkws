@@ -339,15 +339,5 @@ mkws.registerWidgetType('Switch', function() {
     $(this.node).html('\
 <a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
 | \
-</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a> \
-<div class="mkwsUpperCase">foo</div>\
-');
+</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
 });
-
-
-mkws.registerWidgetType('UpperCase', function() {
-    var text = $(this.node).html();
-    $(this.node).html(text.toUpperCase());
-});
-
-
