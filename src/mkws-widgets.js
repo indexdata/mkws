@@ -125,6 +125,12 @@ mkws.registerWidgetType('Targets', function() {
     var that = this;
     var M = mkws.M;
 
+    $(this.node).html('\
+<div class="mkwsBytarget mkwsTeam_' + this.team.name() + '">\
+No information available yet.\
+</div>');
+    $(this.node).css("display", "none");
+
     this.team.queue("targets").subscribe(function(data) {
 	var table ='<table><thead><tr>' +
 	    '<td>' + M('Target ID') + '</td>' +
