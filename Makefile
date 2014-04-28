@@ -1,16 +1,31 @@
-# Copyright (c) 2013 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
-all clean:
-	${MAKE} -C./tools/htdocs $@
+all:
+	${MAKE} -C./src $@
+	${MAKE} -C./doc $@
+
+clean distclean:
+	${MAKE} -C./src $@
+	${MAKE} -C./doc $@
 	${MAKE} -C./examples/htdocs $@
-
-pz2api-git-checkout distclean:
-	${MAKE} -C./tools/htdocs $@
+	${MAKE} -C./test $@
 
 check-js:
 	${MAKE} -C./test check
 
-check: distclean all
+phantomjs p:
+	${MAKE} -C./test $@
+
+# must be called once after GIT checkout
+setup:	
+#why?	${MAKE} -C./tools/htdocs mkws-js-min
+	${MAKE} -C./test node-modules
+
+check: setup check-js
+	@echo ""
+	@echo "To run jasmine regression tests, type: make phantomjs"
 
 help:
-	@echo "make [ all | clean | pz2api-git-checkout | check-js ]"
+	@echo "make [ all | setup | clean | distclean ]"
+	@echo "     [ check | check-js | phantomjs ]"
+

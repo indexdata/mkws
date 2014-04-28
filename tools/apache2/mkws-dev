@@ -2,9 +2,10 @@
 
 # pazpar2 / service proxy config
 <VirtualHost *:80>
-    ServerName spclient.example.com
-    ServerAlias spclient-dev.indexdata.com mkws-dev.indexdata.com
-    ServerAdmin webmaster@example.com
+    ServerName mkws-dev.indexdata.com
+    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com
+
+    ServerAdmin webmaster@indexdata.com
     ErrorLog /var/log/apache2/mkws-dev-error.log
     CustomLog /var/log/apache2/mkws-dev-access.log combined
 
@@ -12,8 +13,15 @@
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
 
-    DocumentRoot /home/indexdata/mkws/examples/htdocs
-    Alias /tools/htdocs /home/indexdata/mkws/tools/htdocs
+    DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
+    Alias /src /home/indexdata/mkws-dev/src
+    Alias /test /home/indexdata/mkws-dev/test
+    Alias /jasmine /home/indexdata/mkws-dev/examples/jasmine
+
+    # CORS setting
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Origin "*"
 
     # compress text output
     <Location />
@@ -21,7 +29,11 @@
         SetOutputFilter DEFLATE 
     </Location> 
 
-    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+    # jasmine test account
+    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
+
+    # mkws devel account (e.g. memached testing)
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkwsdev&password=mkwsdev [P] # [NE,P]
 
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/

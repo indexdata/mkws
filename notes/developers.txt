@@ -1,0 +1,365 @@
+Notes for developers
+
+These notes are collected by Heikki, mostly from skype chats with Wolfram
+and Mike. I collected them for my own use, but I hope they will turn out
+to be helpful to anyone who needs to get started with mkws.
+
+Environment
+-----------
+
+apt-get install yui-compressor
+get nodejs, sudo make install, ln -s /usr/local/bin/npm ~/bin/npm if needed
+
+cd .../mkws; make check
+
+
+Apache
+------
+You need to set up a local apache. 
+  * add 'mkws' in /etc/hosts to point to 127.0.0.2
+  * symlinked .../mkws/tools/apache2/mkws-heikki to /etc/apache/sites-available
+  * a2ensite mkws-heikki
+  * a2enmod rewrite
+  * a2enmod headers
+  * service apache2 reload
+  * Check that your browser sees somethig in http://mkws/ and 
+    http://mkws/jasmine-popup.html. If need be, enable javascript etc. 
+
+Libraries
+---------
+
+* We are using jquery as a browser indepent layer to access the dom, so we
+don't have to worry about IE bugs.  Wolfram looked why we are using
+jquery.json-2.4.js ... it turns out we needed it because the standard functions
+in IE8 are broken.
+
+* jasmine is a test framework (mkws dev). you will not use jasmine in a
+production site.  the nice thing with the jasmine test framework is that it
+will work with any browser. I can start a virtual machine with IE8, open the
+test page, wait 3 seconds for success and shutdown windows.
+
+* handlebar is a template engine
+
+
+
+Include files
+-------------
+
+The whitepaper says to include mkws-complete.js. This file is made by concatenating
+a number of files (see Makefile). For us developers, it is easier to include the
+raw files, as in
+
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
+
+You can also include the css directly in your test page:
+    <style type="text/css">
+      #mkwsTermlists div.facet {
+      float:left;
+      width: 30%;
+      margin: 0.3em;
+      }
+      #mkwsStat {
+      text-align: right;
+      }
+    </style>
+
+
+Most (all?) code work happens in mkws.js.
+
+
+Unit tests
+----------
+
+Tests are based on jasmine. a general description of jasmine is on
+http://jasmine.github.io/1.3/introduction.html
+
+If you want understand the test than you can look at mkws/test/spec/mkws-config.js
+and mkws/test/spec/mkws-pazpar2.js . See also mkws/test/README.txt
+
+The test scripts are included from the test page, for example
+mkws/examples/htdocs/jasmine-popup.html has 
+<script type="text/javascript" src="test/spec/mkws-pazpar2.js"></script>
+
+
+
+
+Structure of mkws.js
+--------------------
+(This will soon be out of date, but should provide some kind of starting
+point even then. This is taken directly from a Skype chat with Mike, where
+he explained the whole thing.)
+
+First page is just helper functions for the Handlebars template library, which we
+use to generate some of the HTML output. (Down the line, we will use this more
+heavilty -- right now it's only used for records).
+
+Then we define the mkws object, which contains all global state -- which hopefully
+there is not much of. It is one of only two objects we place in the global namespace:
+the other is mkws_config, which is a hash supplied by the application if it wants
+to override default configs.
+
+Next is a very short function defined to allow us to publish and subscribe events.
+That is not yet used: shifting much of the code to do so is a big part of what I
+am working on right now.
+
+Next, a very short stanza of code that just makes sure mkws_config is defined:
+simple applications won't bother to define it at all since they override none
+of the defaults.
+
+Next, a factory method for making widget objects. At present this is trivial
+because we are only now starting to need a representation of individual widgets
+as JS objects. More of the functionality will get moved into these objects over
+the next week.
+
+Next, a factory method for making widget-team objects. This is where all the
+awesomeness is at the moment. A team is a bunch of widgets that work together
+to achieve a common goal, e.g. the search-box, search-button and results-pane
+widgets.
+
+HTML elements are defined as belonging to the same team if they have an
+mkwsTeam_NAME class for the same NAME. You can have multiple teams (as in
+two-teams.html that I linked to earlier) which are completely independent of
+each other.
+
+I guess you're familiar with the JS idiom where the factory function for a kind
+of object also acts as a namespace where all the object's member-variables live,
+invisible to the outside world? That's what we do here. All the member variables
+have names of the form m_NAME.
+
+Now I sugges you skip over all the team-object code for now -- we'll return to it
+later. For now, page down to "// wrapper to call team() after page load" which is
+the next thing after the end of that function (or class, if you like).
+
+You're familiar with this JS idiom?
+  (function() { code ... })();
+Runs the code immediately, but within its own namespace. That's what we do for
+all the remaining code in mkws.js. In this case, we pass the jQuery object into
+that namespace under the name `j' for reasons that are frankly opaque to me.
+
+There's still a few places in the code where oddities live on, either from jsdemo
+or from work Wolfram's done, where I don't really understand why it's that way
+but I'm scared to change it. In this case, IIRC, it's something to do with
+protecting our copy of the jQuery object, or something.
+
+Aaanyway, within that namespaced area, where's what we do.
+
+First, we set up the mkws.debug() function, which just logs to the console in a
+form that doesn't explode IE. I have plans for this function, make it understand
+debugging levels a bit like log4j or maybe more like yaz-log where there are
+named logging types that are not in a sequence.
+
+(You will notice that the teams have a debug() function which delegates to this
+but adds some other useful team-specific stuff.)
+
+Next up: the utility function mkws.handle_node_with_team(). We use a LOT of nodes
+that have their team-name in a class (as in "mkwsTeam_NAME" outlined above).
+All the utility does is parse out that team-name, and the widget-type, from the
+classes, and pass them through to the callback.
+
+mkws.resize_page() does what it says. Gets called when window-size changes, and
+allows us to move the facers to the side or the bottom as the screen is wide or
+narrow (e.g. when you turn your iPad 90 degrees)
+
+(Aside: I thought we'd have to iterate over all teams to move their facet lists
+but it turns out we don't: jQuery just Does The Right Thing if you call
+   $(".mkwsTermlistContainer1").hide();
+or similar and there are multiple hits.)
+
+Next come a bunch of JS functions that are invoked from the MKWS UIs --
+swithching between target and record views, stepping through pages of results,
+etc. All of these are team-specific, but the global code in the HTML can't
+invoke a team's member function directly. So these stub functions just invoke
+the relevant member of the appropriate team.
+
+default_mkws_config() fills in the mkws_config structure from hardwired defaults.
+This is the wrong way round: instead, whenever we want to find a config value, we
+should default our way up a tree, starting with the individual widget's config,
+falling back to the team's config if the widget doesn't define that value, then
+the global config, and finally the default. I'll make that change once widget
+objects are fully real.
+
+authenticate_session() authenticates onto the SP when we're using it (rather
+than raw pp2). It's a bit sellotape-and-string, to be honest, just does a wget.
+It would be better if this was supported by pz2.js
+
+run_auto_searches() is what makes pages like
+  http://example.indexdata.com/auto3.html
+work. THere are two places it's invoked from. Either directly when all the HTML
+has been set up if we're using raw pp2; or when SP authentication has been
+completed if we're using that. As with the UI functions, it just delegates down
+into the teams.
+
+Finally, code that runs when the page has finished loading -- this is really
+the main() function
+
+The first thing it does is patch up the HTML so that old-style MKWS apps work
+using new-style elements. This is the code you just fixed.
+
+Straight after that, more fixup: elements that have an mkws* class but no
+team are given an extra class mkwsTeam_AUTO. This is the ONLY thing that's special
+about the team "AUTO" -- it has no other privileges.
+
+Very near the end now: we walk through all nodes with an mkws* class, and create
+the team and widget objects using the factories we described earlier. Jason is
+worried this will be slow, hence the instrumentation. It's not :-)
+
+Last of all: start things off! SP-auth if used, otherwise straight to the
+auto-searches.
+
+
+OK, want to plough into the team object?
+
+... bearing in mind that some of this should be moved out of the team into the
+top-level code, and some other parts will be moved down into individual widgets
+once we have them.
+
+OK. So we start with a bunch of member variables for state. Many of them will be
+hauntingly familiar to anyone who's worked on jsdemo :-)
+
+A new one is m_debug_time, which is a structure used for keeping track of elapsed
+time. It's nice: it lets debug messages for each time note how long it's been
+since the last message in that same team, which means you can see how slow-ass
+our network operations can be. That's implemented in debug(), which is the very
+next thing in the file.
+
+Then a bunch of code to do with setting initial values from defaults.
+
+The stuff about languages is a great example of code that should be at the top
+level, not in the team: it deals only with global objects, yet gets run n times
+if there are n teams. (I am adding a ###-comment to this effect right now.)
+
+Then we make the pz2 object, which is our only channel of communication with the
+server outside of the HTTP GET hack in authenticate_session(). The callback
+functions are all closures with access to this team's member variables. Are you
+somewhat familiar with pz2.js already?
+
+Well, it's all driven by callbacks. You register them at object-creation time;
+then later when you call (say) m_paz.search(), it will invoke your my_onsearch()
+function when the search-response arrives.
+
+There are some oddities in the order things get done. For example, is m_perpage
+set AFTER this object is created, rather than at the same time as its stablemate
+m_sort up above? No reason. So plenty of tedious, error-prone, cleaning up of
+this sort to be done.
+
+Then come the pz2 callbacks. my_onshow() is an interesting representative. The
+team-name is passed back by pz2 (which has used it as the SP window-ID to keep
+sessions separate). I used to think it needed to be passed back like this so
+the invoked callback functions could know what team they're being called for,
+but now I realise they don't need to, because they're closures that can see
+m_teamName. Oh well.
+
+Indeed, you can see that my_onshow() doesn't even USE the teamName parameter.
+
+Anyway, the point is to find specific elements that belong to the right team,
+so they can be populated with relevant data. We do that for the pager, and of
+course the record-list.
+
+The meat of the record-list is filled in by invocations of renderSummary(),
+which loads a Handlebars template and uses that to generate the HTML. Needless
+to say, loadTemplate() caches compiled templates.
+
+my_onstat() and my_onterm() do similar things -- you can figure out the details.
+
+add_single_facet(), target_filtered() and others are uninteresting utility
+functions.
+
+my_onrecord() and my_onbytarget() are more of the same. There is some nastiness
+in my_onrecord() to handle poping up a full-record div in the right place and
+getting rid of any old ones. It doesn't work quite right.
+
+onFormSubmitEventHandler() is more interesting. This is a JS event handle (for
+form-submit, duh) but how does it know what team to work for? It checks `this'
+to see that classes the HTML element has, and so finds the relevant mkwsTeam_NAME
+class. Then it can fire newSearch() on the relevant team. But it now occurs to
+me that this too is a closure so it doesn't need to do any of that. It can just
+start the search in its own team.
+
+[Why can that simplifying change be made here but not in, say, switchView()?
+Because the former is assigned to a DOM object from within the JS code, so acts
+as a closure; but the latter is invoked by a fragment of JS text which the user
+clicks on, when there is no context.]
+
+An oddity of newSearch(): it's not defined as
+    function newSearch()
+like most of the other member functions, but
+    that.newSearch = function()
+That's because, unlike most other member function, it gets explicitly invoked
+on a team object:
+    mkws.teams[tname].newSearch(val);
+
+But in fact that won't be necessary once I fix the invoker
+(onFormSubmitEventHandler) to be aware of its own context, so that can simplify,
+too.
+
+The next interesting method is triggerSearch(). You can see that it assembles
+the pp2filter and pp2limit values for the search invocation by walking the
+array m_filters[], which is built by click on facets.
+
+That's done in a slightly clumsy way. I might make a Filters object at some
+point with some nice clean methods.
+
+BTW., more unnecessary context-jockying with the windowid parameter. I don't
+need it, I have m_teamName.
+
+loadSelect() is another fine example of a method that appears in a random
+place. It's just one of the HTML-generation helpers.
+
+Now we come to a bunch of externally invoked functions, that.limitTarget() etc.
+These are the meat that are called by the stubs in the top-level code -- remember
+those one-liners?
+
+They change state in various ways based on the user's clicks. The first four
+({un,}limit{Query,Target}()) do so by tweaking the m_filters[] array.
+
+More HTML-generation helpers: redraw_navi(), drawPager() -- note the inconsistent
+multi-word naming scheme
+
+We are *completely* schizophrenic over whether to use camelCase or
+underscore_separated
+
+Then more UI functions (that.X, that.Y)
+
+Anyway, onwards ... loadTemplate() you already know about.
+
+defaultTemplate() is the hardwired defaults, used for applications that don't
+define their own templates. For an application that does, see
+http://example.indexdata.com/lolcat.html
+
+As you can imagine, Lynn was WAY impressed by lolcat.html
+
+mkws_html_all() is a big ugly function that generates a buttload of HTML.
+Basically, it spots where you've used a magic name like <class="mkwsSearch">
+and expands it to contain the relevant HTML.
+
+Then it's just utility functions: parseQueryString() to read URL params,
+mkws_set_lang() and friends generate more HTML.
+
+All these HTML-generation functions should of course be together. Many of them
+should also use Handlebars templates, so that clever applications can redefine
+them. In places, too, they still need fixing to use CSS classes instead of inline
+markup, <b> and suchlike.
+
+that.run_auto_search() is interesting. It gets the term to search for from the
+"autosearch" attribute on the relevant element, but there are special forms for
+that string. !param!NAME gets the query from the URL parameter called NAME;
+!path!NUM gets it from the NUM'th last component of the URL path. There may be
+more of these in future.
+
+Once it's got that it's a pretty straightforward invocation of newSearch()
+
+M(string) yields the translation of string into the currently selected language.
+We use it a lot in the HTML generation, and it's one part of that process that's
+more cumbersome in Handlebars. The problem is that M() is a closure so it could
+in principle know what the language of THIS team is, and it could be different
+for different teams, even though that's not the case at the moment. But Handlebars
+helpers are set once for all time, so they can't be team-specific, which means
+they can only refer to the globally selected lan
+
+And that, really, is the end of the team object (and so of mkws.js). TA-DAH!
+
+

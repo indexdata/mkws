@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MKWS demo: Mike's playground</title>
+    <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
+    <script type="text/javascript" src="http://x.mkws.indexdata.com/mkws.js"></script>
+    <style type="text/css">
+      h1 { text-align: center; }
+      h1, h2 {
+	font-family: Impact, Hevetica, Arial, Sans Serif;
+      }
+      td {
+        font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+	vertical-align: top;
+	overflow: word-break;
+	background: #f0f0f0;
+        padding: 0.5em 1em;
+	border-radius: 1em;
+      }
+      a {
+        color: #000060;
+	text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Dinosaurs</h1>
+    <table border="0" width="100%" style="table-layout:fixed">
+      <col width="33%"/>
+      <col width="33%"/>
+      <col width="33%"/>
+      <tr>
+	<td style="background: #f8f8e0">
+	  <h2>PLOS ONE</h2>
+<div class='mkwsRecords mkwsTeam_plos'
+	autosearch='dinosaur'
+	sort='relevance'
+	targets='pz:id~lui.indexdata.com:8080/solr4/#6265'
+>PLOS ONE articles will appear here</div>
+	</td>
+	<td style="background: #e0f8f0">
+	  <h2>Project Gutenberg</h2>
+<div class='mkwsRecords mkwsTeam_gutenberg'
+	autosearch='dinosaur'
+	sort='relevance'
+	targets='pz:id~lui.indexdata.com:8080/solr4/#3552'
+>Free e-books will appear here</div>
+	</td>
+	<td style="background: #e0f0f8">
+	  <h2>Library of Congress</h2>
+<div class='mkwsRecords mkwsTeam_blog'
+	autosearch='dinosaur'
+	sort='relevance'
+	targets='pz:id~lui.indexdata.com:8080/solr4/#5802'
+>Library catalog entries will appear here</div>
+	</td>
+      </tr>
+    </table>
+    <p style="color:grey; text-align: right">
+      <a href="http://mkws.indexdata.com/">About MKWS</p>
+    </p>
+  </body>
+</html>

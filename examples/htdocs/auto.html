@@ -5,34 +5,38 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
     <title>MKWS demo: Automatic search</title>
-    <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
     <style type="text/css">
-      td { vertical-align: top }
+      td { vertical-align: top; overflow: word-break }
     </style>
   </head>
   <body>
     <h1>A site about stuff</h1>
-    <table border="1" width="100%">
+    <table border="1" width="100%" style="table-layout:fixed">
+      <col width="50%"/>
+      <col width="50%"/>
       <tr>
-	<td width="50%">
+	<td>
 	  <h2>Welcome</h2>
 	  Main site content goes here.
 	</td>
-	<td width="50%">
+	<td>
 	  <h2>News</h2>
 
 
-<div id='mkwsRecords'
+<div class='mkwsRecords'
 	autosearch='mike'
 	sort='relevance'
 	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
 >results will appear here</div>
 
 
-	<div id='mkwsTermlists'/>
 	</td>
       </tr>
     </table>
+    <p style="color:grey">
+      <a href="http://mkws.indexdata.com/">About MKWS</p>
+    </p>
   </body>
 </html>

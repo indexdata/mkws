@@ -1,5 +1,8 @@
 You will need to enable the Rewrite module for this to work:
 
-$ sudo a2enmod rewrite
+$ sudo a2enmod rewrite headers proxy deflate
 $ sudo service apache2 reload
 
+There are example configurations under examples/apache2
+
+Most developers have their own setup under tools/apache2

@@ -5,32 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
     <title>MKWS demo: mobile-screen resizing</title>
-    <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <script type="text/javascript">
-	var mkws_config = {
-		lang: "da",
-		debug_level: 1,
-		use_service_proxy: true,
-		show_lang: true,
-		lang_options: ["da", "en"],
-		sort_default: "relevance",
-		query_width: 50,
-		facets: ["authors", "sources", "subjects"],
-		responsive_design_width: 990,
-		perpage_default: 20
-	 };
+      var mkws_config = { responsive_design_width: 990 };
     </script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws.js"></script>
+    <script src="//mkws.indexdata.com/mkws-complete.js"></script>
   </head>
   <body>
-    <div id="mkwsLang"></div>
-    <div id="mkwsSearch"></div>
-    <div id="mkwsResults"></div>
-    <div id="mkwsTargets"></div>
-    <div id="mkwsStat"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
   </body>
 </html>

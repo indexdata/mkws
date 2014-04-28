@@ -1,0 +1,24 @@
+{
+    "name": "MKWS",
+    "version": "0.9.1",
+    "license": "GPL, http://www.indexdata.com/licences/gpl",
+    "contributors": [{
+        "name": "Mike Taylor",
+        "email": "mike@indexdata.com"
+    }, {
+        "name": "Wolfram Schneider",
+        "email": "wosch@indexdata.com"
+    }],
+    "devDependencies": {
+        "jQuery": "*",
+        "xmlhttprequest": "*",
+        "jsdom": "*",
+        "request": "*",
+        "jasmine-node": "*",
+        "phantomjs": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://git.indexdata.com/mkws.git"
+    }
+}

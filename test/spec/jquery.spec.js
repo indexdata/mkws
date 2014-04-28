@@ -5,7 +5,7 @@
  */
 
 describe("jQuery suite simple", function () {
-    var $ = require('jquery');
+    var $ = require('jQuery');
 
     it("jQuery append test", function () {
         $("body").append("<h1>test passes h1</h1>");

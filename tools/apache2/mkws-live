@@ -14,7 +14,12 @@
     RewriteEngine on
     RewriteLogLevel 1
     RewriteLog /var/log/apache2/mkws-rewrite.log 
-    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
+
+    # standard MKWS account
+    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
+
+    # jasmine test account
+    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
 
     # The following rule allows the server to accept service-proxy
     # requests that begin with an escaped "%3F" rather than a literal
@@ -25,8 +30,8 @@
     Header set Access-Control-Allow-Credentials true
 
     # For MKC Service Proxy
-    ProxyPass        /service-proxy/ http://mk2-test.indexdata.com/service-proxy/
-    ProxyPassReverse /service-proxy/ http://mk2-test.indexdata.com/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/tools/mod_perl

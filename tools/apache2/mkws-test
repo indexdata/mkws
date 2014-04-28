@@ -1,0 +1,45 @@
+# Configuration for the apache web server                 -*- apache -*-
+
+# pazpar2 / service proxy config
+<VirtualHost *:80>
+    ServerName mkws-test.indexdata.com
+    ServerAlias mkws-test spclient-dev.indexdata.com
+    ServerAdmin webmaster@indexdata.com
+    ErrorLog /var/log/apache2/mkws-test-error.log
+    CustomLog /var/log/apache2/mkws-test-access.log combined
+
+    RewriteEngine on
+    RewriteLogLevel 1
+    RewriteLog /var/log/apache2/mkws-test-rewrite.log 
+
+    DocumentRoot /home/indexdata/mkws-test/examples/htdocs
+    Alias /tools/htdocs /home/indexdata/mkws-test/tools/htdocs
+    Alias /src /home/indexdata/mkws-test/src
+    Alias /test /home/indexdata/mkws-test/test
+    Alias /jasmine /home/indexdata/mkws-test/examples/jasmine
+
+
+    # CORS setting
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Origin "*"
+
+    # compress text output
+    <Location />
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml
+        SetOutputFilter DEFLATE 
+    </Location> 
+
+    # standard MKWS account
+    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
+
+    # jasmine test account
+    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
+
+    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+
+    ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
+    ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
+
+</VirtualHost>
+

@@ -1,0 +1,6 @@
+node_modules
+logs/error_log
+logs/jasmine-dev
+logs/mkws-jasmine-access.log
+logs/mkws-jasmine-error.log
+logs/mkws-jasmine-rewrite.log
