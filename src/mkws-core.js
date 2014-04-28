@@ -322,6 +322,24 @@ mkws.pagerNext = function(tname) {
 	}
     }
 
+
+    function makeWidgetsWithin(level, node) {
+        node.find('[class^="mkws"],[class*=" mkws"]').each(function() {
+            handleNodeWithTeam(this, function(tname, type) {
+                var oldHTML = this.innerHTML;
+                var myTeam = mkws.teams[tname];
+                var myWidget = widget(j, myTeam, type, this);
+                myTeam.addWidget(myWidget);
+                var newHTML = this.innerHTML;
+                if (newHTML !== oldHTML) {
+                    log("widget " + tname + ":" + type + " HTML changed from '" + oldHTML + "' to '" + newHTML + "': reparse!");
+                    makeWidgetsWithin(level+1, $(this));
+                }
+            });
+        });
+    }
+
+
     $(document).ready(function() {
 	var saved_config;
 	if (typeof mkws_config === 'undefined') {
@@ -388,17 +406,9 @@ mkws.pagerNext = function(tname) {
 		}
 	    });
 	});
-	// Second pass: make the individual widget objects. This has
-	// to be done separately, and after the team-creation, since
-	// that sometimes makes new widget nodes (e.g. creating
-	// mkwsTermlists inside mkwsResults.
-	$('[class^="mkws"],[class*=" mkws"]').each(function() {
-	    handleNodeWithTeam(this, function(tname, type) {
-		var myTeam = mkws.teams[tname];
-		var myWidget = widget(j, myTeam, type, this);
-                myTeam.addWidget(myWidget);
-	    });
-	});
+
+        makeWidgetsWithin(1, $(':root'));
+        
 	var now = $.now();
 	log("Walking MKWS nodes took " + (now-then) + " ms");
 
