@@ -332,3 +332,22 @@ mkws.registerWidgetType('Done', function() {
 	$(that.node).html("Search complete: found " + n + " records");
     });
 });
+
+
+mkws.registerWidgetType('Switch', function() {
+    var tname = this.team.name();
+    $(this.node).html('\
+<a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
+| \
+</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a> \
+<div class="mkwsUpperCase">foo</div>\
+');
+});
+
+
+mkws.registerWidgetType('UpperCase', function() {
+    var text = $(this.node).html();
+    $(this.node).html(text.toUpperCase());
+});
+
+
