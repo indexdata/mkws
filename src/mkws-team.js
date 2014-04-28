@@ -550,13 +550,6 @@ function team($, teamName) {
 
 
     function mkwsHtmlSwitch() {
-	log("HTML switch for team " + m_teamName);
-
-	var node = findnode(".mkwsSwitch");
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
-	node.append($("<span/>", { text: " | " }));
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
-
 	log("HTML targets");
 	var node = findnode(".mkwsTargets");
 	node.html('\
