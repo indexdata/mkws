@@ -347,3 +347,27 @@ mkws.registerWidgetType('Switch', function() {
 | \
 </span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
 });
+
+
+mkws.registerWidgetType('Search', function() {
+    var tname = this.team.name();
+    var M = mkws.M;
+
+    $(this.node).html('\
+<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
+  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + this.config.query_width + '" />\
+  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
+</form>');
+});
+
+
+mkws.registerWidgetType('SearchForm', function() {
+    var team = this.team;    
+    $(this.node).submit(function() {
+	var val = team.widget('Query').value();
+	team.newSearch(val);
+	return false;
+    });
+});
+
+
