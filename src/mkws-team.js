@@ -412,8 +412,6 @@ function team($, teamName) {
         ranking_data += '</form>';
 	findnode(".mkwsRanking").html(ranking_data);
 
-	mkwsHtmlSwitch();
-
 	findnode('.mkwsSearchForm').submit(function() {
 	    var val = widgetNode('Query').val();
 	    newSearch(val);
@@ -546,17 +544,6 @@ function team($, teamName) {
 	perpage_html += '</select>';
 
 	return perpage_html;
-    }
-
-
-    function mkwsHtmlSwitch() {
-	log("HTML targets");
-	var node = findnode(".mkwsTargets");
-	node.html('\
-<div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
-  No information available yet.\
-</div>');
-	node.css("display", "none");
     }
 
 
