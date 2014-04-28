@@ -356,13 +356,6 @@ function team($, teamName) {
 	if (m_config.show_lang)
 	    mkwsHtmlLang();
 
-	log("HTML search form");
-	findnode('.mkwsSearch').html('\
-<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + m_teamName + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + m_teamName + '" type="text" size="' + m_config.query_width + '" />\
-  <input class="mkwsButton mkwsTeam_' + m_teamName + '" type="submit" value="' + M('Search') + '" />\
-</form>');
-
 	log("HTML records");
 	// If the team has a .mkwsResults, populate it in the usual
 	// way. If not, assume that it's a smarter application that
@@ -411,14 +404,6 @@ function team($, teamName) {
 	}
         ranking_data += '</form>';
 	findnode(".mkwsRanking").html(ranking_data);
-
-	mkwsHtmlSwitch();
-
-	findnode('.mkwsSearchForm').submit(function() {
-	    var val = widgetNode('Query').val();
-	    newSearch(val);
-	    return false;
-	});
 
 	// on first page, hide the termlist
 	$(document).ready(function() {
@@ -546,24 +531,6 @@ function team($, teamName) {
 	perpage_html += '</select>';
 
 	return perpage_html;
-    }
-
-
-    function mkwsHtmlSwitch() {
-	log("HTML switch for team " + m_teamName);
-
-	var node = findnode(".mkwsSwitch");
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'records\')">' + M('Records') + '</a>'));
-	node.append($("<span/>", { text: " | " }));
-	node.append($('<a href="#" onclick="mkws.switchView(\'' + m_teamName + '\', \'targets\')">' + M('Targets') + '</a>'));
-
-	log("HTML targets");
-	var node = findnode(".mkwsTargets");
-	node.html('\
-<div class="mkwsBytarget mkwsTeam_' + m_teamName + '">\
-  No information available yet.\
-</div>');
-	node.css("display", "none");
     }
 
 

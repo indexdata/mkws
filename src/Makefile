@@ -17,10 +17,11 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
 	mkws-widget-record.js mkws-widget-builder.js
 
-INSTALLABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
-	mkws.js mkws-jquery.js mkws-complete.js \
-	mkws.min.js mkws-complete.min.js \
-	VERSION NEWS
+GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
+	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
+
+INSTALLABLE = mkws-jquery.js VERSION NEWS $(GENERATED)
+
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 **make-default**: ../tools/htdocs/mkws.js
@@ -96,6 +97,5 @@ distclean: clean
 	rm -f *.orig *.bak *.rej
 
 clean:
-	rm -f ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
-	rm -f mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
+	rm -f ${GENERATED}
 
