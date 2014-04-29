@@ -354,7 +354,6 @@ function team($, teamName) {
      */
     function mkwsHtmlAll() {
 	mkwsSetLang();
-	mkwsHtmlLang();
 
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
@@ -374,71 +373,6 @@ function team($, teamName) {
 
 	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
 	return m_config.lang;
-    }
-
-    // set or re-set "lang" URL parameter
-    function lang_url(lang) {
-	var query = location.search;
-	// no query parameters? done
-	if (!query) {
-	    return "?lang=" + lang;
-	}
-
-	// parameter does not exists
-	if (!query.match(/[\?&]lang=/)) {
-            return query + "&lang=" + lang;
-        }
-
-	// replace existing parameter
-	query = query.replace(/\?lang=([^&#;]*)/, "?lang=" + lang);
-	query = query.replace(/\&lang=([^&#;]*)/, "&lang=" + lang);
-
-	return query;
-    }
-   
-	// dynamic URL or static page? /path/foo?query=test
-    /* create locale language menu */
-    function mkwsHtmlLang() {
-	if (!m_config.show_lang) return;
-
-	var lang_default = "en";
-	var lang = m_config.lang || lang_default;
-	var list = [];
-
-	/* display a list of configured languages, or all */
-	var lang_options = m_config.lang_options || [];
-	var toBeIncluded = {};
-	for (var i = 0; i < lang_options.length; i++) {
-	    toBeIncluded[lang_options[i]] = true;
-	}
-
-	for (var k in mkws.locale_lang) {
-	    if (toBeIncluded[k] || lang_options.length == 0)
-		list.push(k);
-	}
-
-	// add english link
-	if (lang_options.length == 0 || toBeIncluded[lang_default])
-            list.push(lang_default);
-
-	log("Language menu for: " + list.join(", "));
-
-	/* the HTML part */
-	var data = "";
-	for(var i = 0; i < list.length; i++) {
-	    var l = list[i];
-
-	    if (data)
-		data += ' | ';
-
-	    if (lang == l) {
-		data += ' <span>' + l + '</span> ';
-	    } else {
-		data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
-	    }
-	}
-
-	findnode(".mkwsLang").html(data);
     }
 
 
