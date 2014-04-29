@@ -341,19 +341,6 @@ function team($, teamName) {
     };
 
 
-    /*
-     * All the HTML stuff to render the search forms and
-     * result pages.
-     */
-    function mkwsHtmlAll() {
-        var container = findnode(".mkwsMOTDContainer");
-	if (container.length) {
-	    // Move the MOTD from the provided element down into the container
-	    findnode(".mkwsMOTD").appendTo(container);
-	}
-    }
-
-
     function mkwsSetLang()  {
 	var lang = mkws.getParameterByName("lang") || m_config.lang;
 	if (!lang || !mkws.locale_lang[lang]) {
@@ -476,7 +463,6 @@ function team($, teamName) {
         return m_widgets[type];
     }
 
-    mkwsHtmlAll()
     mkwsSetLang();
 
     return that;
