@@ -520,3 +520,15 @@ mkws.registerWidgetType('Lang', function() {
 	return query;
     }
 });
+
+
+mkws.registerWidgetType('MOTD', function() {
+    var container = this.team.widget('MOTDContainer');
+    if (container) {
+        alert("moving MOTD");
+	// Move the MOTD from the provided element down into the container
+	$(this.node).appendTo(container.node);
+    }
+});
+
+
