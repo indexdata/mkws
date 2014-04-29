@@ -88,7 +88,8 @@ mkws.log = function(string) {
 
     // you need to disable use strict at the top of the file!!!
     if (mkws.log_level >= 3) {
-	console.log(arguments.callee.caller);
+        // Works in Chrome; not sure about elsewhere
+	console.trace();
     } else if (mkws.log_level >= 2) {
 	console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
     }
