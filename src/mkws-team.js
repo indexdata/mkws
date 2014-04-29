@@ -314,13 +314,6 @@ function team($, teamName) {
             if (blanket) blanket.css('display', 'block');
             if (motd) motd.css('display', 'none');
             break;
-	case 'none':
-	    alert("mkws.switchView(" + m_teamName + ", 'none') shouldn't happen");
-            if (targets) targets.css('display', 'none');
-            if (results) results.css('display', 'none');
-            if (blanket) blanket.css('display', 'none');
-            if (motd) motd.css('display', 'none');
-            break;
         default:
             alert("Unknown view '" + view + "'");
 	}
