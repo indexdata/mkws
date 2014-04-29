@@ -35,8 +35,8 @@
   RewriteRule /service-proxy-auth/ /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
 
   # For MKC Service Proxy
-    ProxyPass        /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
-    ProxyPassReverse /service-proxy/ http://mkc.indexdata.com:9009/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
 
     ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
     ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
