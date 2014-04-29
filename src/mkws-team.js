@@ -353,8 +353,6 @@ function team($, teamName) {
      * result pages.
      */
     function mkwsHtmlAll() {
-	mkwsSetLang();
-
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
@@ -574,6 +572,7 @@ function team($, teamName) {
     }
 
     mkwsHtmlAll()
+    mkwsSetLang();
 
     return that;
 };
