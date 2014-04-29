@@ -451,19 +451,14 @@ function team($, teamName) {
     }
 
 
-    function mkwsSetLang()  {
-	var lang = mkws.getParameterByName("lang") || m_config.lang;
-	if (!lang || !mkws.locale_lang[lang]) {
-	    m_config.lang = ""
-	} else {
-	    m_config.lang = lang;
-	}
-
-	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
+    var lang = mkws.getParameterByName("lang") || m_config.lang;
+    if (!lang || !mkws.locale_lang[lang]) {
+	m_config.lang = ""
+    } else {
+	m_config.lang = lang;
     }
 
-
-    mkwsSetLang();
+    log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
 
     return that;
 };
