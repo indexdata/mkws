@@ -164,6 +164,95 @@ mkws.objectInheritingFrom = function(o) {
 }
 
 
+mkws.defaultTemplate = function(name) {
+    if (name === 'Record') {
+	return '\
+<table>\
+  <tr>\
+    <th>{{translate "Title"}}</th>\
+    <td>\
+      {{md-title}}\
+      {{#if md-title-remainder}}\
+	({{md-title-remainder}})\
+      {{/if}}\
+      {{#if md-title-responsibility}}\
+	<i>{{md-title-responsibility}}</i>\
+      {{/if}}\
+    </td>\
+  </tr>\
+  {{#if md-date}}\
+  <tr>\
+    <th>{{translate "Date"}}</th>\
+    <td>{{md-date}}</td>\
+  </tr>\
+  {{/if}}\
+  {{#if md-author}}\
+  <tr>\
+    <th>{{translate "Author"}}</th>\
+    <td>{{md-author}}</td>\
+  </tr>\
+  {{/if}}\
+  {{#if md-electronic-url}}\
+  <tr>\
+    <th>{{translate "Links"}}</th>\
+    <td>\
+      {{#each md-electronic-url}}\
+	<a href="{{this}}">Link{{index1}}</a>\
+      {{/each}}\
+    </td>\
+  </tr>\
+  {{/if}}\
+  {{#if-any location having="md-subject"}}\
+  <tr>\
+    <th>{{translate "Subject"}}</th>\
+    <td>\
+      {{#first location having="md-subject"}}\
+	{{#if md-subject}}\
+	  {{#commaList md-subject}}\
+	    {{this}}{{/commaList}}\
+	{{/if}}\
+      {{/first}}\
+    </td>\
+  </tr>\
+  {{/if-any}}\
+  <tr>\
+    <th>{{translate "Locations"}}</th>\
+    <td>\
+      {{#commaList location}}\
+	{{attr "@name"}}{{/commaList}}\
+    </td>\
+  </tr>\
+</table>\
+';
+    } else if (name === "Summary") {
+	return '\
+<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+  <b>{{md-title}}</b>\
+</a>\
+{{#if md-title-remainder}}\
+  <span>{{md-title-remainder}}</span>\
+{{/if}}\
+{{#if md-title-responsibility}}\
+  <span><i>{{md-title-responsibility}}</i></span>\
+{{/if}}\
+';
+    } else if (name === "Image") {
+	return '\
+      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
+        {{#first md-thumburl}}\
+	  <img src="{{this}}" alt="{{../md-title}}"/>\
+        {{/first}}\
+	<br/>\
+      </a>\
+';
+    }
+
+    var s = "There is no default '" + name +"' template!";
+    alert(s);
+    return s;
+};
+
+
 // The following functions are dispatchers for team methods that
 // are called from the UI using a team-name rather than implicit
 // context.
