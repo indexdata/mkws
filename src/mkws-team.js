@@ -354,8 +354,7 @@ function team($, teamName) {
      */
     function mkwsHtmlAll() {
 	mkwsSetLang();
-	if (m_config.show_lang)
-	    mkwsHtmlLang();
+	mkwsHtmlLang();
 
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
@@ -400,6 +399,8 @@ function team($, teamName) {
 	// dynamic URL or static page? /path/foo?query=test
     /* create locale language menu */
     function mkwsHtmlLang() {
+	if (!m_config.show_lang) return;
+
 	var lang_default = "en";
 	var lang = m_config.lang || lang_default;
 	var list = [];
