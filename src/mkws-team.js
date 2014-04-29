@@ -36,6 +36,7 @@ function team($, teamName) {
     // Accessor methods for individual widgets: readers
     that.name = function() { return m_teamName; };
     that.submitted = function() { return m_submitted; };
+    that.sortOrder = function() { return m_sortOrder; };
     that.perpage = function() { return m_perpage; };
     that.totalRecordCount = function() { return m_totalRecordCount; };
     that.currentPage = function() { return m_currentPage; };
@@ -356,16 +357,6 @@ function team($, teamName) {
 	if (m_config.show_lang)
 	    mkwsHtmlLang();
 
-	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
-	if (m_config.show_sort) {
-	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
-	}
-	if (m_config.show_perpage) {
-	    ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
-	}
-        ranking_data += '</form>';
-	findnode(".mkwsRanking").html(ranking_data);
-
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
@@ -447,46 +438,6 @@ function team($, teamName) {
 	}
 
 	findnode(".mkwsLang").html(data);
-    }
-
-
-    function mkwsHtmlSort() {
-	log("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
-	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
-
-	for(var i = 0; i < m_config.sort_options.length; i++) {
-	    var opt = m_config.sort_options[i];
-	    var key = opt[0];
-	    var val = opt.length == 1 ? opt[0] : opt[1];
-
-	    sort_html += '<option value="' + key + '"';
-	    if (m_sortOrder == key || m_sortOrder == val) {
-		sort_html += ' selected="selected"';
-	    }
-	    sort_html += '>' + M(val) + '</option>';
-	}
-	sort_html += '</select>';
-
-	return sort_html;
-    }
-
-
-    function mkwsHtmlPerpage() {
-	log("HTML perpage, m_perpage = " + m_perpage);
-	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
-
-	for(var i = 0; i < m_config.perpage_options.length; i++) {
-	    var key = m_config.perpage_options[i];
-
-	    perpage_html += '<option value="' + key + '"';
-	    if (key == m_perpage) {
-		perpage_html += ' selected="selected"';
-	    }
-	    perpage_html += '>' + key + '</option>';
-	}
-	perpage_html += '</select>';
-
-	return perpage_html;
     }
 
 
