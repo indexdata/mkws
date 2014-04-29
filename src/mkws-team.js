@@ -460,7 +460,6 @@ function team($, teamName) {
 	}
 
 	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
-	return m_config.lang;
     }
 
 
