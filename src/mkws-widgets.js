@@ -396,3 +396,64 @@ mkws.registerWidgetType('Results', function() {
 });
 
 
+mkws.registerWidgetType('Ranking', function() {
+    var tname = this.team.name();
+    var that = this;
+    var M = mkws.M;
+
+    var s = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + tname + '" action="" >';
+    if (this.config.show_sort) {
+	s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
+    }
+    if (this.config.show_perpage) {
+	s += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
+    }
+    s += '</form>';
+
+    $(this.node).html(s);
+
+
+    function mkwsHtmlSort() {
+        var order = that.team.sortOrder();
+
+	that.log("HTML sort, sortOrder = '" + order + "'");
+	var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
+
+	for(var i = 0; i < that.config.sort_options.length; i++) {
+	    var opt = that.config.sort_options[i];
+	    var key = opt[0];
+	    var val = opt.length == 1 ? opt[0] : opt[1];
+
+	    sort_html += '<option value="' + key + '"';
+	    if (order == key || order == val) {
+		sort_html += ' selected="selected"';
+	    }
+	    sort_html += '>' + M(val) + '</option>';
+	}
+	sort_html += '</select>';
+
+	return sort_html;
+    }
+
+    function mkwsHtmlPerpage() {
+        var perpage = that.team.perpage();
+
+	that.log("HTML perpage, perpage = " + perpage);
+	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
+
+	for(var i = 0; i < that.config.perpage_options.length; i++) {
+	    var key = that.config.perpage_options[i];
+
+	    perpage_html += '<option value="' + key + '"';
+	    if (key == perpage) {
+		perpage_html += ' selected="selected"';
+	    }
+	    perpage_html += '>' + key + '</option>';
+	}
+	perpage_html += '</select>';
+
+	return perpage_html;
+    }
+});
+
+
