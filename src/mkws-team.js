@@ -356,45 +356,6 @@ function team($, teamName) {
 	if (m_config.show_lang)
 	    mkwsHtmlLang();
 
-	log("HTML records");
-	// If the team has a .mkwsResults, populate it in the usual
-	// way. If not, assume that it's a smarter application that
-	// defines its own subcomponents, some or all of the
-	// following:
-	//	.mkwsTermlists
-	//	.mkwsRanking
-	//	.mkwsPager
-	//	.mkwsNavi
-	//	.mkwsRecords
-	findnode(".mkwsResults").html('\
-<table width="100%" border="0" cellpadding="6" cellspacing="0">\
-  <tr>\
-    <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
-      <div class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-    <td class="mkwsMOTDContainer mkwsTeam_' + m_teamName + '" valign="top">\
-      <div class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-  </tr>\
-  <tr>\
-    <td colspan="2">\
-      <div class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-  </tr>\
-</table>');
-
-	var acc = [];
-	var facets = m_config.facets;
-	acc.push('<div class="title">' + M('Termlists') + '</div>');
-	for (var i = 0; i < facets.length; i++) {
-	    acc.push('<div class="mkwsFacet mkwsTeam_' + m_teamName + '" data-mkws-facet="' + facets[i] + '">');
-	    acc.push('</div>');
-	}
-	findnode(".mkwsTermlists").html(acc.join(''));
-
 	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
 	if (m_config.show_sort) {
 	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
@@ -405,11 +366,6 @@ function team($, teamName) {
         ranking_data += '</form>';
 	findnode(".mkwsRanking").html(ranking_data);
 
-	// on first page, hide the termlist
-	$(document).ready(function() {
-            var t = widgetNode("Termlists");
-            if (t) t.hide();
-        });
         var container = findnode(".mkwsMOTDContainer");
 	if (container.length) {
 	    // Move the MOTD from the provided element down into the container
