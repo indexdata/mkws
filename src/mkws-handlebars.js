@@ -4,6 +4,16 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+Handlebars.registerHelper('paragraphs', function(obj) {
+    var acc = [];
+    for (var i = 0; i < obj.length; i++) {
+        // I don't know why, but we need the \n, otherwise Handlebars elides paragraphs
+        acc.push('<p>', obj[i], '</p>', "\n");
+    }
+    return acc.join('');
+});
+
+
 Handlebars.registerHelper('translate', function(s) {
     return mkws.M(s);
 });
