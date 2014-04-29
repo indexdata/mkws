@@ -341,19 +341,6 @@ function team($, teamName) {
     };
 
 
-    function mkwsSetLang()  {
-	var lang = mkws.getParameterByName("lang") || m_config.lang;
-	if (!lang || !mkws.locale_lang[lang]) {
-	    m_config.lang = ""
-	} else {
-	    m_config.lang = lang;
-	}
-
-	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
-	return m_config.lang;
-    }
-
-
     // Translation function. At present, this is properly a
     // global-level function (hence the assignment to mkws.M) but we
     // want to make it per-team so different teams can operate in
@@ -462,6 +449,20 @@ function team($, teamName) {
     that.widget = function(type) {
         return m_widgets[type];
     }
+
+
+    function mkwsSetLang()  {
+	var lang = mkws.getParameterByName("lang") || m_config.lang;
+	if (!lang || !mkws.locale_lang[lang]) {
+	    m_config.lang = ""
+	} else {
+	    m_config.lang = lang;
+	}
+
+	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
+	return m_config.lang;
+    }
+
 
     mkwsSetLang();
 
