@@ -1,25 +1,19 @@
 # Configuration for the apache web server
-# Running on caliban
+# Running on caliban FROM AN UP-TO-DATE UNSTABLE GIT CHECKOUT
 
 <VirtualHost *:80>
-    ServerName mkws.indexdata.com
+    ServerName mkws-git.indexdata.com
 
-    ErrorLog /var/log/apache2/mkws-error.log
-    CustomLog /var/log/apache2/mkws-access.log combined
+    ErrorLog /var/log/apache2/mkws-git-error.log
+    CustomLog /var/log/apache2/mkws-git-access.log combined
 
-    DocumentRoot /home/indexdata/mkws/tools/htdocs
+    DocumentRoot /home/indexdata/mkws-git/tools/htdocs
     Alias /libjs-pz2/ /home/indexdata/libjs-pz2/
-    Alias /pazpar2/ /home/indexdata/pazpar2/
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog /var/log/apache2/mkws-rewrite.log 
-
-    # standard MKWS account
-    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
-
-    # jasmine test account
-    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
+    RewriteLog /var/log/apache2/mkws-git-rewrite.log 
+    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
     # The following rule allows the server to accept service-proxy
     # requests that begin with an escaped "%3F" rather than a literal
@@ -34,7 +28,7 @@
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
 
     PerlOptions +Parent
-    PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
+    PerlSwitches -I/home/indexdata/mkws-git/tools/mod_perl
     <Location /service-proxy>
         PerlOutputFilterHandler MyApache2::SetACAO
     </Location>

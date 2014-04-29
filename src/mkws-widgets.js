@@ -125,6 +125,12 @@ mkws.registerWidgetType('Targets', function() {
     var that = this;
     var M = mkws.M;
 
+    $(this.node).html('\
+<div class="mkwsBytarget mkwsTeam_' + this.team.name() + '">\
+No information available yet.\
+</div>');
+    $(this.node).css("display", "none");
+
     this.team.queue("targets").subscribe(function(data) {
 	var table ='<table><thead><tr>' +
 	    '<td>' + M('Target ID') + '</td>' +
@@ -332,3 +338,36 @@ mkws.registerWidgetType('Done', function() {
 	$(that.node).html("Search complete: found " + n + " records");
     });
 });
+
+
+mkws.registerWidgetType('Switch', function() {
+    var tname = this.team.name();
+    $(this.node).html('\
+<a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
+| \
+</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
+});
+
+
+mkws.registerWidgetType('Search', function() {
+    var tname = this.team.name();
+    var M = mkws.M;
+
+    $(this.node).html('\
+<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
+  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + this.config.query_width + '" />\
+  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
+</form>');
+});
+
+
+mkws.registerWidgetType('SearchForm', function() {
+    var team = this.team;    
+    $(this.node).submit(function() {
+	var val = team.widget('Query').value();
+	team.newSearch(val);
+	return false;
+    });
+});
+
+
