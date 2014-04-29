@@ -371,3 +371,163 @@ mkws.registerWidgetType('SearchForm', function() {
 });
 
 
+mkws.registerWidgetType('Results', function() {
+    var tname = this.team.name();
+
+    $(this.node).html('\
+<table width="100%" border="0" cellpadding="6" cellspacing="0">\
+  <tr>\
+    <td class="mkwsTermlistContainer1 mkwsTeam_' + tname + '" width="250" valign="top">\
+      <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
+    </td>\
+    <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
+      <div class="mkwsRanking mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsPager mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsNavi mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsRecords mkwsTeam_' + tname + '"></div>\
+    </td>\
+  </tr>\
+  <tr>\
+    <td colspan="2">\
+      <div class="mkwsTermlistContainer2 mkwsTeam_' + tname + '"></div>\
+    </td>\
+  </tr>\
+</table>');
+});
+
+
+mkws.registerWidgetType('Ranking', function() {
+    var tname = this.team.name();
+    var that = this;
+    var M = mkws.M;
+
+    var s = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + tname + '" action="" >';
+    if (this.config.show_sort) {
+	s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
+    }
+    if (this.config.show_perpage) {
+	s += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
+    }
+    s += '</form>';
+
+    $(this.node).html(s);
+
+
+    function mkwsHtmlSort() {
+        var order = that.team.sortOrder();
+
+	that.log("HTML sort, sortOrder = '" + order + "'");
+	var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
+
+	for(var i = 0; i < that.config.sort_options.length; i++) {
+	    var opt = that.config.sort_options[i];
+	    var key = opt[0];
+	    var val = opt.length == 1 ? opt[0] : opt[1];
+
+	    sort_html += '<option value="' + key + '"';
+	    if (order == key || order == val) {
+		sort_html += ' selected="selected"';
+	    }
+	    sort_html += '>' + M(val) + '</option>';
+	}
+	sort_html += '</select>';
+
+	return sort_html;
+    }
+
+    function mkwsHtmlPerpage() {
+        var perpage = that.team.perpage();
+
+	that.log("HTML perpage, perpage = " + perpage);
+	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
+
+	for(var i = 0; i < that.config.perpage_options.length; i++) {
+	    var key = that.config.perpage_options[i];
+
+	    perpage_html += '<option value="' + key + '"';
+	    if (key == perpage) {
+		perpage_html += ' selected="selected"';
+	    }
+	    perpage_html += '>' + key + '</option>';
+	}
+	perpage_html += '</select>';
+
+	return perpage_html;
+    }
+});
+
+
+mkws.registerWidgetType('Lang', function() {
+    // dynamic URL or static page? /path/foo?query=test
+    /* create locale language menu */
+    if (!this.config.show_lang) return;
+
+    var lang_default = "en";
+    var lang = this.config.lang || lang_default;
+    var list = [];
+
+    /* display a list of configured languages, or all */
+    var lang_options = this.config.lang_options || [];
+    var toBeIncluded = {};
+    for (var i = 0; i < lang_options.length; i++) {
+	toBeIncluded[lang_options[i]] = true;
+    }
+
+    for (var k in mkws.locale_lang) {
+	if (toBeIncluded[k] || lang_options.length == 0)
+	    list.push(k);
+    }
+
+    // add english link
+    if (lang_options.length == 0 || toBeIncluded[lang_default])
+        list.push(lang_default);
+
+    this.log("Language menu for: " + list.join(", "));
+
+    /* the HTML part */
+    var data = "";
+    for (var i = 0; i < list.length; i++) {
+	var l = list[i];
+	if (data)
+	    data += ' | ';
+
+	if (lang == l) {
+	    data += ' <span>' + l + '</span> ';
+	} else {
+	    data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
+	}
+    }
+
+    $(this.node).html(data);
+
+
+    // set or re-set "lang" URL parameter
+    function lang_url(lang) {
+	var query = location.search;
+	// no query parameters? done
+	if (!query) {
+	    return "?lang=" + lang;
+	}
+
+	// parameter does not exist
+	if (!query.match(/[\?&]lang=/)) {
+            return query + "&lang=" + lang;
+        }
+
+	// replace existing parameter
+	query = query.replace(/\?lang=([^&#;]*)/, "?lang=" + lang);
+	query = query.replace(/\&lang=([^&#;]*)/, "&lang=" + lang);
+	return query;
+    }
+});
+
+
+mkws.registerWidgetType('MOTD', function() {
+    var container = this.team.widget('MOTDContainer');
+    if (container) {
+	// Move the MOTD from the provided element down into the container
+	$(this.node).appendTo(container.node);
+    }
+});
+
+

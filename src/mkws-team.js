@@ -36,6 +36,7 @@ function team($, teamName) {
     // Accessor methods for individual widgets: readers
     that.name = function() { return m_teamName; };
     that.submitted = function() { return m_submitted; };
+    that.sortOrder = function() { return m_sortOrder; };
     that.perpage = function() { return m_perpage; };
     that.totalRecordCount = function() { return m_totalRecordCount; };
     that.currentPage = function() { return m_currentPage; };
@@ -313,13 +314,6 @@ function team($, teamName) {
             if (blanket) blanket.css('display', 'block');
             if (motd) motd.css('display', 'none');
             break;
-	case 'none':
-	    alert("mkws.switchView(" + m_teamName + ", 'none') shouldn't happen");
-            if (targets) targets.css('display', 'none');
-            if (results) results.css('display', 'none');
-            if (blanket) blanket.css('display', 'none');
-            if (motd) motd.css('display', 'none');
-            break;
         default:
             alert("Unknown view '" + view + "'");
 	}
@@ -345,193 +339,6 @@ function team($, teamName) {
 	log("showDetails() requesting record '" + recId + "'");
 	m_paz.record(recId);
     };
-
-
-    /*
-     * All the HTML stuff to render the search forms and
-     * result pages.
-     */
-    function mkwsHtmlAll() {
-	mkwsSetLang();
-	if (m_config.show_lang)
-	    mkwsHtmlLang();
-
-	log("HTML records");
-	// If the team has a .mkwsResults, populate it in the usual
-	// way. If not, assume that it's a smarter application that
-	// defines its own subcomponents, some or all of the
-	// following:
-	//	.mkwsTermlists
-	//	.mkwsRanking
-	//	.mkwsPager
-	//	.mkwsNavi
-	//	.mkwsRecords
-	findnode(".mkwsResults").html('\
-<table width="100%" border="0" cellpadding="6" cellspacing="0">\
-  <tr>\
-    <td class="mkwsTermlistContainer1 mkwsTeam_' + m_teamName + '" width="250" valign="top">\
-      <div class="mkwsTermlists mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-    <td class="mkwsMOTDContainer mkwsTeam_' + m_teamName + '" valign="top">\
-      <div class="mkwsRanking mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsPager mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsNavi mkwsTeam_' + m_teamName + '"></div>\
-      <div class="mkwsRecords mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-  </tr>\
-  <tr>\
-    <td colspan="2">\
-      <div class="mkwsTermlistContainer2 mkwsTeam_' + m_teamName + '"></div>\
-    </td>\
-  </tr>\
-</table>');
-
-	var acc = [];
-	var facets = m_config.facets;
-	acc.push('<div class="title">' + M('Termlists') + '</div>');
-	for (var i = 0; i < facets.length; i++) {
-	    acc.push('<div class="mkwsFacet mkwsTeam_' + m_teamName + '" data-mkws-facet="' + facets[i] + '">');
-	    acc.push('</div>');
-	}
-	findnode(".mkwsTermlists").html(acc.join(''));
-
-	var ranking_data = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + m_teamName + '" action="" >';
-	if (m_config.show_sort) {
-	    ranking_data +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
-	}
-	if (m_config.show_perpage) {
-	    ranking_data += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
-	}
-        ranking_data += '</form>';
-	findnode(".mkwsRanking").html(ranking_data);
-
-	// on first page, hide the termlist
-	$(document).ready(function() {
-            var t = widgetNode("Termlists");
-            if (t) t.hide();
-        });
-        var container = findnode(".mkwsMOTDContainer");
-	if (container.length) {
-	    // Move the MOTD from the provided element down into the container
-	    findnode(".mkwsMOTD").appendTo(container);
-	}
-    }
-
-
-    function mkwsSetLang()  {
-	var lang = mkws.getParameterByName("lang") || m_config.lang;
-	if (!lang || !mkws.locale_lang[lang]) {
-	    m_config.lang = ""
-	} else {
-	    m_config.lang = lang;
-	}
-
-	log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
-	return m_config.lang;
-    }
-
-    // set or re-set "lang" URL parameter
-    function lang_url(lang) {
-	var query = location.search;
-	// no query parameters? done
-	if (!query) {
-	    return "?lang=" + lang;
-	}
-
-	// parameter does not exists
-	if (!query.match(/[\?&]lang=/)) {
-            return query + "&lang=" + lang;
-        }
-
-	// replace existing parameter
-	query = query.replace(/\?lang=([^&#;]*)/, "?lang=" + lang);
-	query = query.replace(/\&lang=([^&#;]*)/, "&lang=" + lang);
-
-	return query;
-    }
-   
-	// dynamic URL or static page? /path/foo?query=test
-    /* create locale language menu */
-    function mkwsHtmlLang() {
-	var lang_default = "en";
-	var lang = m_config.lang || lang_default;
-	var list = [];
-
-	/* display a list of configured languages, or all */
-	var lang_options = m_config.lang_options || [];
-	var toBeIncluded = {};
-	for (var i = 0; i < lang_options.length; i++) {
-	    toBeIncluded[lang_options[i]] = true;
-	}
-
-	for (var k in mkws.locale_lang) {
-	    if (toBeIncluded[k] || lang_options.length == 0)
-		list.push(k);
-	}
-
-	// add english link
-	if (lang_options.length == 0 || toBeIncluded[lang_default])
-            list.push(lang_default);
-
-	log("Language menu for: " + list.join(", "));
-
-	/* the HTML part */
-	var data = "";
-	for(var i = 0; i < list.length; i++) {
-	    var l = list[i];
-
-	    if (data)
-		data += ' | ';
-
-	    if (lang == l) {
-		data += ' <span>' + l + '</span> ';
-	    } else {
-		data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
-	    }
-	}
-
-	findnode(".mkwsLang").html(data);
-    }
-
-
-    function mkwsHtmlSort() {
-	log("HTML sort, m_sortOrder = '" + m_sortOrder + "'");
-	var sort_html = '<select class="mkwsSort mkwsTeam_' + m_teamName + '">';
-
-	for(var i = 0; i < m_config.sort_options.length; i++) {
-	    var opt = m_config.sort_options[i];
-	    var key = opt[0];
-	    var val = opt.length == 1 ? opt[0] : opt[1];
-
-	    sort_html += '<option value="' + key + '"';
-	    if (m_sortOrder == key || m_sortOrder == val) {
-		sort_html += ' selected="selected"';
-	    }
-	    sort_html += '>' + M(val) + '</option>';
-	}
-	sort_html += '</select>';
-
-	return sort_html;
-    }
-
-
-    function mkwsHtmlPerpage() {
-	log("HTML perpage, m_perpage = " + m_perpage);
-	var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + m_teamName + '">';
-
-	for(var i = 0; i < m_config.perpage_options.length; i++) {
-	    var key = m_config.perpage_options[i];
-
-	    perpage_html += '<option value="' + key + '"';
-	    if (key == m_perpage) {
-		perpage_html += ' selected="selected"';
-	    }
-	    perpage_html += '>' + key + '</option>';
-	}
-	perpage_html += '</select>';
-
-	return perpage_html;
-    }
 
 
     // Translation function. At present, this is properly a
@@ -607,7 +414,7 @@ function team($, teamName) {
                 source = m_tempateText[name];
             }
 	    if (!source) {
-		source = defaultTemplate(name);
+		source = mkws.defaultTemplate(name);
 	    }
 
 	    template = Handlebars.compile(source);
@@ -619,94 +426,6 @@ function team($, teamName) {
     }
     that.loadTemplate = loadTemplate;
 
-
-    function defaultTemplate(name) {
-	if (name === 'Record') {
-	    return '\
-<table>\
-  <tr>\
-    <th>{{translate "Title"}}</th>\
-    <td>\
-      {{md-title}}\
-      {{#if md-title-remainder}}\
-	({{md-title-remainder}})\
-      {{/if}}\
-      {{#if md-title-responsibility}}\
-	<i>{{md-title-responsibility}}</i>\
-      {{/if}}\
-    </td>\
-  </tr>\
-  {{#if md-date}}\
-  <tr>\
-    <th>{{translate "Date"}}</th>\
-    <td>{{md-date}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-author}}\
-  <tr>\
-    <th>{{translate "Author"}}</th>\
-    <td>{{md-author}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-electronic-url}}\
-  <tr>\
-    <th>{{translate "Links"}}</th>\
-    <td>\
-      {{#each md-electronic-url}}\
-	<a href="{{this}}">Link{{index1}}</a>\
-      {{/each}}\
-    </td>\
-  </tr>\
-  {{/if}}\
-  {{#if-any location having="md-subject"}}\
-  <tr>\
-    <th>{{translate "Subject"}}</th>\
-    <td>\
-      {{#first location having="md-subject"}}\
-	{{#if md-subject}}\
-	  {{#commaList md-subject}}\
-	    {{this}}{{/commaList}}\
-	{{/if}}\
-      {{/first}}\
-    </td>\
-  </tr>\
-  {{/if-any}}\
-  <tr>\
-    <th>{{translate "Locations"}}</th>\
-    <td>\
-      {{#commaList location}}\
-	{{attr "@name"}}{{/commaList}}\
-    </td>\
-  </tr>\
-</table>\
-';
-	} else if (name === "Summary") {
-	    return '\
-<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-  <b>{{md-title}}</b>\
-</a>\
-{{#if md-title-remainder}}\
-  <span>{{md-title-remainder}}</span>\
-{{/if}}\
-{{#if md-title-responsibility}}\
-  <span><i>{{md-title-responsibility}}</i></span>\
-{{/if}}\
-';
-	} else if (name === "Image") {
-	    return '\
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#first md-thumburl}}\
-	  <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/first}}\
-	<br/>\
-      </a>\
-';
-	}
-
-	var s = "There is no default '" + name +"' template!";
-	alert(s);
-	return s;
-    }
 
     that.addWidget = function(w) {
         if (!m_widgets[w.type]) {
@@ -731,7 +450,15 @@ function team($, teamName) {
         return m_widgets[type];
     }
 
-    mkwsHtmlAll()
+
+    var lang = mkws.getParameterByName("lang") || m_config.lang;
+    if (!lang || !mkws.locale_lang[lang]) {
+	m_config.lang = ""
+    } else {
+	m_config.lang = lang;
+    }
+
+    log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
 
     return that;
 };
