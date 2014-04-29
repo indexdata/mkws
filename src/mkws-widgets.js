@@ -371,3 +371,28 @@ mkws.registerWidgetType('SearchForm', function() {
 });
 
 
+mkws.registerWidgetType('Results', function() {
+    var tname = this.team.name();
+
+    $(this.node).html('\
+<table width="100%" border="0" cellpadding="6" cellspacing="0">\
+  <tr>\
+    <td class="mkwsTermlistContainer1 mkwsTeam_' + tname + '" width="250" valign="top">\
+      <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
+    </td>\
+    <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
+      <div class="mkwsRanking mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsPager mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsNavi mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsRecords mkwsTeam_' + tname + '"></div>\
+    </td>\
+  </tr>\
+  <tr>\
+    <td colspan="2">\
+      <div class="mkwsTermlistContainer2 mkwsTeam_' + tname + '"></div>\
+    </td>\
+  </tr>\
+</table>');
+});
+
+
