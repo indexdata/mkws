@@ -413,3 +413,18 @@ mkws.registerWidgetType('MOTD', function() {
 });
 
 
+// Some elements have mkws* classes that makes them appear as widgets
+// -- for example, because we want to style them using CSS -- but have
+// no actual functionality. We register these to prevent ignorable
+// warnings when they occur.
+
+mkws.registerWidgetType('Query', function() {});
+mkws.registerWidgetType('MOTDContainer', function() {});
+mkws.registerWidgetType('Button', function() {});
+mkws.registerWidgetType('Popup', function() {});
+
+// Not sure whether the following should have functionality:
+// Select		HTMLFormElement
+// TermlistContainer1	HTMLTableCellElement
+// TermlistContainer2	HTMLDivElement
+// Bytarget		HTMLDivElement
