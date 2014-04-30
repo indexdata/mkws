@@ -341,6 +341,7 @@ mkws.pagerNext = function(tname) {
 	    $(".mkwsTermlist-Container-wide").hide();
 	    $(".mkwsTermlist-Container-narrow").show();
 	    for (var tname in mkws.teams) {
+                mkws.teams[tname].queue("resize-narrow").publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-narrow.mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
@@ -352,6 +353,7 @@ mkws.pagerNext = function(tname) {
 	    $(".mkwsTermlist-Container-wide").show();
 	    $(".mkwsTermlist-Container-narrow").hide();
 	    for (var tname in mkws.teams) {
+                mkws.teams[tname].queue("resize-wide").publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-wide.mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).show();
