@@ -337,10 +337,10 @@ mkws.pagerNext = function(tname) {
 
         if (mkws.width === undefined) {
             // No state change, since we have no previous state
-        } else if (mkws.width <= targetWidth && width > targetWidth) {
-            log("narrow -> wide");
         } else if (mkws.width > targetWidth && width <= targetWidth) {
             log("wide -> narrow");
+        } else if (mkws.width <= targetWidth && width > targetWidth) {
+            log("narrow -> wide");
         }
 
 	if (mkws.width > targetWidth && width <= targetWidth) {
