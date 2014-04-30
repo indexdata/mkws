@@ -332,10 +332,10 @@ mkws.pagerNext = function(tname) {
     function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
-	var width = mkws.config.responsive_design_width;
+	var targetWidth = mkws.config.responsive_design_width;
 	var parent = $(".mkwsTermlists").parent();
 
-	if ($(window).width() <= width &&
+	if ($(window).width() <= targetWidth &&
 	    parent.hasClass("mkwsTermlist-Container-wide")) {
 	    log("changing from wide to narrow: " + $(window).width());
 	    $(".mkwsTermlist-Container-wide").hide();
@@ -347,7 +347,7 @@ mkws.pagerNext = function(tname) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
 		}
 	    }
-	} else if ($(window).width() > width &&
+	} else if ($(window).width() > targetWidth &&
 		   parent.hasClass("mkwsTermlist-Container-narrow")) {
 	    log("changing from narrow to wide: " + $(window).width());
 	    $(".mkwsTermlist-Container-wide").show();
