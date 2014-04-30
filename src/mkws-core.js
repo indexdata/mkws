@@ -332,9 +332,22 @@ mkws.pagerNext = function(tname) {
     function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
-	var targetWidth = mkws.config.responsive_design_width;
 	var parent = $(".mkwsTermlists").parent();
+	var targetWidth = mkws.config.responsive_design_width;
         var width = $(window).width();
+
+        if (mkws.width === undefined) {
+            // No state change, since we have no previous state
+        } else if (mkws.width <= targetWidth && width > targetWidth) {
+            log("narrow -> wide");
+        } else if (mkws.width > targetWidth && width <= targetWidth) {
+            log("wide -> narrow");
+        } else if (width > targetWidth) {
+            log("already wide");
+        } else {
+            log("already narrow");
+        }
+        mkws.width = width;
 
 	if (width <= targetWidth &&
 	    parent.hasClass("mkwsTermlist-Container-wide")) {
