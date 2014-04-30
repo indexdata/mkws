@@ -332,18 +332,18 @@ mkws.pagerNext = function(tname) {
     function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
-	var targetWidth = mkws.config.responsive_design_width;
+	var threshhold = mkws.config.responsive_design_width;
         var width = $(window).width();
 
         if (mkws.width === undefined) {
             // No state change, since we have no previous state
-        } else if (mkws.width > targetWidth && width <= targetWidth) {
+        } else if (mkws.width > threshhold && width <= threshhold) {
             log("wide -> narrow");
-        } else if (mkws.width <= targetWidth && width > targetWidth) {
+        } else if (mkws.width <= threshhold && width > threshhold) {
             log("narrow -> wide");
         }
 
-	if (mkws.width > targetWidth && width <= targetWidth) {
+	if (mkws.width > threshhold && width <= threshhold) {
 	    log("changing from wide to narrow: " + width);
 	    $(".mkwsTermlist-Container-wide").hide();
 	    $(".mkwsTermlist-Container-narrow").show();
@@ -354,7 +354,7 @@ mkws.pagerNext = function(tname) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
 		}
 	    }
-        } else if (mkws.width <= targetWidth && width > targetWidth) {
+        } else if (mkws.width <= threshhold && width > threshhold) {
 	    log("changing from narrow to wide: " + width);
 	    $(".mkwsTermlist-Container-wide").show();
 	    $(".mkwsTermlist-Container-narrow").hide();
