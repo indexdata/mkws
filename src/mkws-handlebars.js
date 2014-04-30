@@ -4,6 +4,15 @@ Handlebars.registerHelper('json', function(obj) {
 });
 
 
+Handlebars.registerHelper('paragraphs', function(obj) {
+    var acc = [];
+    for (var i = 0; i < obj.length; i++) {
+        acc.push('<p>', obj[i], '</p>');
+    }
+    return acc.join('');
+});
+
+
 Handlebars.registerHelper('translate', function(s) {
     return mkws.M(s);
 });
