@@ -13,7 +13,7 @@ VERSION = $(shell tr -d '\012' < VERSION)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-filter.js \
-	mkws-widgets.js mkws-widget-termlists.js \
+	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
 	mkws-widget-record.js mkws-widget-builder.js
 
