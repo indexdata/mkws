@@ -332,7 +332,6 @@ mkws.pagerNext = function(tname) {
     function resizePage() {
 	var list = ["mkwsSwitch", "mkwsLang"];
 
-	var parent = $(".mkwsTermlists").parent();
 	var targetWidth = mkws.config.responsive_design_width;
         var width = $(window).width();
 
@@ -347,10 +346,8 @@ mkws.pagerNext = function(tname) {
         } else {
             log("already narrow");
         }
-        mkws.width = width;
 
-	if (width <= targetWidth &&
-	    parent.hasClass("mkwsTermlist-Container-wide")) {
+	if (mkws.width > targetWidth && width <= targetWidth) {
 	    log("changing from wide to narrow: " + width);
 	    $(".mkwsTermlist-Container-wide").hide();
 	    $(".mkwsTermlist-Container-narrow").show();
@@ -361,8 +358,7 @@ mkws.pagerNext = function(tname) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
 		}
 	    }
-	} else if (width > targetWidth &&
-		   parent.hasClass("mkwsTermlist-Container-narrow")) {
+        } else if (mkws.width <= targetWidth && width > targetWidth) {
 	    log("changing from narrow to wide: " + width);
 	    $(".mkwsTermlist-Container-wide").show();
 	    $(".mkwsTermlist-Container-narrow").hide();
@@ -374,6 +370,8 @@ mkws.pagerNext = function(tname) {
 		}
 	    }
 	}
+
+        mkws.width = width;
     };
 
 
