@@ -334,10 +334,11 @@ mkws.pagerNext = function(tname) {
 
 	var targetWidth = mkws.config.responsive_design_width;
 	var parent = $(".mkwsTermlists").parent();
+        var width = $(window).width();
 
-	if ($(window).width() <= targetWidth &&
+	if (width <= targetWidth &&
 	    parent.hasClass("mkwsTermlist-Container-wide")) {
-	    log("changing from wide to narrow: " + $(window).width());
+	    log("changing from wide to narrow: " + width);
 	    $(".mkwsTermlist-Container-wide").hide();
 	    $(".mkwsTermlist-Container-narrow").show();
 	    for (var tname in mkws.teams) {
@@ -347,9 +348,9 @@ mkws.pagerNext = function(tname) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
 		}
 	    }
-	} else if ($(window).width() > targetWidth &&
+	} else if (width > targetWidth &&
 		   parent.hasClass("mkwsTermlist-Container-narrow")) {
-	    log("changing from narrow to wide: " + $(window).width());
+	    log("changing from narrow to wide: " + width);
 	    $(".mkwsTermlist-Container-wide").show();
 	    $(".mkwsTermlist-Container-narrow").hide();
 	    for (var tname in mkws.teams) {
