@@ -336,23 +336,23 @@ mkws.pagerNext = function(tname) {
 	var parent = $(".mkwsTermlists").parent();
 
 	if ($(window).width() <= width &&
-	    parent.hasClass("mkwsTermlistContainer1")) {
+	    parent.hasClass("mkwsTermlist-Container-wide")) {
 	    log("changing from wide to narrow: " + $(window).width());
-	    $(".mkwsTermlistContainer1").hide();
-	    $(".mkwsTermlistContainer2").show();
+	    $(".mkwsTermlist-Container-wide").hide();
+	    $(".mkwsTermlist-Container-narrow").show();
 	    for (var tname in mkws.teams) {
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer2.mkwsTeam_" + tname));
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-narrow.mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
 		}
 	    }
 	} else if ($(window).width() > width &&
-		   parent.hasClass("mkwsTermlistContainer2")) {
+		   parent.hasClass("mkwsTermlist-Container-narrow")) {
 	    log("changing from narrow to wide: " + $(window).width());
-	    $(".mkwsTermlistContainer1").show();
-	    $(".mkwsTermlistContainer2").hide();
+	    $(".mkwsTermlist-Container-wide").show();
+	    $(".mkwsTermlist-Container-narrow").hide();
 	    for (var tname in mkws.teams) {
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer1.mkwsTeam_" + tname));
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-wide.mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
 		    $("." + list[i] + ".mkwsTeam_" + tname).show();
 		}

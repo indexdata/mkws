@@ -260,8 +260,8 @@ If individual result-related components are in use in place of the
 all-in-one mkwsResults, then the redesigned application needs to
 specify the locations where the termlists should appear in both
 cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
-`mkwsTermlistContainer1` element; and provide an
-`mkwsTermlistContainer2` element in the place where the narrow-screen
+`mkwsTermlist-Container-wide` element; and provide an
+`mkwsTermlist-Container-narrow` element in the place where the narrow-screen
 termlists should appear.
 
 
