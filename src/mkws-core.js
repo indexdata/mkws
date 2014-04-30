@@ -338,12 +338,6 @@ mkws.pagerNext = function(tname) {
         if (mkws.width === undefined) {
             // No state change, since we have no previous state
         } else if (mkws.width > threshhold && width <= threshhold) {
-            log("wide -> narrow");
-        } else if (mkws.width <= threshhold && width > threshhold) {
-            log("narrow -> wide");
-        }
-
-	if (mkws.width > threshhold && width <= threshhold) {
 	    log("changing from wide to narrow: " + width);
 	    $(".mkwsTermlist-Container-wide").hide();
 	    $(".mkwsTermlist-Container-narrow").show();
