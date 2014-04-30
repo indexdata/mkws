@@ -430,13 +430,13 @@ function team($, teamName) {
     that.addWidget = function(w) {
         if (!m_widgets[w.type]) {
             m_widgets[w.type] = w;
-            log("Registered '" + w.type + "' widget in team '" + m_teamName + "'");
+            log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
         } else if (typeof(m_widgets[w.type]) !== 'number') {
             m_widgets[w.type] = 2;
-            log("Registered duplicate '" + w.type + "' widget in team '" + m_teamName + "'");
+            log("Added duplicate '" + w.type + "' widget to team '" + m_teamName + "'");
         } else {
             m_widgets[w.type] += 1;
-            log("Registered '" + w.type + "' widget #" + m_widgets[w.type] + "' in team '" + m_teamName + "'");
+            log("Added '" + w.type + "' widget #" + m_widgets[w.type] + "' to team '" + m_teamName + "'");
         }
     }
 
