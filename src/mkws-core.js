@@ -334,34 +334,29 @@ mkws.pagerNext = function(tname) {
 
 	var threshhold = mkws.config.responsive_design_width;
         var width = $(window).width();
+        var from, to, method;
 
         if (mkws.width === undefined) {
             // No state change, since we have no previous state
         } else if (mkws.width > threshhold && width <= threshhold) {
-	    log("changing from wide to narrow: " + width);
-	    $(".mkwsTermlist-Container-wide").hide();
-	    $(".mkwsTermlist-Container-narrow").show();
-	    for (var tname in mkws.teams) {
-                mkws.teams[tname].queue("resize-narrow").publish();
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-narrow.mkwsTeam_" + tname));
-		for(var i = 0; i < list.length; i++) {
-		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
-		}
-	    }
+            from = "wide"; to = "narrow"; method = "hide";
         } else if (mkws.width <= threshhold && width > threshhold) {
-	    log("changing from narrow to wide: " + width);
-	    $(".mkwsTermlist-Container-wide").show();
-	    $(".mkwsTermlist-Container-narrow").hide();
+            from = "narrow"; to = "wide"; method = "show";
+        }
+        mkws.width = width;
+
+        if (from) {
+	    log("changing from " + from + " to " + to + ": " + width);
+	    $(".mkwsTermlist-Container-" + from).hide();
+	    $(".mkwsTermlist-Container-" + to).show();
 	    for (var tname in mkws.teams) {
-                mkws.teams[tname].queue("resize-wide").publish();
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-wide.mkwsTeam_" + tname));
+                mkws.teams[tname].queue("resize" + to).publish();
+		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
-		    $("." + list[i] + ".mkwsTeam_" + tname).show();
+		    $("." + list[i] + ".mkwsTeam_" + tname)[method]();
 		}
 	    }
 	}
-
-        mkws.width = width;
     };
 
 
