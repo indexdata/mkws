@@ -423,7 +423,7 @@ mkws.pagerNext = function(tname) {
                 myTeam.addWidget(myWidget);
                 var newHTML = this.innerHTML;
                 if (newHTML !== oldHTML) {
-                    log("widget " + tname + ":" + type + " HTML changed from '" + oldHTML + "' to '" + newHTML + "': reparse!");
+                    log("widget " + tname + ":" + type + " HTML changed: reparsing");
                     makeWidgetsWithin(level+1, $(this));
                 }
             });
