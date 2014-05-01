@@ -452,6 +452,9 @@ function team($, teamName) {
 
     that.widget = function(type) {
         var list = m_widgets[type];
+
+        if (!list)
+            return undefined;
         if (list.length > 1) {
             alert("widget('" + type + "') finds " + list.length + " widgets: using first");
         }
