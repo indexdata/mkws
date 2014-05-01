@@ -336,11 +336,11 @@ mkws.pagerNext = function(tname) {
         var width = $(window).width();
         var from, to, method;
 
-        if (mkws.width === undefined) {
-            // No state change, since we have no previous state
-        } else if (mkws.width > threshhold && width <= threshhold) {
+        if ((mkws.width === undefined || mkws.width > threshhold) &&
+                   width <= threshhold) {
             from = "wide"; to = "narrow"; method = "hide";
-        } else if (mkws.width <= threshhold && width > threshhold) {
+        } else if ((mkws.width === undefined || mkws.width <= threshhold) &&
+                   width > threshhold) {
             from = "narrow"; to = "wide"; method = "show";
         }
         mkws.width = width;
