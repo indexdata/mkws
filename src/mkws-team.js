@@ -440,10 +440,13 @@ function team($, teamName) {
         }
     }
 
-    that.widgetTypes = function() {
-        var keys = [];
-        for (var k in m_widgets) keys.push(k);
-        return keys.sort();
+    that.visitWidgets = function(callback) {
+        for (var type in m_widgets) {
+            var res = callback(type, m_widgets[type]);
+            if (res !== undefined)
+                return res;
+        }
+        return undefined;
     }
 
     that.widget = function(type) {
