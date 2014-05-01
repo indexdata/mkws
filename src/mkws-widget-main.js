@@ -259,7 +259,7 @@ mkws.registerWidgetType('Results', function() {
     $(this.node).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td class="mkwsTermlist-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
+    <td class="mkwsTermlists-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
       <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
     </td>\
     <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
@@ -271,7 +271,7 @@ mkws.registerWidgetType('Results', function() {
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div class="mkwsTermlist-Container-narrow mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsTermlists-Container-narrow mkwsTeam_' + tname + '"></div>\
     </td>\
   </tr>\
 </table>');
@@ -425,6 +425,6 @@ mkws.registerWidgetType('Popup', function() {});
 
 // Not sure whether the following should have functionality:
 // Select		HTMLFormElement
-// Termlist-Container-wide	HTMLTableCellElement
-// Termlist-Container-narrow	HTMLDivElement
+// *-Container-wide	HTMLTableCellElement
+// *-Container-narrow	HTMLDivElement
 // Bytarget		HTMLDivElement
