@@ -29,7 +29,7 @@ function team($, teamName) {
     var m_tempateText = {}; // widgets can register tempates to be compiled
     var m_template = {}; // compiled templates, from any source
     var m_config = mkws.objectInheritingFrom(mkws.config);
-    var m_widgets = {}; // Maps widget-type to object
+    var m_widgets = {}; // Maps widget-type to array of widget objects
 
     that.toString = function() { return '[Team ' + teamName + ']'; };
 
@@ -428,29 +428,34 @@ function team($, teamName) {
 
 
     that.addWidget = function(w) {
-        if (!m_widgets[w.type]) {
-            m_widgets[w.type] = w;
-            //log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
-        } else if (typeof(m_widgets[w.type]) !== 'number') {
-            m_widgets[w.type] = 2;
-            //log("Added duplicate '" + w.type + "' widget to team '" + m_teamName + "'");
+        if (m_widgets[w.type] === undefined) {
+            m_widgets[w.type] = [ w ];
+            log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
         } else {
-            m_widgets[w.type] += 1;
-            //log("Added '" + w.type + "' widget #" + m_widgets[w.type] + "' to team '" + m_teamName + "'");
+            m_widgets[w.type].push(w);
+            log("Added '" + w.type + "' widget #" + m_widgets[w.type].length + "' to team '" + m_teamName + "'");
         }
     }
 
     that.visitWidgets = function(callback) {
         for (var type in m_widgets) {
-            var res = callback(type, m_widgets[type]);
-            if (res !== undefined)
-                return res;
+            var list = m_widgets[type];
+            for (var i = 0; i < list.length; i++) {
+                var res = callback(type, list[i]);
+                if (res !== undefined) {
+                    return res;
+                }
+            }
         }
         return undefined;
     }
 
     that.widget = function(type) {
-        return m_widgets[type];
+        var list = m_widgets[type];
+        if (list.length > 1) {
+            alert("widget('" + type + "') finds " + list.length + " widgets: using first");
+        }
+        return list[0];
     }
 
 
