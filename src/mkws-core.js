@@ -353,7 +353,7 @@ mkws.pagerNext = function(tname) {
                     var w1 = team.widget(t + "-Container-" + from);
                     var w2 = team.widget(t + "-Container-" + to);
                     if (w1) $(w1.node).hide();
-                    if (w2) $(w1.node).hide();
+                    if (w2) $(w2.node).show();
                 });
                 team.queue("resize" + to).publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
