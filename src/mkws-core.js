@@ -347,10 +347,14 @@ mkws.pagerNext = function(tname) {
 
         if (from) {
 	    log("changing from " + from + " to " + to + ": " + width);
-	    $(".mkwsTermlist-Container-" + from).hide();
-	    $(".mkwsTermlist-Container-" + to).show();
 	    for (var tname in mkws.teams) {
                 var team = mkws.teams[tname];
+                team.visitWidgets(function (t, w) {
+                    var w1 = team.widget(t + "-Container-" + from);
+                    var w2 = team.widget(t + "-Container-" + to);
+                    if (w1) $(w1.node).hide();
+                    if (w2) $(w1.node).hide();
+                });
                 team.queue("resize" + to).publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
