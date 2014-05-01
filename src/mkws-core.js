@@ -503,13 +503,15 @@ mkws.pagerNext = function(tname) {
 	var now = $.now();
 	log("Walking MKWS nodes took " + (now-then) + " ms");
 
-        //for (var tName in mkws.teams) {
-        //    var myTeam = mkws.teams[tName]
-        //    log("TEAM '" + tName + "' = " + myTeam + " ...");
-        //    myTeam.visitWidgets(function(t, w) {
-        //        log("  has widget of type '" + t + "': " + w);
-        //    });
-        //}
+        /*
+        for (var tName in mkws.teams) {
+            var myTeam = mkws.teams[tName]
+            log("TEAM '" + tName + "' = " + myTeam + " ...");
+            myTeam.visitWidgets(function(t, w) {
+                log("  has widget of type '" + t + "': " + w);
+            });
+        }
+        */
 
 	if (mkws.config.use_service_proxy) {
 	    authenticateSession(mkws.config.service_proxy_auth,
