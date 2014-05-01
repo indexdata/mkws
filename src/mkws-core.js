@@ -330,8 +330,6 @@ mkws.pagerNext = function(tname) {
 
 
     function resizePage() {
-	var list = ["Switch", "Lang"];
-
 	var threshhold = mkws.config.responsive_design_width;
         var width = $(window).width();
         var from, to, method;
@@ -360,11 +358,7 @@ mkws.pagerNext = function(tname) {
 		        $(w.node).appendTo($(w2.node));
                     }
                 });
-                team.queue("resize" + to).publish();
-		for(var i = 0; i < list.length; i++) {
-                    var widget = team.widget(list[i]);
-                    if (widget) $(widget.node)[method]();
-		}
+                team.queue("resize-" + to).publish();
 	    }
 	}
     };
