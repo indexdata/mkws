@@ -350,10 +350,11 @@ mkws.pagerNext = function(tname) {
 	    $(".mkwsTermlist-Container-" + from).hide();
 	    $(".mkwsTermlist-Container-" + to).show();
 	    for (var tname in mkws.teams) {
-                mkws.teams[tname].queue("resize" + to).publish();
+                var team = mkws.teams[tname];
+                team.queue("resize" + to).publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
-                    var widget = mkws.teams[tname].widget(list[i]);
+                    var widget = team.widget(list[i]);
                     if (widget) $(widget.node)[method]();
 		}
 	    }
