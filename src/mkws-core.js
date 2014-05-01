@@ -330,7 +330,7 @@ mkws.pagerNext = function(tname) {
 
 
     function resizePage() {
-	var list = ["mkwsSwitch", "mkwsLang"];
+	var list = ["Switch", "Lang"];
 
 	var threshhold = mkws.config.responsive_design_width;
         var width = $(window).width();
@@ -353,7 +353,8 @@ mkws.pagerNext = function(tname) {
                 mkws.teams[tname].queue("resize" + to).publish();
 		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
-		    $("." + list[i] + ".mkwsTeam_" + tname)[method]();
+                    var widget = mkws.teams[tname].widget(list[i]);
+                    if (widget) $(widget.node)[method]();
 		}
 	    }
 	}
