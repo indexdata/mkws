@@ -352,11 +352,15 @@ mkws.pagerNext = function(tname) {
                 team.visitWidgets(function (t, w) {
                     var w1 = team.widget(t + "-Container-" + from);
                     var w2 = team.widget(t + "-Container-" + to);
-                    if (w1) $(w1.node).hide();
-                    if (w2) $(w2.node).show();
+                    if (w1) {
+                        $(w1.node).hide();
+                    }
+                    if (w2) {
+                        $(w2.node).show();
+		        $(w.node).appendTo($(w2.node));
+                    }
                 });
                 team.queue("resize" + to).publish();
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlist-Container-" + to + ".mkwsTeam_" + tname));
 		for(var i = 0; i < list.length; i++) {
                     var widget = team.widget(list[i]);
                     if (widget) $(widget.node)[method]();
