@@ -346,7 +346,7 @@ function team($, teamName) {
     // want to make it per-team so different teams can operate in
     // different languages.
     //
-    function M(word) {
+    mkws.M = function (word) {
 	var lang = mkws.config.lang;
         log("in M('" + word + "'), lang=" + lang);
 
@@ -354,8 +354,8 @@ function team($, teamName) {
 	    return word;
 
 	return mkws.locale_lang[lang][word] || word;
-    }
-    mkws.M = M; // so the Handlebars helper can use it
+    };
+    var M = mkws.M;
 
 
     // Finds the node of the specified class within the current team
