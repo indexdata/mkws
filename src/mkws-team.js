@@ -372,7 +372,6 @@ function team($, teamName) {
 	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
 	return node;
     }
-    that.findnode = findnode;
 
 
     // This much simpler and more efficient function should be usable
