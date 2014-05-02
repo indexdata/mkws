@@ -97,6 +97,17 @@ mkws.log = function(string) {
 };
 
 
+// Translation function.
+mkws.M = function (word) {
+    var lang = mkws.config.lang;
+
+    if (!lang || !mkws.locale_lang[lang])
+        return word;
+
+    return mkws.locale_lang[lang][word] || word;
+};
+
+
 // This function is taken from a StackOverflow answer
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
 mkws.getParameterByName = function(name) {

@@ -341,18 +341,6 @@ function team($, teamName) {
     };
 
 
-    // Translation function.
-    mkws.M = function (word) {
-	var lang = mkws.config.lang;
-        log("in M('" + word + "'), lang=" + lang);
-
-	if (!lang || !mkws.locale_lang[lang])
-	    return word;
-
-	return mkws.locale_lang[lang][word] || word;
-    };
-
-
     // Finds the node of the specified class within the current team
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
