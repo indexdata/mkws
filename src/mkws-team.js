@@ -348,6 +348,7 @@ function team($, teamName) {
     //
     function M(word) {
 	var lang = mkws.config.lang;
+        log("in M('" + word + "'), lang=" + lang);
 
 	if (!lang || !mkws.locale_lang[lang])
 	    return word;
@@ -459,14 +460,14 @@ function team($, teamName) {
     }
 
 
-    var lang = mkws.getParameterByName("lang") || m_config.lang;
+    var lang = mkws.getParameterByName("lang") || mkws.config.lang;
     if (!lang || !mkws.locale_lang[lang]) {
-	m_config.lang = ""
+	mkws.config.lang = ""
     } else {
-	m_config.lang = lang;
+	mkws.config.lang = lang;
     }
 
-    log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
+    log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
     return that;
 };
