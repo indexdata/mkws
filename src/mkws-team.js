@@ -347,7 +347,7 @@ function team($, teamName) {
     // different languages.
     //
     function M(word) {
-	var lang = m_config.lang;
+	var lang = mkws.config.lang;
 
 	if (!lang || !mkws.locale_lang[lang])
 	    return word;
