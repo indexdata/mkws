@@ -117,13 +117,6 @@ mkws.registerWidgetType('Pager', function() {
 });
 
 
-mkws.registerWidgetType('Results', function() {
-    // Nothing to do apart from act as an autosearch trigger
-    // Contained elements do all the real work
-    widget.autosearch(this);
-});
-
-
 mkws.registerWidgetType('Records', function() {
     var that = this;
     var team = this.team;
@@ -276,6 +269,8 @@ mkws.registerWidgetType('Results', function() {
     </td>\
   </tr>\
 </table>');
+
+    widget.autosearch(this);
 });
 
 
