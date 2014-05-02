@@ -418,6 +418,17 @@ function team($, teamName) {
         }
     }
 
+    that.widget = function(type) {
+        var list = m_widgets[type];
+
+        if (!list)
+            return undefined;
+        if (list.length > 1) {
+            alert("widget('" + type + "') finds " + list.length + " widgets: using first");
+        }
+        return list[0];
+    }
+
     that.visitWidgets = function(callback) {
         for (var type in m_widgets) {
             var list = m_widgets[type];
@@ -429,17 +440,6 @@ function team($, teamName) {
             }
         }
         return undefined;
-    }
-
-    that.widget = function(type) {
-        var list = m_widgets[type];
-
-        if (!list)
-            return undefined;
-        if (list.length > 1) {
-            alert("widget('" + type + "') finds " + list.length + " widgets: using first");
-        }
-        return list[0];
     }
 
 
