@@ -443,14 +443,5 @@ function team($, teamName) {
     }
 
 
-    var lang = mkws.getParameterByName("lang") || mkws.config.lang;
-    if (!lang || !mkws.locale_lang[lang]) {
-	mkws.config.lang = ""
-    } else {
-	mkws.config.lang = lang;
-    }
-
-    log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
-
     return that;
 };

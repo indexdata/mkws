@@ -466,6 +466,15 @@ mkws.pagerNext = function(tname) {
 	    }
 	}
 
+        var lang = mkws.getParameterByName("lang") || mkws.config.lang;
+        if (!lang || !mkws.locale_lang[lang]) {
+            mkws.config.lang = ""
+        } else {
+            mkws.config.lang = lang;
+        }
+
+        log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+
 	if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
 	    log("Reset query width: " + mkws.config.query_width);
 	    mkws.config.query_width = 50;
