@@ -303,16 +303,16 @@ function team($, teamName) {
 
 	switch(view) {
         case 'targets':
-            if (targets) targets.css('display', 'block');
-            if (results) results.css('display', 'none');
-            if (blanket) blanket.css('display', 'none');
-            if (motd) motd.css('display', 'none');
+            if (targets) $(targets).show();
+            if (results) $(results).hide();
+            if (blanket) $(blanket).hide();
+            if (motd) $(motd).hide();
             break;
         case 'records':
-            if (targets) targets.css('display', 'none');
-            if (results) results.css('display', 'block');
-            if (blanket) blanket.css('display', 'block');
-            if (motd) motd.css('display', 'none');
+            if (targets) $(targets).hide();
+            if (results) $(results).show();
+            if (blanket) $(blanket).show();
+            if (motd) $(motd).hide();
             break;
         default:
             alert("Unknown view '" + view + "'");
