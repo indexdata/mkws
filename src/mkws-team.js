@@ -351,7 +351,6 @@ function team($, teamName) {
 
 	return mkws.locale_lang[lang][word] || word;
     };
-    var M = mkws.M;
 
 
     // Finds the node of the specified class within the current team
