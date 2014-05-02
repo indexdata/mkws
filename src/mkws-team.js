@@ -374,8 +374,6 @@ function team($, teamName) {
     }
 
 
-    // This much simpler and more efficient function should be usable
-    // in place of most uses of findnode.
     function widgetNode(type) {
         var w = that.widget(type);
         return w ? $(w.node) : undefined;
