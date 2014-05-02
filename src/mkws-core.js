@@ -169,7 +169,7 @@ mkws.defaultTemplate = function(name) {
 	return '\
 <table>\
   <tr>\
-    <th>{{translate "Title"}}</th>\
+    <th>{{mkws-translate "Title"}}</th>\
     <td>\
       {{md-title}}\
       {{#if md-title-remainder}}\
@@ -182,44 +182,44 @@ mkws.defaultTemplate = function(name) {
   </tr>\
   {{#if md-date}}\
   <tr>\
-    <th>{{translate "Date"}}</th>\
+    <th>{{mkws-translate "Date"}}</th>\
     <td>{{md-date}}</td>\
   </tr>\
   {{/if}}\
   {{#if md-author}}\
   <tr>\
-    <th>{{translate "Author"}}</th>\
+    <th>{{mkws-translate "Author"}}</th>\
     <td>{{md-author}}</td>\
   </tr>\
   {{/if}}\
   {{#if md-electronic-url}}\
   <tr>\
-    <th>{{translate "Links"}}</th>\
+    <th>{{mkws-translate "Links"}}</th>\
     <td>\
       {{#each md-electronic-url}}\
-	<a href="{{this}}">Link{{index1}}</a>\
+	<a href="{{this}}">Link{{mkws-index1}}</a>\
       {{/each}}\
     </td>\
   </tr>\
   {{/if}}\
-  {{#if-any location having="md-subject"}}\
+  {{#mkws-if-any location having="md-subject"}}\
   <tr>\
-    <th>{{translate "Subject"}}</th>\
+    <th>{{mkws-translate "Subject"}}</th>\
     <td>\
-      {{#first location having="md-subject"}}\
+      {{#mkws-first location having="md-subject"}}\
 	{{#if md-subject}}\
-	  {{#commaList md-subject}}\
-	    {{this}}{{/commaList}}\
+	  {{#mkws-commaList md-subject}}\
+	    {{this}}{{/mkws-commaList}}\
 	{{/if}}\
-      {{/first}}\
+      {{/mkws-first}}\
     </td>\
   </tr>\
-  {{/if-any}}\
+  {{/mkws-if-any}}\
   <tr>\
-    <th>{{translate "Locations"}}</th>\
+    <th>{{mkws-translate "Locations"}}</th>\
     <td>\
-      {{#commaList location}}\
-	{{attr "@name"}}{{/commaList}}\
+      {{#mkws-commaList location}}\
+	{{mkws-attr "@name"}}{{/mkws-commaList}}\
     </td>\
   </tr>\
 </table>\
@@ -239,9 +239,9 @@ mkws.defaultTemplate = function(name) {
     } else if (name === "Image") {
 	return '\
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#first md-thumburl}}\
+        {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/first}}\
+        {{/mkws-first}}\
 	<br/>\
       </a>\
 ';

@@ -13,7 +13,7 @@ mkws.registerWidgetType('Reference', function() {
   <i>{{md-title-responsibility}}</i>\
 {{/if}}\
   <p>\
-    {{{paragraphs md-description}}}\
+    {{{mkws-paragraphs md-description}}}\
   </p>\
 ');
 });

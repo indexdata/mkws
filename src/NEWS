@@ -7,7 +7,7 @@ The 0.9.x series of releases are beta quality. They are functional but
 have not yet been extensively battle-tested.
 
 0.9.2 [IN PROGRESS]
-	- Full-record template invokes {{translate}} on fieldnames.
+	- Full-record template invokes {{mkws-translate}} on fieldnames.
 	  Fixes MKWS-84 Translate fieldnames in full-record popup.
 
 0.9.1 Thu Dec 19 15:33:13 GMT 2013
