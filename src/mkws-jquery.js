@@ -10,7 +10,7 @@
  * implement jQuery plugin $.pazpar2({})
  */
 function _mkws_jquery_plugin($) {
-    function debug (string) {
+    function debug(string) {
 	mkws.log("jquery.pazpar2: " + string);
     }
 
