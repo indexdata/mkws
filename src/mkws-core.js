@@ -98,7 +98,7 @@ mkws.log = function(string) {
 
 
 // Translation function.
-mkws.M = function (word) {
+mkws.M = function(word) {
     var lang = mkws.config.lang;
 
     if (!lang || !mkws.locale_lang[lang])
@@ -358,7 +358,7 @@ mkws.pagerNext = function(tname) {
 	    log("changing from " + from + " to " + to + ": " + width);
 	    for (var tname in mkws.teams) {
                 var team = mkws.teams[tname];
-                team.visitWidgets(function (t, w) {
+                team.visitWidgets(function(t, w) {
                     var w1 = team.widget(t + "-Container-" + from);
                     var w2 = team.widget(t + "-Container-" + to);
                     if (w1) {
