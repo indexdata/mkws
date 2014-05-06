@@ -117,13 +117,6 @@ mkws.registerWidgetType('Pager', function() {
 });
 
 
-mkws.registerWidgetType('Results', function() {
-    // Nothing to do apart from act as an autosearch trigger
-    // Contained elements do all the real work
-    widget.autosearch(this);
-});
-
-
 mkws.registerWidgetType('Records', function() {
     var that = this;
     var team = this.team;
@@ -228,6 +221,7 @@ mkws.registerWidgetType('Switch', function() {
 <a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
 | \
 </span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
+    widget.hideWhenNarrow(this);
 });
 
 
@@ -259,7 +253,7 @@ mkws.registerWidgetType('Results', function() {
     $(this.node).html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
-    <td class="mkwsTermlistContainer1 mkwsTeam_' + tname + '" width="250" valign="top">\
+    <td class="mkwsTermlists-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
       <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
     </td>\
     <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
@@ -271,10 +265,12 @@ mkws.registerWidgetType('Results', function() {
   </tr>\
   <tr>\
     <td colspan="2">\
-      <div class="mkwsTermlistContainer2 mkwsTeam_' + tname + '"></div>\
+      <div class="mkwsTermlists-Container-narrow mkwsTeam_' + tname + '"></div>\
     </td>\
   </tr>\
 </table>');
+
+    widget.autosearch(this);
 });
 
 
@@ -381,6 +377,7 @@ mkws.registerWidgetType('Lang', function() {
     }
 
     $(this.node).html(data);
+    widget.hideWhenNarrow(this);
 
 
     // set or re-set "lang" URL parameter
@@ -413,3 +410,18 @@ mkws.registerWidgetType('MOTD', function() {
 });
 
 
+// Some elements have mkws* classes that makes them appear as widgets
+// -- for example, because we want to style them using CSS -- but have
+// no actual functionality. We register these to prevent ignorable
+// warnings when they occur.
+
+mkws.registerWidgetType('Query', function() {});
+mkws.registerWidgetType('MOTDContainer', function() {});
+mkws.registerWidgetType('Button', function() {});
+mkws.registerWidgetType('Popup', function() {});
+
+// Not sure whether the following should have functionality:
+// Select		HTMLFormElement
+// *-Container-wide	HTMLTableCellElement
+// *-Container-narrow	HTMLDivElement
+// Bytarget		HTMLDivElement

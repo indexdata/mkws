@@ -29,7 +29,7 @@ function team($, teamName) {
     var m_tempateText = {}; // widgets can register tempates to be compiled
     var m_template = {}; // compiled templates, from any source
     var m_config = mkws.objectInheritingFrom(mkws.config);
-    var m_widgets = {}; // Maps widget-type to object
+    var m_widgets = {}; // Maps widget-type to array of widget objects
 
     that.toString = function() { return '[Team ' + teamName + ']'; };
 
@@ -303,16 +303,16 @@ function team($, teamName) {
 
 	switch(view) {
         case 'targets':
-            if (targets) targets.css('display', 'block');
-            if (results) results.css('display', 'none');
-            if (blanket) blanket.css('display', 'none');
-            if (motd) motd.css('display', 'none');
+            if (targets) $(targets).show();
+            if (results) $(results).hide();
+            if (blanket) $(blanket).hide();
+            if (motd) $(motd).hide();
             break;
         case 'records':
-            if (targets) targets.css('display', 'none');
-            if (results) results.css('display', 'block');
-            if (blanket) blanket.css('display', 'block');
-            if (motd) motd.css('display', 'none');
+            if (targets) $(targets).hide();
+            if (results) $(results).show();
+            if (blanket) $(blanket).show();
+            if (motd) $(motd).hide();
             break;
         default:
             alert("Unknown view '" + view + "'");
@@ -341,22 +341,6 @@ function team($, teamName) {
     };
 
 
-    // Translation function. At present, this is properly a
-    // global-level function (hence the assignment to mkws.M) but we
-    // want to make it per-team so different teams can operate in
-    // different languages.
-    //
-    function M(word) {
-	var lang = m_config.lang;
-
-	if (!lang || !mkws.locale_lang[lang])
-	    return word;
-
-	return mkws.locale_lang[lang][word] || word;
-    }
-    mkws.M = M; // so the Handlebars helper can use it
-
-
     // Finds the node of the specified class within the current team
     function findnode(selector, teamName) {
 	teamName = teamName || m_teamName;
@@ -372,11 +356,8 @@ function team($, teamName) {
 	//log('findnode(' + selector + ') found ' + node.length + ' nodes');
 	return node;
     }
-    that.findnode = findnode;
 
 
-    // This much simpler and more efficient function should be usable
-    // in place of most uses of findnode.
     function widgetNode(type) {
         var w = that.widget(type);
         return w ? $(w.node) : undefined;
@@ -428,37 +409,39 @@ function team($, teamName) {
 
 
     that.addWidget = function(w) {
-        if (!m_widgets[w.type]) {
-            m_widgets[w.type] = w;
-            log("Registered '" + w.type + "' widget in team '" + m_teamName + "'");
-        } else if (typeof(m_widgets[w.type]) !== 'number') {
-            m_widgets[w.type] = 2;
-            log("Registered duplicate '" + w.type + "' widget in team '" + m_teamName + "'");
+        if (m_widgets[w.type] === undefined) {
+            m_widgets[w.type] = [ w ];
+            log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
         } else {
-            m_widgets[w.type] += 1;
-            log("Registered '" + w.type + "' widget #" + m_widgets[w.type] + "' in team '" + m_teamName + "'");
+            m_widgets[w.type].push(w);
+            log("Added '" + w.type + "' widget #" + m_widgets[w.type].length + "' to team '" + m_teamName + "'");
         }
     }
 
-    that.widgetTypes = function() {
-        var keys = [];
-        for (var k in m_widgets) keys.push(k);
-        return keys.sort();
-    }
-
     that.widget = function(type) {
-        return m_widgets[type];
+        var list = m_widgets[type];
+
+        if (!list)
+            return undefined;
+        if (list.length > 1) {
+            alert("widget('" + type + "') finds " + list.length + " widgets: using first");
+        }
+        return list[0];
     }
 
-
-    var lang = mkws.getParameterByName("lang") || m_config.lang;
-    if (!lang || !mkws.locale_lang[lang]) {
-	m_config.lang = ""
-    } else {
-	m_config.lang = lang;
+    that.visitWidgets = function(callback) {
+        for (var type in m_widgets) {
+            var list = m_widgets[type];
+            for (var i = 0; i < list.length; i++) {
+                var res = callback(type, list[i]);
+                if (res !== undefined) {
+                    return res;
+                }
+            }
+        }
+        return undefined;
     }
 
-    log("Locale language: " + (m_config.lang ? m_config.lang : "none"));
 
     return that;
 };

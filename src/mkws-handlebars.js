@@ -1,10 +1,10 @@
 // Handlebars helpers
-Handlebars.registerHelper('json', function(obj) {
+Handlebars.registerHelper('mkws-json', function(obj) {
     return $.toJSON(obj);
 });
 
 
-Handlebars.registerHelper('paragraphs', function(obj) {
+Handlebars.registerHelper('mkws-paragraphs', function(obj) {
     var acc = [];
     for (var i = 0; i < obj.length; i++) {
         acc.push('<p>', obj[i], '</p>');
@@ -13,24 +13,24 @@ Handlebars.registerHelper('paragraphs', function(obj) {
 });
 
 
-Handlebars.registerHelper('translate', function(s) {
+Handlebars.registerHelper('mkws-translate', function(s) {
     return mkws.M(s);
 });
 
 
-// We need {{attr '@name'}} because Handlebars can't parse {{@name}}
-Handlebars.registerHelper('attr', function(attrName) {
+// We need {{mkws-attr '@name'}} because Handlebars can't parse {{@name}}
+Handlebars.registerHelper('mkws-attr', function(attrName) {
     return this[attrName];
 });
 
 
 /*
- * Use as follows: {{#if-any NAME1 having="NAME2"}}
+ * Use as follows: {{#mkws-if-any NAME1 having="NAME2"}}
  * Applicable when NAME1 is the name of an array
  * The guarded code runs only if at least one element of the NAME1
  * array has a subelement called NAME2.
  */
-Handlebars.registerHelper('if-any', function(items, options) {
+Handlebars.registerHelper('mkws-if-any', function(items, options) {
     var having = options.hash.having;
     for (var i in items) {
 	var item = items[i]
@@ -42,7 +42,7 @@ Handlebars.registerHelper('if-any', function(items, options) {
 });
 
 
-Handlebars.registerHelper('first', function(items, options) {
+Handlebars.registerHelper('mkws-first', function(items, options) {
     var having = options.hash.having;
     for (var i in items) {
 	var item = items[i]
@@ -54,7 +54,7 @@ Handlebars.registerHelper('first', function(items, options) {
 });
 
 
-Handlebars.registerHelper('commaList', function(items, options) {
+Handlebars.registerHelper('mkws-commaList', function(items, options) {
     var out = "";
 
     for (var i in items) {
@@ -66,6 +66,6 @@ Handlebars.registerHelper('commaList', function(items, options) {
 });
 
 
-Handlebars.registerHelper('index1', function(obj) {
+Handlebars.registerHelper('mkws-index1', function(obj) {
     return obj.data.index + 1;
 });

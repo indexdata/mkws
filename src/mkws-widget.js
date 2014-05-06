@@ -116,3 +116,14 @@ widget.autosearch = function(widget) {
 };
 
 
+// Utility function for all widgets that want to hide in narrow windows
+widget.hideWhenNarrow = function(widget) {
+    widget.team.queue("resize-narrow").subscribe(function(n) {
+	$(widget.node).hide();
+    });
+    widget.team.queue("resize-wide").subscribe(function(n) {
+	$(widget.node).show();
+    });
+};
+
+

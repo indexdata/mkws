@@ -35,6 +35,10 @@ mkws.registerWidgetType('Facet', function() {
     var max = ref[1];
     var pzIndex = ref[2] ? name : null;
 
+    that.toString = function() {
+	return '[Widget ' + that.team.name() + ':' + that.type + '(' + name + ')]';
+    };
+
     that.team.queue("termlists").subscribe(function(data) {
 	data = data[name];
 

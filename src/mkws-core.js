@@ -97,6 +97,17 @@ mkws.log = function(string) {
 };
 
 
+// Translation function.
+mkws.M = function (word) {
+    var lang = mkws.config.lang;
+
+    if (!lang || !mkws.locale_lang[lang])
+        return word;
+
+    return mkws.locale_lang[lang][word] || word;
+};
+
+
 // This function is taken from a StackOverflow answer
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
 mkws.getParameterByName = function(name) {
@@ -169,7 +180,7 @@ mkws.defaultTemplate = function(name) {
 	return '\
 <table>\
   <tr>\
-    <th>{{translate "Title"}}</th>\
+    <th>{{mkws-translate "Title"}}</th>\
     <td>\
       {{md-title}}\
       {{#if md-title-remainder}}\
@@ -182,44 +193,44 @@ mkws.defaultTemplate = function(name) {
   </tr>\
   {{#if md-date}}\
   <tr>\
-    <th>{{translate "Date"}}</th>\
+    <th>{{mkws-translate "Date"}}</th>\
     <td>{{md-date}}</td>\
   </tr>\
   {{/if}}\
   {{#if md-author}}\
   <tr>\
-    <th>{{translate "Author"}}</th>\
+    <th>{{mkws-translate "Author"}}</th>\
     <td>{{md-author}}</td>\
   </tr>\
   {{/if}}\
   {{#if md-electronic-url}}\
   <tr>\
-    <th>{{translate "Links"}}</th>\
+    <th>{{mkws-translate "Links"}}</th>\
     <td>\
       {{#each md-electronic-url}}\
-	<a href="{{this}}">Link{{index1}}</a>\
+	<a href="{{this}}">Link{{mkws-index1}}</a>\
       {{/each}}\
     </td>\
   </tr>\
   {{/if}}\
-  {{#if-any location having="md-subject"}}\
+  {{#mkws-if-any location having="md-subject"}}\
   <tr>\
-    <th>{{translate "Subject"}}</th>\
+    <th>{{mkws-translate "Subject"}}</th>\
     <td>\
-      {{#first location having="md-subject"}}\
+      {{#mkws-first location having="md-subject"}}\
 	{{#if md-subject}}\
-	  {{#commaList md-subject}}\
-	    {{this}}{{/commaList}}\
+	  {{#mkws-commaList md-subject}}\
+	    {{this}}{{/mkws-commaList}}\
 	{{/if}}\
-      {{/first}}\
+      {{/mkws-first}}\
     </td>\
   </tr>\
-  {{/if-any}}\
+  {{/mkws-if-any}}\
   <tr>\
-    <th>{{translate "Locations"}}</th>\
+    <th>{{mkws-translate "Locations"}}</th>\
     <td>\
-      {{#commaList location}}\
-	{{attr "@name"}}{{/commaList}}\
+      {{#mkws-commaList location}}\
+	{{mkws-attr "@name"}}{{/mkws-commaList}}\
     </td>\
   </tr>\
 </table>\
@@ -239,9 +250,9 @@ mkws.defaultTemplate = function(name) {
     } else if (name === "Image") {
 	return '\
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#first md-thumburl}}\
+        {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/first}}\
+        {{/mkws-first}}\
 	<br/>\
       </a>\
 ';
@@ -330,32 +341,35 @@ mkws.pagerNext = function(tname) {
 
 
     function resizePage() {
-	var list = ["mkwsSwitch", "mkwsLang"];
+	var threshhold = mkws.config.responsive_design_width;
+        var width = $(window).width();
+        var from, to, method;
 
-	var width = mkws.config.responsive_design_width;
-	var parent = $(".mkwsTermlists").parent();
+        if ((mkws.width === undefined || mkws.width > threshhold) &&
+                   width <= threshhold) {
+            from = "wide"; to = "narrow"; method = "hide";
+        } else if ((mkws.width === undefined || mkws.width <= threshhold) &&
+                   width > threshhold) {
+            from = "narrow"; to = "wide"; method = "show";
+        }
+        mkws.width = width;
 
-	if ($(window).width() <= width &&
-	    parent.hasClass("mkwsTermlistContainer1")) {
-	    log("changing from wide to narrow: " + $(window).width());
-	    $(".mkwsTermlistContainer1").hide();
-	    $(".mkwsTermlistContainer2").show();
+        if (from) {
+	    log("changing from " + from + " to " + to + ": " + width);
 	    for (var tname in mkws.teams) {
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer2.mkwsTeam_" + tname));
-		for(var i = 0; i < list.length; i++) {
-		    $("." + list[i] + ".mkwsTeam_" + tname).hide();
-		}
-	    }
-	} else if ($(window).width() > width &&
-		   parent.hasClass("mkwsTermlistContainer2")) {
-	    log("changing from narrow to wide: " + $(window).width());
-	    $(".mkwsTermlistContainer1").show();
-	    $(".mkwsTermlistContainer2").hide();
-	    for (var tname in mkws.teams) {
-		$(".mkwsTermlists.mkwsTeam_" + tname).appendTo($(".mkwsTermlistContainer1.mkwsTeam_" + tname));
-		for(var i = 0; i < list.length; i++) {
-		    $("." + list[i] + ".mkwsTeam_" + tname).show();
-		}
+                var team = mkws.teams[tname];
+                team.visitWidgets(function (t, w) {
+                    var w1 = team.widget(t + "-Container-" + from);
+                    var w2 = team.widget(t + "-Container-" + to);
+                    if (w1) {
+                        $(w1.node).hide();
+                    }
+                    if (w2) {
+                        $(w2.node).show();
+		        $(w.node).appendTo($(w2.node));
+                    }
+                });
+                team.queue("resize-" + to).publish();
 	    }
 	}
     };
@@ -422,7 +436,7 @@ mkws.pagerNext = function(tname) {
                 myTeam.addWidget(myWidget);
                 var newHTML = this.innerHTML;
                 if (newHTML !== oldHTML) {
-                    log("widget " + tname + ":" + type + " HTML changed from '" + oldHTML + "' to '" + newHTML + "': reparse!");
+                    log("widget " + tname + ":" + type + " HTML changed: reparsing");
                     makeWidgetsWithin(level+1, $(this));
                 }
             });
@@ -451,6 +465,15 @@ mkws.pagerNext = function(tname) {
 		}
 	    }
 	}
+
+        var lang = mkws.getParameterByName("lang") || mkws.config.lang;
+        if (!lang || !mkws.locale_lang[lang]) {
+            mkws.config.lang = ""
+        } else {
+            mkws.config.lang = lang;
+        }
+
+        log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
 	if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
 	    log("Reset query width: " + mkws.config.query_width);
@@ -502,15 +525,15 @@ mkws.pagerNext = function(tname) {
 	var now = $.now();
 	log("Walking MKWS nodes took " + (now-then) + " ms");
 
-//        for (var tName in mkws.teams) {
-//            var myTeam = mkws.teams[tName]
-//            var types = myTeam.widgetTypes();
-//            log("TEAM '" + tName + "' = " + myTeam + " has widget types " + types);
-//            for (var i = 0; i < types.length; i++) {
-//                var type = types[i];
-//                log("  has widget of type '" + type + "': " + myTeam.widget(type));
-//            }
-//        }
+        /*
+        for (var tName in mkws.teams) {
+            var myTeam = mkws.teams[tName]
+            log("TEAM '" + tName + "' = " + myTeam + " ...");
+            myTeam.visitWidgets(function(t, w) {
+                log("  has widget of type '" + t + "': " + w);
+            });
+        }
+        */
 
 	if (mkws.config.use_service_proxy) {
 	    authenticateSession(mkws.config.service_proxy_auth,
