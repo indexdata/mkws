@@ -124,6 +124,6 @@ function fieldFilter(field, value) {
 function categoryFilter(id) {
   return {
     type: 'category',
-    id: id,
+    id: id
   };
 }
