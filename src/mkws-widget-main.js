@@ -420,8 +420,4 @@ mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
 mkws.registerWidgetType('Popup', function() {});
 
-// Not sure whether the following should have functionality:
-// Select               HTMLFormElement
-// *-Container-wide     HTMLTableCellElement
-// *-Container-narrow   HTMLDivElement
-// Bytarget             HTMLDivElement
+
