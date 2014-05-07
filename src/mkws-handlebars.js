@@ -1,26 +1,26 @@
 // Handlebars helpers
 Handlebars.registerHelper('mkws-json', function(obj) {
-    return $.toJSON(obj);
+  return $.toJSON(obj);
 });
 
 
 Handlebars.registerHelper('mkws-paragraphs', function(obj) {
-    var acc = [];
-    for (var i = 0; i < obj.length; i++) {
-        acc.push('<p>', obj[i], '</p>');
-    }
-    return acc.join('');
+  var acc = [];
+  for (var i = 0; i < obj.length; i++) {
+    acc.push('<p>', obj[i], '</p>');
+  }
+  return acc.join('');
 });
 
 
 Handlebars.registerHelper('mkws-translate', function(s) {
-    return mkws.M(s);
+  return mkws.M(s);
 });
 
 
 // We need {{mkws-attr '@name'}} because Handlebars can't parse {{@name}}
 Handlebars.registerHelper('mkws-attr', function(attrName) {
-    return this[attrName];
+  return this[attrName];
 });
 
 
@@ -31,41 +31,41 @@ Handlebars.registerHelper('mkws-attr', function(attrName) {
  * array has a subelement called NAME2.
  */
 Handlebars.registerHelper('mkws-if-any', function(items, options) {
-    var having = options.hash.having;
-    for (var i in items) {
-	var item = items[i]
-	if (!having || item[having]) {
-	    return options.fn(this);
-	}
+  var having = options.hash.having;
+  for (var i in items) {
+    var item = items[i]
+    if (!having || item[having]) {
+      return options.fn(this);
     }
-    return "";
+  }
+  return "";
 });
 
 
 Handlebars.registerHelper('mkws-first', function(items, options) {
-    var having = options.hash.having;
-    for (var i in items) {
-	var item = items[i]
-	if (!having || item[having]) {
-	    return options.fn(item);
-	}
+  var having = options.hash.having;
+  for (var i in items) {
+    var item = items[i]
+    if (!having || item[having]) {
+      return options.fn(item);
     }
-    return "";
+  }
+  return "";
 });
 
 
 Handlebars.registerHelper('mkws-commaList', function(items, options) {
-    var out = "";
+  var out = "";
 
-    for (var i in items) {
-	if (i > 0) out += ", ";
-	out += options.fn(items[i])
-    }
+  for (var i in items) {
+    if (i > 0) out += ", ";
+    out += options.fn(items[i])
+  }
 
-    return out;
+  return out;
 });
 
 
 Handlebars.registerHelper('mkws-index1', function(obj) {
-    return obj.data.index + 1;
+  return obj.data.index + 1;
 });
