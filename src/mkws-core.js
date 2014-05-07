@@ -145,10 +145,10 @@ mkws.setMkwsConfig = function(overrides) {
     sort_default: "relevance",
     perpage_default: 20,
     query_width: 50,
-    show_lang: true, 	/* show/hide language menu */
-    show_sort: true, 	/* show/hide sort menu */
-    show_perpage: true, 	/* show/hide perpage menu */
-    lang_options: [], 	/* display languages links for given languages, [] for all */
+    show_lang: true,    /* show/hide language menu */
+    show_sort: true,    /* show/hide sort menu */
+    show_perpage: true,         /* show/hide perpage menu */
+    lang_options: [],   /* display languages links for given languages, [] for all */
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
     log_level: 1,     /* log level for development: 0..2 */
@@ -184,10 +184,10 @@ mkws.defaultTemplate = function(name) {
     <td>\
       {{md-title}}\
       {{#if md-title-remainder}}\
-	({{md-title-remainder}})\
+        ({{md-title-remainder}})\
       {{/if}}\
       {{#if md-title-responsibility}}\
-	<i>{{md-title-responsibility}}</i>\
+        <i>{{md-title-responsibility}}</i>\
       {{/if}}\
     </td>\
   </tr>\
@@ -208,7 +208,7 @@ mkws.defaultTemplate = function(name) {
     <th>{{mkws-translate "Links"}}</th>\
     <td>\
       {{#each md-electronic-url}}\
-	<a href="{{this}}">Link{{mkws-index1}}</a>\
+        <a href="{{this}}">Link{{mkws-index1}}</a>\
       {{/each}}\
     </td>\
   </tr>\
@@ -218,10 +218,10 @@ mkws.defaultTemplate = function(name) {
     <th>{{mkws-translate "Subject"}}</th>\
     <td>\
       {{#mkws-first location having="md-subject"}}\
-	{{#if md-subject}}\
-	  {{#mkws-commaList md-subject}}\
-	    {{this}}{{/mkws-commaList}}\
-	{{/if}}\
+        {{#if md-subject}}\
+          {{#mkws-commaList md-subject}}\
+            {{this}}{{/mkws-commaList}}\
+        {{/if}}\
       {{/mkws-first}}\
     </td>\
   </tr>\
@@ -230,7 +230,7 @@ mkws.defaultTemplate = function(name) {
     <th>{{mkws-translate "Locations"}}</th>\
     <td>\
       {{#mkws-commaList location}}\
-	{{mkws-attr "@name"}}{{/mkws-commaList}}\
+        {{mkws-attr "@name"}}{{/mkws-commaList}}\
     </td>\
   </tr>\
 </table>\
@@ -251,9 +251,9 @@ mkws.defaultTemplate = function(name) {
     return '\
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
         {{#mkws-first md-thumburl}}\
-	  <img src="{{this}}" alt="{{../md-title}}"/>\
+          <img src="{{this}}" alt="{{../md-title}}"/>\
         {{/mkws-first}}\
-	<br/>\
+        <br/>\
       </a>\
 ';
   }
@@ -329,9 +329,9 @@ mkws.pagerNext = function(tname) {
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
       if (cname.match(/^mkwsTeam_/)) {
-	teamName = cname.replace(/^mkwsTeam_/, '');
+        teamName = cname.replace(/^mkwsTeam_/, '');
       } else if (cname.match(/^mkws/)) {
-	type = cname.replace(/^mkws/, '');
+        type = cname.replace(/^mkws/, '');
       }
     }
 
@@ -366,7 +366,7 @@ mkws.pagerNext = function(tname) {
           }
           if (w2) {
             $(w2.node).show();
-	    $(w.node).appendTo($(w2.node));
+            $(w.node).appendTo($(w2.node));
           }
         });
         team.queue("resize-" + to).publish();
@@ -395,13 +395,13 @@ mkws.pagerNext = function(tname) {
 
     request.get(null, function(data) {
       if (!$.isXMLDoc(data)) {
-	alert("service proxy auth response document is not valid XML document, give up!");
-	return;
+        alert("service proxy auth response document is not valid XML document, give up!");
+        return;
       }
       var status = $(data).find("status");
       if (status.text() != "OK") {
-	alert("service proxy auth response status: " + status.text() + ", give up!");
-	return;
+        alert("service proxy auth response status: " + status.text() + ", give up!");
+        return;
       }
 
       log("Service proxy auth successfully done");
@@ -410,7 +410,7 @@ mkws.pagerNext = function(tname) {
       // You'd think there would be a better way to do this:
       var realm = $(data).find("realm:not(realmAttributes realm)").text();
       for (var teamName in mkws.teams) {
-	mkws.teams[teamName].queue("authenticated").publish(authName, realm);
+        mkws.teams[teamName].queue("authenticated").publish(authName, realm);
       }
 
       runAutoSearches();
@@ -457,12 +457,12 @@ mkws.pagerNext = function(tname) {
 
     for (var key in mkws.config) {
       if (mkws.config.hasOwnProperty(key)) {
-	if (key.match(/^language_/)) {
-	  var lang = key.replace(/^language_/, "");
-	  // Copy custom languages into list
-	  mkws.locale_lang[lang] = mkws.config[key];
-	  log("Added locally configured language '" + lang + "'");
-	}
+        if (key.match(/^language_/)) {
+          var lang = key.replace(/^language_/, "");
+          // Copy custom languages into list
+          mkws.locale_lang[lang] = mkws.config[key];
+          log("Added locally configured language '" + lang + "'");
+        }
       }
     }
 
@@ -497,14 +497,14 @@ mkws.pagerNext = function(tname) {
     // Backwards compatibility: set new magic class names on any
     // elements that have the old magic IDs.
     var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
-		"Results", "Records", "Targets", "Ranking",
-		"Termlists", "Stat", "MOTD" ];
+                "Results", "Records", "Targets", "Ranking",
+                "Termlists", "Stat", "MOTD" ];
     for (var i = 0; i < ids.length; i++) {
       var id = 'mkws' + ids[i];
       var node = $('#' + id);
       if (node.attr('id')) {
-	node.addClass(id);
-	log("added magic class to '" + node.attr('id') + "'");
+        node.addClass(id);
+        log("added magic class to '" + node.attr('id') + "'");
       }
     }
 
@@ -513,10 +513,10 @@ mkws.pagerNext = function(tname) {
     var then = $.now();
     $('[class^="mkws"],[class*=" mkws"]').each(function() {
       handleNodeWithTeam(this, function(tname, type) {
-	if (!mkws.teams[tname]) {
-	  mkws.teams[tname] = team(j, tname);
-	  log("Made MKWS team '" + tname + "'");
-	}
+        if (!mkws.teams[tname]) {
+          mkws.teams[tname] = team(j, tname);
+          log("Made MKWS team '" + tname + "'");
+        }
       });
     });
 
@@ -537,8 +537,8 @@ mkws.pagerNext = function(tname) {
 
     if (mkws.config.use_service_proxy) {
       authenticateSession(mkws.config.service_proxy_auth,
-			  mkws.config.service_proxy_auth_domain,
-			  mkws.config.pazpar2_url);
+                          mkws.config.service_proxy_auth_domain,
+                          mkws.config.pazpar2_url);
     } else {
       // raw pp2
       runAutoSearches();
