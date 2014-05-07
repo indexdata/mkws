@@ -39,9 +39,9 @@ function _mkws_jquery_plugin($) {
       modal: true,
       resizable: true,
       buttons: {
-	Cancel: function() {
-	  $(this).dialog("close");
-	}
+        Cancel: function() {
+          $(this).dialog("close");
+        }
       },
       close: function() { }
     });
@@ -49,7 +49,7 @@ function _mkws_jquery_plugin($) {
     $(id_button)
       .button()
       .click(function() {
-	$(id_popup).dialog("open");
+        $(id_popup).dialog("open");
       });
   };
 
@@ -58,7 +58,7 @@ function _mkws_jquery_plugin($) {
     // service-proxy or pazpar2
     pazpar2: function(config) {
       if (config == null || typeof config != 'object') {
-	config = {};
+        config = {};
       }
       var id_popup = config.id_popup || ".mkwsPopup";
       id_popup = id_popup.replace(/^[#\.]/, "");
@@ -96,18 +96,18 @@ function _mkws_jquery_plugin($) {
   <tr>\
     <td>\
       <div style="height:500px; overflow: auto">\
-	<div class="mkwsPager"></div>\
-	<div class="mkwsNavi"></div>\
-	<div class="mkwsRecords"></div>\
-	<div class="mkwsTargets"></div>\
-	<div class="mkwsRanking"></div>\
+        <div class="mkwsPager"></div>\
+        <div class="mkwsNavi"></div>\
+        <div class="mkwsRecords"></div>\
+        <div class="mkwsTargets"></div>\
+        <div class="mkwsRanking"></div>\
       </div>\
     </td>\
   </tr>\
   <tr>\
     <td>\
       <div style="height:300px; overflow: hidden">\
-	<div class="mkwsTermlists"></div>\
+        <div class="mkwsTermlists"></div>\
       </div>\
     </td>\
   </tr>\
@@ -129,15 +129,15 @@ function _mkws_jquery_plugin($) {
 </div>'
 
       if (config && config.layout == 'div') {
-	debug("jquery plugin layout: div");
-	document.write(div);
+        debug("jquery plugin layout: div");
+        document.write(div);
       } else if (config && config.layout == 'popup') {
-	debug("jquery plugin layout: popup with id: " + id_popup);
-	document.write(popup);
-	$(document).ready(function() { init_popup(config); });
+        debug("jquery plugin layout: popup with id: " + id_popup);
+        document.write(popup);
+        $(document).ready(function() { init_popup(config); });
       } else {
-	debug("jquery plugin layout: table");
-	document.write(table);
+        debug("jquery plugin layout: table");
+        document.write(table);
       }
     }
   });
