@@ -13,15 +13,15 @@ mkws.registerWidgetType('Categories', function() {
 
     req.get(null, function(data) {
       if (!$.isXMLDoc(data)) {
-	alert("categories response document is not XML");
-	return;
+        alert("categories response document is not XML");
+        return;
       }
       that.log("got categories: " + data);
 
       var text = [];
       text.push("Select category: ");
       text.push("<select name='mkwsCategory' " +
-		"onchange='mkws.limitCategory(\"" + that.team.name() + "\", this.value)'>");
+                "onchange='mkws.limitCategory(\"" + that.team.name() + "\", this.value)'>");
       text.push("<option value=''>[All]</option>");
       $(data).find('category').each(function() {
         var name = $(this).find('categoryName').text();
