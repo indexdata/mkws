@@ -275,7 +275,7 @@ mkws.registerWidgetType('Ranking', function() {
   var that = this;
   var M = mkws.M;
 
-  var s = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + tname + '" action="" >';
+  var s = '<form>';
   if (this.config.show_sort) {
     s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
   }
