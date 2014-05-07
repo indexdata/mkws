@@ -54,17 +54,17 @@ function team($, teamName) {
   // http://api.jquery.com/jQuery.Callbacks/
   //
   // Use as:
-  //	team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
-  //	team.queue("eventName").publish(arg1, arg2, ...);
+  //    team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
+  //    team.queue("eventName").publish(arg1, arg2, ...);
   //
   var queues = {};
   function queue(id) {
     if (!queues[id]) {
       var callbacks = $.Callbacks();
       queues[id] = {
-	publish: callbacks.fire,
-	subscribe: callbacks.add,
-	unsubscribe: callbacks.remove
+        publish: callbacks.fire,
+        subscribe: callbacks.add,
+        unsubscribe: callbacks.remove
       };
     }
     return queues[id];
@@ -75,7 +75,7 @@ function team($, teamName) {
   function log(s) {
     var now = $.now();
     var timestamp = (((now - m_logTime.start)/1000).toFixed(3) + " (+" +
-		     ((now - m_logTime.last)/1000).toFixed(3) + ") ");
+                     ((now - m_logTime.last)/1000).toFixed(3) + ") ");
     m_logTime.last = now;
     mkws.log(m_teamName + ": " + timestamp + s);
     that.queue("log").publish(m_teamName, timestamp, s);
@@ -93,17 +93,17 @@ function team($, teamName) {
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   m_paz = new pz2({ "windowid": teamName,
-		    "pazpar2path": m_config.pazpar2_url,
-		    "usesessions" : m_config.use_service_proxy ? false : true,
-		    "oninit": onInit,
-		    "onbytarget": onBytarget,
-		    "onstat": onStat,
-		    "onterm": (m_config.facets.length ? onTerm : undefined),
-		    "onshow": onShow,
-		    "onrecord": onRecord,
-		    "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-		    "termlist": m_config.facets.join(',')
-		  });
+                    "pazpar2path": m_config.pazpar2_url,
+                    "usesessions" : m_config.use_service_proxy ? false : true,
+                    "oninit": onInit,
+                    "onbytarget": onBytarget,
+                    "onstat": onStat,
+                    "onterm": (m_config.facets.length ? onTerm : undefined),
+                    "onshow": onShow,
+                    "onrecord": onRecord,
+                    "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
+                    "termlist": m_config.facets.join(',')
+                  });
 
   // pz2.js event handlers:
   function onInit() {
@@ -283,12 +283,12 @@ function team($, teamName) {
     if (maxrecs) params.maxrecs = maxrecs;
     if (torusquery) {
       if (!mkws.config.use_service_proxy)
-	alert("can't narrow search by torusquery when Service Proxy is not in use");
+        alert("can't narrow search by torusquery when Service Proxy is not in use");
       params.torusquery = torusquery;
     }
 
     log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
-	"pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
+        "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
   }
@@ -347,7 +347,7 @@ function team($, teamName) {
 
     if (teamName === 'AUTO') {
       selector = (selector + '.mkwsTeam_' + teamName + ',' +
-		  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+                  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
     } else {
       selector = selector + '.mkwsTeam_' + teamName;
     }
@@ -385,17 +385,17 @@ function team($, teamName) {
       var source;
       var node = widgetNode("Template_" + name);
       if (!node) {
-	node = widgetNode("Template_" + name, "ALL");
+        node = widgetNode("Template_" + name, "ALL");
       }
       if (node) {
-	source = node.html();
+        source = node.html();
       }
 
       if (!source) {
         source = m_tempateText[name];
       }
       if (!source) {
-	source = mkws.defaultTemplate(name);
+        source = mkws.defaultTemplate(name);
       }
 
       template = Handlebars.compile(source);
