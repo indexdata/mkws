@@ -7,10 +7,7 @@ mkws.registerWidgetType('Targets', function() {
   var that = this;
   var M = mkws.M;
 
-  $(this.node).html('\
-<div class="mkwsBytarget mkwsTeam_' + this.team.name() + '">\
-No information available yet.\
-</div>');
+  $(this.node).html('No information available yet.');
   $(this.node).css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
@@ -31,8 +28,7 @@ No information available yet.\
     }
 
     table += '</tbody></table>';
-    var subnode = $(that.node).children('.mkwsBytarget');
-    subnode.html(table);
+    $(that.node).html(table);
   });
 });
 
