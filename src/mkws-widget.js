@@ -55,6 +55,8 @@ function widget($, team, type, node) {
   if (fn) {
     fn.call(that);
     log("made " + type + " widget(node=" + node + ")");
+  } else if (type.match(/-Container-(narrow|wide)$/)) {
+    // Not really a widget: no need to log its lack of promotion
   } else {
     log("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
   }
