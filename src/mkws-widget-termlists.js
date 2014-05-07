@@ -50,16 +50,16 @@ mkws.registerWidgetType('Facet', function() {
       acc.push('<a href="#" ');
       var action = '';
       if (!pzIndex) {
-	// Special case: target selection
-	acc.push('target_id='+data[i].id+' ');
-	if (!that.team.targetFiltered(data[i].id)) {
-	  action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
-	}
+        // Special case: target selection
+        acc.push('target_id='+data[i].id+' ');
+        if (!that.team.targetFiltered(data[i].id)) {
+          action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+        }
       } else {
-	action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
+        action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
       }
       acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-	       + ' <span>' + data[i].freq + '</span>');
+               + ' <span>' + data[i].freq + '</span>');
       acc.push('</div>');
     }
 
