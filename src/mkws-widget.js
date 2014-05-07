@@ -33,13 +33,13 @@ function widget($, team, type, node) {
       log(node + ": parsing config fragment '" + a.value + "'");
       var data;
       try {
-	data = $.parseJSON(a.value);
-	for (var key in data) {
-	  log(node + ": adding config element " + key + "='" + data[key] + "'");
-	  that.config[key] = data[key];
-	}
+        data = $.parseJSON(a.value);
+        for (var key in data) {
+          log(node + ": adding config element " + key + "='" + data[key] + "'");
+          that.config[key] = data[key];
+        }
       } catch (err) {
-	alert("Can't parse " + node + " data-mkws-config as JSON: " + a.value);
+        alert("Can't parse " + node + " data-mkws-config as JSON: " + a.value);
       }
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
@@ -69,27 +69,27 @@ widget.autosearch = function(widget) {
     var query = widget.config.autosearch;
     if (query) {
       if (query.match(/^!param!/)) {
-	var param = query.replace(/^!param!/, '');
-	query = mkws.getParameterByName(param);
-	widget.log("obtained query '" + query + "' from param '" + param + "'");
-	if (!query) {
-	  alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-	}
+        var param = query.replace(/^!param!/, '');
+        query = mkws.getParameterByName(param);
+        widget.log("obtained query '" + query + "' from param '" + param + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
+        }
       } else if (query.match(/^!path!/)) {
-	var index = query.replace(/^!path!/, '');
-	var path = window.location.pathname.split('/');
-	query = path[path.length - index];
-	widget.log("obtained query '" + query + "' from path-component '" + index + "'");
-	if (!query) {
-	  alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-	}
+        var index = query.replace(/^!path!/, '');
+        var path = window.location.pathname.split('/');
+        query = path[path.length - index];
+        widget.log("obtained query '" + query + "' from path-component '" + index + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+        }
       } else if (query.match(/^!var!/)) {
-	var name = query.replace(/^!var!/, '');
-	query = window[name]; // It's ridiculous that this works
-	widget.log("obtained query '" + query + "' from variable '" + name + "'");
-	if (!query) {
-	  alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
-	}
+        var name = query.replace(/^!var!/, '');
+        query = window[name]; // It's ridiculous that this works
+        widget.log("obtained query '" + query + "' from variable '" + name + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
+        }
       }
 
       var sortOrder = widget.config.sort;
