@@ -24,10 +24,10 @@ No information available yet.\
 
     for (var i = 0; i < data.length; i++) {
       table += "<tr><td>" + data[i].id +
-	"</td><td>" + data[i].hits +
-	"</td><td>" + data[i].diagnostic +
-	"</td><td>" + data[i].records +
-	"</td><td>" + data[i].state + "</td></tr>";
+        "</td><td>" + data[i].hits +
+        "</td><td>" + data[i].diagnostic +
+        "</td><td>" + data[i].records +
+        "</td><td>" + data[i].state + "</td></tr>";
     }
 
     table += '</tbody></table>';
@@ -45,10 +45,10 @@ mkws.registerWidgetType('Stat', function() {
     if (that.node.length === 0)  alert("huh?!");
 
     $(that.node).html('<span class="head">' + M('Status info') + '</span>' +
-	              ' -- ' +
-	              '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
-	              ' -- ' +
-	              '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
+                      ' -- ' +
+                      '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
+                      ' -- ' +
+                      '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
   });
 });
 
@@ -63,9 +63,9 @@ mkws.registerWidgetType('Pager', function() {
     function drawPager(data) {
       var teamName = that.team.name();
       var s = '<div style="float: right">' + M('Displaying') + ': '
-	+ (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-	' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-	+ data.total + ')</div>';
+        + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
+        ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
+        + data.total + ')</div>';
 
       //client indexes pages from 1 but pz2 from 0
       var onsides = 6;
@@ -73,43 +73,43 @@ mkws.registerWidgetType('Pager', function() {
       var currentPage = that.team.currentPage();
 
       var firstClkbl = (currentPage - onsides > 0)
-	? currentPage - onsides
-	: 1;
+        ? currentPage - onsides
+        : 1;
 
       var lastClkbl = firstClkbl + 2*onsides < pages
-	? firstClkbl + 2*onsides
-	: pages;
+        ? firstClkbl + 2*onsides
+        : pages;
 
       var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span> | ';
       if (currentPage > 1)
-	prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
-	+'&#60;&#60; ' + M('Prev') + '</a> | ';
+        prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
+        +'&#60;&#60; ' + M('Prev') + '</a> | ';
 
       var middle = '';
       for(var i = firstClkbl; i <= lastClkbl; i++) {
-	var numLabel = i;
-	if(i == currentPage)
-	  numLabel = '<span class="mkwsSelected">' + i + '</span>';
+        var numLabel = i;
+        if(i == currentPage)
+          numLabel = '<span class="mkwsSelected">' + i + '</span>';
 
-	middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
-	  + numLabel + ' </a>';
+        middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
+          + numLabel + ' </a>';
       }
 
       var next = ' | <span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
       if (pages - currentPage > 0)
-	next = ' | <a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
-	+ M('Next') + ' &#62;&#62;</a>';
+        next = ' | <a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
+        + M('Next') + ' &#62;&#62;</a>';
 
       var predots = '';
       if (firstClkbl > 1)
-	predots = '...';
+        predots = '...';
 
       var postdots = '';
       if (lastClkbl < pages)
-	postdots = '...';
+        postdots = '...';
 
       s += '<div style="float: clear">'
-	+ prev + predots + middle + postdots + next + '</div>';
+        + prev + predots + middle + postdots + next + '</div>';
 
       return s;
     }
@@ -132,8 +132,8 @@ mkws.registerWidgetType('Records', function() {
       // m_currentRecordId and m_currentRecordData members
       // from the team object into this widget.
       if (hit.recid == team.currentRecordId()) {
-	if (team.currentRecordData())
-	  html.push(team.renderDetails(team.currentRecordData()));
+        if (team.currentRecordData())
+          html.push(team.renderDetails(team.currentRecordData()));
       }
     }
     $(that.node).html(html.join(''));
@@ -162,14 +162,14 @@ mkws.registerWidgetType('Navi', function() {
     filters.visitTargets(function(id, name) {
       if (text) text += " | ";
       text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
-	"', '" + id + "'" + ');return false;">' + name + '</a>';
+        "', '" + id + "'" + ');return false;">' + name + '</a>';
     });
 
     filters.visitFields(function(field, value) {
       if (text) text += " | ";
       text += M(field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
-	"', '" + field + "', '" + value + "'" +
-	');return false;">' + value + '</a>';
+        "', '" + field + "', '" + value + "'" +
+        ');return false;">' + value + '</a>';
     });
 
     $(that.node).html(text);
@@ -304,7 +304,7 @@ mkws.registerWidgetType('Ranking', function() {
 
       sort_html += '<option value="' + key + '"';
       if (order == key || order == val) {
-	sort_html += ' selected="selected"';
+        sort_html += ' selected="selected"';
       }
       sort_html += '>' + M(val) + '</option>';
     }
@@ -324,7 +324,7 @@ mkws.registerWidgetType('Ranking', function() {
 
       perpage_html += '<option value="' + key + '"';
       if (key == perpage) {
-	perpage_html += ' selected="selected"';
+        perpage_html += ' selected="selected"';
       }
       perpage_html += '>' + key + '</option>';
     }
@@ -421,7 +421,7 @@ mkws.registerWidgetType('Button', function() {});
 mkws.registerWidgetType('Popup', function() {});
 
 // Not sure whether the following should have functionality:
-// Select		HTMLFormElement
-// *-Container-wide	HTMLTableCellElement
-// *-Container-narrow	HTMLDivElement
-// Bytarget		HTMLDivElement
+// Select               HTMLFormElement
+// *-Container-wide     HTMLTableCellElement
+// *-Container-narrow   HTMLDivElement
+// Bytarget             HTMLDivElement
