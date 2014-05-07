@@ -17,7 +17,7 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (filter.type === 'target') {
-	callback(filter.id, filter.name);
+        callback(filter.id, filter.name);
       }
     }
   };
@@ -26,7 +26,7 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (filter.type === 'field') {
-	callback(filter.field, filter.value);
+        callback(filter.field, filter.value);
       }
     }
   };
@@ -35,7 +35,7 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (filter.type === 'category') {
-	callback(filter.id);
+        callback(filter.id);
       }
     }
   };
@@ -45,10 +45,10 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (matchFn(filter)) {
-	m_team.log("removeMatching() removing filter " + $.toJSON(filter));
+        m_team.log("removeMatching() removing filter " + $.toJSON(filter));
       } else {
-	m_team.log("removeMatching() keeping filter " + $.toJSON(filter));
-	newList.push(filter);
+        m_team.log("removeMatching() keeping filter " + $.toJSON(filter));
+        newList.push(filter);
       }
     }
     m_list = newList;
@@ -57,8 +57,8 @@ function filterSet(team) {
   that.targetFiltered = function(id) {
     for (var i = 0; i < m_list.length; i++) {
       if (m_list[i].type === 'target' ||
-	  m_list[i].id === 'pz:id=' + id) {
-	return true;
+          m_list[i].id === 'pz:id=' + id) {
+        return true;
       }
     }
     return false;
@@ -70,9 +70,9 @@ function filterSet(team) {
     that.visitTargets(function(id, name) {
       if (res) res += ",";
       if (id.match(/^[a-z:]+[=~]/)) {
-	m_team.log("filter '" + id + "' already begins with SETTING OP");
+        m_team.log("filter '" + id + "' already begins with SETTING OP");
       } else {
-	id = 'pz:id=' + id;
+        id = 'pz:id=' + id;
       }
       res += id;
     });
