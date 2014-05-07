@@ -85,7 +85,7 @@ mkws.registerWidgetType('Pager', function() {
       for(var i = firstClkbl; i <= lastClkbl; i++) {
         var numLabel = i;
         if(i == currentPage)
-          numLabel = '<span class="mkwsSelected">' + i + '</span>';
+          numLabel = '<span class="mkwsCurrentPage">' + i + '</span>';
 
         middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
           + numLabel + ' </a>';
