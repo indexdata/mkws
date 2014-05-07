@@ -1,7 +1,7 @@
 mkws.registerWidgetType('Authname', function() {
-    var that = this;
+  var that = this;
 
-    this.team.queue("authenticated").subscribe(function(authName) {
-	$(that.node).html(authName);
-    });
+  this.team.queue("authenticated").subscribe(function(authName) {
+    $(that.node).html(authName);
+  });
 });
