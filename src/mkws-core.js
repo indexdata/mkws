@@ -428,8 +428,20 @@ mkws.pagerNext = function(tname) {
 
 
   function selectorForAllWidgets() {
-    return '[class^="mkws"],[class*=" mkws"]';
+    if (mkws.config.scan_all_nodes) {
+      log("scanning selector");
+      return '[class^="mkws"],[class*=" mkws"]';
+    } else {
+      log("class-based selector");
+      var s = "";
+      for (var type in mkws.widgetType2function) {
+	if (s) s += ',';
+	s += '.mkws' + type;
+      }
+      return s;
+    }
   }
+
 
   function makeWidgetsWithin(level, node) {
     node.find(selectorForAllWidgets()).each(function() {
