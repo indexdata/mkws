@@ -174,26 +174,26 @@
     padding: 0.3em;
 }
 
-.mkwsBytarget table thead tr td {
+.mkwsTargets table thead tr td {
     background-color: #132194;
     color: white;
     font-weight: bold;
     padding: 0.2em 0.5em;
 }
 
-.mkwsBytarget table tbody tr:nth-child(odd) {
+.mkwsTargets table tbody tr:nth-child(odd) {
     background-color: #e0f0ff;
 }
 
-.mkwsBytarget table tbody tr:nth-child(even) {
+.mkwsTargets table tbody tr:nth-child(even) {
     background-color: #d0e0ff;
 }
 
-.mkwsBytarget table tbody tr td {
+.mkwsTargets table tbody tr td {
     padding: 0.2em 0.5em;
 }
 
-.mkwsSelected {
+.mkwsCurrentPage {
     padding: 0.1em 0.5em;
     background: #508751;
     color: white;
