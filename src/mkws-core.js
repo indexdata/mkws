@@ -311,6 +311,7 @@ mkws.pagerNext = function(tname) {
 // wrapper to call team() after page load
 (function(j) {
   var log = mkws.log;
+  var $ = j; // XXX
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
