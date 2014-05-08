@@ -427,8 +427,12 @@ mkws.pagerNext = function(tname) {
   }
 
 
+  function selectorForAllWidgets() {
+    return '[class^="mkws"],[class*=" mkws"]';
+  }
+
   function makeWidgetsWithin(level, node) {
-    node.find('[class^="mkws"],[class*=" mkws"]').each(function() {
+    node.find(selectorForAllWidgets()).each(function() {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
