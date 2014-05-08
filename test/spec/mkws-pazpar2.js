@@ -466,7 +466,7 @@ describe("Check switch menu Records/Targets", function () {
         $("div.mkwsSwitch").children('a').eq(1).trigger("click");
 
         // now the target table must be visible
-        expect($("div.mkwsBytarget").is(":visible")).toBe(true);
+        expect($("div.mkwsTargets").is(":visible")).toBe(true);
         expect($("div.mkwsRecords").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
@@ -477,7 +477,7 @@ describe("Check switch menu Records/Targets", function () {
 
         // look for table header
         runs(function () {
-            expect($("div.mkwsBytarget").html()).toMatch(/Target ID/);
+            expect($("div.mkwsTargets").html()).toMatch(/Target ID/);
         });
     });
 
@@ -485,7 +485,7 @@ describe("Check switch menu Records/Targets", function () {
         $("div.mkwsSwitch").children('a').eq(0).trigger("click");
 
         // now the target table must be visible
-        expect($("div.mkwsBytarget").is(":visible")).toBe(false);
+        expect($("div.mkwsTargets").is(":visible")).toBe(false);
         expect($("div.mkwsRecords").is(":visible")).toBe(true);
     });
 });

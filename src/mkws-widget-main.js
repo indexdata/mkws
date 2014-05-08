@@ -7,10 +7,7 @@ mkws.registerWidgetType('Targets', function() {
   var that = this;
   var M = mkws.M;
 
-  $(this.node).html('\
-<div class="mkwsBytarget mkwsTeam_' + this.team.name() + '">\
-No information available yet.\
-</div>');
+  $(this.node).html('No information available yet.');
   $(this.node).css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
@@ -31,8 +28,7 @@ No information available yet.\
     }
 
     table += '</tbody></table>';
-    var subnode = $(that.node).children('.mkwsBytarget');
-    subnode.html(table);
+    $(that.node).html(table);
   });
 });
 
@@ -89,7 +85,7 @@ mkws.registerWidgetType('Pager', function() {
       for(var i = firstClkbl; i <= lastClkbl; i++) {
         var numLabel = i;
         if(i == currentPage)
-          numLabel = '<span class="mkwsSelected">' + i + '</span>';
+          numLabel = '<span class="mkwsCurrentPage">' + i + '</span>';
 
         middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
           + numLabel + ' </a>';
@@ -238,7 +234,7 @@ mkws.registerWidgetType('Search', function() {
 
 
 mkws.registerWidgetType('SearchForm', function() {
-  var team = this.team;    
+  var team = this.team;
   $(this.node).submit(function() {
     var val = team.widget('Query').value();
     team.newSearch(val);
@@ -279,7 +275,7 @@ mkws.registerWidgetType('Ranking', function() {
   var that = this;
   var M = mkws.M;
 
-  var s = '<form name="mkwsSelect" class="mkwsSelect mkwsTeam_' + tname + '" action="" >';
+  var s = '<form>';
   if (this.config.show_sort) {
     s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
   }
@@ -420,8 +416,4 @@ mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
 mkws.registerWidgetType('Popup', function() {});
 
-// Not sure whether the following should have functionality:
-// Select               HTMLFormElement
-// *-Container-wide     HTMLTableCellElement
-// *-Container-narrow   HTMLDivElement
-// Bytarget             HTMLDivElement
+
