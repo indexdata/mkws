@@ -234,7 +234,7 @@ mkws.registerWidgetType('Search', function() {
 
 
 mkws.registerWidgetType('SearchForm', function() {
-  var team = this.team;    
+  var team = this.team;
   $(this.node).submit(function() {
     var val = team.widget('Query').value();
     team.newSearch(val);

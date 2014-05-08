@@ -311,6 +311,7 @@ mkws.pagerNext = function(tname) {
 // wrapper to call team() after page load
 (function(j) {
   var log = mkws.log;
+  var $ = j; // XXX
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -430,8 +431,13 @@ mkws.pagerNext = function(tname) {
   function makeWidgetsWithin(level, node) {
     node.find('[class^="mkws"],[class*=" mkws"]').each(function() {
       handleNodeWithTeam(this, function(tname, type) {
-        var oldHTML = this.innerHTML;
         var myTeam = mkws.teams[tname];
+        if (!myTeam) {
+          myTeam = mkws.teams[tname] = team(j, tname);
+          log("Made MKWS team '" + tname + "'");
+        }
+
+        var oldHTML = this.innerHTML;
         var myWidget = widget(j, myTeam, type, this);
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
@@ -508,21 +514,10 @@ mkws.pagerNext = function(tname) {
       }
     }
 
-    // Find all nodes with an MKWS class, and determine their team from
-    // the mkwsTeam_* class. Make all team objects.
     var then = $.now();
-    $('[class^="mkws"],[class*=" mkws"]').each(function() {
-      handleNodeWithTeam(this, function(tname, type) {
-        if (!mkws.teams[tname]) {
-          mkws.teams[tname] = team(j, tname);
-          log("Made MKWS team '" + tname + "'");
-        }
-      });
-    });
-
     makeWidgetsWithin(1, $(':root'));
-    
     var now = $.now();
+
     log("Walking MKWS nodes took " + (now-then) + " ms");
 
     /*
