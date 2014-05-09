@@ -11,7 +11,7 @@ mkws.registerWidgetType('Termlists', function() {
 
   var acc = [];
   var facets = this.config.facets;
-  acc.push('<div class="title">' + mkws.M('Termlists') + '</div>');
+  acc.push('<div class="mkwsTermlistsTitle">' + mkws.M('Termlists') + '</div>');
   for (var i = 0; i < facets.length; i++) {
     acc.push('<div class="mkwsFacet mkwsTeam_', this.team.name(), '" data-mkws-facet="', facets[i], '">', '</div>');
   }
