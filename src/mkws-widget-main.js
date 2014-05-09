@@ -122,7 +122,7 @@ mkws.registerWidgetType('Records', function() {
       var hit = data.hits[i];
       that.team.queue("record").publish(hit);
       var divId = team.recordElementId(hit.recid[0]);
-      html.push('<div class="record mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
+      html.push('<div class="mkwsSummary mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
       // ### At some point, we may be able to move the
       // m_currentRecordId and m_currentRecordData members
       // from the team object into this widget.
