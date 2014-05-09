@@ -423,7 +423,7 @@ describe("Show record", function () {
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.details");
+            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.mkwsDetails");
             //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
