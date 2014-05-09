@@ -232,11 +232,11 @@ describe("Check Termlist", function () {
         });
 
         waitsFor(function () {
-            return $("div.mkwsFacet[data-mkws-facet='author'] div.term").length >= 2 ? true : false;
+            return $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length >= 2 ? true : false;
         }, "At least one author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($("div.mkwsFacet[data-mkws-facet='author'] div.term").length).toBeGreaterThan(1);
+            expect($("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length).toBeGreaterThan(1);
         });
     });
 });
@@ -254,7 +254,7 @@ describe("Check Author Facets", function () {
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
         runs(function () {
-            var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.term a");
+            var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm a");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text();
                 if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -264,13 +264,13 @@ describe("Check Author Facets", function () {
                     break;
                 }
             }
-            if ($("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text().length == 0) {
+            if ($("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").text().length == 0) {
                 debug("No good authors found. Not clicking on the bad ones");
                 return;
             }
 
-            debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").text());
-            $("div.mkwsFacet[data-mkws-facet='author'] div.term:nth-child(" + author_number + ") a").trigger("click");
+            debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").text());
+            $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").trigger("click");
         });
 
         waitsFor(function () {
@@ -314,7 +314,7 @@ describe("Check Source Facets", function () {
         // wait for a stat response
         var waitcount = 0;
         // do not click on wikipedia link - no author or subject facets possible
-        var link = "div.mkwsFacet[data-mkws-facet='xtargets'] div.term a";
+        var link = "div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm a";
 
         // wait for a visible source link in facets
         waitsFor(function () {
@@ -338,13 +338,13 @@ describe("Check Source Facets", function () {
             }
             debug("Source counter: " + terms.length + ", select: " + (source_number - 1));
 
-            if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").text().length == 0) {
+            if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm:nth-child(" + source_number + ") a").text().length == 0) {
                 debug("No good source found. Not clicking on the bad ones");
                 return;
             }
 
             debug("click on source link nth-child(): " + source_number);
-            $("div.mkwsFacet[data-mkws-facet='xtargets'] div.term:nth-child(" + source_number + ") a").trigger("click");
+            $("div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm:nth-child(" + source_number + ") a").trigger("click");
 
             $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
