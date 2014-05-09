@@ -401,7 +401,7 @@ describe("Check record list", function () {
     });
 
     it("got a record", function () {
-        var linkaddr = "div.mkwsRecords div.record:nth-child(1) a";
+        var linkaddr = "div.mkwsRecords div.mkwsSummary:nth-child(1) a";
 
         waitsFor(function () {
             // remove + insert node: must be at least 2
@@ -417,20 +417,20 @@ describe("Check record list", function () {
 describe("Show record", function () {
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div.mkwsRecords div.record:nth-child(" + record_number + ") a").trigger("click");
+        var click = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") a").trigger("click");
         debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div.mkwsRecords div.record:nth-child(" + record_number + ") > div.mkwsDetails");
-            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.record").text());
+            var show = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") > div.mkwsDetails");
+            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.mkwsSummary").text());
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
-            expect($("div.mkwsRecords div.record:nth-child(" + record_number + ") div")).not.toBe(null);
+            expect($("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") div")).not.toBe(null);
         });
     });
 
@@ -440,7 +440,7 @@ describe("Show record", function () {
             return;
         }
 
-        var urls = $("div.mkwsRecords div.record:nth-child(" + record_number + ") div table tbody tr td a");
+        var urls = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
         // expect(urls.length).toBeGreaterThan(0); // LoC has records without links
         for (var i = 0; i < urls.length; i++) {
