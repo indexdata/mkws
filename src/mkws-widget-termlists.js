@@ -46,7 +46,7 @@ mkws.registerWidgetType('Facet', function() {
     var acc = [];
     acc.push('<div class="mkwsFacetTitle">' + mkws.M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++) {
-      acc.push('<div class="term">');
+      acc.push('<div class="mkwsTerm">');
       acc.push('<a href="#" ');
       var action = '';
       if (!pzIndex) {
