@@ -71,10 +71,11 @@ that you want to specialise from -- in this case, "Records" -- using
 the promotion function that's been registered for that type.
 
 Once this has been done, the specialisations can be introduced. In
-this case, it's a very matter of changing the "maxrecs" configuration
-setting to 1 unless it's already been given an explicit value. (That
-would occur if the HTML used an element like <div class="mkwsRecord"
-maxrecs="2">, though it's not obvious why anyone would do that.)
+this case, it's a very simple matter of changing the "maxrecs"
+configuration setting to 1 unless it's already been given an explicit
+value. (That would occur if the HTML used an element like <div
+class="mkwsRecord" maxrecs="2">, though it's not obvious why anyone
+would do that.)
 
 
 WIDGET PROPERTIES AND METHODS
