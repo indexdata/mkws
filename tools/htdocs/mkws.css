@@ -139,8 +139,8 @@
     font-weight: bold;
 }
 
-.mkwsRecords div.record,
-.mkwsRecord div.record {
+.mkwsRecords div.mkwsSummary,
+.mkwsRecord div.mkwsSummary {
     padding: 5px;
 }
 
