@@ -157,13 +157,13 @@ mkws.registerWidgetType('Navi', function() {
 
     filters.visitTargets(function(id, name) {
       if (text) text += " | ";
-      text += M('source') + ': <a class="crossout" href="#" onclick="mkws.delimitTarget(\'' + teamName +
+      text += M('source') + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitTarget(\'' + teamName +
         "', '" + id + "'" + ');return false;">' + name + '</a>';
     });
 
     filters.visitFields(function(field, value) {
       if (text) text += " | ";
-      text += M(field) + ': <a class="crossout" href="#" onclick="mkws.delimitQuery(\'' + teamName +
+      text += M(field) + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitQuery(\'' + teamName +
         "', '" + field + "', '" + value + "'" +
         ');return false;">' + value + '</a>';
     });
