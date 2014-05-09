@@ -51,7 +51,8 @@
     font-size: small;
 }
 
-.mkwsStat span.head {
+.mkwsStat:before {
+    content: "Status info";
     font-weight: bold;
 }
 
