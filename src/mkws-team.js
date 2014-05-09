@@ -366,7 +366,7 @@ function team($, teamName) {
   function renderDetails(data, marker) {
     var template = loadTemplate("Record");
     var details = template(data);
-    return '<div class="details mkwsTeam_' + m_teamName + '" ' +
+    return '<div class="mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
   }
   that.renderDetails = renderDetails;
