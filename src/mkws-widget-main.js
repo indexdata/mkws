@@ -40,8 +40,7 @@ mkws.registerWidgetType('Stat', function() {
   this.team.queue("stat").subscribe(function(data) {
     if (that.node.length === 0)  alert("huh?!");
 
-    $(that.node).html('<span class="head">' + M('Status info') + '</span>' +
-                      ' -- ' +
+    $(that.node).html(' -- ' +
                       '<span class="mkwsClientCount">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
                       ' -- ' +
                       '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
