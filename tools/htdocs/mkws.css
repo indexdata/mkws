@@ -127,11 +127,11 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsFacet div.term {
+.mkwsTerm {
     clear: both;
 }
 
-.mkwsFacet div.term span {
+.mkwsTerm span {
     float: right;
 }
 
