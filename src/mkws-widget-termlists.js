@@ -44,7 +44,7 @@ mkws.registerWidgetType('Facet', function() {
 
     var teamName = that.team.name();
     var acc = [];
-    acc.push('<div class="termtitle">' + mkws.M(caption) + '</div>');
+    acc.push('<div class="mkwsFacetTitle">' + mkws.M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++) {
       acc.push('<div class="term">');
       acc.push('<a href="#" ');
