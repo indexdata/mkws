@@ -76,7 +76,7 @@
     text-decoration: underline;
 }
 
-.mkwsNavi a.crossout:hover {
+.mkwsNavi a.mkwsRemovable:hover {
     text-decoration: line-through;
 }
 
