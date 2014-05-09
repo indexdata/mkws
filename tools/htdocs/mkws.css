@@ -143,8 +143,8 @@
     padding: 5px;
 }
 
-.mkwsRecords div.details,
-.mkwsRecord div.details {
+.mkwsRecords div.mkwsDetails,
+.mkwsRecord div.mkwsDetails {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: black;
@@ -157,15 +157,15 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsRecords div.details th,
-.mkwsRecord div.details th {
+.mkwsRecords div.mkwsDetails th,
+.mkwsRecord div.mkwsDetails th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-.mkwsRecords div.details th:after,
-.mkwsRecord div.details th:after {
+.mkwsRecords div.mkwsDetails th:after,
+.mkwsRecord div.mkwsDetails th:after {
     content: ":";
 }
 
