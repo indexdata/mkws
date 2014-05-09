@@ -42,7 +42,7 @@ mkws.registerWidgetType('Stat', function() {
 
     $(that.node).html('<span class="head">' + M('Status info') + '</span>' +
                       ' -- ' +
-                      '<span class="clients">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
+                      '<span class="mkwsClientCount">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
                       ' -- ' +
                       '<span class="records">' + M('Retrieved records') + ': ' + data.records + '/' + data.hits + '</span>');
   });
