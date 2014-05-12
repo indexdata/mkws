@@ -428,8 +428,34 @@ mkws.pagerNext = function(tname) {
   }
 
 
+  function selectorForAllWidgets() {
+    if (mkws.config.scan_all_nodes) {
+      // This is the old version, which works by telling jQuery to
+      // find every node that has a class beginning with "mkws". In
+      // theory it should be slower than the class-based selector; but
+      // instrumentation suprisnigly shows this is consistently
+      // faster. It also has the advantage that any widgets of
+      // non-registered types are logged as warnings rather than
+      // silently ignored.
+      return '[class^="mkws"],[class*=" mkws"]';
+    } else {
+      // This is the new version, which works by looking up the
+      // specific classes of all registered widget types. Because all
+      // it requires jQuery to do is some hash lookups in pre-built
+      // tables, it should be very fast; but it silently ignores
+      // widgets of unregistered types.
+      var s = "";
+      for (var type in mkws.widgetType2function) {
+	if (s) s += ',';
+	s += '.mkws' + type;
+      }
+      return s;
+    }
+  }
+
+
   function makeWidgetsWithin(level, node) {
-    node.find('[class^="mkws"],[class*=" mkws"]').each(function() {
+    node.find(selectorForAllWidgets()).each(function() {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
