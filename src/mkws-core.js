@@ -10,6 +10,7 @@
 // authentication, and a hash of team objects, indexed by team-name.
 //
 var mkws = {
+  $: $, // Our own local copy of the jQuery object
   authenticated: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
@@ -363,11 +364,11 @@ mkws.pagerNext = function(tname) {
           var w1 = team.widget(t + "-Container-" + from);
           var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
-            $(w1.node).hide();
+            w1.jqnode.hide();
           }
           if (w2) {
-            $(w2.node).show();
-            $(w.node).appendTo($(w2.node));
+            w2.jqnode.show();
+            w.jqnode.appendTo(w2.jqnode);
           }
         });
         team.queue("resize-" + to).publish();
