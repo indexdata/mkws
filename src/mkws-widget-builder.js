@@ -2,11 +2,11 @@ mkws.registerWidgetType('Builder', function() {
   var that = this;
   var team = this.team;
 
-  this.button = $('<button/>', {
+  this.button = mkws.$('<button/>', {
     type: 'button',
     text: this.config.text || "Build!"
   });
-  $(this.node).append(this.button);
+  this.jqnode.append(this.button);
   this.button.click(function() {
     var   query = team.widget('Query').value();
     var    sort = team.widget('Sort').value();
