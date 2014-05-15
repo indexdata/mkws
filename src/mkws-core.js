@@ -310,10 +310,9 @@ mkws.pagerNext = function(tname) {
 };
 
 
-// wrapper to call team() after page load
-(function(j) {
+// wrapper to provide local copy of the jQuery object.
+(function($) {
   var log = mkws.log;
-  var $ = j; // XXX
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
