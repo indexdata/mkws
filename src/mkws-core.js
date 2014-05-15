@@ -508,7 +508,7 @@ mkws.pagerNext = function(tname) {
       mkws.config.lang = lang;
     }
 
-    log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+    log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
     if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
       log("Reset query width: " + mkws.config.query_width);
