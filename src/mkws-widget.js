@@ -9,7 +9,6 @@ function widget($, team, type, node) {
   var that = {
     team: team,
     type: type,
-    node: node,
     jqnode: $(node),
     config: mkws.objectInheritingFrom(team.config())
   };
