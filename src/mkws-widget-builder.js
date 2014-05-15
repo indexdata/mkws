@@ -24,6 +24,6 @@ mkws.registerWidgetType('Builder', function() {
 mkws.registerWidgetType('ConsoleBuilder', function() {
   mkws.promotionFunction('Builder').call(this);
   this.callback = function(s) {
-    console.log("Generated widget: " + s);
+    console.log("generated widget: " + s);
   }
 });
