@@ -45,10 +45,10 @@ function widget($, team, type, node) {
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
       that.config[name] = a.value;
-      log(node + ": set data-mkws attribute " + name + "='" + a.value + "'");
+      log(that + ": set data-mkws attribute " + name + "='" + a.value + "'");
     } else if (!ignoreAttrs[a.name]) {
       that.config[a.name] = a.value;
-      log(node + ": set regular attribute " + a.name + "='" + a.value + "'");
+      log(that + ": set regular attribute " + a.name + "='" + a.value + "'");
     }
   }
 
