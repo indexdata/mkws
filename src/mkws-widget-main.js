@@ -4,6 +4,7 @@
 
 
 mkws.registerWidgetType('Targets', function() {
+  if (!this.config.show_switch) return;
   var that = this;
   var M = mkws.M;
 
@@ -209,6 +210,7 @@ mkws.registerWidgetType('Done', function() {
 
 
 mkws.registerWidgetType('Switch', function() {
+  if (!this.config.show_switch) return;
   var tname = this.team.name();
   this.jqnode.html('\
 <a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
