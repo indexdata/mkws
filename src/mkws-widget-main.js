@@ -400,7 +400,7 @@ mkws.registerWidgetType('MOTD', function() {
   var container = this.team.widget('MOTDContainer');
   if (container) {
     // Move the MOTD from the provided element down into the container
-    this.jqnode.appendTo(container.node); // #### can this be container.jqnode
+    this.jqnode.appendTo(container.jqnode);
   }
 });
 
