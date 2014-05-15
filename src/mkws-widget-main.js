@@ -355,7 +355,7 @@ mkws.registerWidgetType('Lang', function() {
   if (lang_options.length == 0 || toBeIncluded[lang_default])
     list.push(lang_default);
 
-  this.log("Language menu for: " + list.join(", "));
+  this.log("language menu: " + list.join(", "));
 
   /* the HTML part */
   var data = "";
