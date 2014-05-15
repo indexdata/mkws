@@ -113,7 +113,7 @@ function team($, teamName) {
   }
 
   function onBytarget(data) {
-    log("target");
+    log("bytarget");
     queue("targets").publish(data);
   }
 
