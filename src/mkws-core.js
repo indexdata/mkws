@@ -463,12 +463,12 @@ mkws.pagerNext = function(tname) {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
-          myTeam = mkws.teams[tname] = team(j, tname);
+          myTeam = mkws.teams[tname] = team($, tname);
           log("Made MKWS team '" + tname + "'");
         }
 
         var oldHTML = this.innerHTML;
-        var myWidget = widget(j, myTeam, type, this);
+        var myWidget = widget($, myTeam, type, this);
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
