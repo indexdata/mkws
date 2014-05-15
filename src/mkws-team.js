@@ -360,7 +360,7 @@ function team($, teamName) {
 
   function widgetNode(type) {
     var w = that.widget(type);
-    return w ? w.jqnode : undefined;
+    return w ? w.node : undefined;
   }
 
   function renderDetails(data, marker) {

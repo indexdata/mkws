@@ -364,11 +364,11 @@ mkws.pagerNext = function(tname) {
           var w1 = team.widget(t + "-Container-" + from);
           var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
-            w1.jqnode.hide();
+            w1.node.hide();
           }
           if (w2) {
-            w2.jqnode.show();
-            w.jqnode.appendTo(w2.jqnode);
+            w2.node.show();
+            w.node.appendTo(w2.node);
           }
         });
         team.queue("resize-" + to).publish();

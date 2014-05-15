@@ -6,7 +6,7 @@ mkws.registerWidgetType('Builder', function() {
     type: 'button',
     text: this.config.text || "Build!"
   });
-  this.jqnode.append(this.button);
+  this.node.append(this.button);
   this.button.click(function() {
     var   query = team.widget('Query').value();
     var    sort = team.widget('Sort').value();
