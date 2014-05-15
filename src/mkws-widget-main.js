@@ -289,7 +289,7 @@ mkws.registerWidgetType('Ranking', function() {
   function mkwsHtmlSort() {
     var order = that.team.sortOrder();
 
-    that.log("HTML sort, sortOrder = '" + order + "'");
+    that.log("making sort HTML, sortOrder = '" + order + "'");
     var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
 
     for(var i = 0; i < that.config.sort_options.length; i++) {
@@ -311,7 +311,7 @@ mkws.registerWidgetType('Ranking', function() {
   function mkwsHtmlPerpage() {
     var perpage = that.team.perpage();
 
-    that.log("HTML perpage, perpage = " + perpage);
+    that.log("making perpage HTML, perpage = " + perpage);
     var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
 
     for(var i = 0; i < that.config.perpage_options.length; i++) {
