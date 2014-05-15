@@ -10,6 +10,7 @@
 // authentication, and a hash of team objects, indexed by team-name.
 //
 var mkws = {
+  $: $, // Our own local copy of the jQuery object
   authenticated: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
@@ -363,11 +364,11 @@ mkws.pagerNext = function(tname) {
           var w1 = team.widget(t + "-Container-" + from);
           var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
-            $(w1.node).hide();
+            w1.jqnode.hide();
           }
           if (w2) {
-            $(w2.node).show();
-            $(w.node).appendTo($(w2.node));
+            w2.jqnode.show();
+            w.jqnode.appendTo(w2.jqnode);
           }
         });
         team.queue("resize-" + to).publish();
@@ -440,14 +441,16 @@ mkws.pagerNext = function(tname) {
       return '[class^="mkws"],[class*=" mkws"]';
     } else {
       // This is the new version, which works by looking up the
-      // specific classes of all registered widget types. Because all
-      // it requires jQuery to do is some hash lookups in pre-built
-      // tables, it should be very fast; but it silently ignores
-      // widgets of unregistered types.
+      // specific classes of all registered widget types and their
+      // resize containers. Because all it requires jQuery to do is
+      // some hash lookups in pre-built tables, it should be very
+      // fast; but it silently ignores widgets of unregistered types.
       var s = "";
       for (var type in mkws.widgetType2function) {
 	if (s) s += ',';
 	s += '.mkws' + type;
+	s += ',.mkws' + type + "-Container-wide";
+	s += ',.mkws' + type + "-Container-narrow";
       }
       return s;
     }
@@ -505,7 +508,7 @@ mkws.pagerNext = function(tname) {
       mkws.config.lang = lang;
     }
 
-    log("Locale language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+    log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
     if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
       log("Reset query width: " + mkws.config.query_width);
@@ -515,7 +518,7 @@ mkws.pagerNext = function(tname) {
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws.config.pazpar2_url.match(/^\/\//)) {
       mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-      log("adjust protocol independent links: " + mkws.config.pazpar2_url);
+      log("adjusted protocol independent link to: " + mkws.config.pazpar2_url);
     }
 
     if (mkws.config.responsive_design_width) {

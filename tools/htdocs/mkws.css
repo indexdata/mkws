@@ -51,7 +51,8 @@
     font-size: small;
 }
 
-.mkwsStat span.head {
+.mkwsStat:before {
+    content: "Status info";
     font-weight: bold;
 }
 
@@ -76,7 +77,7 @@
     text-decoration: underline;
 }
 
-.mkwsNavi a.crossout:hover {
+.mkwsNavi a.mkwsRemovable:hover {
     text-decoration: line-through;
 }
 
@@ -100,7 +101,7 @@
     background: #f0f8ff;
 }
 
-.mkwsTermlists .title {
+.mkwsTermlistsTitle {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
@@ -126,25 +127,23 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsFacet div.term {
+.mkwsTerm {
     clear: both;
 }
 
-.mkwsFacet div.term span {
+.mkwsTerm span {
     float: right;
 }
 
-.mkwsFacet div.termtitle {
+.mkwsFacetTitle {
     font-weight: bold;
 }
 
-.mkwsRecords div.record,
-.mkwsRecord div.record {
+.mkwsSummary {
     padding: 5px;
 }
 
-.mkwsRecords div.details,
-.mkwsRecord div.details {
+.mkwsDetails {
     border: 1px solid #404040;
     background: #e8e8e8;
     color: black;
@@ -157,15 +156,13 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsRecords div.details th,
-.mkwsRecord div.details th {
+.mkwsDetails th {
     text-align: right;
     vertical-align: top;
     padding-right: 0.6em;
 }
 
-.mkwsRecords div.details th:after,
-.mkwsRecord div.details th:after {
+.mkwsDetails th:after {
     content: ":";
 }
 

@@ -360,13 +360,13 @@ function team($, teamName) {
 
   function widgetNode(type) {
     var w = that.widget(type);
-    return w ? $(w.node) : undefined;
+    return w ? w.jqnode : undefined;
   }
 
   function renderDetails(data, marker) {
     var template = loadTemplate("Record");
     var details = template(data);
-    return '<div class="details mkwsTeam_' + m_teamName + '" ' +
+    return '<div class="mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
   }
   that.renderDetails = renderDetails;
@@ -411,10 +411,8 @@ function team($, teamName) {
   that.addWidget = function(w) {
     if (m_widgets[w.type] === undefined) {
       m_widgets[w.type] = [ w ];
-      log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
     } else {
       m_widgets[w.type].push(w);
-      log("Added '" + w.type + "' widget #" + m_widgets[w.type].length + "' to team '" + m_teamName + "'");
     }
   }
 

@@ -29,7 +29,7 @@ mkws.registerWidgetType('Categories', function() {
         text.push("<option value='", id, "'>", name, "</option>");
       });
       text.push("</select>");
-      $(that.node).html(text.join(''));
+      that.jqnode.html(text.join(''));
     });
   });
 });

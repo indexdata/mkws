@@ -2,20 +2,20 @@ mkws.registerWidgetType('Termlists', function() {
   var that = this;
 
   // Initially hide the termlists; display when we get results
-  $(document).ready(function() {
-    $(that.node).hide();
+  mkws.$(document).ready(function() {
+    that.jqnode.hide();
   });
   this.team.queue("termlists").subscribe(function(data) {
-    $(that.node).show();
+    that.jqnode.show();
   });
 
   var acc = [];
   var facets = this.config.facets;
-  acc.push('<div class="title">' + mkws.M('Termlists') + '</div>');
+  acc.push('<div class="mkwsTermlistsTitle">' + mkws.M('Termlists') + '</div>');
   for (var i = 0; i < facets.length; i++) {
     acc.push('<div class="mkwsFacet mkwsTeam_', this.team.name(), '" data-mkws-facet="', facets[i], '">', '</div>');
   }
-  $(this.node).html(acc.join(''));
+  this.jqnode.html(acc.join(''));
 
   widget.autosearch(this);
 });
@@ -44,9 +44,9 @@ mkws.registerWidgetType('Facet', function() {
 
     var teamName = that.team.name();
     var acc = [];
-    acc.push('<div class="termtitle">' + mkws.M(caption) + '</div>');
+    acc.push('<div class="mkwsFacetTitle">' + mkws.M(caption) + '</div>');
     for (var i = 0; i < data.length && i < max; i++) {
-      acc.push('<div class="term">');
+      acc.push('<div class="mkwsTerm">');
       acc.push('<a href="#" ');
       var action = '';
       if (!pzIndex) {
@@ -63,6 +63,6 @@ mkws.registerWidgetType('Facet', function() {
       acc.push('</div>');
     }
 
-    $(that.node).html(acc.join(''));
+    that.jqnode.html(acc.join(''));
   });
 });
