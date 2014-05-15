@@ -148,7 +148,8 @@ mkws.setMkwsConfig = function(overrides) {
     query_width: 50,
     show_lang: true,    /* show/hide language menu */
     show_sort: true,    /* show/hide sort menu */
-    show_perpage: true,         /* show/hide perpage menu */
+    show_perpage: true, /* show/hide perpage menu */
+    show_switch: true,  /* show/hide switch menu */
     lang_options: [],   /* display languages links for given languages, [] for all */
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
