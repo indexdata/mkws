@@ -518,7 +518,7 @@ mkws.pagerNext = function(tname) {
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws.config.pazpar2_url.match(/^\/\//)) {
       mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-      log("adjust protocol independent links: " + mkws.config.pazpar2_url);
+      log("adjusted protocol independent link to: " + mkws.config.pazpar2_url);
     }
 
     if (mkws.config.responsive_design_width) {
