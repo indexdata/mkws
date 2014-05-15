@@ -383,7 +383,7 @@ mkws.pagerNext = function(tname) {
    * for the site.
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
-    log("Run service proxy auth URL: " + auth_url);
+    log("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
       auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
@@ -406,7 +406,7 @@ mkws.pagerNext = function(tname) {
         return;
       }
 
-      log("Service proxy auth successfully done");
+      log("service proxy authentication successful");
       mkws.authenticated = true;
       var authName = $(data).find("displayName").text();
       // You'd think there would be a better way to do this:
@@ -463,7 +463,7 @@ mkws.pagerNext = function(tname) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
           myTeam = mkws.teams[tname] = team($, tname);
-          log("Made MKWS team '" + tname + "'");
+          log("made MKWS team '" + tname + "'");
         }
 
         var oldHTML = this.innerHTML;
@@ -496,7 +496,7 @@ mkws.pagerNext = function(tname) {
           var lang = key.replace(/^language_/, "");
           // Copy custom languages into list
           mkws.locale_lang[lang] = mkws.config[key];
-          log("Added locally configured language '" + lang + "'");
+          log("added locally configured language '" + lang + "'");
         }
       }
     }
@@ -511,14 +511,14 @@ mkws.pagerNext = function(tname) {
     log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
     if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
-      log("Reset query width: " + mkws.config.query_width);
+      log("reset query width to " + mkws.config.query_width);
       mkws.config.query_width = 50;
     }
 
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws.config.pazpar2_url.match(/^\/\//)) {
       mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-      log("adjusted protocol independent link to: " + mkws.config.pazpar2_url);
+      log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
     }
 
     if (mkws.config.responsive_design_width) {
@@ -547,7 +547,7 @@ mkws.pagerNext = function(tname) {
     makeWidgetsWithin(1, $(':root'));
     var now = $.now();
 
-    log("Walking MKWS nodes took " + (now-then) + " ms");
+    log("walking MKWS nodes took " + (now-then) + " ms");
 
     /*
       for (var tName in mkws.teams) {
