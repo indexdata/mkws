@@ -441,15 +441,18 @@ mkws.pagerNext = function(tname) {
       return '[class^="mkws"],[class*=" mkws"]';
     } else {
       // This is the new version, which works by looking up the
-      // specific classes of all registered widget types. Because all
-      // it requires jQuery to do is some hash lookups in pre-built
-      // tables, it should be very fast; but it silently ignores
-      // widgets of unregistered types.
+      // specific classes of all registered widget types and their
+      // resize containers. Because all it requires jQuery to do is
+      // some hash lookups in pre-built tables, it should be very
+      // fast; but it silently ignores widgets of unregistered types.
       var s = "";
       for (var type in mkws.widgetType2function) {
 	if (s) s += ',';
 	s += '.mkws' + type;
+	s += ',.mkws' + type + "-Container-wide";
+	s += ',.mkws' + type + "-Container-narrow";
       }
+      log("selector is '" + s + "'");
       return s;
     }
   }
