@@ -10,6 +10,7 @@ function widget($, team, type, node) {
     team: team,
     type: type,
     node: node,
+    jqnode: $(node),
     config: mkws.objectInheritingFrom(team.config())
   };
 
@@ -121,10 +122,10 @@ widget.autosearch = function(widget) {
 // Utility function for all widgets that want to hide in narrow windows
 widget.hideWhenNarrow = function(widget) {
   widget.team.queue("resize-narrow").subscribe(function(n) {
-    $(widget.node).hide();
+    widget.jqnode.hide();
   });
   widget.team.queue("resize-wide").subscribe(function(n) {
-    $(widget.node).show();
+    widget.jqnode.show();
   });
 };
 
