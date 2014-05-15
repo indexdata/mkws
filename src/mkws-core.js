@@ -552,7 +552,7 @@ mkws.pagerNext = function(tname) {
     /*
       for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
-      log("TEAM '" + tName + "' = " + myTeam + " ...");
+      log("team '" + tName + "' = " + myTeam + " ...");
       myTeam.visitWidgets(function(t, w) {
       log("  has widget of type '" + t + "': " + w);
       });
