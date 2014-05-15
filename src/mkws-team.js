@@ -411,10 +411,8 @@ function team($, teamName) {
   that.addWidget = function(w) {
     if (m_widgets[w.type] === undefined) {
       m_widgets[w.type] = [ w ];
-      log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
     } else {
       m_widgets[w.type].push(w);
-      log("Added '" + w.type + "' widget #" + m_widgets[w.type].length + "' to team '" + m_teamName + "'");
     }
   }
 
