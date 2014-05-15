@@ -452,7 +452,6 @@ mkws.pagerNext = function(tname) {
 	s += ',.mkws' + type + "-Container-wide";
 	s += ',.mkws' + type + "-Container-narrow";
       }
-      log("selector is '" + s + "'");
       return s;
     }
   }
