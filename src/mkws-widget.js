@@ -24,7 +24,7 @@ function widget($, team, type, node) {
 
   that.value = function() {
     return node.value;
-  }
+  };
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
