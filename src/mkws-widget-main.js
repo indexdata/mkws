@@ -405,6 +405,21 @@ mkws.registerWidgetType('MOTD', function() {
 });
 
 
+// This widget has no functionality of its own, but its configuration
+// is copied up into its team, allowing it to affect other widgets in
+// the team.
+//
+mkws.registerWidgetType('Config', function() {
+  var c = this.config;
+  for (var name in c) {
+    if (c.hasOwnProperty(name)) {
+      this.team.config()[name] = c[name];
+      this.log(this + " copied property " + name + "='" + c[name] + "' up to team");
+    }
+  }
+});
+
+
 // Some elements have mkws* classes that makes them appear as widgets
 // -- for example, because we want to style them using CSS -- but have
 // no actual functionality. We register these to prevent ignorable
