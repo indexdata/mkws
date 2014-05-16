@@ -5,7 +5,7 @@ mkws.registerWidgetType('ReferenceUniverse', function() {
     var teamClass = 'mkwsTeam_' + this.team.name();
     var html = "<h2>Reference Universe results:</h2>\n";
     html += '<div class="mkwsRecords ' + teamClass 
-            + '" autosearch="' + $(this.node).attr("autosearch")
+            + '" autosearch="' + this.node.attr("autosearch")
             + '" sort="position" perpage="5"></div>';
-    $(this.node).html(html);
+    this.node.html(html);
 });
