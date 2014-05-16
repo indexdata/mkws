@@ -1,15 +1,8 @@
-<?xml version="1.0"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Mike's playground</title>
     <link rel="stylesheet" type="text/css" href="http://x.mkws.indexdata.com/mkws.css" />
-    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
-    <script type="text/javascript">
-      var mkws_config = { service_proxy_auth: "//mkws.indexdata.com/service-proxy-testauth",
-                          responsive_design_width: 800 };
-    </script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="//x.mkws.indexdata.com/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="//x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
@@ -27,34 +20,13 @@
     <script type="text/javascript" src="src/mkws-widget-record.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
     <script type="text/javascript" src="src/mkws-jquery.js"></script>
-    <script type="text/javascript" src="mkws-widget-reference.js"></script>
     <script type="text/javascript">$ = undefined;</script>
   </head>
-<!--
   <body>
-    <div class='mkwsReference' autosearch='!param!q'>result will appear here</div>
-  </body>
--->
-  <body>
-    <script type="text/javascript">$ = undefined;</script>
-    <div class="mkwsSwitch"></div>
-    <div class="mkwsLang"></div>
-    <div class="mkwsSearch-Container-wide"><div class="mkwsSearch"></div></div>
-    <div class="mkwsResults"></div>
-    <div class="mkwsTargets"></div>
-    <div class="mkwsStat"></div>
-    <div class="mkwsBuilder"></div>
-    <div class="mkwsSearch-Container-narrow"></div>
-    <script type="text/javascript">$ = undefined;</script>
-    <div class="mkwsMOTD">
-      <p>
-	<b>Welcome to the MasterKey Widget Set demo.</b>
-      </p>
-      <p>
-	Enter a search above to begin, or
-	<a href="http://mkws.indexdata.com/"
-	   >Visit the MKWS home page to find out more</a>.
-      </p>
+    <div style="max-width: 18em; margin: 1.5em 1.5em">
+      <script src="mkws-widget-ru.js"></script>
+      <link rel="stylesheet" type="text/css" href="mkws-widget-ru.css" />
+      <div class="mkwsReferenceUniverse" autosearch="!param!q"></div>
     </div>
   </body>
 </html>
