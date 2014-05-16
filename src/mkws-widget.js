@@ -26,6 +26,34 @@ function widget($, team, type, node) {
     return node.value;
   };
 
+  // Returns the HTML of a subwidget of the specified type. It gets
+  // the same attributes at the parent widget that invokes this
+  // function, except where overrides are passed in.
+  that.subwidget = function(type, overrides) {
+    var attrs = {};
+    
+    // Copy locally-set properties from the parent widget
+    for (var name in this.config) {
+      if (this.config.hasOwnProperty(name)) {
+        attrs[name] = this.config[name];
+        log(this + " copied property " + name + "='" + attrs[name] + "' to " + type + " subwidget");
+      }
+    }
+    
+    for (var name in overrides) {
+      attrs[name] = overrides[name];
+      log(this + " overrode property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
+    }
+
+    var s = [];
+    s.push('<div class="mkws', type, ' ', team.name(), '"');
+    for (var name in attrs) {    
+      s.push(' ', name, '="', attrs[name], '"');
+    }
+    s.push('></div>');
+    return s.join('');
+  };
+
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
     if (a.name === 'data-mkws-config') {
