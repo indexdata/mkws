@@ -4,11 +4,12 @@
 
 
 mkws.registerWidgetType('Targets', function() {
+  if (!this.config.show_switch) return;
   var that = this;
   var M = mkws.M;
 
-  $(this.node).html('No information available yet.');
-  $(this.node).css("display", "none");
+  this.node.html('No information available yet.');
+  this.node.css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
     var table ='<table><thead><tr>' +
@@ -28,7 +29,7 @@ mkws.registerWidgetType('Targets', function() {
     }
 
     table += '</tbody></table>';
-    $(that.node).html(table);
+    that.node.html(table);
   });
 });
 
@@ -38,9 +39,7 @@ mkws.registerWidgetType('Stat', function() {
   var M = mkws.M;
 
   this.team.queue("stat").subscribe(function(data) {
-    if (that.node.length === 0)  alert("huh?!");
-
-    $(that.node).html(' -- ' +
+    that.node.html(' -- ' +
                       '<span class="mkwsClientCount">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
                       ' -- ' +
                       M('Retrieved records') + ': ' + data.records + '/' + data.hits);
@@ -53,7 +52,7 @@ mkws.registerWidgetType('Pager', function() {
   var M = mkws.M;
 
   this.team.queue("pager").subscribe(function(data) {
-    $(that.node).html(drawPager(data))
+    that.node.html(drawPager(data))
 
     function drawPager(data) {
       var teamName = that.team.name();
@@ -131,7 +130,7 @@ mkws.registerWidgetType('Records', function() {
           html.push(team.renderDetails(team.currentRecordData()));
       }
     }
-    $(that.node).html(html.join(''));
+    that.node.html(html.join(''));
 
     function renderSummary(hit) {
       var template = team.loadTemplate(that.config.template || "Summary");
@@ -167,7 +166,7 @@ mkws.registerWidgetType('Navi', function() {
         ');return false;">' + value + '</a>';
     });
 
-    $(that.node).html(text);
+    that.node.html(text);
   });
 });
 
@@ -178,8 +177,8 @@ mkws.registerWidgetType('Navi', function() {
 mkws.registerWidgetType('Sort', function() {
   var that = this;
 
-  $(this.node).change(function() {
-    that.team.set_sortOrder($(that.node).val());
+  this.node.change(function() {
+    that.team.set_sortOrder(that.node.val());
     if (that.team.submitted()) {
       that.team.reShow();
     }
@@ -191,8 +190,8 @@ mkws.registerWidgetType('Sort', function() {
 mkws.registerWidgetType('Perpage', function() {
   var that = this;
 
-  $(this.node).change(function() {
-    that.team.set_perpage($(that.node).val());
+  this.node.change(function() {
+    that.team.set_perpage(that.node.val());
     if (that.team.submitted()) {
       that.team.reShow();
     }
@@ -205,14 +204,15 @@ mkws.registerWidgetType('Done', function() {
   var that = this;
 
   this.team.queue("complete").subscribe(function(n) {
-    $(that.node).html("Search complete: found " + n + " records");
+    that.node.html("Search complete: found " + n + " records");
   });
 });
 
 
 mkws.registerWidgetType('Switch', function() {
+  if (!this.config.show_switch) return;
   var tname = this.team.name();
-  $(this.node).html('\
+  this.node.html('\
 <a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
 | \
 </span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
@@ -224,7 +224,7 @@ mkws.registerWidgetType('Search', function() {
   var tname = this.team.name();
   var M = mkws.M;
 
-  $(this.node).html('\
+  this.node.html('\
 <form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
   <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + this.config.query_width + '" />\
   <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
@@ -234,7 +234,7 @@ mkws.registerWidgetType('Search', function() {
 
 mkws.registerWidgetType('SearchForm', function() {
   var team = this.team;
-  $(this.node).submit(function() {
+  this.node.submit(function() {
     var val = team.widget('Query').value();
     team.newSearch(val);
     return false;
@@ -245,7 +245,7 @@ mkws.registerWidgetType('SearchForm', function() {
 mkws.registerWidgetType('Results', function() {
   var tname = this.team.name();
 
-  $(this.node).html('\
+  this.node.html('\
 <table width="100%" border="0" cellpadding="6" cellspacing="0">\
   <tr>\
     <td class="mkwsTermlists-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
@@ -283,13 +283,13 @@ mkws.registerWidgetType('Ranking', function() {
   }
   s += '</form>';
 
-  $(this.node).html(s);
+  this.node.html(s);
 
 
   function mkwsHtmlSort() {
     var order = that.team.sortOrder();
 
-    that.log("HTML sort, sortOrder = '" + order + "'");
+    that.log("making sort HTML, sortOrder = '" + order + "'");
     var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
 
     for(var i = 0; i < that.config.sort_options.length; i++) {
@@ -311,7 +311,7 @@ mkws.registerWidgetType('Ranking', function() {
   function mkwsHtmlPerpage() {
     var perpage = that.team.perpage();
 
-    that.log("HTML perpage, perpage = " + perpage);
+    that.log("making perpage HTML, perpage = " + perpage);
     var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
 
     for(var i = 0; i < that.config.perpage_options.length; i++) {
@@ -355,7 +355,7 @@ mkws.registerWidgetType('Lang', function() {
   if (lang_options.length == 0 || toBeIncluded[lang_default])
     list.push(lang_default);
 
-  this.log("Language menu for: " + list.join(", "));
+  this.log("language menu: " + list.join(", "));
 
   /* the HTML part */
   var data = "";
@@ -371,7 +371,7 @@ mkws.registerWidgetType('Lang', function() {
     }
   }
 
-  $(this.node).html(data);
+  this.node.html(data);
   widget.hideWhenNarrow(this);
 
 
@@ -400,7 +400,7 @@ mkws.registerWidgetType('MOTD', function() {
   var container = this.team.widget('MOTDContainer');
   if (container) {
     // Move the MOTD from the provided element down into the container
-    $(this.node).appendTo(container.node);
+    this.node.appendTo(container.node);
   }
 });
 

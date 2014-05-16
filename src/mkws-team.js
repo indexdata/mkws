@@ -83,12 +83,11 @@ function team($, teamName) {
   that.log = log;
 
 
-  log("start running MKWS");
+  log("making new widget team");
 
   m_sortOrder = m_config.sort_default;
   m_perpage = m_config.perpage_default;
 
-  log("Create main pz2 object");
   // create a parameters array and pass it to the pz2's constructor
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
@@ -104,6 +103,7 @@ function team($, teamName) {
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
                     "termlist": m_config.facets.join(',')
                   });
+  log("created main pz2 object");
 
   // pz2.js event handlers:
   function onInit() {
@@ -113,7 +113,7 @@ function team($, teamName) {
   }
 
   function onBytarget(data) {
-    log("target");
+    log("bytarget");
     queue("targets").publish(data);
   }
 
@@ -360,7 +360,7 @@ function team($, teamName) {
 
   function widgetNode(type) {
     var w = that.widget(type);
-    return w ? $(w.node) : undefined;
+    return w ? w.node : undefined;
   }
 
   function renderDetails(data, marker) {
@@ -411,10 +411,8 @@ function team($, teamName) {
   that.addWidget = function(w) {
     if (m_widgets[w.type] === undefined) {
       m_widgets[w.type] = [ w ];
-      log("Added '" + w.type + "' widget to team '" + m_teamName + "'");
     } else {
       m_widgets[w.type].push(w);
-      log("Added '" + w.type + "' widget #" + m_widgets[w.type].length + "' to team '" + m_teamName + "'");
     }
   }
 

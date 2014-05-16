@@ -2,11 +2,11 @@ mkws.registerWidgetType('Termlists', function() {
   var that = this;
 
   // Initially hide the termlists; display when we get results
-  $(document).ready(function() {
-    $(that.node).hide();
+  mkws.$(document).ready(function() {
+    that.node.hide();
   });
   this.team.queue("termlists").subscribe(function(data) {
-    $(that.node).show();
+    that.node.show();
   });
 
   var acc = [];
@@ -15,7 +15,7 @@ mkws.registerWidgetType('Termlists', function() {
   for (var i = 0; i < facets.length; i++) {
     acc.push('<div class="mkwsFacet mkwsTeam_', this.team.name(), '" data-mkws-facet="', facets[i], '">', '</div>');
   }
-  $(this.node).html(acc.join(''));
+  this.node.html(acc.join(''));
 
   widget.autosearch(this);
 });
@@ -63,6 +63,6 @@ mkws.registerWidgetType('Facet', function() {
       acc.push('</div>');
     }
 
-    $(that.node).html(acc.join(''));
+    that.node.html(acc.join(''));
   });
 });

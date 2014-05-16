@@ -6,7 +6,7 @@ function filterSet(team) {
   var that = {};
 
   that.toJSON = function() {
-    return $.toJSON(m_list);
+    return mkws.$.toJSON(m_list);
   };
 
   that.add = function(filter) {
@@ -45,9 +45,9 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (matchFn(filter)) {
-        m_team.log("removeMatching() removing filter " + $.toJSON(filter));
+        m_team.log("removeMatching: removing filter " + mkws.$.toJSON(filter));
       } else {
-        m_team.log("removeMatching() keeping filter " + $.toJSON(filter));
+        m_team.log("removeMatching: keeping filter " + mkws.$.toJSON(filter));
         newList.push(filter);
       }
     }

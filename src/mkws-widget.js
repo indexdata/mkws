@@ -9,7 +9,7 @@ function widget($, team, type, node) {
   var that = {
     team: team,
     type: type,
-    node: node,
+    node: $(node),
     config: mkws.objectInheritingFrom(team.config())
   };
 
@@ -44,10 +44,10 @@ function widget($, team, type, node) {
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
       that.config[name] = a.value;
-      log(node + ": set data-mkws attribute " + name + "='" + a.value + "'");
+      log(that + ": set data-mkws attribute " + name + "='" + a.value + "'");
     } else if (!ignoreAttrs[a.name]) {
       that.config[a.name] = a.value;
-      log(node + ": set regular attribute " + a.name + "='" + a.value + "'");
+      log(that + ": set regular attribute " + a.name + "='" + a.value + "'");
     }
   }
 
@@ -121,10 +121,10 @@ widget.autosearch = function(widget) {
 // Utility function for all widgets that want to hide in narrow windows
 widget.hideWhenNarrow = function(widget) {
   widget.team.queue("resize-narrow").subscribe(function(n) {
-    $(widget.node).hide();
+    widget.node.hide();
   });
   widget.team.queue("resize-wide").subscribe(function(n) {
-    $(widget.node).show();
+    widget.node.show();
   });
 };
 
