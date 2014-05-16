@@ -429,7 +429,7 @@ mkws.pagerNext = function(tname) {
 
 
   function selectorForAllWidgets() {
-    if (mkws.config.scan_all_nodes) {
+    if (mkws.config && mkws.config.scan_all_nodes) {
       // This is the old version, which works by telling jQuery to
       // find every node that has a class beginning with "mkws". In
       // theory it should be slower than the class-based selector; but
@@ -476,7 +476,8 @@ mkws.pagerNext = function(tname) {
   }
 
 
-  $(document).ready(function() {
+  function init(rootsel) {
+    if (!rootsel) var rootsel = ':root';
     var saved_config;
     if (typeof mkws_config === 'undefined') {
       log("setting empty config");
@@ -541,7 +542,7 @@ mkws.pagerNext = function(tname) {
     }
 
     var then = $.now();
-    makeWidgetsWithin(1, $(':root'));
+    makeWidgetsWithin(1, $(rootsel));
     var now = $.now();
 
     log("Walking MKWS nodes took " + (now-then) + " ms");
@@ -564,5 +565,9 @@ mkws.pagerNext = function(tname) {
       // raw pp2
       runAutoSearches();
     }
+  };
+  $(document).ready(function() {
+    var widgetSelector = selectorForAllWidgets();
+    if (widgetSelector && $(widgetSelector).length !== 0) init();
   });
 })(jQuery);
