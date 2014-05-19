@@ -46,7 +46,7 @@ function widget($, team, type, node) {
     }
 
     var s = [];
-    s.push('<div class="mkws', type, ' ', team.name(), '"');
+    s.push('<div class="mkws', type, ' mkwsTeam_', team.name(), '"');
     for (var name in attrs) {    
       s.push(' ', name, '="', attrs[name], '"');
     }
