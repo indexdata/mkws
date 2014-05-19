@@ -24,11 +24,19 @@
     vertical-align: top;
 }
 
-.mkwsCredo div.title {
+.mkwsCredo .front div.title {
     font-size: 150%;
     font-weight: bold;
     color: white;
     background: #666699;
+    padding: 0.25em 0.5em;
+}
+
+.mkwsCredo div.title {
+    font-size: 150%;
+    font-weight: bold;
+    color: #666699;
+    background: #ddf3c3;
     padding: 0.25em 0.5em;
 }
 
