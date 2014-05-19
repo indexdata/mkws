@@ -26,7 +26,7 @@ function team($, teamName) {
     "last": $.now()
   };
   var m_paz; // will be initialised below
-  var m_tempateText = {}; // widgets can register tempates to be compiled
+  var m_templateText = {}; // widgets can register templates to be compiled
   var m_template = {}; // compiled templates, from any source
   var m_config = mkws.objectInheritingFrom(mkws.config);
   var m_widgets = {}; // Maps widget-type to array of widget objects
@@ -373,7 +373,7 @@ function team($, teamName) {
 
 
   that.registerTemplate = function(name, text) {
-    m_tempateText[name] = text;
+    m_templateText[name] = text;
   };
 
 
@@ -392,7 +392,7 @@ function team($, teamName) {
       }
 
       if (!source) {
-        source = m_tempateText[name];
+        source = m_templateText[name];
       }
       if (!source) {
         source = mkws.defaultTemplate(name);
