@@ -17,11 +17,17 @@ h2 {
   padding-bottom: .5em;
 }
 
-.record, .mkwsSummary {
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
   margin: .95em .25em;
   padding-top: .75em;
   border-top: 1px dotted #BEC8CC;
   font-size: 90%;
+  list-style: none;
 }
 
 a {
