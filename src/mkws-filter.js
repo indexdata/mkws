@@ -45,9 +45,9 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (matchFn(filter)) {
-        m_team.log("removeMatching() removing filter " + mkws.$.toJSON(filter));
+        m_team.log("removeMatching: removing filter " + mkws.$.toJSON(filter));
       } else {
-        m_team.log("removeMatching() keeping filter " + mkws.$.toJSON(filter));
+        m_team.log("removeMatching: keeping filter " + mkws.$.toJSON(filter));
         newList.push(filter);
       }
     }

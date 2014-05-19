@@ -148,7 +148,8 @@ mkws.setMkwsConfig = function(overrides) {
     query_width: 50,
     show_lang: true,    /* show/hide language menu */
     show_sort: true,    /* show/hide sort menu */
-    show_perpage: true,         /* show/hide perpage menu */
+    show_perpage: true, /* show/hide perpage menu */
+    show_switch: true,  /* show/hide switch menu */
     lang_options: [],   /* display languages links for given languages, [] for all */
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
@@ -309,10 +310,9 @@ mkws.pagerNext = function(tname) {
 };
 
 
-// wrapper to call team() after page load
-(function(j) {
+// wrapper to provide local copy of the jQuery object.
+(function($) {
   var log = mkws.log;
-  var $ = j; // XXX
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -364,11 +364,11 @@ mkws.pagerNext = function(tname) {
           var w1 = team.widget(t + "-Container-" + from);
           var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
-            w1.jqnode.hide();
+            w1.node.hide();
           }
           if (w2) {
-            w2.jqnode.show();
-            w.jqnode.appendTo(w2.jqnode);
+            w2.node.show();
+            w.node.appendTo(w2.node);
           }
         });
         team.queue("resize-" + to).publish();
@@ -383,7 +383,7 @@ mkws.pagerNext = function(tname) {
    * for the site.
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
-    log("Run service proxy auth URL: " + auth_url);
+    log("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
       auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
@@ -406,7 +406,7 @@ mkws.pagerNext = function(tname) {
         return;
       }
 
-      log("Service proxy auth successfully done");
+      log("service proxy authentication successful");
       mkws.authenticated = true;
       var authName = $(data).find("displayName").text();
       // You'd think there would be a better way to do this:
@@ -430,7 +430,7 @@ mkws.pagerNext = function(tname) {
 
 
   function selectorForAllWidgets() {
-    if (mkws.config.scan_all_nodes) {
+    if (mkws.config && mkws.config.scan_all_nodes) {
       // This is the old version, which works by telling jQuery to
       // find every node that has a class beginning with "mkws". In
       // theory it should be slower than the class-based selector; but
@@ -462,12 +462,12 @@ mkws.pagerNext = function(tname) {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
-          myTeam = mkws.teams[tname] = team(j, tname);
-          log("Made MKWS team '" + tname + "'");
+          myTeam = mkws.teams[tname] = team($, tname);
+          log("made MKWS team '" + tname + "'");
         }
 
         var oldHTML = this.innerHTML;
-        var myWidget = widget(j, myTeam, type, this);
+        var myWidget = widget($, myTeam, type, this);
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
@@ -479,7 +479,8 @@ mkws.pagerNext = function(tname) {
   }
 
 
-  $(document).ready(function() {
+  function init(rootsel) {
+    if (!rootsel) var rootsel = ':root';
     var saved_config;
     if (typeof mkws_config === 'undefined') {
       log("setting empty config");
@@ -496,7 +497,7 @@ mkws.pagerNext = function(tname) {
           var lang = key.replace(/^language_/, "");
           // Copy custom languages into list
           mkws.locale_lang[lang] = mkws.config[key];
-          log("Added locally configured language '" + lang + "'");
+          log("added locally configured language '" + lang + "'");
         }
       }
     }
@@ -511,14 +512,14 @@ mkws.pagerNext = function(tname) {
     log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
     if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
-      log("Reset query width: " + mkws.config.query_width);
+      log("reset query width to " + mkws.config.query_width);
       mkws.config.query_width = 50;
     }
 
     // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
     if (mkws.config.pazpar2_url.match(/^\/\//)) {
       mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-      log("adjusted protocol independent link to: " + mkws.config.pazpar2_url);
+      log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
     }
 
     if (mkws.config.responsive_design_width) {
@@ -544,15 +545,15 @@ mkws.pagerNext = function(tname) {
     }
 
     var then = $.now();
-    makeWidgetsWithin(1, $(':root'));
+    makeWidgetsWithin(1, $(rootsel));
     var now = $.now();
 
-    log("Walking MKWS nodes took " + (now-then) + " ms");
+    log("walking MKWS nodes took " + (now-then) + " ms");
 
     /*
       for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
-      log("TEAM '" + tName + "' = " + myTeam + " ...");
+      log("team '" + tName + "' = " + myTeam + " ...");
       myTeam.visitWidgets(function(t, w) {
       log("  has widget of type '" + t + "': " + w);
       });
@@ -567,5 +568,9 @@ mkws.pagerNext = function(tname) {
       // raw pp2
       runAutoSearches();
     }
+  };
+  $(document).ready(function() {
+    var widgetSelector = selectorForAllWidgets();
+    if (widgetSelector && $(widgetSelector).length !== 0) init();
   });
 })(jQuery);

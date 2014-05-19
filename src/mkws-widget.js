@@ -9,8 +9,7 @@ function widget($, team, type, node) {
   var that = {
     team: team,
     type: type,
-    node: node,
-    jqnode: $(node),
+    node: $(node),
     config: mkws.objectInheritingFrom(team.config())
   };
 
@@ -25,7 +24,35 @@ function widget($, team, type, node) {
 
   that.value = function() {
     return node.value;
-  }
+  };
+
+  // Returns the HTML of a subwidget of the specified type. It gets
+  // the same attributes at the parent widget that invokes this
+  // function, except where overrides are passed in.
+  that.subwidget = function(type, overrides) {
+    var attrs = {};
+    
+    // Copy locally-set properties from the parent widget
+    for (var name in this.config) {
+      if (this.config.hasOwnProperty(name)) {
+        attrs[name] = this.config[name];
+        log(this + " copied property " + name + "='" + attrs[name] + "' to " + type + " subwidget");
+      }
+    }
+    
+    for (var name in overrides) {
+      attrs[name] = overrides[name];
+      log(this + " overrode property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
+    }
+
+    var s = [];
+    s.push('<div class="mkws', type, ' ', team.name(), '"');
+    for (var name in attrs) {    
+      s.push(' ', name, '="', attrs[name], '"');
+    }
+    s.push('></div>');
+    return s.join('');
+  };
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
@@ -45,10 +72,10 @@ function widget($, team, type, node) {
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
       that.config[name] = a.value;
-      log(node + ": set data-mkws attribute " + name + "='" + a.value + "'");
+      log(that + ": set data-mkws attribute " + name + "='" + a.value + "'");
     } else if (!ignoreAttrs[a.name]) {
       that.config[a.name] = a.value;
-      log(node + ": set regular attribute " + a.name + "='" + a.value + "'");
+      log(that + ": set regular attribute " + a.name + "='" + a.value + "'");
     }
   }
 
@@ -122,10 +149,10 @@ widget.autosearch = function(widget) {
 // Utility function for all widgets that want to hide in narrow windows
 widget.hideWhenNarrow = function(widget) {
   widget.team.queue("resize-narrow").subscribe(function(n) {
-    widget.jqnode.hide();
+    widget.node.hide();
   });
   widget.team.queue("resize-wide").subscribe(function(n) {
-    widget.jqnode.show();
+    widget.node.show();
   });
 };
 

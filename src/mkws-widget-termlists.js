@@ -3,10 +3,10 @@ mkws.registerWidgetType('Termlists', function() {
 
   // Initially hide the termlists; display when we get results
   mkws.$(document).ready(function() {
-    that.jqnode.hide();
+    that.node.hide();
   });
   this.team.queue("termlists").subscribe(function(data) {
-    that.jqnode.show();
+    that.node.show();
   });
 
   var acc = [];
@@ -15,7 +15,7 @@ mkws.registerWidgetType('Termlists', function() {
   for (var i = 0; i < facets.length; i++) {
     acc.push('<div class="mkwsFacet mkwsTeam_', this.team.name(), '" data-mkws-facet="', facets[i], '">', '</div>');
   }
-  this.jqnode.html(acc.join(''));
+  this.node.html(acc.join(''));
 
   widget.autosearch(this);
 });
@@ -30,9 +30,9 @@ mkws.registerWidgetType('Facet', function() {
 
   var that = this;
   var name = that.config.facet;
-  var ref = facetConfig[name] || alert("no facet definition for '" + name + "'");
-  var caption = ref[0];
-  var max = ref[1];
+  var ref = facetConfig[name] || [ "Unknown", 10, true ];
+  var caption = this.config['facet_caption_' + name] || ref[0];
+  var max     = this.config['facet_max_' + name]     || ref[1];
   var pzIndex = ref[2] ? name : null;
 
   that.toString = function() {
@@ -63,6 +63,6 @@ mkws.registerWidgetType('Facet', function() {
       acc.push('</div>');
     }
 
-    that.jqnode.html(acc.join(''));
+    that.node.html(acc.join(''));
   });
 });

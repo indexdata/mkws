@@ -11,7 +11,7 @@
  */
 function _mkws_jquery_plugin($) {
   function debug(string) {
-    mkws.log("jquery.pazpar2: " + string);
+    mkws.log("jQuery.pazpar2: " + string);
   }
 
   function init_popup(obj) {

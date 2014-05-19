@@ -394,6 +394,9 @@ show_perpage              bool    true      Indicates whether or not to display 
 
 show_sort                 bool    true      Indicates whether or not to display the sort menu.
 
+show_switch               bool    true      Indicates whether or not to display the switch menu, for switching between showing
+                                            retrieved records and target information.
+
 sort_default              string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
                                             array.
 
@@ -405,8 +408,8 @@ use_service_proxy         bool    true      If true, then a Service Proxy is use
                                             Pazpar2.
 ---
 
-Perhaps we should get rid of the `show_lang`, `show_perpage` and
-`show_sort` configuration items, and simply display the relevant menus
+Perhaps we should get rid of the `show_lang`, `show_perpage`,
+`show_sort` and `show_switch` configuration items, and simply display the relevant menus
 only when their containers are provided -- e.g. an `mkwsLang` element
 for the language menu. But for now we retain these, as an easier route
 to lightly customise the display than my changing providing a full HTML

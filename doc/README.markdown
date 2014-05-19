@@ -75,6 +75,7 @@ possible options:
         show_lang: true,            /* true, false: show/hide language menu */
         show_sort: true,            /* true, false: show/hide sort menu */
         show_perpage: true,         /* true, false: show/hide perpage menu */
+        show_switch: true,          /* true, false: show/hide switch menu */
         lang_options: ["en", "de", "da"],
                                     /* display languages links for given languages, [] for all */
         facets: ["xtargets", "subject", "author"],
