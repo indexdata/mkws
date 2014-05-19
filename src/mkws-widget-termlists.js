@@ -32,7 +32,7 @@ mkws.registerWidgetType('Facet', function() {
   var name = that.config.facet;
   var ref = facetConfig[name] || [ "Unknown", 10, true ];
   var caption = this.config['facet_caption_' + name] || ref[0];
-  var max     = this.config['facet_max_' + name]     || ref[1];
+  var max     = parseInt(this.config['facet_max_' + name] || ref[1]);
   var pzIndex = ref[2] ? name : null;
 
   that.toString = function() {
