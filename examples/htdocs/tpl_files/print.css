@@ -1,0 +1,332 @@
+/*
+
+1.0 - Generic print styles
+
+2.0 - BRANCH profile Styles
+
+3.0 - BIB profile styles
+
+4.0 - SEARCH result styles
+
+5.0 - DIGITAL ARCHIVES styles
+
+*/
+
+/* Print styles -- Browser print preview mode */
+@media print {
+
+	body {
+	min-width:100% !important;	
+	}
+	
+	.main {
+	height: auto !important;
+	margin: 0;
+	overflow: visible !important;
+	padding: 0 !important;
+	width:auto !important;
+	}
+	
+	h1 {
+	display:block;
+	/*margin:auto;
+	padding-bottom:20px !important;*/
+	}
+	
+	h3 {
+	color: #525252;
+	}
+	
+	table {
+	/*width:auto;*/
+	}
+	
+	.grid_8 h1 {
+	margin-left:0;
+	}
+	
+	th,a,a:hover,a:visited,a:active {
+	text-decoration: none !important;
+	color: #000 !important;
+	}
+	
+	caption {
+	padding-left:0;
+	}
+	
+	/*
+	.column {
+	display:block !important;
+	float:none !important;
+	}*/
+	
+	.grid_4,.grid_6,.grid_8,.grid_12,.wider,.column {
+	 display:block !important;
+	 float:none !important;
+	 margin-left:0 !important;
+	 width:90% !important;
+	}
+	
+	
+	#print-actions,.search-within,.column.narrower-search,#alpha-index,#page-banner,.color-bar,.narrow,.main img,#map_canvas,#form-container,#form-container+p.small-font,.print,
+	.grid_8+.grid_4.omega,.column.wider+.column.narrow,.pagination,.page,#home-page-banner,#user-session,.searchView,iframe,#menu-search,.branch-message a,.branch-message-compact a,#affiliate-area
+		{
+	display:none !important;
+	}
+	
+	#dcImageDetail img {
+	display:block;
+	} 
+	
+	#branches-and-hours.branches-a-z .record-result {
+	border:none;
+	/*border-top: 1px solid #DDDDDD;
+	padding:20px 0;*/
+	}
+	
+	.grid_7,.grid_8,.grid_11,.grid_12,.grid_16{
+	width:auto !important;
+	}
+	
+	#branches-and-hours .text.grid_8,#branches-and-hours .hours.grid_8{
+	margin-left:0;
+	} 
+	
+}
+
+body {
+	min-width:100%;	
+}
+
+/* Don't show any background images but only after the #header-container. We're excluding the #header-container since we want the TPL logo to show */
+/*#header-container ~ div div,#header-container ~ div span,#header-container ~ div table th,#header-container ~ span,#header-container ~ table,#header-container ~ ul,#header-container ~ ol,#header-container ~ a*/
+	div,span,th,tr,ol,li,a,caption,.today
+	{
+	background: none !important;
+}
+
+
+/* hide all elements we don't want to show */
+#see-also,#spotlight-promotion,#footer-stripe,#user-session,#footer-bottom-container,#detail-image-container,#vertical_carousel,#widget-page-actions,#beta-feedback,#header-bottom,#header-search,.color-bar,#header-bottom,#header-links,#footer-container,
+.hold-button,#tab2,#page-actions,#see-also,#ask-a-librarian,#vrl-matches,#refinements,.search-filters,.tab-bar,.search-box,.refinement-typeahead,.sort,.recsPerPage,.image-strip-container,#page-actions-horizontal,.search-share,.search-box-links,.holdable,
+.clear-refinements,#breadcrumb-stacked a,#breadcrumb-stacked .title,.clear,#search-bar-bottom,.online,.main-image-container,#search-bar,#section-navigation,#subsection-navigation,.grid_4.omega,.pagination,#merch-spotlight-multi,#spotlight-multi-links,.refinement-microbrowser,
+#series-banner,.carousel-wide,#ktr-banner,#ktr-banner-cowboy,#salon-banner,object,embed,#dcImageDetail .related-subjects,#dcImageDetail .opt-containers .left, #dcImageDetail .opt-containers .right,.access-online-button,#email-signup,#dcImageDetail .socialLinks,#menu-search,.header-top-menu,
+.branch-message a,.branch-message-compact a,#search-bar-top,.dc-sideContainer,.horizontal-list,.caption,#breadcrumb-stacked,.image-container,.caption-frame,#affiliate-area, #beta-feedback-container,#receiptForm, #paymentForm #title, #payment img, #message-area, #payment h1, #payment span#help, #payment #returnLink
+	{
+	display: none !important;
+}
+
+/*Prevent default float of grid rules */
+
+.grid_1,.grid_2,.grid_3,.grid_4,.grid_5,.grid_6,.grid_7,.grid_8,.grid_9,.grid_10,.grid_11,.grid_12,.grid_13,.grid_14,.grid_15,.grid_16,.left
+	{
+	float:none;
+	display:block;
+}
+
+/* eliminate extra header space and add divider line */
+#header-container {
+	background-image:none;
+	height: 80px;
+	border-bottom: 1px solid #000;
+}
+
+/*Remove float from main container and set left/right margin to abide by printable area */
+.main {
+	height: auto !important;
+	overflow: visible !important;
+	margin: 0 0 0 5%;
+	padding: 0 !important;
+	width:auto;
+}
+
+/* 1.0 - Generic print styles */
+th,a,a:hover,a:visited,a:active, h1, h2, h3, p, li {
+	text-decoration: none !important;
+	color: #000 !important;
+}
+
+#full-record, #item-availability {
+	clear:left;	
+}
+
+.elem_printOnly {
+	display: inline;
+	float:left;
+}
+
+.header-menu-container {
+	width:auto;
+	margin:0 0 0 5%;	
+}
+
+.header-top {
+	margin: 0;
+}
+
+.grid_12, .grid_8, .grid_4.alpha, #search .search-title  {
+	/*margin:0 auto;*/
+	width:90% !important;
+}
+
+.grid_12 .grid_8,.grid_8 .grid_2,.grid_8 .grid_4,.grid_8 .grid_6,.grid_8 .grid_8,.grid_4 .grid_2  {
+	width:auto !important;
+}
+
+.main h1 {
+	display:block;
+	padding-top:25px;
+	/*width:90% !important;	*/
+}
+
+h1.grid_12 {
+	/*margin:0 auto 25px;
+	width:90% !important;	*/
+}
+
+#syndetics_content {
+	padding:0;
+	margin:0;	
+}
+
+/* 2.0 - BRANCH profile Styles */
+
+.branch-message, .branch-message-compact {
+	border:1px dotted;
+	border-radius:0;
+	margin: 0 0 1.8em;
+    /*padding-left: 0;	*/
+}
+
+.sprite a {
+	height:auto !important;	
+	padding-left:0 !important;
+}
+
+/*
+#branch-detail .sprite a {
+	background-image: url("/images/icons/sprite-icons.png") !important;
+    background-repeat: no-repeat !important;	
+}*/
+
+/*
+.branch-icons {
+	width:400px !important;
+}
+
+.branch-icons a, .sprite #tty-service{
+	height:auto !important;	
+	padding:0 !important;	
+	width:auto !important;
+}
+
+.accessible-element {
+	dislay:block;
+	position:relative;	
+	left:0;
+} */
+
+#branch-detail .record-detail {
+	width: inherit;
+	float:left;
+}
+
+#branch-detail table.branch-hours {
+	clear:left;
+	width:auto;	
+}
+
+.tabContent h2 {
+	display:block;
+}
+
+.tabContent .widget-content {
+	padding-left:0;
+}
+
+h4 {
+	/*font-size: 1.24em !important;*/
+}
+
+.tabContent h4 {
+	background: none;
+	display: block;
+	height: 1.3em;
+	color: #444444;
+}
+
+#widget-tab-container #tab4 .widget-content table {
+	margin: 0;
+}
+
+#widget-tab-container .widget-content h3 {
+	/*margin: 0 0 10px;*/
+}
+
+/* 3.0 - BIB profile styles */
+
+#branch-holdings, .record-detail {
+	/*margin:0 auto;*/
+}
+
+#branch-holdings {
+	width:90%;
+}
+
+.hold-form {
+	display:none !important;
+}
+
+/* 4.0 - SEARCH result styles */
+
+#search-term-label {
+	/*display: none;*/
+}
+
+#search-results .grid_2, #search-results .grid_4, #search-results .grid_6, #search-results .grid_8 {
+	float:left !important;
+}
+
+#search-results .grid_8 {
+	clear:left;	
+	width:100% !important;
+}
+
+#search-results .grid_8 .grid_2.alpha {
+	display:none;	
+}
+
+
+.record-result {
+	border: 0px;
+	border-bottom: 1px solid #555;
+}
+
+.search-bar .pagination .current {
+	float:none;
+	padding:0;
+}
+
+.pagination .link,.pagination .separator {
+	display: none !important;
+}
+
+#print-description {
+	font-size: 2em;
+	line-height: 1;
+	float: left;
+	margin-left: 50px;
+	margin-top: 30px;
+}
+
+.reference-only {
+	float: left;
+}
+
+/* 5.0 - DIGITAL ARCHIVES styles */
+
+#dcImageDetail .image-container, #dcImageDetail .image-container img {
+	text-align:left !important;
+	display:block !important;
+}
+
