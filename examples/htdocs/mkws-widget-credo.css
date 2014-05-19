@@ -1,3 +1,46 @@
 .mkwsCredo {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
+
+.mkwsCredo table {
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.mkwsCredo table tr.front {
+    background: #ddf3c3;
+}
+
+.mkwsCredo table tr:first-child td:first-child {
+    width: 70%;
+}
+
+.mkwsCredo table tr:first-child .section {
+    margin: 10px;
+    border: 1px solid #c0c0c0;
+}
+
+.mkwsCredo table tr {
+    vertical-align: top;
+}
+
+.mkwsCredo .front div.title {
+    font-size: 150%;
+    font-weight: bold;
+    color: white;
+    background: #666699;
+    padding: 0.25em 0.5em;
+}
+
+.mkwsCredo div.title {
+    font-size: 150%;
+    font-weight: bold;
+    color: #666699;
+    background: #ddf3c3;
+    padding: 0.25em 0.5em;
+}
+
+.mkwsCredo div.content {
+    background: white;
+    padding: 0.5em 1em;
+}
