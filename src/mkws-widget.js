@@ -32,7 +32,7 @@ function widget($, team, type, node) {
   // also provided, then these are used when the parent widget
   // provides no values.
   that.subwidget = function(type, overrides, defaults) {
-    var attrs = {};
+    var attrs = { _team: team.name() };
     
     // Copy locally-set properties from the parent widget
     for (var name in this.config) {
@@ -57,9 +57,10 @@ function widget($, team, type, node) {
     }
 
     var s = [];
-    s.push('<div class="mkws', type, ' mkwsTeam_', team.name(), '"');
+    s.push('<div class="mkws', type, ' mkwsTeam_', attrs._team, '"');
     for (var name in attrs) {    
-      s.push(' ', name, '="', attrs[name], '"');
+      if (name !== '_team')
+        s.push(' ', name, '="', attrs[name], '"');
     }
     s.push('></div>');
     return s.join('');
