@@ -30,6 +30,7 @@ function team($, teamName) {
   var m_template = {}; // compiled templates, from any source
   var m_config = mkws.objectInheritingFrom(mkws.config);
   var m_widgets = {}; // Maps widget-type to array of widget objects
+  var m_gotRecords = false;
 
   that.toString = function() { return '[Team ' + teamName + ']'; };
 
@@ -119,8 +120,14 @@ function team($, teamName) {
 
   function onStat(data) {
     queue("stat").publish(data);
-    if (parseInt(data.activeclients[0], 10) === 0)
-      queue("complete").publish(parseInt(data.hits[0], 10));
+    var hitcount = parseInt(data.hits[0], 10);
+    if (!m_gotRecords && hitcount > 0) {
+      m_gotRecords = true;
+      queue("firstrecords").publish(hitcount);
+    }
+    if (parseInt(data.activeclients[0], 10) === 0) {
+      queue("complete").publish(hitcount);
+    }
   }
 
   function onTerm(data) {
