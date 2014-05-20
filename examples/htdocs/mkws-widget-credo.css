@@ -44,3 +44,14 @@
     background: white;
     padding: 0.5em 1em;
 }
+
+.mkwsReference h1 {
+    display:none;
+}
+
+.mkwsReference img {
+    float: left;
+    margin: 0 1.5em 1em 0;
+    border: 2px solid #c0c0c0;
+    padding: 0.5em;
+}
