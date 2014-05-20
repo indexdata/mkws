@@ -14,9 +14,9 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<td class="main">');
   s.push(section('encyclopaedia', 'Topic Page: ### title',
-                 this.subwidget('Reference')));
+                 this.subwidget('Reference', { _team: 'ref' })));
   s.push(section('image', 'Images',
-                 this.subwidget('GoogleImage', { maxrecs: 4 })));
+                 this.subwidget('GoogleImage', { _team: 'img', maxrecs: 4 })));
   s.push('</td>');
 
   s.push('<td class="side">');
