@@ -16,28 +16,28 @@ mkws.registerWidgetType('Credo', function() {
   s.push(section('encyclopaedia', 'Topic Page: ### title',
                  this.subwidget('Reference')));
   s.push(section('image', 'Images',
-                 this.subwidget('Images', { /* ### config */ })));
+                 this.subwidget('GoogleImage', { maxrecs: 4 })));
   s.push('</td>');
 
   s.push('<td class="side">');
   s.push(section('mindmap', 'Create a Mind Map for ### title',
                  '### Is there a way to make a mind-map?'));
   s.push(section('topics', 'Related Topics',
-                 this.subwidget('Facet', { facet: 'subject' })));
+                 1 || this.subwidget('Facet', { facet: 'subject' })));
   s.push('</td>');
 
   s.push('</tr>');
 
   s.push(sectionRow('entries', 'Credo Entries',
-                    this.subwidget('Records', { /* ### config */ })));
+                    1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('articles', 'Articles',
-                    this.subwidget('Records', { /* ### config */ })));
+                    1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('books', 'Books',
-                    this.subwidget('Records', { /* ### config */ })));
+                    1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('news', 'News',
-                    this.subwidget('Records', { /* ### config */ })));
+                    1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('resources', 'Suggested Resources',
-                    this.subwidget('Records', { /* ### config */ })));
+                    1 || this.subwidget('Records', { /* ### config */ })));
 
   s.push('</table>');
 
