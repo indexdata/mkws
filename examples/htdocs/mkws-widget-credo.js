@@ -1,3 +1,9 @@
+// ### This works inefficiently by having multiple teams all run the
+// same search against different sets of targets. A much better
+// approach would be run a single search, with all these panels
+// members of the same team, but picking out only the results relevant
+// to them. That will be more work.
+
 mkws.registerWidgetType('Credo', function() {
   var that = this;
   var s = []
