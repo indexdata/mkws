@@ -248,6 +248,7 @@ function team($, teamName) {
   function resetPage() {
     m_currentPage = 1;
     m_totalRecordCount = 0;
+    m_gotRecords = false;
   }
   that.resetPage = resetPage;
 
