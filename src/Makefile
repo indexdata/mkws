@@ -15,7 +15,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-filter.js \
 	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
-	mkws-widget-record.js mkws-widget-builder.js
+	mkws-widget-record.js mkws-widget-reference.js mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
