@@ -43,6 +43,11 @@
 .mkwsCredo div.content {
     background: white;
     padding: 0.5em 1em;
+
+    // Next two are needed to make this area grow to contain floated images.
+    // See http://www.quirksmode.org/css/clearing.html
+    overflow: auto;
+    width: 100%;
 }
 
 .mkwsReference h1 {
