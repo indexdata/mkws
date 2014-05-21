@@ -55,3 +55,12 @@
     border: 2px solid #c0c0c0;
     padding: 0.5em;
 }
+
+.mkwsCredo .image .mkwsSummary {
+    float: left;
+}
+
+.mkwsCredo .image a {
+    text-decoration: none;
+}
+
