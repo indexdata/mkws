@@ -37,7 +37,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push(section('mindmap', 'Create a Mind Map for ### title',
                  '### Is there a way to make a mind-map?'));
   s.push(section('topics', 'Related Topics',
-                 1 || this.subwidget('Facet', { facet: 'subject' })));
+                 this.subwidget('Facet', { facet: 'subject' })));
   s.push('</td>');
 
   s.push('</tr>');
