@@ -6,6 +6,19 @@
 
 mkws.registerWidgetType('Credo', function() {
   var that = this;
+
+  this.team.registerTemplate('CredoImage', '\
+      <div>\
+       <a href="{{md-electronic-url}}">\
+        {{#mkws-first md-thumburl}}\
+	  <img src="{{this}}" alt="{{../md-title}}"/>\
+        {{/mkws-first}}\
+	<br/>\
+       </a>\
+       <p>{{md-title}}</p>\
+      </div>\
+');
+
   var s = []
   s.push('<table>');
 
@@ -15,8 +28,9 @@ mkws.registerWidgetType('Credo', function() {
   s.push('<td class="main">');
   s.push(section('encyclopaedia', 'Topic Page: ### title',
                  this.subwidget('Reference', { _team: 'ref' })));
+  // The Images widget needs to be in our team so we can set its template
   s.push(section('image', 'Images',
-                 this.subwidget('GoogleImage', { _team: 'img', maxrecs: 4 })));
+                 this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
   s.push('</td>');
 
   s.push('<td class="side">');
