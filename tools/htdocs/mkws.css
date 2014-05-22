@@ -195,3 +195,14 @@
     background: #508751;
     color: white;
 }
+
+.mkwsProgress {
+    border: 1px solid #c0c0c0;
+    float: left;
+    margin-left: 2em;
+    margin-top: 0.2em;
+    padding: 0 0.3em;
+}
+
+.mkwsProgress .mkwsDone { color: #005701 }
+.mkwsProgress .mkwsWaiting { color: #c0c0c0 }
