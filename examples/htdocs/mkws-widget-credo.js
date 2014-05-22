@@ -37,13 +37,13 @@ mkws.registerWidgetType('Credo', function() {
   s.push(section('mindmap', 'Create a Mind Map for ### title',
                  '### Is there a way to make a mind-map?'));
   s.push(section('topics', 'Related Topics',
-                 this.subwidget('Facet', { facet: 'subject' })));
+                 this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
   s.push('</td>');
 
   s.push('</tr>');
 
   s.push(sectionRow('entries', 'Credo Entries',
-                    1 || this.subwidget('Records', { /* ### config */ })));
+                    this.subwidget('Records', { _team: 'main' })));
   s.push(sectionRow('articles', 'Articles',
                     1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('books', 'Books',
