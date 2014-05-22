@@ -11,6 +11,7 @@ export APACHE_RUN_GROUP=$(groups | awk '{ print $1 }')
 
 export APACHE_LOG_DIR=$APACHE_SERVER_ROOT/logs
 export APACHE_PID_FILE=$APACHE_LOG_DIR/mkws-jasmine.pid
+export APACHE_LOCK_FILE=$APACHE_LOG_DIR/accept.lock
 export APACHE_PORT=4040
 
 export MKWS_ROOT=$(pwd)/..
