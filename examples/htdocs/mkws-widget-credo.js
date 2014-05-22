@@ -1,3 +1,14 @@
+// The Google Images database returns links like:
+//      http://images.google.com/url?q=http://eofdreams.com/fish.html&sa=U&ei=RAB-U9XNDo2Dqga1o4L4Bw&ved=0CC4Q9QEwAA&usg=AFQjCNFhRtn6GMevHbpITZ6kfx6rsHV2ow
+// This Handlebars helper avoids a pointless redirect by transforming
+// this to the URL of the underling page, in this case
+//      http://eofdreams.com/fish.html
+//
+Handlebars.registerHelper('mkws-googleurl', function(obj) {
+  return mkws.getParameterByName('q', obj[0]);
+});
+
+
 // ### This works inefficiently by having multiple teams all run the
 // same search against different sets of targets. A much better
 // approach would be run a single search, with all these panels
@@ -9,7 +20,7 @@ mkws.registerWidgetType('Credo', function() {
 
   this.team.registerTemplate('CredoImage', '\
       <div>\
-       <a href="{{md-electronic-url}}" target="_blank">\
+       <a href="{{mkws-googleurl md-electronic-url}}" target="_blank">\
         {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
         {{/mkws-first}}\
