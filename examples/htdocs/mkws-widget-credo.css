@@ -68,3 +68,12 @@
     text-decoration: none;
 }
 
+.mkwsCredo hr.divider {
+    margin: 20px 1%;
+    border-top: 3px dotted #c0c0c0;
+    color: #fff;
+    background-color: #fff;
+    height: 0;
+    width: 98%;
+}
+
