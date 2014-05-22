@@ -23,6 +23,9 @@ case $(uname) in
 	   if [ -e /etc/debian_version ]; then
 		MKWS_OS=debian 	
 	   fi
+	   if [ -e /etc/redhat-release ]; then
+		MKWS_OS=centos 	
+	   fi
 	   ;;
   * ) MKWS_OS=debian ;;
 esac
