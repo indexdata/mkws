@@ -420,6 +420,26 @@ mkws.registerWidgetType('Config', function() {
 });
 
 
+mkws.registerWidgetType('Progress', function() {
+  var that = this;
+
+  this.node.hide();
+  this.team.queue("stat").subscribe(function(data) {
+    var s = '<span class="mkwsDone">';
+    for (var i = 0; i < data.clients; i++) {
+      if (i == data.clients - data.activeclients) {
+        s += '</span>';
+        s += '<span class="mkwsWaiting">';
+      }
+      s += '&#x2588';
+    }
+    s += '</span>';
+    that.node.html(s);
+    that.node.show();
+  });
+});
+
+
 // Some elements have mkws* classes that makes them appear as widgets
 // -- for example, because we want to style them using CSS -- but have
 // no actual functionality. We register these to prevent ignorable
