@@ -111,10 +111,11 @@ mkws.M = function(word) {
 
 // This function is taken from a StackOverflow answer
 // http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript/901144#901144
-mkws.getParameterByName = function(name) {
+mkws.getParameterByName = function(name, url) {
+  if (!url) url = location.search;
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-  results = regex.exec(location.search);
+  results = regex.exec(url);
   return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
