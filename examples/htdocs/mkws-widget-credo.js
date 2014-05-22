@@ -58,7 +58,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push(sectionRow('entries', 'Credo Entries',
                     this.subwidget('Records', { _team: 'main' })));
   s.push(sectionRow('articles', 'Articles',
-                    this.subwidget('Records', { _team: 'art', targetfilter: 'categories=articles' })));
+                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
   s.push(sectionRow('books', 'Books',
                     1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('news', 'News',
