@@ -35,7 +35,7 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<td class="side">');
   s.push(section('mindmap', 'Create a Mind Map for ### title',
-                 '### Is there a way to make a mind-map?'));
+                 this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
   s.push('</td>');
@@ -76,4 +76,9 @@ mkws.registerWidgetType('Credo', function() {
     s.push('</tr>');
     return s.join('');
   }
+});
+
+
+mkws.registerWidgetType('Mindmap', function() {
+  this.node.html("### We do not yet have a Mindmap widget");
 });
