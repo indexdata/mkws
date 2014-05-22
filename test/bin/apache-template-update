@@ -11,9 +11,26 @@ export APACHE_RUN_GROUP=$(groups | awk '{ print $1 }')
 
 export APACHE_LOG_DIR=$APACHE_SERVER_ROOT/logs
 export APACHE_PID_FILE=$APACHE_LOG_DIR/mkws-jasmine.pid
+export APACHE_LOCK_FILE=$APACHE_LOG_DIR/accept.lock
 export APACHE_PORT=4040
 
 export MKWS_ROOT=$(pwd)/..
+
+MKWS_OS=debian 
+case $(uname) in
+  Darwin ) MKWS_OS=macos ;;
+  Linux )  MKWS_OS=debian 
+	   if [ -e /etc/debian_version ]; then
+		MKWS_OS=debian 	
+	   fi
+	   if [ -e /etc/redhat-release ]; then
+		MKWS_OS=centos 	
+	   fi
+	   ;;
+  * ) MKWS_OS=debian ;;
+esac
+
+export APACHE_MODULES="$MKWS_ROOT/tools/apache2/jasmine-dev.apache-modules.$MKWS_OS.conf"
 
 : ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template"}
 : ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev"}

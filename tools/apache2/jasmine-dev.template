@@ -6,27 +6,18 @@
 User ${APACHE_RUN_USER}
 Group ${APACHE_RUN_GROUP}
 PidFile ${APACHE_PID_FILE}
+LockFile ${APACHE_LOCK_FILE}
 
 ServerName localhost
 ServerRoot ${APACHE_SERVER_ROOT}
 NameVirtualHost *:${APACHE_PORT}
 Listen ${APACHE_PORT}
 
-LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+Include ${APACHE_MODULES}
 
-Include /etc/apache2/mods-available/alias.load
-Include /etc/apache2/mods-available/authz*.load
-Include /etc/apache2/mods-available/proxy*.load
-Include /etc/apache2/mods-available/rewrite.load
-Include /etc/apache2/mods-available/headers.load
-Include /etc/apache2/mods-available/mime.load
-Include /etc/apache2/mods-available/deflate.load
-
-Include /etc/apache2/mods-available/alias*.conf
-Include /etc/apache2/mods-available/authz*.conf
-Include /etc/apache2/mods-available/proxy*.conf
-Include /etc/apache2/mods-available/mime.conf
-Include /etc/apache2/mods-available/deflate.conf
+<IfModule log_config_module>
+   #LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+</IfModule>
 
 # pazpar2 / service proxy config
 <VirtualHost *:${APACHE_PORT}>
