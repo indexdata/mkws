@@ -62,9 +62,9 @@ mkws.registerWidgetType('Credo', function() {
   s.push(sectionRow('books', 'Books',
                     this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
   s.push(sectionRow('news', 'News',
-                    1 || this.subwidget('Records', { /* ### config */ })));
+                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
   s.push(sectionRow('resources', 'Suggested Resources',
-                    1 || this.subwidget('Records', { /* ### config */ })));
+                    "### Not yet implemented"));
 
   s.push('</table>');
 
