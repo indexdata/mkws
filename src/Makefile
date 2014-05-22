@@ -15,7 +15,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-filter.js \
 	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
-	mkws-widget-record.js mkws-widget-builder.js
+	mkws-widget-record.js mkws-widget-reference.js mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
@@ -41,7 +41,7 @@ mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${J
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
 	  echo "   created at: $$(date)"; \
-	  echo "   mkws.js GIT id: $$(git log mkws.js | head -n 1 | perl -npe 's,\S+\s+,,')"; \
+	  echo "   MKWS GIT id: $$(git show | head -n 1 | perl -npe 's,\S+\s+,,')"; \
 	  echo "   pz2.js GIT id: $$(curl -sSf 'http://git.indexdata.com/?p=pazpar2.git;a=rss' | egrep '<guid' | head -1 | perl -ne 'print "$$1\n" if m,.*=([0-9a-f]+)</guid>,')"; \
 	  echo "*/"; \
 	  cat ${JQUERY_FILE}; \

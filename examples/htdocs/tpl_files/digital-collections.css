@@ -1,0 +1,280 @@
+@charset "utf-8";
+#tempHeader { background: url(../DC-staticpages/temp-images/fake-tpl-header-bg.png) top repeat-x scroll; min-height: 145px; margin: 0 auto;}
+#tempHeader2 { background: url(../DC-staticpages/temp-images/fake-tpl-header-bg.png) top repeat-x scroll; min-height: 120px; margin: 0 auto;}
+#tempSearch { min-height: 91px; margin: -3px auto 0 auto; }
+
+#dcImageDetail {} /*Specific fixes for Image Detail Page*/
+
+#dcImageDetail h1 /*{ line-height: 1.1em; } Could be added into standard H1 style, left external to allow no alterations into the main CSS files*/
+
+#dcImageDetail a.subject {font-weight:normal;}
+#dcImageDetail a { font-weight: bold;}
+
+/*Image container and options*/
+#dcImageDetail .image-container { max-height: 700px; text-align: center; }
+#dcImageDetail .image-container img { max-height: 700px; max-width:700px}
+
+#dcImageDetail .opt-containers { border-top: 1px solid #efeeed; padding: 15px 5px; }
+#dcImageDetail .opt-containers .left, #dcImageDetail .opt-containers .right { padding: 0;}
+#dcImageDetail .opt-containers img { margin: -2px 7px 0 0; }
+
+/*Main Detail Information*/
+#dcImageDetail .author { padding-bottom: 5px;}
+#dcImageDetail .author.last { padding-bottom: 10px;}
+#dcImageDetail .related-subjects {  
+	/*border-top: 1px solid #efeeed;*/ 
+	padding: 5px 0px; }
+#dcImageDetail .label, #dcImageDetail .addInfo table .title { font-weight: bold; color: #525252;}
+
+/*Detail List typographic Tweaks*/
+#dcImageDetail .related-subjects ul {}
+#dcImageDetail .related-subjects li { padding: 0 0 8px 0; margin: 0; line-height: 1.1em; }
+
+/*Additional Information Tables*/
+#dcImageDetail .addInfo { border-top: 1px solid #efeeed; padding: 5px 0 20px 5px;}
+
+#dcImageDetail .addInfo table { margin: 0; width: 580px;}
+#dcImageDetail .addInfo table th{ background: transparent; padding-bottom: 5px;}
+.addInfo table .title {width: 230px; vertical-align: top; }
+#dcImageDetail .addInfo table td { padding-top: 12px;}
+#dcImageDetail .addInfo table td a { text-decoration: underline; font-weight: normal;} /*Same style as standard p a (just no p), left external to allow no alterations into the main CSS files*/
+
+
+#branch-holdings { width: auto; }
+
+#dcImageDetail .socialLinks /*{margin-top: -48px;}*/
+#page-actions-horizontal li.first { padding-left: 0;}
+
+/*New Grey Button*/
+.grey-btn,.grey-btn:visited {
+	background: #efeeed url(../images/greyBTN.png) scroll repeat-x;
+	border-color: #adca9d #b7b7b7 #b7b7b7 #adca9d;
+	border-width: 1px;
+	text-align: center;
+	display: block;
+	margin: 3px 0;
+	padding: 5px 0;
+	max-height: 25px;
+	overflow: hidden;
+}
+div.ellipsis {display: inline;}
+
+.dc-sideContainer
+{
+	margin-top:0;
+}
+ .grey-button {
+	    -moz-border-radius: 4px 4px 4px 4px;
+    background-color: #F7F6F5;
+    border: 1px solid #E5E5E5;
+    float: left;
+    margin-top: 0.8em;
+    padding: 0.5em;
+    position: relative;
+    width: 14em;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top:10px;
+}
+.dc-book-button {
+	margin-top:10px;
+    margin-left:2.2em;
+}
+/*div.ellipsis {display: inline; word-wrap:break-word;}*/
+.grey-btn .hold { font-size: .8em; font-weight:bold;}
+
+
+.grey-btn:hover {
+	text-decoration: none;
+	color: #000;
+}
+
+/*Grid View*/
+#gridSearch {}
+
+#gridSearch .search-bar h1 { margin-bottom: 10px;}
+
+.search-bar .searchView {
+	/*float: left;*/
+	text-align: left;	
+	display:inline;
+	display:block;
+	}
+
+.searchView h3 { /*Merge in with .sort h4*/
+	display: inline;
+	font-weight: normal;
+	float: left;
+	padding: 0;
+	border: 0;
+	margin: 4px 2px 0 0;
+}
+	
+.searchView .sort-selected { /*Merge in with .sort .sort-selected */
+	/*border: 1px solid #4C4C4C;
+	font-weight: bold;
+	padding: 1px 5px;
+	display: block;
+	padding: 4px;*/
+}
+
+.searchView .sort-option {
+	/*display:block;
+	padding-top:4px; */
+}
+
+#grid-search-bar-bottom {  /*Replacement for non-grid #search-bar-bottom*/
+	border-top: 1px solid #DDD;
+	padding-top: 10px;
+	padding-bottom: 0px;
+}
+
+.searchRow {
+	border-top: 1px solid #eeeeee;
+	padding: 15px 0 20px 0;
+}
+
+.searchRow .block {
+	min-height: 220px;
+	}
+	
+/*For Book Covers Thumbnails
+.searchRow .block .thumb {
+	height: 158px;
+	width: 158px;
+	background-color: #f3f3f3;
+	border: 1px solid #f3f3f3;
+	overflow: hidden;
+	text-align: center;
+	}
+.searchRow .block .thumb img { max-height: 158px; max-width: 158px}
+*/
+
+/*For Book Covers Thumbnails */
+.thumb {
+	height: 158px;
+	width: 158px;
+	background-color: #f3f3f3;
+	border: 1px solid #f3f3f3;
+	overflow: hidden;
+	text-align: center;
+	}
+.thumb img { max-height: 158px; max-width: 158px}
+.carousel {
+	height: 100px;
+	width: 100px;
+	background-color: #f3f3f3;
+	border: 1px solid #f3f3f3;
+	overflow: hidden;
+	text-align: center;
+	}
+.carousel img {max-height:100px; max-width:100px}
+/*For Digital Archive Thumbnail*/
+.block .digitalArchiveIMG {
+	width: 158px; 
+	height: 158px; 
+	background-color: #f3f3f3;
+	border: 1px solid #f3f3f3;	
+}
+
+/*Generic Row Type Styles*/	
+.block .details {margin-top: 10px;}
+.block .details a { font-weight: bold; }
+.block .details p { margin-top: 5px; font-size: .9em; }
+.block .details .subtext { font-size: .85em; line-height: 1.1em; margin-top: 5px; }
+.block .details .baseLink {font-size: .85em; text-decoration: underline; font-weight: normal; display: block; }
+
+
+/******Main Page Styles******/
+#mainArchive {}
+
+/*Main Page Search bar - Try to reuse the one from Hours and locations*/
+#mainArchive #dcTerms { width: 295px;	margin: 0 10px;}
+div#dcTerms-container {position: relative; float: left; }
+#mainArchive label.hint { position: absolute; color: #6e6e6e; top: 3px; left: 205px; }
+
+
+/*Grid objects on Main page*/
+#mainArchive .searchRow { margin: 20px 0; padding: 0px;}
+#mainArchive .searchRow h2 { margin: 15px 0 20px 0;}
+#mainArchive .searchRow h3 { 
+	color: #525252; 
+	font-size: 1.25em; 
+	font-weight: bold;
+    line-height: 1.2em;
+    margin-bottom: 0.4em;
+    margin-top: 0.8em;
+    padding: 0.4em 0 0;}
+
+#mainArchive .searchRow .block { min-height: 175px;	}
+
+/*For Main Page Digital Archive Thumbnails*/
+#mainArchive .searchRow .block .digitalArchiveIMG {	width: 100px; height: 100px; }
+
+/* Large content Widget Add-ons*/
+.widget#teal-title h4 { /*Add to Widgets.css*/
+	border-top: 4px solid #008194;
+	border-bottom: 1px solid #008194;
+}
+
+#mainArchive .more_link { margin: .5em 0 1.5em 0; padding: .5em 0 0 .8em; font-weight: bold;}
+
+/*Browse By Subject list DIV*/
+#browseSubject {margin: 15px 0;}
+#browseSubject .browseTitle {padding: 9px 12px 7px 12px; background-color: #E4ECF9;}
+#browseSubject .browseTitle h3 {color: #525252; padding: 0; margin: 0; font-size: 1.25em;}
+
+#browseSubject .browseList {
+	border: 1px solid #E4ECF9;
+	-moz-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;
+	-moz-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px;
+	}
+	
+#browseSubject .browseList ul {
+	list-style-type: none;
+	margin: .2em 0 .5em 0; 
+	padding: 0;
+	}
+	
+#browseSubject .browseList li {
+	margin: 0px 12px;
+	padding: 4px 0;
+	border-bottom: 1px solid #EFEEED;
+	line-height: 1.8em;
+	}
+	
+#browseSubject .browseList .more {font-weight: bold;} 
+
+
+/*How to Buy BTN Style*/
+#buyPrints {
+	background-color: #efeeed;
+	text-align: center;
+	border-color: #adca9d #b7b7b7 #b7b7b7 #adca9d;
+	border-width: 1px;
+	text-align: center;
+	display: block;
+	max-height: 25px;
+	overflow: hidden;
+	padding: 10px;
+	margin:0 0 20px;
+	border-radius: 7px;	-moz-border-radius: 7px; -webkit-border-radius: 7px; -khtml-border-radius: 7px;
+	-moz-box-shadow: 1px 1px 1px #666; -webkit-box-shadow: 1px 1px 1px #666; box-shadow: 1px 1px 1px #666;
+	font-weight: bold;
+	font-size: 1.25em; 
+	font-family: Arial, Verdana, sans-serif;
+	color: #293869;
+}
+
+/****Digital Archive Spotlight - Uses Grid styles*****/
+#archiveSpotlight { padding: 10px 10px 3px 10px;}
+#archiveSpotlight .block {
+	padding: 10px 14px;
+	margin-bottom: 10px;
+	background-color: #FBFBFB;
+	border: 1px solid #DEDEDE;
+	border-radius: 7px;	-moz-border-radius: 7px; -webkit-border-radius: 7px; -khtml-border-radius: 7px;
+	}
+#archiveSpotlight .digitalArchiveIMG {	width: 170px;  height: 170px;}
+
+/*** .DAthumb {max-width: 170px; max-width:170px; }***/

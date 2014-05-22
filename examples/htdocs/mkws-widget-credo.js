@@ -1,51 +1,79 @@
+// ### This works inefficiently by having multiple teams all run the
+// same search against different sets of targets. A much better
+// approach would be run a single search, with all these panels
+// members of the same team, but picking out only the results relevant
+// to them. That will be more work.
+
 mkws.registerWidgetType('Credo', function() {
-  s = []
+  var that = this;
+
+  this.team.registerTemplate('CredoImage', '\
+      <div>\
+       <a href="{{md-electronic-url}}" target="_blank">\
+        {{#mkws-first md-thumburl}}\
+	  <img src="{{this}}" alt="{{../md-title}}"/>\
+        {{/mkws-first}}\
+	<br/>\
+       </a>\
+       <p>{{md-title}}</p>\
+      </div>\
+');
+
+  var s = []
   s.push('<table>');
 
   // Main panel: encylopaedia and images on the left, topics on the right
-  s.push('<tr>');
+  s.push('<tr class="front">');
 
   s.push('<td class="main">');
-
-  s.push('<div class="encyclopaedia">');
-  s.push('<div class="title">Topic Page: ### title</div>');
-  s.push(this.subwidget('Reference'));
-  s.push('</div>');
-
-  s.push('<div class="images">');
-  s.push('<div class="title">Images</div>');
-  s.push(this.subwidget('Images', { /* ### config */ } ));
-  s.push('</div>');
-
+  s.push(section('encyclopaedia', 'Topic Page: ### title',
+                 this.subwidget('Reference', { _team: 'ref' })));
+  // The Images widget needs to be in our team so we can set its template
+  s.push(section('image', 'Images',
+                 this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
   s.push('</td>');
 
   s.push('<td class="side">');
-
-  s.push('<div class="mindmap">');
-  s.push('<div class="title">Create a Mind Map for ### title</div>');
-  // ### Is there a way to make a mind-map?
-  s.push('</div>');
-
-  s.push('<div class="topics">');
-  s.push('<div class="title">Related Topics</div>');
-  s.push(this.subwidget('Facet', { facet: 'subject' }));
-  s.push('</div>');
-
+  s.push(section('mindmap', 'Create a Mind Map for ### title',
+                 '### Is there a way to make a mind-map?'));
+  s.push(section('topics', 'Related Topics',
+                 this.subwidget('Facet', { facet: 'subject' })));
   s.push('</td>');
 
   s.push('</tr>');
 
-  s.push('<tr>');
-  s.push('</td>');
-  s.push('<div class="entries">');
-  s.push('<div class="title">Credo Entries</div>');
-  s.push(this.subwidget('Records', { /* ### config */ }));
-  s.push('</div>');
-  s.push('</td>');
-  s.push('</tr>');
+  s.push(sectionRow('entries', 'Credo Entries',
+                    1 || this.subwidget('Records', { /* ### config */ })));
+  s.push(sectionRow('articles', 'Articles',
+                    1 || this.subwidget('Records', { /* ### config */ })));
+  s.push(sectionRow('books', 'Books',
+                    1 || this.subwidget('Records', { /* ### config */ })));
+  s.push(sectionRow('news', 'News',
+                    1 || this.subwidget('Records', { /* ### config */ })));
+  s.push(sectionRow('resources', 'Suggested Resources',
+                    1 || this.subwidget('Records', { /* ### config */ })));
 
-  // More TRs for Articles, Books, News, Suggested Resources
   s.push('</table>');
 
   this.node.html(s.join(''));
+
+
+  function section(xclass, title, content) {
+    var s = [];
+    s.push('<div class="' + xclass + ' section">');
+    s.push('<div class="title">' + title + '</div>');
+    s.push('<div class="content">' + content + '</div>');
+    s.push('</div>');
+    return s.join('');
+  }
+
+  function sectionRow(xclass, title, content) {
+    var s = [];
+    s.push('<tr>');
+    s.push('<td colspan="2">');
+    s.push(section(xclass, title, content));
+    s.push('</td>');
+    s.push('</tr>');
+    return s.join('');
+  }
 });

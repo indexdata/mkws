@@ -28,9 +28,11 @@ function widget($, team, type, node) {
 
   // Returns the HTML of a subwidget of the specified type. It gets
   // the same attributes at the parent widget that invokes this
-  // function, except where overrides are passed in.
-  that.subwidget = function(type, overrides) {
-    var attrs = {};
+  // function, except where overrides are passed in. If defaults are
+  // also provided, then these are used when the parent widget
+  // provides no values.
+  that.subwidget = function(type, overrides, defaults) {
+    var attrs = { _team: team.name() };
     
     // Copy locally-set properties from the parent widget
     for (var name in this.config) {
@@ -45,10 +47,20 @@ function widget($, team, type, node) {
       log(this + " overrode property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
     }
 
+    if (defaults) {
+      for (var name in defaults) {
+        if (!attrs[name]) {
+          attrs[name] = defaults[name];
+          log(this + " fell back to default property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
+        }
+      }
+    }
+
     var s = [];
-    s.push('<div class="mkws', type, ' mkwsTeam_', team.name(), '"');
+    s.push('<div class="mkws', type, ' mkwsTeam_', attrs._team, '"');
     for (var name in attrs) {    
-      s.push(' ', name, '="', attrs[name], '"');
+      if (name !== '_team')
+        s.push(' ', name, '="', attrs[name], '"');
     }
     s.push('></div>');
     return s.join('');
