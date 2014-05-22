@@ -1,0 +1,99 @@
+/* submit button color */
+form[name=mkwsSearchForm] > input[type=submit].mkwsButton { 
+  background: #006dcc; 
+  border: 3px outset #006dcc;
+  margin-bottom: 10px;
+}
+
+select.mkwsTeam_AUTO {
+  width: 10em;
+  font-size: 11px;
+  height: 20px;
+}
+
+/* facet links */
+div.mkwsFacet > div.term { background: none; }
+
+/* facet counter for a link */
+div.mkwsFacet > div.term > span { color: #000; }
+
+/* sidebar */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .span2  { width: 190px }
+  .span10 { width: 768px }
+
+  .row-fluid .span10 { width: 72.90598290598291%; }
+  .row-fluid .span2 { width: 23.52991452991453%; }
+}
+
+@media (min-width: 1200px) {
+  .span2  { width: 190px }
+  .span10 { width: 920px }
+
+  .row-fluid .span10 { width: 73.90598290598291%; }
+  .row-fluid .span2 { width: 23.52991452991453%; }
+}
+
+.mkws-autosearch {
+  border-bottom-color: rgb(210, 210, 207);
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-image-outset: 0px;
+  border-image-repeat: stretch;
+  border-image-slice: 100%;
+  border-image-source: none;
+  border-image-width: 1;
+  border-left-color: rgb(210, 210, 207);
+  border-left-style: solid;
+  border-left-width: 1px;
+  border-right-color: rgb(210, 210, 207);
+  border-right-style: solid;
+  border-right-width: 1px;
+  border-top-color: rgb(210, 210, 207);
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border-top-style: solid;
+  border-top-width: 1px;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.mkws-autosearch div.mkwsRecords { 
+  padding: 3px;
+}
+
+.mkws-autosearch h4 {
+  font-size: 90%;
+  margin: 0 0 .6em 0;
+  text-align: center;
+  display: block;
+  background-color: #F2F2EF;
+  border-radius: 8px 8px 0 0;
+  border-bottom: 1px solid #D8D8D8;
+  font-weight: bold;
+  padding: .7em .2em;
+  text-decoration: none;
+}
+
+.mkwsSwitch a, .mkwsLang a, .mkwsFacet a, .mkwsRanking a, .mkwsPager a, .mkwsNavi a, .mkwsRecords a, .mkwsRecord a {
+  color: #0076b2;
+}
+.mkwsTargets table thead tr td {
+  background-color: #0076b2;
+}
+
+.mkwsCurrentPage {
+  background: #0076b2;
+}
+
+input[type=submit].mkwsButton {
+  background: #006dcc;
+}
+
+.mkwsFacet {
+  background: #fff;
+}
+
