@@ -60,7 +60,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push(sectionRow('articles', 'Articles',
                     this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
   s.push(sectionRow('books', 'Books',
-                    1 || this.subwidget('Records', { /* ### config */ })));
+                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
   s.push(sectionRow('news', 'News',
                     1 || this.subwidget('Records', { /* ### config */ })));
   s.push(sectionRow('resources', 'Suggested Resources',
