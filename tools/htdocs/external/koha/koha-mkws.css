@@ -1,6 +1,14 @@
+/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+ * Licence: GPL, http://www.indexdata.com/licences/gpl
+ *
+ * Style sheet for MKWS plugin for Koha
+ * https://mkws.indexdata.com
+ *
+*/
+
 /* submit button color */
-form[name=mkwsSearchForm] > input[type=submit].mkwsButton { 
-  background: #006dcc; 
+form[name=mkwsSearchForm] > input[type=submit].mkwsButton {
+  background: #006dcc;
   border: 3px outset #006dcc;
   margin-bottom: 10px;
 }
@@ -61,7 +69,7 @@ div.mkwsFacet > div.term > span { color: #000; }
   margin-bottom: 5px;
 }
 
-.mkws-autosearch div.mkwsRecords { 
+.mkws-autosearch div.mkwsRecords {
   padding: 3px;
 }
 
@@ -97,3 +105,4 @@ input[type=submit].mkwsButton {
   background: #fff;
 }
 
+/* EOF */
