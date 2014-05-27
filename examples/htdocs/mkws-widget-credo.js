@@ -5,7 +5,13 @@
 //      http://eofdreams.com/fish.html
 //
 Handlebars.registerHelper('mkws-googleurl', function(obj) {
-  return mkws.getParameterByName('q', obj[0]);
+  if (!obj) {
+    return "obj undefined";
+  } else if (!obj[0]) {
+    return "obj[0] undefined, JSON=" + $.toJSON(obj);
+  } else {
+    return mkws.getParameterByName('q', obj[0]);
+  }
 });
 
 
