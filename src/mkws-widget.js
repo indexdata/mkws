@@ -133,6 +133,9 @@ widget.autosearch = function(widget) {
       }
     }
 
+    // Stash this for subsequent inspection
+    widget.team.config().query = query;
+
     widget.team.queue("ready").subscribe(function() {
       // Postpone testing for the configuration items: these are not
       // yet set for Record subclass widgets that fill them in in the
