@@ -107,33 +107,35 @@ function widget($, team, type, node) {
 
 // Utility function for use by all widgets that can invoke autosearch.
 widget.autosearch = function(widget) {
-  widget.team.queue("ready").subscribe(function() {
-    var query = widget.config.autosearch;
-    if (query) {
-      if (query.match(/^!param!/)) {
-        var param = query.replace(/^!param!/, '');
-        query = mkws.getParameterByName(param);
-        widget.log("obtained query '" + query + "' from param '" + param + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-        }
-      } else if (query.match(/^!path!/)) {
-        var index = query.replace(/^!path!/, '');
-        var path = window.location.pathname.split('/');
-        query = path[path.length - index];
-        widget.log("obtained query '" + query + "' from path-component '" + index + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-        }
-      } else if (query.match(/^!var!/)) {
-        var name = query.replace(/^!var!/, '');
-        query = window[name]; // It's ridiculous that this works
-        widget.log("obtained query '" + query + "' from variable '" + name + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
-        }
+  var query = widget.config.autosearch;
+  if (query) {
+    if (query.match(/^!param!/)) {
+      var param = query.replace(/^!param!/, '');
+      query = mkws.getParameterByName(param);
+      widget.log("obtained query '" + query + "' from param '" + param + "'");
+      if (!query) {
+        alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
       }
+    } else if (query.match(/^!path!/)) {
+      var index = query.replace(/^!path!/, '');
+      var path = window.location.pathname.split('/');
+      query = path[path.length - index];
+      widget.log("obtained query '" + query + "' from path-component '" + index + "'");
+      if (!query) {
+        alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+      }
+    } else if (query.match(/^!var!/)) {
+      var name = query.replace(/^!var!/, '');
+      query = window[name]; // It's ridiculous that this works
+      widget.log("obtained query '" + query + "' from variable '" + name + "'");
+      if (!query) {
+        alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
+      }
+    }
+  }
 
+  widget.team.queue("ready").subscribe(function() {
+    if (query) {
       var sortOrder = widget.config.sort;
       var maxrecs = widget.config.maxrecs;
       var perpage = widget.config.perpage;
