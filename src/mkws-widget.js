@@ -135,13 +135,14 @@ widget.autosearch = function(widget) {
   }
 
   if (query) {
+    var sortOrder = widget.config.sort;
+    var maxrecs = widget.config.maxrecs;
+    var perpage = widget.config.perpage;
+    var limit = widget.config.limit;
+    var targets = widget.config.targets;
+    var targetfilter = widget.config.targetfilter;
+
     widget.team.queue("ready").subscribe(function() {
-      var sortOrder = widget.config.sort;
-      var maxrecs = widget.config.maxrecs;
-      var perpage = widget.config.perpage;
-      var limit = widget.config.limit;
-      var targets = widget.config.targets;
-      var targetfilter = widget.config.targetfilter;
       var target = widget.config.target;
       if (target) targetfilter = 'udb=="' + target + '"';
 
