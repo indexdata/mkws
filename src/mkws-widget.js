@@ -134,8 +134,8 @@ widget.autosearch = function(widget) {
     }
   }
 
-  widget.team.queue("ready").subscribe(function() {
-    if (query) {
+  if (query) {
+    widget.team.queue("ready").subscribe(function() {
       var sortOrder = widget.config.sort;
       var maxrecs = widget.config.maxrecs;
       var perpage = widget.config.perpage;
@@ -155,8 +155,8 @@ widget.autosearch = function(widget) {
       widget.log(s);
 
       widget.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
-    }
-  });
+    });
+  }
 };
 
 
