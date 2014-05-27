@@ -133,18 +133,17 @@ widget.autosearch = function(widget) {
       }
     }
 
-    var sortOrder = widget.config.sort;
-    var maxrecs = widget.config.maxrecs;
-    var perpage = widget.config.perpage;
-    var limit = widget.config.limit;
-    var targets = widget.config.targets;
-    var targetfilter = widget.config.targetfilter;
-
     widget.team.queue("ready").subscribe(function() {
-      // Postpone testing for the target configuration item: this is
-      // not set at compile-time for Record subclass widgets that set
-      // it in the subclass, as widget.autosearch is called in the
-      // superclass, before the subclass fiddles with the configuration.
+      // Postpone testing for the configuration items: these are not
+      // yet set for Record subclass widgets that fill them in in the
+      // subclass, as widget.autosearch is called in the superclass,
+      // before the subclass fiddles with the configuration.
+      var sortOrder = widget.config.sort;
+      var maxrecs = widget.config.maxrecs;
+      var perpage = widget.config.perpage;
+      var limit = widget.config.limit;
+      var targets = widget.config.targets;
+      var targetfilter = widget.config.targetfilter;
       var target = widget.config.target;
       if (target) targetfilter = 'udb=="' + target + '"';
 
