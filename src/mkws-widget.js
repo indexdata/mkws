@@ -132,9 +132,7 @@ widget.autosearch = function(widget) {
         alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
       }
     }
-  }
 
-  if (query) {
     var sortOrder = widget.config.sort;
     var maxrecs = widget.config.maxrecs;
     var perpage = widget.config.perpage;
