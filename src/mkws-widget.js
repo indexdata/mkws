@@ -141,6 +141,10 @@ widget.autosearch = function(widget) {
     var targetfilter = widget.config.targetfilter;
 
     widget.team.queue("ready").subscribe(function() {
+      // Postpone testing for the target configuration item: this is
+      // not set at compile-time for Record subclass widgets that set
+      // it in the subclass, as widget.autosearch is called in the
+      // superclass, before the subclass fiddles with the configuration.
       var target = widget.config.target;
       if (target) targetfilter = 'udb=="' + target + '"';
 
