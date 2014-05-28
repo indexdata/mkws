@@ -206,3 +206,8 @@
 
 .mkwsProgress .mkwsDone { color: #005701 }
 .mkwsProgress .mkwsWaiting { color: #c0c0c0 }
+
+.mkwsResults table {
+  display: inline-table /* only for Firefox! */
+}
+
