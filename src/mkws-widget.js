@@ -128,12 +128,12 @@ function widget($, team, type, node) {
 
   // Utility function for all widgets that want to hide in narrow windows
   that.hideWhenNarrow = function() {
-    var widget = this;
-    widget.team.queue("resize-narrow").subscribe(function(n) {
-      widget.node.hide();
+    var that = this;
+    this.team.queue("resize-narrow").subscribe(function(n) {
+      that.node.hide();
     });
-    widget.team.queue("resize-wide").subscribe(function(n) {
-      widget.node.show();
+    this.team.queue("resize-wide").subscribe(function(n) {
+      that.node.show();
     });
   };
 
