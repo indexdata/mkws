@@ -216,7 +216,7 @@ mkws.registerWidgetType('Switch', function() {
 <a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
 | \
 </span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
-  widget.hideWhenNarrow(this);
+  this.hideWhenNarrow();
 });
 
 
@@ -372,7 +372,7 @@ mkws.registerWidgetType('Lang', function() {
   }
 
   this.node.html(data);
-  widget.hideWhenNarrow(this);
+  this.hideWhenNarrow();
 
 
   // set or re-set "lang" URL parameter
