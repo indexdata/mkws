@@ -126,6 +126,17 @@ function widget($, team, type, node) {
     }
   };
 
+  // Utility function for all widgets that want to hide in narrow windows
+  that.hideWhenNarrow = function() {
+    var widget = this;
+    widget.team.queue("resize-narrow").subscribe(function(n) {
+      widget.node.hide();
+    });
+    widget.team.queue("resize-wide").subscribe(function(n) {
+      widget.node.show();
+    });
+  };
+
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
@@ -164,16 +175,3 @@ function widget($, team, type, node) {
 
   return that;
 }
-
-
-// Utility function for all widgets that want to hide in narrow windows
-widget.hideWhenNarrow = function(widget) {
-  widget.team.queue("resize-narrow").subscribe(function(n) {
-    widget.node.hide();
-  });
-  widget.team.queue("resize-wide").subscribe(function(n) {
-    widget.node.show();
-  });
-};
-
-
