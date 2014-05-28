@@ -103,5 +103,5 @@ help:
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=8 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
 
