@@ -66,6 +66,67 @@ function widget($, team, type, node) {
     return s.join('');
   };
 
+  // Utility function for use by all widgets that can invoke autosearch.
+  that.autosearch = function() {
+    var widget = this;
+    var query = widget.config.autosearch;
+    if (query) {
+      if (query.match(/^!param!/)) {
+        var param = query.replace(/^!param!/, '');
+        query = mkws.getParameterByName(param);
+        widget.log("obtained query '" + query + "' from param '" + param + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
+        }
+      } else if (query.match(/^!path!/)) {
+        var index = query.replace(/^!path!/, '');
+        var path = window.location.pathname.split('/');
+        query = path[path.length - index];
+        widget.log("obtained query '" + query + "' from path-component '" + index + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
+        }
+      } else if (query.match(/^!var!/)) {
+        var name = query.replace(/^!var!/, '');
+        query = window[name]; // It's ridiculous that this works
+        widget.log("obtained query '" + query + "' from variable '" + name + "'");
+        if (!query) {
+          alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
+        }
+      }
+
+      // Stash this for subsequent inspection
+      widget.team.config().query = query;
+
+      widget.team.queue("ready").subscribe(function() {
+        // Postpone testing for the configuration items: these are not
+        // yet set for Record subclass widgets that fill them in in the
+        // subclass, as widget.autosearch is called in the superclass,
+        // before the subclass fiddles with the configuration.
+        var sortOrder = widget.config.sort;
+        var maxrecs = widget.config.maxrecs;
+        var perpage = widget.config.perpage;
+        var limit = widget.config.limit;
+        var targets = widget.config.targets;
+        var targetfilter = widget.config.targetfilter;
+        var target = widget.config.target;
+        if (target) targetfilter = 'udb=="' + target + '"';
+
+        var s = "running auto search: '" + query + "'";
+        if (sortOrder) s += " sorted by '" + sortOrder + "'";
+        if (maxrecs) s += " restricted to " + maxrecs + " records";
+        if (perpage) s += " with " + perpage + " per page";
+        if (limit) s += " limited by '" + limit + "'";
+        if (targets) s += " in targets '" + targets + "'";
+        if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
+        widget.log(s);
+
+        widget.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
+      });
+    }
+  };
+
+
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
     if (a.name === 'data-mkws-config') {
@@ -103,66 +164,6 @@ function widget($, team, type, node) {
 
   return that;
 }
-
-
-// Utility function for use by all widgets that can invoke autosearch.
-widget.autosearch = function(widget) {
-  var query = widget.config.autosearch;
-  if (query) {
-    if (query.match(/^!param!/)) {
-      var param = query.replace(/^!param!/, '');
-      query = mkws.getParameterByName(param);
-      widget.log("obtained query '" + query + "' from param '" + param + "'");
-      if (!query) {
-        alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-      }
-    } else if (query.match(/^!path!/)) {
-      var index = query.replace(/^!path!/, '');
-      var path = window.location.pathname.split('/');
-      query = path[path.length - index];
-      widget.log("obtained query '" + query + "' from path-component '" + index + "'");
-      if (!query) {
-        alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-      }
-    } else if (query.match(/^!var!/)) {
-      var name = query.replace(/^!var!/, '');
-      query = window[name]; // It's ridiculous that this works
-      widget.log("obtained query '" + query + "' from variable '" + name + "'");
-      if (!query) {
-        alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
-      }
-    }
-
-    // Stash this for subsequent inspection
-    widget.team.config().query = query;
-
-    widget.team.queue("ready").subscribe(function() {
-      // Postpone testing for the configuration items: these are not
-      // yet set for Record subclass widgets that fill them in in the
-      // subclass, as widget.autosearch is called in the superclass,
-      // before the subclass fiddles with the configuration.
-      var sortOrder = widget.config.sort;
-      var maxrecs = widget.config.maxrecs;
-      var perpage = widget.config.perpage;
-      var limit = widget.config.limit;
-      var targets = widget.config.targets;
-      var targetfilter = widget.config.targetfilter;
-      var target = widget.config.target;
-      if (target) targetfilter = 'udb=="' + target + '"';
-
-      var s = "running auto search: '" + query + "'";
-      if (sortOrder) s += " sorted by '" + sortOrder + "'";
-      if (maxrecs) s += " restricted to " + maxrecs + " records";
-      if (perpage) s += " with " + perpage + " per page";
-      if (limit) s += " limited by '" + limit + "'";
-      if (targets) s += " in targets '" + targets + "'";
-      if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
-      widget.log(s);
-
-      widget.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
-    });
-  }
-};
 
 
 // Utility function for all widgets that want to hide in narrow windows
