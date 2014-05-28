@@ -43,7 +43,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push('<tr class="front">');
 
   s.push('<td class="main">');
-  s.push(section('encyclopaedia', 'Topic Page: ### title',
+  s.push(section('encyclopaedia', 'Topic Page: <span class="x-mkws-title"/>',
                  this.subwidget('Reference', { _team: 'ref' })));
   // The Images widget needs to be in our team so we can set its template
   s.push(section('image', 'Images',
@@ -51,7 +51,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</td>');
 
   s.push('<td class="side">');
-  s.push(section('mindmap', 'Create a Mind Map for ### title',
+  s.push(section('mindmap', 'Create a Mind Map for <span class="x-mkws-title"/>',
                  this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
@@ -75,6 +75,14 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</table>');
 
   this.node.html(s.join(''));
+
+  // Fill in the titles from the query once widgets have all been prepared
+  var that = this;
+  this.team.queue("ready").subscribe(function() {
+    var query = that.config.query;
+    that.log("got query '" + query + "' from team config");
+    mkws.$('.x-mkws-title').html(query);
+  });
 
 
   function section(xclass, title, content) {
