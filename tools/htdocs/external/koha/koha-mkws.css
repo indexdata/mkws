@@ -16,7 +16,7 @@ form[name=mkwsSearchForm] > input[type=submit].mkwsButton {
 select.mkwsTeam_AUTO {
   width: 10em;
   font-size: 11px;
-  height: 20px;
+  height: 25px;
 }
 
 /* facet links */
