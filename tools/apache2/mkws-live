@@ -19,6 +19,7 @@
     RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
     RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
     RewriteRule /service-proxy-credoauth  /service-proxy/?command=auth&action=login&username=credo&password=emu [P] # [NE,P]
+    RewriteRule /service-proxy-kohaauth  /service-proxy/?command=auth&action=check,login&username=mkwstest&password=mkwstest [P]
 
     # The following rule allows the server to accept service-proxy
     # requests that begin with an escaped "%3F" rather than a literal
