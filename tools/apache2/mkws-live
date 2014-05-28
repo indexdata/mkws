@@ -16,7 +16,7 @@
     RewriteLog /var/log/apache2/mkws-rewrite.log 
 
     # Credential-hiding rewrite rules for standard MKWS account, testing account and various application accounts
-    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=mkws&password=mkws [P] # [NE,P]
+    RewriteRule /service-proxy-auth /service-proxy/?command=check,auth&action=login&username=mkws&password=mkws [P] # [NE,P]
     RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
     RewriteRule /service-proxy-credoauth  /service-proxy/?command=auth&action=login&username=credo&password=emu [P] # [NE,P]
     RewriteRule /service-proxy-kohaauth  /service-proxy/?command=auth&action=check,login&username=mkwstest&password=mkwstest [P]
