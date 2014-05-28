@@ -140,7 +140,7 @@ mkws.registerWidgetType('Records', function() {
     }
   });
 
-  widget.autosearch(that);
+  that.autosearch();
 });
 
 
@@ -265,7 +265,7 @@ mkws.registerWidgetType('Results', function() {
   </tr>\
 </table>');
 
-  widget.autosearch(this);
+  this.autosearch();
 });
 
 

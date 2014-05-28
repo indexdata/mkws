@@ -29,5 +29,5 @@ mkws.registerWidgetType('ReferenceUniverse', function() {
   this.team.queue("records").subscribe(function(data) {
     that.node.html(template(data));
   }); 
-  widget.autosearch(that);
+  that.autosearch();
 });

@@ -17,7 +17,7 @@ mkws.registerWidgetType('Termlists', function() {
   }
   this.node.html(acc.join(''));
 
-  widget.autosearch(this);
+  this.autosearch();
 });
 
 
