@@ -79,10 +79,17 @@ mkws.registerWidgetType('Credo', function() {
   // Fill in the titles from the query once widgets have all been prepared
   var that = this;
   this.team.queue("ready").subscribe(function() {
-    var query = that.config.query;
+    var query = toTitleCase(that.config.query);
     that.log("got query '" + query + "' from team config");
     mkws.$('.x-mkws-title').html(query);
     mkws.$('title').html("MKWS: " + query);
+
+    // Derived from http://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
+    function toTitleCase(str) {
+      return str.replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1);
+      });
+    }
   });
 
 
