@@ -82,6 +82,7 @@ mkws.registerWidgetType('Credo', function() {
     var query = that.config.query;
     that.log("got query '" + query + "' from team config");
     mkws.$('.x-mkws-title').html(query);
+    mkws.$('title').html("MKWS: " + query);
   });
 
 
