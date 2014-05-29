@@ -44,7 +44,7 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<td class="main">');
   s.push(section('encyclopaedia', 'Topic Page: <span class="x-mkws-title"/>',
-                 this.subwidget('Reference', { _team: 'ref' })));
+                 this.subwidget('Reference', { _team: 'ref', paragraphs: 1 })));
   // The Images widget needs to be in our team so we can set its template
   s.push(section('image', 'Images',
                  this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
