@@ -8,9 +8,15 @@ Handlebars.registerHelper('mkws-json', function(obj) {
 // This is intended to handle paragraphs from Wikipedia, hence the
 // rather hacky code to remove numbered references.
 //
-Handlebars.registerHelper('mkws-paragraphs', function(obj) {
+Handlebars.registerHelper('mkws-paragraphs', function(obj, count) {
   var acc = [];
-  for (var i = 0; i < obj.length; i++) {
+
+  // For some reason, Handlebars provides the value
+  // {"hash":{},"data":{}} for undefined parameters
+  if (count.hasOwnProperty('hash')) count = undefined;
+  if (!count || count > obj.length) count = obj.length;
+
+  for (var i = 0; i < count; i++) {
     acc.push('<p>', obj[i].replace(/\[[0-9,]+\]/g, ''), '</p>');
   }
   return acc.join('');
