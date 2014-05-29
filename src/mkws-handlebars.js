@@ -12,8 +12,10 @@ Handlebars.registerHelper('mkws-paragraphs', function(obj, count) {
   var acc = [];
 
   // For some reason, Handlebars provides the value
-  // {"hash":{},"data":{}} for undefined parameters
-  if (count.hasOwnProperty('hash') || count == 0 || count > obj.length) {
+  // {"hash":{},"data":{}} for parameters that are not provided. So we
+  // have to be prepared for actual numbers, explicitly undefined
+  // values and this dumb magic value.
+  if (count === undefined || count.hasOwnProperty('hash') || count == 0 || count > obj.length) {
     count = obj.length;
   }
 
