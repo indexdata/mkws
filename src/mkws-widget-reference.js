@@ -12,7 +12,7 @@ mkws.registerWidgetType('Reference', function() {
 {{#if md-title-responsibility}}\
   <i>{{md-title-responsibility}}</i>\
 {{/if}}\
-  {{{mkws-paragraphs md-description}}}\
+  {{{mkws-paragraphs md-description ' + this.config.paragraphs + '}}}\
   <p class="mkwsCredit">Wikipedia</p>\
 ');
 });
