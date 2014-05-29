@@ -13,8 +13,9 @@ Handlebars.registerHelper('mkws-paragraphs', function(obj, count) {
 
   // For some reason, Handlebars provides the value
   // {"hash":{},"data":{}} for undefined parameters
-  if (count.hasOwnProperty('hash')) count = undefined;
-  if (!count || count > obj.length) count = obj.length;
+  if (count.hasOwnProperty('hash') || count == 0 || count > obj.length) {
+    count = obj.length;
+  }
 
   for (var i = 0; i < count; i++) {
     acc.push('<p>', obj[i].replace(/\[[0-9,]+\]/g, ''), '</p>');
