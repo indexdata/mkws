@@ -14,7 +14,7 @@ IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bin/bomb.pl
 TMP_DIR=	./logs
-APACHE_HTTPD:=	$(shell env PATH=$$PATH:/usr/sbin which apache2 httpd false)
+APACHE_HTTPD:=	$(shell env PATH=$$PATH:/usr/sbin which apache2 httpd false | head -1 )
 
 all: check
 
