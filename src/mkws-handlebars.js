@@ -1,13 +1,26 @@
 // Handlebars helpers
+
 Handlebars.registerHelper('mkws-json', function(obj) {
   return $.toJSON(obj);
 });
 
 
-Handlebars.registerHelper('mkws-paragraphs', function(obj) {
+// This is intended to handle paragraphs from Wikipedia, hence the
+// rather hacky code to remove numbered references.
+//
+Handlebars.registerHelper('mkws-paragraphs', function(obj, count) {
   var acc = [];
-  for (var i = 0; i < obj.length; i++) {
-    acc.push('<p>', obj[i], '</p>');
+
+  // For some reason, Handlebars provides the value
+  // {"hash":{},"data":{}} for parameters that are not provided. So we
+  // have to be prepared for actual numbers, explicitly undefined
+  // values and this dumb magic value.
+  if (count === undefined || count.hasOwnProperty('hash') || count == 0 || count > obj.length) {
+    count = obj.length;
+  }
+
+  for (var i = 0; i < count; i++) {
+    acc.push('<p>', obj[i].replace(/\[[0-9,]+\]/g, ''), '</p>');
   }
   return acc.join('');
 });

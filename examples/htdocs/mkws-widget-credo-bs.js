@@ -25,7 +25,7 @@ mkws.registerWidgetType('Credo', function() {
   var that = this;
 
   this.team.registerTemplate('CredoImage', '\
-      <div>\
+      <div class="col-md-3 col-sm-4 col-xs-6">\
        <a href="{{mkws-googleurl md-electronic-url}}" target="_blank">\
         {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
@@ -37,43 +37,41 @@ mkws.registerWidgetType('Credo', function() {
 ');
 
   var s = []
-  s.push('<table>');
-
   // Main panel: encylopaedia and images on the left, topics on the right
-  s.push('<tr class="front">');
+  s.push('<div class="row">');
 
-  s.push('<td class="main">');
-  s.push(section('encyclopaedia', 'Topic Page: <span class="x-mkws-title"/>',
-                 this.subwidget('Reference', { _team: 'ref', paragraphs: 1 })));
+  s.push('<div class="jumbotron panel col-md-8"><div class="panel-body">');
+  //s.push(section('encyclopaedia', 'Topic Page: <span class="x-mkws-title"/>',
+  s.push(this.subwidget('Reference', { _team: 'ref', paragraphs: 1 }));
   // The Images widget needs to be in our team so we can set its template
-  s.push(section('image', 'Images',
-                 this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
-  s.push('</td>');
+  s.push('</div></div>');
 
-  s.push('<td class="side">');
+  s.push('<div class="col-md-4">');
   s.push(section('mindmap', 'Create a Mind Map for <span class="x-mkws-title"/>',
                  this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
-  s.push('</td>');
+  s.push('</div>');
 
-  s.push('</tr>');
+  s.push('</div>');
+  
+  s.push('<div class="row">');
+  s.push(section('image col-md-12', 'Images', this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
+  s.push('</div>');
+  
 
-  s.push('<tr><td colspan="2"><hr class="divider"/></td></tr>');
-
-  s.push(sectionRow('entries', 'Credo Entries',
+  s.push('<div class="row clearfix">');
+  s.push(section('entries clearfix col-md-4 col-sm-6', 'Credo Entries',
                     this.subwidget('Records', { _team: 'main' })));
-  s.push(sectionRow('articles', 'Articles',
+  s.push(section('articles clearfix col-md-4 col-sm-6', 'Articles',
                     this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
-  s.push(sectionRow('books', 'Books',
+  s.push(section('books clearfix col-md-4 col-sm-6', 'Books',
                     this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
-  s.push(sectionRow('news', 'News',
+  s.push(section('news col-md-4 col-sm-6', 'News',
                     this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
-  s.push(sectionRow('resources', 'Suggested Resources',
+  s.push(section('resources col-md-4 col-sm-6', 'Suggested Resources',
                     "### Not yet implemented"));
-
-  s.push('</table>');
-
+  s.push('</div>');
   this.node.html(s.join(''));
 
   // Fill in the titles from the query once widgets have all been prepared
@@ -83,6 +81,9 @@ mkws.registerWidgetType('Credo', function() {
     that.log("got query '" + query + "' from team config");
     mkws.$('.x-mkws-title').html(query);
     mkws.$('title').html("MKWS: " + query);
+
+    mkws.$(".mkwsSummary img").addClass("media-object");
+    console.log(mkws.$("body").html());
 
     // Derived from http://stackoverflow.com/questions/196972/convert-string-to-title-case-with-javascript
     function toTitleCase(str) {
@@ -95,20 +96,18 @@ mkws.registerWidgetType('Credo', function() {
 
   function section(xclass, title, content) {
     var s = [];
-    s.push('<div class="' + xclass + ' section">');
-    s.push('<div class="title">' + title + '</div>');
-    s.push('<div class="content">' + content + '</div>');
-    s.push('</div>');
+    s.push('<div class="' + xclass + '"><div class="panel panel-default">');
+    s.push('<div class="panel-heading title"><h3 class="panel-title">' + title + '</h3></div>');
+    s.push('<div class="panel-body">' + content + '</div>');
+    s.push('</div></div>');
     return s.join('');
   }
 
   function sectionRow(xclass, title, content) {
     var s = [];
-    s.push('<tr>');
-    s.push('<td colspan="2">');
+    s.push('<div class="row">');
     s.push(section(xclass, title, content));
-    s.push('</td>');
-    s.push('</tr>');
+    s.push('</div>');
     return s.join('');
   }
 });

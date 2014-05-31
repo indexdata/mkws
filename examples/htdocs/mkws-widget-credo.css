@@ -77,3 +77,12 @@
     width: 98%;
 }
 
+.mkwsCredit {
+    font-size: small;
+    text-align: right;
+}
+
+.mkwsCredit::before {
+    content: "Source: ";
+    font-weight: bold;
+}
