@@ -22,3 +22,13 @@
     margin: 0 0 1em 2em;
     border: 0.5em solid white;
 }
+
+.mkwsCredit {
+    font-size: small;
+    text-align: right;
+}
+
+.mkwsCredit::before {
+    content: "Source: ";
+    font-weight: bold;
+}
