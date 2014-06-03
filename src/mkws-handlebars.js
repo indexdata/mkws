@@ -18,7 +18,7 @@ Handlebars.registerHelper('mkws-paragraphs', function(obj, nPara, nSent) {
   if (nPara === undefined || nPara.hasOwnProperty('hash') || nPara == 0 || nPara > obj.length) {
     nPara = obj.length;
   }
-  if (nSent === undefined || nSent.hasOwnProperty('hash') || nSent == 0 || nSent > obj.length) {
+  if (nSent === undefined || nSent.hasOwnProperty('hash') || nSent == 0) {
     nSent = Infinity;
   }
 
