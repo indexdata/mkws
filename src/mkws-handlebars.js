@@ -8,20 +8,34 @@ Handlebars.registerHelper('mkws-json', function(obj) {
 // This is intended to handle paragraphs from Wikipedia, hence the
 // rather hacky code to remove numbered references.
 //
-Handlebars.registerHelper('mkws-paragraphs', function(obj, count) {
+Handlebars.registerHelper('mkws-paragraphs', function(obj, nPara, nSent) {
   var acc = [];
 
   // For some reason, Handlebars provides the value
   // {"hash":{},"data":{}} for parameters that are not provided. So we
   // have to be prepared for actual numbers, explicitly undefined
   // values and this dumb magic value.
-  if (count === undefined || count.hasOwnProperty('hash') || count == 0 || count > obj.length) {
-    count = obj.length;
+  if (nPara === undefined || nPara.hasOwnProperty('hash') || nPara == 0 || nPara > obj.length) {
+    nPara = obj.length;
+  }
+  if (nSent === undefined || nSent.hasOwnProperty('hash') || nSent == 0 || nSent > obj.length) {
+    nSent = Infinity;
   }
 
-  for (var i = 0; i < count; i++) {
-    acc.push('<p>', obj[i].replace(/\[[0-9,]+\]/g, ''), '</p>');
+  for (var i = 0; i < nPara; i++) {
+    // Remove numbered references such as "[1,3,4]" from text
+    var text = obj[i].replace(/\[[0-9,]+\]/g, '');
+    // Next line from http://stackoverflow.com/questions/18914629/split-string-into-sentences-in-javascript
+    var sentences = text.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|");
+    if (sentences.length > nSent)
+      sentences.length = nSent;
+
+    acc.push('<p>', sentences.join(' '), '</p>');
+    nSent -= sentences.length;
+    if (nSent == 0)
+      break;
   }
+
   return acc.join('');
 });
 
