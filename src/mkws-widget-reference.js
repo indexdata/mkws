@@ -2,6 +2,8 @@ mkws.registerWidgetType('Reference', function() {
   mkws.promotionFunction('Record').call(this);
   if (!this.config.target) this.config.target = 'wikimedia_wikipedia_single_result';
   if (!this.config.template) this.config.template = 'Reference';
+  var nPara = this.config.paragraphs || 0;
+  var nSent = this.config.sentences || 0;
 
   this.team.registerTemplate('Reference', '\
   <img src="{{md-thumburl}}" alt="{{md-title}}">\
@@ -12,7 +14,7 @@ mkws.registerWidgetType('Reference', function() {
 {{#if md-title-responsibility}}\
   <i>{{md-title-responsibility}}</i>\
 {{/if}}\
-  {{{mkws-paragraphs md-description ' + this.config.paragraphs + '}}}\
+  {{{mkws-paragraphs md-description ' + nPara + ' ' + nSent + '}}}\
   <p class="mkwsCredit">Wikipedia</p>\
 ');
 });
