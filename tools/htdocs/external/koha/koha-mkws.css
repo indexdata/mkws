@@ -105,4 +105,17 @@ input[type=submit].mkwsButton {
   background: #fff;
 }
 
+/********************************************************************************
+ * Koha + mkws-widget-reference.css 
+ */
+.mkwsReference h1 a { color: #0076b2; }
+.mkwsReference {
+    border: none;
+    background: none;
+    border-radius: none;
+    -moz-border-radius: none;
+    -webkit-border-radius: none;
+}
+
 /* EOF */
+
