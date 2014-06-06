@@ -126,6 +126,7 @@ function team($, teamName) {
       queue("firstrecords").publish(hitcount);
     }
     if (parseInt(data.activeclients[0], 10) === 0) {
+      log("complete");
       queue("complete").publish(hitcount);
     }
   }
