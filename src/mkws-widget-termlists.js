@@ -65,4 +65,6 @@ mkws.registerWidgetType('Facet', function() {
 
     that.node.html(acc.join(''));
   });
+
+  this.autosearch();
 });
