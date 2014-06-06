@@ -31,6 +31,7 @@ div.mkwsFacet > div.term > span { color: #000; }
   .span10 { width: 768px }
 
   .row-fluid .span10 { width: 72.90598290598291%; }
+  .row-fluid .span7 { width: 45.26495726495726%;; }
   .row-fluid .span2 { width: 23.52991452991453%; }
 }
 
@@ -39,6 +40,7 @@ div.mkwsFacet > div.term > span { color: #000; }
   .span10 { width: 920px }
 
   .row-fluid .span10 { width: 73.90598290598291%; }
+  .row-fluid .span7 { width: 48.26495726495726%;; }
   .row-fluid .span2 { width: 23.52991452991453%; }
 }
 
@@ -106,7 +108,7 @@ input[type=submit].mkwsButton {
 }
 
 /********************************************************************************
- * Koha + mkws-widget-reference.css 
+ * Koha + mkws-widget-reference.css
  */
 .mkwsReference h1 a { color: #0076b2; }
 .mkwsReference {
@@ -118,4 +120,3 @@ input[type=submit].mkwsButton {
 }
 
 /* EOF */
-
