@@ -95,8 +95,17 @@ function widget($, team, type, node) {
         }
       }
 
-      // Stash this for subsequent inspection
-      this.team.config().query = query;
+      var old = this.team.config().query;
+      if (!old) {
+        // Stash this for subsequent inspection
+        this.team.config().query = query;
+      } else if (old === query) {
+        this.log("duplicate autosearch: '" + query + "': ignoring");
+        return;
+      } else {
+        this.log("conflicting autosearch: '" + query + "' vs '" + old + "': ignoring");
+        return;
+      }
 
       this.team.queue("ready").subscribe(function() {
         // Postpone testing for the configuration items: these are not
