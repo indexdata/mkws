@@ -30,10 +30,10 @@
     </Location> 
 
     # jasmine test account
-    RewriteRule /service-proxy-testauth  /service-proxy/?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
+    RewriteRule /service-proxy-testauth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwstest&password=mkwstest [P] # [NE,P]
 
     # mkws devel account (e.g. memached testing)
-    RewriteRule /service-proxy-auth  /service-proxy/?command=auth&action=login&username=mkwsdev&password=mkwsdev [P] # [NE,P]
+    RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwsdev&password=mkwsdev [P] # [NE,P]
 
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
