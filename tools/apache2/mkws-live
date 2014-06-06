@@ -19,7 +19,7 @@
     RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)? 	/service-proxy/$2?command=auth&action=check,login&username=mkws&password=mkws [P]
     RewriteRule /service-proxy-testauth(/)?(;jsessionid=.+)? 	/service-proxy/$2?command=auth&action=check,login&username=mkwstest&password=mkwstest [P]
     RewriteRule /service-proxy-credoauth(/)?(;jsessionid=.+)?  	/service-proxy/$2?command=auth&action=check,login&username=credo&password=emu [P]
-    RewriteRule /service-proxy-kohaauth(/)?(;jsessionid=.+)?  	/service-proxy/$2?command=auth&action=check,check,login&username=kohademo&password=kohademo [P]
+    RewriteRule /service-proxy-kohaauth(/)?(;jsessionid=.+)?  	/service-proxy/$2?command=auth&action=check,login&username=kohademo&password=kohademo [P]
 
     # The following rule allows the server to accept service-proxy
     # requests that begin with an escaped "%3F" rather than a literal
