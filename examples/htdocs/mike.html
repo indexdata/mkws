@@ -2,10 +2,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Reference Universe widget</title>
-    <link rel="stylesheet" type="text/css" href="mkws-widget-credo.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
     <link rel="stylesheet" type="text/css" href="//x.mkws.indexdata.com/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/external/koha/koha-mkws.css" />
     <script type="text/javascript">
-      var mkws_config = { service_proxy_auth: "//mkws.indexdata.com/service-proxy-credoauth" };
+      var mkws_config = {
+        facets: ["xtargets"],
+        service_proxy_auth: "//mkws.indexdata.com/service-proxy-testauth"
+      };
     </script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="//x.mkws.indexdata.com/jquery.json-2.4.js"></script>
@@ -27,6 +31,8 @@
     <script type="text/javascript" src="mkws-widget-credo.js"></script>
   </head>
   <body>
-    <div class='mkwsReference' sentences='2' autosearch='!param!q'>result will appear here</div>
+    <div class='mkwsReference' autosearch='copenhagen' sentences='1'>result will appear here</div>
+    <hr/>
+    <div class='mkwsFacet mkwsTeam_xtargets' facet='xtargets' autosearch='copenhagen'>termlists facets will appear here</div>
   </body>
 </html>
