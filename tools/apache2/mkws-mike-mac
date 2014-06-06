@@ -13,7 +13,7 @@
     RewriteEngine on
     RewriteLogLevel 1
     RewriteLog /opt/local/apache2/logs/spclient-rewrite.log 
-    RewriteRule /service-proxy-auth /service-proxy/?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
+    RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)? /service-proxy/$2?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/

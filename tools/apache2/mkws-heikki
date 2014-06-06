@@ -32,7 +32,7 @@
     SetOutputFilter DEFLATE
   </Location>
 
-  RewriteRule /service-proxy-auth/ /service-proxy/?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
+  RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)? /service-proxy/$2?command=auth&action=login&username=demo&password=demo [P] # [NE,P]
 
   # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
