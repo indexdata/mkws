@@ -25,7 +25,7 @@ mkws.registerWidgetType('Credo', function() {
   var that = this;
 
   this.team.registerTemplate('CredoImage', '\
-      <div class="col-md-3 col-sm-4 col-xs-6">\
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">\
        <a href="{{mkws-googleurl md-electronic-url}}" target="_blank">\
         {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
