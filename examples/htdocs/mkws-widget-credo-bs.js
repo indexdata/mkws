@@ -47,8 +47,6 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</div></div>');
 
   s.push('<div class="col-md-4">');
-  s.push(section('mindmap', 'Create a Mind Map for <span class="x-mkws-title"/>',
-                 this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
   s.push('</div>');
@@ -69,8 +67,6 @@ mkws.registerWidgetType('Credo', function() {
                     this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
   s.push(section('news col-md-4 col-sm-6', 'News',
                     this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
-  s.push(section('resources col-md-4 col-sm-6', 'Suggested Resources',
-                    "### Not yet implemented"));
   s.push('</div>');
   this.node.html(s.join(''));
 
@@ -110,9 +106,4 @@ mkws.registerWidgetType('Credo', function() {
     s.push('</div>');
     return s.join('');
   }
-});
-
-
-mkws.registerWidgetType('Mindmap', function() {
-  this.node.html("### We do not yet have a Mindmap widget");
 });
