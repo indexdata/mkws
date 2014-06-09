@@ -11,14 +11,15 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < VERSION)
 
-COMPONENTS = mkws-handlebars.js \
+COMPONENTS = mkws-handlebars.js\
 	mkws-core.js mkws-team.js mkws-filter.js \
+	mkws-templates.js\
 	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
 	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
 	mkws-widget-record.js mkws-widget-reference.js mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
-	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
+	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
 
 INSTALLABLE = mkws-jquery.js VERSION NEWS $(GENERATED)
 
@@ -92,6 +93,9 @@ mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
 	cat $(COMPONENTS) > $@
 	chmod 444 $@
+
+mkws-templates.js:
+	handlebars -n mkws.defaultTemplates *.templates/*.handlebars -f mkws-templates.js
 
 distclean: clean
 	rm -f *.orig *.bak *.rej

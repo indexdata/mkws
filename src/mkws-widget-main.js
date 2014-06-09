@@ -116,28 +116,25 @@ mkws.registerWidgetType('Records', function() {
   var team = this.team;
 
   this.team.queue("records").subscribe(function(data) {
-    var html = [];
     for (var i = 0; i < data.hits.length; i++) {
       var hit = data.hits[i];
       that.team.queue("record").publish(hit);
-      var divId = team.recordElementId(hit.recid[0]);
-      html.push('<div class="mkwsSummary mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
+      hit.detailLinkId = team.recordElementId(hit.recid[0]);
+      hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
+      hit.containerClass = "mkwsSummary mkwsTeam_" + team.name();
+      hit.containerClass += " " + hit.detailLinkId;
       // ### At some point, we may be able to move the
       // m_currentRecordId and m_currentRecordData members
       // from the team object into this widget.
       if (hit.recid == team.currentRecordId()) {
-        if (team.currentRecordData())
-          html.push(team.renderDetails(team.currentRecordData()));
+        if (team.currentRecordData()) {
+          hit.renderedDetails = team.renderDetails(team.currentRecordData());
+          console.log(hit.renderedDetails); 
+        } 
       }
     }
-    that.node.html(html.join(''));
-
-    function renderSummary(hit) {
-      var template = team.loadTemplate(that.config.template || "Summary");
-      hit._id = team.recordElementId(hit.recid[0]);
-      hit._onclick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
-      return template(hit);
-    }
+    var template = team.loadTemplate(that.config.template || "Records");
+    that.node.html(template({"hits": data.hits}));
   });
 
   that.autosearch();

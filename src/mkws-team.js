@@ -388,32 +388,34 @@ function team($, teamName) {
 
   function loadTemplate(name) {
     var template = m_template[name];
-
-    if (template === undefined) {
-      // Fall back to generic template if there is no team-specific one
+    if (template === undefined && Handlebars.compile) {
       var source;
       var node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
       if (node && node.length < 1) {
         node = $(".mkwsTemplate_" + name);
       }
-      if (node) {
-        source = node.html();
+      if (node) source = node.html();
+      if (!source) source = m_templateText[name];
+      if (source) {
+        template = Handlebars.compile(source);
+        log("compiled template '" + name + "'");
       }
-
-      if (!source) {
-        source = m_templateText[name];
-      }
-      if (!source) {
-        source = mkws.defaultTemplate(name);
-      }
-
-      template = Handlebars.compile(source);
-      log("compiled template '" + name + "'");
-      m_template[name] = template;
     }
-
-    return template;
-  }
+    //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
+    if (template === undefined && Handlebars.templates) {
+      template = Handlebars.templates[name];
+    }
+    if (template === undefined && mkws.defaultTemplates) {
+      template = mkws.defaultTemplates[name];
+    }
+    if (template) {
+      m_template[name] = template;
+      return template;
+    }
+    else {
+      alert("Missing MKWS template for " + name);
+    }  
+    }
   that.loadTemplate = loadTemplate;
 
 
