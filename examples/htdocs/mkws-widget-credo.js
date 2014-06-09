@@ -59,14 +59,14 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<tr><td colspan="2"><hr class="divider"/></td></tr>');
 
-  s.push(sectionRow('entries', 'Results from all targets',
-                    this.subwidget('Records', { _team: 'main' })));
+  s.push(sectionRow('entries', 'News',
+                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news', perpage: 10 })));
   s.push(sectionRow('articles', 'Articles',
-                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
+                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles', perpage: 10 })));
   s.push(sectionRow('books', 'Books',
-                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
-  s.push(sectionRow('news', 'News',
-                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
+                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books', perpage: 10 })));
+  s.push(sectionRow('news', 'Results from all targets',
+                    this.subwidget('Records', { _team: 'main' })));
 
   s.push('</table>');
 
