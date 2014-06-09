@@ -32,7 +32,7 @@ mkws.registerWidgetType('Credo', function() {
         {{/mkws-first}}\
 	<br/>\
        </a>\
-       <p>{{md-title}}</p>\
+       <p>{{{md-title}}}</p>\
       </div>\
 ');
 
@@ -47,12 +47,10 @@ mkws.registerWidgetType('Credo', function() {
                  this.subwidget('Reference', { _team: 'ref', paragraphs: 1 })));
   // The Images widget needs to be in our team so we can set its template
   s.push(section('image', 'Images',
-                 this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
+                 this.subwidget('GoogleImage', { maxrecs: 3, template: 'CredoImage', target: 'google_images_js' })));
   s.push('</td>');
 
   s.push('<td class="side">');
-  s.push(section('mindmap', 'Create a Mind Map for <span class="x-mkws-title"/>',
-                 this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
   s.push('</td>');
@@ -61,16 +59,14 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<tr><td colspan="2"><hr class="divider"/></td></tr>');
 
-  s.push(sectionRow('entries', 'Credo Entries',
-                    this.subwidget('Records', { _team: 'main' })));
+  s.push(sectionRow('entries', 'News',
+                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news', perpage: 10 })));
   s.push(sectionRow('articles', 'Articles',
-                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
+                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles', perpage: 10 })));
   s.push(sectionRow('books', 'Books',
-                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
-  s.push(sectionRow('news', 'News',
-                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
-  s.push(sectionRow('resources', 'Suggested Resources',
-                    "### Not yet implemented"));
+                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books', perpage: 10 })));
+  s.push(sectionRow('news', 'Results from all targets',
+                    this.subwidget('Records', { _team: 'main' })));
 
   s.push('</table>');
 
@@ -111,9 +107,4 @@ mkws.registerWidgetType('Credo', function() {
     s.push('</tr>');
     return s.join('');
   }
-});
-
-
-mkws.registerWidgetType('Mindmap', function() {
-  this.node.html("### We do not yet have a Mindmap widget");
 });

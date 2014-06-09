@@ -43,8 +43,8 @@ function widget($, team, type, node) {
     }
     
     for (var name in overrides) {
+      log(this + " overrode property " + name + "='" + overrides[name] + "' (was '" + attrs[name] + "') for " + type + " subwidget");
       attrs[name] = overrides[name];
-      log(this + " overrode property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
     }
 
     if (defaults) {

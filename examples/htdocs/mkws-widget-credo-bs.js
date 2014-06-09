@@ -25,14 +25,14 @@ mkws.registerWidgetType('Credo', function() {
   var that = this;
 
   this.team.registerTemplate('CredoImage', '\
-      <div class="col-md-3 col-sm-4 col-xs-6">\
+      <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">\
        <a href="{{mkws-googleurl md-electronic-url}}" target="_blank">\
         {{#mkws-first md-thumburl}}\
 	  <img src="{{this}}" alt="{{../md-title}}"/>\
         {{/mkws-first}}\
 	<br/>\
        </a>\
-       <p>{{md-title}}</p>\
+       <p>{{{md-title}}}</p>\
       </div>\
 ');
 
@@ -47,8 +47,6 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</div></div>');
 
   s.push('<div class="col-md-4">');
-  s.push(section('mindmap', 'Create a Mind Map for <span class="x-mkws-title"/>',
-                 this.subwidget('Mindmap', { _team: 'main', facet: 'subject' })));
   s.push(section('topics', 'Related Topics',
                  this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
   s.push('</div>');
@@ -56,21 +54,19 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</div>');
   
   s.push('<div class="row">');
-  s.push(section('image col-md-12', 'Images', this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
+  s.push(section('image col-md-12', 'Images', this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage', target: 'google_images_js' })));
   s.push('</div>');
   
 
   s.push('<div class="row clearfix">');
-  s.push(section('entries clearfix col-md-4 col-sm-6', 'Credo Entries',
-                    this.subwidget('Records', { _team: 'main' })));
+  s.push(section('entries clearfix col-md-4 col-sm-6', 'News',
+                 this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news', perpage: 10 })));
   s.push(section('articles clearfix col-md-4 col-sm-6', 'Articles',
-                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
+                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles', perpage: 10 })));
   s.push(section('books clearfix col-md-4 col-sm-6', 'Books',
-                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
-  s.push(section('news col-md-4 col-sm-6', 'News',
-                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
-  s.push(section('resources col-md-4 col-sm-6', 'Suggested Resources',
-                    "### Not yet implemented"));
+                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books', perpage: 10 })));
+  s.push(section('news col-md-4 col-sm-6', 'Results from all targets',
+                    this.subwidget('Records', { _team: 'main' })));
   s.push('</div>');
   this.node.html(s.join(''));
 
@@ -110,9 +106,4 @@ mkws.registerWidgetType('Credo', function() {
     s.push('</div>');
     return s.join('');
   }
-});
-
-
-mkws.registerWidgetType('Mindmap', function() {
-  this.node.html("### We do not yet have a Mindmap widget");
 });
