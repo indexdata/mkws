@@ -60,11 +60,11 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<div class="row clearfix">');
   s.push(section('entries clearfix col-md-4 col-sm-6', 'News',
-                    this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news' })));
+                 this.subwidget('Records', { _team: 'news', targetfilter: 'categories=news', perpage: 10 })));
   s.push(section('articles clearfix col-md-4 col-sm-6', 'Articles',
-                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
+                    this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles', perpage: 10 })));
   s.push(section('books clearfix col-md-4 col-sm-6', 'Books',
-                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books' })));
+                    this.subwidget('Records', { _team: 'books', targetfilter: 'categories=books', perpage: 10 })));
   s.push(section('news col-md-4 col-sm-6', 'Results from all targets',
                     this.subwidget('Records', { _team: 'main' })));
   s.push('</div>');
