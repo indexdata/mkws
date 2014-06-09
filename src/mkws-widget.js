@@ -70,7 +70,7 @@ function widget($, team, type, node) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
       val = mkws.getParameterByName(param);
-      this.log("obtained val '" + val + "' from param '" + param + "'");
+      log("obtained val '" + val + "' from param '" + param + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the '" + param + "' parameter");
       }
@@ -78,14 +78,14 @@ function widget($, team, type, node) {
       var index = val.replace(/^!path!/, '');
       var path = window.location.pathname.split('/');
       val = path[path.length - index];
-      this.log("obtained val '" + val + "' from path-component '" + index + "'");
+      log("obtained val '" + val + "' from path-component '" + index + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the path-component " + index);
       }
     } else if (val.match(/^!var!/)) {
       var name = val.replace(/^!var!/, '');
       val = window[name]; // It's ridiculous that this works
-      this.log("obtained val '" + val + "' from variable '" + name + "'");
+      log("obtained val '" + val + "' from variable '" + name + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the '" + name + "' variable");
       }
