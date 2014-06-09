@@ -47,7 +47,7 @@ mkws.registerWidgetType('Credo', function() {
                  this.subwidget('Reference', { _team: 'ref', paragraphs: 1 })));
   // The Images widget needs to be in our team so we can set its template
   s.push(section('image', 'Images',
-                 this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage', target: 'google_images_js' })));
+                 this.subwidget('GoogleImage', { maxrecs: 3, template: 'CredoImage', target: 'google_images_js' })));
   s.push('</td>');
 
   s.push('<td class="side">');
