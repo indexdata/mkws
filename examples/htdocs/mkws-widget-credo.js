@@ -59,7 +59,7 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<tr><td colspan="2"><hr class="divider"/></td></tr>');
 
-  s.push(sectionRow('entries', 'Credo Entries',
+  s.push(sectionRow('entries', 'Results from all targets',
                     this.subwidget('Records', { _team: 'main' })));
   s.push(sectionRow('articles', 'Articles',
                     this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
