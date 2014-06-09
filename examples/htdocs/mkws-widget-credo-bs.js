@@ -59,7 +59,7 @@ mkws.registerWidgetType('Credo', function() {
   
 
   s.push('<div class="row clearfix">');
-  s.push(section('entries clearfix col-md-4 col-sm-6', 'Credo Entries',
+  s.push(section('entries clearfix col-md-4 col-sm-6', 'Results from all targets',
                     this.subwidget('Records', { _team: 'main' })));
   s.push(section('articles clearfix col-md-4 col-sm-6', 'Articles',
                     this.subwidget('Records', { _team: 'articles', targetfilter: 'categories=articles' })));
