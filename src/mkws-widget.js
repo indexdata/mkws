@@ -66,35 +66,39 @@ function widget($, team, type, node) {
     return s.join('');
   };
 
+  that.expandValue = function(val) {
+    if (val.match(/^!param!/)) {
+      var param = val.replace(/^!param!/, '');
+      val = mkws.getParameterByName(param);
+      this.log("obtained val '" + val + "' from param '" + param + "'");
+      if (!val) {
+        alert("This page has a MasterKey widget that needs a val specified by the '" + param + "' parameter");
+      }
+    } else if (val.match(/^!path!/)) {
+      var index = val.replace(/^!path!/, '');
+      var path = window.location.pathname.split('/');
+      val = path[path.length - index];
+      this.log("obtained val '" + val + "' from path-component '" + index + "'");
+      if (!val) {
+        alert("This page has a MasterKey widget that needs a val specified by the path-component " + index);
+      }
+    } else if (val.match(/^!var!/)) {
+      var name = val.replace(/^!var!/, '');
+      val = window[name]; // It's ridiculous that this works
+      this.log("obtained val '" + val + "' from variable '" + name + "'");
+      if (!val) {
+        alert("This page has a MasterKey widget that needs a val specified by the '" + name + "' variable");
+      }
+    }
+    return val;
+  };
+
   // Utility function for use by all widgets that can invoke autosearch.
   that.autosearch = function() {
     var that = this;
     var query = this.config.autosearch;
     if (query) {
-      if (query.match(/^!param!/)) {
-        var param = query.replace(/^!param!/, '');
-        query = mkws.getParameterByName(param);
-        this.log("obtained query '" + query + "' from param '" + param + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the '" + param + "' parameter");
-        }
-      } else if (query.match(/^!path!/)) {
-        var index = query.replace(/^!path!/, '');
-        var path = window.location.pathname.split('/');
-        query = path[path.length - index];
-        this.log("obtained query '" + query + "' from path-component '" + index + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the path-component " + index);
-        }
-      } else if (query.match(/^!var!/)) {
-        var name = query.replace(/^!var!/, '');
-        query = window[name]; // It's ridiculous that this works
-        this.log("obtained query '" + query + "' from variable '" + name + "'");
-        if (!query) {
-          alert("This page has a MasterKey widget that needs a query specified by the '" + name + "' variable");
-        }
-      }
-
+      query = this.expandValue(query);
       var old = this.team.config().query;
       if (!old) {
         // Stash this for subsequent inspection
