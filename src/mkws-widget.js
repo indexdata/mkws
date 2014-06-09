@@ -98,7 +98,6 @@ function widget($, team, type, node) {
     var that = this;
     var query = this.config.autosearch;
     if (query) {
-      query = this.expandValue(query);
       var old = this.team.config().query;
       if (!old) {
         // Stash this for subsequent inspection
