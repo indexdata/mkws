@@ -32,7 +32,7 @@ mkws.registerWidgetType('Credo', function() {
         {{/mkws-first}}\
 	<br/>\
        </a>\
-       <p>{{md-title}}</p>\
+       <p>{{{md-title}}}</p>\
       </div>\
 ');
 
@@ -54,7 +54,7 @@ mkws.registerWidgetType('Credo', function() {
   s.push('</div>');
   
   s.push('<div class="row">');
-  s.push(section('image col-md-12', 'Images', this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage' })));
+  s.push(section('image col-md-12', 'Images', this.subwidget('GoogleImage', { maxrecs: 4, template: 'CredoImage', target: 'google_images_js' })));
   s.push('</div>');
   
 
