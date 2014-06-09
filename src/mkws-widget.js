@@ -153,26 +153,27 @@ function widget($, team, type, node) {
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
+    var val = that.expandValue(a.value);
     if (a.name === 'data-mkws-config') {
       // Treat as a JSON fragment configuring just this widget
-      log(node + ": parsing config fragment '" + a.value + "'");
+      log(node + ": parsing config fragment '" + val + "'");
       var data;
       try {
-        data = $.parseJSON(a.value);
+        data = $.parseJSON(val);
         for (var key in data) {
           log(node + ": adding config element " + key + "='" + data[key] + "'");
           that.config[key] = data[key];
         }
       } catch (err) {
-        alert("Can't parse " + node + " data-mkws-config as JSON: " + a.value);
+        alert("Can't parse " + node + " data-mkws-config as JSON: " + val);
       }
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
-      that.config[name] = a.value;
-      log(that + ": set data-mkws attribute " + name + "='" + a.value + "'");
+      that.config[name] = val;
+      log(that + ": set data-mkws attribute " + name + "='" + val + "'");
     } else if (!ignoreAttrs[a.name]) {
-      that.config[a.name] = a.value;
-      log(that + ": set regular attribute " + a.name + "='" + a.value + "'");
+      that.config[a.name] = val;
+      log(that + ": set regular attribute " + a.name + "='" + val + "'");
     }
   }
 
