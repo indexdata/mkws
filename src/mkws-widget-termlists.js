@@ -39,10 +39,18 @@ mkws.registerWidgetType('Facet', function() {
     return '[Widget ' + that.team.name() + ':' + that.type + '(' + name + ')]';
   };
 
+  var t2 = that.team.loadTemplate('Facet-' + caption);
+  that.log("template for Facet-" + caption + " is " + !!t2);
+  if (!t2) {
+    that.log("no " + caption + "-specific template, falling back");
+    t2 = that.team.loadTemplate('Facet');
+  }
+  that.log("template for Facet is " + !!t2);
+
   that.team.queue("termlists").subscribe(function(data) {
     data = data[name];
-    var template = that.team.loadTemplate('facetTitle-' + caption, mkws.M(caption))
-    var title = template({ query: that.config.query });
+    var t1 = that.team.loadTemplate('facetTitle-' + caption, mkws.M(caption))
+    var title = t1({ query: that.config.query });
     var acc = [];
     acc.push('<div class="mkwsFacetTitle">', title, '</div>');
 
@@ -56,8 +64,7 @@ mkws.registerWidgetType('Facet', function() {
         fn = 'limitTarget'; field = data[i].id;
       }
 
-      var template = that.team.loadTemplate('Facet');
-      var s = template({ 
+      var s = t2({ 
         team: teamName,
         fn: fn,
         field: field,
