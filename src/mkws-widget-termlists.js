@@ -55,7 +55,7 @@ mkws.registerWidgetType('Facet', function() {
         // Special case: target selection
         acc.push('target_id='+data[i].id+' ');
         if (!that.team.targetFiltered(data[i].id)) {
-          action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
+          action = 'mkws.limitTarget(\'' + teamName + '\', \'' + data[i].id + '\', this.firstChild.nodeValue)';
         }
       } else {
         action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
