@@ -44,7 +44,9 @@ mkws.registerWidgetType('Facet', function() {
 
     var teamName = that.team.name();
     var acc = [];
-    acc.push('<div class="mkwsFacetTitle">' + mkws.M(caption) + '</div>');
+    var template = that.team.loadTemplate('facetTitle-' + caption, mkws.M(caption))
+    var title = template({ query: that.config.query });
+    acc.push('<div class="mkwsFacetTitle">' + title + '</div>');
     for (var i = 0; i < data.length && i < max; i++) {
       acc.push('<div class="mkwsTerm">');
       acc.push('<a href="#" ');
