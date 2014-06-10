@@ -58,7 +58,7 @@ mkws.registerWidgetType('Facet', function() {
 
       var action = '';
       if (fn) {
-        action = 'mkws.' + fn + '(\'' + teamName + '\', \'' + datum + '\', this.firstChild.nodeValue)';
+        action = 'mkws.' + fn + '(\'' + teamName + '\', \'' + datum + '\', \'' + data[i].name + '\')';
       }
 
       acc.push('<div class="mkwsTerm">',
