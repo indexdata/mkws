@@ -259,6 +259,11 @@ mkws.defaultTemplate = function(name) {
         <br/>\
       </a>\
 ';
+  } else if (name === 'Facet') {
+    return '\
+<a href="#" onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;">{{term}}</a>\
+<span>{{count}}</span>\
+';
   }
 
   var s = "There is no default '" + name +"' template!";
