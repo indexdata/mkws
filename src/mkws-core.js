@@ -156,6 +156,7 @@ mkws.setMkwsConfig = function(overrides) {
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
     log_level: 1,     /* log level for development: 0..2 */
+    template_vars: {}, /* values that may be exposed to templates */
 
     dummy: "dummy"
   };

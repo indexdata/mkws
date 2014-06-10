@@ -134,7 +134,8 @@ mkws.registerWidgetType('Records', function() {
       }
     }
     var template = team.loadTemplate(that.config.template || "Records");
-    that.node.html(template({"hits": data.hits}));
+    var targs = $.extend({}, {"hits": data.hits}, that.config.template_vars);
+    that.node.html(template(targs));
   });
 
   that.autosearch();

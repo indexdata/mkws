@@ -1,6 +1,18 @@
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-        {{#mkws-first md-thumburl}}
-          <img src="{{this}}" alt="{{../md-title}}"/>
-        {{/mkws-first}}
-        <br/>
-      </a>
+{{!
+Records presented as images.
+
+hits:
+  containerClass - class  attribute for same
+  detailLinkId - id for the element triggering detail display
+  detailClick - a click event handler for details
+  renderedDetails - active record details rendered from the Record template
+  md-* - metadata fields passed through from backend
+}}
+{{#each hits}}
+  <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
+    {{#mkws-first md-thumburl}}
+      <img src="{{this}}" alt="{{../md-title}}"/>
+    {{/mkws-first}}
+    <br/>
+  </a>
+{{/each}}
