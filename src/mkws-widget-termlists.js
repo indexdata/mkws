@@ -53,7 +53,6 @@ mkws.registerWidgetType('Facet', function() {
       var action = '';
       if (!pzIndex) {
         // Special case: target selection
-        acc.push('target_id='+data[i].id+' ');
         if (!that.team.targetFiltered(data[i].id)) {
           action = 'mkws.limitTarget(\'' + teamName + '\', \'' + data[i].id + '\', this.firstChild.nodeValue)';
         }
