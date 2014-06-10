@@ -56,15 +56,16 @@ mkws.registerWidgetType('Facet', function() {
         fn = 'limitTarget'; datum = data[i].id;
       }
 
-      var action = '';
-      if (fn) {
-        action = 'mkws.' + fn + '(\'' + teamName + '\', \'' + datum + '\', \'' + data[i].name + '\')';
-      }
-
-      acc.push('<div class="mkwsTerm">',
-               '<a href="#" ', 'onclick="', action, ';return false;">', data[i].name, '</a>',
-               '<span>', data[i].freq, '</span>',
-               '</div>');
+      var template = that.team.loadTemplate('Facet');
+      var s = template({ 
+        team: teamName,
+        fn: fn,
+        field: datum,
+        term: data[i].name,
+        count: data[i].freq,
+        query: that.config.query
+      });
+      acc.push('<div class="mkwsTerm">', s, '</div>');
     }
 
     that.node.html(acc.join(''));
