@@ -48,19 +48,19 @@ mkws.registerWidgetType('Facet', function() {
 
     var teamName = that.team.name();
     for (var i = 0; i < data.length && i < max; i++) {
-      var fn, datum;
+      var fn, field;
       // General case modifies the query; special case selects a target
       if (pzIndex) {
-        fn = 'limitQuery'; datum = pzIndex;
+        fn = 'limitQuery'; field = pzIndex;
       } else if (!that.team.targetFiltered(data[i].id)) {
-        fn = 'limitTarget'; datum = data[i].id;
+        fn = 'limitTarget'; field = data[i].id;
       }
 
       var template = that.team.loadTemplate('Facet');
       var s = template({ 
         team: teamName,
         fn: fn,
-        field: datum,
+        field: field,
         term: data[i].name,
         count: data[i].freq,
         query: that.config.query
