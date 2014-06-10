@@ -51,13 +51,13 @@ mkws.registerWidgetType('Facet', function() {
       acc.push('<div class="mkwsTerm">');
       acc.push('<a href="#" ');
       var action = '';
-      if (!pzIndex) {
+      if (pzIndex) {
+        action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
+      } else {
         // Special case: target selection
         if (!that.team.targetFiltered(data[i].id)) {
           action = 'mkws.limitTarget(\'' + teamName + '\', \'' + data[i].id + '\', this.firstChild.nodeValue)';
         }
-      } else {
-        action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
       }
       acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
                + ' <span>' + data[i].freq + '</span>');
