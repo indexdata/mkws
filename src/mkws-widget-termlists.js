@@ -41,27 +41,30 @@ mkws.registerWidgetType('Facet', function() {
 
   that.team.queue("termlists").subscribe(function(data) {
     data = data[name];
-
-    var teamName = that.team.name();
-    var acc = [];
     var template = that.team.loadTemplate('facetTitle-' + caption, mkws.M(caption))
     var title = template({ query: that.config.query });
-    acc.push('<div class="mkwsFacetTitle">' + title + '</div>');
+    var acc = [];
+    acc.push('<div class="mkwsFacetTitle">', title, '</div>');
+
+    var teamName = that.team.name();
     for (var i = 0; i < data.length && i < max; i++) {
-      acc.push('<div class="mkwsTerm">');
-      acc.push('<a href="#" ');
-      var action = '';
+      var fn, datum;
+      // General case modifies the query; special case selects a target
       if (pzIndex) {
-        action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
-      } else {
-        // Special case: target selection
-        if (!that.team.targetFiltered(data[i].id)) {
-          action = 'mkws.limitTarget(\'' + teamName + '\', \'' + data[i].id + '\', this.firstChild.nodeValue)';
-        }
+        fn = 'limitQuery'; datum = pzIndex;
+      } else if (!that.team.targetFiltered(data[i].id)) {
+        fn = 'limitTarget'; datum = data[i].id;
       }
-      acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-               + ' <span>' + data[i].freq + '</span>');
-      acc.push('</div>');
+
+      var action = '';
+      if (fn) {
+        action = 'mkws.' + fn + '(\'' + teamName + '\', \'' + datum + '\', this.firstChild.nodeValue)';
+      }
+
+      acc.push('<div class="mkwsTerm">',
+               '<a href="#" ', 'onclick="', action, ';return false;">', data[i].name, '</a>',
+               '<span>', data[i].freq, '</span>',
+               '</div>');
     }
 
     that.node.html(acc.join(''));
