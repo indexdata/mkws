@@ -270,9 +270,7 @@ onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;"\
 ';
   }
 
-  var s = "There is no default '" + name +"' template!";
-  alert(s);
-  return s;
+  return null;
 };
 
 
