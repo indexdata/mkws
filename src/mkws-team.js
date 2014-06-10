@@ -386,7 +386,7 @@ function team($, teamName) {
   };
 
 
-  function loadTemplate(name) {
+  function loadTemplate(name, fallbackString) {
     var template = m_template[name];
 
     if (template === undefined) {
@@ -400,8 +400,14 @@ function team($, teamName) {
         source = node.html();
       }
 
+      // If the template is not defined in HTML, check the following
+      // in order: template registered in the team by a widget;
+      // fallback string provided on this invocation; global default.
       if (!source) {
         source = m_templateText[name];
+      }
+      if (!source) {
+        source = fallbackString;
       }
       if (!source) {
         source = mkws.defaultTemplate(name);
