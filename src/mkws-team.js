@@ -413,6 +413,7 @@ function team($, teamName) {
         source = mkws.defaultTemplate(name);
       }
 
+      if (!source) return null;
       template = Handlebars.compile(source);
       log("compiled template '" + name + "'");
       m_template[name] = template;
