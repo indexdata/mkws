@@ -261,7 +261,11 @@ mkws.defaultTemplate = function(name) {
 ';
   } else if (name === 'Facet') {
     return '\
-<a href="#" onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;">{{term}}</a>\
+<a href="#"\
+{{#if fn}}\
+onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;"\
+{{/if}}\
+>{{term}}</a>\
 <span>{{count}}</span>\
 ';
   }
