@@ -275,6 +275,7 @@ describe("Check Author Facets", function () {
 
         waitsFor(function () {
             var hits_single_target = get_hit_counter();
+            console.log("hits_single_target='" + hits_single_target + "' cf. hits_all_targets='" + hits_all_targets + "'");
             return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
         }, "Limited author search for less than " + hits_all_targets + " hits", 4.5 * jasmine_config.second);
 
