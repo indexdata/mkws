@@ -90,3 +90,13 @@ b, strong {
   box-shadow: none;
   -webkit-box-shadow: none;
 }
+@media screen and (min-width:700px) {
+  .multicol {
+    column-count: 2;
+    column-gap: 20px;
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 2;
+    -webkit-column-gap: 20px;
+  }
+}
