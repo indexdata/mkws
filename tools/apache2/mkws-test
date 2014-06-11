@@ -35,8 +35,10 @@
     # jasmine test account
     RewriteRule /service-proxy-testauth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwstest&password=mkwstest [P]
 
-    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
-    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkc-arya.indexdata.com:8080/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc-arya.indexdata.com:8080/service-proxy/
+    #ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    #ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
 
     ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
     ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
