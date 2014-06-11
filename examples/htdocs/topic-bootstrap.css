@@ -1,0 +1,92 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+  background: radial-gradient(ellipse at center,  #ffffff 0%,#f8f8f8 100%);
+  font-weight: 300;
+}
+b, strong {
+  font-weight: 400; 
+}
+.panel {
+  border: none;
+  background: white;
+  padding: 1em .75em;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  color: #76868A;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.09);
+  margin-bottom: 2em;
+}
+
+.panel-default > .panel-heading {
+  background-image: none; 
+  border: none;
+  background-color: white;
+}
+
+.panel-heading {
+  padding: 0.5em 15px 0;
+}
+
+.panel-title {
+  font-size: 130%;
+  color: #4A5456;
+}
+
+.panel-body {
+  padding: 10px 15px; 
+}
+
+.mkwsFacetTitle {
+  font-style: italic;
+  font-weight: 400;
+}
+  .mkwsTerm {
+    padding: .1em 0;
+  }
+  .mkwsTerm a {
+    padding-right: .5em; 
+    font-weight: 400;
+  }
+
+.mkwsSummary {
+  padding: .5em 0;
+  line-height: 1.35;
+}
+.mkwsSummary:last-child {
+  padding-bottom: 0;
+}
+  
+.container .jumbotron {
+  background: none;
+  padding: 0 2em 0 0;
+  box-shadow: none;
+  color: black;
+}  
+  .jumbotron .mkwsSummary {
+    line-height: 1.5;  
+  }
+  .jumbotron p{
+    font-size: 150%; 
+  }
+  .mkwsCredit {
+    font-size: 125% !important;
+    font-style: italic;
+  }
+  
+.mkwsGoogleImage .mkwsSummary {
+  padding: 0;
+  font-weight: 400;
+}
+  .mkwsGoogleImage img {
+    max-width: 100%;
+    max-height: 200px;
+    padding: 1em 0 .5em;
+  }
+.list-group-item {
+  padding: 10px 15px !important;
+}
+.list-group {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
