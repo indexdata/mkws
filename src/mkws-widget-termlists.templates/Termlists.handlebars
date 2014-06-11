@@ -1,0 +1,11 @@
+{{!
+Termlists, a container of all configured facets.
+
+team - the current team
+facets - array of facet names
+}}
+
+<div class="mkwsTermlistsTitle">Termlists</div>
+{{#each facets}}
+  <div class="mkwsFacet mkwsTeam_{{../team}}" data-mkws-facet="{{name}}"></div>
+{{/each}}

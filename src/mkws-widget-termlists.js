@@ -1,22 +1,19 @@
 mkws.registerWidgetType('Termlists', function() {
-  var that = this;
-
   // Initially hide the termlists; display when we get results
+  var that = this;
+  var team = this.team;
   mkws.$(document).ready(function() {
     that.node.hide();
   });
-  this.team.queue("termlists").subscribe(function(data) {
+  team.queue("termlists").subscribe(function(data) {
     that.node.show();
   });
 
-  var acc = [];
-  var facets = this.config.facets;
-  acc.push('<div class="mkwsTermlistsTitle">' + mkws.M('Termlists') + '</div>');
-  for (var i = 0; i < facets.length; i++) {
-    acc.push('<div class="mkwsFacet mkwsTeam_', this.team.name(), '" data-mkws-facet="', facets[i], '">', '</div>');
-  }
-  this.node.html(acc.join(''));
-
+  var template = team.loadTemplate(this.config.template || "Termlists");
+  this.node.html(template({
+    team: team,
+    facets: this.config.facets
+  }));
   this.autosearch();
 });
 
@@ -27,8 +24,8 @@ mkws.registerWidgetType('Facet', function() {
     subject:  [ "Subjects", 10, true ],
     author:   [ "Authors",  10, true ]
   }
-
   var that = this;
+  var team = this.team;
   var name = that.config.facet;
   var ref = facetConfig[name] || [ "Unknown", 10, true ];
   var caption = this.config['facet_caption_' + name] || ref[0];
@@ -36,35 +33,38 @@ mkws.registerWidgetType('Facet', function() {
   var pzIndex = ref[2] ? name : null;
 
   that.toString = function() {
-    return '[Widget ' + that.team.name() + ':' + that.type + '(' + name + ')]';
+    return '[Widget ' + team.name() + ':' + that.type + '(' + name + ')]';
   };
 
-  that.team.queue("termlists").subscribe(function(data) {
+  team.queue("termlists").subscribe(function(data) {
     data = data[name];
-
-    var teamName = that.team.name();
-    var acc = [];
-    acc.push('<div class="mkwsFacetTitle">' + mkws.M(caption) + '</div>');
+    var terms = [];
+    var teamName = team.name();
     for (var i = 0; i < data.length && i < max; i++) {
-      acc.push('<div class="mkwsTerm">');
-      acc.push('<a href="#" ');
-      var action = '';
+      var linkdata = "";
+      var action = "";
       if (!pzIndex) {
         // Special case: target selection
-        acc.push('target_id='+data[i].id+' ');
-        if (!that.team.targetFiltered(data[i].id)) {
+        linkdata += ('target_id='+data[i].id+' ');
+        if (!team.targetFiltered(data[i].id)) {
           action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
         }
       } else {
         action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
       }
-      acc.push('onclick="' + action + ';return false;">' + data[i].name + '</a>'
-               + ' <span>' + data[i].freq + '</span>');
-      acc.push('</div>');
+      linkdata += 'onclick="' + action + ';return false;"';
+      terms.push({
+        term: data[i].name,
+        count: data[i].freq,
+        linkdata: linkdata
+      }); 
     }
-
-    that.node.html(acc.join(''));
+    var template = team.loadTemplate(that.config.template || "Facet");
+    that.node.html(template({
+      name: name,
+      caption: caption,
+      terms: terms
+    }));
   });
-
   this.autosearch();
 });
