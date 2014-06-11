@@ -86,3 +86,20 @@
     content: "Source: ";
     font-weight: bold;
 }
+
+.mkwsFacet a {
+    text-decoration: none;
+}
+
+.mkwsFacet a:hover {
+    text-decoration: underline;
+}
+
+.mkwsTerm {
+    clear: both;
+}
+
+.mkwsTerm span {
+    float: right;
+}
+
