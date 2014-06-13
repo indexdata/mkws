@@ -266,6 +266,14 @@ mkws.defaultTemplate = function(name) {
 {{#if md-title-responsibility}}\
   <span><i>{{md-title-responsibility}}</i></span>\
 {{/if}}\
+{{#if md-date}}, {{md-date}}\
+{{#if location}}\
+, {{#mkws-first location}}{{mkws-attr "@name"}}{{/mkws-first}}\
+{{/if}}\
+{{#if md-medium}}\
+<span>, {{md-medium}}</span>\
+{{/if}}\
+{{/if}}\
 ';
   } else if (name === "Image") {
     return '\
