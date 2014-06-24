@@ -46,7 +46,7 @@ mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${J
 	  echo "*/"; \
 	  cat ${JQUERY_FILE}; \
 	  cat ${JQUERY_JSON_FILE}; \
-	  echo 'mkws_jQuery = $.noConflict();'; \
+	  echo 'mkws_jQuery = jQuery.noConflict(true);'; \
 	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
