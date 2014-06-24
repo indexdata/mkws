@@ -78,6 +78,9 @@ var mkws = {
   }
 };
 
+// We may be using a separate copy
+if (!mkws_jQuery) mkws_jQuery = jQuery;
+mkws.$ = mkws_jQuery;
 
 mkws.log = function(string) {
   if (!mkws.log_level)
@@ -581,4 +584,4 @@ mkws.pagerNext = function(tname) {
     var widgetSelector = selectorForAllWidgets();
     if (widgetSelector && $(widgetSelector).length !== 0) init();
   });
-})(jQuery);
+})(mkws_jQuery);
