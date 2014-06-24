@@ -96,7 +96,7 @@ var mkws = {
 };
 
 // We may be using a separate copy
-if (!mkws_jQuery) mkws_jQuery = jQuery;
+if (typeof(mkws_jQuery) === "undefined") mkws_jQuery = jQuery;
 mkws.$ = mkws_jQuery;
 
 mkws.log = function(string) {
