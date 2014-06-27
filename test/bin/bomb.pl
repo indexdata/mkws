@@ -6,6 +6,7 @@
 
 use Getopt::Long;
 use POSIX ":sys_wait_h";
+use BSD::Resource qw/setrlimit/;
 
 use strict;
 use warnings;
@@ -38,6 +39,10 @@ my @system = @ARGV;
 die usage if $help;
 die usage if !@system;
 
+# set CPU limit, in case the alarm handler will
+# be ignored
+setrlimit(RLIMIT_CPU, $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+
 #
 # use fork/exec instead system()
 #
@@ -54,4 +59,3 @@ if ($pid) {
 else { }
 
 1;
-
