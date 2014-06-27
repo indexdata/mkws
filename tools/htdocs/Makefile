@@ -1,3 +1,8 @@
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+
+SRC=   ../../src
+VPATH= ${SRC}
+
 HANDLEBARS_FILE = handlebars-v1.1.2.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
@@ -9,7 +14,7 @@ JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
 PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};hb=HEAD
 
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
-VERSION = $(shell tr -d '\012' < VERSION)
+VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js mkws-team.js mkws-filter.js \
@@ -24,7 +29,7 @@ INSTALLABLE = mkws-jquery.js VERSION NEWS $(GENERATED)
 
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
-**make-default**: ../tools/htdocs/mkws.js
+**make-default**: mkws.js
 
 install: $(INSTALLED)
 
@@ -50,7 +55,7 @@ mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${J
 	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
-	  cat  mkws-jquery.js; \
+	  cat  ${SRC}/mkws-jquery.js; \
 	) > mkws-complete.js.new
 	mv -f mkws-complete.js.new mkws-complete.js
 
@@ -79,19 +84,19 @@ ${PP2_FILE}:
 	mv -f $@.tmp $@
 
 release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
-	@if [ -f releases/mkws-$(VERSION).js ]; then \
+	@if [ -f ${SRC}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
-		cp -p mkws.js releases/mkws-$(VERSION).js; \
-		cp -p mkws.min.js releases/mkws-$(VERSION).min.js; \
-		cp -p mkws-complete.js releases/mkws-complete-$(VERSION).js; \
-		cp -p mkws-complete.min.js releases/mkws-complete-$(VERSION).min.js; \
+		cp -p mkws.js ${SRC}/releases/mkws-$(VERSION).js; \
+		cp -p mkws.min.js ${SRC}/releases/mkws-$(VERSION).min.js; \
+		cp -p mkws-complete.js ${SRC}/releases/mkws-complete-$(VERSION).js; \
+		cp -p mkws-complete.min.js ${SRC}/releases/mkws-complete-$(VERSION).min.js; \
 		echo "Made release $(VERSION)"; \
 	fi
 
 mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
-	cat $(COMPONENTS) > $@
+	( cd ${SRC}; cat ${COMPONENTS} ) > $@
 	chmod 444 $@
 
 distclean: clean
@@ -100,3 +105,6 @@ distclean: clean
 clean:
 	rm -f ${GENERATED}
 
+help:
+	@echo "make [ all | release | clean | distclean ]"
+	@echo "     [ mkws-syntax-check ]"
