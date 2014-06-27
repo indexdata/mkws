@@ -41,7 +41,7 @@ die usage if !@system;
 
 # set CPU limit, in case the alarm handler will
 # be ignored
-setrlimit(RLIMIT_CPU, $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
 
 #
 # use fork/exec instead system()
