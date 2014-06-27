@@ -42,7 +42,7 @@ die usage if !@system;
 # be ignored
 eval {
     require BSD::Resource;
-    setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+    BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
 };
 if ($@) {
     warn "Please install the package BSD::Resource!\n\n$@\n";
