@@ -51,7 +51,7 @@ resources by means of credentials stored in MKAdmin: precautions must
 be taken so that such library accounts do not allow unauthorised
 access.
 
-Setting up such a library is a two-stage process.
+Setting up such a library is a two or three-stage process.
 
 Stage A (on MKAdmin)
 
@@ -63,6 +63,12 @@ Create the library:
 	- Set its username and password
 
 Stage B (on the application's web-server):
+
+### simple SP URLs
+
+Stage C (optional)
+
+### Fix description
 
 Authentication onto the library can be achieved by a single HTTP GET
 to the relevant Service Proxy, passing in the credentials and thereby
