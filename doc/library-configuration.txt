@@ -40,8 +40,8 @@ in the mkws_config structure:
 	udb==NAME
 
 
-2. Changing the library
------------------------
+2. Authenticating onto the library
+----------------------------------
 
 Some MKWS applications will be content to use the default library with
 its selection of targets. Most, though, will want to define their own
@@ -51,46 +51,54 @@ resources by means of credentials stored in MKAdmin: precautions must
 be taken so that such library accounts do not allow unauthorised
 access.
 
-Setting up such a library is a two or three-stage process.
+Setting up such a library is a two, three or four-stage process.
 
-Stage A (on MKAdmin)
+Stage A: create the library
 
-Create the library:
+Use MKAdmin to create the library:
 	- Make a new library on http://mkc-admin.indexdata.com/console/
 	- Select relevant targets
 	- Add authentication credentials to the targets as necessary
 	- Create an end-user account
-	- Set its username and password
+	- Depending on what authentication method it be used, set the
+	  end-user account's username and password, or IP-address
+	  range, or referring URL, or hostname.
 
-Stage B (on the application's web-server):
+Stage B: tell the application to use the library
 
-### simple SP URLs
-
-Stage C (optional)
-
-### Fix description
-
-Authentication onto the library can be achieved by a single HTTP GET
-to the relevant Service Proxy, passing in the credentials and thereby
-initiating an HTTP session. This can most simply be done just by
-setting the service_proxy_auth configuration item to a URL such as
-	http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=MIKE&password=SWORDFISH
-which is usually done with JavaScript like:
+In the HTML of the application, tell MKWS to authenticate on to the
+Service Proxy. When IP-based, referer-based or hostname-based
+authentication is used, this is very simple:
 
 	<script type="text/javascript">
 	  var mkws_config = { service_proxy_auth:
-	  "http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=MIKE&password=SWORDFISH" };
+	  "http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login" };
         </script>
 
-However, doing so reveals the the credentials to public view -- to
-anyone who does View Source on the MKWS application. This may be
-acceptable for some libraries, but is intolerable for those which
-provide authenticated access to subscription resources. For such
-circumstances, a more elaborate approach is necessary. The idea is to
-make a local URL that is used for authentication onto the Service
-Proxy, hiding the credentials, and to use local mechanisms to limit
-access to that local authentication URL. Here is one way to do it when
-Apache2 is the application's web-server, which we will call
+And ensure that access to the MWKS application is from the correct
+IP-range, referer or hostname.
+
+Stage C (optional): embed credentials for access to the library
+
+When credential-based authentication is in use (username and
+password), it's necessary to pass these credentials into the Service
+Proxy when establishing the session. This can most simply be done just
+by setting the service_proxy_auth configuration item to a URL such as
+	http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=MIKE&password=SWORDFISH
+
+Stage D (optional): conceal credentials from HTML source
+
+Using a Service-Proxy authentication URL such as the one above reveals
+the the credentials to public view -- to anyone who does View Source
+on the MKWS application. This may be acceptable for some libraries,
+but is intolerable for those which provide authenticated access to
+subscription resources.
+
+In these circumstances, a more elaborate approach is necessary. The
+idea is to make a local URL that is used for authentication onto the
+Service Proxy, hiding the credentials, and to use local mechanisms to
+limit access to that local authentication URL. Here is one way to do
+it when Apache2 is the application's web-server, which we will call
 example.com:
 
 	- Add a rewriting authentication alias to the configuration:
@@ -98,7 +106,8 @@ example.com:
 		RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 	- Set thwe MKWS configuration item "service_proxy_auth" to:
 		http://example.com/spauth/
-	- Protect access to http://example.com/spauth/ (e.g. using a .htaccess file).
+	- Protect access to the local path http://example.com/spauth/
+		(e.g. using a .htaccess file).
 
 Once such a library has been set up, and access to it established,
 target selection within the set that it makes available can be done
