@@ -1,7 +1,6 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 SRC=   ../../src
-VPATH= ${SRC}
 
 HANDLEBARS_FILE = handlebars-v1.1.2.js
 JQUERY_FILE = jquery-1.10.0.min.js
@@ -16,16 +15,16 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 
-COMPONENTS = mkws-handlebars.js \
-	mkws-core.js mkws-team.js mkws-filter.js \
-	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
-	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
-	mkws-widget-record.js mkws-widget-reference.js mkws-widget-builder.js
+COMPONENTS = ${SRC}/mkws-handlebars.js \
+	${SRC}/mkws-core.js ${SRC}/mkws-team.js ${SRC}/mkws-filter.js \
+	${SRC}/mkws-widget.js ${SRC}/mkws-widget-main.js ${SRC}/mkws-widget-termlists.js \
+	${SRC}/mkws-widget-authname.js ${SRC}/mkws-widget-categories.js ${SRC}/mkws-widget-log.js \
+	${SRC}/mkws-widget-record.js ${SRC}/mkws-widget-reference.js ${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 
-INSTALLABLE = mkws-jquery.js VERSION NEWS $(GENERATED)
+INSTALLABLE = ${SRC}/mkws-jquery.js VERSION NEWS $(GENERATED)
 
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
@@ -41,7 +40,7 @@ uninstall:
 
 all: mkws.min.js mkws-complete.min.js
 
-mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
@@ -96,7 +95,7 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 
 mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
-	( cd ${SRC}; cat ${COMPONENTS} ) > $@
+	cat ${COMPONENTS} > $@
 	chmod 444 $@
 
 distclean: clean
