@@ -20,9 +20,7 @@ phantomjs p:
 setup:	
 	${MAKE} -C./test node-modules
 
-check: setup check-js
-	@echo ""
-	@echo "To run jasmine regression tests, type: make phantomjs"
+check: setup check-js phantomjs
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"
