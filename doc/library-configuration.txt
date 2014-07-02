@@ -2,36 +2,54 @@ MKWS Target Selection
 =====================
 
 
+MKWS accesses targets using the Pazpar2 metasearching engine, almost
+always fronted by the Service Proxy to manage target selection. This
+document assumes the SP is used, and so that a library of targets is
+available, maintained using an instance of MKAdmin (often
+http://mkc-admin.indexdata.com/console/)
+
+
 1. Selecting targets within the library
 ---------------------------------------
 
-MKWS applications can choose what subset of the available targets to
+MKWS applications can choose what subset of the library's targets to
 use, by means of several alternative settings on individual widgets or
 in the mkws_config structure:
 
 * targets -- contains a Pazpar2 targets string, typically of the form
   "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
-  target IDs. At present, these IDs are based on ZURLs, so a typical
-  value would be something like:
-	pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
+  target IDs.
+
+  At present, these IDs can take one of two forms, depending on the
+  configuration of the Service Proxy being used: they may be based on
+  ZURLs, so a typical value would be something like:
+	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
+  Or they may be UDBs, so a typical value would be something like:
+	pz:id=brown|artstor
 
 * targetfilter -- contains a CQL query which is used to find relevant
   targets from the relvant library. For example,
 	udb==Google_Images
+  Or
+	categories=news
 
 * target -- contains a single UDB, that of the sole target to be
   used. For example
 	Google_Images
+  This is merely syntactic sugar for "targetfilter" with the query
+	udb==NAME
 
 
 2. Changing the library
 -----------------------
 
-Some MKWS applications will want to define their own library providing
-a different range of available targets. This is particularly important
-in the case of applications that authenticate onto subscription
-resources by means of credentials stored in MKAdmin, in that such
-library accounts need to prohibit unauthorised access.
+Some MKWS applications will be content to use the default library with
+its selection of targets. Most, though, will want to define their own
+library providing a different range of available targets. An important
+case is that of applications that authenticate onto subscription
+resources by means of credentials stored in MKAdmin: precautions must
+be taken so that such library accounts do not allow unauthorised
+access.
 
 Setting up such a library is a two-stage process.
 
@@ -40,7 +58,7 @@ Stage A (on MKAdmin)
 Create the library:
 	- Make a new library on http://mkc-admin.indexdata.com/console/
 	- Select relevant targets
-	- Add authentication credentials as necessary
+	- Add authentication credentials to the targets as necessary
 	- Create an end-user account
 	- Set its username and password
 
@@ -49,8 +67,14 @@ Stage B (on the application's web-server):
 Authentication onto the library can be achieved by a single HTTP GET
 to the relevant Service Proxy, passing in the credentials and thereby
 initiating an HTTP session. This can most simply be done just by
-setting service_proxy_auth to a URL such as
-	http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=MIKE&password=SWORDFISH
+setting the service_proxy_auth configuration item to a URL such as
+	http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=MIKE&password=SWORDFISH
+which is usually done with JavaScript like:
+
+	<script type="text/javascript">
+	  var mkws_config = { service_proxy_auth:
+	  "http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=MIKE&password=SWORDFISH" };
+        </script>
 
 However, doing so reveals the the credentials to public view -- to
 anyone who does View Source on the MKWS application. This may be
@@ -60,14 +84,15 @@ circumstances, a more elaborate approach is necessary. The idea is to
 make a local URL that is used for authentication onto the Service
 Proxy, hiding the credentials, and to use local mechanisms to limit
 access to that local authentication URL. Here is one way to do it when
-Apache2 is the application's web-server:
+Apache2 is the application's web-server, which we will call
+example.com:
 
 	- Add a rewriting authentication alias to the configuration:
 		RewriteEngine on
-		RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=U&password=PW [P]
-	- Extend the MKWS configuration to set service_proxy_auth:
-		http://application.com/spauth/
-	- Protect access to /apauth/ (e.g. using a .htaccess file).
+		RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	- Set thwe MKWS configuration item "service_proxy_auth" to:
+		http://example.com/spauth/
+	- Protect access to http://example.com/spauth/ (e.g. using a .htaccess file).
 
 Once such a library has been set up, and access to it established,
 target selection within the set that it makes available can be done

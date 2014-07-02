@@ -6,7 +6,6 @@
 
 use Getopt::Long;
 use POSIX ":sys_wait_h";
-use BSD::Resource qw/setrlimit/;
 
 use strict;
 use warnings;
@@ -41,7 +40,14 @@ die usage if !@system;
 
 # set CPU limit, in case the alarm handler will
 # be ignored
-setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+eval {
+    require BSD::Resource;
+    BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+};
+if ($@) {
+    warn "Please install the package BSD::Resource!\n\n$@\n";
+}
+
 
 #
 # use fork/exec instead system()
