@@ -3,8 +3,10 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
+APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
+
 #PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
-PHANTOMJS_URL=http://localhost:4040/jasmine-local-popup.html
+PHANTOMJS_URL=http://localhost:${APACHE_PORT}/jasmine-local-popup.html
 PHANTOMJS_TIMEOUT=16
 
 NPM_INSTALL_FLAGS=-q
