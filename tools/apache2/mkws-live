@@ -33,6 +33,7 @@
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    # Or use: sp-mkc-sansa.indexdata.com:8080 or sp-mkc-arya.indexdata.com:8080
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
