@@ -1,11 +1,11 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 all:
-	${MAKE} -C./src $@
+	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./doc $@
 
 clean distclean:
-	${MAKE} -C./src $@
+	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./doc $@
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
