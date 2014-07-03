@@ -162,7 +162,7 @@ mkws.setMkwsConfig = function(overrides) {
 
   var config_default = {
     use_service_proxy: true,
-    pazpar2_url: "//mkws.indexdata.com/service-proxy/",
+    pazpar2_url:        "//mkws.indexdata.com/service-proxy/",
     service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
