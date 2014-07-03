@@ -24,19 +24,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 
-INSTALLABLE = ${SRC}/mkws-jquery.js VERSION NEWS $(GENERATED)
-
-INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
-
 **make-default**: mkws.js
-
-install: $(INSTALLED)
-
-uninstall:
-	rm -f $(INSTALLED)
-
-../tools/htdocs/%: %
-	rm -f $@ && cp -p $? $@ && chmod 444 $@
 
 all: mkws.min.js mkws-complete.min.js
 
@@ -99,7 +87,7 @@ mkws.js: $(COMPONENTS) Makefile
 	chmod 444 $@
 
 distclean: clean
-	rm -f *.orig *.bak *.rej
+	@echo "(No need for distclean, 'make clean' is fine)"
 
 clean:
 	rm -f ${GENERATED}
