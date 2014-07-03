@@ -24,7 +24,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 
-**make-default**: mkws.js
+**make-default**: all
 
 all: mkws.min.js mkws-complete.min.js
 
