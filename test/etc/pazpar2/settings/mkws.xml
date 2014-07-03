@@ -1,5 +1,6 @@
 <settings target="*">
   <!-- based on edu.pz -->
+
   <set target="acorn.library.vanderbilt.edu:2200/ACORN" name="pz:name" value="Vanderbilt U"/>
   <set target="advance.biblio.polymtl.ca:210/ADVANCE" name="pz:name" value="Ecole Polytechnique Montreal"/>
   <set target="albert.rit.edu:210/INNOPAC" name="pz:name" value="Rochester U of Tech"/>
@@ -29,14 +30,11 @@
   <set name="pz:cclmap:date" value="u=30 r=r"/>
 
   <!-- Retrieval settings -->
-
   <set name="pz:requestsyntax" value="marc21"/>
   <set name="pz:elements" value="F"/>
 
   <!-- Result normalization settings -->
-
   <set name="pz:nativesyntax" value="iso2709"/>
   <set name="pz:xslt" value="marc21.xsl"/>
-
-  <set name="open_url_resolver" value="http://someresolver.com"/>
 </settings>
+
