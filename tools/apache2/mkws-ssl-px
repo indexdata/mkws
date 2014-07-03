@@ -3,6 +3,7 @@
 <VirtualHost *:443>
     ServerName mkws.indexdata.com
     ServerAlias mkws-git.indexdata.com
+    ServerAlias sp-mkws.indexdata.com
 
   <IfModule mod_ssl.c>
     SSLEngine on
