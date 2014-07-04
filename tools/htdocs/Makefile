@@ -43,12 +43,12 @@ mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FI
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
 	  cat  ${SRC}/mkws-jquery.js; \
-	) > mkws-complete.js.new
-	mv -f mkws-complete.js.new mkws-complete.js
+	) > mkws-complete.js.tmp
+	mv -f mkws-complete.js.tmp mkws-complete.js
 
 %.min.js: %.js
-	yui-compressor $? > $@.new
-	mv -f $@.new $@
+	yui-compressor $? > $@.tmp
+	mv -f $@.tmp $@
 
 mkws-syntax-check:
 	yui-compressor mkws.js >/dev/null
@@ -58,9 +58,9 @@ ${HANDLEBARS_FILE}:
 	mv -f $@.tmp $@
 
 ${JQUERY_FILE}:
-	curl -sSf ${JQUERY_URL} -o $@.new
-	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
-	rm -f $@.new
+	curl -sSf ${JQUERY_URL} -o $@.tmp
+	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.tmp > $@
+	rm -f $@.tmp
 
 ${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@.tmp
