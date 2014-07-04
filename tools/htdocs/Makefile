@@ -83,7 +83,8 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 
 mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
-	cat ${COMPONENTS} > $@
+	cat ${COMPONENTS} > $@.tmp
+	mv -f $@.tmp $@
 	chmod 444 $@
 
 distclean: clean
