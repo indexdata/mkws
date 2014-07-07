@@ -441,7 +441,8 @@ mkws.pagerNext = function(tname) {
       }
       var status = $(data).find("status");
       if (status.text() != "OK") {
-        alert("service proxy auth response status: " + status.text() + ", give up!");
+        var message = $(data).find("message");
+        alert("Service Proxy authentication response: " + status.text() + " (" + message.text() + ")");
         return;
       }
 
