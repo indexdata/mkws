@@ -462,11 +462,11 @@ describe("Check switch menu Records/Targets", function () {
         expect(mkws.$("div.mkwsSwitch").length).toBe(1);
 
         // expect 2 clickable links
-        expect(mkws.$("div.mkwsSwitch a").length).toBe(2);
+        expect(mkws.$("div.mkwsSwitch > a").length).toBe(2);
     });
 
     it("switch to target view", function () {
-        mkws.$("div.mkwsSwitch").children('a').eq(1).trigger("click");
+        mkws.$("div.mkwsSwitch > a").eq(1).trigger("click");
 
         // now the target table must be visible
         expect(mkws.$("div.mkwsTargets").is(":visible")).toBe(true);
@@ -485,7 +485,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch back to record view", function () {
-        mkws.$("div.mkwsSwitch").children('a').eq(0).trigger("click");
+        mkws.$("div.mkwsSwitch > a").eq(0).trigger("click");
 
         // now the target table must be visible
         expect(mkws.$("div.mkwsTargets").is(":visible")).toBe(false);
