@@ -113,12 +113,12 @@ mkws.log = function(string) {
 // navigation. pz2.js picks this up and uses it as part of the
 // cookie-name, to ensure each tab gets its own session.
 if (window.name) {
-  console.log("Using existing window.name '" + window.name + "'");
+  mkws.log("Using existing window.name '" + window.name + "'");
 } else {
   // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
   // At one per second, it will take 116 million years to duplicate a session
   window.name = Math.random().toString(36).slice(2, 12);
-  console.log("Generated new window.name '" + window.name + "'");
+  mkws.log("Generated new window.name '" + window.name + "'");
 }
 
 
