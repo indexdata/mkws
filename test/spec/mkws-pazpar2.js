@@ -37,6 +37,10 @@ function init_jasmine_config() {
         show_record_url: true,
         // check for valid URL in records
         check_motd: true,
+
+        // check sort by and per page menu
+        check_sortby: false,
+
         dummy: false
     };
 
@@ -530,6 +534,11 @@ describe("Check removable facets links", function () {
 
     it("remove links for source and author", function () {
         var waitcount = 0;
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for removable facets");
+            return;
+        }
+
 
         runs(function () {
             var click = $("a.mkwsRemovable").eq(0).trigger("click");
@@ -572,8 +581,13 @@ describe("Check per page options", function () {
     var $ = mkws.$;
 
     it("show per page", function () {
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for per page select");
+            return;
+        }
         var waitcount = 0;
         var per_page_number = 20;
+
 
         runs(function () {
             var select = $("select.mkwsPerpage option[selected='selected']");
@@ -612,6 +626,11 @@ describe("Check SortBy options", function () {
     var $ = mkws.$;
 
     it("show per page", function () {
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for sort by");
+            return;
+        }
+
         var waitcount = 0;
         var sort_value = 'title:1';
         var per_page_number = 20;
