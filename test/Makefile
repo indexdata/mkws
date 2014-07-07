@@ -106,5 +106,9 @@ help:
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo "Examples"
+	@echo "                         make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=0 APACHE_PORT=5050 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=2                  make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo ""
 
