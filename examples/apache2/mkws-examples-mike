@@ -3,6 +3,9 @@
     DocumentRoot /usr/local/src/git/mkws/examples/htdocs/
     Alias /tools/htdocs/ /usr/local/src/git/mkws/tools/htdocs/
     Alias /src/ /usr/local/src/git/mkws/src/
+    Alias /jasmine/ /usr/local/src/git/mkws/examples/jasmine/
+    Alias /test/ /usr/local/src/git/mkws/test/
+
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 

@@ -3,9 +3,12 @@
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
+APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
+
 #PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
-PHANTOMJS_URL=http://localhost:4040/jasmine-local-popup.html
-PHANTOMJS_TIMEOUT=16
+PHANTOMJS_PATH=jasmine-local-popup.html
+PHANTOMJS_URL=http://localhost:${APACHE_PORT}/${PHANTOMJS_PATH}
+PHANTOMJS_TIMEOUT=18
 
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
@@ -35,7 +38,7 @@ clean-tmp:
 	touch ${TMP_DIR}/.gitkeep
 
 mkws-complete-syntax-check:
-	${MAKE} -C../src mkws-complete.min.js
+	${MAKE} -C../tools/htdocs mkws-complete.min.js
 
 check: mkws-complete-syntax-check
 	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
@@ -50,7 +53,7 @@ phantomjs p: apache-stop apache-start _phantomjs
 	${MAKE} apache-stop
 
 _phantomjs:
-	./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	perl ./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 mike-test:
 	$(MAKE) _phantomjs PHANTOMJS_URL=http://x.example.indexdata.com/jasmine-popup.html
@@ -103,5 +106,10 @@ help:
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo "Examples"
+	@echo ""
+	@echo "make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=2 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo ""
 

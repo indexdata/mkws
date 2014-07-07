@@ -6,12 +6,11 @@
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
 
-    <script type="text/javascript" src="src/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="src/pz2.js"></script>
-    <script type="text/javascript" src="src/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="src/handlebars-v1.1.2.js"></script>
-    <!-- <script type="text/javascript" src="src/mkws.js"></script> -->
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
     <script type="text/javascript" src="src/mkws-handlebars.js"></script>
     <script type="text/javascript" src="src/mkws-core.js"></script>
     <script type="text/javascript" src="src/mkws-team.js"></script>
@@ -55,8 +54,9 @@
     var jasmine_config = {
       search_query: "netbsd",
       expected_hits: 10,
-      // active_clients: 17,
+      active_clients: 13,
       check_motd: false,
+      check_sortby: true,
       show_record_url: true
     };
 
@@ -67,14 +67,8 @@
     });
     </script>
 
-    <pre>
-An embryonic MasterKey Widget Set
-=================================
-
-This directory contains an embryonic MasterKey Widget Set, based
-initially on "jsdemo" though now far removed from those beginnnings.
-[...]
-    </pre>
+<h2>MKWS Jasmine regression tests</h2>
+<p/>
 
   </body>
 </html>

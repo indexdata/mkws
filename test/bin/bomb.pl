@@ -38,6 +38,17 @@ my @system = @ARGV;
 die usage if $help;
 die usage if !@system;
 
+# set CPU limit, in case the alarm handler will
+# be ignored
+eval {
+    require BSD::Resource;
+    BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+};
+if ($@) {
+    warn "Please install the package BSD::Resource!\n\n$@\n";
+}
+
+
 #
 # use fork/exec instead system()
 #
@@ -54,4 +65,3 @@ if ($pid) {
 else { }
 
 1;
-

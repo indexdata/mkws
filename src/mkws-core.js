@@ -79,6 +79,12 @@ var mkws = {
   }
 };
 
+// We may be using a separate copy
+if (typeof(mkws_jQuery) !== "undefined") {
+  mkws.$ = mkws_jQuery;
+} else {
+  mkws.$ = jQuery;
+}
 
 mkws.log = function(string) {
   if (!mkws.log_level)
@@ -97,6 +103,24 @@ mkws.log = function(string) {
   }
   console.log(string);
 };
+
+
+// Incredible that the standard JavaScript runtime doesn't define a
+// unique windowId. Instead, we have to make one up. And since there's
+// no global area shared between windows, the best we can do for
+// ensuring uniqueness is generating a random ID and crossing our
+// fingers. We stash this in window.name, as it's the only place to
+// keep data that is preserved across reloads and within-site
+// navigation. pz2.js picks this up and uses it as part of the
+// cookie-name, to ensure each tab gets its own session.
+if (window.name) {
+  mkws.log("Using existing window.name '" + window.name + "'");
+} else {
+  // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
+  // At one per second, it will take 116 million years to duplicate a session
+  window.name = Math.random().toString(36).slice(2, 12);
+  mkws.log("Generated new window.name '" + window.name + "'");
+}
 
 
 // Translation function.
@@ -140,7 +164,7 @@ mkws.setMkwsConfig = function(overrides) {
 
   var config_default = {
     use_service_proxy: true,
-    pazpar2_url: "//mkws.indexdata.com/service-proxy/",
+    pazpar2_url:        "//mkws.indexdata.com/service-proxy/",
     service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
@@ -311,12 +335,13 @@ mkws.pagerNext = function(tname) {
 
     request.get(null, function(data) {
       if (!$.isXMLDoc(data)) {
-        alert("service proxy auth response document is not valid XML document, give up!");
+        alert("Service Proxy authentication response is not a valid XML document");
         return;
       }
       var status = $(data).find("status");
       if (status.text() != "OK") {
-        alert("service proxy auth response status: " + status.text() + ", give up!");
+        var message = $(data).find("message");
+        alert("Service Proxy authentication response: " + status.text() + " (" + message.text() + ")");
         return;
       }
 
@@ -487,4 +512,4 @@ mkws.pagerNext = function(tname) {
     var widgetSelector = selectorForAllWidgets();
     if (widgetSelector && $(widgetSelector).length !== 0) init();
   });
-})(jQuery);
+})(mkws.$);

@@ -1,7 +1,7 @@
 // Handlebars helpers
 
 Handlebars.registerHelper('mkws-json', function(obj) {
-  return $.toJSON(obj);
+  return mkws.$.toJSON(obj);
 });
 
 

@@ -36,6 +36,9 @@ mkws.registerWidgetType('Credo', function() {
       </div>\
 ');
 
+  // Inhibit the display of the sole facet's title.
+  this.team.registerTemplate('facetTitle-Subject', 'doo');
+
   var s = []
   s.push('<table>');
 
@@ -52,7 +55,7 @@ mkws.registerWidgetType('Credo', function() {
 
   s.push('<td class="side">');
   s.push(section('topics', 'Related Topics',
-                 this.subwidget('Facet', { _team: 'main', facet: 'subject' })));
+                 this.subwidget('Facet', { _team: 'main', facet: 'subject', template: 'CredoFacet' })));
   s.push('</td>');
 
   s.push('</tr>');

@@ -429,7 +429,7 @@ mkws.registerWidgetType('Progress', function() {
         s += '</span>';
         s += '<span class="mkwsWaiting">';
       }
-      s += '&#x2588';
+      s += '&#x2588;';
     }
     s += '</span>';
     that.node.html(s);

@@ -1,0 +1,40 @@
+<settings target="*">
+  <!-- based on edu.pz -->
+
+  <set target="acorn.library.vanderbilt.edu:2200/ACORN" name="pz:name" value="Vanderbilt U"/>
+  <set target="advance.biblio.polymtl.ca:210/ADVANCE" name="pz:name" value="Ecole Polytechnique Montreal"/>
+  <set target="albert.rit.edu:210/INNOPAC" name="pz:name" value="Rochester U of Tech"/>
+  <set target="atrium.bib.umontreal.ca:210/ADVANCE" name="pz:name" value="U of Montreal"/>
+  <set target="biblio.hec.ca:210/hec" name="pz:name" value="HEC Montreal"/>
+  <set target="books.luther.edu:210/innopac" name="pz:name" value="Luther College"/>
+  <set target="cat.cisti.nrc.ca:210/INNOPAC" name="pz:name" value="NRC Canada"/>
+  <set target="cat.lib.grin.edu:210/innopac" name="pz:name" value="Grinell College"/>
+  <set target="catalog.crl.edu:210/INNOPAC" name="pz:name" value="Center for Research Lib"/>
+  <set target="catalog.lib.jhu.edu:210/horizon" name="pz:name" value="Johns Hopkins U"/>
+  <set target="clavis.ucalgary.ca:2200/UNICORN" name="pz:name" value="U of Calgary"/>
+  <set target="cornelia.whoi.edu:7090/VOYAGER" name="pz:name" value="Woods Hole OI"/>
+  <set target="csulib.ctstateu.edu:210/INNOPAC" name="pz:name" value="CT State U"/>
+  <set target="info.library.mun.ca:2200/UNICORN" name="pz:name" value="Memorial U"/>
+  <set target="jasper.acadiau.ca:2200/UNICORN" name="pz:name" value="Acadia U"/>
+  <set target="ksclib.keene.edu:210/INNOPAC" name="pz:name" value="NH Keene State"/>
+
+  <!-- mapping for unqualified search -->
+  <set name="pz:cclmap:term" value="u=1016 t=l,r s=al"/>
+  
+  <!-- field-specific mappings -->
+  <set name="pz:cclmap:au" value="u=1 s=al"/>
+  <set name="pz:cclmap:ti" value="u=4 s=al"/>
+  <set name="pz:cclmap:su" value="u=21 s=al"/>
+  <set name="pz:cclmap:isbn" value="u=7"/>
+  <set name="pz:cclmap:issn" value="u=8"/>
+  <set name="pz:cclmap:date" value="u=30 r=r"/>
+
+  <!-- Retrieval settings -->
+  <set name="pz:requestsyntax" value="marc21"/>
+  <set name="pz:elements" value="F"/>
+
+  <!-- Result normalization settings -->
+  <set name="pz:nativesyntax" value="iso2709"/>
+  <set name="pz:xslt" value="marc21.xsl"/>
+</settings>
+

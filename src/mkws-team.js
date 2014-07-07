@@ -386,7 +386,7 @@ function team($, teamName) {
   };
 
 
-  function loadTemplate(name) {
+  function loadTemplate(name, fallbackString) {
     var template = m_template[name];
     if (template === undefined && Handlebars.compile) {
       var source;
@@ -415,7 +415,7 @@ function team($, teamName) {
     else {
       alert("Missing MKWS template for " + name);
     }  
-    }
+  }
   that.loadTemplate = loadTemplate;
 
 

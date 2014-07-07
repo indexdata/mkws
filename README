@@ -21,7 +21,7 @@ Required devel tools
 ====================
 
 On debian, you will need:
-$ sudo apt-get install curl git-core pandoc yui-compressor node-js
+$ sudo apt-get install curl git-core pandoc yui-compressor node-js libbsd-resource-perl
 
 On Debian 7 (wheezy), you do not need git-core, plain git will do, but
 you probably have that on a development box already. Unfortunately, node-js

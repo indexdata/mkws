@@ -1,3 +1,7 @@
+# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+
+SRC=   ../../src
+
 HANDLEBARS_FILE = handlebars-v1.1.2.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
@@ -9,35 +13,23 @@ JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
 PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};hb=HEAD
 
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
-VERSION = $(shell tr -d '\012' < VERSION)
+VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 
-COMPONENTS = mkws-handlebars.js\
-	mkws-core.js mkws-team.js mkws-filter.js \
-	mkws-templates.js\
-	mkws-widget.js mkws-widget-main.js mkws-widget-termlists.js \
-	mkws-widget-authname.js mkws-widget-categories.js mkws-widget-log.js \
-	mkws-widget-record.js mkws-widget-reference.js mkws-widget-builder.js
+COMPONENTS = ${SRC}/mkws-handlebars.js \
+	${SRC}/mkws-core.js ${SRC}/mkws-team.js ${SRC}/mkws-filter.js \
+	${SRC}/mkws-templates.js \
+	${SRC}/mkws-widget.js ${SRC}/mkws-widget-main.js ${SRC}/mkws-widget-termlists.js \
+	${SRC}/mkws-widget-authname.js ${SRC}/mkws-widget-categories.js ${SRC}/mkws-widget-log.js \
+	${SRC}/mkws-widget-record.js ${SRC}/mkws-widget-reference.js ${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
 
-INSTALLABLE = mkws-jquery.js VERSION NEWS $(GENERATED)
-
-INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
-
-**make-default**: ../tools/htdocs/mkws.js
-
-install: $(INSTALLED)
-
-uninstall:
-	rm -f $(INSTALLED)
-
-../tools/htdocs/%: %
-	rm -f $@ && cp -p $? $@ && chmod 444 $@
+**make-default**: all
 
 all: mkws.min.js mkws-complete.min.js
 
-mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
@@ -47,16 +39,17 @@ mkws-js mkws-complete.js: Makefile mkws.js mkws-jquery.js ${HANDLEBARS_FILE} ${J
 	  echo "*/"; \
 	  cat ${JQUERY_FILE}; \
 	  cat ${JQUERY_JSON_FILE}; \
+	  echo 'mkws_jQuery = jQuery.noConflict(true);'; \
 	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
-	  cat  mkws-jquery.js; \
-	) > mkws-complete.js.new
-	mv -f mkws-complete.js.new mkws-complete.js
+	  cat  ${SRC}/mkws-jquery.js; \
+	) > mkws-complete.js.tmp
+	mv -f mkws-complete.js.tmp mkws-complete.js
 
 %.min.js: %.js
-	yui-compressor $? > $@.new
-	mv -f $@.new $@
+	yui-compressor $? > $@.tmp
+	mv -f $@.tmp $@
 
 mkws-syntax-check:
 	yui-compressor mkws.js >/dev/null
@@ -66,9 +59,9 @@ ${HANDLEBARS_FILE}:
 	mv -f $@.tmp $@
 
 ${JQUERY_FILE}:
-	curl -sSf ${JQUERY_URL} -o $@.new
-	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.new > $@
-	rm -f $@.new
+	curl -sSf ${JQUERY_URL} -o $@.tmp
+	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.tmp > $@
+	rm -f $@.tmp
 
 ${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@.tmp
@@ -79,27 +72,31 @@ ${PP2_FILE}:
 	mv -f $@.tmp $@
 
 release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
-	@if [ -f releases/mkws-$(VERSION).js ]; then \
+	@if [ -f ${SRC}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
-		cp -p mkws.js releases/mkws-$(VERSION).js; \
-		cp -p mkws.min.js releases/mkws-$(VERSION).min.js; \
-		cp -p mkws-complete.js releases/mkws-complete-$(VERSION).js; \
-		cp -p mkws-complete.min.js releases/mkws-complete-$(VERSION).min.js; \
+		cp -p mkws.js ${SRC}/releases/mkws-$(VERSION).js; \
+		cp -p mkws.min.js ${SRC}/releases/mkws-$(VERSION).min.js; \
+		cp -p mkws-complete.js ${SRC}/releases/mkws-complete-$(VERSION).js; \
+		cp -p mkws-complete.min.js ${SRC}/releases/mkws-complete-$(VERSION).min.js; \
 		echo "Made release $(VERSION)"; \
 	fi
 
-mkws.js: $(COMPONENTS) Makefile
+mkws.js: mkws-templates.js $(COMPONENTS) Makefile
 	rm -f $@
-	cat $(COMPONENTS) > $@
+	cat ${COMPONENTS} > $@.tmp
+	mv -f $@.tmp $@
 	chmod 444 $@
 
 mkws-templates.js:
-	handlebars -n mkws.defaultTemplates *.templates/*.handlebars -f mkws-templates.js
+	handlebars -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
 
 distclean: clean
-	rm -f *.orig *.bak *.rej
+	@echo "(No need for distclean, 'make clean' is fine)"
 
 clean:
 	rm -f ${GENERATED}
 
+help:
+	@echo "make [ all | release | clean | distclean ]"
+	@echo "     [ mkws-syntax-check ]"

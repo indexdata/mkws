@@ -14,7 +14,7 @@ uninstall:
 ../tools/htdocs/%: %
 	rm -f $@
 	cp -p $? $@
-	chmod -w $@
+	chmod ugo-w $@
 
 all: $(DOCS)
 

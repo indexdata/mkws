@@ -32,6 +32,49 @@
     content: "Source: ";
     font-weight: bold;
 }
+/* original "ru" config
+.mkwsReferenceUniverse {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #FCFBFA; 
+  padding: 0.5em 1em 0.25em;
+  box-shadow: 0 0 2px 0 #7F8F93;
+  border-radius: 0 0 1.5em;
+  -moz-border-radius: 0 0 1.5em;
+  -webkit-border-radius: 0 0 1.5em;
+  line-height: 1.4;
+  color: #86979B;
+  background: radial-gradient(ellipse at center,  #ffffff 0%,#f8f8f8 100%);
+}
+*/
+
+.mkwsReferenceUniverse {
+  padding: 0.5em 1em 0.25em;
+}
+
+.mkwsReferenceUniverse h2 {
+  font-size: 100%;
+  color: #4A5456;
+  padding-bottom: .5em;
+}
+
+.mkwsReferenceUniverse ul {
+  margin: 0;
+  padding: 0;
+}
+
+.mkwsReferenceUniverse li {
+  margin: .95em .25em;
+  padding-top: .75em;
+  border-top: 1px dotted #BEC8CC;
+  font-size: 90%;
+  list-style: none;
+}
+
+.mkwsReferenceUniverse a {
+  text-decoration: none;
+  font-weight:bold;
+  color: #2B77AF;
+}
 /*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
  * Licence: GPL, http://www.indexdata.com/licences/gpl
  *

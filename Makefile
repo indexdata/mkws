@@ -1,11 +1,11 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 all:
-	${MAKE} -C./src $@
-	${MAKE} -C./doc $@
+	${MAKE} -C./tools/htdocs $@
+	${MAKE} -C./doc install
 
 clean distclean:
-	${MAKE} -C./src $@
+	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./doc $@
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
@@ -18,12 +18,9 @@ phantomjs p:
 
 # must be called once after GIT checkout
 setup:	
-#why?	${MAKE} -C./tools/htdocs mkws-js-min
 	${MAKE} -C./test node-modules
 
-check: setup check-js
-	@echo ""
-	@echo "To run jasmine regression tests, type: make phantomjs"
+check: setup check-js phantomjs
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"

@@ -4,3 +4,4 @@ logs/jasmine-dev
 logs/mkws-jasmine-access.log
 logs/mkws-jasmine-error.log
 logs/mkws-jasmine-rewrite.log
+logs/mkws-jasmine.pid

@@ -14,6 +14,7 @@
         "xmlhttprequest": "*",
         "jsdom": "*",
         "request": "*",
+        "jasmine-reporters": "<= 0.4.1",
         "jasmine-node": "*",
         "phantomjs": "*"
     },
