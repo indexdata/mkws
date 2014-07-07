@@ -2,7 +2,7 @@
 
 all:
 	${MAKE} -C./tools/htdocs $@
-	${MAKE} -C./doc $@
+	${MAKE} -C./doc install
 
 clean distclean:
 	${MAKE} -C./tools/htdocs $@

@@ -1,0 +1,34 @@
+# Separate hostname for the MKWS instance of the Service Proxy.
+# This allows us to use a different SP configuration that handles
+# authentication differently.
+#
+# Once this is in universal use, we can get rid of the Service Proxy
+# stuff in the configuration for mkws.indexdata.com
+#
+<VirtualHost *:80>
+    ServerName sp-mkws.indexdata.com
+
+    ErrorLog /var/log/apache2/sp-mkws-error.log
+    CustomLog /var/log/apache2/sp-mkws-access.log combined
+
+    DocumentRoot /home/indexdata/mkws/tools/sp-htdocs
+
+    # No rewriting on this server: use the true URL.
+    # (The security value of rewrite is when the application site does it.)
+
+    Header set Access-Control-Allow-Credentials true
+
+    ProxyPreserveHost On
+    # We could use any of the following:
+    #	sp-mkc.indexdata.com/service-proxy/ -- multiplexer
+    #	sp-mkc-sansa.indexdata.com:8080/service-proxy/ -- 1st back-end server
+    #	sp-mkc-arya.indexdata.com:8080/service-proxy/ -- 2nd back-end server
+    ProxyPass        /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
+
+    PerlOptions +Parent
+    PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
+    <Location /service-proxy>
+        PerlOutputFilterHandler MyApache2::SetACAO
+    </Location>
+</VirtualHost>

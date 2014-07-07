@@ -8,7 +8,7 @@ APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
 #PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
 PHANTOMJS_PATH=jasmine-local-popup.html
 PHANTOMJS_URL=http://localhost:${APACHE_PORT}/${PHANTOMJS_PATH}
-PHANTOMJS_TIMEOUT=16
+PHANTOMJS_TIMEOUT=18
 
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
@@ -106,5 +106,10 @@ help:
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "DEBUG=1 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo "Examples"
+	@echo ""
+	@echo "make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=2 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo ""
 
