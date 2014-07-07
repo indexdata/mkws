@@ -436,12 +436,13 @@ mkws.pagerNext = function(tname) {
 
     request.get(null, function(data) {
       if (!$.isXMLDoc(data)) {
-        alert("service proxy auth response document is not valid XML document, give up!");
+        alert("Service Proxy authentication response is not a valid XML document");
         return;
       }
       var status = $(data).find("status");
       if (status.text() != "OK") {
-        alert("service proxy auth response status: " + status.text() + ", give up!");
+        var message = $(data).find("message");
+        alert("Service Proxy authentication response: " + status.text() + " (" + message.text() + ")");
         return;
       }
 
