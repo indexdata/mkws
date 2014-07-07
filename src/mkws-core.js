@@ -6,23 +6,6 @@
 "use strict"; // HTML5: disable for log_level >= 2
 
 
-// Incredible that the standard JavaScript runtime doesn't define a
-// unique windowId. Instead, we have to make one up. And since there's
-// no global area shared between windows, the best we can do for
-// ensuring uniqueness is generating a random ID and crossing our
-// fingers. We stash this in window.name, as it's the only place to
-// keep data that is preserved across reloads and within-site
-// navigation. pz2.js picks this up and uses it as part of the
-// cookie-name, to ensure each tab gets its own session.
-if (window.name) {
-  console.log("Using existing window.name '" + window.name + "'");
-} else {
-  // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
-  // At one per second, it will take 116 million years to duplicate a session
-  window.name = Math.random().toString(36).slice(2, 12);
-  console.log("Generated new window.name '" + window.name + "'");
-}
-
 // Set up global mkws object. Contains truly global state such as SP
 // authentication, and a hash of team objects, indexed by team-name.
 //
@@ -119,6 +102,24 @@ mkws.log = function(string) {
   }
   console.log(string);
 };
+
+
+// Incredible that the standard JavaScript runtime doesn't define a
+// unique windowId. Instead, we have to make one up. And since there's
+// no global area shared between windows, the best we can do for
+// ensuring uniqueness is generating a random ID and crossing our
+// fingers. We stash this in window.name, as it's the only place to
+// keep data that is preserved across reloads and within-site
+// navigation. pz2.js picks this up and uses it as part of the
+// cookie-name, to ensure each tab gets its own session.
+if (window.name) {
+  console.log("Using existing window.name '" + window.name + "'");
+} else {
+  // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
+  // At one per second, it will take 116 million years to duplicate a session
+  window.name = Math.random().toString(36).slice(2, 12);
+  console.log("Generated new window.name '" + window.name + "'");
+}
 
 
 // Translation function.
