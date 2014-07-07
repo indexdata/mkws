@@ -3,6 +3,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: jQuery popup plugin with jasmine test framework</title>
 
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js">
+      // create a function in external jquery object
+      $.extend({
+	mkws_jasmine_external_jquery_object: function () { return true; }
+      });
+    </script>
     <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
 
@@ -21,7 +27,7 @@
     <script type="text/javascript" src="test/js/mkws-jasmine-run.js"></script>
     <script type="text/javascript"> mkws_jasmine_init(500); </script>
 
-    <!-- jquery null test 
+    <!-- jquery null test
     <script type="text/javascript">$ = undefined;</script>
 	-->
 
@@ -41,21 +47,22 @@
     var jasmine_config = {
       search_query: "netbsd",
       expected_hits: 10,
-      // active_clients: 17,
       check_motd: false,
       show_record_url: true
     };
 
-    jQuery.pazpar2({
-        "layout": "popup",               /* "table" [default], "div", "popup" */
-        "width": 990,                    /* popup width, should be at least 800 */
-        "height": 760                    /* popup height, should be at least 600 */
-    });
     </script>
 
 <h2>MKWS Jasmine regression tests</h2>
-<p/>
+
+    <div class="mkwsSwitch"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsProgress"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
+    <div class="mkwsBuilder"></div>
 
   </body>
 </html>
-
