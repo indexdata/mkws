@@ -598,49 +598,75 @@ describe("Check per page options", function () {
     });
 });
 
-
-xdescribe("Check SortBy options", function () {
+describe("Check SortBy options", function () {
     var $ = mkws.$;
 
-    it("sort by title", function () {
+    it("show per page", function () {
         var waitcount = 0;
+        var sort_value = 'title:1';
+        var per_page_number = 20;
+        var title_list_old = title_list("xxx ");
 
-        runs(function () {
-            var terms = $("div.mkwsRecords > div > a");
+        function title_list(prefix) {
+            var list = [];
+            var terms = $("div.mkwsRecords > div.mkwsSummary > a");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text();
-                debug("xxx: " + term);
+                list.push(term);
+                // debug(prefix + "title: " + term);
             }
-        });
+            return list;
+        }
 
         runs(function () {
-            var select = $("select.mkwsSort option[selected='selected']");
-            debug("Sort by default: " + select.text());
-
-            select = $("select.mkwsSort option[value='title:1']").attr('selected', 'selected');
-            debug("Sort by is set to: " + select.text());
-
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for stat: " + waitcount);
+                debug("DOM wait for change, per page: " + waitcount);
             });
+
+            var select = $("select.mkwsSort option[selected='selected']");
+            debug("Sort by default is: " + select.text() + " and unselect it");
+            select.removeAttr('selected');
+
+            select = $("select.mkwsSort option[value='" + sort_value + "']").attr('selected', true);
+            debug("srot by is set to: " + select.text());
+            select.trigger("change");
+
+
         });
 
         waitsFor(function () {
-            waitcount >= 1 ? true : false;
-        }, "Records DOM change, by sort", 3 * jasmine_config.second);
+            debug("wait for2: " + waitcount);
+            return waitcount >= 6 ? true : false;
+        }, "Records DOM change, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
-            var terms = $("div.mkwsRecords > div > a");
-            for (var i = 0; i < terms.length; i++) {
-                var term = $(terms[i]).text();
-                debug("yyy: " + term);
-            }
-
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            debug("unbind per page");
+        });
+
+        runs(function () {
+            var records = $("div.mkwsRecords > div.mkwsSummary a");
+            debug("Got now " + records.length + " records");
+            expect(records.length).toBe(per_page_number);
+        });
+
+        runs(function () {
+            var title_list_new = title_list("yyy ");
+            var diff_flag = 0;
+            for (var i = 0; i < title_list_old.length; i++) {
+                debug(title_list_old[i] + " :: " + title_list_new[i]);
+
+                if (title_list_old[i] != title_list_new[i]) {
+                    diff_flag++;
+                }
+            }
+            debug("Title changes: " + diff_flag + " out of " + per_page_number);
+            expect(diff_flag).not.toBe(0);
         });
     });
 });
+
 
 /* done */
 describe("All tests are done", function () {
