@@ -576,7 +576,7 @@ describe("Check per page options", function () {
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for change, per page: " + waitcount);
+                // debug("DOM wait for change, per page: " + waitcount);
             });
         });
 
@@ -621,7 +621,7 @@ describe("Check SortBy options", function () {
         runs(function () {
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for change, per page: " + waitcount);
+                //debug("DOM wait for change, sort by: " + waitcount);
             });
 
             var select = $("select.mkwsSort option[selected='selected']");
@@ -631,8 +631,6 @@ describe("Check SortBy options", function () {
             select = $("select.mkwsSort option[value='" + sort_value + "']").attr('selected', true);
             debug("srot by is set to: " + select.text());
             select.trigger("change");
-
-
         });
 
         waitsFor(function () {
