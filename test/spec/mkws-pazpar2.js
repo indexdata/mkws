@@ -591,7 +591,7 @@ describe("Check per page options", function () {
         });
 
         waitsFor(function () {
-            debug("wait for: " + waitcount);
+            //debug("wait for: " + waitcount);
             return waitcount >= 6 ? true : false;
         }, "Records DOM change, by per page", 3 * jasmine_config.second);
 
@@ -639,7 +639,7 @@ describe("Check SortBy options", function () {
             select.removeAttr('selected');
 
             select = $("select.mkwsSort option[value='" + sort_value + "']").attr('selected', true);
-            debug("srot by is set to: " + select.text());
+            debug("sort by is set to: " + select.text());
             select.trigger("change");
         });
 
