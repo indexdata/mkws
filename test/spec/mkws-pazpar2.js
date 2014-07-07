@@ -527,7 +527,6 @@ describe("Check status client counter", function () {
 /* remove the "source" and "author" facet link to get more records again */
 describe("Check removable facets links", function () {
     var $ = mkws.$;
-    var debug = mkws.log;
 
     it("remove links for source and author", function () {
         var waitcount = 0;
@@ -561,17 +560,18 @@ describe("Check removable facets links", function () {
 
 describe("Check per page options", function () {
     var $ = mkws.$;
-    var debug = mkws.log;
 
     it("show per page", function () {
         var waitcount = 0;
 
         runs(function () {
             var select = $("select.mkwsPerpage option[selected='selected']");
-            debug("per page default is: " + select.text());
+            debug("per page default is: " + select.text() + " and unselect it");
+            select.removeAttr('selected');
 
-            select = $("select.mkwsPerpage option[value='20']").attr('selected', 'selected');
+            select = $("select.mkwsPerpage option[value='20']").attr('selected', true);
             debug("per page is set to: " + select.text());
+            select.trigger("change");
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
@@ -580,14 +580,14 @@ describe("Check per page options", function () {
         });
 
         waitsFor(function () {
-            debug("waitfor: " + waitcount);
+            debug("wait for: " + waitcount);
             return waitcount >= 2 ? true : false;
         }, "Records DOM change, by per page", 3 * jasmine_config.second);
-    });
 
-    it("show per page cleanup", function () {
-        $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-        debug("xxx unbind");
+        runs(function () {
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            debug("unbind per page");
+        });
     });
 });
 
