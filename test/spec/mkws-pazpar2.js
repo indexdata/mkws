@@ -37,6 +37,10 @@ function init_jasmine_config() {
         show_record_url: true,
         // check for valid URL in records
         check_motd: true,
+
+        // check sort by and per page menu
+        check_sortby: false,
+
         dummy: false
     };
 
@@ -241,6 +245,8 @@ describe("Check Termlist", function () {
     });
 });
 
+
+
 describe("Check Author Facets", function () {
     it("limit search to first author", function () {
         if (mkws.config.disable_facet_authors_search) {
@@ -275,7 +281,7 @@ describe("Check Author Facets", function () {
 
         waitsFor(function () {
             var hits_single_target = get_hit_counter();
-            console.log("hits_single_target='" + hits_single_target + "' cf. hits_all_targets='" + hits_all_targets + "'");
+            // debug("hits_single_target='" + hits_single_target + "' cf. hits_all_targets='" + hits_all_targets + "'");
             return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
         }, "Limited author search for less than " + hits_all_targets + " hits", 4.5 * jasmine_config.second);
 
@@ -460,11 +466,11 @@ describe("Check switch menu Records/Targets", function () {
         expect(mkws.$("div.mkwsSwitch").length).toBe(1);
 
         // expect 2 clickable links
-        expect(mkws.$("div.mkwsSwitch a").length).toBe(2);
+        expect(mkws.$("div.mkwsSwitch > a").length).toBe(2);
     });
 
     it("switch to target view", function () {
-        mkws.$("div.mkwsSwitch").children('a').eq(1).trigger("click");
+        mkws.$("div.mkwsSwitch > a").eq(1).trigger("click");
 
         // now the target table must be visible
         expect(mkws.$("div.mkwsTargets").is(":visible")).toBe(true);
@@ -483,7 +489,7 @@ describe("Check switch menu Records/Targets", function () {
     });
 
     it("switch back to record view", function () {
-        mkws.$("div.mkwsSwitch").children('a').eq(0).trigger("click");
+        mkws.$("div.mkwsSwitch > a").eq(0).trigger("click");
 
         // now the target table must be visible
         expect(mkws.$("div.mkwsTargets").is(":visible")).toBe(false);
@@ -521,6 +527,173 @@ describe("Check status client counter", function () {
         });
     });
 });
+
+/* remove the "source" and "author" facet link to get more records again */
+describe("Check removable facets links", function () {
+    var $ = mkws.$;
+
+    it("remove links for source and author", function () {
+        var waitcount = 0;
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for removable facets");
+            return;
+        }
+
+
+        runs(function () {
+            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            debug("Removed first facets link: " + click.length);
+            expect(click.length).toBe(1);
+        });
+
+        runs(function () {
+            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM change for removeable: " + waitcount);
+            });
+        });
+
+        waitsFor(function () {
+            return $("a.mkwsRemovable").length == 1 ? 1 : 0;
+        });
+
+        runs(function () {
+            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            debug("Removed second facets link: " + click.length);
+            expect(click.length).toBe(1);
+        });
+
+        waitsFor(function () {
+            // debug("wait for: " + waitcount);
+            return waitcount >= 2 ? true : false;
+        }, "Records DOM change, by per page", 2 * jasmine_config.second);
+
+
+        runs(function () {
+            debug("unbind removable");
+            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+        });
+    });
+});
+
+
+describe("Check per page options", function () {
+    var $ = mkws.$;
+
+    it("show per page", function () {
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for per page select");
+            return;
+        }
+        var waitcount = 0;
+        var per_page_number = 20;
+
+
+        runs(function () {
+            var select = $("select.mkwsPerpage option[selected='selected']");
+            debug("per page default is: " + select.text() + " and unselect it");
+            select.removeAttr('selected');
+
+            select = $("select.mkwsPerpage option[value='" + per_page_number + "']").attr('selected', true);
+            debug("per page is set to: " + select.text());
+            select.trigger("change");
+
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                // debug("DOM wait for change, per page: " + waitcount);
+            });
+        });
+
+        waitsFor(function () {
+            //debug("wait for: " + waitcount);
+            return waitcount >= 6 ? true : false;
+        }, "Records DOM change, by per page", 3 * jasmine_config.second);
+
+        runs(function () {
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            debug("unbind per page");
+        });
+
+        runs(function () {
+            var records = $("div.mkwsRecords > div.mkwsSummary");
+            debug("Got now " + records.length + " records");
+            expect(records.length).toBe(per_page_number);
+        });
+    });
+});
+
+describe("Check SortBy options", function () {
+    var $ = mkws.$;
+
+    it("show per page", function () {
+        if (!jasmine_config.check_sortby) {
+            debug("ignore check for sort by");
+            return;
+        }
+
+        var waitcount = 0;
+        var sort_value = 'title:1';
+        var per_page_number = 20;
+        var title_list_old = title_list("xxx ");
+
+        function title_list(prefix) {
+            var list = [];
+            var terms = $("div.mkwsRecords > div.mkwsSummary > a");
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                list.push(term);
+                // debug(prefix + "title: " + term);
+            }
+            return list;
+        }
+
+        runs(function () {
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                //debug("DOM wait for change, sort by: " + waitcount);
+            });
+
+            var select = $("select.mkwsSort option[selected='selected']");
+            debug("Sort by default is: " + select.text() + " and unselect it");
+            select.removeAttr('selected');
+
+            select = $("select.mkwsSort option[value='" + sort_value + "']").attr('selected', true);
+            debug("sort by is set to: " + select.text());
+            select.trigger("change");
+        });
+
+        waitsFor(function () {
+            //debug("wait for2: " + waitcount);
+            return waitcount >= 6 ? true : false;
+        }, "Records DOM change, by sort page", 3 * jasmine_config.second);
+
+        runs(function () {
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            debug("unbind per page");
+        });
+
+        runs(function () {
+            var records = $("div.mkwsRecords > div.mkwsSummary a");
+            debug("Got now " + records.length + " records");
+            expect(records.length).toBe(per_page_number);
+        });
+
+        runs(function () {
+            var title_list_new = title_list("yyy ");
+            var diff_flag = 0;
+            for (var i = 0; i < title_list_old.length; i++) {
+                debug(title_list_old[i] + " :: " + title_list_new[i]);
+
+                if (title_list_old[i] != title_list_new[i]) {
+                    diff_flag++;
+                }
+            }
+            debug("Title changes: " + diff_flag + " out of " + per_page_number);
+            expect(diff_flag).not.toBe(0);
+        });
+    });
+});
+
 
 /* done */
 describe("All tests are done", function () {
