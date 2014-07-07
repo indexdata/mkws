@@ -107,8 +107,9 @@ help:
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
 	@echo "Examples"
-	@echo "                         make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
-	@echo "DEBUG=0 APACHE_PORT=5050 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
-	@echo "DEBUG=2                  make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo ""
+	@echo "make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=2 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
 	@echo ""
 
