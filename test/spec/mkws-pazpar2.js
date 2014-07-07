@@ -600,13 +600,13 @@ describe("Check per page options", function () {
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                // debug("DOM wait for change, per page: " + waitcount);
+                debug("DOM wait for change, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
             //debug("wait for: " + waitcount);
-            return waitcount >= 6 ? true : false;
+            return waitcount >= 30 ? true : false;
         }, "Records DOM change, by per page", 3 * jasmine_config.second);
 
         runs(function () {
