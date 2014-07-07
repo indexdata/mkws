@@ -241,6 +241,8 @@ describe("Check Termlist", function () {
     });
 });
 
+
+
 describe("Check Author Facets", function () {
     it("limit search to first author", function () {
         if (mkws.config.disable_facet_authors_search) {
@@ -518,6 +520,91 @@ describe("Check status client counter", function () {
             var clients = mkws.$("div.mkwsStat span.mkwsClientCount");
             debug("span.mkwsClientCount: " + clients.text());
             expect(clients.text()).toMatch("0/1$");
+        });
+    });
+});
+
+describe("Check removable links", function () {
+    var $ = mkws.$;
+
+    it("remove links for source and author", function () {
+        var click = mkws.$("a.mkwsRemovable").trigger("click");
+        debug("Removed facets links: " + click.length);
+        expect(click.length).toBe(2);
+    });
+});
+
+describe("Check per page options", function () {
+    var $ = mkws.$;
+
+    it("show per page", function () {
+        var waitcount = 0;
+
+        runs(function () {
+            var select = $("select.mkwsPerpage option[selected='selected']");
+            debug("per page default is: " + select.text());
+
+            select = $("select.mkwsPerpage option[value='20']").attr('selected', 'selected');
+            debug("per page is set to: " + select.text());
+
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM wait for stat: " + waitcount);
+            });
+        });
+
+        waitsFor(function () {
+            waitcount >= 1 ? true : false;
+        });
+
+
+        runs(function () {
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+        });
+    });
+});
+
+
+describe("Check SortBy options", function () {
+    var $ = mkws.$;
+
+    it("sort by title", function () {
+        var waitcount = 0;
+
+        runs(function () {
+            var terms = $("div.mkwsRecords > div > a");
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                debug("xxx: " + term);
+            }
+        });
+
+        runs(function () {
+            var select = $("select.mkwsSort option[selected='selected']");
+            debug("Sort by default: " + select.text());
+
+            select = $("select.mkwsSort option[value='title:1']").attr('selected', 'selected');
+            debug("Sort by is set to: " + select.text());
+
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM wait for stat: " + waitcount);
+            });
+        });
+
+        waitsFor(function () {
+            waitcount >= 1 ? true : false;
+        });
+
+
+        runs(function () {
+            var terms = $("div.mkwsRecords > div > a");
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                debug("yyy: " + term);
+            }
+
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
