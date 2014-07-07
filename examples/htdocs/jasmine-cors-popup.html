@@ -3,12 +3,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: jQuery popup plugin with jasmine test framework</title>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js">
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
+    <script>
       // create a function in external jquery object
       $.extend({
-	mkws_jasmine_external_jquery_object: function () { return true; }
+	mkws_external_jquery_object: function () { return true; }
       });
     </script>
+
     <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
 
@@ -27,19 +29,23 @@
     <script type="text/javascript" src="test/js/mkws-jasmine-run.js"></script>
     <script type="text/javascript"> mkws_jasmine_init(500); </script>
 
-    <!-- jquery null test
-    <script type="text/javascript">$ = undefined;</script>
-	-->
-
     <style type="text/css">
       body > div > form > input.ui-state-default { background: none; }
     </style>
   </head>
 
   <body>
-    <script type="text/javascript">
+    <script>
+      // jquery.js from <head> section
+      if (!($.mkws_external_jquery_object && $.mkws_external_jquery_object())) {
+	alert("External jquery(1) mis-match!!!");
+      }
+      if (mkws.$.mkws_external_jquery_object && mkws.$.mkws_external_jquery_object()) {
+	alert("Internal jquery(1) mis-match!!!");
+      }
+    </script>
 
-    // using a local service proxy !!!
+    <script type="text/javascript">
     var mkws_config = {
       perpage_default: 10
     };
@@ -50,19 +56,39 @@
       check_motd: false,
       show_record_url: true
     };
-
     </script>
 
-<h2>MKWS Jasmine regression tests</h2>
+    <h2>MKWS Jasmine regression tests</h2>
 
-    <div class="mkwsSwitch"></div>
-    <div class="mkwsLang"></div>
-    <div class="mkwsProgress"></div>
-    <div class="mkwsSearch"></div>
-    <div class="mkwsResults"></div>
-    <div class="mkwsTargets"></div>
-    <div class="mkwsStat"></div>
-    <div class="mkwsBuilder"></div>
+      <div class="mkwsSwitch"></div>
+      <div class="mkwsLang"></div>
+      <div class="mkwsProgress"></div>
+      <div class="mkwsSearch"></div>
+      <div class="mkwsResults"></div>
+      <div class="mkwsTargets"></div>
+      <div class="mkwsStat"></div>
+      <div class="mkwsBuilder"></div>
 
+      <!-- include jquery again -->
+      <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
+      <script>
+	$(document).ready(function() {
+	  // now the second jquery is used
+	  if ($.mkws_external_jquery_object && $.mkws_external_jquery_object()) {
+	    alert("External jquery(2) mis-match!!!");
+	  }
+	  if (mkws.$.mkws_external_jquery_object && mkws.$.mkws_external_jquery_object()) {
+	    alert("Internal jquery(2) mis-match!!!");
+	  }
+
+	  // jquery null test
+	  $ = undefined;
+	  jQuery = undefined;
+
+	  if (!mkws.$) {
+	    alert("MKWS jquery(3) is not set!!!");
+	  }
+	});
+      </script>
   </body>
 </html>
