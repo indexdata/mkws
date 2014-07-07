@@ -524,18 +524,44 @@ describe("Check status client counter", function () {
     });
 });
 
-describe("Check removable links", function () {
+/* remove the "source" and "author" facet link to get more records again */
+describe("Check removable facets links", function () {
     var $ = mkws.$;
+    var debug = mkws.log;
 
     it("remove links for source and author", function () {
-        var click = mkws.$("a.mkwsRemovable").trigger("click");
-        debug("Removed facets links: " + click.length);
-        expect(click.length).toBe(2);
+        var waitcount = 0;
+
+        runs(function () {
+            var click = $("a.mkwsRemovable").trigger("click");
+            debug("Removed facets links: " + click.length);
+            expect(click.length).toBe(2);
+        });
+
+        runs(function () {
+            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM change for removeable: " + waitcount);
+            });
+        });
+
+        waitsFor(function () {
+            // debug("wait for: " + waitcount);
+            return waitcount >= 2 ? true : false;
+        }, "Records DOM change, by per page", 2 * jasmine_config.second);
+
+
+        runs(function () {
+            debug("unbind removable");
+            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+        });
     });
 });
 
+
 describe("Check per page options", function () {
     var $ = mkws.$;
+    var debug = mkws.log;
 
     it("show per page", function () {
         var waitcount = 0;
@@ -549,23 +575,24 @@ describe("Check per page options", function () {
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for stat: " + waitcount);
+                debug("DOM wait for stat, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            waitcount >= 1 ? true : false;
-        });
+            debug("waitfor: " + waitcount);
+            return waitcount >= 2 ? true : false;
+        }, "Records DOM change, by per page", 3 * jasmine_config.second);
+    });
 
-
-        runs(function () {
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-        });
+    it("show per page cleanup", function () {
+        $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+        debug("xxx unbind");
     });
 });
 
 
-describe("Check SortBy options", function () {
+xdescribe("Check SortBy options", function () {
     var $ = mkws.$;
 
     it("sort by title", function () {
@@ -594,8 +621,7 @@ describe("Check SortBy options", function () {
 
         waitsFor(function () {
             waitcount >= 1 ? true : false;
-        });
-
+        }, "Records DOM change, by sort", 3 * jasmine_config.second);
 
         runs(function () {
             var terms = $("div.mkwsRecords > div > a");
