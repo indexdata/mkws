@@ -532,9 +532,9 @@ describe("Check removable facets links", function () {
         var waitcount = 0;
 
         runs(function () {
-            var click = $("a.mkwsRemovable").trigger("click");
-            debug("Removed facets links: " + click.length);
-            expect(click.length).toBe(2);
+            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            debug("Removed first facets link: " + click.length);
+            expect(click.length).toBe(1);
         });
 
         runs(function () {
@@ -542,6 +542,16 @@ describe("Check removable facets links", function () {
                 waitcount++;
                 debug("DOM change for removeable: " + waitcount);
             });
+        });
+
+        waitsFor(function () {
+            return $("a.mkwsRemovable").length == 1 ? 1 : 0;
+        });
+
+        runs(function () {
+            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            debug("Removed second facets link: " + click.length);
+            expect(click.length).toBe(1);
         });
 
         waitsFor(function () {
