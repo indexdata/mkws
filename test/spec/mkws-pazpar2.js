@@ -563,30 +563,37 @@ describe("Check per page options", function () {
 
     it("show per page", function () {
         var waitcount = 0;
+        var per_page_number = 20;
 
         runs(function () {
             var select = $("select.mkwsPerpage option[selected='selected']");
             debug("per page default is: " + select.text() + " and unselect it");
             select.removeAttr('selected');
 
-            select = $("select.mkwsPerpage option[value='20']").attr('selected', true);
+            select = $("select.mkwsPerpage option[value='" + per_page_number + "']").attr('selected', true);
             debug("per page is set to: " + select.text());
             select.trigger("change");
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for stat, per page: " + waitcount);
+                debug("DOM wait for change, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
             debug("wait for: " + waitcount);
-            return waitcount >= 2 ? true : false;
+            return waitcount >= 6 ? true : false;
         }, "Records DOM change, by per page", 3 * jasmine_config.second);
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind per page");
+        });
+
+        runs(function () {
+            var records = $("div.mkwsRecords > div.mkwsSummary");
+            debug("Got now " + records.length + " records");
+            expect(records.length).toBe(per_page_number);
         });
     });
 });
