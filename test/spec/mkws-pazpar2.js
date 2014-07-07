@@ -644,7 +644,7 @@ describe("Check SortBy options", function () {
         });
 
         waitsFor(function () {
-            debug("wait for2: " + waitcount);
+            //debug("wait for2: " + waitcount);
             return waitcount >= 6 ? true : false;
         }, "Records DOM change, by sort page", 3 * jasmine_config.second);
 
