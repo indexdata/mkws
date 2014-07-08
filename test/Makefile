@@ -28,6 +28,7 @@ clean:
 distclean: clean clean-tmp clean-error
 	rm -rf node_modules
 	rm -f ${TMP_DIR}/jasmine-dev
+	rm -f libexec
 
 clean-error:
 	rm -f mkws-error.png.* mkws-error.html.*
