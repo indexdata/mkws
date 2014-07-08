@@ -18,7 +18,9 @@ export MKWS_ROOT=$(pwd)/..
 
 MKWS_OS=debian 
 case $(uname) in
-  Darwin ) MKWS_OS=macos ;;
+  Darwin ) MKWS_OS=macos 
+	   test -e libexec || ln -fs /usr/libexec .
+	   ;;
   Linux )  MKWS_OS=debian 
 	   if [ -e /etc/debian_version ]; then
 		MKWS_OS=debian 	
