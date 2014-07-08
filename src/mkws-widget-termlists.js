@@ -59,7 +59,19 @@ mkws.registerWidgetType('Facet', function() {
         linkdata: linkdata
       }); 
     }
-    var template = team.loadTemplate(that.config.template || "Facet");
+    // configured template > facet specific template > default facet template
+    var template;
+    if (that.config.template) {
+      template = team.loadTemplate(that.config.template);
+    } else {
+      template = team.loadTemplate("Facet-" + caption);
+      if (template) {
+        that.log("Using Facet-" + caption + " template.")
+      } else {
+        that.log("No " + caption + " specific template, using default.")
+        template = team.loadTemplate("Facet");
+      }
+    }
     that.node.html(template({
       name: name,
       caption: caption,
