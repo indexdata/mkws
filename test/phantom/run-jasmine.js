@@ -108,14 +108,14 @@ page.open(url, function (status) {
 
     var exit = wait_for_jasmine(function () {
         return page.evaluate(function () {
-            if (!window || !window.$ || !window.mkws) {
+            if (!window || !window.mkws || !window.mkws.$) {
                 console.log("No window object found");
                 return false;
             }
 
-            var $ = window.$;
+            var $ = window.mkws.$;
             var error_msg = [""];
-            var passing = $(".passingAlert").text() || window.$(".failingAlert").text();
+            var passing = $(".passingAlert").text() || $(".failingAlert").text();
 
             // extract failed tests
             var list = $('.results > #details > .specDetail.failed');
