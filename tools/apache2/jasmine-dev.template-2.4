@@ -1,0 +1,62 @@
+# Configuration for the apache web server                 -*- apache -*-
+
+#####################################################################
+# global apache2 config
+#
+User ${APACHE_RUN_USER}
+Group ${APACHE_RUN_GROUP}
+PidFile ${APACHE_PID_FILE}
+Mutex file:${APACHE_LOG_DIR}
+
+ServerName localhost
+ServerRoot ${APACHE_SERVER_ROOT}
+Listen ${APACHE_PORT}
+
+Include ${APACHE_MODULES}
+
+<IfModule log_config_module>
+   LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+</IfModule>
+
+# pazpar2 / service proxy config
+<VirtualHost *:${APACHE_PORT}>
+    ServerName localhost
+    ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
+
+    ServerAdmin webmaster@indexdata.com
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
+    LogLevel info rewrite:debug
+
+    RewriteEngine on
+
+    DocumentRoot ${MKWS_ROOT}/examples/htdocs
+    Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs
+    Alias /src ${MKWS_ROOT}/src
+    Alias /test ${MKWS_ROOT}/test
+    Alias /jasmine ${MKWS_ROOT}/examples/jasmine
+
+    # CORS setting
+    Header set Access-Control-Allow-Credentials true
+    Header set Access-Control-Allow-Origin "*"
+
+    # compress text output
+    <Location />
+        AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml
+        SetOutputFilter DEFLATE 
+    </Location> 
+
+    # jasmine test account
+    RewriteRule /service-proxy-testauth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwstest&password=mkwstest [P]
+
+    # mkws devel account (e.g. memached testing)
+    RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwsdev&password=mkwsdev [P]
+
+    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+
+    ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
+    ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
+
+</VirtualHost>
+
