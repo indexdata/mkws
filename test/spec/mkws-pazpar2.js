@@ -6,7 +6,10 @@
 
 // get references from mkws.js, lazy evaluation
 var debug = function (text) {
-        mkws.log("Jasmine: " + text)
+        // use a debug function with time stamps
+        mkws.teams["AUTO"].log("Jasmine: " + text);
+
+        //mkws.log("Jasmine: " + text)
     }
 
     // Define empty jasmine_config for simple applications that don't define it.
