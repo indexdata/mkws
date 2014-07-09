@@ -13,7 +13,7 @@ clean distclean:
 check-js:
 	${MAKE} -C./test check
 
-phantomjs p:
+phantomjs p jsb:
 	${MAKE} -C./test $@
 
 # must be called once after GIT checkout

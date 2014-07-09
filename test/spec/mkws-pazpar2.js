@@ -56,28 +56,30 @@ function init_jasmine_config() {
     }
 
     mkws.jasmine_done = false;
-}
+};
 
-var get_hit_counter = function () {
-        // not yet here
-        if ($(".mkwsPager").length == 0) return -1;
+function get_hit_counter() {
+    var $ = mkws.$;
+    // not yet here
+    if ($(".mkwsPager").length == 0) return -1;
 
-        var found = $(".mkwsPager").text();
-        var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
-        re.exec(found);
-        var hits = -1;
+    var found = $(".mkwsPager").text();
+    var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
+    re.exec(found);
+    var hits = -1;
 
-        if (RegExp.$1) {
-            hits = parseInt(RegExp.$1);
-            if (hits <= 0) {
-                debug("Oooops in get_hit_counter: " + RegExp.$1 + " '" + found + "'");
-            }
+    if (RegExp.$1) {
+        hits = parseInt(RegExp.$1);
+        if (hits <= 0) {
+            debug("Oooops in get_hit_counter: " + RegExp.$1 + " '" + found + "'");
         }
-
-        //debug("Hits: " + hits);
-        return hits;
     }
 
+    //debug("Hits: " + hits);
+    return hits;
+};
+
+/******************************************************************************/
 describe("Init jasmine config", function () {
     it("jasmine was successfully initialized", function () {
         init_jasmine_config();
@@ -91,6 +93,8 @@ describe("Init jasmine config", function () {
 
 //disabled
 xdescribe("Check MOTD before search", function () {
+    var $ = mkws.$;
+
     // Check that the MOTD has been moved into its container, and
     // is visible before the search.
     // the mkwsMOTD div was originally inside a testMOTD div, which should
@@ -374,7 +378,7 @@ describe("Check Source Facets", function () {
 
             $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for stat: " + waitcount);
+                debug("DOM change mkwsPager, for stat: " + waitcount);
             });
         });
 
@@ -574,31 +578,38 @@ describe("Check removable facets links", function () {
         });
 
         runs(function () {
-            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change for removeable: " + waitcount);
+                debug("DOM change mkwsRecords for removeable: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            return $("a.mkwsRemovable").length == 1 ? 1 : 0;
-        });
+            return waitcount >= 2 && $("a.mkwsRemovable").length == 1 ? 1 : 0;
+        }, "Records DOM change mkwsRecords, removable", 2 * jasmine_config.second);
 
         runs(function () {
+            debug("unbind removable");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            waitcount = 0;
+
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM change mkwsRecords for removeable2: " + waitcount);
+            });
+
             var click = $("a.mkwsRemovable").eq(0).trigger("click");
             debug("Removed second facets link: " + click.length);
             expect(click.length).toBe(1);
         });
 
         waitsFor(function () {
-            // debug("wait for: " + waitcount);
-            return waitcount >= 2 ? true : false;
-        }, "Records DOM change, by per page", 2 * jasmine_config.second);
-
+            return waitcount >= 2 && $("a.mkwsRemovable").length == 0 ? true : false;
+        }, "DOM change mkwsRecords, removable2", 2 * jasmine_config.second);
 
         runs(function () {
-            debug("unbind removable");
-            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            debug("unbind removable2");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
@@ -627,23 +638,21 @@ describe("Check per page options", function () {
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for change, per page: " + waitcount);
+                debug("DOM change mkwsRecords, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            //debug("wait for: " + waitcount);
-            return waitcount >= 30 ? true : false;
-        }, "Records DOM change, by per page", 3 * jasmine_config.second);
+            // debug("per page waitcounter: " + waitcount)
+            return waitcount >= (per_page_number + 10) ? true : false;
+        }, "DOM change mkwsRecords, by per page", 3 * jasmine_config.second);
 
         runs(function () {
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind per page");
-        });
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
 
-        runs(function () {
             var records = $("div.mkwsRecords > div.mkwsSummary");
-            debug("Got now " + records.length + " records");
+            debug("Per page got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
     });
@@ -677,7 +686,7 @@ describe("Check SortBy options", function () {
         runs(function () {
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                //debug("DOM wait for change, sort by: " + waitcount);
+                debug("DOM change mkwsRecords, sort by: " + waitcount);
             });
 
             var select = $("select.mkwsSort option[selected='selected']");
@@ -691,17 +700,15 @@ describe("Check SortBy options", function () {
 
         waitsFor(function () {
             //debug("wait for2: " + waitcount);
-            return waitcount >= 6 ? true : false;
-        }, "Records DOM change, by sort page", 3 * jasmine_config.second);
+            return waitcount >= (per_page_number + 10) ? true : false;
+        }, "DOM change mkwsRecords, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-            debug("unbind per page");
-        });
+            debug("unbind by sort");
 
-        runs(function () {
             var records = $("div.mkwsRecords > div.mkwsSummary a");
-            debug("Got now " + records.length + " records");
+            debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
 
@@ -726,6 +733,6 @@ describe("Check SortBy options", function () {
 describe("All tests are done", function () {
     it(">>> hooray <<<", function () {
         mkws.jasmine_done = true;
+        debug(">>> hooray <<<");
     });
 });
-
