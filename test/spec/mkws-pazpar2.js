@@ -639,16 +639,13 @@ describe("Check per page options", function () {
         });
 
         waitsFor(function () {
-            //debug("wait for: " + waitcount);
             return waitcount >= (per_page_number * 2) ? true : false;
         }, "DOM change mkwsRecords, by per page", 3 * jasmine_config.second);
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind per page");
-        });
 
-        runs(function () {
             var records = $("div.mkwsRecords > div.mkwsSummary");
             debug("Got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
@@ -703,10 +700,8 @@ describe("Check SortBy options", function () {
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-            debug("unbind per page");
-        });
+            debug("unbind by sort");
 
-        runs(function () {
             var records = $("div.mkwsRecords > div.mkwsSummary a");
             debug("Got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
@@ -733,5 +728,6 @@ describe("Check SortBy options", function () {
 describe("All tests are done", function () {
     it(">>> hooray <<<", function () {
         mkws.jasmine_done = true;
+        debug(">>> hooray <<<");
     });
 });
