@@ -56,28 +56,30 @@ function init_jasmine_config() {
     }
 
     mkws.jasmine_done = false;
-}
+};
 
-var get_hit_counter = function () {
-        // not yet here
-        if ($(".mkwsPager").length == 0) return -1;
+function get_hit_counter() {
+    var $ = mkws.$;
+    // not yet here
+    if ($(".mkwsPager").length == 0) return -1;
 
-        var found = $(".mkwsPager").text();
-        var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
-        re.exec(found);
-        var hits = -1;
+    var found = $(".mkwsPager").text();
+    var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
+    re.exec(found);
+    var hits = -1;
 
-        if (RegExp.$1) {
-            hits = parseInt(RegExp.$1);
-            if (hits <= 0) {
-                debug("Oooops in get_hit_counter: " + RegExp.$1 + " '" + found + "'");
-            }
+    if (RegExp.$1) {
+        hits = parseInt(RegExp.$1);
+        if (hits <= 0) {
+            debug("Oooops in get_hit_counter: " + RegExp.$1 + " '" + found + "'");
         }
-
-        //debug("Hits: " + hits);
-        return hits;
     }
 
+    //debug("Hits: " + hits);
+    return hits;
+};
+
+/******************************************************************************/
 describe("Init jasmine config", function () {
     it("jasmine was successfully initialized", function () {
         init_jasmine_config();
@@ -91,6 +93,8 @@ describe("Init jasmine config", function () {
 
 //disabled
 xdescribe("Check MOTD before search", function () {
+    var $ = mkws.$;
+
     // Check that the MOTD has been moved into its container, and
     // is visible before the search.
     // the mkwsMOTD div was originally inside a testMOTD div, which should
