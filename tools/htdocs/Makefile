@@ -19,6 +19,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
 	${SRC}/mkws-team.js \
 	${SRC}/mkws-filter.js \
+	${SRC}/mkws-popup.js \
 	${SRC}/mkws-widget.js \
 	${SRC}/mkws-widget-main.js \
 	${SRC}/mkws-widget-termlists.js \
