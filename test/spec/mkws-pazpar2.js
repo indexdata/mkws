@@ -696,7 +696,7 @@ describe("Check SortBy options", function () {
 
         waitsFor(function () {
             //debug("wait for2: " + waitcount);
-            return waitcount >= (per_page_number + 10)? true : false;
+            return waitcount >= (per_page_number + 10) ? true : false;
         }, "DOM change mkwsRecords, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
