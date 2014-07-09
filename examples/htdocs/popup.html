@@ -1,81 +1,40 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: popup search box</title>
-
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
+    <title>MKWS demo: Reference Universe widget with popup window</title>
+    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
 
     <script type="text/javascript">
-      mkws_config = {
-	show_lang: false,
-	perpage_default: 10,
-	query_width: 50,
-        service_proxy_auth: "http://mkws.indexdata.com/service-proxy-auth"
-     };
+      var mkws_config = {
+      	  service_proxy_auth: "//mkws.indexdata.com/service-proxy-testauth"
+      };
     </script>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="//jquery-json.googlecode.com/files/jquery.json-2.4.js"></script>
-    <!-- legacy libs for testing
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.6.4.min.js"></script>
-    <script src="//code.jquery.com/ui/1.8.0/jquery-ui.min.js"></script>
-    -->
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 
-    <script type="text/javascript" src="//mkws.indexdata.com/pazpar2/js/pz2.js"></script>
-    <script type="text/javascript" src="//mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="//mkws.indexdata.com/mkws.js"></script>
-    <script type="text/javascript" src="//mkws.indexdata.com/mkws-jquery.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+
+    <script type="text/javascript" src="src/mkws-handlebars.js"></script>
+    <script type="text/javascript" src="src/mkws-core.js"></script>
+    <script type="text/javascript" src="src/mkws-team.js"></script>
+    <script type="text/javascript" src="src/mkws-filter.js"></script>
+    <script type="text/javascript" src="src/mkws-popup.js"></script>
+    <script type="text/javascript" src="src/mkws-widget.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-main.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-termlists.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-authname.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-categories.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-log.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-record.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
+
   </head>
   <body>
-    <script type="text/javascript">
-     jQuery.pazpar2({ "layout":"popup", width: 800, height: 500 } );
-    </script>
-
-    <pre>
-      An embryonic MasterKey Widget Set
-=================================
-
-This directory contains an embryonic MasterKey Widget Set, based
-initially on "jsdemo" though now far removed from those beginnnings.
-
-
-How this works
---------------
-
-The goal is to make it that as much of the searching functionality as
-possible is hosted on
-        http://mkws.indexdata.com/
-so that very simple websites such as
-        http://example.indexdata.com/
-can have MasterKey searching with minimal effort.
-
-The following files must be hosted on mkws.indexdata.com:
-        mkws.js
-        mkws.css
-        /pazpar2/js/pz2.js (*)
-
-The following files make up the application:
-        index.html
-        favicon.ico [optional]
-        robots.txt [optional]
-
-(At present, the client application's configuruation also needs an
-Alias for /service-proxy/, to avoid cross-site scripting issues. We
-will fix this.)
-
-(*) if you don't have already installed pazpar2 on the machine, you can
-do it by installing a debian package or check it out from GIT:
-$ git clone ssh://git.indexdata.com:222/home/git/pub/pazpar2
-
-Configuring a client
---------------------
-
-The application's HTML must contains the following elements as well as
-whatever makes up the application itself:
-
-[...]
-    </pre>
-    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <div class='mkwsReference' autosearch='!param!q' sentences='1'>result will appear here</div>
   </body>
 </html>
