@@ -16,10 +16,18 @@ JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
-	${SRC}/mkws-core.js ${SRC}/mkws-team.js ${SRC}/mkws-filter.js \
-	${SRC}/mkws-widget.js ${SRC}/mkws-widget-main.js ${SRC}/mkws-widget-termlists.js \
-	${SRC}/mkws-widget-authname.js ${SRC}/mkws-widget-categories.js ${SRC}/mkws-widget-log.js \
-	${SRC}/mkws-widget-record.js ${SRC}/mkws-widget-reference.js ${SRC}/mkws-widget-builder.js
+	${SRC}/mkws-core.js \
+	${SRC}/mkws-team.js \
+	${SRC}/mkws-filter.js \
+	${SRC}/mkws-widget.js \
+	${SRC}/mkws-widget-main.js \
+	${SRC}/mkws-widget-termlists.js \
+	${SRC}/mkws-widget-authname.js \
+	${SRC}/mkws-widget-categories.js \
+	${SRC}/mkws-widget-log.js \
+	${SRC}/mkws-widget-record.js \
+	${SRC}/mkws-widget-reference.js \
+	${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
