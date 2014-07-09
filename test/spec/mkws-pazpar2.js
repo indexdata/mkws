@@ -374,7 +374,7 @@ describe("Check Source Facets", function () {
 
             $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for stat: " + waitcount);
+                debug("DOM change mkwsPager, for stat: " + waitcount);
             });
         });
 
@@ -576,13 +576,13 @@ describe("Check removable facets links", function () {
         runs(function () {
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change for removeable: " + waitcount);
+                debug("DOM change mkwsRecords for removeable: " + waitcount);
             });
         });
 
         waitsFor(function () {
             return waitcount >= 2 && $("a.mkwsRemovable").length == 1 ? 1 : 0;
-        }, "Records DOM change, removable", 2 * jasmine_config.second);
+        }, "Records DOM change mkwsRecords, removable", 2 * jasmine_config.second);
 
         runs(function () {
             var click = $("a.mkwsRemovable").eq(0).trigger("click");
@@ -593,7 +593,7 @@ describe("Check removable facets links", function () {
         waitsFor(function () {
             // debug("wait for: " + waitcount);
             return waitcount >= 4 && $("a.mkwsRemovable").length == 0 ? true : false;
-        }, "Records DOM change, removable2", 2 * jasmine_config.second);
+        }, "DOM change mkwsRecords, removable2", 2 * jasmine_config.second);
 
 
         runs(function () {
@@ -627,14 +627,14 @@ describe("Check per page options", function () {
 
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM wait for change, per page: " + waitcount);
+                debug("DOM change mkwsRecords, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
             //debug("wait for: " + waitcount);
             return waitcount >= (per_page_number * 2) ? true : false;
-        }, "Records DOM change, by per page", 3 * jasmine_config.second);
+        }, "DOM change mkwsRecords, by per page", 3 * jasmine_config.second);
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
@@ -677,7 +677,7 @@ describe("Check SortBy options", function () {
         runs(function () {
             $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                //debug("DOM wait for change, sort by: " + waitcount);
+                debug("DOM change mkwsRecords, sort by: " + waitcount);
             });
 
             var select = $("select.mkwsSort option[selected='selected']");
@@ -692,7 +692,7 @@ describe("Check SortBy options", function () {
         waitsFor(function () {
             //debug("wait for2: " + waitcount);
             return waitcount >= per_page_number ? true : false;
-        }, "Records DOM change, by sort page", 3 * jasmine_config.second);
+        }, "DOM change mkwsRecords, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
