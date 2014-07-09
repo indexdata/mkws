@@ -585,19 +585,26 @@ describe("Check removable facets links", function () {
         }, "Records DOM change mkwsRecords, removable", 2 * jasmine_config.second);
 
         runs(function () {
+            debug("unbind removable");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            waitcount = 0;
+
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                waitcount++;
+                debug("DOM change mkwsRecords for removeable2: " + waitcount);
+            });
+
             var click = $("a.mkwsRemovable").eq(0).trigger("click");
             debug("Removed second facets link: " + click.length);
             expect(click.length).toBe(1);
         });
 
         waitsFor(function () {
-            // debug("wait for: " + waitcount);
-            return waitcount >= 4 && $("a.mkwsRemovable").length == 0 ? true : false;
+            return waitcount >= 2 && $("a.mkwsRemovable").length == 0 ? true : false;
         }, "DOM change mkwsRecords, removable2", 2 * jasmine_config.second);
 
-
         runs(function () {
-            debug("unbind removable");
+            debug("unbind removable2");
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
