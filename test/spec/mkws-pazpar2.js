@@ -639,15 +639,16 @@ describe("Check per page options", function () {
         });
 
         waitsFor(function () {
-            return waitcount >= (per_page_number * 2) ? true : false;
+            // debug("per page waitcounter: " + waitcount)
+            return waitcount >= (per_page_number + 10) ? true : false;
         }, "DOM change mkwsRecords, by per page", 3 * jasmine_config.second);
 
         runs(function () {
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind per page");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
 
             var records = $("div.mkwsRecords > div.mkwsSummary");
-            debug("Got now " + records.length + " records");
+            debug("Per page got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
     });
@@ -703,7 +704,7 @@ describe("Check SortBy options", function () {
             debug("unbind by sort");
 
             var records = $("div.mkwsRecords > div.mkwsSummary a");
-            debug("Got now " + records.length + " records");
+            debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
 
