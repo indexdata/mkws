@@ -574,15 +574,15 @@ describe("Check removable facets links", function () {
         });
 
         runs(function () {
-            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
                 debug("DOM change for removeable: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            return $("a.mkwsRemovable").length == 1 ? 1 : 0;
-        });
+            return waitcount >= 2 && $("a.mkwsRemovable").length == 1 ? 1 : 0;
+        }, "Records DOM change, removable", 2 * jasmine_config.second);
 
         runs(function () {
             var click = $("a.mkwsRemovable").eq(0).trigger("click");
@@ -592,13 +592,13 @@ describe("Check removable facets links", function () {
 
         waitsFor(function () {
             // debug("wait for: " + waitcount);
-            return waitcount >= 2 ? true : false;
-        }, "Records DOM change, by per page", 2 * jasmine_config.second);
+            return waitcount >= 4 && $("a.mkwsRemovable").length == 0 ? true : false;
+        }, "Records DOM change, removable2", 2 * jasmine_config.second);
 
 
         runs(function () {
             debug("unbind removable");
-            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
@@ -633,7 +633,7 @@ describe("Check per page options", function () {
 
         waitsFor(function () {
             //debug("wait for: " + waitcount);
-            return waitcount >= 30 ? true : false;
+            return waitcount >= (per_page_number * 2) ? true : false;
         }, "Records DOM change, by per page", 3 * jasmine_config.second);
 
         runs(function () {
@@ -691,7 +691,7 @@ describe("Check SortBy options", function () {
 
         waitsFor(function () {
             //debug("wait for2: " + waitcount);
-            return waitcount >= 6 ? true : false;
+            return waitcount >= per_page_number ? true : false;
         }, "Records DOM change, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
@@ -728,4 +728,3 @@ describe("All tests are done", function () {
         mkws.jasmine_done = true;
     });
 });
-
