@@ -2,7 +2,8 @@
  *
  */
 
-// "use strict";
+"use strict";
+
 // $(document).ready(function () {
 mkws.registerWidgetType('Popup', function() {
     var $ = mkws.$;
@@ -14,9 +15,9 @@ mkws.registerWidgetType('Popup', function() {
         return;
     }
 
-    // var popup_window = $(this.node); //
-    var popup_window = $(".mkwsPopup");
-    
+    var popup_window = $(this.node);       // mkws.registerWidgetType('Popup',....)
+    // var popup_window = $(".mkwsPopup"); // $(document).ready()
+
     if (!popup_window) {
         debug("no popup found, skip");
         return;
