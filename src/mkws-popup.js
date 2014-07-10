@@ -23,22 +23,25 @@ $(document).ready(function () {
         debug("found popup windows: " + popup.length);
     }
 
-    var width = parseInt($(popup).attr("popup_width") || "800");
-    var height = parseInt($(popup).attr("popup_height") || "600");
-    var autoOpen = parseInt($(popup).attr("popup_autoOpen") || "0");
+    $(popup).each(function (i) {
+        var width = parseInt(this.attr("popup_width") || "800");
+        var height = parseInt(this.attr("popup_height") || "600");
+        var autoOpen = parseInt(this.attr("popup_autoOpen") || "0");
 
-    $(popup).dialog({
-        closeOnEscape: true,
-        autoOpen: autoOpen,
-        height: height,
-        width: width,
-        modal: true,
-        resizable: true,
-        buttons: {
-            Cancel: function () {
-                $(popup).dialog("close");
-            }
-        },
-        close: function () {}
+        debug("Popup parameters: width: " + width + ", height: " + height + ", autoOpen: " + autoOpen);
+        $(this).dialog({
+            closeOnEscape: true,
+            autoOpen: autoOpen,
+            height: height,
+            width: width,
+            modal: true,
+            resizable: true,
+            buttons: {
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            close: function () {}
+        });
     });
 });
