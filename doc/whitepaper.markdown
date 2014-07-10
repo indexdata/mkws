@@ -1,6 +1,5 @@
 % Embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% July-September 2013
 
 
 Introduction
@@ -595,4 +594,4 @@ and .CLASS indicates an instance of a class.
 
 - - -
 
-Copyright (C) 2013 by IndexData ApS, <http://www.indexdata.com>
+Copyright (C) 2013-2014 by IndexData ApS, <http://www.indexdata.com>
