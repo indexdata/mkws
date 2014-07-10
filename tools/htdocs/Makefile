@@ -37,7 +37,7 @@ GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 
 all: mkws.min.js mkws-complete.min.js
 
-mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
@@ -51,7 +51,6 @@ mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FI
 	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
-	  cat  ${SRC}/mkws-jquery.js; \
 	) > mkws-complete.js.tmp
 	mv -f mkws-complete.js.tmp mkws-complete.js
 
