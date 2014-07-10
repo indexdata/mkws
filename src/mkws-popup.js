@@ -27,6 +27,7 @@ mkws.registerWidgetType('Popup', function() {
     popup_window.each(function(i) {
         var that = $(this);
 
+        // all atributes are strings, convert them to integers here
         var width = parseInt(that.attr("popup_width") || "800");
         var height = parseInt(that.attr("popup_height") || "600");
         var autoOpen = parseInt(that.attr("popup_autoOpen") || "0");
@@ -48,7 +49,7 @@ mkws.registerWidgetType('Popup', function() {
             close: function() {}
         });
 
-        // open at search query submit
+        // open at search query submit: "input.mkwsButton"
         var id_botton = that.attr("popup_button");
         if (id_botton) {
             $(id_botton).button().click(function() {
