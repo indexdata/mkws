@@ -3,7 +3,6 @@
  */
 
 // "use strict";
-
 $(document).ready(function () {
     // mkws.registerWidgetType('PopupWindow', function() {
     var $ = mkws.$;
@@ -15,30 +14,33 @@ $(document).ready(function () {
         return;
     }
 
-    var popup = $(".PopupWindow");
-    if (!popup) {
-        debug("no popup found");
+    var popup_window = $(".PopupWindow");
+    if (!popup_window) {
+        debug("no popup found, skip");
         return;
     } else {
-        debug("found popup windows: " + popup.length);
+        debug("found popup windows: " + popup_window.length);
     }
 
-    $(popup).each(function (i) {
-        var width = parseInt(this.attr("popup_width") || "800");
-        var height = parseInt(this.attr("popup_height") || "600");
-        var autoOpen = parseInt(this.attr("popup_autoOpen") || "0");
+    popup_window.each(function (i) {
+        var that = $(this);
+
+        var width = parseInt(that.attr("popup_width") || "800");
+        var height = parseInt(that.attr("popup_height") || "600");
+        var autoOpen = parseInt(that.attr("popup_autoOpen") || "0");
+        var modal = parseInt(that.attr("popup_modal") || "0");
 
         debug("Popup parameters: width: " + width + ", height: " + height + ", autoOpen: " + autoOpen);
-        $(this).dialog({
+        that.dialog({
             closeOnEscape: true,
             autoOpen: autoOpen,
             height: height,
             width: width,
-            modal: true,
+            modal: modal ? true : false,
             resizable: true,
             buttons: {
                 Cancel: function () {
-                    $(this).dialog("close");
+                    that.dialog("close");
                 }
             },
             close: function () {}

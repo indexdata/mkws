@@ -1,20 +1,20 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference Universe widget with popup window</title>
+    <title>MKWS demo: Reference widget with popup window</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
-    <link rel="stylesheet" type="text/css" href="mkws-widget-ru.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-credo.css" />
 
     <script type="text/javascript">
       var mkws_config = {
-      	  service_proxy_auth: "//mkws.indexdata.com/service-proxy-testauth"
+      	  service_proxy_auth: "//mkws.indexdata.com/service-proxy-credoauth"
       };
     </script>
 
     <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
-    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
     <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
@@ -35,10 +35,27 @@
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
 
-    <script type="text/javascript" src="mkws-widget-ru.js"></script>
+    <script type="text/javascript" src="mkws-widget-credo.js"></script>
   </head>
   <body>
-    <div class='mkwsReferenceUniverse PopupWindow' popup_width="400" popup_height="400" popup_autoOpen="1" autosearch='berlin' sentences='1'>Reference Universe result will appear here</div>
-    <div class='mkwsReference PopupWindow' popup_width="800" popup_height="400" popup_autoOpen="1" autosearch='sushi' sentences='1'>Reference result will appear here</div
+    <h3>MKWS widgets in a popup window</h3>
+
+    <div class="mkwsCredo PopupWindow" popup_width="900" popup_height="700" popup_autoOpen="1" autosearch="!param!q">
+      mkwsCredo result will appear here
+    </div>
+
+    <div class="mkwsReference PopupWindow" popup_width="800" popup_height="500" popup_autoOpen="1" sentences="1" autosearch="!param!q">
+      mkwsReference result will appear here
+    </div>
+
+    <div class="PopupWindow" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="1">
+      <div class="mkwsSwitch"></div>
+      <div class="mkwsSearch"></div>
+      <div class="mkwsLang"></div>
+      <div class="mkwsResults"></div>
+      <div class="mkwsTargets"></div>
+      <div class="mkwsStat"></div>
+    </div
+
   </body>
 </html>
