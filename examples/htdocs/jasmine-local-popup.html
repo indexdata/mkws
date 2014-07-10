@@ -63,15 +63,18 @@
       show_record_url: true
     };
 
-    jQuery.pazpar2({
-        "layout": "popup",               /* "table" [default], "div", "popup" */
-        "width": 990,                    /* popup width, should be at least 800 */
-        "height": 760                    /* popup height, should be at least 600 */
-    });
     </script>
 
 <h2>MKWS Jasmine regression tests</h2>
-<p/>
+
+    <div class="mkwsSearch"></div>
+    <div class="mkwsPopup" popup_width="990" popup_height="760" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+      <div class="mkwsSwitch"></div>
+      <div class="mkwsLang"></div>
+      <div class="mkwsResults"></div>
+      <div class="mkwsTargets"></div>
+      <div class="mkwsStat"></div>
+    </div>
 
   </body>
 </html>
