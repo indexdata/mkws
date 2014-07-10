@@ -2,31 +2,29 @@
  *
  */
 
-"use strict";
-
+//"use strict";
 // $(document).ready(function () {
 mkws.registerWidgetType('Popup', function() {
     var $ = mkws.$;
     var debug = mkws.log;
     debug("init popup window");
 
+    var popup_window = $(this.node); // mkws.registerWidgetType('Popup',....)
+    // var popup_window = $(".mkwsPopup"); // $(document).ready()
+    if (!popup_window) {
+        debug("no popup found, skip...");
+        return;
+    } else {
+        debug("number of popup windows found: " + popup_window.length);
+    }
+
     if (!$.ui) {
         alert("Error: jquery-ui.js is missing, did you include it after jQuery core in the HTML file?");
         return;
     }
 
-    var popup_window = $(this.node);       // mkws.registerWidgetType('Popup',....)
-    // var popup_window = $(".mkwsPopup"); // $(document).ready()
-
-    if (!popup_window) {
-        debug("no popup found, skip");
-        return;
-    } else {
-        debug("found popup windows: " + popup_window.length);
-    }
-
     // more than one widget on a page are possible
-    popup_window.each(function (i) {
+    popup_window.each(function(i) {
         var that = $(this);
 
         var width = parseInt(that.attr("popup_width") || "800");
@@ -43,17 +41,17 @@ mkws.registerWidgetType('Popup', function() {
             modal: modal ? true : false,
             resizable: true,
             buttons: {
-                Cancel: function () {
+                Cancel: function() {
                     that.dialog("close");
                 }
             },
-            close: function () {}
+            close: function() {}
         });
 
         // open at search query submit
         var id_botton = that.attr("popup_button");
         if (id_botton) {
-            $(id_botton).button().click(function () {
+            $(id_botton).button().click(function() {
                 that.dialog("open");
             });
         }
