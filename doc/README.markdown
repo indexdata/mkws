@@ -1,6 +1,6 @@
 % The MasterKey Widget Set
 % Mike Taylor; Wolfram Schneider
-% 10 July 2013
+% 10 July 2014
 
 
 Introduction
@@ -100,4 +100,4 @@ For much more detail, see
 
 - - -
 
-Copyright 2013 IndexData ApS. <http://indexdata.com>
+Copyright 2014 IndexData ApS. <http://indexdata.com>
