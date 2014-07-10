@@ -40,22 +40,22 @@
   <body>
     <h3>MKWS widgets in a popup window</h3>
 
-    <div class="mkwsCredo PopupWindow" popup_width="900" popup_height="700" popup_autoOpen="1" autosearch="!param!q">
-      mkwsCredo result will appear here
-    </div>
-
-    <div class="mkwsReference PopupWindow" popup_width="800" popup_height="500" popup_autoOpen="1" sentences="1" autosearch="!param!q">
-      mkwsReference result will appear here
-    </div>
-
-    <div class="PopupWindow" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="1">
+    <div class="mkwsSearch"></div>
+    <div class="PopupWindow" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
       <div class="mkwsSwitch"></div>
-      <div class="mkwsSearch"></div>
       <div class="mkwsLang"></div>
       <div class="mkwsResults"></div>
       <div class="mkwsTargets"></div>
       <div class="mkwsStat"></div>
-    </div
+    </div>
+
+    <div class="mkwsCredo PopupWindow" popup_width="1024" popup_height="800" popup_autoOpen="1" autosearch="!param!q">
+      mkwsCredo result will appear here
+    </div>
+
+    <div class="mkwsReference PopupWindow" popup_width="700" popup_height="600" popup_autoOpen="1" sentences="1" autosearch="!param!q">
+      mkwsReference result will appear here
+    </div>
 
   </body>
 </html>

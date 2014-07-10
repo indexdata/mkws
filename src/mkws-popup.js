@@ -22,6 +22,7 @@ $(document).ready(function () {
         debug("found popup windows: " + popup_window.length);
     }
 
+    // more than one widget on a page are possible
     popup_window.each(function (i) {
         var that = $(this);
 
@@ -45,5 +46,13 @@ $(document).ready(function () {
             },
             close: function () {}
         });
+
+        // open at search query submit
+        var id_botton = that.attr("popup_button");
+        if (id_botton) {
+            $(id_botton).button().click(function () {
+                that.dialog("open");
+            });
+        }
     });
 });
