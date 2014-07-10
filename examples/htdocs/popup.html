@@ -3,7 +3,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Reference Universe widget with popup window</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-ru.css" />
 
     <script type="text/javascript">
       var mkws_config = {
@@ -33,8 +35,10 @@
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
 
+    <script type="text/javascript" src="mkws-widget-ru.js"></script>
   </head>
   <body>
-    <div class='mkwsReference' autosearch='!param!q' sentences='1'>result will appear here</div>
+    <div class='mkwsReferenceUniverse PopupWindow' popup_width="400" popup_height="400" popup_autoOpen="1" autosearch='berlin' sentences='1'>Reference Universe result will appear here</div>
+    <div class='mkwsReference PopupWindow' popup_width="800" popup_height="400" popup_autoOpen="1" autosearch='sushi' sentences='1'>Reference result will appear here</div
   </body>
 </html>
