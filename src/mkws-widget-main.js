@@ -448,6 +448,5 @@ mkws.registerWidgetType('Progress', function() {
 mkws.registerWidgetType('Query', function() {});
 mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
-mkws.registerWidgetType('Popup', function() {});
 
 

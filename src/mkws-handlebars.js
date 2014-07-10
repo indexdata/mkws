@@ -15,7 +15,7 @@ Handlebars.registerHelper('mkws-paragraphs', function(obj, nPara, nSent) {
   // {"hash":{},"data":{}} for parameters that are not provided. So we
   // have to be prepared for actual numbers, explicitly undefined
   // values and this dumb magic value.
-  if (nPara === undefined || nPara.hasOwnProperty('hash') || nPara == 0 || nPara > obj.length) {
+  if (obj && (nPara === undefined || nPara.hasOwnProperty('hash') || nPara == 0 || nPara > obj.length)) {
     nPara = obj.length;
   }
   if (nSent === undefined || nSent.hasOwnProperty('hash') || nSent == 0) {
