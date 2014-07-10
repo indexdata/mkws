@@ -4,7 +4,7 @@
 
 // "use strict";
 $(document).ready(function () {
-    // mkws.registerWidgetType('PopupWindow', function() {
+// mkws.registerWidgetType('WmkwsPopup', function() {
     var $ = mkws.$;
     var debug = mkws.log;
     debug("init popup window");
@@ -14,7 +14,7 @@ $(document).ready(function () {
         return;
     }
 
-    var popup_window = $(".PopupWindow");
+    var popup_window = $(".WmkwsPopup");
     if (!popup_window) {
         debug("no popup found, skip");
         return;
