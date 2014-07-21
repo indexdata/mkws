@@ -35,4 +35,8 @@ function mkws_jasmine_init(delay) {
     }
 };
 
+$(document).ready(function() { 
+    mkws_jasmine_init(100);
+});
+
 /* EOF */
