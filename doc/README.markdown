@@ -18,10 +18,14 @@ can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
 
-* `mkws.js`
+* `mkws.js` (and its compressed version `mkws.min.js`)
 * `/pazpar2/js/pz2.js`
-* `mkws-complete.js` -- a single file consisting of `mkws.js`,
-  jQuery (which it uses), Handlebars (ditto) and `pz2.js`
+* `mkws-complete.js` (and its compressed version `mkws-complete.min.js`)
+  -- a single file consisting of `mkws.js` together with the files it
+  uses: `pz2.js` jQuery, jQuery-JSON and Handlebars.
+* Local copy of `jquery-1.10.0.min.js`
+* Local copy of `jquery.json-2.4.js`
+* Local copy of `handlebars-v1.1.2.js`
 * `mkws.css`
 
 
