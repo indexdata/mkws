@@ -6,9 +6,9 @@
 Introduction
 ------------
 
-This is the MasterKey Widget Set. The initial version was based on the
-"jsdemo" application distributed with pazpar2, but it is now far
-removed from those beginnnings.
+This is the MasterKey Widget Set. It provides searching and other
+information-related functionality which can be inserted into existing
+web pages as small snippets of HTML.
 
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
@@ -69,7 +69,7 @@ will be filled in by MKWS:
 * `<div id="mkwsStat"></div>` -- summary statistics
 
 You can configure and control the client by creating an `mkws_config`
-object _before_ loading the widget-set.  Here is an example of all
+object before loading the widget-set. Here is an example of all
 possible options:
 
 ~~~
