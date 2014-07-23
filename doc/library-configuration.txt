@@ -2,17 +2,24 @@ MKWS Target Selection
 =====================
 
 
-MKWS accesses targets using the Pazpar2 metasearching engine, almost
-always fronted by the Service Proxy to manage target selection. This
-document assumes the SP is used, and so that a library of targets is
-available, maintained using an instance of MKAdmin (often
-http://mkc-admin.indexdata.com/console/)
+MKWS accesses targets using the Pazpar2 metasearching engine. Although
+Pazpar2 can be used directly, using a statically configured set of
+targets, this usage is unusual. More often, Pazpar2 is fronted by the
+Service Proxy (SP), which manages authentication, sessions, target
+selection, etc.
+
+This document assumes the SP is used, and explains how to go about
+making a set of targets (a "library") available, how to connect your
+MKWS application to that library, and how to choose which of the
+available targets to use.
 
 
 1. Maintaining the library
 --------------------------
 
-###
+### and so that a library of targets
+is available, maintained using an instance of MKAdmin (often
+http://mkc-admin.indexdata.com/console/)
 
 
 2. Choosing targets from the library
