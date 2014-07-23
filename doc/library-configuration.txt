@@ -9,8 +9,14 @@ available, maintained using an instance of MKAdmin (often
 http://mkc-admin.indexdata.com/console/)
 
 
-1. Selecting targets within the library
----------------------------------------
+1. Maintaining the library
+--------------------------
+
+###
+
+
+2. Choosing targets from the library
+------------------------------------
 
 MKWS applications can choose what subset of the library's targets to
 use, by means of several alternative settings on individual widgets or
@@ -40,7 +46,7 @@ in the mkws_config structure:
 	udb==NAME
 
 
-2. Authenticating onto the library
+3. Authenticating onto the library
 ----------------------------------
 
 Some MKWS applications will be content to use the default library with
