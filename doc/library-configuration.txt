@@ -22,38 +22,7 @@ is available, maintained using an instance of MKAdmin (often
 http://mkc-admin.indexdata.com/console/)
 
 
-2. Choosing targets from the library
-------------------------------------
-
-MKWS applications can choose what subset of the library's targets to
-use, by means of several alternative settings on individual widgets or
-in the mkws_config structure:
-
-* targets -- contains a Pazpar2 targets string, typically of the form
-  "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
-  target IDs.
-
-  At present, these IDs can take one of two forms, depending on the
-  configuration of the Service Proxy being used: they may be based on
-  ZURLs, so a typical value would be something like:
-	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
-  Or they may be UDBs, so a typical value would be something like:
-	pz:id=brown|artstor
-
-* targetfilter -- contains a CQL query which is used to find relevant
-  targets from the relvant library. For example,
-	udb==Google_Images
-  Or
-	categories=news
-
-* target -- contains a single UDB, that of the sole target to be
-  used. For example
-	Google_Images
-  This is merely syntactic sugar for "targetfilter" with the query
-	udb==NAME
-
-
-3. Authenticating onto the library
+2. Authenticating onto the library
 ----------------------------------
 
 Some MKWS applications will be content to use the default library with
@@ -125,4 +94,36 @@ example.com:
 Once such a library has been set up, and access to it established,
 target selection within the set that it makes available can be done
 using the mechanisms above.
+
+
+3. Choosing targets from the library
+------------------------------------
+
+MKWS applications can choose what subset of the library's targets to
+use, by means of several alternative settings on individual widgets or
+in the mkws_config structure:
+
+* targets -- contains a Pazpar2 targets string, typically of the form
+  "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
+  target IDs.
+
+  At present, these IDs can take one of two forms, depending on the
+  configuration of the Service Proxy being used: they may be based on
+  ZURLs, so a typical value would be something like:
+	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
+  Or they may be UDBs, so a typical value would be something like:
+	pz:id=brown|artstor
+
+* targetfilter -- contains a CQL query which is used to find relevant
+  targets from the relvant library. For example,
+	udb==Google_Images
+  Or
+	categories=news
+
+* target -- contains a single UDB, that of the sole target to be
+  used. For example
+	Google_Images
+  This is merely syntactic sugar for "targetfilter" with the query
+	udb==NAME
+
 
