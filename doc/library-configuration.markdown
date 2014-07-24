@@ -86,9 +86,9 @@ the "Referring URL" field.
 If your application accesses the Service Proxy by a unique virtual
 hostname -- yourname.sp-mkws.indexdata.com, say -- you can tie the use
 of this hostname to your library by setting the User Access record's
-"Host Name" field to name of the host where the SP is accessed. NOTE
-THAT THIS IS NOT SECURE, AS OTHER APPLICATIONS CAN USE THIS VIRTUAL
-HOSTNAME TO GAIN ACCESS TO YOUR LIBRARY.
+"Host Name" field to name of the host where the SP is accessed. **Note
+that this is not secure, as other applications can use this virtual
+hostname to gain access to your library.**
 
 TODO Authentication by IP address does not yet work correctly -- see
 bug MKWS-234 ("Improve SP configuration/proxying for better
