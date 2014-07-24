@@ -97,7 +97,7 @@ mkws.js: $(COMPONENTS) Makefile
 
 mkws-html-includes: 
 	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \
-	  perl -n0e 'print qq{    <script type="text/javascript" src="src$$_"></script>\n}'
+	  perl -n0e 'chomp(); print qq{    <script type="text/javascript" src="src$$_"></script>\n}'
 
 distclean: clean
 	@echo "(No need for distclean, 'make clean' is fine)"

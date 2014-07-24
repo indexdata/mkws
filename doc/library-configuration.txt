@@ -2,42 +2,54 @@ MKWS Target Selection
 =====================
 
 
-MKWS accesses targets using the Pazpar2 metasearching engine, almost
-always fronted by the Service Proxy to manage target selection. This
-document assumes the SP is used, and so that a library of targets is
-available, maintained using an instance of MKAdmin (often
-http://mkc-admin.indexdata.com/console/)
+MKWS accesses targets using the Pazpar2 metasearching engine. Although
+Pazpar2 can be used directly, using a statically configured set of
+targets, this usage is unusual. More often, Pazpar2 is fronted by the
+Service Proxy (SP), which manages authentication, sessions, target
+selection, etc.
+
+This document assumes the SP is used, and explains how to go about
+making a set of targets (a "library") available, how to connect your
+MKWS application to that library, and how to choose which of the
+available targets to use.
 
 
-1. Selecting targets within the library
----------------------------------------
+1. Maintaining the library
+--------------------------
 
-MKWS applications can choose what subset of the library's targets to
-use, by means of several alternative settings on individual widgets or
-in the mkws_config structure:
+The service proxy accesses sets of targets that are known as
+"libraries". In general, each customer will have their own library,
+though some standard libraries may be shared between many customers --
+for example, a library containing all open-access academic journals.
+A library can also contain other configuration information, including
+the set of categories by which targets are classified for the library.
 
-* targets -- contains a Pazpar2 targets string, typically of the form
-  "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
-  target IDs.
+Libraries are maintained using MKAdmin (MasterKey
+Admin). Specifically, those used by MKWS are generally maintained on
+the "MKC Admin" installation at
+	http://mkx-admin.indexdata.com/console/
 
-  At present, these IDs can take one of two forms, depending on the
-  configuration of the Service Proxy being used: they may be based on
-  ZURLs, so a typical value would be something like:
-	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
-  Or they may be UDBs, so a typical value would be something like:
-	pz:id=brown|artstor
+In general, Index Data will create a library for each customer, then
+give the customer a username/password pair that they can use to enter
+MKAdmin and administrate that library.
 
-* targetfilter -- contains a CQL query which is used to find relevant
-  targets from the relvant library. For example,
-	udb==Google_Images
-  Or
-	categories=news
+Once logged in, customers can select which targets to include (from
+the list of several thousand that MKAdmin knows about), and make
+customer-specific modifications -- e.g. overriding the titles of the
+targets.
 
-* target -- contains a single UDB, that of the sole target to be
-  used. For example
-	Google_Images
-  This is merely syntactic sugar for "targetfilter" with the query
-	udb==NAME
+Most importantly, customers' administrators can add authentication
+credentials that the Service Proxy will used on their behalf when
+accessing subscription resources. Note that IT IS THEN CRUICIAL TO
+SECURE THE LIBRARY FROM USE BY UNAUTHORISED CLIENTS, otherwise the
+customer's paid subscriptions will be exploited.
+
+Access to libraries is managed by creating one or more "User Access"
+records in MKAdmin, under the tab of that name. Each of these records
+provides a combination of credentials and other data that allow an
+incoming MKWS client to be identified as having legitimate access to
+the library. The authentication process, described below, works by
+searching for a matching User Access record.
 
 
 2. Authenticating onto the library
@@ -112,4 +124,36 @@ example.com:
 Once such a library has been set up, and access to it established,
 target selection within the set that it makes available can be done
 using the mechanisms above.
+
+
+3. Choosing targets from the library
+------------------------------------
+
+MKWS applications can choose what subset of the library's targets to
+use, by means of several alternative settings on individual widgets or
+in the mkws_config structure:
+
+* targets -- contains a Pazpar2 targets string, typically of the form
+  "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
+  target IDs.
+
+  At present, these IDs can take one of two forms, depending on the
+  configuration of the Service Proxy being used: they may be based on
+  ZURLs, so a typical value would be something like:
+	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
+  Or they may be UDBs, so a typical value would be something like:
+	pz:id=brown|artstor
+
+* targetfilter -- contains a CQL query which is used to find relevant
+  targets from the relvant library. For example,
+	udb==Google_Images
+  Or
+	categories=news
+
+* target -- contains a single UDB, that of the sole target to be
+  used. For example
+	Google_Images
+  This is merely syntactic sugar for "targetfilter" with the query
+	udb==NAME
+
 
