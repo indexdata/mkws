@@ -27,7 +27,7 @@ the set of categories by which targets are classified for the library.
 Libraries are maintained using MKAdmin (MasterKey
 Admin). Specifically, those used by MKWS are generally maintained on
 the "MKC Admin" installation at
-	http://mkx-admin.indexdata.com/console/
+`http://mkx-admin.indexdata.com/console/`
 
 In general, Index Data will create a library for each customer, then
 give the customer a username/password pair that they can use to enter
@@ -70,7 +70,7 @@ Setting up such a library is a process of several stages.
 
 Log in to MKAdmin administrate your library:
 
-* Go to http://mkc-admin.indexdata.com/console/
+* Go to `http://mkc-admin.indexdata.com/console/`
 * Enter the adminstrative username/password
 * Go to the User Access tab
 * Create an end-user account
@@ -79,7 +79,7 @@ Log in to MKAdmin administrate your library:
   referring URL, or hostname.
 
 If your MWKS application runs at a well-known, permanent address --
-http://yourname.com/app.html, say -- you can set the User Access
+`http://yourname.com/app.html`, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
 the "Referring URL" field.
 
