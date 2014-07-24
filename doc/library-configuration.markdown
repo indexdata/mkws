@@ -114,7 +114,7 @@ authentication is used, this is very simple:
 	<script type="text/javascript">
 	  var mkws_config = { service_proxy_auth:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
-        </script>
+	</script>
 
 > TODO This should be the default setting
 
