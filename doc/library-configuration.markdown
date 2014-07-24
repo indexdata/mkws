@@ -178,9 +178,9 @@ yourname.com:
 
 MKWS applications can choose what subset of the library's targets to
 use, by means of several alternative settings on individual widgets or
-in the mkws_config structure:
+in the `mkws_config` structure:
 
-* targets -- contains a Pazpar2 targets string, typically of the form
+* `targets` -- contains a Pazpar2 targets string, typically of the form
   "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
   target IDs.
 
@@ -191,13 +191,13 @@ in the mkws_config structure:
   Or they may be UDBs, so a typical value would be something like:
 	pz:id=brown|artstor
 
-* targetfilter -- contains a CQL query which is used to find relevant
+* `targetfilter` -- contains a CQL query which is used to find relevant
   targets from the relvant library. For example,
 	udb==Google_Images
   Or
 	categories=news
 
-* target -- contains a single UDB, that of the sole target to be
+* `target` -- contains a single UDB, that of the sole target to be
   used. For example
 	Google_Images
   This is merely syntactic sugar for "targetfilter" with the query
