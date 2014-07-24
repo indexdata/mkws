@@ -1,9 +1,10 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 DOCS = README.html README.odt README.pdf \
-       whitepaper.html whitepaper.odt whitepaper.pdf
+       whitepaper.html whitepaper.odt whitepaper.pdf \
+       library-configuration.html library-configuration.odt library-configuration.pdf
 
-INSTALLABLE = README.html whitepaper.html mkws-doc.css
+INSTALLABLE = README.html whitepaper.html library-configuration.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 install: $(INSTALLED)
