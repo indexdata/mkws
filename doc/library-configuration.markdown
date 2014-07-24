@@ -187,21 +187,29 @@ in the `mkws_config` structure:
   At present, these IDs can take one of two forms, depending on the
   configuration of the Service Proxy being used: they may be based on
   ZURLs, so a typical value would be something like:
+
 	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
+
   Or they may be UDBs, so a typical value would be something like:
+
 	pz:id=brown|artstor
 
 * `targetfilter` -- contains a CQL query which is used to find relevant
   targets from the relvant library. For example,
+
 	udb==Google_Images
+
   Or
+
 	categories=news
 
 * `target` -- contains a single UDB, that of the sole target to be
   used. For example
+
 	Google_Images
+
   This is merely syntactic sugar for "targetfilter" with the query
-	udb==NAME
+  `udb==NAME`
 
 
 - - -
