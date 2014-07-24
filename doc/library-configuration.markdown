@@ -66,16 +66,17 @@ unauthorised access.
 
 Setting up such a library is a process of several stages.
 
-Stage A: create the User Access account
+### Stage A: create the User Access account
 
 Log in to MKAdmin administrate your library:
-	- Go to http://mkc-admin.indexdata.com/console/
-	- Enter the adminstrative username/password
-	- Go to the User Access tab
-	- Create an end-user account
-	- Depending on what authentication method it be used, set the
-	  User Access account's username and password, or IP-address
-	  range, or referring URL, or hostname.
+
+* Go to http://mkc-admin.indexdata.com/console/
+* Enter the adminstrative username/password
+* Go to the User Access tab
+* Create an end-user account
+* Depending on what authentication method it be used, set the
+  User Access account's username and password, or IP-address range, or
+  referring URL, or hostname.
 
 If your MWKS application runs at a well-known, permanent address --
 http://yourname.com/app.html, say -- you can set the User Access
@@ -104,7 +105,7 @@ You can create multiple User Access records: for example, one that
 uses Referring URL, and another that uses a username/password pair to
 be used when running an application from a different URL.
 
-Stage B: tell the application to use the library
+### Stage B: tell the application to use the library
 
 In the HTML of the application, tell MKWS to authenticate on to the
 Service Proxy. When IP-based, referer-based or hostname-based
@@ -120,7 +121,7 @@ TODO This should be the default setting
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
 
-Stage C1 (optional): access by a different virtual hostname
+### Stage C1 (optional): access by a different virtual hostname
 
 When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
@@ -134,7 +135,7 @@ to repeat the rest of the URL (protocol, path, query)
 TODO When changing the SP authentication URL, the Pazpar2 URL should in
 general change along with it.
 
-Stage C2 (optional): embed credentials for access to the library
+### Stage C2 (optional): embed credentials for access to the library
 
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
@@ -145,7 +146,7 @@ by setting the service_proxy_auth configuration item to a URL such as
 TODO It should be possible to add the username and password to the
 configuration without needing to repeat the rest of the URL.
 
-Stage D (optional): conceal credentials from HTML source
+### Stage D (optional): conceal credentials from HTML source
 
 Using a credential-based Service-Proxy authentication URL such as the
 one above reveals the the credentials to public view -- to anyone who
