@@ -41,8 +41,8 @@ targets.
 Most importantly, customers' administrators can add authentication
 credentials that the Service Proxy will used on their behalf when
 accessing subscription resources -- username/password pairs or proxies
-to use for IP-based authentication. Note that IT IS THEN CRUICIAL TO
-SECURE THE LIBRARY FROM USE BY UNAUTHORISED CLIENTS, otherwise the
+to use for IP-based authentication. Note that **it is then crucial to
+secure the library from use by unauthorised clients**, otherwise the
 customer's paid subscriptions will be exploited.
 
 Access to libraries is managed by creating one or more "User Access"
