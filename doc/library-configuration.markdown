@@ -125,7 +125,7 @@ Referrer URL or IP-range.
 
 When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
-done by setting the service_proxy_auth configuration item to a
+done by setting the `service_proxy_auth` configuration item to a
 URL containing that hostname, such as
 `//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
 
@@ -140,7 +140,7 @@ URL containing that hostname, such as
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This can most simply be done just
-by setting the service_proxy_auth configuration item to a URL such as
+by setting the `service_proxy_auth` configuration item to a URL such as
 `//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
 
 > TODO It should be possible to add the username and password to the
@@ -162,13 +162,15 @@ to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
 yourname.com:
 
-	- Add a rewriting authentication alias to the configuration:
-		RewriteEngine on
-		RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
-	- Set thwe MKWS configuration item "service_proxy_auth" to:
-		http://yourname.com/spauth/
-	- Protect access to the local path http://yourname.com/spauth/
-		(e.g. using a .htaccess file).
+- Add a rewriting authentication alias to the configuration:
+
+	RewriteEngine on
+	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+
+- Set the MKWS configuration item `service_proxy_auth` to
+  `http://yourname.com/spauth/`
+- Protect access to the local path `http://yourname.com/spauth/`
+  (e.g. using a .htaccess file).
 
 
 3. Choosing targets from the library
