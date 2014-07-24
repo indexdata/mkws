@@ -89,7 +89,7 @@ of this hostname to your library by setting the User Access record's
 THAT THIS IS NOT SECURE, AS OTHER APPLICATIONS CAN USE THIS VIRTUAL
 HOSTNAME TO GAIN ACCESS TO YOUR LIBRARY.
 
-### Authentication by IP address does not yet work correctly -- see
+TODO Authentication by IP address does not yet work correctly -- see
 bug MKWS-234 ("Improve SP configuration/proxying for better
 authentication").
 
@@ -115,7 +115,7 @@ authentication is used, this is very simple:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
         </script>
 
-### This should be the default setting
+TODO This should be the default setting
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
@@ -128,10 +128,10 @@ done by setting the service_proxy_auth configuration item to a
 URL containing that hostname, such as
 	//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig
 
-### It should be possible to change just the hostname without needing
+TODO It should be possible to change just the hostname without needing
 to repeat the rest of the URL (protocol, path, query)
 
-### When changing the SP authentication URL, the Pazpar2 URL should in
+TODO When changing the SP authentication URL, the Pazpar2 URL should in
 general change along with it.
 
 Stage C2 (optional): embed credentials for access to the library
@@ -142,7 +142,7 @@ Proxy when establishing the session. This can most simply be done just
 by setting the service_proxy_auth configuration item to a URL such as
 	//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish
 
-### It should be possible to add the username and password to the
+TODO It should be possible to add the username and password to the
 configuration without needing to repeat the rest of the URL.
 
 Stage D (optional): conceal credentials from HTML source
