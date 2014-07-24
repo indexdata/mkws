@@ -90,9 +90,9 @@ of this hostname to your library by setting the User Access record's
 that this is not secure, as other applications can use this virtual
 hostname to gain access to your library.**
 
-TODO Authentication by IP address does not yet work correctly -- see
-bug MKWS-234 ("Improve SP configuration/proxying for better
-authentication").
+> TODO Authentication by IP address does not yet work correctly -- see
+> bug MKWS-234 ("Improve SP configuration/proxying for better
+> authentication").
 
 Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
@@ -116,7 +116,7 @@ authentication is used, this is very simple:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
         </script>
 
-TODO This should be the default setting
+> TODO This should be the default setting
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
@@ -129,11 +129,11 @@ done by setting the service_proxy_auth configuration item to a
 URL containing that hostname, such as
 	//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig
 
-TODO It should be possible to change just the hostname without needing
-to repeat the rest of the URL (protocol, path, query)
+> TODO It should be possible to change just the hostname without
+> needing to repeat the rest of the URL (protocol, path, query)
 
-TODO When changing the SP authentication URL, the Pazpar2 URL should in
-general change along with it.
+> TODO When changing the SP authentication URL, the Pazpar2 URL should
+> in general change along with it.
 
 ### Stage C2 (optional): embed credentials for access to the library
 
@@ -143,8 +143,8 @@ Proxy when establishing the session. This can most simply be done just
 by setting the service_proxy_auth configuration item to a URL such as
 	//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish
 
-TODO It should be possible to add the username and password to the
-configuration without needing to repeat the rest of the URL.
+> TODO It should be possible to add the username and password to the
+> configuration without needing to repeat the rest of the URL.
 
 ### Stage D (optional): conceal credentials from HTML source
 
