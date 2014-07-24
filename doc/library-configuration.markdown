@@ -204,3 +204,6 @@ in the mkws_config structure:
 	udb==NAME
 
 
+- - -
+
+Copyright 2014 IndexData ApS. <http://indexdata.com>
