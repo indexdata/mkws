@@ -297,42 +297,8 @@ In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
 Index Data's hosted service proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
-resources). But in order to gain access to those resources, the
-authentication tokens have to be available to the widgets in some way,
-and simple embedding them in the JavaScript configuration is not
-acceptable because they are easy to read from there.
-
-The solution to this problem is in three steps.
-
-<b>First</b>
-the application's web-server creates a rewriting rule that takes an
-innocuous URL like
-http://example.indexdata.com/service-proxy-auth/
-and rewrites it as an access to Index Data's authentication service
-with authentication credentials embedded. This can be done using
-Apache2 directives such as
-
-    RewriteEngine on
-    RewriteRule /service-proxy-auth/
-        http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=U&password=PW [P]
-
-Because the credentials appear only in the application's web-server
-configuration, they are not visible to malicious users.
-
-<b>Second</b>, the broader application that includes MKWS widgets must
-protect access to the authentication URL on its own web-server. This
-can be done using IP authentication, a local username/password scheme,
-Kerberos or any other means.
-
-<b>Third</b>, the MKWS application must be configured to use the
-application-hosted authentication URL instead of the default one. This
-is done by means of the `service_proxy_auth` configuration element,
-which should be set to the authentication URL.
-
-Once these three steps are taken, the MKWS application will
-authenticate by means of a special URL on the application's web
-server, which the application prevents unauthorised access to, and the
-underlying credentials are hidden.
+resources). For information on how to do this, see
+[MKWS Target Selection](library-configuration.html)
 
 
 Reference Guide
