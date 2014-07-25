@@ -82,8 +82,10 @@ languages, and to default to sorting by title ascending:
     </script>
 ~~~
 
-For much more detail, see
-[the MKWS whitepaper](whitepaper.html).
+For much more detail, see:
+
+* [Embedded metasearching with the MasterKey Widget Set](whitepaper.html)
+* [MKWS Target Selection](library-configuration.html)
 
 
 - - -
