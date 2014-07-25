@@ -27,7 +27,7 @@ the set of categories by which targets are classified for the library.
 Libraries are maintained using MKAdmin (MasterKey
 Admin). Specifically, those used by MKWS are generally maintained on
 the "MKX Admin" installation at
-`http://mkx-admin.indexdata.com/console/`
+<http://mkx-admin.indexdata.com/console/>
 
 In general, Index Data will create a library for each customer, then
 give the customer a username/password pair that they can use to enter
@@ -70,7 +70,7 @@ Setting up such a library is a process of several stages.
 
 Log in to MKAdmin administrate your library:
 
-* Go to `http://mkx-admin.indexdata.com/console/`
+* Go to <http://mkx-admin.indexdata.com/console/>
 * Enter the adminstrative username/password
 * Go to the User Access tab
 * Create an end-user account
@@ -79,7 +79,7 @@ Log in to MKAdmin administrate your library:
   referring URL, or hostname.
 
 If your MWKS application runs at a well-known, permanent address --
-`http://yourname.com/app.html`, say -- you can set the User Access
+<http://yourname.com/app.html>, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
 the "Referring URL" field.
 
@@ -127,7 +127,7 @@ When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
 done by setting the `service_proxy_auth` configuration item to a
 URL containing that hostname, such as
-`//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
+<//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig>
 
 > TODO It should be possible to change just the hostname without
 > needing to repeat the rest of the URL (protocol, path, query)
@@ -141,7 +141,7 @@ When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This can most simply be done just
 by setting the `service_proxy_auth` configuration item to a URL such as
-`//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
+<//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish>
 
 > TODO It should be possible to add the username and password to the
 > configuration without needing to repeat the rest of the URL.
@@ -168,8 +168,8 @@ yourname.com:
 	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 - Set the MKWS configuration item `service_proxy_auth` to
-  `http://yourname.com/spauth/`
-- Protect access to the local path `http://yourname.com/spauth/`
+  <http://yourname.com/spauth/>
+- Protect access to the local path <http://yourname.com/spauth/>
   (e.g. using a .htaccess file).
 
 
@@ -183,31 +183,22 @@ in the `mkws_config` structure:
 * `targets` -- contains a Pazpar2 targets string, typically of the form
   "pz:id=" or "pz:id~" followed by a pipe-separated list of low-level
   target IDs.
-
   At present, these IDs can take one of two forms, depending on the
   configuration of the Service Proxy being used: they may be based on
-  ZURLs, so a typical value would be something like:
-
-	pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902
-
-  Or they may be UDBs, so a typical value would be something like:
-
-	pz:id=brown|artstor
+  ZURLs (so a typical value would be something like
+  `pz:id=josiah.brown.edu:210/innopac|lui.indexdata.com:8080/solr4/select?fq=database:4902`)
+  or they may be UDBs (so a typical value would be something like
+  `pz:id=brown|artstor`)
 
 * `targetfilter` -- contains a CQL query which is used to find relevant
   targets from the relvant library. For example,
-
-	udb==Google_Images
-
-  Or
-
-	categories=news
+  `udb==Google_Images`
+  or
+  `categories=news`
 
 * `target` -- contains a single UDB, that of the sole target to be
-  used. For example
-
-	Google_Images
-
+  used. For example,
+  `Google_Images`.
   This is merely syntactic sugar for "targetfilter" with the query
   `udb==NAME`
 
