@@ -26,7 +26,7 @@ the set of categories by which targets are classified for the library.
 
 Libraries are maintained using MKAdmin (MasterKey
 Admin). Specifically, those used by MKWS are generally maintained on
-the "MKC Admin" installation at
+the "MKX Admin" installation at
 `http://mkx-admin.indexdata.com/console/`
 
 In general, Index Data will create a library for each customer, then
@@ -70,7 +70,7 @@ Setting up such a library is a process of several stages.
 
 Log in to MKAdmin administrate your library:
 
-* Go to `http://mkc-admin.indexdata.com/console/`
+* Go to `http://mkx-admin.indexdata.com/console/`
 * Enter the adminstrative username/password
 * Go to the User Access tab
 * Create an end-user account
