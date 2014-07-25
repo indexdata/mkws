@@ -202,6 +202,12 @@ in the `mkws_config` structure:
   This is merely syntactic sugar for "targetfilter" with the query
   `udb==NAME`
 
+For example, a `Records` widget can be limited to searching only in
+targets that have been categorised as news sources by providing an
+attribute as follows:
+
+	<div class="mkwsRecords" targetfilter='categories=news'/>
+
 
 - - -
 
