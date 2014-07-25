@@ -1,5 +1,5 @@
-MKWS Target Selection
-=====================
+% MKWS Target Selection
+% Mike Taylor
 
 
 MKWS accesses targets using the Pazpar2 metasearching engine. Although
