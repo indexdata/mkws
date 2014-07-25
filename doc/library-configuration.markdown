@@ -14,8 +14,8 @@ MKWS application to that library, and how to choose which of the
 available targets to use.
 
 
-1. Maintaining the library
---------------------------
+Maintaining the library
+-----------------------
 
 The service proxy accesses sets of targets that are known as
 "libraries". In general, each customer will have their own library,
@@ -53,8 +53,8 @@ the library. The authentication process, described below, works by
 searching for a matching User Access record.
 
 
-2. Authenticating your MWKS application onto the library
---------------------------------------------------------
+Authenticating your MWKS application onto the library
+-----------------------------------------------------
 
 Some MKWS applications will be content to use the default library with
 its selection of targets. Most, though, will want to define their own
@@ -66,7 +66,7 @@ unauthorised access.
 
 Setting up such a library is a process of several stages.
 
-### Stage A: create the User Access account
+### Create the User Access account
 
 Log in to MKAdmin administrate your library:
 
@@ -105,7 +105,7 @@ You can create multiple User Access records: for example, one that
 uses Referring URL, and another that uses a username/password pair to
 be used when running an application from a different URL.
 
-### Stage B: tell the application to use the library
+### Tell the application to use the library
 
 In the HTML of the application, tell MKWS to authenticate on to the
 Service Proxy. When IP-based, referer-based or hostname-based
@@ -121,7 +121,7 @@ authentication is used, this is very simple:
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
 
-### Stage C1 (optional): access by a different virtual hostname
+### (Optional): access by a different virtual hostname
 
 When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
@@ -135,7 +135,7 @@ URL containing that hostname, such as
 > TODO When changing the SP authentication URL, the Pazpar2 URL should
 > in general change along with it.
 
-### Stage C2 (optional): embed credentials for access to the library
+### (Optional): embed credentials for access to the library
 
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
@@ -146,7 +146,7 @@ by setting the `service_proxy_auth` configuration item to a URL such as
 > TODO It should be possible to add the username and password to the
 > configuration without needing to repeat the rest of the URL.
 
-### Stage D (optional): conceal credentials from HTML source
+### (Optional): conceal credentials from HTML source
 
 Using a credential-based Service-Proxy authentication URL such as the
 one above reveals the the credentials to public view -- to anyone who
@@ -173,8 +173,8 @@ yourname.com:
   (e.g. using a .htaccess file).
 
 
-3. Choosing targets from the library
-------------------------------------
+Choosing targets from the library
+---------------------------------
 
 MKWS applications can choose what subset of the library's targets to
 use, by means of several alternative settings on individual widgets or
