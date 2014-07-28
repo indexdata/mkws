@@ -1,19 +1,19 @@
 % The MasterKey Widget Set
 % Mike Taylor; Wolfram Schneider
-% 23 July 2014
+% 28 July 2014
 
 
 Introduction
 ------------
 
-This is the MasterKey Widget Set. It provides searching and other
-information-related functionality which can be inserted into existing
+This is the MasterKey Widget Set. It provides a way to insert
+searching and other information-related functionality into existing
 web pages as small snippets of HTML.
 
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
-so that very simple websites such as
-	<http://example.indexdata.com/>
+so that very simple applications such as
+	<http://example.indexdata.com/index.html>
 can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
