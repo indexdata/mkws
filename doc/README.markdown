@@ -13,7 +13,7 @@ web pages as small snippets of HTML.
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
 so that very simple applications such as
-	<http://example.indexdata.com/index.html>
+	<http://example.indexdata.com/simple.html>
 can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
