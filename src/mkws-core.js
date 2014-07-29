@@ -9,7 +9,9 @@
 // Set up global mkws object. Contains truly global state such as SP
 // authentication, and a hash of team objects, indexed by team-name.
 //
-var mkws = {
+// We set it as a property of window to make the global explicit as
+// some things complain about an implicit global.
+window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
   log_level: 1, // Will be overridden from mkws.config, but
