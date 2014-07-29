@@ -34,8 +34,13 @@ h3.date {
     color: black
 }
 
-body > p, ul, ol, pre, table, h4 {
+body > p, ul, ol, pre, table, h4, blockquote {
     margin-left: 10%;
+}
+
+blockquote {
+    padding-left: 4em;
+    padding-right: 4em;
 }
 
 p, ul {
