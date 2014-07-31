@@ -297,8 +297,7 @@ In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
 Index Data's hosted service proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
-resources). For information on how to do this, see
-[MKWS Target Selection](library-configuration.html)
+resources). For information on how to do this, see the next section.
 
 
 MKWS Target Selection
