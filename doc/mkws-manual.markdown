@@ -469,7 +469,7 @@ from that toolkit. The relevant lines are:
       <div class="mkwsResults"></div>
       <div class="mkwsTargets"></div>
       <div class="mkwsStat"></div>
-    </div
+    </div>
 
 ---
 Element    Type    Default           Description
