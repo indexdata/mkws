@@ -18,7 +18,7 @@ h2, h3 {
     margin-bottom: -0.5em;
 }
 
-h1 {
+h1.title {
     background: #e0e8f8;
     padding: 0.2em;
     font-weight: normal;
