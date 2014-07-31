@@ -2,8 +2,9 @@
 % Mike Taylor
 % 30 July 2014
 
+
 Introduction
-------------
+============
 
 There are lots of practical problems in building resource discovery
 solutions. One of the biggest, and most ubiquitous is incorporating
@@ -44,7 +45,7 @@ can be embedded: search-boxes, results areas, target information, etc.
 
 
 Simple Example
---------------
+==============
 
 The following is a complete MKWS-based searching application:
 
@@ -123,8 +124,9 @@ To see all of these working together, just put them all into the HTML
         <div id="mkwsTargets"></div>
         <div id="mkwsStat"></div>
 
+
 Configuration
--------------
+=============
 
 Many aspects of the behaviour of MKWS can be modified by setting
 parameters into the `mkws_config` object. **This must be done *before*
@@ -151,7 +153,7 @@ reference guide below.
 
 
 Control over HTML and CSS
--------------------------
+=========================
 
 More sophisticated applications will not simply place the `<div>`s
 together, but position them carefully within an existing page
@@ -191,10 +193,11 @@ reference guide below.
 
 
 Refinements
------------
+===========
 
 
-### Message of the day
+Message of the day
+------------------
 
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
@@ -204,7 +207,8 @@ day, a welcome message or a help page. This can be done by placing an
 search is made.
 
 
-### Customised display using Handlebars templates
+Customised display using Handlebars templates
+---------------------------------------------
 
 Certain aspects of the widget-set's display can be customised by
 providing Handlebars templates with well-known classes that begin with
@@ -238,7 +242,8 @@ For details of Handlebars template syntax, see
 [the online documentation](http://handlebarsjs.com/).
 
 
-### Responsive design
+Responsive design
+-----------------
 
 Metasearching applications may need to appear differently on
 small-screened mobile devices, or change their appearance when
@@ -264,7 +269,8 @@ cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
 termlists should appear.
 
 
-### Popup results with jQuery UI
+Popup results with jQuery UI
+----------------------------
 
 The [jQuery UI library](http://en.wikipedia.org/wiki/JQuery_UI)
 can be used to construct MKWS applications in which the only component
@@ -285,7 +291,8 @@ The necessary scaffolding can be seen in an example application,
 http://example.indexdata.com/index-popup.html
 
 
-### Authentication and target configuration
+Authentication and target configuration
+---------------------------------------
 
 By default, MKWS configures itself to use a demonstration account on a
 service hosted by mkws.indexdata.com. This account (username `demo`,
@@ -301,7 +308,7 @@ resources). For information on how to do this, see the next section.
 
 
 MKWS Target Selection
----------------------
+=====================
 
 MKWS accesses targets using the Pazpar2 metasearching engine. Although
 Pazpar2 can be used directly, using a statically configured set of
@@ -315,7 +322,8 @@ MKWS application to that library, and how to choose which of the
 available targets to use.
 
 
-### Maintaining the library
+Maintaining the library
+-----------------------
 
 The service proxy accesses sets of targets that are known as
 "libraries". In general, each customer will have their own library,
@@ -353,7 +361,8 @@ the library. The authentication process, described below, works by
 searching for a matching User Access record.
 
 
-### Authenticating your MWKS application onto the library
+Authenticating your MWKS application onto the library
+-----------------------------------------------------
 
 Some MKWS applications will be content to use the default library with
 its selection of targets. Most, though, will want to define their own
@@ -365,7 +374,8 @@ unauthorised access.
 
 Setting up such a library is a process of several stages.
 
-#### Create the User Access account
+### Create the User Access account
+
 
 Log in to MKAdmin administrate your library:
 
@@ -404,7 +414,7 @@ You can create multiple User Access records: for example, one that
 uses Referring URL, and another that uses a username/password pair to
 be used when running an application from a different URL.
 
-#### Tell the application to use the library
+### Tell the application to use the library
 
 In the HTML of the application, tell MKWS to authenticate on to the
 Service Proxy. When IP-based, referer-based or hostname-based
@@ -420,7 +430,7 @@ authentication is used, this is very simple:
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
 
-#### (Optional): access by a different virtual hostname
+### (Optional): access by a different virtual hostname
 
 When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
@@ -434,7 +444,7 @@ URL containing that hostname, such as
 > TODO When changing the SP authentication URL, the Pazpar2 URL should
 > in general change along with it.
 
-#### (Optional): embed credentials for access to the library
+### (Optional): embed credentials for access to the library
 
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
@@ -445,7 +455,7 @@ by setting the `service_proxy_auth` configuration item to a URL such as
 > TODO It should be possible to add the username and password to the
 > configuration without needing to repeat the rest of the URL.
 
-#### (Optional): conceal credentials from HTML source
+### (Optional): conceal credentials from HTML source
 
 Using a credential-based Service-Proxy authentication URL such as the
 one above reveals the the credentials to public view -- to anyone who
@@ -472,7 +482,8 @@ yourname.com:
   (e.g. using a .htaccess file).
 
 
-### Choosing targets from the library
+Choosing targets from the library
+---------------------------------
 
 MKWS applications can choose what subset of the library's targets to
 use, by means of several alternative settings on individual widgets or
@@ -508,9 +519,10 @@ attribute as follows:
 
 
 Reference Guide
----------------
+===============
 
-### Configuration object
+Configuration object
+--------------------
 
 The configuration object `mkws_config` may be created before including
 the MKWS JavaScript code to modify default behaviour. This structure
@@ -591,7 +603,7 @@ for the language menu. But for now we retain these, as an easier route
 to lightly customise the display than my changing providing a full HTML
 structure.
 
-#### Notes
+### Notes
 
 1. ["sources", "subjects", "authors"]
 
@@ -606,7 +618,8 @@ structure.
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
 
 
-### Language specification
+Language specification
+----------------------
 
 Support for another UI language can be added by providing an entry in
 the `mkws_config` object whose name is `language_` followed by the
@@ -656,7 +669,8 @@ and
 
 
 
-### jQuery UI popup invocation
+jQuery UI popup invocation
+--------------------------
 
 The MasterKey Widget Set can be invoked in a popup window on top of the page.
 
@@ -695,7 +709,8 @@ popup_autoOpen  string      1       Open popup window on load. Valid values are 
 ----
 
 
-### The structure of the HTML generated by the MKWS widgets
+The structure of the HTML generated by the MKWS widgets
+-------------------------------------------------------
 
 In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand that structure of the HTML elements that are
