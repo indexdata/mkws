@@ -386,7 +386,7 @@ mkws.pagerNext = function(tname) {
       // autosearch on the team or the team has otherwise gotten a query
       if (node.hasAttribute("autosearch")) {
         if (mkws.autoHasAuto ||
-            mkws.teams["AUTO"] && mkws.teams["AUTO"].config()["query"]) {
+            mkws.teams["AUTO"] && mkws.teams["AUTO"].config["query"]) {
           log("AUTO team already has a query, using unique team");
           teamName = "UNIQUE";
         }

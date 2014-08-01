@@ -28,9 +28,11 @@ function team($, teamName) {
   var m_paz; // will be initialised below
   var m_templateText = {}; // widgets can register templates to be compiled
   var m_template = {}; // compiled templates, from any source
-  var m_config = mkws.objectInheritingFrom(mkws.config);
   var m_widgets = {}; // Maps widget-type to array of widget objects
   var m_gotRecords = false;
+  
+  var config = mkws.objectInheritingFrom(mkws.config);
+  that.config = config;
 
   that.toString = function() { return '[Team ' + teamName + ']'; };
 
@@ -44,7 +46,6 @@ function team($, teamName) {
   that.currentRecordId = function() { return m_currentRecordId; };
   that.currentRecordData = function() { return m_currentRecordData; };
   that.filters = function() { return m_filterSet; };
-  that.config = function() { return m_config; };
 
   // Accessor methods for individual widgets: writers
   that.set_sortOrder = function(val) { m_sortOrder = val };
@@ -86,23 +87,23 @@ function team($, teamName) {
 
   log("making new widget team");
 
-  m_sortOrder = m_config.sort_default;
-  m_perpage = m_config.perpage_default;
+  m_sortOrder = config.sort_default;
+  m_perpage = config.perpage_default;
 
   // create a parameters array and pass it to the pz2's constructor
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   m_paz = new pz2({ "windowid": teamName,
-                    "pazpar2path": m_config.pazpar2_url,
-                    "usesessions" : m_config.use_service_proxy ? false : true,
+                    "pazpar2path": config.pazpar2_url,
+                    "usesessions" : config.use_service_proxy ? false : true,
                     "oninit": onInit,
                     "onbytarget": onBytarget,
                     "onstat": onStat,
-                    "onterm": (m_config.facets.length ? onTerm : undefined),
+                    "onterm": (config.facets.length ? onTerm : undefined),
                     "onshow": onShow,
                     "onrecord": onRecord,
                     "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "termlist": m_config.facets.join(',')
+                    "termlist": config.facets.join(',')
                   });
   log("created main pz2 object");
 
@@ -257,7 +258,7 @@ function team($, teamName) {
   function newSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
     log("newSearch: " + query);
 
-    if (m_config.use_service_proxy && !mkws.authenticated) {
+    if (config.use_service_proxy && !mkws.authenticated) {
       alert("searching before authentication");
       return;
     }
