@@ -1,10 +1,9 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 DOCS = README.html README.odt README.pdf \
-       whitepaper.html whitepaper.odt whitepaper.pdf \
-       library-configuration.html library-configuration.odt library-configuration.pdf
+       mkws-manual.html mkws-manual.odt mkws-manual.pdf
 
-INSTALLABLE = README.html whitepaper.html library-configuration.html mkws-doc.css
+INSTALLABLE = README.html mkws-manual.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 install: $(INSTALLED)
@@ -23,7 +22,7 @@ all: $(DOCS)
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
 
 # for older pandoc (<1.9) run first:
-# perl -i.bak -npe 's/"(Authors|Subjects)": "(.*?)"/"$1": "test"/' tools/htdocs/whitepaper.markdown
+# perl -i.bak -npe 's/"(Authors|Subjects)": "(.*?)"/"$1": "test"/' tools/htdocs/mkws-manual.markdown
 #
 %.html: %.markdown
 	rm -f $@
@@ -35,7 +34,7 @@ all: $(DOCS)
 	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
-# ### In order to compile the whitepaper, which has tables, to PDF,
+# ### In order to compile the manual, which has tables, to PDF,
 # you will need to install the Debian package
 #	texlive-latex-recommended
 %.pdf: %.markdown
