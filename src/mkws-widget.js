@@ -10,7 +10,7 @@ function widget($, team, type, node) {
     team: team,
     type: type,
     node: $(node),
-    config: mkws.objectInheritingFrom(team.config())
+    config: mkws.objectInheritingFrom(team.config)
   };
 
   function log(s) {
@@ -98,10 +98,10 @@ function widget($, team, type, node) {
     var that = this;
     var query = this.config.autosearch;
     if (query) {
-      var old = this.team.config().query;
+      var old = this.team.config.query;
       if (!old) {
         // Stash this for subsequent inspection
-        this.team.config().query = query;
+        this.team.config.query = query;
       } else if (old === query) {
         this.log("duplicate autosearch: '" + query + "': ignoring");
         return;
