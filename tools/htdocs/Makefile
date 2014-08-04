@@ -16,11 +16,20 @@ JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
-	${SRC}/mkws-core.js ${SRC}/mkws-team.js ${SRC}/mkws-filter.js \
+	${SRC}/mkws-core.js \
+	${SRC}/mkws-team.js \
+	${SRC}/mkws-filter.js \
 	${SRC}/mkws-templates.js \
-	${SRC}/mkws-widget.js ${SRC}/mkws-widget-main.js ${SRC}/mkws-widget-termlists.js \
-	${SRC}/mkws-widget-authname.js ${SRC}/mkws-widget-categories.js ${SRC}/mkws-widget-log.js \
-	${SRC}/mkws-widget-record.js ${SRC}/mkws-widget-reference.js ${SRC}/mkws-widget-builder.js
+	${SRC}/mkws-popup.js \
+	${SRC}/mkws-widget.js \
+	${SRC}/mkws-widget-main.js \
+	${SRC}/mkws-widget-termlists.js \
+	${SRC}/mkws-widget-authname.js \
+	${SRC}/mkws-widget-categories.js \
+	${SRC}/mkws-widget-log.js \
+	${SRC}/mkws-widget-record.js \
+	${SRC}/mkws-widget-reference.js \
+	${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
@@ -29,7 +38,7 @@ GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
 
 all: mkws.min.js mkws-complete.min.js
 
-mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
+mkws-js mkws-complete.js: Makefile mkws.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
 	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
@@ -43,7 +52,6 @@ mkws-js mkws-complete.js: Makefile mkws.js ${SRC}/mkws-jquery.js ${HANDLEBARS_FI
 	  cat ${HANDLEBARS_FILE}; \
 	  cat ${PP2_FILE}; \
 	  cat  mkws.js; \
-	  cat  ${SRC}/mkws-jquery.js; \
 	) > mkws-complete.js.tmp
 	mv -f mkws-complete.js.tmp mkws-complete.js
 
@@ -90,6 +98,10 @@ mkws.js: mkws-templates.js $(COMPONENTS) Makefile
 
 mkws-templates.js:
 	handlebars -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
+
+mkws-html-includes: 
+	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \
+	  perl -n0e 'chomp(); print qq{    <script type="text/javascript" src="src$$_"></script>\n}'
 
 distclean: clean
 	@echo "(No need for distclean, 'make clean' is fine)"

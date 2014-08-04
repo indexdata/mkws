@@ -411,7 +411,7 @@ mkws.registerWidgetType('Config', function() {
   var c = this.config;
   for (var name in c) {
     if (c.hasOwnProperty(name)) {
-      this.team.config()[name] = c[name];
+      this.team.config[name] = c[name];
       this.log(this + " copied property " + name + "='" + c[name] + "' up to team");
     }
   }
@@ -446,6 +446,5 @@ mkws.registerWidgetType('Progress', function() {
 mkws.registerWidgetType('Query', function() {});
 mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
-mkws.registerWidgetType('Popup', function() {});
 
 

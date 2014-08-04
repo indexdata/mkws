@@ -56,6 +56,12 @@ phantomjs p: apache-stop apache-start _phantomjs
 _phantomjs:
 	perl ./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
+phantomjs-all p-all:
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-cors-popup.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-local-popup.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-popup.html
+
 mike-test:
 	$(MAKE) _phantomjs PHANTOMJS_URL=http://x.example.indexdata.com/jasmine-popup.html
 
@@ -102,15 +108,17 @@ apache-stop:
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
-	@echo "     [ phantomjs | screenshot ]"
-	@echo "     [ jsbeautifier | perltidy ]"
+	@echo "     [ phantomjs | phantomjs-all ]"
+	@echo "     [ jsbeautifier | perltidy | screenshot ]"
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
-	@echo "Examples"
+	@echo "Examples: "
 	@echo ""
 	@echo "make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
 	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
 	@echo "DEBUG=2 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
+	@echo ""
+	@echo "make phantomjs-all"
 	@echo ""
 

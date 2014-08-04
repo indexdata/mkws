@@ -1,27 +1,31 @@
 % The MasterKey Widget Set
 % Mike Taylor; Wolfram Schneider
-% 10 July 2013
+% 28 July 2014
 
 
 Introduction
 ------------
 
-This is the MasterKey Widget Set. The initial version was based on the
-"jsdemo" application distributed with pazpar2, but it is now far
-removed from those beginnnings.
+This is the MasterKey Widget Set. It provides a way to insert
+searching and other information-related functionality into existing
+web pages as small snippets of HTML.
 
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
-so that very simple websites such as
-	<http://example.indexdata.com/>
+so that very simple applications such as
+	<http://example.indexdata.com/simple.html>
 can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
 
-* `mkws.js`
+* `mkws.js` (and its compressed version `mkws.min.js`)
 * `/pazpar2/js/pz2.js`
-* `mkws-complete.js` -- a single file consisting of `mkws.js`,
-  jQuery (which it uses), Handlebars (ditto) and `pz2.js`
+* `mkws-complete.js` (and its compressed version `mkws-complete.min.js`)
+  -- a single file consisting of `mkws.js` together with the files it
+  uses: `pz2.js` jQuery, jQuery-JSON and Handlebars.
+* Local copy of `jquery-1.10.0.min.js`
+* Local copy of `jquery.json-2.4.js`
+* Local copy of `handlebars-v1.1.2.js`
 * `mkws.css`
 
 
@@ -65,39 +69,23 @@ will be filled in by MKWS:
 * `<div id="mkwsStat"></div>` -- summary statistics
 
 You can configure and control the client by creating an `mkws_config`
-object _before_ loading the widget-set.  Here is an example of all
-possible options:
+object before loading the widget-set. Here is an example showing how
+to use options to offer a choice between English and German UI
+languages, and to default to sorting by title ascending:
 
 ~~~
     <script type="text/javascript">
       var mkws_config = {
-        use_service_proxy: true,    /* true, flase: use service proxy instead pazpar2 */
-        show_lang: true,            /* true, false: show/hide language menu */
-        show_sort: true,            /* true, false: show/hide sort menu */
-        show_perpage: true,         /* true, false: show/hide perpage menu */
-        show_switch: true,          /* true, false: show/hide switch menu */
-        lang_options: ["en", "de", "da"],
-                                    /* display languages links for given languages, [] for all */
-        facets: ["xtargets", "subject", "author"],
-                                    /* display facets, in this order, [] for none */
-        sort_default: "relevance",  /* "relevance", "title:1", "date:0", "date:1" */
-        query_width: 50,            /* 5..50 */
-        perpage_default: 20,        /* 10, 20, 30, 50 */
-        lang: "en",                 /* "en", "de", "da" */
-        debug_level: 0,             /* debug level for development: 0..2 */
-
-        responsive_design_wodth: 600,    /* page reflows for devices < 600 pixels wide */
-        pazpar2_url: "/service-proxy/",            /* URL */
-        service_proxy_auth: "/service-proxy-auth", /* URL */
-        // TODO: language_*, perpage_options, sort_options
+        lang_options: ["en", "de" ],
+        sort_default: "title:1"
       };
     </script>
 ~~~
 
-For much more detail, see
-[the MKWS whitepaper](whitepaper.html).
+For much more detail, see:
+[Embedded metasearching with the MasterKey Widget Set](mkws-manual.html)
 
 
 - - -
 
-Copyright 2013 IndexData ApS. <http://indexdata.com>
+Copyright 2014 IndexData ApS. <http://indexdata.com>
