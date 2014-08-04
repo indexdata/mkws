@@ -413,7 +413,8 @@ function team($, teamName) {
       return template;
     }
     else {
-      alert("Missing MKWS template for " + name);
+      mkws.log("No MKWS template for " + name);
+      return null;
     }  
   }
   that.loadTemplate = loadTemplate;
