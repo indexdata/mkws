@@ -11,7 +11,7 @@ mkws.registerWidgetType('Termlists', function() {
 
   var template = team.loadTemplate(this.config.template || "Termlists");
   this.node.html(template({
-    team: team,
+    team: team.name(),
     facets: this.config.facets
   }));
   this.autosearch();
