@@ -11,7 +11,9 @@ mkws.registerWidgetType('Targets', function() {
   this.node.css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
-    // There is a bug in pz2.js
+    // There is a bug in pz2.js wherein it makes each data object an array but
+    // simply assigns properties to it.
+    // TODO: remove this when PAZ-946 is addressed.
     var cleandata = [];
     for (var i = 0; i < data.length; i++) {
       var cur = {};
@@ -43,61 +45,44 @@ mkws.registerWidgetType('Pager', function() {
   var M = mkws.M;
 
   this.team.queue("pager").subscribe(function(data) {
-    that.node.html(drawPager(data))
+    var teamName = that.team.name();
+    var output = {};
+    output.first = data.start + 1;
+    output.last = data.start + data.num;
+    output.count = data.merged;
+    output.found = data.total;
 
-    function drawPager(data) {
-      var teamName = that.team.name();
-      var s = '<div style="float: right">' + M('Displaying') + ': '
-        + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-        ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-        + data.total + ')</div>';
+    //client indexes pages from 1 but pz2 from 0
+    var onsides = 6;
+    var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
+    var currentPage = that.team.currentPage();
 
-      //client indexes pages from 1 but pz2 from 0
-      var onsides = 6;
-      var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
-      var currentPage = that.team.currentPage();
+    var firstClkbl = (currentPage - onsides > 0)
+      ? currentPage - onsides
+      : 1;
+    var lastClkbl = firstClkbl + 2*onsides < pages
+      ? firstClkbl + 2*onsides
+      : pages;
 
-      var firstClkbl = (currentPage - onsides > 0)
-        ? currentPage - onsides
-        : 1;
+    if (firstClkbl > 1) output.morePrev = true;
+    if (lastClkbl < pages) output.moreNext = true;
 
-      var lastClkbl = firstClkbl + 2*onsides < pages
-        ? firstClkbl + 2*onsides
-        : pages;
+    if (currentPage > 1) output.prevClick = "mkws.pagerPrev(\'" + teamName + "\');";
 
-      var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span> | ';
-      if (currentPage > 1)
-        prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
-        +'&#60;&#60; ' + M('Prev') + '</a> | ';
-
-      var middle = '';
-      for(var i = firstClkbl; i <= lastClkbl; i++) {
-        var numLabel = i;
-        if(i == currentPage)
-          numLabel = '<span class="mkwsCurrentPage">' + i + '</span>';
-
-        middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
-          + numLabel + ' </a>';
+    output.pages = [];
+    for(var i = firstClkbl; i <= lastClkbl; i++) {
+      var o = {};
+      o.number = i;
+      if (i !== currentPage) {
+        o.click = "mkws.showPage(\'" + teamName + "\', " + i + ");";
       }
-
-      var next = ' | <span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-      if (pages - currentPage > 0)
-        next = ' | <a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
-        + M('Next') + ' &#62;&#62;</a>';
-
-      var predots = '';
-      if (firstClkbl > 1)
-        predots = '...';
-
-      var postdots = '';
-      if (lastClkbl < pages)
-        postdots = '...';
-
-      s += '<div style="float: clear">'
-        + prev + predots + middle + postdots + next + '</div>';
-
-      return s;
+      output.pages.push(o);
     }
+
+    if (pages - currentPage > 0) output.nextClick = "mkws.pagerNext(\'" + teamName + "\')";
+
+    var template = that.team.loadTemplate(that.config.template || "Pager");
+    that.node.html(template(output));
   });
 });
 
