@@ -16,14 +16,14 @@ pages:
 <div style="float: right">
   {{mkws-translate "Displaying"}}:
   {{first}} {{mkws-translate "to"}} {{last}}
-  {{mkws-translate "of"}} {{count}} (found: {{found}})
+  {{mkws-translate "of"}} {{count}} ({{{mkws-translate "found"}}}: {{found}})
 </div>
 
 <div style="float: clear">
   {{#if prevClick}}
-    <a href="#" class="mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{mkws-translate "Prev"}}</a> |
+    <a href="#" class="mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{{mkws-translate "Prev"}}}</a> |
   {{else}}
-    <span class="mkwsPrev">&#60;&#60; {{mkws-translate "Prev"}}</span> |
+    <span class="mkwsPrev">&#60;&#60; {{{mkws-translate "Prev"}}}</span> |
   {{/if}}
 
   {{#if morePrev}}...{{/if}}
@@ -39,8 +39,8 @@ pages:
   {{#if moreNext}}...{{/if}}
 
   {{#if nextClick}}
-    | <a href="#" class="mkwsNext" onclick="{{nextClick}}">{{mkws-translate "Next"}} &#62;&#62;</a>
+    | <a href="#" class="mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}} &#62;&#62;</a>
   {{else}}
-    | <span class="mkwsNext">{{mkws-translate "Next"}} &#62;&#62;</span>
+    | <span class="mkwsNext">{{{mkws-translate "Next"}}} &#62;&#62;</span>
   {{/if}}
 </div>
