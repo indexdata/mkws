@@ -31,13 +31,9 @@ mkws.registerWidgetType('Targets', function() {
 
 mkws.registerWidgetType('Stat', function() {
   var that = this;
-  var M = mkws.M;
-
   this.team.queue("stat").subscribe(function(data) {
-    that.node.html(' -- ' +
-                      '<span class="mkwsClientCount">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
-                      ' -- ' +
-                      M('Retrieved records') + ': ' + data.records + '/' + data.hits);
+    var template = that.team.loadTemplate(that.config.template || "Stat");
+    that.node.html(template(data));
   });
 });
 
