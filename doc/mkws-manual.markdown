@@ -368,7 +368,7 @@ Some MKWS applications will be content to use the default library with
 its selection of targets. Most, though, will want to define their own
 library providing a different range of available targets. An important
 case is that of applications that authenticate onto subscription
-resources by means of backe-end site credentials stored in MKAdmin:
+resources by means of back-end site credentials stored in MKAdmin:
 precautions must be taken so that such library accounts do not allow
 unauthorised access.
 
