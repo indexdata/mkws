@@ -6,30 +6,25 @@
 mkws.registerWidgetType('Targets', function() {
   if (!this.config.show_switch) return;
   var that = this;
-  var M = mkws.M;
 
   this.node.html('No information available yet.');
   this.node.css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
-    var table ='<table><thead><tr>' +
-      '<td>' + M('Target ID') + '</td>' +
-      '<td>' + M('Hits') + '</td>' +
-      '<td>' + M('Diags') + '</td>' +
-      '<td>' + M('Records') + '</td>' +
-      '<td>' + M('State') + '</td>' +
-      '</tr></thead><tbody>';
-
+    // There is a bug in pz2.js
+    var cleandata = [];
     for (var i = 0; i < data.length; i++) {
-      table += "<tr><td>" + data[i].id +
-        "</td><td>" + data[i].hits +
-        "</td><td>" + data[i].diagnostic +
-        "</td><td>" + data[i].records +
-        "</td><td>" + data[i].state + "</td></tr>";
+      var cur = {};
+      cur.id = data[i].id;
+      cur.hits = data[i].hits;
+      cur.diagnostic = data[i].diagnostic;
+      cur.records = data[i].records;
+      cur.state = data[i].state;
+      cleandata.push(cur);
     }
 
-    table += '</tbody></table>';
-    that.node.html(table);
+    var template = that.team.loadTemplate(that.config.template || "Targets");
+    that.node.html(template({data: cleandata}));
   });
 });
 
