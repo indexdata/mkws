@@ -477,15 +477,16 @@ to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
 yourname.com:
 
-- Add a rewriting authentication alias to the configuration:
+Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
 	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
-- Set the MKWS configuration item `service_proxy_auth` to
-  <http://yourname.com/spauth/>
-- Protect access to the local path <http://yourname.com/spauth/>
-  (e.g. using a .htaccess file).
+Step 2: set the MKWS configuration item `service_proxy_auth` to
+<http://yourname.com/spauth/>
+
+Step 3: protect access to the local path <http://yourname.com/spauth/>
+(e.g. using a `.htaccess` file).
 
 
 Choosing targets from the library
