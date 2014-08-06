@@ -376,16 +376,15 @@ Setting up such a library is a process of several stages.
 
 ### Create the User Access account
 
-
-Log in to MKAdmin administrate your library:
+Log in to MKAdmin to add a User Access account for your library:
 
 * Go to <http://mkx-admin.indexdata.com/console/>
 * Enter the adminstrative username/password
 * Go to the User Access tab
 * Create an end-user account
 * Depending on what authentication method it be used, set the
-  User Access account's username and password, or IP-address range, or
-  referring URL, or hostname.
+  User Access account's username and password, or referring URL, or
+  Service Proxy hostname, or IP-address range.
 
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
