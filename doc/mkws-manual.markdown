@@ -423,8 +423,8 @@ own User Access record.
 ### Tell the application to use the library
 
 In the HTML of the application, tell MKWS to authenticate on to the
-Service Proxy. When referer-based, hostname-based or IP-based
-authentication is used, this is very simple:
+Service Proxy. When referer-based or IP-based authentication is used,
+this is very simple:
 
 	<script type="text/javascript">
 	  var mkws_config = { service_proxy_auth:
