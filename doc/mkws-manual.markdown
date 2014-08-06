@@ -398,6 +398,14 @@ of this hostname to your library by setting the User Access record's
 that this is not secure, as other applications can use this virtual
 hostname to gain access to your library.**
 
+Or if your application's users are coming from a well-known range of
+IP-address space, you can enter the range in the "IP Ranges"
+field. The format of this field is as follows: it can contain any
+number of ranges, separated by commas; each range is either a single
+IP address or two addresses separated by a hyphen; each IP address is
+four small integers separated by periods. For example,
+`80.229.143.255-80.229.143.255, 5.57.0.0-5.57.255.255, 127.0.0.1`.
+
 Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
 including when you need to specify the use of a different library from
