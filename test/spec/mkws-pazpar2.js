@@ -707,7 +707,7 @@ describe("Check SortBy options", function () {
             $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind by sort");
 
-            var records = $("div.mkwsRecords > div.mkwsSummary a");
+            var records = $("div.mkwsRecords > div.mkwsSummary > a");
             debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
