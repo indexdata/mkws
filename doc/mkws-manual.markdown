@@ -398,10 +398,6 @@ of this hostname to your library by setting the User Access record's
 that this is not secure, as other applications can use this virtual
 hostname to gain access to your library.**
 
-> TODO Authentication by IP address does not yet work correctly -- see
-> bug MKWS-234 ("Improve SP configuration/proxying for better
-> authentication").
-
 Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
 including when you need to specify the use of a different library from
