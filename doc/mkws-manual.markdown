@@ -442,7 +442,7 @@ When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
 done by setting the `service_proxy_auth` configuration item to a
 URL containing that hostname, such as
-<//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig>
+`//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
 
 > TODO It should be possible to change just the hostname without
 > needing to repeat the rest of the URL (protocol, path, query)
@@ -456,7 +456,7 @@ When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This can most simply be done just
 by setting the `service_proxy_auth` configuration item to a URL such as
-<//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish>
+`//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
 
 > TODO It should be possible to add the username and password to the
 > configuration without needing to repeat the rest of the URL.
