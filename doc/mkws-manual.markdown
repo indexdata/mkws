@@ -431,7 +431,7 @@ this is very simple:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
 	</script>
 
-> TODO This should be the default setting
+> TODO This should be the default setting: see MKWS-251.
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
