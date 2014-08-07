@@ -368,7 +368,7 @@ Some MKWS applications will be content to use the default library with
 its selection of targets. Most, though, will want to define their own
 library providing a different range of available targets. An important
 case is that of applications that authenticate onto subscription
-resources by means of backe-end site credentials stored in MKAdmin:
+resources by means of back-end site credentials stored in MKAdmin:
 precautions must be taken so that such library accounts do not allow
 unauthorised access.
 
@@ -376,16 +376,15 @@ Setting up such a library is a process of several stages.
 
 ### Create the User Access account
 
-
-Log in to MKAdmin administrate your library:
+Log in to MKAdmin to add a User Access account for your library:
 
 * Go to <http://mkx-admin.indexdata.com/console/>
 * Enter the adminstrative username/password
 * Go to the User Access tab
 * Create an end-user account
 * Depending on what authentication method it be used, set the
-  User Access account's username and password, or IP-address range, or
-  referring URL, or hostname.
+  User Access account's username and password, or referring URL, or
+  Service Proxy hostname, or IP-address range.
 
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
@@ -399,9 +398,13 @@ of this hostname to your library by setting the User Access record's
 that this is not secure, as other applications can use this virtual
 hostname to gain access to your library.**
 
-> TODO Authentication by IP address does not yet work correctly -- see
-> bug MKWS-234 ("Improve SP configuration/proxying for better
-> authentication").
+Or if your application's users are coming from a well-known range of
+IP-address space, you can enter the range in the "IP Ranges"
+field. The format of this field is as follows: it can contain any
+number of ranges, separated by commas; each range is either a single
+IP address or two addresses separated by a hyphen; each IP address is
+four small integers separated by periods. For example,
+`80.229.143.255-80.229.143.255, 5.57.0.0-5.57.255.255, 127.0.0.1`.
 
 Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
@@ -410,22 +413,25 @@ usual one. To arrange for this, set the username and password as a
 single string separated by a slash -- e.g. "mike/swordfish" -- into
 the User Access record's Authentication field.
 
-You can create multiple User Access records: for example, one that
-uses Referring URL, and another that uses a username/password pair to
-be used when running an application from a different URL.
+You can set multiple fields into a single User Access record; or
+create multiple User Access records. For example, a single User Access
+record can specify both a Referring URL a username/password pair that
+can be used when running an application from a different URL. But if
+multiple Referring URLs are needed, then each must be specified in its
+own User Access record.
 
 ### Tell the application to use the library
 
 In the HTML of the application, tell MKWS to authenticate on to the
-Service Proxy. When IP-based, referer-based or hostname-based
-authentication is used, this is very simple:
+Service Proxy. When referer-based or IP-based authentication is used,
+this is very simple:
 
 	<script type="text/javascript">
 	  var mkws_config = { service_proxy_auth:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
 	</script>
 
-> TODO This should be the default setting
+> TODO This should be the default setting: see **MKWS-251**.
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
@@ -436,13 +442,14 @@ When hostname-based authentication is in use, it's necessary to access
 the Service Proxy as the correctly named virtual host. This can be
 done by setting the `service_proxy_auth` configuration item to a
 URL containing that hostname, such as
-<//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig>
+`//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
 
 > TODO It should be possible to change just the hostname without
-> needing to repeat the rest of the URL (protocol, path, query)
+> needing to repeat the rest of the URL (protocol, path, query): see
+> **MKWS-252**.
 
 > TODO When changing the SP authentication URL, the Pazpar2 URL should
-> in general change along with it.
+> in general change along with it: see **MKWS-253**.
 
 ### (Optional): embed credentials for access to the library
 
@@ -450,10 +457,11 @@ When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This can most simply be done just
 by setting the `service_proxy_auth` configuration item to a URL such as
-<//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish>
+`//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
 
 > TODO It should be possible to add the username and password to the
-> configuration without needing to repeat the rest of the URL.
+> configuration without needing to repeat the rest of the URL: see
+> **MKWS-254**.
 
 ### (Optional): conceal credentials from HTML source
 
@@ -471,15 +479,16 @@ to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
 yourname.com:
 
-- Add a rewriting authentication alias to the configuration:
+Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
 	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
-- Set the MKWS configuration item `service_proxy_auth` to
-  <http://yourname.com/spauth/>
-- Protect access to the local path <http://yourname.com/spauth/>
-  (e.g. using a .htaccess file).
+Step 2: set the MKWS configuration item `service_proxy_auth` to
+<http://yourname.com/spauth/>
+
+Step 3: protect access to the local path <http://yourname.com/spauth/>
+(e.g. using a `.htaccess` file).
 
 
 Choosing targets from the library
