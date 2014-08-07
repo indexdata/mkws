@@ -45,7 +45,7 @@ test page, wait 3 seconds for success and shutdown windows.
 Include files
 -------------
 
-The whitepaper says to include mkws-complete.js. This file is made by concatenating
+The manual says to include mkws-complete.js. This file is made by concatenating
 a number of files (see Makefile). For us developers, it is easier to include the
 raw files, as in
 

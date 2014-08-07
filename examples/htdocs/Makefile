@@ -1,16 +1,14 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
-all: apache-config.txt jasmine-links
+all: apache-config.txt
 
 apache-config.txt: ../apache2/mkws-examples-mike
 	rm -f $@
 	cp -p $< $@
 	chmod ugo-w $@
 
-jasmine-links:
-
 help:
-	@echo "make [ all | clean | jasmine-links ]"
+	@echo "make [ all | clean ]"
 
 clean distclean:
 	rm -f apache-config.txt

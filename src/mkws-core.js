@@ -9,7 +9,9 @@
 // Set up global mkws object. Contains truly global state such as SP
 // authentication, and a hash of team objects, indexed by team-name.
 //
-var mkws = {
+// We set it as a property of window to make the global explicit as
+// some things complain about an implicit global.
+window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
   log_level: 1, // Will be overridden from mkws.config, but
@@ -377,7 +379,26 @@ mkws.pagerNext = function(tname) {
       }
     }
 
-    if (!teamName) teamName = "AUTO";
+    // Widgets without a team are on team "AUTO"
+    if (!teamName) {
+      teamName = "AUTO";
+      // Autosearch widgets don't join team AUTO if there is already an
+      // autosearch on the team or the team has otherwise gotten a query
+      if (node.hasAttribute("autosearch")) {
+        if (mkws.autoHasAuto ||
+            mkws.teams["AUTO"] && mkws.teams["AUTO"].config["query"]) {
+          log("AUTO team already has a query, using unique team");
+          teamName = "UNIQUE";
+        }
+        mkws.autoHasAuto = true;
+      }
+    }
+
+    // Widgets on team "UNIQUE" get a random team
+    if (teamName === "UNIQUE") {
+      teamName = Math.floor(Math.random() * 100000000).toString();
+    }
+
     callback.call(node, teamName, type);
   }
 
@@ -521,6 +542,7 @@ mkws.pagerNext = function(tname) {
 
 
   function init(rootsel) {
+    mkws.autoHasAuto = false;
     if (!rootsel) var rootsel = ':root';
     var saved_config;
     if (typeof mkws_config === 'undefined') {

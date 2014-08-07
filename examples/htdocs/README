@@ -1,23 +1,8 @@
-Development
-===========================================
-
-please run first in this directory: 
-$ make jasmine-links
-
-
-jasmine.html	   - jasmine test with standard HTML page. 
-
-jasmine-popup.html - jasmine test with MKWS popup. No HTML, only JavaScript.
-	             Returns better readable test results as jasmine.html, 
-		     but it is less flexible.
-
-
 Public demo pages
 -----------------
 auto.html
 dict.html
 index.html
-jquery.html 
 language.html
 localauth.html
 lowlevel.html
@@ -27,8 +12,9 @@ popup.html
 
 Jasmine test pages
 ------------------
-jasmine-popup.html 	- jasmine test with jquery popup, best for JS/HTML testing
 jasmine-local-popup.html  jasmine test with local SP and jquery popup, best for development
 jasmine-pp2.html 	- running with local pazpar2 instead SP
-jasmine.html		- standard jasmine test
-
+jasmine.html	   - jasmine test with standard HTML page. 
+jasmine-popup.html - jasmine test with MKWS popup. No HTML, only JavaScript.
+	             Returns better readable test results as jasmine.html, 
+		     but it is less flexible.
