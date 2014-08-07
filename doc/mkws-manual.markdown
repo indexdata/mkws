@@ -460,7 +460,8 @@ by setting the `service_proxy_auth` configuration item to a URL such as
 `//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
 
 > TODO It should be possible to add the username and password to the
-> configuration without needing to repeat the rest of the URL.
+> configuration without needing to repeat the rest of the URL: see
+> MKWS-254.
 
 ### (Optional): conceal credentials from HTML source
 
