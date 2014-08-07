@@ -176,9 +176,9 @@ mkws.registerWidgetType('Perpage', function() {
 
 mkws.registerWidgetType('Done', function() {
   var that = this;
-
   this.team.queue("complete").subscribe(function(n) {
-    that.node.html("Search complete: found " + n + " records");
+    var template = that.team.loadTemplate(that.config.template || "Done");
+    that.node.html(template({count: n}));
   });
 });
 
@@ -186,23 +186,21 @@ mkws.registerWidgetType('Done', function() {
 mkws.registerWidgetType('Switch', function() {
   if (!this.config.show_switch) return;
   var tname = this.team.name();
-  this.node.html('\
-<a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
-| \
-</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
+  var output = {};
+  output.recordClick = "mkws.switchView(\'" + tname + "\', \'records\')";
+  output.targetClick = "mkws.switchView(\'" + tname + "\', \'targets\')";
+  var template = this.team.loadTemplate(this.config.template || "Switch");
+  this.node.html(template(output));
   this.hideWhenNarrow();
 });
 
 
 mkws.registerWidgetType('Search', function() {
-  var tname = this.team.name();
-  var M = mkws.M;
-
-  this.node.html('\
-<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + this.config.query_width + '" />\
-  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
-</form>');
+  var output = {};
+  output.team = this.team.name();
+  output.queryWidth = this.config.query_width;
+  var template = this.team.loadTemplate(this.config.template || "Search");
+  this.node.html(template(output));
 });
 
 
