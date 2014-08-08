@@ -431,7 +431,7 @@ this is very simple:
 	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
 	</script>
 
-> TODO This should be the default setting
+> TODO This should be the default setting: see **MKWS-251**.
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
@@ -445,10 +445,11 @@ URL containing that hostname, such as
 `//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
 
 > TODO It should be possible to change just the hostname without
-> needing to repeat the rest of the URL (protocol, path, query)
+> needing to repeat the rest of the URL (protocol, path, query): see
+> **MKWS-252**.
 
 > TODO When changing the SP authentication URL, the Pazpar2 URL should
-> in general change along with it.
+> in general change along with it: see **MKWS-253**.
 
 ### (Optional): embed credentials for access to the library
 
@@ -459,7 +460,8 @@ by setting the `service_proxy_auth` configuration item to a URL such as
 `//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
 
 > TODO It should be possible to add the username and password to the
-> configuration without needing to repeat the rest of the URL.
+> configuration without needing to repeat the rest of the URL: see
+> **MKWS-254**.
 
 ### (Optional): conceal credentials from HTML source
 
