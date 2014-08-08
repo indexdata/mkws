@@ -1,0 +1,42 @@
+{{!
+Ranking -- widget to select sort ordering and number of records to display
+
+team - team for this widget
+showSort
+showPerPage
+sort
+  key - machine readable value for this sort option
+  label - text to display for this sort option
+  selected - exists if this sort is selected
+perPage
+  perPage - a number of records per page that can be selected
+  selected - exists if this number is the current selection
+}}
+<form>
+  {{~#if showSort~}}
+    {{{mkws-translate "Sort by"}}}
+    <select class="mkwsSort mkwsTeam_{{team}}">
+      {{#each sort}}
+        {{#if selected}}
+          <option value="{{{key}}}" selected="selected">{{{mkws-translate label}}}</option>
+        {{else}}
+          <option value="{{key}}">{{{mkws-translate label}}}</option>
+        {{/if}}
+      {{/each}}  
+    </select>
+  {{~/if~}}
+  {{~#if showPerPage~}}
+    {{{mkws-translate "and show"}}}
+    <select class="mkwsPerpage mkwsTeam_{{team}}">
+      {{#each perPage}}
+        {{#if selected}}
+          <option value="{{perPage}}" selected="selected">{{perPage}}</option>
+        {{else}}
+          <option value="{{perPage}}">{{perPage}}</option>
+        {{/if}}
+      {{/each}}  
+    </select>
+    {{{mkws-translate "per page."}}}
+  {{~/if~}}
+</form>
+

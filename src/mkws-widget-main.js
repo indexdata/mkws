@@ -215,90 +215,43 @@ mkws.registerWidgetType('SearchForm', function() {
 
 
 mkws.registerWidgetType('Results', function() {
-  var tname = this.team.name();
-
-  this.node.html('\
-<table width="100%" border="0" cellpadding="6" cellspacing="0">\
-  <tr>\
-    <td class="mkwsTermlists-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
-      <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
-    </td>\
-    <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
-      <div class="mkwsRanking mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsPager mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsNavi mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsRecords mkwsTeam_' + tname + '"></div>\
-    </td>\
-  </tr>\
-  <tr>\
-    <td colspan="2">\
-      <div class="mkwsTermlists-Container-narrow mkwsTeam_' + tname + '"></div>\
-    </td>\
-  </tr>\
-</table>');
-
+  var template = this.team.loadTemplate(this.config.template || "Results");
+  this.node.html(template({team: this.team.name()}));
   this.autosearch();
 });
 
 
 mkws.registerWidgetType('Ranking', function() {
-  var tname = this.team.name();
-  var that = this;
-  var M = mkws.M;
+  var output = {};
+  output.perPage = [];
+  output.sort = [];
+  output.team = this.team.name();
+  output.showSort = this.config.show_sort;
+  output.showPerPage = this.config.show_perpage;
 
-  var s = '<form>';
-  if (this.config.show_sort) {
-    s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
-  }
-  if (this.config.show_perpage) {
-    s += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
-  }
-  s += '</form>';
-
-  this.node.html(s);
-
-
-  function mkwsHtmlSort() {
-    var order = that.team.sortOrder();
-
-    that.log("making sort HTML, sortOrder = '" + order + "'");
-    var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
-
-    for(var i = 0; i < that.config.sort_options.length; i++) {
-      var opt = that.config.sort_options[i];
-      var key = opt[0];
-      var val = opt.length == 1 ? opt[0] : opt[1];
-
-      sort_html += '<option value="' + key + '"';
-      if (order == key || order == val) {
-        sort_html += ' selected="selected"';
-      }
-      sort_html += '>' + M(val) + '</option>';
-    }
-    sort_html += '</select>';
-
-    return sort_html;
+  var order = this.team.sortOrder();
+  this.log("making sort, sortOrder = '" + order + "'");
+  for (var i = 0; i < this.config.sort_options.length; i++) {
+    var cur = {};
+    var opt = this.config.sort_options[i];
+    cur.key = opt[0];
+    cur.label = opt.length == 1 ? opt[0] : opt[1];
+    if (order == cur.key || order == cur.label) cur.selected = true;
+    output.sort.push(cur);
   }
 
-  function mkwsHtmlPerpage() {
-    var perpage = that.team.perpage();
-
-    that.log("making perpage HTML, perpage = " + perpage);
-    var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
-
-    for(var i = 0; i < that.config.perpage_options.length; i++) {
-      var key = that.config.perpage_options[i];
-
-      perpage_html += '<option value="' + key + '"';
-      if (key == perpage) {
-        perpage_html += ' selected="selected"';
-      }
-      perpage_html += '>' + key + '</option>';
-    }
-    perpage_html += '</select>';
-
-    return perpage_html;
+  var perpage = this.team.perpage();
+  this.log("making perpage, perpage = " + perpage);
+  for(var i = 0; i < this.config.perpage_options.length; i++) {
+    var cur = {};
+    cur.perPage = this.config.perpage_options[i];
+    if (cur.perPage == perpage) cur.selected = true;
+    output.perPage.push(cur);
   }
+
+  var template = this.team.loadTemplate(this.config.template || "Ranking");
+  console.log(output);
+  this.node.html(template(output));
 });
 
 
