@@ -250,7 +250,6 @@ mkws.registerWidgetType('Ranking', function() {
   }
 
   var template = this.team.loadTemplate(this.config.template || "Ranking");
-  console.log(output);
   this.node.html(template(output));
 });
 
@@ -272,33 +271,29 @@ mkws.registerWidgetType('Lang', function() {
   }
 
   for (var k in mkws.locale_lang) {
-    if (toBeIncluded[k] || lang_options.length == 0)
-      list.push(k);
-  }
-
-  // add english link
-  if (lang_options.length == 0 || toBeIncluded[lang_default])
-    list.push(lang_default);
-
-  this.log("language menu: " + list.join(", "));
-
-  /* the HTML part */
-  var data = "";
-  for (var i = 0; i < list.length; i++) {
-    var l = list[i];
-    if (data)
-      data += ' | ';
-
-    if (lang == l) {
-      data += ' <span>' + l + '</span> ';
-    } else {
-      data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
+    if (toBeIncluded[k] || lang_options.length == 0) {
+      cur = {};
+      if (lang === k) cur.selected = true;
+      cur.code = k;
+      cur.url = lang_url(k);
+      list.push(cur);
     }
   }
 
-  this.node.html(data);
-  this.hideWhenNarrow();
+  // add english link
+  if (lang_options.length == 0 || toBeIncluded[lang_default]) {
+      cur = {};
+      if (lang === lang_default) cur.selected = true;
+      cur.code = lang_default;
+      cur.url = lang_url(lang_default);
+      list.push(cur);
+  }
 
+  this.log("language menu: " + list.join(", "));
+
+  var template = this.team.loadTemplate(this.config.template || "Lang");
+  this.node.html(template({languages: list}));
+  this.hideWhenNarrow();
 
   // set or re-set "lang" URL parameter
   function lang_url(lang) {
