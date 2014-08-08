@@ -16,37 +16,39 @@ export APACHE_LOCK_FILE=$APACHE_LOG_DIR/accept.lock
 
 export MKWS_ROOT=$(pwd)/..
 
-MKWS_OS=debian 
+MKWS_OS=debian
 APACHE_VERSION=2.2
+apache2=$(env PATH=/usr/bin:/usr/sbin which apache2 httpd false 2>/dev/null | head -1)
+
 case $(uname) in
-  Darwin ) MKWS_OS=macos 
+  Darwin ) MKWS_OS=macos
 	   test -e libexec || ln -fs /usr/libexec .
 	   ;;
-  Linux )  MKWS_OS=debian 
+  Linux )  MKWS_OS=debian
 	   if [ -e /etc/debian_version ]; then
 		MKWS_OS=debian
-		# Ubuntu with Apache 2.2 can continue using debian
-		if /usr/bin/dpkg -s apache2 | grep -q "Version: 2\.4\..*ubuntu"; then
-			MKWS_OS=ubuntu
-                        APACHE_VERSION=2.4
+                if $apache2 -v | egrep -q 'Server version: Apache/2\.4\.'; then
+                    APACHE_VERSION=2.4
 	   	fi
 	   fi
 	   if [ -e /etc/redhat-release ]; then
-		MKWS_OS=centos 	
+		MKWS_OS=centos
 	   fi
 	   ;;
   * ) MKWS_OS=debian ;;
 esac
 
-export APACHE_MODULES="$MKWS_ROOT/tools/apache2/jasmine-dev.apache-modules.$MKWS_OS.conf"
 
 if [ "$APACHE_VERSION" = "2.4" ]; then
-	: ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template-2.4"}
+    : ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template-$APACHE_VERSION"}
+    APACHE_MODULES="$MKWS_ROOT/tools/apache2/jasmine-dev.apache-modules-$APACHE_VERSION.$MKWS_OS.conf"
 else
-	: ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template"}
+    : ${MKWS_APACHE_TEMPLATE="$MKWS_ROOT/tools/apache2/jasmine-dev.template"}
+    APACHE_MODULES="$MKWS_ROOT/tools/apache2/jasmine-dev.apache-modules.$MKWS_OS.conf"
 fi
-: ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev"}
 
+: ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev"}
+export APACHE_MODULES
 
 perl -npe 's,\${(.*?)},$ENV{$1},g; ' $MKWS_APACHE_TEMPLATE > $MKWS_APACHE_FILE.tmp
 mv -f $MKWS_APACHE_FILE.tmp $MKWS_APACHE_FILE
