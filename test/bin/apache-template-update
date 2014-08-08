@@ -18,7 +18,7 @@ export MKWS_ROOT=$(pwd)/..
 
 MKWS_OS=debian
 APACHE_VERSION=2.2
-apache2=$(env PATH=/usr/bin:/usr/sbin which apache2 httpd false 2>/dev/null | head -1)
+apache2=$(env PATH=/bin:/usr/bin:/usr/sbin which apache2 httpd false 2>/dev/null | head -1)
 
 case $(uname) in
   Darwin ) MKWS_OS=macos
