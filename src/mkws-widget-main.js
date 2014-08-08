@@ -342,19 +342,13 @@ mkws.registerWidgetType('Config', function() {
 
 mkws.registerWidgetType('Progress', function() {
   var that = this;
-
   this.node.hide();
   this.team.queue("stat").subscribe(function(data) {
-    var s = '<span class="mkwsDone">';
-    for (var i = 0; i < data.clients; i++) {
-      if (i == data.clients - data.activeclients) {
-        s += '</span>';
-        s += '<span class="mkwsWaiting">';
-      }
-      s += '&#x2588;';
-    }
-    s += '</span>';
-    that.node.html(s);
+    var template = this.team.loadTemplate(this.config.template || "Progress");
+    this.node.html(template({
+      done: data.clients - data.activeclients,
+      waiting: data.activeclients
+    }));
     that.node.show();
   });
 });
