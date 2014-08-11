@@ -121,26 +121,29 @@ mkws.registerWidgetType('Records', function() {
 mkws.registerWidgetType('Navi', function() {
   var that = this;
   var teamName = this.team.name();
-  var M = mkws.M;
 
   this.team.queue("navi").subscribe(function() {
     var filters = that.team.filters();
-    var text = "";
+    var output = {filters:[]};
 
     filters.visitTargets(function(id, name) {
-      if (text) text += " | ";
-      text += M('source') + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitTarget(\'' + teamName +
-        "', '" + id + "'" + ');return false;">' + name + '</a>';
+      var cur = {};
+      cur.facet = 'source';
+      cur.value = name;
+      cur.click = "mkws.delimitTarget('" + teamName + "', '" + id + "'); return false;";
+      output.filters.push(cur);
     });
 
     filters.visitFields(function(field, value) {
-      if (text) text += " | ";
-      text += M(field) + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitQuery(\'' + teamName +
-        "', '" + field + "', '" + value + "'" +
-        ');return false;">' + value + '</a>';
+      var cur = {};
+      cur.facet = field;
+      cur.value = value;
+      cur.click = "mkws.delimitQuery('" + teamName + "', '" + field + "', '" + value + "'" + ");return false;";
+      output.filters.push(cur);
     });
 
-    that.node.html(text);
+    var template = that.team.loadTemplate(that.config.template || "Navi");
+    that.node.html(template(output));
   });
 });
 
