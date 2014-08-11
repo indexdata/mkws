@@ -234,6 +234,13 @@ infelicities reflect the fact that some code that rightly belongs in
 widgets is still in the team. When we finish migrating it, the widget
 API should get simpler.
 
+
+Events
+------
+
+TODO: list of events that can be usefully subscribed to.
+
+
 - - -
 
 Copyright (C) 2013-2014 by IndexData ApS, <http://www.indexdata.com>
