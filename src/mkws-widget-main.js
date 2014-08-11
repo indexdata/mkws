@@ -96,7 +96,7 @@ mkws.registerWidgetType('Records', function() {
       var hit = data.hits[i];
       that.team.queue("record").publish(hit);
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
-      hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
+      hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
       hit.containerClass = "mkwsSummary mkwsTeam_" + team.name();
       hit.containerClass += " " + hit.detailLinkId;
       // ### At some point, we may be able to move the
@@ -347,8 +347,8 @@ mkws.registerWidgetType('Progress', function() {
   var that = this;
   this.node.hide();
   this.team.queue("stat").subscribe(function(data) {
-    var template = this.team.loadTemplate(this.config.template || "Progress");
-    this.node.html(template({
+    var template = that.team.loadTemplate(that.config.template || "Progress");
+    that.node.html(template({
       done: data.clients - data.activeclients,
       waiting: data.activeclients
     }));
