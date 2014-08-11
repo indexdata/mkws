@@ -1,8 +1,8 @@
 mkws.registerWidgetType('Categories', function() {
   var that = this;
 
-  if (!this.config.use_service_proxy) {
-    alert("can't use categories widget without Service Proxy");
+  if (!mkws.authenticated) {
+    alert("can't use categories widget when not authenticated");
     return;
   }
 
