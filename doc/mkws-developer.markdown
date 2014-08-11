@@ -3,8 +3,11 @@
 % 11 August 2014
 
 
-Introduction
-============
+Overview
+========
+
+Core concepts
+-------------
 
 Development with MKWS consists primarily of defining new types of
 widgets. These can interact with the core functionality is several
@@ -61,7 +64,7 @@ This simple widget illustrates several important points:
 
 
 Widget specialisation (inheritance)
-===================================
+-----------------------------------
 
 Many widgets are simple specialisations of existing widgets. For
 example, the `Record` widget is the same as the `Records` widget
@@ -75,55 +78,65 @@ follows:
 
 Remember that when a promotion function is called, it's passed a base
 widget object that's not specialised for any particular task. To make
-a specialised widget, first promote that base widget into the type
-that you want to specialise from -- in this case, "Records" -- using
+a specialised widget, you first promote that base widget into the type
+that you want to specialise from -- in this case, `Records` -- using
 the promotion function that's been registered for that type.
 
 Once this has been done, the specialisations can be introduced. In
-this case, it's a very simple matter of changing the "maxrecs"
+this case, it's a very simple matter of changing the `maxrecs`
 configuration setting to 1 unless it's already been given an explicit
-value. (That would occur if the HTML used an element like <div
-class="mkwsRecord" maxrecs="2">, though it's not obvious why anyone
+value. (That would occur if the HTML used an element like `<div
+class="mkwsRecord" maxrecs="2">`, though it's not obvious why anyone
 would do that.)
 
 
-Widget Properties and Methods
-=============================
+Reference Guide
+===============
 
-String this.type
+
+Widget properties and methods
+-----------------------------
+
+The following properties and methods exist in the bare widget object
+that is passed into `registerWidgetType`'s callback function, and can
+be used by the derived widget.
+
+* `String this.type` --
 	A string containing the type of the widget.
 
-Team this.team
+* `Team this.team` --
 	The team object to which this widget belongs. The team has
 	several additional important properties and methods, described
 	below.
 
-DOMElement this.node
+* `DOMElement this.node` --
 	The DOM element of the widget
 
-Hash this.config
+* `Hash this.config` --
 	A table of configuration values for the widget. This table
 	inherits missing values from the team's configuration, which
 	in turn inherits from the top-level MKWS configuration, which
 	inherits from the default configuration. Instances of widgets
-	in HTML can set configuration items as HTML attributes, as in
-	<div class="mkwsRecords" maxrecs="2">.
+	in HTML can set configuration items as HTML attributes: for
+	example, the HTML element
+	`<div class="mkwsRecords" maxrecs="10">`.
+	creates a widget for which `this.config.maxrecs` is set to 10.
 
-String this.toString()
+* `String this.toString()` --
 	A function returning a string that briefly names this
 	widget. Can be useful in logging.
 
-Void this.log(string)
+* `Void this.log(string)` --
 	A function to log a string for debugging purposes. The string
 	is written on the browser console, and also published to any
-	"log" subcribers.
+	subcribers to the `log` event.
 
-String this.value()
+* `String this.value()` --
 	A function returning the value of the widget's HTML element.
 
 
 Team methods
-============
+------------
 
 Since the team object is supposed to be opaque to widgets, all access
 is via the following API methods rather than direct access to
