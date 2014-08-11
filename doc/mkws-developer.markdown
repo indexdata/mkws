@@ -151,7 +151,21 @@ be used by the derived widget.
 * `expandValue()` --
 	TODO: either document this or remove it from the API.
 
-* TODO subwidget()
+* `subwidget(type, overrides, defaults)` --
+	Returns the HTML of a subwidget of the specified type, which
+	can then be inserted into the widget using the
+	`this.node.html` function. The subwidget is given the same
+	attributes at the parent widget that invokes this function,
+	except where overrides are passed in. If defaults are also
+	provided, then these are used when the parent widget provides
+	no values. Both the `overrides` and `defaults` arguments are
+	hashes: the latter is optional.
+  
+	See for example the `Credo` widget defined in the example
+	area's `mkws-widget-credo.js` file. This uses several
+	invocations of `subwidget` to create a complex compound widget
+	with numerous text, facet and image panes. TODO: rename this
+	widget and everything related to it.
 
 In addition to these properties and methods of the bare widget object,
 some kinds of specific widget add other properties of their own. For
