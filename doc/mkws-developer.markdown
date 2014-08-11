@@ -3,7 +3,7 @@
 % 11 August 2014
 
 
-INTRODUCTION
+Introduction
 ============
 
 Development with MKWS consists primarily of defining new types of
@@ -56,7 +56,7 @@ This simple widget illustrates several important points:
   a local variable named `that').
 
 
-SPECIALISATION (INHERITANCE)
+Specialisation (Inheritance)
 ============================
 
 Many widgets are simple specialisations of existing widgets. For
@@ -83,7 +83,7 @@ class="mkwsRecord" maxrecs="2">, though it's not obvious why anyone
 would do that.)
 
 
-WIDGET PROPERTIES AND METHODS
+Widget Properties and Methods
 =============================
 
 String this.type
@@ -118,7 +118,7 @@ String this.value()
 	A function returning the value of the widget's HTML element.
 
 
-TEAM METHODS
+Team methods
 ============
 
 Since the team object is supposed to be opaque to widgets, all access
