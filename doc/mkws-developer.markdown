@@ -160,6 +160,10 @@ properties.
 	convenient to do it this way. If you must insist on using
 	this, see the `Navi` widget, which is the only place it's used.
 
+* `Bool team.targetFiltered(targetId)` --
+	Indicates whether the specified target has been filtered by
+	selection as a facet.
+
 * `Hash team.config()` --
 	Access to the team's configuration settings. There is almost
 	certainly no reason to use this: the settings that haven't
@@ -174,10 +178,6 @@ properties.
 * `Queue team.queue(eventName)` --
 	Returns the queue associated with the named event: this can be
 	used to subscribe to the event (or more rarely to publish it).
-
-* `Bool team.targetFiltered(targetId)` --
-	Indicates whether the specified target has been filtered by
-	selection as a facet.
 
 * `Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)` --
 	Starts a new search with the specified parameters. All but the
