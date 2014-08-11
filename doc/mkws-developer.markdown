@@ -134,9 +134,19 @@ be used by the derived widget.
 * `String this.value()` --
 	A function returning the value of the widget's HTML element.
 
-* TODO autosearch()
+* `VOID autosearch()` --
+	Registers that this kind of widget is one that requires an
+	automatic search to be run for it if an `autosearch` attribute
+	is provided on the HTML element. This is appropriate for
+	widgets such as `Records` and `Facet` that display some part
+	of a search result.
 
-* TODO hideWhenNarrow()
+* `VOID hideWhenNarrow()` --
+	Registers that this widget should hide itself when the page
+	becomes "narrow" -- that is, fewer pixels in width that the
+	threshhold value specified by the top-level configuration item
+	`responsive_design_width`. Should be used for "unimportant"
+	widgets that can be omitted from the mobile version of a site.
 
 * TODO subwidget()
 
