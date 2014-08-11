@@ -656,8 +656,21 @@ mkws.pagerNext = function(tname) {
       runAutoSearches();
     }
   };
-  $(document).ready(function() {
+
+  // callback for calls after page load, e.g. requirejs
+  mkws.init_widgets = function (message) {
+    if (message) mkws.log(message);
+
     var widgetSelector = selectorForAllWidgets();
-    if (widgetSelector && $(widgetSelector).length !== 0) init();
+    if (widgetSelector && $(widgetSelector).length !== 0) {
+      init();
+    } else {
+       mkws.log("no widgets found");
+    }
+  };
+
+  $(document).ready(function() {
+    mkws.init_widgets();
   });
+
 })(mkws.$);
