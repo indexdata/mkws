@@ -148,9 +148,10 @@ properties.
 * `Num team.totalRecordCount()`
 * `Num team.currentPage();`
 * `String team.currentRecordId()`
-* `String team.currentRecordData()` --
-	Simple accessor functions that provide the ability to read
-	properties of the team.
+* `String team.currentRecordData()`
+
+These are all simple accessor functions that provide the ability to
+read properties of the team.
 
 * `Array team.filters()` --
 	Another accessor function, providing access to the array of
@@ -162,15 +163,15 @@ properties.
 
 * `Bool team.targetFiltered(targetId)` --
 	Indicates whether the specified target has been filtered by
-	selection as a facet.
+	selection as a facet. This is used only by the `Facet` widget,
+	and there is probably no reason for you to use it.
 
 * `Hash team.config()` --
 	Access to the team's configuration settings. There is almost
 	certainly no reason to use this: the settings that haven't
 	been overridden are accessible via `this.config`.
 
-* `Void team.set_sortOrder(string)`
-* `Void team.set_perpage(number)` --
+* `Void team.set_sortOrder(string)`, `Void team.set_perpage(number)` --
 	"Setter" functions for the team's sortOrder and perpage
 	functions. Unlikely to be needed outside of the `Sort` and
 	`Perpage` widgets.
