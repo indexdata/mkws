@@ -1,4 +1,6 @@
-var mkws_config = {service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"};
+var mkws_config = {
+   service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
+};
 
 mkws.registerWidgetType('ReferenceUniverse', function() {
   if (!this.config.perpage) this.config.perpage = 5;
@@ -31,3 +33,4 @@ mkws.registerWidgetType('ReferenceUniverse', function() {
   }); 
   that.autosearch();
 });
+
