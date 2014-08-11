@@ -148,9 +148,10 @@ be used by the derived widget.
 	`responsive_design_width`. Should be used for "unimportant"
 	widgets that can be omitted from the mobile version of a site.
 
-* TODO subwidget()
+* `expandValue()` --
+	TODO: either document this or remove it from the API.
 
-* TODO expandValue()
+* TODO subwidget()
 
 In addition to these properties and methods of the bare widget object,
 some kinds of specific widget add other properties of their own. For
