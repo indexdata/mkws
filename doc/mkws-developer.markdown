@@ -10,63 +10,67 @@ Development with MKWS consists primarily of defining new types of
 widgets. These can interact with the core functionality is several
 defined ways.
 
-You create a new widget type by calling the mkws.registerWidgetType
+You create a new widget type by calling the `mkws.registerWidgetType`
 function, passing in the widget name and a function. The name is used
 to recognise HTML elements as being widgets of this type -- for
-example, if you register a "Foo" widget, elements like <div
-class="mkwsFoo"> will be widgets of this type.
+example, if you register a `Foo` widget, elements like
+`<div class="mkwsFoo">` will be widgets of this type.
 
-The function promotes a bare widget object (passed as `this') into a
+The function promotes a bare widget object (passed as `this`) into a
 widget of the appropriate type. MKWS doesn't use classes or explicit
 prototypes: it just makes objects that have the necessary
-behaviours. Widgets have *no* behaviours that they have to provide:
-you can make a doesn't-do-anything-at-all widget if you like:
+behaviours. There are _no_ behaviours that Widgets are obliged to
+provide: you can make a doesn't-do-anything-at-all widget if you like:
 
 	mkws.registerWidgetType('Sluggard', function() {});
 
 More commonly, widgets will subscribe to one or more events, so that
 they're notified when something interesting happens. For example, the
-"Log" widget asks to be notified when a "log" event happens, and
+`Log` widget asks to be notified when a `log` event happens, and
 appends the logged message to its node, as follows:
 
 	mkws.registerWidgetType('Log', function() {
-	    var that = this;
+	  var that = this;
 
-	    this.team.queue("log").subscribe(function(teamName, timestamp, message) {
-		$(that.node).append(teamName + ": " + timestamp + message + "<br/>");
-	    });
+	  this.team.queue("log").subscribe(function(teamName, timestamp, message) {
+	    $(that.node).append(teamName + ": " + timestamp + message + "<br/>");
+	  });
 	});
 
 This simple widget illustrates several important points:
 
-* The base widget object (`this') has several baked-in properties and
+* The base widget object (`this`) has several baked-in properties and
   methods that are available to individual widgets. These include
-  this.team (the team that this widget is a part of) and this.node
-  (the DOM element of the widget).
+  `this.team` (the team that this widget is a part of) and `this.node`
+  (the DOM element of the widget). See below for a full list.
 
-* The team object (`this.team') also has baked-in properties and
-  methods. These include the queue function, which takes an event-name
-  as its argument. It's possible to subscribe to an event's queue
-  using this.team.queue("EVENT").subscribe. The argument is a function
-  which is called whenever the event is published. The arguments to
-  the function are different for different events.
+* The team object (`this.team`) also has baked-in properties and
+  methods. These include the `queue` function, which takes an event-name
+  as its argument. See below for a full list.
 
-* The value of `this' is lost inside the subscribe callback, so it
-  must be saved if it's to be used inside that callback (typically as
-  a local variable named `that').
+* You can add functionality to a widget by subscribing it to an
+  event's queue using `this.team.queue("EVENT").subscribe`. The
+  argument is a function which is called whenever the event is
+  published. The arguments to the function are different for different
+  events.
+
+* As with so much JavaScript programming, the value of the special
+  variable `this` is lost inside the `subscribez` callback function,
+  so it must be saved if it's to be used inside that callback
+  (typically as a local variable named `that`).
 
 
-Specialisation (Inheritance)
-============================
+Widget specialisation (inheritance)
+===================================
 
 Many widgets are simple specialisations of existing widgets. For
-example, the "Record" widget is the same as the "Records" widget
+example, the `Record` widget is the same as the `Records` widget
 except that it defaults to displaying a single record. It's defined as
 follows:
 
 	mkws.registerWidgetType('Record', function() {
-	    mkws.promotionFunction('Records').call(this);
-	    if (!this.config.maxrecs) this.config.maxrecs = 1;
+	  mkws.promotionFunction('Records').call(this);
+	  if (!this.config.maxrecs) this.config.maxrecs = 1;
 	});
 
 Remember that when a promotion function is called, it's passed a base
