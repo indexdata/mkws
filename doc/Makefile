@@ -1,9 +1,10 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 DOCS = README.html README.odt README.pdf \
-       mkws-manual.html mkws-manual.odt mkws-manual.pdf
+       mkws-manual.html mkws-manual.odt mkws-manual.pdf \
+       mkws-developer.html mkws-developer.odt mkws-developer.pdf
 
-INSTALLABLE = README.html mkws-manual.html mkws-doc.css
+INSTALLABLE = README.html mkws-manual.html mkws-developer.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 install: $(INSTALLED)
