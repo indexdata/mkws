@@ -142,62 +142,62 @@ Since the team object is supposed to be opaque to widgets, all access
 is via the following API methods rather than direct access to
 properties.
 
-String team.name()
-Bool team.submitted()
-Num team.perpage()
-Num team.totalRecordCount()
-Num team.currentPage();
-String team.currentRecordId()
-String team.currentRecordData()
+* `String team.name()`
+* `Bool team.submitted()`
+* `Num team.perpage()`
+* `Num team.totalRecordCount()`
+* `Num team.currentPage();`
+* `String team.currentRecordId()`
+* `String team.currentRecordData()` --
 	Simple accessor functions that provide the ability to read
 	properties of the team.
 
-Array team.filters()
+* `Array team.filters()` --
 	Another accessor function, providing access to the array of
 	prevailing filters (which narrow the search results by means
 	of Pazpar2 filters and limits). This is really too complicated
 	an object for the widgets to be given access to, but it's
-	convenient to do it this way. See the "Navi" widget, which is
-	the only place it's used.
+	convenient to do it this way. If you must insist on using
+	this, see the `Navi` widget, which is the only place it's used.
 
-Hash team.config()
+* `Hash team.config()` --
 	Access to the team's configuration settings. There is almost
 	certainly no reason to use this: the settings that haven't
-	been overridden are accessible via this.config.
+	been overridden are accessible via `this.config`.
 
-Void team.set_sortOrder(string)
-Void team.set_perpage(number)
+* `Void team.set_sortOrder(string)`
+* `Void team.set_perpage(number)` --
 	"Setter" functions for the team's sortOrder and perpage
-	functions. Unlikely to be needed outside of the "Sort" and
-	"Perpage" widgets.
+	functions. Unlikely to be needed outside of the `Sort` and
+	`Perpage` widgets.
 
-Queue team.queue(eventName)
+* `Queue team.queue(eventName)` --
 	Returns the queue associated with the named event: this can be
 	used to subscribe to the event (or more rarely to publish it).
 
-Bool team.targetFiltered(targetId)
+* `Bool team.targetFiltered(targetId)` --
 	Indicates whether the specified target has been filtered by
 	selection as a facet.
 
-Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)
+* `Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)` --
 	Starts a new search with the specified parameters. All but the
 	query may be omitted, in which case the prevailing defaults
 	are used.
 
-Void team.reShow()
+* `Void team.reShow()` --
 	Using the existing search, re-shows the result records after a
 	change in sort-order, per-page count, etc.
 
-String team.recordElementId(recordId)
+* `String team.recordElementId(recordId)` --
 	Utility function for converting a record identifer (returned
 	from Pazpar2) into a version suitable for use as an HTML
 	element ID.
 
-String team.renderDetails(recordData)
+* `String team.renderDetails(recordData)` --
 	Utility function returns an HTML rendering of the record
 	represented by the specified data.
 
-Template team.loadTemplate(templateName)
+* `Template team.loadTemplate(templateName)` --
 	Loads (or retrieves from cache) the named Handlebars template,
 	and returns it in a form that can be invoked as a function,
 	passed a data-set.
