@@ -7,11 +7,8 @@
       var mkws_config = {
 	pazpar2_url:        "//sp-mkws.indexdata.com/service-proxy/",
         // For now, we have to provide known-bad credentials to skip user/pw login: see bug MKSP-125
-        service_proxy_auth: undefined,
-        // Was: //sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=XXX&password=XXX
-//        pp2_hostname: "sp-mkws.indexdata.com",
-//        sp_path: "service-proxy/",
-//        credentials: "XXX/XXX",
+	service_proxy_auth: "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=XXX&password=XXX"
+        // For explicit credential-based authentication, add: &username=orex&password=orexmkc
       };
     </script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
