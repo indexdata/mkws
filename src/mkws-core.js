@@ -623,7 +623,7 @@ mkws.pagerNext = function(tname) {
       }
     */
 
-    if (mkws.config.use_service_proxy) {
+    if (mkws.config.use_service_proxy && !mkws.authenticated) {
       authenticateSession(mkws.config.service_proxy_auth,
                           mkws.config.service_proxy_auth_domain,
                           mkws.config.pazpar2_url);
