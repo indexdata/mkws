@@ -1,0 +1,5 @@
+# Copyright (c) 2014 IndexData ApS. http://indexdata.com
+
+User-agent: *
+Disallow: /service-proxy
+
