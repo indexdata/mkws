@@ -667,7 +667,9 @@ mkws.pagerNext = function(tname) {
   };
 
   $(document).ready(function() {
-    mkws.init();
+    if (!window.mkws_noready && !mkws.authenticating && !mkws.active) {
+       mkws.init();
+    }
   });
 
 })(mkws.$);
