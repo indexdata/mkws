@@ -14,6 +14,7 @@
 window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
+  authenticating: false,
   active: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
@@ -445,6 +446,7 @@ mkws.pagerNext = function(tname) {
    * for the site.
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
+    mkws.authenticating = true;
     log("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
@@ -458,6 +460,7 @@ mkws.pagerNext = function(tname) {
     }, auth_domain);
 
     request.get(null, function(data) {
+      mkws.authenticating = false;
       if (!$.isXMLDoc(data)) {
         alert("Service Proxy authentication response is not a valid XML document");
         return;
@@ -650,11 +653,11 @@ mkws.pagerNext = function(tname) {
       }
     */
 
-    if (mkws.config.use_service_proxy && !mkws.authenticated) {
+    if (mkws.config.use_service_proxy && !mkws.authenticated && !mkws.authenticating) {
       authenticateSession(mkws.config.service_proxy_auth,
                           mkws.config.service_proxy_auth_domain,
                           mkws.config.pazpar2_url);
-    } else {
+    } else if (!mkws.authenticating) {
       // raw pp2 or we have a session already open
       runAutoSearches();
     }
