@@ -293,7 +293,7 @@ function team($, teamName) {
     if (maxrecs) params.maxrecs = maxrecs;
     if (torusquery) {
       if (!mkws.config.use_service_proxy)
-        alert("can't narrow search by torusquery when Service Proxy is not in use");
+        alert("can't narrow search by torusquery when not authenticated");
       params.torusquery = torusquery;
     }
 

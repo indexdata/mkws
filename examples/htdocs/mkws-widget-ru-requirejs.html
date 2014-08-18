@@ -1,0 +1,32 @@
+<html>
+<head>
+  <title>MKWS Reference Universe</title>
+  <link rel="stylesheet" type="text/css" href="mkws-widget-ru.css" />
+</head>
+
+<body>
+  <script src="http://requirejs.org/docs/release/2.1.14/minified/require.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  require.config({
+    paths: {
+        mkws           : "//mkws.indexdata.com/mkws-complete",
+        mkws_widget_ru : "mkws-widget-ru"
+    },
+    shim : {
+        mkws : {
+          exports : "mkws"
+        },
+        mkws_widget_ru : {
+          deps    : [ "mkws" ]
+        }
+    }
+  });
+
+  require(['mkws_widget_ru'], function() { mkws.init("requirejs is done"); } );
+  </script>
+
+  <div style="max-width: 18em; margin: 1.5em 1.5em">
+    <div class="mkwsReferenceUniverse" autosearch="sushi"></div>
+  </div>
+</body>
+</html>

@@ -14,6 +14,7 @@
 window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
+  active: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
   teams: {},
@@ -418,7 +419,11 @@ mkws.pagerNext = function(tname) {
 
 
   function makeWidgetsWithin(level, node) {
-    node.find(selectorForAllWidgets()).each(function() {
+    if (node) var widgetNodes = node.find(selectorForAllWidgets());
+    else widgetNodes = $(selectorForAllWidgets());
+    // Return false if we parse no widgets
+    if (widgetNodes.length < 1) return false;
+    widgetNodes.each(function() {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
@@ -436,61 +441,20 @@ mkws.pagerNext = function(tname) {
         }
       });
     });
+    return true;
   }
 
 
-  function init(rootsel) {
-    mkws.autoHasAuto = false;
-    if (!rootsel) var rootsel = ':root';
-    var saved_config;
-    if (typeof mkws_config === 'undefined') {
-      log("setting empty config");
-      saved_config = {};
-    } else {
-      log("using config: " + $.toJSON(mkws_config));
-      saved_config = mkws_config;
-    }
-    mkws.setMkwsConfig(saved_config);
+  // This function should have no side effects if run again on an operating session, even if 
+  // the element/selector passed causes existing widgets to be reparsed: 
+  //
+  // * configuration is not regenerated
+  // * authentication is not performed again
+  // * autosearches are not re-run
+  mkws.init = function(message, rootsel) {
+    if (message) mkws.log(message);
 
-    for (var key in mkws.config) {
-      if (mkws.config.hasOwnProperty(key)) {
-        if (key.match(/^language_/)) {
-          var lang = key.replace(/^language_/, "");
-          // Copy custom languages into list
-          mkws.locale_lang[lang] = mkws.config[key];
-          log("added locally configured language '" + lang + "'");
-        }
-      }
-    }
-
-    var lang = mkws.getParameterByName("lang") || mkws.config.lang;
-    if (!lang || !mkws.locale_lang[lang]) {
-      mkws.config.lang = ""
-    } else {
-      mkws.config.lang = lang;
-    }
-
-    log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
-
-    if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
-      log("reset query width to " + mkws.config.query_width);
-      mkws.config.query_width = 50;
-    }
-
-    // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-    if (mkws.config.pazpar2_url.match(/^\/\//)) {
-      mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-      log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
-    }
-
-    if (mkws.config.responsive_design_width) {
-      // Responsive web design - change layout on the fly based on
-      // current screen width. Required for mobile devices.
-      $(window).resize(resizePage);
-      // initial check after page load
-      $(document).ready(resizePage);
-    }
-
+    // TODO: Let's remove this soon
     // Backwards compatibility: set new magic class names on any
     // elements that have the old magic IDs.
     var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
@@ -505,8 +469,71 @@ mkws.pagerNext = function(tname) {
       }
     }
 
+    // MKWS is not active until init() has been run against an object with widget nodes.
+    // We only set initial configuration when MKWS is first activated.
+    if (!mkws.isActive) {
+      var widgetSelector = selectorForAllWidgets();
+      if ($(widgetSelector).length < 1) {
+        mkws.log("no widgets found");
+        return;
+      }
+
+      // Initial configuration
+      mkws.autoHasAuto = false;
+      var saved_config;
+      if (typeof mkws_config === 'undefined') {
+        log("setting empty config");
+        saved_config = {};
+      } else {
+        log("using config: " + $.toJSON(mkws_config));
+        saved_config = mkws_config;
+      }
+      mkws.setMkwsConfig(saved_config);
+
+      for (var key in mkws.config) {
+        if (mkws.config.hasOwnProperty(key)) {
+          if (key.match(/^language_/)) {
+            var lang = key.replace(/^language_/, "");
+            // Copy custom languages into list
+            mkws.locale_lang[lang] = mkws.config[key];
+            log("added locally configured language '" + lang + "'");
+          }
+        }
+      }
+
+      var lang = mkws.getParameterByName("lang") || mkws.config.lang;
+      if (!lang || !mkws.locale_lang[lang]) {
+        mkws.config.lang = ""
+      } else {
+        mkws.config.lang = lang;
+      }
+
+      log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+
+      if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
+        log("reset query width to " + mkws.config.query_width);
+        mkws.config.query_width = 50;
+      }
+
+      // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
+      if (mkws.config.pazpar2_url.match(/^\/\//)) {
+        mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
+        log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
+      }
+
+      if (mkws.config.responsive_design_width) {
+        // Responsive web design - change layout on the fly based on
+        // current screen width. Required for mobile devices.
+        $(window).resize(resizePage);
+        // initial check after page load
+        $(document).ready(resizePage);
+      }
+    }
+
     var then = $.now();
-    makeWidgetsWithin(1, $(rootsel));
+    // If we've made no widgets, return without starting an SP session
+    // or marking MKWS active.
+    if (makeWidgetsWithin(1, rootsel) === false) return false;
     var now = $.now();
 
     log("walking MKWS nodes took " + (now-then) + " ms");
@@ -521,17 +548,21 @@ mkws.pagerNext = function(tname) {
       }
     */
 
-    if (mkws.config.use_service_proxy) {
+    if (mkws.config.use_service_proxy && !mkws.authenticated) {
       authenticateSession(mkws.config.service_proxy_auth,
                           mkws.config.service_proxy_auth_domain,
                           mkws.config.pazpar2_url);
     } else {
-      // raw pp2
+      // raw pp2 or we have a session already open
       runAutoSearches();
     }
+    
+    mkws.isActive = true;
+    return true;
   };
+
   $(document).ready(function() {
-    var widgetSelector = selectorForAllWidgets();
-    if (widgetSelector && $(widgetSelector).length !== 0) init();
+    mkws.init();
   });
+
 })(mkws.$);
