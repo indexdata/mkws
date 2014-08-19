@@ -14,6 +14,7 @@
 window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
+  authenticating: false,
   active: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
@@ -343,6 +344,7 @@ mkws.pagerNext = function(tname) {
    * for the site.
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
+    mkws.authenticating = true;
     log("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
@@ -356,6 +358,7 @@ mkws.pagerNext = function(tname) {
     }, auth_domain);
 
     request.get(null, function(data) {
+      mkws.authenticating = false;
       if (!$.isXMLDoc(data)) {
         alert("Service Proxy authentication response is not a valid XML document");
         return;
@@ -445,14 +448,23 @@ mkws.pagerNext = function(tname) {
   }
 
 
-  // This function should have no side effects if run again on an operating session, even if 
-  // the element/selector passed causes existing widgets to be reparsed: 
+  // The second "rootsel" parameter is passed to jQuery and is a DOM node
+  // or a selector string you would like to constrain the search for widgets to.
+  //
+  // This function has no side effects if run again on an operating session,
+  // even if the element/selector passed causes existing widgets to be reparsed: 
+  //
+  // (TODO: that last bit isn't true and we currently have to avoid reinitialising
+  // widgets, MKWS-261)
   //
   // * configuration is not regenerated
   // * authentication is not performed again
   // * autosearches are not re-run
   mkws.init = function(message, rootsel) {
-    if (message) mkws.log(message);
+    var greet = "MKWS initialised";
+    if (rootsel) greet += " (limited to " + rootsel + ")"
+    if (message) greet += " :: " + message; 
+    mkws.log(greet);
 
     // TODO: Let's remove this soon
     // Backwards compatibility: set new magic class names on any
@@ -533,7 +545,9 @@ mkws.pagerNext = function(tname) {
     var then = $.now();
     // If we've made no widgets, return without starting an SP session
     // or marking MKWS active.
-    if (makeWidgetsWithin(1, rootsel) === false) return false;
+    if (makeWidgetsWithin(1, rootsel ? $(rootsel) : undefined) === false) {
+      return false;
+    }
     var now = $.now();
 
     log("walking MKWS nodes took " + (now-then) + " ms");
@@ -548,11 +562,11 @@ mkws.pagerNext = function(tname) {
       }
     */
 
-    if (mkws.config.use_service_proxy && !mkws.authenticated) {
+    if (mkws.config.use_service_proxy && !mkws.authenticated && !mkws.authenticating) {
       authenticateSession(mkws.config.service_proxy_auth,
                           mkws.config.service_proxy_auth_domain,
                           mkws.config.pazpar2_url);
-    } else {
+    } else if (!mkws.authenticating) {
       // raw pp2 or we have a session already open
       runAutoSearches();
     }
@@ -562,7 +576,9 @@ mkws.pagerNext = function(tname) {
   };
 
   $(document).ready(function() {
-    mkws.init();
+    if (!window.mkws_noready && !mkws.authenticating && !mkws.active) {
+       mkws.init();
+    }
   });
 
 })(mkws.$);
