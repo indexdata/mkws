@@ -6,7 +6,7 @@ NOTE TO SELF:
 shell1$ cd /usr/local/src/git/service-proxy/sp-runtime; mvn jetty:run-war
 shell2$ cd /usr/local/src/git/torus; mvn jetty:run-war
 shell3$ cd /usr/local/src/git/mkws/tools/service-proxy/pazpar2 && /usr/local/sbin/pazpar2 -f server.no-icu.xml
-sehll4$ yaz-ztest
+shell4$ yaz-ztest
 
 THEN USE:
 http://x.mkc-admin.indexdata.com/console/
