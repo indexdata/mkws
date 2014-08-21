@@ -656,21 +656,21 @@ mkws.pagerNext = function(tname) {
 
     function sp_auth_url(config) {
       if (config.service_proxy_auth) {
-	 mkws.log("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
-	 return config.service_proxy_auth;
+	mkws.log("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
+	return config.service_proxy_auth;
       } else {
-	 var s = '//';
-	 s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	 s += '/' + config.sp_path + '?command=auth&action=perconfig';
-	 var c = config.credentials;
-	 if (c) {
-	   if (c) {
-	     s += ('&username=' + c.substr(0, c.indexOf('/')) +
-		   '&password=' + c.substr(c.indexOf('/')+1));
-	   }
-	 }
-	 mkws.log("generated sp_auth_url '" + s + "'");
-	 return s;
+	var s = '//';
+	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
+	s += '/' + config.sp_path + '?command=auth&action=perconfig';
+	var c = config.credentials;
+	if (c) {
+	  if (c) {
+	    s += ('&username=' + c.substr(0, c.indexOf('/')) +
+		  '&password=' + c.substr(c.indexOf('/')+1));
+	  }
+	}
+	mkws.log("generated sp_auth_url '" + s + "'");
+	return s;
       }
     }
 
