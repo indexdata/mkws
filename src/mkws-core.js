@@ -172,7 +172,7 @@ mkws.setMkwsConfig = function(overrides) {
     pp2_hostname: "mkws.indexdata.com",
     sp_path: "service-proxy-auth",
     sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
-    credentials: undefined,
+    sp_auth_credentials: undefined,
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
@@ -667,7 +667,7 @@ mkws.pagerNext = function(tname) {
         if (q) {
           s += '?' + q;
         }
-	var c = config.credentials;
+	var c = config.sp_auth_credentials;
 	if (c) {
 	  s += ('&username=' + c.substr(0, c.indexOf('/')) +
 		'&password=' + c.substr(c.indexOf('/')+1));
