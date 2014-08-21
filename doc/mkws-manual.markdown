@@ -701,19 +701,19 @@ from that toolkit. The relevant lines are:
     </div>
 
 ----
-Element    Type    Default           Description
---------   -----   ---------         ------------
-popup_width     string     880       Width of the popup window (if used), in
-                                     pixels.
+Element         Type    Default             Description
+--------        -----   -------             ------------
+popup_width     string  880                 Width of the popup window (if used), in
+                                            pixels.
 
-popup_height    string     760       Height of the popup window (if used), in
-                                     pixels.
+popup_height    string  760                 Height of the popup window (if used), in
+                                            pixels.
 
-popup_button    string      input.mkwsButton  (Never change this.)
+popup_button    string  `input.mkwsButton`  (Never change this.)
 
-popup_modal     string      0       Modal confirmation mode. Valid values are 0 or 1
+popup_modal     string  0                   Modal confirmation mode. Valid values are 0 or 1
 
-popup_autoOpen  string      1       Open popup window on load. Valid values are 0 or 1
+popup_autoOpen  string  1                   Open popup window on load. Valid values are 0 or 1
 
 ----
 
