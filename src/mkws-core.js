@@ -669,10 +669,8 @@ mkws.pagerNext = function(tname) {
         }
 	var c = config.credentials;
 	if (c) {
-	  if (c) {
-	    s += ('&username=' + c.substr(0, c.indexOf('/')) +
-		  '&password=' + c.substr(c.indexOf('/')+1));
-	  }
+	  s += ('&username=' + c.substr(0, c.indexOf('/')) +
+		'&password=' + c.substr(c.indexOf('/')+1));
 	}
 	mkws.log("generated sp_auth_url '" + s + "'");
 	return s;
