@@ -171,6 +171,7 @@ mkws.setMkwsConfig = function(overrides) {
     // Was: //mkws.indexdata.com/service-proxy-auth
     pp2_hostname: "mkws.indexdata.com",
     sp_path: "service-proxy-auth",
+    sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
     credentials: undefined,
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
@@ -661,7 +662,11 @@ mkws.pagerNext = function(tname) {
       } else {
 	var s = '//';
 	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	s += '/' + config.sp_path + '?command=auth&action=perconfig';
+	s += '/' + config.sp_path;
+        var q = config.sp_auth_query;
+        if (q) {
+          s += '?' + q;
+        }
 	var c = config.credentials;
 	if (c) {
 	  if (c) {
