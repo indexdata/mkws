@@ -169,7 +169,12 @@ mkws.setMkwsConfig = function(overrides) {
   var config_default = {
     use_service_proxy: true,
     pazpar2_url:        "//mkws.indexdata.com/service-proxy/",
-    service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
+    service_proxy_auth: undefined, // generally rolled from the next three properties
+    // Was: //mkws.indexdata.com/service-proxy-auth
+    pp2_hostname: "mkws.indexdata.com",
+    sp_path: "service-proxy-auth",
+    sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
+    sp_auth_credentials: undefined,
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
@@ -562,8 +567,30 @@ mkws.pagerNext = function(tname) {
       }
     */
 
+    function sp_auth_url(config) {
+      if (config.service_proxy_auth) {
+	mkws.log("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
+	return config.service_proxy_auth;
+      } else {
+	var s = '//';
+	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
+	s += '/' + config.sp_path;
+        var q = config.sp_auth_query;
+        if (q) {
+          s += '?' + q;
+        }
+	var c = config.sp_auth_credentials;
+	if (c) {
+	  s += ('&username=' + c.substr(0, c.indexOf('/')) +
+		'&password=' + c.substr(c.indexOf('/')+1));
+	}
+	mkws.log("generated sp_auth_url '" + s + "'");
+	return s;
+      }
+    }
+
     if (mkws.config.use_service_proxy && !mkws.authenticated && !mkws.authenticating) {
-      authenticateSession(mkws.config.service_proxy_auth,
+      authenticateSession(sp_auth_url(mkws.config),
                           mkws.config.service_proxy_auth_domain,
                           mkws.config.pazpar2_url);
     } else if (!mkws.authenticating) {

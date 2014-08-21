@@ -1,0 +1,21 @@
+<VirtualHost *:80>
+    ServerName x.sp-mkws.indexdata.com
+
+    ErrorLog /var/log/apache2/sp-mkws-error.log
+    CustomLog /var/log/apache2/sp-mkws-access.log combined
+
+    DocumentRoot /usr/local/src/git/mkws/tools/sp-htdocs
+
+    Header set Access-Control-Allow-Credentials true
+
+    ProxyPreserveHost On
+    # We could use any of the following:
+    ProxyPass        /service-proxy/ http://x.sp-mkws.indexdata.com:8585/service-proxy/
+    ProxyPassReverse /service-proxy/ http://x.sp-mkws.indexdata.com:8585/service-proxy/
+
+#    PerlOptions +Parent
+#    PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
+#    <Location /service-proxy>
+#        PerlOutputFilterHandler MyApache2::SetACAO
+#    </Location>
+</VirtualHost>
