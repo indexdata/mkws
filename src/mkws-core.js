@@ -642,7 +642,7 @@ mkws.pazpar2_url = function() {
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
       if (mkws.config.pazpar2_url.match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-        log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
+        log("adjusted protocol independent link to " + mkws.pazpar2_url());
       }
 
       if (mkws.config.responsive_design_width) {
@@ -699,7 +699,7 @@ mkws.pazpar2_url = function() {
     if (mkws.config.use_service_proxy && !mkws.authenticated && !mkws.authenticating) {
       authenticateSession(sp_auth_url(mkws.config),
                           mkws.config.service_proxy_auth_domain,
-                          mkws.config.pazpar2_url);
+                          mkws.pazpar2_url());
     } else if (!mkws.authenticating) {
       // raw pp2 or we have a session already open
       runAutoSearches();
