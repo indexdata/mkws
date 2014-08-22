@@ -359,6 +359,11 @@ mkws.pagerNext = function(tname) {
 };
 
 
+mkws.pazpar2_url = function() {
+  return mkws.config.pazpar2_url;
+};
+
+
 // wrapper to provide local copy of the jQuery object.
 (function($) {
   var log = mkws.log;
