@@ -171,7 +171,7 @@ mkws.setMkwsConfig = function(overrides) {
     pp2_hostname: "mkws.indexdata.com",
     pp2_path: "service-proxy",
     service_proxy_auth: undefined,
-    sp_path: "service-proxy-auth",
+    sp_auth_path: "service-proxy-auth",
     sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
     sp_auth_credentials: undefined,
     lang: "",
@@ -688,7 +688,7 @@ mkws.pazpar2_url = function() {
       } else {
 	var s = '//';
 	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	s += '/' + config.sp_path;
+	s += '/' + config.sp_auth_path;
         var q = config.sp_auth_query;
         if (q) {
           s += '?' + q;
