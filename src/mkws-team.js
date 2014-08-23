@@ -46,6 +46,7 @@ function team($, teamName) {
   that.currentRecordId = function() { return m_currentRecordId; };
   that.currentRecordData = function() { return m_currentRecordData; };
   that.filters = function() { return m_filterSet; };
+  that.gotRecords = function() { return m_gotRecords; };
 
   // Accessor methods for individual widgets: writers
   that.set_sortOrder = function(val) { m_sortOrder = val };
@@ -149,6 +150,7 @@ function team($, teamName) {
     log("record");
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
+    queue("record").publish(data);
     var detRecordDiv = findnode(recordDetailsId(data.recid[0]));
     if (detRecordDiv.length) {
       // in case on_show was faster to redraw element
@@ -302,6 +304,12 @@ function team($, teamName) {
 
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
   }
+
+  // fetch record details to be retrieved from the record queue
+  that.fetchDetails = function(recId) {
+    log("fetchDetails() requesting record '" + recId + "'");
+    m_paz.record(recId);
+  };
 
 
   // switching view between targets and records

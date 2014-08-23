@@ -86,6 +86,25 @@ mkws.registerWidgetType('Pager', function() {
   });
 });
 
+mkws.registerWidgetType('Details', function() {
+  var that = this;
+  var recid = that.node.attr("data-mkws-recid");
+  if (this.team.gotRecords()) { 
+    that.team.fetchDetails(recid);
+  } else {
+    this.team.queue("firstrecords").subscribe(function() {
+      that.team.fetchDetails(recid);
+    });
+  }
+  this.team.queue("record").subscribe(function(data) {
+    console.log(data);
+    if ($.inArray(recid, data.recid) > -1) {
+      var template = that.team.loadTemplate(that.config.template || "Record");
+      that.node.html(template(data));
+    }
+  });
+  that.autosearch();
+});
 
 mkws.registerWidgetType('Records', function() {
   var that = this;
