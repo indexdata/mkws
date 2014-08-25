@@ -728,6 +728,17 @@ describe("Check SortBy options", function () {
     });
 });
 
+describe("Check async widget discovery", function () {
+  var $ = mkws.$;
+  it("initialises a new widget", function() {
+    $("div.mkwsSearch").after('<div id="asyncSearch"><div id="asyncSearch" class="mkwsSearch mkwsTeam_async"></div></div>');
+    mkws.init("Another search box");
+    // mkws.init("Another search box", "#asyncSearch");
+    waitsFor(function () {
+      return $("#asyncSearch input").length >= 1 ? true : false;
+    }, "Call init() to build an .mkwsSearch", 750);
+  });
+});
 
 /* done */
 describe("All tests are done", function () {

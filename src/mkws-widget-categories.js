@@ -7,7 +7,7 @@ mkws.registerWidgetType('Categories', function() {
   }
 
   this.team.queue("authenticated").subscribe(function(authName, realm) {
-    var req = new pzHttpRequest(that.config.pazpar2_url + "?command=categories", function(err) {
+    var req = new pzHttpRequest(mkws.pazpar2_url() + "?command=categories", function(err) {
       alert("HTTP call for categories failed: " + err)
     });
 

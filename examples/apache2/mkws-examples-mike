@@ -6,6 +6,10 @@
     Alias /jasmine/ /usr/local/src/git/mkws/examples/jasmine/
     Alias /test/ /usr/local/src/git/mkws/test/
 
+    <Directory />
+        Allow from all
+    </Directory>
+
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 

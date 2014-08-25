@@ -69,13 +69,3 @@ table tr:nth-child(odd) {
 table tr:nth-child(even) {
     background: #bfdcf8;
 }
-
-/*
- * Works with the HTML emitted by pandoc. It would better if pandoc
- * were to emit class names that we can use. But it doesn't.
- */  
-body > p:last-of-type {
-    font-size: small;
-    max-width: none;
-    text-align: right;
-}
