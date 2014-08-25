@@ -151,15 +151,6 @@ function team($, teamName) {
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
     queue("record").publish(data);
-    var detRecordDiv = findnode(recordDetailsId(data.recid[0]));
-    if (detRecordDiv.length) {
-      // in case on_show was faster to redraw element
-      return;
-    }
-    m_currentRecordData = data;
-    var recordDiv = findnode('.' + recordElementId(m_currentRecordData.recid[0]));
-    var html = renderDetails(m_currentRecordData);
-    $(recordDiv).append(html);
   }
 
 
@@ -345,7 +336,7 @@ function team($, teamName) {
     m_currentRecordId = recId;
 
     // remove current detailed view if any
-    findnode('#' + recordDetailsId(oldRecordId)).remove();
+    findnode('.mkwsDetails').remove();
 
     // if the same clicked, just hide
     if (recId == oldRecordId) {
@@ -353,9 +344,19 @@ function team($, teamName) {
       m_currentRecordData = null;
       return;
     }
-    // request the record
-    log("showDetails() requesting record '" + recId + "'");
-    m_paz.record(recId);
+
+    var detRecordDiv = findnode(recordDetailsId(recId));
+    if (detRecordDiv.length) {
+      // in case on_show was faster to redraw element
+      return;
+    }
+    var recordDiv = findnode('.' + recordElementId(recId));
+    var html = '<div class=".mkwsDetails .mkwsTeam_' + m_teamName
+               + '></div>';
+    $(recordDiv).append(html);
+    console.log(recordDiv);
+    console.log($(recordDiv).html());
+    mkws.init("Details", recordDiv);
   };
 
 
