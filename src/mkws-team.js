@@ -352,7 +352,7 @@ function team($, teamName) {
     }
     var recordDiv = findnode('.' + recordElementId(recId));
     var html = '<div class=".mkwsDetails .mkwsTeam_' + m_teamName
-               + '></div>';
+               + '" data-mkws-recid="' + recId + '"></div>';
     $(recordDiv).append(html);
     console.log(recordDiv);
     console.log($(recordDiv).html());
