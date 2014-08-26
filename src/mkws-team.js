@@ -41,6 +41,7 @@ function team($, teamName) {
   that.submitted = function() { return m_submitted; };
   that.sortOrder = function() { return m_sortOrder; };
   that.perpage = function() { return m_perpage; };
+  that.query = function() { return m_query; };
   that.totalRecordCount = function() { return m_totalRecordCount; };
   that.currentPage = function() { return m_currentPage; };
   that.currentRecordId = function() { return m_currentRecordId; };
