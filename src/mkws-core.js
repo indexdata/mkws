@@ -167,13 +167,13 @@ mkws.setMkwsConfig = function(overrides) {
 
   var config_default = {
     use_service_proxy: true,
-    pazpar2_url:        "//mkws.indexdata.com/service-proxy/",
-    service_proxy_auth: undefined, // generally rolled from the next three properties
-    // Was: //mkws.indexdata.com/service-proxy-auth
-    pp2_hostname: "mkws.indexdata.com",
-    sp_path: "service-proxy-auth",
-    sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
-    sp_auth_credentials: undefined,
+    pazpar2_url: undefined,
+    pp2_hostname: "sp-mkws.indexdata.com",
+    pp2_path: "service-proxy",
+    service_proxy_auth: undefined,
+    sp_auth_path: "service-proxy/",
+    sp_auth_query: "command=auth&action=perconfig",
+    sp_auth_credentials: "XXX/XXX", // Should be undefined: see bug MKSP-125.
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
@@ -360,7 +360,14 @@ mkws.pagerNext = function(tname) {
 
 
 mkws.pazpar2_url = function() {
-  return mkws.config.pazpar2_url;
+  if (mkws.config.pazpar2_url) {
+    mkws.log("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
+    return mkws.config.pazpar2_url;
+  } else {
+    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path + "/";
+    mkws.log("generated pazpar2_url '" + s + "'");
+    return s;
+  }
 };
 
 
@@ -640,7 +647,7 @@ mkws.pazpar2_url = function() {
       }
 
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-      if (mkws.config.pazpar2_url.match(/^\/\//)) {
+      if (mkws.pazpar2_url().match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
         log("adjusted protocol independent link to " + mkws.pazpar2_url());
       }
@@ -681,7 +688,7 @@ mkws.pazpar2_url = function() {
       } else {
 	var s = '//';
 	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	s += '/' + config.sp_path;
+	s += '/' + config.sp_auth_path;
         var q = config.sp_auth_query;
         if (q) {
           s += '?' + q;
