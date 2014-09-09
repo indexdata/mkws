@@ -168,12 +168,12 @@ mkws.setMkwsConfig = function(overrides) {
   var config_default = {
     use_service_proxy: true,
     pazpar2_url: undefined,
-    pp2_hostname: "mkws.indexdata.com",
+    pp2_hostname: "sp-mkws.indexdata.com",
     pp2_path: "service-proxy",
     service_proxy_auth: undefined,
-    sp_auth_path: "service-proxy-auth",
-    sp_auth_query: undefined, // Will be: "command=auth&action=perconfig",
-    sp_auth_credentials: undefined,
+    sp_auth_path: "service-proxy/",
+    sp_auth_query: "command=auth&action=perconfig",
+    sp_auth_credentials: "XXX/XXX", // Should be undefined: see bug MKSP-125.
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
