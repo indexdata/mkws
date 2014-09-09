@@ -1,12 +1,12 @@
 var mkws_config = {
-   service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
+   service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=os2&password=inlead"
 };
 
 mkws.registerWidgetType('Wimp', function() {
   if (!this.config.perpage) this.config.perpage = 5;
   if (!this.config.sort) this.config.sort = "position";
   this.team.registerTemplate('Wimp', '\
-<h2>Results from Reference Universe</h2>\
+<h2>Results from Wimp</h2>\
 <ul>\
 {{#each hits}}\
   <li>\
