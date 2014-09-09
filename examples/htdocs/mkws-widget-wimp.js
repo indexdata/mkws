@@ -2,10 +2,10 @@ var mkws_config = {
    service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
 };
 
-mkws.registerWidgetType('ReferenceUniverse', function() {
+mkws.registerWidgetType('Wimp', function() {
   if (!this.config.perpage) this.config.perpage = 5;
   if (!this.config.sort) this.config.sort = "position";
-  this.team.registerTemplate('ReferenceUniverse', '\
+  this.team.registerTemplate('Wimp', '\
 <h2>Results from Reference Universe</h2>\
 <ul>\
 {{#each hits}}\
@@ -27,7 +27,7 @@ mkws.registerWidgetType('ReferenceUniverse', function() {
 ');
 
   var that = this;
-  var template = that.team.loadTemplate(that.config.template || "ReferenceUniverse");
+  var template = that.team.loadTemplate(that.config.template || "Wimp");
   this.team.queue("records").subscribe(function(data) {
     that.node.html(template(data));
   }); 
