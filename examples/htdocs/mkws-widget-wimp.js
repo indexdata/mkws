@@ -1,5 +1,5 @@
 var mkws_config = {
-   service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=os2&password=inlead"
+   service_proxy_auth: "http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=wimp&password=wimp6363"
 };
 
 mkws.registerWidgetType('Wimp', function() {
