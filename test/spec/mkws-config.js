@@ -34,8 +34,8 @@ describe("Check mkws.config object", function () {
 
 
 describe("Check pazpar2 config", function () {
-    it("pazpar2path is a path or an full URL", function () {
-        expect(mkws.config.pazpar2_url).toMatch(/^(\/|https?:\/\/)/)
+    it("pazpar2_url is a path or an full URL", function () {
+        expect(mkws.config.pazpar2_url).toMatch(/^(\/|https?:\/\/|undefined$)/)
     });
 });
 
