@@ -1,5 +1,5 @@
 var mkws_config = {
-   service_proxy_auth: "http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
+   service_proxy_auth: "http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
 };
 
 mkws.registerWidgetType('ReferenceUniverse', function() {
