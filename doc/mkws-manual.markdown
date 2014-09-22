@@ -482,7 +482,7 @@ yourname.com:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
 <http://yourname.com/spauth/>
@@ -620,9 +620,9 @@ structure.
 
 3. [10, 20, 30, 50]
 
-4. http://mkws.indexdata.com/service-proxy-auth
+4. http://sp-mkws.indexdata.com/service-proxy-auth
 
-5. http://mkws.indexdata.com/service-proxy/
+5. http://sp-mkws.indexdata.com/service-proxy/
 
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
 
