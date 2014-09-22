@@ -103,7 +103,7 @@ apache-stop:
 	else \
 	   killall apache2 2> /dev/null; \
 	fi
-	@sleep 0.3
+	@sleep 0.6
 	rm -f ${TMP_DIR}/mkws-jasmine.pid
 
 help:

@@ -96,7 +96,7 @@ function team($, teamName) {
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   m_paz = new pz2({ "windowid": teamName,
-                    "pazpar2path": config.pazpar2_url,
+                    "pazpar2path": mkws.pazpar2_url(),
                     "usesessions" : config.use_service_proxy ? false : true,
                     "oninit": onInit,
                     "onbytarget": onBytarget,
