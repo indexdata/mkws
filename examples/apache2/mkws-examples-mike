@@ -14,7 +14,7 @@
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 
     RewriteEngine on
-    RewriteRule      /service-proxy-auth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
+    RewriteRule      /service-proxy-auth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
     #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
     #RewriteLogLevel 9
 </VirtualHost>
