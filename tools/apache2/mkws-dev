@@ -35,8 +35,8 @@
     # mkws devel account (e.g. memached testing)
     RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwsdev&password=mkwsdev [P] # [NE,P]
 
-    ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
-    ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkws.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkws.indexdata.com/service-proxy/
 
     ProxyPass        /pazpar2/         http://localhost:8004/pazpar2/
     ProxyPassReverse /pazpar2/         http://localhost:8004/pazpar2/
