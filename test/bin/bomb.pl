@@ -45,7 +45,7 @@ eval {
     BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
 };
 if ($@) {
-    warn "Please install the package BSD::Resource!\n\n$@\n";
+    warn "WARNING: things would go more nicely with the BSD::Resource package\n";
 }
 
 
