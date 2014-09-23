@@ -2,7 +2,7 @@
 
 SRC=   ../../src
 
-HANDLEBARS_FILE = handlebars-v1.1.2.js
+HANDLEBARS_FILE = handlebars-v1.3.0.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
 PP2_FILE = pz2.js
@@ -19,6 +19,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
 	${SRC}/mkws-team.js \
 	${SRC}/mkws-filter.js \
+	${SRC}/mkws-templates.js \
 	${SRC}/mkws-popup.js \
 	${SRC}/mkws-widget.js \
 	${SRC}/mkws-widget-main.js \
@@ -31,7 +32,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
-	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
+	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
 
 **make-default**: all
 
@@ -89,11 +90,14 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 		echo "Made release $(VERSION)"; \
 	fi
 
-mkws.js: $(COMPONENTS) Makefile
+mkws.js: mkws-templates.js $(COMPONENTS) Makefile
 	rm -f $@
 	cat ${COMPONENTS} > $@.tmp
 	mv -f $@.tmp $@
 	chmod 444 $@
+
+mkws-templates.js:
+	handlebars -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
 
 mkws-html-includes: 
 	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \

@@ -1,10 +1,18 @@
+// A widget for one record
 mkws.registerWidgetType('Record', function() {
-  mkws.promotionFunction('Records').call(this);
   if (!this.config.maxrecs) this.config.maxrecs = 1;
+  var that = this;
+  var team = this.team;
+  team.queue("records").subscribe(function(data) {
+    var template = team.loadTemplate(that.config.template || "Record");
+    var targs = $.extend({}, data.hits[0], that.config.template_vars);
+    that.node.html(template(targs));
+  });
+  that.autosearch();
 });
 
 mkws.registerWidgetType('Image', function() {
-  mkws.promotionFunction('Record').call(this);
+  mkws.promotionFunction('Records').call(this);
   if (!this.config.template) this.config.template = 'Image';
 });
 

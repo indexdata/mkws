@@ -1,0 +1,19 @@
+{{!
+Language selection widget
+
+languages
+  code - two character language identifier
+  selected - exists for the current language
+  url - url to switch to this language
+}}
+{{#each languages}}
+  {{~#if selected~}}
+    <span>{{code}}</span>
+  {{~else~}}
+    <a href="{{{url}}}">{{code}}</a>
+  {{~/if~}}
+  {{#unless last}}
+    |
+  {{/unless}}
+{{/each}}
+

@@ -20,6 +20,7 @@ window.mkws = {
                 // initial value allows jQuery popup to use logging.
   teams: {},
   widgetType2function: {},
+  defaultTemplates: {},
 
   locale_lang: {
     "de": {
@@ -188,6 +189,7 @@ mkws.setMkwsConfig = function(overrides) {
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
     log_level: 1,     /* log level for development: 0..2 */
+    template_vars: {}, /* values that may be exposed to templates */
 
     dummy: "dummy"
   };
@@ -209,110 +211,6 @@ mkws.objectInheritingFrom = function(o) {
   F.prototype = o;
   return new F();
 }
-
-
-mkws.defaultTemplate = function(name) {
-  if (name === 'Record') {
-    return '\
-<table>\
-  <tr>\
-    <th>{{mkws-translate "Title"}}</th>\
-    <td>\
-      {{md-title}}\
-      {{#if md-title-remainder}}\
-        ({{md-title-remainder}})\
-      {{/if}}\
-      {{#if md-title-responsibility}}\
-        <i>{{md-title-responsibility}}</i>\
-      {{/if}}\
-    </td>\
-  </tr>\
-  {{#if md-date}}\
-  <tr>\
-    <th>{{mkws-translate "Date"}}</th>\
-    <td>{{md-date}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-author}}\
-  <tr>\
-    <th>{{mkws-translate "Author"}}</th>\
-    <td>{{md-author}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-electronic-url}}\
-  <tr>\
-    <th>{{mkws-translate "Links"}}</th>\
-    <td>\
-      {{#each md-electronic-url}}\
-        <a href="{{this}}">Link{{mkws-index1}}</a>\
-      {{/each}}\
-    </td>\
-  </tr>\
-  {{/if}}\
-  {{#mkws-if-any location having="md-subject"}}\
-  <tr>\
-    <th>{{mkws-translate "Subject"}}</th>\
-    <td>\
-      {{#mkws-first location having="md-subject"}}\
-        {{#if md-subject}}\
-          {{#mkws-commaList md-subject}}\
-            {{this}}{{/mkws-commaList}}\
-        {{/if}}\
-      {{/mkws-first}}\
-    </td>\
-  </tr>\
-  {{/mkws-if-any}}\
-  <tr>\
-    <th>{{mkws-translate "Locations"}}</th>\
-    <td>\
-      {{#mkws-commaList location}}\
-        {{mkws-attr "@name"}}{{/mkws-commaList}}\
-    </td>\
-  </tr>\
-</table>\
-';
-  } else if (name === "Summary") {
-    return '\
-<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-  <b>{{md-title}}</b>\
-</a>\
-{{#if md-title-remainder}}\
-  <span>{{md-title-remainder}}</span>\
-{{/if}}\
-{{#if md-title-responsibility}}\
-  <span><i>{{md-title-responsibility}}</i></span>\
-{{/if}}\
-{{#if md-date}}, {{md-date}}\
-{{#if location}}\
-, {{#mkws-first location}}{{mkws-attr "@name"}}{{/mkws-first}}\
-{{/if}}\
-{{#if md-medium}}\
-<span>, {{md-medium}}</span>\
-{{/if}}\
-{{/if}}\
-';
-  } else if (name === "Image") {
-    return '\
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#mkws-first md-thumburl}}\
-          <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/mkws-first}}\
-        <br/>\
-      </a>\
-';
-  } else if (name === 'Facet') {
-    return '\
-<a href="#"\
-{{#if fn}}\
-onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;"\
-{{/if}}\
->{{term}}</a>\
-<span>{{count}}</span>\
-';
-  }
-
-  return null;
-};
 
 
 // The following functions are dispatchers for team methods that

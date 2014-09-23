@@ -1,0 +1,17 @@
+{{!
+A facet in the search.
+
+name - facet identifier, typically English and lowercase
+caption - caption for this facet
+terms:
+  term - term name
+  count - count of items matching in the current search for this team
+  linkdata - attributes to add to the term element including an onclick handler
+}}
+
+<div class="mkwsFacetTitle">{{caption}}</div>
+{{#each terms}}
+  <div class="mkwsTerm">
+    <a href="#" {{{linkdata}}}>{{term}}</a> <span>{{count}}</span>
+  </div>
+{{/each}}
