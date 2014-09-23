@@ -16,7 +16,7 @@ JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 #HANDLEBARS=handlebars	
 HANDLEBARS=../../test/node_modules/.bin/handlebars 
-YUI_COMPRESSOR=yui-compressor
+YUI_COMPRESSOR= $(shell which yui-compressor ../../test/bin/yui-compressor | head -1)
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
