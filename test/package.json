@@ -16,7 +16,8 @@
         "request": "*",
         "jasmine-reporters": "<= 0.4.1",
         "jasmine-node": "*",
-        "phantomjs": "*"
+        "phantomjs": "*",
+        "handlebars": "= 1.3.0"
     },
     "repository": {
         "type": "git",
