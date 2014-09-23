@@ -1,3 +1,5 @@
+(function($) { // jQuery wrapper
+
 // Functions follow for promoting the regular widget object into
 // widgets of specific types. These could be moved into their own
 // source files.
@@ -386,3 +388,4 @@ mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
 
 
+})(mkws.$); // jQuery wrapper
