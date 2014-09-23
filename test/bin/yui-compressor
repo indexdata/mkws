@@ -1,0 +1,6 @@
+#!/bin/sh
+# 
+# yui-compressor - dummy wrapper for missing java tool yui-compressor
+
+cat "$@"
+
