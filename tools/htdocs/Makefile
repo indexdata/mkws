@@ -16,6 +16,7 @@ JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
 #HANDLEBARS=handlebars	
 HANDLEBARS=../../test/node_modules/.bin/handlebars 
+YUI_COMPRESSOR=yui-compressor
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
@@ -58,11 +59,11 @@ mkws-js mkws-complete.js: Makefile mkws.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${J
 	mv -f mkws-complete.js.tmp mkws-complete.js
 
 %.min.js: %.js
-	yui-compressor $? > $@.tmp
+	${YUI_COMPRESSOR} $? > $@.tmp
 	mv -f $@.tmp $@
 
 mkws-syntax-check:
-	yui-compressor mkws.js >/dev/null
+	${YUI_COMPRESSOR} mkws.js >/dev/null
 
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@.tmp
