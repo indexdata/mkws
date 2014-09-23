@@ -2,5 +2,10 @@
 # 
 # yui-compressor - dummy wrapper for missing java tool yui-compressor
 
+cat <<EOF >&2
+==>  Warning: the real program yui-compressor does not exists <==
+     will use cat(1) instead! 
+EOF
+
 cat "$@"
 
