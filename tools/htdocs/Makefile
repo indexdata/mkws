@@ -14,6 +14,8 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
+#HANDLEBARS=handlebars	
+HANDLEBARS=../../test/node_modules/.bin/handlebars 
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
@@ -97,7 +99,7 @@ mkws.js: mkws-templates.js $(COMPONENTS) Makefile
 	chmod 444 $@
 
 mkws-templates.js:
-	handlebars -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
+	${HANDLEBARS} -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
 
 mkws-html-includes: 
 	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \
