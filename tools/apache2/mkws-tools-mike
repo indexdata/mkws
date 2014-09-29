@@ -3,8 +3,13 @@
     ErrorLog /var/log/apache2/mkws-tools-error.log
     CustomLog /var/log/apache2/mkws-tools-access.log combined
 
-    DocumentRoot /usr/local/src/git/mkws/tools/htdocs/
+    DocumentRoot /home/mike/git/work/mkws/tools/htdocs/
 
-    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
-    Alias /pazpar2/ /usr/local/src/git/pazpar2/
+    Alias /libjs-pz2/ /home/mike/git/work/libjs-pz2/
+    Alias /pazpar2/ /home/mike/git/work/pazpar2/
+
+    <Directory />
+        Allow from all
+	Require all granted
+    </Directory>
 </VirtualHost>
