@@ -19,12 +19,8 @@
     Header set Access-Control-Allow-Credentials true
 
     ProxyPreserveHost On
-    # We could use any of the following:
-    #	sp-mkc.indexdata.com/service-proxy/ -- multiplexer
-    #	sp-mkc-sansa.indexdata.com:8080/service-proxy/ -- 1st back-end server
-    #	sp-mkc-arya.indexdata.com:8080/service-proxy/ -- 2nd back-end server
-    ProxyPass        /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
-    ProxyPassReverse /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkws-backend.indexdata.com:8080/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkws-backend.indexdata.com:8080/service-proxy/
 
     PerlOptions +Parent
     PerlSwitches -I/home/indexdata/mkws/tools/mod_perl

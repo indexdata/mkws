@@ -1,9 +1,10 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
 DOCS = README.html README.odt README.pdf \
-       mkws-manual.html mkws-manual.odt mkws-manual.pdf
+       mkws-manual.html mkws-manual.odt mkws-manual.pdf \
+       mkws-developer.html mkws-developer.odt mkws-developer.pdf
 
-INSTALLABLE = README.html mkws-manual.html mkws-doc.css
+INSTALLABLE = README.html mkws-manual.html mkws-developer.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
 install: $(INSTALLED)
@@ -44,9 +45,16 @@ all: $(DOCS)
 
 clean:
 	rm -f $(DOCS)
+	rm -f *.drupal.html
 
 distclean: clean uninstall
 
+push:
+	pandoc --toc README.markdown > README.drupal.html
+	pandoc --toc mkws-manual.markdown > mkws-manual.drupal.html
+	cat README.drupal.html | ./drupaljson.pl | curl --upload-file - http://www.indexdata.com/script/node/332?services_token=cda1e26e5733ce3f604773e94f0721df5c31a948 -v --header "Content-Type:application/json"
+	cat mkws-manual.drupal.html | ./drupaljson.pl | curl --upload-file - http://www.indexdata.com/script/node/323?services_token=cda1e26e5733ce3f604773e94f0721df5c31a948 -v --header "Content-Type:application/json"
+
 help:
-	@echo "make [ all | install | clean | distclean ]"
+	@echo "make [ all | install | clean | distclean | push ]"
 

@@ -41,11 +41,13 @@ function team($, teamName) {
   that.submitted = function() { return m_submitted; };
   that.sortOrder = function() { return m_sortOrder; };
   that.perpage = function() { return m_perpage; };
+  that.query = function() { return m_query; };
   that.totalRecordCount = function() { return m_totalRecordCount; };
   that.currentPage = function() { return m_currentPage; };
   that.currentRecordId = function() { return m_currentRecordId; };
   that.currentRecordData = function() { return m_currentRecordData; };
   that.filters = function() { return m_filterSet; };
+  that.gotRecords = function() { return m_gotRecords; };
 
   // Accessor methods for individual widgets: writers
   that.set_sortOrder = function(val) { m_sortOrder = val };
@@ -94,7 +96,7 @@ function team($, teamName) {
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   m_paz = new pz2({ "windowid": teamName,
-                    "pazpar2path": config.pazpar2_url,
+                    "pazpar2path": mkws.pazpar2_url(),
                     "usesessions" : config.use_service_proxy ? false : true,
                     "oninit": onInit,
                     "onbytarget": onBytarget,
@@ -149,6 +151,7 @@ function team($, teamName) {
     log("record");
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
+    queue("record").publish(data);
     var detRecordDiv = findnode(recordDetailsId(data.recid[0]));
     if (detRecordDiv.length) {
       // in case on_show was faster to redraw element
@@ -303,6 +306,12 @@ function team($, teamName) {
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
   }
 
+  // fetch record details to be retrieved from the record queue
+  that.fetchDetails = function(recId) {
+    log("fetchDetails() requesting record '" + recId + "'");
+    m_paz.record(recId);
+  };
+
 
   // switching view between targets and records
   function switchView(view) {
@@ -389,38 +398,34 @@ function team($, teamName) {
 
   function loadTemplate(name, fallbackString) {
     var template = m_template[name];
-
-    if (template === undefined) {
-      // Fall back to generic template if there is no team-specific one
+    if (template === undefined && Handlebars.compile) {
       var source;
       var node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
       if (node && node.length < 1) {
         node = $(".mkwsTemplate_" + name);
       }
-      if (node) {
-        source = node.html();
+      if (node) source = node.html();
+      if (!source) source = m_templateText[name];
+      if (source) {
+        template = Handlebars.compile(source);
+        log("compiled template '" + name + "'");
       }
-
-      // If the template is not defined in HTML, check the following
-      // in order: template registered in the team by a widget;
-      // fallback string provided on this invocation; global default.
-      if (!source) {
-        source = m_templateText[name];
-      }
-      if (!source) {
-        source = fallbackString;
-      }
-      if (!source) {
-        source = mkws.defaultTemplate(name);
-      }
-
-      if (!source) return null;
-      template = Handlebars.compile(source);
-      log("compiled template '" + name + "'");
-      m_template[name] = template;
     }
-
-    return template;
+    //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
+    if (template === undefined && Handlebars.templates) {
+      template = Handlebars.templates[name];
+    }
+    if (template === undefined && mkws.defaultTemplates) {
+      template = mkws.defaultTemplates[name];
+    }
+    if (template) {
+      m_template[name] = template;
+      return template;
+    }
+    else {
+      mkws.log("No MKWS template for " + name);
+      return null;
+    }  
   }
   that.loadTemplate = loadTemplate;
 

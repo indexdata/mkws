@@ -1,0 +1,26 @@
+{{!
+Records from a search.
+
+hits:
+  containerClass - class  attribute for same
+  detailLinkId - id for the element triggering detail display
+  detailClick - a click event handler for details
+  renderedDetails - active record details rendered from the Record template
+  md-* - metadata fields passed through from backend
+}}
+{{#each hits}}
+  <div class="{{containerClass}}">
+    <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
+      <b>{{md-title}}</b>
+    </a>
+    {{#if md-title-remainder}}
+      <span>{{md-title-remainder}}</span>
+    {{/if}}
+    {{#if md-title-responsibility}}
+      <span><i>{{md-title-responsibility}}</i></span>
+    {{/if}}
+    {{#if renderedDetails}}
+      {{{renderedDetails}}}
+    {{/if}}
+  </div>
+{{/each}}

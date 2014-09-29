@@ -482,7 +482,7 @@ yourname.com:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
 <http://yourname.com/spauth/>
@@ -620,9 +620,9 @@ structure.
 
 3. [10, 20, 30, 50]
 
-4. http://mkws.indexdata.com/service-proxy-auth
+4. http://sp-mkws.indexdata.com/service-proxy-auth
 
-5. http://mkws.indexdata.com/service-proxy/
+5. http://sp-mkws.indexdata.com/service-proxy/
 
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
 
@@ -701,19 +701,19 @@ from that toolkit. The relevant lines are:
     </div>
 
 ----
-Element    Type    Default           Description
---------   -----   ---------         ------------
-popup_width     string     880       Width of the popup window (if used), in
-                                     pixels.
+Element         Type    Default             Description
+--------        -----   -------             ------------
+popup_width     string  880                 Width of the popup window (if used), in
+                                            pixels.
 
-popup_height    string     760       Height of the popup window (if used), in
-                                     pixels.
+popup_height    string  760                 Height of the popup window (if used), in
+                                            pixels.
 
-popup_button    string      input.mkwsButton  (Never change this.)
+popup_button    string  `input.mkwsButton`  (Never change this.)
 
-popup_modal     string      0       Modal confirmation mode. Valid values are 0 or 1
+popup_modal     string  0                   Modal confirmation mode. Valid values are 0 or 1
 
-popup_autoOpen  string      1       Open popup window on load. Valid values are 0 or 1
+popup_autoOpen  string  1                   Open popup window on load. Valid values are 0 or 1
 
 ----
 

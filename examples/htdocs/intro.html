@@ -1,15 +1,15 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference Universe widget</title>
-    <link rel="stylesheet" type="text/css" href="mkws-widget-credo.css" />
+    <title>MKWS demo: heading changes when search results appear</title>
     <script type="text/javascript">
-      var mkws_config = { service_proxy_auth: "//mkws.indexdata.com/service-proxy-credoauth" };
+      var mkws_config = { sp_auth_credentials: "credo/emu" };
     </script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="//x.mkws.indexdata.com/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="//x.mkws.indexdata.com/handlebars-v1.1.2.js"></script>
-    <script type="text/javascript" src="//x.mkws.indexdata.com/pazpar2/js/pz2.js"></script>
+    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v1.3.0.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
     <script type="text/javascript" src="src/mkws-handlebars.js"></script>
     <script type="text/javascript" src="src/mkws-core.js"></script>
     <script type="text/javascript" src="src/mkws-team.js"></script>
@@ -23,7 +23,7 @@
     <script type="text/javascript" src="src/mkws-widget-record.js"></script>
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
-    <script type="text/javascript" src="mkws-widget-credo.js"></script>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
   </head>
   <body>
     <script type="text/javascript">

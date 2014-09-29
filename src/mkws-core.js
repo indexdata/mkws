@@ -14,11 +14,13 @@
 window.mkws = {
   $: $, // Our own local copy of the jQuery object
   authenticated: false,
+  authenticating: false,
   active: false,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
   teams: {},
   widgetType2function: {},
+  defaultTemplates: {},
 
   locale_lang: {
     "de": {
@@ -166,8 +168,13 @@ mkws.setMkwsConfig = function(overrides) {
 
   var config_default = {
     use_service_proxy: true,
-    pazpar2_url:        "//mkws.indexdata.com/service-proxy/",
-    service_proxy_auth: "//mkws.indexdata.com/service-proxy-auth",
+    pazpar2_url: undefined,
+    pp2_hostname: "sp-mkws.indexdata.com",
+    pp2_path: "service-proxy",
+    service_proxy_auth: undefined,
+    sp_auth_path: "service-proxy/",
+    sp_auth_query: "command=auth&action=perconfig",
+    sp_auth_credentials: "XXX/XXX", // Should be undefined: see bug MKSP-125.
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
@@ -182,6 +189,7 @@ mkws.setMkwsConfig = function(overrides) {
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
     log_level: 1,     /* log level for development: 0..2 */
+    template_vars: {}, /* values that may be exposed to templates */
 
     dummy: "dummy"
   };
@@ -203,110 +211,6 @@ mkws.objectInheritingFrom = function(o) {
   F.prototype = o;
   return new F();
 }
-
-
-mkws.defaultTemplate = function(name) {
-  if (name === 'Record') {
-    return '\
-<table>\
-  <tr>\
-    <th>{{mkws-translate "Title"}}</th>\
-    <td>\
-      {{md-title}}\
-      {{#if md-title-remainder}}\
-        ({{md-title-remainder}})\
-      {{/if}}\
-      {{#if md-title-responsibility}}\
-        <i>{{md-title-responsibility}}</i>\
-      {{/if}}\
-    </td>\
-  </tr>\
-  {{#if md-date}}\
-  <tr>\
-    <th>{{mkws-translate "Date"}}</th>\
-    <td>{{md-date}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-author}}\
-  <tr>\
-    <th>{{mkws-translate "Author"}}</th>\
-    <td>{{md-author}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-electronic-url}}\
-  <tr>\
-    <th>{{mkws-translate "Links"}}</th>\
-    <td>\
-      {{#each md-electronic-url}}\
-        <a href="{{this}}">Link{{mkws-index1}}</a>\
-      {{/each}}\
-    </td>\
-  </tr>\
-  {{/if}}\
-  {{#mkws-if-any location having="md-subject"}}\
-  <tr>\
-    <th>{{mkws-translate "Subject"}}</th>\
-    <td>\
-      {{#mkws-first location having="md-subject"}}\
-        {{#if md-subject}}\
-          {{#mkws-commaList md-subject}}\
-            {{this}}{{/mkws-commaList}}\
-        {{/if}}\
-      {{/mkws-first}}\
-    </td>\
-  </tr>\
-  {{/mkws-if-any}}\
-  <tr>\
-    <th>{{mkws-translate "Locations"}}</th>\
-    <td>\
-      {{#mkws-commaList location}}\
-        {{mkws-attr "@name"}}{{/mkws-commaList}}\
-    </td>\
-  </tr>\
-</table>\
-';
-  } else if (name === "Summary") {
-    return '\
-<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-  <b>{{md-title}}</b>\
-</a>\
-{{#if md-title-remainder}}\
-  <span>{{md-title-remainder}}</span>\
-{{/if}}\
-{{#if md-title-responsibility}}\
-  <span><i>{{md-title-responsibility}}</i></span>\
-{{/if}}\
-{{#if md-date}}, {{md-date}}\
-{{#if location}}\
-, {{#mkws-first location}}{{mkws-attr "@name"}}{{/mkws-first}}\
-{{/if}}\
-{{#if md-medium}}\
-<span>, {{md-medium}}</span>\
-{{/if}}\
-{{/if}}\
-';
-  } else if (name === "Image") {
-    return '\
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#mkws-first md-thumburl}}\
-          <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/mkws-first}}\
-        <br/>\
-      </a>\
-';
-  } else if (name === 'Facet') {
-    return '\
-<a href="#"\
-{{#if fn}}\
-onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;"\
-{{/if}}\
->{{term}}</a>\
-<span>{{count}}</span>\
-';
-  }
-
-  return null;
-};
 
 
 // The following functions are dispatchers for team methods that
@@ -350,6 +254,18 @@ mkws.pagerPrev = function(tname) {
 
 mkws.pagerNext = function(tname) {
   mkws.teams[tname].pagerNext();
+};
+
+
+mkws.pazpar2_url = function() {
+  if (mkws.config.pazpar2_url) {
+    mkws.log("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
+    return mkws.config.pazpar2_url;
+  } else {
+    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path + "/";
+    mkws.log("generated pazpar2_url '" + s + "'");
+    return s;
+  }
 };
 
 
@@ -445,6 +361,7 @@ mkws.pagerNext = function(tname) {
    * for the site.
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
+    mkws.authenticating = true;
     log("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
@@ -458,6 +375,7 @@ mkws.pagerNext = function(tname) {
     }, auth_domain);
 
     request.get(null, function(data) {
+      mkws.authenticating = false;
       if (!$.isXMLDoc(data)) {
         alert("Service Proxy authentication response is not a valid XML document");
         return;
@@ -547,14 +465,23 @@ mkws.pagerNext = function(tname) {
   }
 
 
-  // This function should have no side effects if run again on an operating session, even if 
-  // the element/selector passed causes existing widgets to be reparsed: 
+  // The second "rootsel" parameter is passed to jQuery and is a DOM node
+  // or a selector string you would like to constrain the search for widgets to.
+  //
+  // This function has no side effects if run again on an operating session,
+  // even if the element/selector passed causes existing widgets to be reparsed: 
+  //
+  // (TODO: that last bit isn't true and we currently have to avoid reinitialising
+  // widgets, MKWS-261)
   //
   // * configuration is not regenerated
   // * authentication is not performed again
   // * autosearches are not re-run
   mkws.init = function(message, rootsel) {
-    if (message) mkws.log(message);
+    var greet = "MKWS initialised";
+    if (rootsel) greet += " (limited to " + rootsel + ")"
+    if (message) greet += " :: " + message; 
+    mkws.log(greet);
 
     // TODO: Let's remove this soon
     // Backwards compatibility: set new magic class names on any
@@ -618,9 +545,9 @@ mkws.pagerNext = function(tname) {
       }
 
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
-      if (mkws.config.pazpar2_url.match(/^\/\//)) {
+      if (mkws.pazpar2_url().match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-        log("adjusted protocol independent link to " + mkws.config.pazpar2_url);
+        log("adjusted protocol independent link to " + mkws.pazpar2_url());
       }
 
       if (mkws.config.responsive_design_width) {
@@ -635,7 +562,9 @@ mkws.pagerNext = function(tname) {
     var then = $.now();
     // If we've made no widgets, return without starting an SP session
     // or marking MKWS active.
-    if (makeWidgetsWithin(1, rootsel) === false) return false;
+    if (makeWidgetsWithin(1, rootsel ? $(rootsel) : undefined) === false) {
+      return false;
+    }
     var now = $.now();
 
     log("walking MKWS nodes took " + (now-then) + " ms");
@@ -650,14 +579,34 @@ mkws.pagerNext = function(tname) {
       }
     */
 
-    if (mkws.config.use_service_proxy) {
-      if (!mkws.authenticated) {
-        authenticateSession(mkws.config.service_proxy_auth,
-                            mkws.config.service_proxy_auth_domain,
-                            mkws.config.pazpar2_url);
+    function sp_auth_url(config) {
+      if (config.service_proxy_auth) {
+	mkws.log("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
+	return config.service_proxy_auth;
+      } else {
+	var s = '//';
+	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
+	s += '/' + config.sp_auth_path;
+        var q = config.sp_auth_query;
+        if (q) {
+          s += '?' + q;
+        }
+	var c = config.sp_auth_credentials;
+	if (c) {
+	  s += ('&username=' + c.substr(0, c.indexOf('/')) +
+		'&password=' + c.substr(c.indexOf('/')+1));
+	}
+	mkws.log("generated sp_auth_url '" + s + "'");
+	return s;
       }
-    } else {
-      // raw pp2
+    }
+
+    if (mkws.config.use_service_proxy && !mkws.authenticated && !mkws.authenticating) {
+      authenticateSession(sp_auth_url(mkws.config),
+                          mkws.config.service_proxy_auth_domain,
+                          mkws.pazpar2_url());
+    } else if (!mkws.authenticating) {
+      // raw pp2 or we have a session already open
       runAutoSearches();
     }
     
@@ -666,7 +615,9 @@ mkws.pagerNext = function(tname) {
   };
 
   $(document).ready(function() {
-    mkws.init();
+    if (!window.mkws_noready && !mkws.authenticating && !mkws.active) {
+       mkws.init();
+    }
   });
 
 })(mkws.$);

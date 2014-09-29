@@ -1,3 +1,5 @@
+(function($) { // jQuery wrapper
+
 // Functions follow for promoting the regular widget object into
 // widgets of specific types. These could be moved into their own
 // source files.
@@ -6,43 +8,36 @@
 mkws.registerWidgetType('Targets', function() {
   if (!this.config.show_switch) return;
   var that = this;
-  var M = mkws.M;
 
   this.node.html('No information available yet.');
   this.node.css("display", "none");
 
   this.team.queue("targets").subscribe(function(data) {
-    var table ='<table><thead><tr>' +
-      '<td>' + M('Target ID') + '</td>' +
-      '<td>' + M('Hits') + '</td>' +
-      '<td>' + M('Diags') + '</td>' +
-      '<td>' + M('Records') + '</td>' +
-      '<td>' + M('State') + '</td>' +
-      '</tr></thead><tbody>';
-
+    // There is a bug in pz2.js wherein it makes each data object an array but
+    // simply assigns properties to it.
+    // TODO: remove this when PAZ-946 is addressed.
+    var cleandata = [];
     for (var i = 0; i < data.length; i++) {
-      table += "<tr><td>" + data[i].id +
-        "</td><td>" + data[i].hits +
-        "</td><td>" + data[i].diagnostic +
-        "</td><td>" + data[i].records +
-        "</td><td>" + data[i].state + "</td></tr>";
+      var cur = {};
+      cur.id = data[i].id;
+      cur.hits = data[i].hits;
+      cur.diagnostic = data[i].diagnostic;
+      cur.records = data[i].records;
+      cur.state = data[i].state;
+      cleandata.push(cur);
     }
 
-    table += '</tbody></table>';
-    that.node.html(table);
+    var template = that.team.loadTemplate(that.config.template || "Targets");
+    that.node.html(template({data: cleandata}));
   });
 });
 
 
 mkws.registerWidgetType('Stat', function() {
   var that = this;
-  var M = mkws.M;
-
   this.team.queue("stat").subscribe(function(data) {
-    that.node.html(' -- ' +
-                      '<span class="mkwsClientCount">' + M('Active clients') + ': ' + data.activeclients + '/' + data.clients + '</span>' +
-                      ' -- ' +
-                      M('Retrieved records') + ': ' + data.records + '/' + data.hits);
+    var template = that.team.loadTemplate(that.config.template || "Stat");
+    that.node.html(template(data));
   });
 });
 
@@ -52,92 +47,92 @@ mkws.registerWidgetType('Pager', function() {
   var M = mkws.M;
 
   this.team.queue("pager").subscribe(function(data) {
-    that.node.html(drawPager(data))
+    var teamName = that.team.name();
+    var output = {};
+    output.first = data.start + 1;
+    output.last = data.start + data.num;
+    output.count = data.merged;
+    output.found = data.total;
 
-    function drawPager(data) {
-      var teamName = that.team.name();
-      var s = '<div style="float: right">' + M('Displaying') + ': '
-        + (data.start + 1) + ' ' + M('to') + ' ' + (data.start + data.num) +
-        ' ' + M('of') + ' ' + data.merged + ' (' + M('found') + ': '
-        + data.total + ')</div>';
+    //client indexes pages from 1 but pz2 from 0
+    var onsides = 6;
+    var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
+    var currentPage = that.team.currentPage();
 
-      //client indexes pages from 1 but pz2 from 0
-      var onsides = 6;
-      var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
-      var currentPage = that.team.currentPage();
+    var firstClkbl = (currentPage - onsides > 0)
+      ? currentPage - onsides
+      : 1;
+    var lastClkbl = firstClkbl + 2*onsides < pages
+      ? firstClkbl + 2*onsides
+      : pages;
 
-      var firstClkbl = (currentPage - onsides > 0)
-        ? currentPage - onsides
-        : 1;
+    if (firstClkbl > 1) output.morePrev = true;
+    if (lastClkbl < pages) output.moreNext = true;
 
-      var lastClkbl = firstClkbl + 2*onsides < pages
-        ? firstClkbl + 2*onsides
-        : pages;
+    if (currentPage > 1) output.prevClick = "mkws.pagerPrev(\'" + teamName + "\');";
 
-      var prev = '<span class="mkwsPrev">&#60;&#60; ' + M('Prev') + '</span> | ';
-      if (currentPage > 1)
-        prev = '<a href="#" class="mkwsPrev" onclick="mkws.pagerPrev(\'' + teamName + '\');">'
-        +'&#60;&#60; ' + M('Prev') + '</a> | ';
-
-      var middle = '';
-      for(var i = firstClkbl; i <= lastClkbl; i++) {
-        var numLabel = i;
-        if(i == currentPage)
-          numLabel = '<span class="mkwsCurrentPage">' + i + '</span>';
-
-        middle += '<a href="#" onclick="mkws.showPage(\'' + teamName + '\', ' + i + ')"> '
-          + numLabel + ' </a>';
+    output.pages = [];
+    for(var i = firstClkbl; i <= lastClkbl; i++) {
+      var o = {};
+      o.number = i;
+      if (i !== currentPage) {
+        o.click = "mkws.showPage(\'" + teamName + "\', " + i + ");";
       }
-
-      var next = ' | <span class="mkwsNext">' + M('Next') + ' &#62;&#62;</span>';
-      if (pages - currentPage > 0)
-        next = ' | <a href="#" class="mkwsNext" onclick="mkws.pagerNext(\'' + teamName + '\')">'
-        + M('Next') + ' &#62;&#62;</a>';
-
-      var predots = '';
-      if (firstClkbl > 1)
-        predots = '...';
-
-      var postdots = '';
-      if (lastClkbl < pages)
-        postdots = '...';
-
-      s += '<div style="float: clear">'
-        + prev + predots + middle + postdots + next + '</div>';
-
-      return s;
+      output.pages.push(o);
     }
+
+    if (pages - currentPage > 0) output.nextClick = "mkws.pagerNext(\'" + teamName + "\')";
+
+    var template = that.team.loadTemplate(that.config.template || "Pager");
+    that.node.html(template(output));
   });
 });
 
+mkws.registerWidgetType('Details', function() {
+  var that = this;
+  var recid = that.node.attr("data-mkws-recid");
+  if (this.team.gotRecords()) { 
+    that.team.fetchDetails(recid);
+  } else {
+    this.team.queue("firstrecords").subscribe(function() {
+      that.team.fetchDetails(recid);
+    });
+  }
+  this.team.queue("record").subscribe(function(data) {
+    console.log(data);
+    if ($.inArray(recid, data.recid) > -1) {
+      var template = that.team.loadTemplate(that.config.template || "Record");
+      that.node.html(template(data));
+    }
+  });
+  that.autosearch();
+});
 
 mkws.registerWidgetType('Records', function() {
   var that = this;
   var team = this.team;
 
   this.team.queue("records").subscribe(function(data) {
-    var html = [];
     for (var i = 0; i < data.hits.length; i++) {
       var hit = data.hits[i];
       that.team.queue("record").publish(hit);
-      var divId = team.recordElementId(hit.recid[0]);
-      html.push('<div class="mkwsSummary mkwsTeam_' + team.name() + ' ' + divId + '">', renderSummary(hit), '</div>');
+      hit.detailLinkId = team.recordElementId(hit.recid[0]);
+      hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
+      hit.containerClass = "mkwsSummary mkwsTeam_" + team.name();
+      hit.containerClass += " " + hit.detailLinkId;
       // ### At some point, we may be able to move the
       // m_currentRecordId and m_currentRecordData members
       // from the team object into this widget.
       if (hit.recid == team.currentRecordId()) {
-        if (team.currentRecordData())
-          html.push(team.renderDetails(team.currentRecordData()));
+        if (team.currentRecordData()) {
+          hit.renderedDetails = team.renderDetails(team.currentRecordData());
+          console.log(hit.renderedDetails); 
+        } 
       }
     }
-    that.node.html(html.join(''));
-
-    function renderSummary(hit) {
-      var template = team.loadTemplate(that.config.template || "Summary");
-      hit._id = team.recordElementId(hit.recid[0]);
-      hit._onclick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;"
-      return template(hit);
-    }
+    var template = team.loadTemplate(that.config.template || "Records");
+    var targs = $.extend({}, {"hits": data.hits}, that.config.template_vars);
+    that.node.html(template(targs));
   });
 
   that.autosearch();
@@ -147,26 +142,29 @@ mkws.registerWidgetType('Records', function() {
 mkws.registerWidgetType('Navi', function() {
   var that = this;
   var teamName = this.team.name();
-  var M = mkws.M;
 
   this.team.queue("navi").subscribe(function() {
     var filters = that.team.filters();
-    var text = "";
+    var output = {filters:[]};
 
     filters.visitTargets(function(id, name) {
-      if (text) text += " | ";
-      text += M('source') + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitTarget(\'' + teamName +
-        "', '" + id + "'" + ');return false;">' + name + '</a>';
+      var cur = {};
+      cur.facet = 'source';
+      cur.value = name;
+      cur.click = "mkws.delimitTarget('" + teamName + "', '" + id + "'); return false;";
+      output.filters.push(cur);
     });
 
     filters.visitFields(function(field, value) {
-      if (text) text += " | ";
-      text += M(field) + ': <a class="mkwsRemovable" href="#" onclick="mkws.delimitQuery(\'' + teamName +
-        "', '" + field + "', '" + value + "'" +
-        ');return false;">' + value + '</a>';
+      var cur = {};
+      cur.facet = field;
+      cur.value = value;
+      cur.click = "mkws.delimitQuery('" + teamName + "', '" + field + "', '" + value + "'" + ");return false;";
+      output.filters.push(cur);
     });
 
-    that.node.html(text);
+    var template = that.team.loadTemplate(that.config.template || "Navi");
+    that.node.html(template(output));
   });
 });
 
@@ -202,9 +200,9 @@ mkws.registerWidgetType('Perpage', function() {
 
 mkws.registerWidgetType('Done', function() {
   var that = this;
-
   this.team.queue("complete").subscribe(function(n) {
-    that.node.html("Search complete: found " + n + " records");
+    var template = that.team.loadTemplate(that.config.template || "Done");
+    that.node.html(template({count: n}));
   });
 });
 
@@ -212,23 +210,21 @@ mkws.registerWidgetType('Done', function() {
 mkws.registerWidgetType('Switch', function() {
   if (!this.config.show_switch) return;
   var tname = this.team.name();
-  this.node.html('\
-<a href="#" onclick="mkws.switchView(\'' + tname + '\', \'records\')">Records</a><span> \
-| \
-</span><a href="#" onclick="mkws.switchView(\'' + tname + '\', \'targets\')">Targets</a>');
+  var output = {};
+  output.recordClick = "mkws.switchView(\'" + tname + "\', \'records\')";
+  output.targetClick = "mkws.switchView(\'" + tname + "\', \'targets\')";
+  var template = this.team.loadTemplate(this.config.template || "Switch");
+  this.node.html(template(output));
   this.hideWhenNarrow();
 });
 
 
 mkws.registerWidgetType('Search', function() {
-  var tname = this.team.name();
-  var M = mkws.M;
-
-  this.node.html('\
-<form name="mkwsSearchForm" class="mkwsSearchForm mkwsTeam_' + tname + '" action="" >\
-  <input class="mkwsQuery mkwsTeam_' + tname + '" type="text" size="' + this.config.query_width + '" />\
-  <input class="mkwsButton mkwsTeam_' + tname + '" type="submit" value="' + M('Search') + '" />\
-</form>');
+  var output = {};
+  output.team = this.team.name();
+  output.queryWidth = this.config.query_width;
+  var template = this.team.loadTemplate(this.config.template || "Search");
+  this.node.html(template(output));
 });
 
 
@@ -243,90 +239,42 @@ mkws.registerWidgetType('SearchForm', function() {
 
 
 mkws.registerWidgetType('Results', function() {
-  var tname = this.team.name();
-
-  this.node.html('\
-<table width="100%" border="0" cellpadding="6" cellspacing="0">\
-  <tr>\
-    <td class="mkwsTermlists-Container-wide mkwsTeam_' + tname + '" width="250" valign="top">\
-      <div class="mkwsTermlists mkwsTeam_' + tname + '"></div>\
-    </td>\
-    <td class="mkwsMOTDContainer mkwsTeam_' + tname + '" valign="top">\
-      <div class="mkwsRanking mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsPager mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsNavi mkwsTeam_' + tname + '"></div>\
-      <div class="mkwsRecords mkwsTeam_' + tname + '"></div>\
-    </td>\
-  </tr>\
-  <tr>\
-    <td colspan="2">\
-      <div class="mkwsTermlists-Container-narrow mkwsTeam_' + tname + '"></div>\
-    </td>\
-  </tr>\
-</table>');
-
+  var template = this.team.loadTemplate(this.config.template || "Results");
+  this.node.html(template({team: this.team.name()}));
   this.autosearch();
 });
 
 
 mkws.registerWidgetType('Ranking', function() {
-  var tname = this.team.name();
-  var that = this;
-  var M = mkws.M;
+  var output = {};
+  output.perPage = [];
+  output.sort = [];
+  output.team = this.team.name();
+  output.showSort = this.config.show_sort;
+  output.showPerPage = this.config.show_perpage;
 
-  var s = '<form>';
-  if (this.config.show_sort) {
-    s +=  M('Sort by') + ' ' + mkwsHtmlSort() + ' ';
-  }
-  if (this.config.show_perpage) {
-    s += M('and show') + ' ' + mkwsHtmlPerpage() + ' ' + M('per page') + '.';
-  }
-  s += '</form>';
-
-  this.node.html(s);
-
-
-  function mkwsHtmlSort() {
-    var order = that.team.sortOrder();
-
-    that.log("making sort HTML, sortOrder = '" + order + "'");
-    var sort_html = '<select class="mkwsSort mkwsTeam_' + tname + '">';
-
-    for(var i = 0; i < that.config.sort_options.length; i++) {
-      var opt = that.config.sort_options[i];
-      var key = opt[0];
-      var val = opt.length == 1 ? opt[0] : opt[1];
-
-      sort_html += '<option value="' + key + '"';
-      if (order == key || order == val) {
-        sort_html += ' selected="selected"';
-      }
-      sort_html += '>' + M(val) + '</option>';
-    }
-    sort_html += '</select>';
-
-    return sort_html;
+  var order = this.team.sortOrder();
+  this.log("making sort, sortOrder = '" + order + "'");
+  for (var i = 0; i < this.config.sort_options.length; i++) {
+    var cur = {};
+    var opt = this.config.sort_options[i];
+    cur.key = opt[0];
+    cur.label = opt.length == 1 ? opt[0] : opt[1];
+    if (order == cur.key || order == cur.label) cur.selected = true;
+    output.sort.push(cur);
   }
 
-  function mkwsHtmlPerpage() {
-    var perpage = that.team.perpage();
-
-    that.log("making perpage HTML, perpage = " + perpage);
-    var perpage_html = '<select class="mkwsPerpage mkwsTeam_' + tname + '">';
-
-    for(var i = 0; i < that.config.perpage_options.length; i++) {
-      var key = that.config.perpage_options[i];
-
-      perpage_html += '<option value="' + key + '"';
-      if (key == perpage) {
-        perpage_html += ' selected="selected"';
-      }
-      perpage_html += '>' + key + '</option>';
-    }
-    perpage_html += '</select>';
-
-    return perpage_html;
+  var perpage = this.team.perpage();
+  this.log("making perpage, perpage = " + perpage);
+  for(var i = 0; i < this.config.perpage_options.length; i++) {
+    var cur = {};
+    cur.perPage = this.config.perpage_options[i];
+    if (cur.perPage == perpage) cur.selected = true;
+    output.perPage.push(cur);
   }
+
+  var template = this.team.loadTemplate(this.config.template || "Ranking");
+  this.node.html(template(output));
 });
 
 
@@ -347,33 +295,29 @@ mkws.registerWidgetType('Lang', function() {
   }
 
   for (var k in mkws.locale_lang) {
-    if (toBeIncluded[k] || lang_options.length == 0)
-      list.push(k);
-  }
-
-  // add english link
-  if (lang_options.length == 0 || toBeIncluded[lang_default])
-    list.push(lang_default);
-
-  this.log("language menu: " + list.join(", "));
-
-  /* the HTML part */
-  var data = "";
-  for (var i = 0; i < list.length; i++) {
-    var l = list[i];
-    if (data)
-      data += ' | ';
-
-    if (lang == l) {
-      data += ' <span>' + l + '</span> ';
-    } else {
-      data += ' <a href="' + lang_url(l) + '">' + l + '</a> '
+    if (toBeIncluded[k] || lang_options.length == 0) {
+      cur = {};
+      if (lang === k) cur.selected = true;
+      cur.code = k;
+      cur.url = lang_url(k);
+      list.push(cur);
     }
   }
 
-  this.node.html(data);
-  this.hideWhenNarrow();
+  // add english link
+  if (lang_options.length == 0 || toBeIncluded[lang_default]) {
+      cur = {};
+      if (lang === lang_default) cur.selected = true;
+      cur.code = lang_default;
+      cur.url = lang_url(lang_default);
+      list.push(cur);
+  }
 
+  this.log("language menu: " + list.join(", "));
+
+  var template = this.team.loadTemplate(this.config.template || "Lang");
+  this.node.html(template({languages: list}));
+  this.hideWhenNarrow();
 
   // set or re-set "lang" URL parameter
   function lang_url(lang) {
@@ -422,19 +366,13 @@ mkws.registerWidgetType('Config', function() {
 
 mkws.registerWidgetType('Progress', function() {
   var that = this;
-
   this.node.hide();
   this.team.queue("stat").subscribe(function(data) {
-    var s = '<span class="mkwsDone">';
-    for (var i = 0; i < data.clients; i++) {
-      if (i == data.clients - data.activeclients) {
-        s += '</span>';
-        s += '<span class="mkwsWaiting">';
-      }
-      s += '&#x2588;';
-    }
-    s += '</span>';
-    that.node.html(s);
+    var template = that.team.loadTemplate(that.config.template || "Progress");
+    that.node.html(template({
+      done: data.clients - data.activeclients,
+      waiting: data.activeclients
+    }));
     that.node.show();
   });
 });
@@ -450,3 +388,4 @@ mkws.registerWidgetType('MOTDContainer', function() {});
 mkws.registerWidgetType('Button', function() {});
 
 
+})(mkws.$); // jQuery wrapper

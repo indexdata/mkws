@@ -2,7 +2,7 @@
 
 SRC=   ../../src
 
-HANDLEBARS_FILE = handlebars-v1.1.2.js
+HANDLEBARS_FILE = handlebars-v1.3.0.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
 PP2_FILE = pz2.js
@@ -14,11 +14,15 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 
 JQUERY_UI_URL =	http://code.jquery.com/ui/1.10.3/jquery-ui.js
 VERSION = $(shell tr -d '\012' < ${SRC}/VERSION)
+#HANDLEBARS=handlebars	
+HANDLEBARS=../../test/node_modules/.bin/handlebars 
+YUI_COMPRESSOR= $(shell which yui-compressor ../../test/bin/yui-compressor | head -1)
 
 COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-core.js \
 	${SRC}/mkws-team.js \
 	${SRC}/mkws-filter.js \
+	${SRC}/mkws-templates.js \
 	${SRC}/mkws-popup.js \
 	${SRC}/mkws-widget.js \
 	${SRC}/mkws-widget-main.js \
@@ -31,7 +35,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
-	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
+	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
 
 **make-default**: all
 
@@ -55,11 +59,11 @@ mkws-js mkws-complete.js: Makefile mkws.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${J
 	mv -f mkws-complete.js.tmp mkws-complete.js
 
 %.min.js: %.js
-	yui-compressor $? > $@.tmp
+	${YUI_COMPRESSOR} $? > $@.tmp
 	mv -f $@.tmp $@
 
 mkws-syntax-check:
-	yui-compressor mkws.js >/dev/null
+	${YUI_COMPRESSOR} mkws.js >/dev/null
 
 ${HANDLEBARS_FILE}:
 	curl -sSf ${HANDLEBARS_URL} -o $@.tmp
@@ -89,11 +93,14 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 		echo "Made release $(VERSION)"; \
 	fi
 
-mkws.js: $(COMPONENTS) Makefile
+mkws.js: mkws-templates.js $(COMPONENTS) Makefile
 	rm -f $@
 	cat ${COMPONENTS} > $@.tmp
 	mv -f $@.tmp $@
 	chmod 444 $@
+
+mkws-templates.js:
+	${HANDLEBARS} -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
 
 mkws-html-includes: 
 	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \

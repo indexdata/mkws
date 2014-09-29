@@ -66,6 +66,7 @@ function widget($, team, type, node) {
     return s.join('');
   };
 
+  // ### why is this a member function? It's never called from outside this file.
   that.expandValue = function(val) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
