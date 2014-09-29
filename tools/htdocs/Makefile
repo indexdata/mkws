@@ -35,7 +35,7 @@ COMPONENTS = ${SRC}/mkws-handlebars.js \
 	${SRC}/mkws-widget-builder.js
 
 GENERATED = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE} \
-	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js mkws-templates.js
+	mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js ${SRC}/mkws-templates.js
 
 **make-default**: all
 
@@ -93,14 +93,15 @@ release: mkws.js mkws-complete.js mkws.min.js mkws-complete.min.js
 		echo "Made release $(VERSION)"; \
 	fi
 
-mkws.js: mkws-templates.js $(COMPONENTS) Makefile
+mkws.js: $(COMPONENTS) Makefile
 	rm -f $@
 	cat ${COMPONENTS} > $@.tmp
 	mv -f $@.tmp $@
 	chmod 444 $@
 
-mkws-templates.js:
-	${HANDLEBARS} -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f ${SRC}/mkws-templates.js
+${SRC}/mkws-templates.js: ${SRC}/*.templates/*.handlebars
+	${HANDLEBARS} -n mkws.defaultTemplates ${SRC}/*.templates/*.handlebars -f $@.tmp
+	mv -f $@.tmp $@
 
 mkws-html-includes: 
 	echo $(COMPONENTS) | perl -npe "s,${SRC},,g; s/\s+/\0/g" | \
