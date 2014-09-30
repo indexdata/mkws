@@ -1,13 +1,14 @@
 <VirtualHost *:80>
     ServerName x.example.indexdata.com
-    DocumentRoot /Users/mike/git/work/mkws/examples/htdocs/
-    Alias /tools/htdocs/ /Users/mike/git/work/mkws/tools/htdocs/
-    Alias /src/ /Users/mike/git/work/mkws/src/
-    Alias /jasmine/ /Users/mike/git/work/mkws/examples/jasmine/
-    Alias /test/ /Users/mike/git/work/mkws/test/
+    DocumentRoot /home/mike/git/work/mkws/examples/htdocs/
+    Alias /tools/htdocs/ /home/mike/git/work/mkws/tools/htdocs/
+    Alias /src/ /home/mike/git/work/mkws/src/
+    Alias /jasmine/ /home/mike/git/work/mkws/examples/jasmine/
+    Alias /test/ /home/mike/git/work/mkws/test/
 
     <Directory />
         Allow from all
+	Require all granted
     </Directory>
 
     ErrorLog /var/log/apache2/mkws-examples-error.log
