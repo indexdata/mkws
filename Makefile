@@ -1,6 +1,7 @@
 # Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
 
-all:
+all: setup
+	${MAKE} -C./test node-modules
 	${MAKE} -C./tools/htdocs $@
 	${MAKE} -C./doc install
 
@@ -19,7 +20,6 @@ phantomjs p p-all phantomjs-all jsb:
 # must be called once after GIT checkout
 setup:
 	${MAKE} -C./test node-modules
-	${MAKE} all
 
 check: setup check-js phantomjs
 
