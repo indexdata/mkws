@@ -5,7 +5,7 @@ mkws.registerWidgetType('Record', function() {
   var team = this.team;
   team.queue("records").subscribe(function(data) {
     var template = team.loadTemplate(that.config.template || "Record");
-    var targs = $.extend({}, data.hits[0], that.config.template_vars);
+    var targs = mkws.$.extend({}, data.hits[0], that.config.template_vars);
     that.node.html(template(targs));
   });
   that.autosearch();
