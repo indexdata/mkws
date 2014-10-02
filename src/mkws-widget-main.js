@@ -126,7 +126,6 @@ mkws.registerWidgetType('Records', function() {
       if (hit.recid == team.currentRecordId()) {
         if (team.currentRecordData()) {
           hit.renderedDetails = team.renderDetails(team.currentRecordData());
-          console.log(hit.renderedDetails); 
         } 
       }
     }
