@@ -251,20 +251,21 @@ mkws.pazpar2_url = function() {
 };
 
 
-// We put a session ID in window.name, as it's the only place to keep
-// data that is preserved across reloads and within-site navigation.
-// pz2.js picks this up and uses it as part of the cookie-name, to
-// ensure we get a new session when we need one.
+// We put a session token in window.name, as it's the only place to
+// keep data that is preserved across reloads and within-site
+// navigation. pz2.js picks this up and uses it as part of the
+// cookie-name, to ensure we get a new session when we need one.
 //
 // We want to use different sessions for different windows/tabs (so
 // they don't receive each other's messages), different hosts and
 // different paths on a host (since in general these will
 // authenticate as different libraries). So the window name needs to
-// include a session identifier, the hostname and the path from the
-// URL.
+// include the hostname and the path from the URL, plus the token.
 //
+var token;
 if (window.name) {
-  mkws.log("Using existing window.name '" + window.name + "'");
+  token = window.name.replace(/.*\//, '');
+  mkws.log("Reusing existing window token '" + token + "'");
 } else {
   // Incredible that the standard JavaScript runtime doesn't define a
   // unique windowId. Instead, we have to make one up. And since there's
@@ -273,11 +274,13 @@ if (window.name) {
   // fingers.
   //
   // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
-  // At one per second, it will take 116 million years to duplicate a session
-  var session = Math.random().toString(36).slice(2, 12);
-  window.name = window.location.hostname + window.location.pathname + '/' + session;
-  mkws.log("Generated new window.name '" + window.name + "'");
+  // At one per second, it will take 116 million years to duplicate a token
+  token = Math.random().toString(36).slice(2, 12);
+  mkws.log("Generated new window token '" + token + "'");
 }
+
+window.name = window.location.hostname + window.location.pathname + '/' + token;
+mkws.log("Using window.name '" + window.name + "'");
 
 
 // wrapper to provide local copy of the jQuery object.
