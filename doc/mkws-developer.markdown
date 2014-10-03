@@ -258,4 +258,4 @@ TODO: list of events that can be usefully subscribed to.
 
 - - -
 
-Copyright (C) 2013-2014 by IndexData ApS, <http://www.indexdata.com>
+Copyright (C) 2013-2014 by Index Data ApS, <http://www.indexdata.com>

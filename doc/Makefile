@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
 DOCS = README.html README.odt README.pdf \
        mkws-manual.html mkws-manual.odt mkws-manual.pdf \

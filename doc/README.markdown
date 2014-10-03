@@ -88,4 +88,4 @@ For much more detail, see:
 
 - - -
 
-Copyright 2014 IndexData ApS. <http://indexdata.com>
+Copyright 2014 Index Data ApS. <http://indexdata.com>
