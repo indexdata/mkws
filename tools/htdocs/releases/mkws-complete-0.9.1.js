@@ -1,4 +1,4 @@
-/*! Copyright (c) 2013 IndexData ApS. http://indexdata.com
+/*! Copyright (c) 2013 Index Data ApS. http://indexdata.com
    created at: Thu Dec 19 15:38:43 GMT 2013
    mkws.js GIT id: 54b1dadf3e529bd323661138eaf255192706ef50
    pz2.js GIT id: fcae86df04ab28f83b889ca873275f68551928df

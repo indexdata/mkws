@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 #
 # You need node.js to build MKWS. On caliban, get it using:
 # export PATH=$PATH:/home/indexdata/node/node-v0.10.32-linux-x64/bin

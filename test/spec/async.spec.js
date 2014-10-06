@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 IndexData ApS. http://indexdata.com
+/* Copyright (c) 2013 Index Data ApS. http://indexdata.com
  *
  * async check
  *

@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (c) 2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2014 Index Data ApS. http://indexdata.com
 #
 # bomb.pl - wrapper to stop a process after N seconds
 #

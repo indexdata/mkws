@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
