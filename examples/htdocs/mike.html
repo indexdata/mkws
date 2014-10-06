@@ -4,9 +4,10 @@
     <title>MKWS demo</title>
     <script type="text/javascript">
       var mkws_config = {
+        sp_auth_credentials: "mkwstest/mkwstest"
       }
     </script>
-    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
     <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="tools/htdocs/handlebars-v1.3.0.js"></script>
@@ -27,14 +28,6 @@
     <script type="text/javascript" src="src/mkws-templates.js"></script>
   </head>
   <body>
-    <div class="mkwsAuthname"></div>
-    <div class="mkwsSwitch"></div>
-    <div class="mkwsLang"></div>
-    <div class="mkwsProgress"></div>
-    <div class="mkwsSearch"></div>
-    <div class="mkwsResults"></div>
-    <div class="mkwsTargets"></div>
-    <div class="mkwsStat"></div>
-    <div class="mkwsBuilder"></div>
+    <div class='mkwsReference' autosearch='!param!q' sentences='1'>result will appear here</div>
   </body>
 </html>
