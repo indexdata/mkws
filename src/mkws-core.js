@@ -461,7 +461,7 @@ mkws.log("Using window.name '" + window.name + "'");
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
-          myTeam = mkws.teams[tname] = team($, tname);
+          myTeam = mkws.teams[tname] = mkws.makeTeam($, tname);
           log("made MKWS team '" + tname + "'");
         }
 
