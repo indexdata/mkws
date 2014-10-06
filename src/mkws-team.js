@@ -8,7 +8,7 @@
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
-function team($, teamName) {
+mkws.makeTeam = function($, teamName) {
   var that = {};
   var m_teamName = teamName;
   var m_submitted = false;
