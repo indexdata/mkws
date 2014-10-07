@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
 SRC=   ../../src
 
@@ -43,7 +43,7 @@ all: mkws.min.js mkws-complete.min.js
 
 mkws-js mkws-complete.js: Makefile mkws.js ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 	( set -e; \
-	  echo "/*! Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com"; \
+	  echo "/*! Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com"; \
 	  echo "   Licence: GPL, http://www.indexdata.com/licences/gpl"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   MKWS GIT id: $$(git show | head -n 1 | perl -npe 's,\S+\s+,,')"; \

@@ -49,5 +49,5 @@ Installation
 $ make node-modules
 
 --
-Copyright (c) 2013-2014 IndexData ApS. http://indexdata.com
+Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 Feb 2014, Wolfram
