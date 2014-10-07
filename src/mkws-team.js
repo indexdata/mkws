@@ -172,9 +172,9 @@ mkws.makeTeam = function($, teamName) {
       params.onstat = onStat;
       log("setting stat callback");
     }
-    if (m_queues.termlists) {
+    if (m_queues.termlists && config.facets.length) {
+      params.onterm = onTerm;
       log("setting term callback");
-      params.onterm = (config.facets.length ? onTerm : undefined);
     }
     if (m_queues.records) {
       log("setting show callback");
