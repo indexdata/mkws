@@ -164,11 +164,26 @@ mkws.makeTeam = function($, teamName) {
     };
 
     params.oninit = onInit;
-    params.onbytarget = onBytarget;
-    params.onstat = onStat;
-    params.onterm = (config.facets.length ? onTerm : undefined);
-    params.onshow = onShow;
-    params.onrecord = onRecord;
+    if (m_queues.targets) {
+      params.onbytarget = onBytarget;
+      log("setting bytarget callback");
+    }
+    if (m_queues.stat) {
+      params.onstat = onStat;
+      log("setting stat callback");
+    }
+    if (m_queues.termlists) {
+      log("setting term callback");
+      params.onterm = (config.facets.length ? onTerm : undefined);
+    }
+    if (m_queues.records) {
+      log("setting show callback");
+      params.onshow = onShow;
+    }
+    if (m_queues.record) {
+      log("setting record callback");
+      params.onrecord = onRecord;
+    }
 
     m_paz = new pz2(params);
     log("ccreated main pz2 object");
