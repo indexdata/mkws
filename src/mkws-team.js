@@ -8,6 +8,9 @@
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
+// Before the team can be used for searching and related operations,
+// its pz2 object must be created by calling team.makePz2().
+//
 mkws.makeTeam = function($, teamName) {
   var that = {};
   var m_teamName = teamName;
@@ -465,6 +468,5 @@ mkws.makeTeam = function($, teamName) {
   }
 
 
-  that.makePz2();
   return that;
 };
