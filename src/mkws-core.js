@@ -462,7 +462,6 @@ mkws.log("Using window.name '" + window.name + "'");
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
           myTeam = mkws.teams[tname] = mkws.makeTeam($, tname);
-          myTeam.makePz2();
           log("made MKWS team '" + tname + "'");
         }
 
@@ -583,16 +582,16 @@ mkws.log("Using window.name '" + window.name + "'");
     var now = $.now();
 
     log("walking MKWS nodes took " + (now-then) + " ms");
-
-    /*
-      for (var tName in mkws.teams) {
+    for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
-      log("team '" + tName + "' = " + myTeam + " ...");
-      myTeam.visitWidgets(function(t, w) {
-      log("  has widget of type '" + t + "': " + w);
-      });
-      }
-    */
+      myTeam.makePz2();
+      log("made PZ2 object for team '" + tName + "'");
+      /*
+        myTeam.visitWidgets(function(t, w) {
+          log("  has widget of type '" + t + "': " + w);
+        });
+      */
+    }
 
     function sp_auth_url(config) {
       if (config.service_proxy_auth) {
