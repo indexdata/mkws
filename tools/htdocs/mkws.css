@@ -111,10 +111,15 @@
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
+    display: none;
 
     border-top-right-radius: 10px;
     -moz-border-top-right-radius: 10px;
     -webkit-border-top-right-radius: 10px;
+}
+
+.mkwsTermlists.active {
+    display: block;
 }
 
 .mkwsFacet {

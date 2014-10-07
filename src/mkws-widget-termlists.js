@@ -2,11 +2,8 @@ mkws.registerWidgetType('Termlists', function() {
   // Initially hide the termlists; display when we get results
   var that = this;
   var team = this.team;
-  mkws.$(document).ready(function() {
-    that.node.hide();
-  });
   team.queue("termlists").subscribe(function(data) {
-    that.node.show();
+    that.node.addClass("active");
   });
 
   var template = team.loadTemplate(this.config.template || "Termlists");
