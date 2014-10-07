@@ -95,25 +95,6 @@ mkws.makeTeam = function($, teamName) {
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
  
-  // create a parameters array and pass it to the pz2's constructor
-  // then register the form submit event with the pz2.search function
-  // autoInit is set to true on default
-  that.makePz2 = function() {
-    m_paz = new pz2({ "windowid": teamName,
-                      "pazpar2path": mkws.pazpar2_url(),
-                      "usesessions" : config.use_service_proxy ? false : true,
-                      "oninit": onInit,
-                      "onbytarget": onBytarget,
-                      "onstat": onStat,
-                      "onterm": (config.facets.length ? onTerm : undefined),
-                      "onshow": onShow,
-                      "onrecord": onRecord,
-                      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                      "termlist": config.facets.join(',')
-                    });
-    log("created main pz2 object");
-  }
-
   // pz2.js event handlers:
   function onInit() {
     log("init");
@@ -166,6 +147,26 @@ mkws.makeTeam = function($, teamName) {
     var recordDiv = findnode('.' + recordElementId(m_currentRecordData.recid[0]));
     var html = renderDetails(m_currentRecordData);
     $(recordDiv).append(html);
+  }
+
+
+  // create a parameters array and pass it to the pz2's constructor
+  // then register the form submit event with the pz2.search function
+  // autoInit is set to true on default
+  that.makePz2 = function() {
+    m_paz = new pz2({ "windowid": teamName,
+                      "pazpar2path": mkws.pazpar2_url(),
+                      "usesessions" : config.use_service_proxy ? false : true,
+                      "oninit": onInit,
+                      "onbytarget": onBytarget,
+                      "onstat": onStat,
+                      "onterm": (config.facets.length ? onTerm : undefined),
+                      "onshow": onShow,
+                      "onrecord": onRecord,
+                      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
+                      "termlist": config.facets.join(',')
+                    });
+    log("created main pz2 object");
   }
 
 
