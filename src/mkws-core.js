@@ -497,21 +497,6 @@ mkws.log("Using window.name '" + window.name + "'");
     if (message) greet += " :: " + message; 
     mkws.log(greet);
 
-    // TODO: Let's remove this soon
-    // Backwards compatibility: set new magic class names on any
-    // elements that have the old magic IDs.
-    var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
-                "Results", "Records", "Targets", "Ranking",
-                "Termlists", "Stat", "MOTD" ];
-    for (var i = 0; i < ids.length; i++) {
-      var id = 'mkws' + ids[i];
-      var node = $('#' + id);
-      if (node.attr('id')) {
-        node.addClass(id);
-        log("added magic class to '" + node.attr('id') + "'");
-      }
-    }
-
     // MKWS is not active until init() has been run against an object with widget nodes.
     // We only set initial configuration when MKWS is first activated.
     if (!mkws.isActive) {
