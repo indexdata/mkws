@@ -34,6 +34,9 @@
         return mkws.getParameterByName('q', obj[0]);
       }
     });
+    Handlebars.registerHelper('mkws-topicurl', function(topic) {
+      return window.location.pathname + "?q=" + encodeURIComponent(topic);
+    });
   </script>
   <script class="mkwsTemplate_TopicImage" type="text/x-handlebars-template">
     {{#each hits}}
@@ -52,7 +55,7 @@
     {{#each terms}}
       <li class="list-group-item mkwsTerm">
         <span class="badge">{{count}}</span>
-        <a href="#" {{linkdata}}>{{term}}</a>
+        <a href="{{mkws-topicurl term}}">{{term}}</a>
       </li>
     {{/each}}
   </script>
