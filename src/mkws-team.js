@@ -179,8 +179,7 @@ mkws.makeTeam = function($, teamName) {
     if (m_queues.records) {
       log("setting show callback");
       params.onshow = onShow;
-    }
-    if (m_queues.record) {
+      // Record callback is subscribed from records callback
       log("setting record callback");
       params.onrecord = onRecord;
     }
