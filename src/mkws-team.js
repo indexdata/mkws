@@ -95,7 +95,7 @@ mkws.makeTeam = function($, teamName) {
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
  
- // create a parameters array and pass it to the pz2's constructor
+  // create a parameters array and pass it to the pz2's constructor
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   that.makePz2 = function() {
