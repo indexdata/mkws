@@ -66,8 +66,7 @@ function widget($, team, type, node) {
     return s.join('');
   };
 
-  // ### why is this a member function? It's never called from outside this file.
-  that.expandValue = function(val) {
+  function expandValue(val) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
       val = mkws.getParameterByName(param);
@@ -153,7 +152,7 @@ function widget($, team, type, node) {
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
-    var val = that.expandValue(a.value);
+    var val = expandValue(a.value);
     if (a.name === 'data-mkws-config') {
       // Treat as a JSON fragment configuring just this widget
       log(node + ": parsing config fragment '" + val + "'");
