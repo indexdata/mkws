@@ -64,17 +64,17 @@ mkws.makeTeam = function($, teamName) {
   //    team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
   //    team.queue("eventName").publish(arg1, arg2, ...);
   //
-  var queues = {};
+  var m_queues = {};
   function queue(id) {
-    if (!queues[id]) {
+    if (!m_queues[id]) {
       var callbacks = $.Callbacks();
-      queues[id] = {
+      m_queues[id] = {
         publish: callbacks.fire,
         subscribe: callbacks.add,
         unsubscribe: callbacks.remove
       };
     }
-    return queues[id];
+    return m_queues[id];
   };
   that.queue = queue;
 
