@@ -462,6 +462,7 @@ mkws.log("Using window.name '" + window.name + "'");
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
           myTeam = mkws.teams[tname] = mkws.makeTeam($, tname);
+          myTeam.makePz2();
           log("made MKWS team '" + tname + "'");
         }
 
