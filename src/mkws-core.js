@@ -466,7 +466,7 @@ mkws.log("Using window.name '" + window.name + "'");
         }
 
         var oldHTML = this.innerHTML;
-        var myWidget = widget($, myTeam, type, this);
+        var myWidget = makeWidget($, myTeam, type, this);
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
