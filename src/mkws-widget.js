@@ -1,5 +1,5 @@
 // Factory function for widget objects.
-function makeWidget($, team, type, node) {
+mkws.makeWidget = function($, team, type, node) {
   // Static register of attributes that do not contribute to config
   var ignoreAttrs = {
     id:1, 'class':1, style:1, name:1, action:1, type:1, size:1,
