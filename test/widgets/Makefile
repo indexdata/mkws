@@ -28,7 +28,7 @@ screenshot:
 	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
-screenshots:
+screenshots: clean
 	for i in $$(cat url.txt); do \
 	  make PHANTOMJS_URL="$$i" TIMEOUT=4 screenshot; \
 	done; wait
