@@ -3,7 +3,7 @@
 PHANTOMJS_TIMEOUT=18
 PHANTOMJS=	../node_modules/phantomjs/bin/phantomjs
 IMAGES=		./images
-SCREENSHOT_WIDTH_HEIGHT=	1400 800
+SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PERL_SCRIPTS=	../bin/bomb.pl
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
@@ -12,7 +12,7 @@ TIMEOUT=5
 PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
 PHANTOMJS_URL=	http://www.indexdata.com/
 
-all: check
+all: help
 
 clean:
 	rm -f mkws-error.png mkws-error.html 
@@ -38,6 +38,7 @@ index:
 
 help:
 	@echo "make [ all | clean | distclean ]"
-	@echo "     [ screenshot | index | screenshots ]"
+	@echo "     [ screenshots ]"
+	@echo "     [ screenshot | index ]"
 	@echo ""
 
