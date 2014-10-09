@@ -80,6 +80,9 @@ screenshot-indexdata:
 	done; wait
 	ls -l ${IMAGES}
 
+screenshots:
+	make -C ./widgets $@
+
 jsbeautifier jsb indent:
 	for i in package.json ./spec*/*.js ./js/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
@@ -110,6 +113,7 @@ help:
 	@echo "make [ all | check | clean | distclean ]"
 	@echo "     [ phantomjs | phantomjs-all ]"
 	@echo "     [ jsbeautifier | perltidy | screenshot ]"
+	@echo "     [ screenshots ]"
 	@echo "     [ node-modules ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
