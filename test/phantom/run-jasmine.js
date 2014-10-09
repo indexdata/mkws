@@ -136,7 +136,7 @@ page.open(url, function (status) {
                 html: $("html").html(),
                 duration: $(".duration").text(),
                 error_msg: error_msg,
-                failed: list.length,
+                failed: (list.length > 0 || !passing),
                 passing: passing
             };
         })
