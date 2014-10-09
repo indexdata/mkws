@@ -24,7 +24,10 @@ notes    -- internal documents, not for customers
 Required devel tools
 ====================
 
-On debian, you will need:
+If you are building the widget set, as opposed to just using it, you
+will need the following Debian packages (or their equivalents on your
+operating system):
+
 $ sudo apt-get install curl git-core pandoc yui-compressor node-js libbsd-resource-perl
 
 On Debian 7 (wheezy), you do not need git-core, plain git will do, but
