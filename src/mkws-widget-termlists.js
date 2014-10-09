@@ -52,6 +52,7 @@ mkws.registerWidgetType('Facet', function() {
       linkdata += 'onclick="' + action + ';return false;"';
       terms.push({
         term: data[i].name,
+        field: data[i].id,
         count: data[i].freq,
         linkdata: linkdata
       }); 
@@ -72,6 +73,7 @@ mkws.registerWidgetType('Facet', function() {
     that.node.html(template({
       name: name,
       caption: caption,
+      query: that.config.query,
       terms: terms
     }));
   });
