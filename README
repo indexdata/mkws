@@ -20,10 +20,6 @@ doc      -- documentation (in Markdown, compiles to HTML)
 test     -- regression-testing scripts
 notes    -- internal documents, not for customers
 
-
-NEWS
-====
-
-see tools/htdocs/NEWS
+See tools/htdocs/NEWS for the change-log.
 
 
