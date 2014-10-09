@@ -3,17 +3,21 @@ OVERVIEW
 
 The MasterKey Widget Set, or MKWS, provides HTML/JS/CSS widgets that
 can be dropped into ANY website, irrespective of CMS or lack thereof,
-to enable MasterKey searching.
+to enable MasterKey searching. See the contents of the "doc" directory
+for further documentation.
 
 
 WHAT'S WHAT
 ===========
 
 README   -- this file
+LICENSE  -- The GNU LGPL (Lesser General Public Licence)
 Makefile -- delegates to tools/htdocs/Makefile
+src      -- source-code that is compiled into the tools area
 tools 	 -- the tools that make up the Widget Set
 examples -- examples of applications that use MKWS
-
+doc      -- documentation (in Markdown, compiles to HTML)
+test     -- regression-testing scripts
 notes    -- internal documents, not for customers
 
 
