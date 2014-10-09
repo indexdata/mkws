@@ -24,7 +24,7 @@ distclean: clean
 test: check
 
 screenshot:
-	file=$$(echo "${PHANTOMJS_URL}" | ${MD5} | perl -npe 's,\s.*,,'); \
+	file=$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g'); \
 	${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}
 
 screenshots:
@@ -34,7 +34,7 @@ screenshots:
 	make index
 
 index:
-	cd ${IMAGES}; ls *.png | perl -ne 'chomp; print qq{<img src="$$_">$$_</img><hr/>\n}' > index.html
+	cd ${IMAGES}; ls *.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="$$_"/><br/><br/><p/>\n}' > index.html
 
 help:
 	@echo "make [ all | clean | distclean ]"
