@@ -187,4 +187,4 @@ mkws.makeWidget = function($, team, type, node) {
   }
 
   return that;
-}
+};
