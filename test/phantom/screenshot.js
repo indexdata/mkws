@@ -3,6 +3,7 @@ var page = require('webpage').create(),
 
 var url = system.args[1] || 'http://www.indexdata.com/';
 var file_png = system.args[2] || 'indexdata.png';
+var timeout = system.args[5] ? system.args[5] : 0.2;
 
 if (system.args.length === 1) {
     console.log('Usage: screenshot.js <some URL> <file.png>');
@@ -25,5 +26,5 @@ page.open(url, function () {
     setTimeout(function () {
         var ret = page.render(file_png);
         phantom.exit();
-    }, 200);
+    }, timeout * 1000);
 });
