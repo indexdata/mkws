@@ -7,7 +7,16 @@
         sp_auth_credentials: "mkwstest/mkwstest"
       }
     </script>
-    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
+<!--
+    <script type="text/javascript" src="tools/htdocs/mkws-complete.js"></script>
+-->
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
+<!--
     <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
@@ -26,8 +35,17 @@
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
     <script type="text/javascript" src="src/mkws-templates.js"></script>
+-->
   </head>
   <body>
-    <div class='mkwsReference' autosearch='!param!q' sentences='1'>result will appear here</div>
+    <div class="mkwsAuthname"></div>
+    <div class="mkwsSwitch"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsProgress"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
+    <div class="mkwsBuilder"></div>
   </body>
 </html>
