@@ -3,6 +3,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo jasmine test framework</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+
     <script type="text/javascript">
       var mkws_config = {
 	  pazpar2_url : "//sp-mkws.indexdata.com/service-proxy/",
@@ -10,21 +11,8 @@
 	  perpage_default: 10
       };
     </script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.7.2.min.js"></script> 
-    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
-    <script type="text/javascript" src="tools/htdocs/handlebars-v1.3.0.js"></script>
-    <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
-    <style type="text/css">
-      .mkwsTermlists div.facet {
-      float:left;
-      width: 30%;
-      margin: 0.3em;
-      }
-      .mkwsStat {
-      text-align: right;
-      }
-    </style>
+   
+    <script type="text/javascript" src="tools/htdocs/mkws-complete.js"></script>
 
   <!-- SECTION jasmine -->
     <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-1.3.1/jasmine_favicon.png">
@@ -42,40 +30,15 @@
   <!-- EOF jasmine -->
 
   </head>
-  <body>
-    <div id="testMOTD"><div class="mkwsMOTD">This is the mkwsMOTD div</div></div>
-    <table width="100%" border="0">
-      <tr>
-        <td>
-          <div class="mkwsSwitch"></div>
-          <div class="mkwsLang"></div>
-          <div class="mkwsSearch"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:500px; overflow: auto">
-            <div class="mkwsPager"></div>
-            <div class="mkwsNavi"></div>
-            <div class="mkwsRecords"></div>
-            <div class="mkwsTargets"></div>
-            <div class="mkwsRanking"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:300px; overflow: hidden">
-            <div class="mkwsTermlists"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="mkwsStat"></div>
-        </td>
-      </tr>
-    </table>
 
+  <body>
+    <div class="mkwsSwitch"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsProgress"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
+    <div class="mkwsBuilder"></div>
   </body>
 </html>
