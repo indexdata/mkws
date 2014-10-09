@@ -40,7 +40,7 @@ extent. Against this backdrop, we introduced MKWS (the MasterKey
 Widget Set) -- a set of simple, very high-level HTML+CSS+JavaScript
 components that can be incorporated into any web-site to provide
 MasterKey searching facilities. By placing `<div>`s with well-known
-identifiers in any HTML page, the various components of an application
+MKWS classes in any HTML page, the various components of an application
 can be embedded: search-boxes, results areas, target information, etc.
 
 
