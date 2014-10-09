@@ -57,10 +57,10 @@ _phantomjs:
 	perl ./bin/bomb.pl --timeout="${PHANTOMJS_TIMEOUT}.5" ${PHANTOMJS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 phantomjs-all p-all:
-	${MAKE} phantomjs PHANTOMJS_PATH=jasmine.html
-	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-cors-popup.html
 	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-local-popup.html
 	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-popup.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-cors-popup.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine.html
 
 mike-test:
 	$(MAKE) _phantomjs PHANTOMJS_URL=http://x.example.indexdata.com/jasmine-popup.html
