@@ -34,7 +34,7 @@ screenshots:
 	make index
 
 index:
-	cd ${IMAGES}; ls *.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="$$_"/><br/><br/><p/>\n}' > index.html
+	cd ${IMAGES}; ls -tr *.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="$$_"/><br/><br/><p/>\n}' > index.html
 
 help:
 	@echo "make [ all | clean | distclean ]"
