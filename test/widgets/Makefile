@@ -16,7 +16,7 @@ all: help
 
 clean:
 	rm -f mkws-error.png mkws-error.html 
-	rm -f ${IMAGES}/*.png
+	rm -f ${IMAGES}/*.png ${IMAGES}/*.png.tmp
 	rm -f ${IMAGES}/index.html
 
 distclean: clean
@@ -25,7 +25,8 @@ test: check
 
 screenshot:
 	file=$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g'); \
-	${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}
+	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
+	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
 screenshots:
 	for i in $$(cat url.txt); do \
