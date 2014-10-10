@@ -57,8 +57,8 @@ The following is a complete MKWS-based searching application:
         <link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
       </head>
       <body>
-        <div id="mkwsSearch"></div>
-        <div id="mkwsResults"></div>
+        <div class="mkwsSearch"></div>
+        <div class="mkwsResults"></div>
       </body>
     </html>
 
