@@ -728,15 +728,22 @@ describe("Check SortBy options", function () {
     });
 });
 
-xdescribe("Check async widget discovery", function () {
+describe("Check async widget discovery", function () {
   var $ = mkws.$;
   it("initialises a new widget", function() {
-    $("div.mkwsSearch").after('<div id="asyncSearch"><div id="asyncSearch" class="mkwsSearch mkwsTeam_async"></div></div>');
-    mkws.init("Another search box");
-    // mkws.init("Another search box", "#asyncSearch");
+    $("div.mkwsSearch").after('<div id="asyncSearch"><div class="mkwsSearch mkwsTeam_async"></div></div>');
+    mkws.init("Another search box", "#asyncSearch");
     waitsFor(function () {
       return $("#asyncSearch input").length >= 1 ? true : false;
     }, "Call init() to build an .mkwsSearch", 750);
+    runs(function () {
+      var numInput = $("div.mkwsSearch input").length;
+      debug("Input elements present: " + numInput);
+      expect(numInput).toBe(4);
+      var numRec = $("div.mkwsRecords > div.mkwsSummary > a").length;
+      debug("Records should still be present. There are: " + numRec);
+      expect(numRec).toBeGreaterThan(0);
+    });
   });
 });
 
