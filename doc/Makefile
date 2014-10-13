@@ -25,7 +25,7 @@ all: $(DOCS)
 # for older pandoc (<1.9) run first:
 # perl -i.bak -npe 's/"(Authors|Subjects)": "(.*?)"/"$1": "test"/' tools/htdocs/mkws-manual.markdown
 #
-%.html: %.markdown
+%.html: %.markdown tweak-html
 	rm -f $@
 	pandoc --standalone --toc -c mkws-doc.css $< | ./tweak-html > $@
 	chmod ugo-w $@
