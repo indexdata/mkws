@@ -27,7 +27,7 @@ all: $(DOCS)
 #
 %.html: %.markdown
 	rm -f $@
-	pandoc --standalone --toc -c mkws-doc.css $< | sed '/^<col width="[0-9]*%" \/>$//d' > $@
+	pandoc --standalone --toc -c mkws-doc.css $< | ./tweak-html > $@
 	chmod ugo-w $@
 
 %.odt: %.markdown
