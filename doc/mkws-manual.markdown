@@ -62,12 +62,11 @@ The following is a complete MKWS-based searching application:
       </body>
     </html>
 
-Go ahead, try it! You don't even need a web-server. Just copy and
-paste this HTML into a file on your computer -- `/tmp/magic.html`,
-say -- and point your web-browser at it:
-`file:///tmp/magic.html`. Just like that, you have working
-metasearching.
-
+Go ahead, try it! Simply put the above in a file (e.g index.html),
+drop it into a folder accessible with an ordinary web-server (e.g Apache)
+and load it in your web browser (and no, usually, you can't just load the file
+directly from disk as some browsers, e.g Chrome, won't allow storing cookies).
+Just like that, you have working metasearching.
 
 How the example works
 ---------------------
