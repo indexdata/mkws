@@ -9,7 +9,7 @@ function usage (message) {
     if (message) {
         console.log(message + "\n");
     }
-    console.log('Usage: screenshot.js <some URL> <file.png>');
+    console.log('Usage: screenshot.js <some URL> <file.png> <width px> <height px> <timeout sec>');
     phantom.exit();
 }
 
