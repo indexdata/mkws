@@ -7,8 +7,6 @@ DOCS = README.html README.odt README.pdf \
 INSTALLABLE = README.html mkws-manual.html mkws-developer.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
 
-all: $(DOCS)
-
 install: $(INSTALLED)
 
 uninstall:
@@ -18,6 +16,8 @@ uninstall:
 	rm -f $@
 	cp -p $? $@
 	chmod ugo-w $@
+
+all: $(DOCS)
 
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
