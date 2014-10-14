@@ -1,6 +1,8 @@
-NEWS
 index.html
 README.html
+mkws-manual.html
+mkws-developer.html
+NEWS
 VERSION
 handlebars-v2.0.0.js
 jquery-1.10.0.min.js
@@ -12,5 +14,3 @@ mkws-jquery.js
 mkws.js
 mkws.min.js
 pz2.js
-mkws-manual.html
-mkws-developer.html
