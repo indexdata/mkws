@@ -12,8 +12,6 @@ so that very simple applications such as
 	<http://example.indexdata.com/simple.html>
 can have MasterKey searching with minimal effort.
 
-The following files are hosted on `mkws.indexdata.com`:
-
 
 Supported Browsers
 ------------------
