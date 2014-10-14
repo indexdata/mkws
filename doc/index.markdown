@@ -65,14 +65,6 @@ Minified versions of the MKWS JavaScript files are also available:
 * <a href="mkws.min.js">mkws.min.js</a>
 * <a href="mkws-complete.min.js">mkws-complete.min.js</a>
 
-(This domain also hosts two web-service endpoints that are used by
-running MKWS-based applications:
-`/service-proxy-auth`
-is used to authenticate new sessions and
-`/service-proxy/`
-is the main endpoint for searching and retrieval. But there is
-no need to use these directly: the widgets take care of that.)
-
 Versions
 --------
 
