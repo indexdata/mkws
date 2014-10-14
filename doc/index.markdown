@@ -20,8 +20,7 @@ A minimal example
 Here is a completely functional (though ugly) MKWS-based
 searching application:
 
-	<script type="text/javascript"
-	  src="http://mkws.indexdata.com/mkws-complete.js"></script>
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 	<div class="mkwsSearch"></div>
 	<div class="mkwsResults"></div>
 
