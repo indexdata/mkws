@@ -49,8 +49,8 @@ Here are the files that this web-site provides:
   A local copy of
   <a href="http://handlebarsjs.com/">the Handlebars templating library</a>,
   since it doesn't like to be hotlinked.
-* Local copy of `jquery-1.10.0.min.js`
-* Local copy of `jquery.json-2.4.js`
+* Local copy of <a href="jquery-1.10.0.min.js">jquery-1.10.0.min.js</a>
+* Local copy of <a href="jquery.json-2.4.js">jquery.json-2.4.js</a>
 * <a href="mkws-complete.js">mkws-complete.js</a> --
   A single large JavaScript file containing everything needed for
   MKWS to work: the widget-set itself, the API library, and
