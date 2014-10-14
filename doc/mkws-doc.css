@@ -13,6 +13,9 @@ div#header h2 { font-size: 120% }
   background-position: right top;
   background-color: #eee; 
 }
+.pane:nth-child(3) {
+  background-image: none;
+}
 .pane h1 a, .pane h2 a, .pane h3 a { text-decoration: none; color: black }
 .nologo { background-image: none }
 pre { background: #ddd; padding: 0.5em; }
