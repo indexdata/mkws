@@ -6,10 +6,6 @@
 Introduction
 ------------
 
-This is the MasterKey Widget Set. It provides a way to insert
-searching and other information-related functionality into existing
-web pages as small snippets of HTML.
-
 As much of the searching functionality as possible is hosted on
 	<http://mkws.indexdata.com/>
 so that very simple applications such as
@@ -17,16 +13,6 @@ so that very simple applications such as
 can have MasterKey searching with minimal effort.
 
 The following files are hosted on `mkws.indexdata.com`:
-
-* `mkws.js` (and its compressed version `mkws.min.js`)
-* `/pazpar2/js/pz2.js`
-* `mkws-complete.js` (and its compressed version `mkws-complete.min.js`)
-  -- a single file consisting of `mkws.js` together with the files it
-  uses: `pz2.js` jQuery, jQuery-JSON and Handlebars.
-* Local copy of `jquery-1.10.0.min.js`
-* Local copy of `jquery.json-2.4.js`
-* Local copy of `handlebars-v1.1.2.js`
-* `mkws.css`
 
 
 Supported Browsers
