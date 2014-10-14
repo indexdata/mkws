@@ -173,6 +173,8 @@ We can set that up for you: email us on
 <a href="mailto:info@indexdata.com"
                >info@indexdata.com</a>.
 
+- - -
+
 <p style="text-align: right; font-size: small">
 Copyright (&copy;) 2013-2014 Index Data ApS.
 <a href="http://indexdata.com">`http://indexdata.com`</a>
