@@ -34,6 +34,7 @@ Documentation
 * The <a href="README.html">README</a> -- mostly technical details.
 * The <a href="mkws-manual.html">MKWS manual, including a reference section.</a>
   This is a much better introduction.
+* The <a href="mkws-developer.html">MKWS developers' guide.</a>
 
 Tools
 -----
