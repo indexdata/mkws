@@ -45,7 +45,7 @@ Here are the files that this web-site provides:
 * <a href="pazpar2/js/pz2.js">pazpar2/js/pz2.js</a> --
   Low-level JavaScript library for access to the MasterKey web
   service.
-* <a href="handlebars-v1.1.2.js">handlebars-v1.1.2.js</a> --
+* <a href="handlebars-v2.0.0.js">handlebars-v2.0.0.js</a> --
   A local copy of
   <a href="http://handlebarsjs.com/">the Handlebars templating library</a>,
   since it doesn't like to be hotlinked.
