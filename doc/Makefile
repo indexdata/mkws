@@ -24,7 +24,7 @@ uninstall:
 all: $(DOCS)
 
 # For a description of pandoc's markdown format, see:
-# http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html -->
+# http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
 
 # for older pandoc (<1.9) run first:
 # perl -i.bak -npe 's/"(Authors|Subjects)": "(.*?)"/"$1": "test"/' tools/htdocs/mkws-manual.markdown
