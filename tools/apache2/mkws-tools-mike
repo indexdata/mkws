@@ -12,4 +12,7 @@
         Allow from all
 	Require all granted
     </Directory>
+    <Location /releases/>
+	Options indexes
+    </Location>
 </VirtualHost>
