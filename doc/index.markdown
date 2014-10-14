@@ -11,7 +11,7 @@ an existing web-site with customised searching across multiple
 sources, ranking and merging the results.
 
 All you need to do is pull in our JavaScript and optional stylesheet,
-then add `<div>`s to your page that have special `id` attributes. We
+then add `<div>`s to your page that have special `class` attributes. We
 do the rest.
 
 A minimal example
@@ -22,8 +22,8 @@ searching application:
 
 	<script type="text/javascript"
 	  src="http://mkws.indexdata.com/mkws-complete.js"></script>
-	<div id="mkwsSearch"></div>
-	<div id="mkwsResults"></div>
+	<div class="mkwsSearch"></div>
+	<div class="mkwsResults"></div>
 
 That's it. A complete metasearching application. Everything
 else is refinement.
