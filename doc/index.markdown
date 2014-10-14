@@ -49,6 +49,8 @@ Here are the files that this web-site provides:
   A local copy of
   <a href="http://handlebarsjs.com/">the Handlebars templating library</a>,
   since it doesn't like to be hotlinked.
+* Local copy of `jquery-1.10.0.min.js`
+* Local copy of `jquery.json-2.4.js`
 * <a href="mkws-complete.js">mkws-complete.js</a> --
   A single large JavaScript file containing everything needed for
   MKWS to work: the widget-set itself, the API library, and
@@ -56,6 +58,7 @@ Here are the files that this web-site provides:
 * <a href="mkws.css">mkws.css</a> --
   A stylesheet which styles only MasterKey widgets, and does not
   otherwise interfere with application-site's styles.
+
 
 Minified versions of the MKWS JavaScript files are also available:
 
