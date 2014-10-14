@@ -1,9 +1,9 @@
 # Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
-DOCS = index.html index.odt index.pdf \
-       README.html README.odt README.pdf \
-       mkws-manual.html mkws-manual.odt mkws-manual.pdf \
-       mkws-developer.html mkws-developer.odt mkws-developer.pdf
+DOCS = index.html index.pdf \
+       README.html README.pdf \
+       mkws-manual.html mkws-manual.pdf \
+       mkws-developer.html mkws-developer.pdf
 
 INSTALLABLE = index.html README.html mkws-manual.html mkws-developer.html mkws-doc.css
 INSTALLED = $(INSTALLABLE:%=../tools/htdocs/%)
@@ -29,11 +29,6 @@ all: $(DOCS)
 %.html: %.markdown tweak-html
 	rm -f $@
 	pandoc --standalone --toc -c mkws-doc.css $< | ./tweak-html > $@
-	chmod ugo-w $@
-
-%.odt: %.markdown
-	rm -f $@
-	pandoc --standalone $< -o $@
 	chmod ugo-w $@
 
 # ### In order to compile the manual, which has tables, to PDF,
