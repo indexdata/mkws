@@ -1,4 +1,7 @@
 # Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
+#
+# To build the PDFs, you will need these Debian packages:
+#	texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
 DOCS = index.html index.pdf \
        README.html README.pdf \
