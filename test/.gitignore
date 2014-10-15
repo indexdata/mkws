@@ -3,3 +3,5 @@ logs/error-*\.log
 logs/jasmine-dev-*\.conf
 logs/mkws-jasmine-*\.log
 node_modules
+widgets/images/http---*
+widgets/images/index.html
