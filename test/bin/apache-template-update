@@ -9,10 +9,11 @@ export APACHE_SERVER_ROOT=$(pwd)
 export APACHE_RUN_USER=$(whoami)
 export APACHE_RUN_GROUP=$(groups | awk '{ print $1 }')
 
-export APACHE_LOG_DIR=$APACHE_SERVER_ROOT/logs
-export APACHE_PID_FILE=$APACHE_LOG_DIR/mkws-jasmine.pid
-export APACHE_LOCK_FILE=$APACHE_LOG_DIR/accept.lock
 : ${APACHE_PORT=4040}; export APACHE_PORT
+
+export APACHE_LOG_DIR=$APACHE_SERVER_ROOT/logs
+export APACHE_PID_FILE=$APACHE_LOG_DIR/mkws-jasmine-${APACHE_PORT}.pid
+export APACHE_LOCK_FILE=$APACHE_LOG_DIR/accept-${APACHE_PORT}.lock
 
 export MKWS_ROOT=$(pwd)/..
 
@@ -47,7 +48,7 @@ else
     APACHE_MODULES="$MKWS_ROOT/tools/apache2/jasmine-dev.apache-modules.$MKWS_OS.conf"
 fi
 
-: ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev"}
+: ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev-${APACHE_PORT}.conf"}
 export APACHE_MODULES
 
 perl -npe 's,\${(.*?)},$ENV{$1},g; ' $MKWS_APACHE_TEMPLATE > $MKWS_APACHE_FILE.tmp

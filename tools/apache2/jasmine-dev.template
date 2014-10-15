@@ -27,12 +27,12 @@ Include ${APACHE_MODULES}
     ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
 
     ServerAdmin webmaster@indexdata.com
-    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
-    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-${APACHE_PORT}-error.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-${APACHE_PORT}-access.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite.log 
+    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite-${APACHE_PORT}.log 
 
     DocumentRoot ${MKWS_ROOT}/examples/htdocs
     Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs

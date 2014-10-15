@@ -24,8 +24,8 @@ Include ${APACHE_MODULES}
     ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
 
     ServerAdmin webmaster@indexdata.com
-    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
-    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error-${APACHE_PORT}.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access-${APACHE_PORT}.log combined
     LogLevel info rewrite:debug
 
     RewriteEngine on
