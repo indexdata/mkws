@@ -204,7 +204,7 @@ documentation](http://handlebarsjs.com/).
 
 The templates used by the core widgets can be viewed in [our git
 repository](http://git.indexdata.com/?p=mkws.git;a=tree;f=src/mkws.templates;).
-Replacement values are documented in a comment at the top of each template so
+Parameters are documented in a comment at the top of each template so
 you can see what's going where. If all you want to do is add a CSS class to
 something or change a `span` to a `div` it's easy to just copy the existing
 template and make your edits.
@@ -216,7 +216,7 @@ To override the template for a widget, include it inline in the document
 as a `<script>` tag marked with a class of `mkwsTemplate_Foo` where Foo is the
 name of the template you want to override (typically the name of the widget).
 Inline Handlebars templates are distinguished from Javascript via a
-`type="text/x-handlebars-template` attribute. For example, to override the
+`type="text/x-handlebars-template"` attribute. For example, to override the
 Pager template you would include this in your document:
 
     <script class="mkwsTemplate_Pager" type="text/x-handlebars-template">
@@ -225,25 +225,26 @@ Pager template you would include this in your document:
 
 The Facet template has a special feature where you can override it on a
 per-facet basis by adding a dash and the facet name as a suffix eg.
-`Facet-Subjects` rather than `Facet`.
+`Facet-Subjects` rather than `Facet`. (So `class="mkwsTemplate_Facet-Subjects"`)
 
 You can also explicitly specify a different template for a particular instance
 of a widget by providing the name of your alternative (eg. SpecialPager) as the
-value of the `template` key in the MKWS config object for that widget
-(usually via the `data-mkws-config` attribute). 
+value of the `template` key in the MKWS config object for that widget:
+for example, `<div class="mkwsPager" template="specialPager"/>`.
 
 Templates for MKWS can also be
 [precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
 template of the same name is found in the `Handlebars.templates` object, it
 will be used instead of the default.
 
-Templating metadata
--------------------
+Inspecting metadata for templating
+----------------------------------
 
 MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
 searching. Depending on how these are configured and what is available from the
 targets you are searching there may be more data available than what is
-presented by the default templates. 
+presented by the default templates. In this case, you can redefine the
+`Record` template to include more fields in the full-record popup.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
