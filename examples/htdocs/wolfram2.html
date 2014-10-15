@@ -5,61 +5,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Wolfram's playground</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
-    <style type="text/css">
-      .mkwsTermlists div.facet {
-      float:left;
-      width: 30%;
-      margin: 0.3em;
-      }
-      .mkwsStat {
-      text-align: right;
-      }
-    </style>
   </head>
+
   <body>
-    <table width="100%" border="0">
-      <tr>
-        <td>
-	  <div class="mkwsSwitch"></div>
-          <div class="mkwsLang"></div>
-          <div class="mkwsSearch"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:500px; overflow: auto">
-            <div class="mkwsPager"></div>
-            <div class="mkwsNavi"></div>
-            <div class="mkwsRecords"></div>
-            <div class="mkwsTargets"></div>
-            <div class="mkwsRanking"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:300px; overflow: hidden">
-            <div class="mkwsTermlists"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="mkwsStat"></div>
-        </td>
-      </tr>
-    </table>
+    <!-- <div class="mkwsAuthname"></div> -->
+    <div class="mkwsSwitch"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsProgress"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
+    <!-- <div class="mkwsBuilder"></div> -->
 
-    <script type="text/javascript" src="src/mkws-complete.js"></script>
-    <!-- <script type="text/javascript" src="https://mkws.indexdata.com/mkws-complete.js"></script> -->
-
+    <script type="text/javascript" src="tools/htdocs/mkws-complete.js"></script>
     <script type="text/javascript">
       var mkws_config = {
-          pazpar2_url : "/service-proxy/",
-          service_proxy_auth: "/service-proxy-testauth",
-          perpage_default: 10
+	sp_auth_credentials: "mkwstest/mkwstest"
       };
     </script>
-
   </body>
 </html>
