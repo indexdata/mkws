@@ -716,7 +716,7 @@ describe("Check SortBy options", function () {
             var title_list_new = title_list("yyy ");
             var diff_flag = 0;
             for (var i = 0; i < title_list_old.length; i++) {
-                debug(title_list_old[i] + " :: " + title_list_new[i]);
+                debug((i+1) + ". " + title_list_old[i] + " :: " + title_list_new[i]);
 
                 if (title_list_old[i] != title_list_new[i]) {
                     diff_flag++;
