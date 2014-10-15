@@ -18,6 +18,7 @@ SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bin/bomb.pl
 TMP_DIR=	./logs
 APACHE_HTTPD:=	$(shell env PATH=$$PATH:/usr/sbin which apache2 httpd false | head -1 )
+APACHE_PORT ?= 4040
 
 all: check
 
@@ -27,7 +28,7 @@ clean:
 
 distclean: clean clean-tmp clean-error
 	rm -rf node_modules
-	rm -f ${TMP_DIR}/jasmine-dev
+	rm -f ${TMP_DIR}/jasmine-dev*.conf
 	rm -f libexec
 	make -C./widgets $@
 
@@ -99,16 +100,17 @@ node_modules node-modules:
 
 apache-start:
 	bin/apache-template-update
-	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev
+	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
 
+APACHE_PID_FILE=${TMP_DIR}/mkws-jasmine-${APACHE_PORT}.pid 
 apache-stop:
-	@-if [ -e ${TMP_DIR}/mkws-jasmine.pid ]; then \
-	   kill `cat ${TMP_DIR}/mkws-jasmine.pid`; \
+	@-if [ -e ${APACHE_PID_FILE} ]; then \
+	   kill `cat ${APACHE_PID_FILE}`; \
 	else \
 	   killall apache2 2> /dev/null; \
 	fi
 	@sleep 0.6
-	rm -f ${TMP_DIR}/mkws-jasmine.pid
+	rm -f ${APACHE_PID_FILE}
 
 help:
 	@echo "make [ all | check | clean | distclean ]"
