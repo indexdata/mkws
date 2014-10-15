@@ -21,7 +21,6 @@ check-js:
 phantomjs p p-all phantomjs-all jsb:
 	${MAKE} -C./test $@
 
-# must be called once after GIT checkout
 setup:
 	${MAKE} -C./test node-modules
 
