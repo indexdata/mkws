@@ -17,19 +17,6 @@ searching with minimal effort.  All you need to do is pull in our
 JavaScript and optional stylesheet, then add `<div>`s to your page
 that have special `class` attributes. We do the rest.
 
-A minimal example
------------------
-
-Here is a completely functional (though ugly) MKWS-based
-searching application:
-
-	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
-	<div class="mkwsSearch"></div>
-	<div class="mkwsResults"></div>
-
-That's it. A complete metasearching application. Everything
-else is refinement.
-
 Supported Browsers
 ------------------
 
@@ -44,6 +31,19 @@ Any modern browser will work fine. JavaScript must be enabled.
 * Android 4.x
 
 Not supported: IE6, IE7
+
+A minimal example
+-----------------
+
+Here is a completely functional (though ugly) MKWS-based
+searching application:
+
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+	<div class="mkwsSearch"></div>
+	<div class="mkwsResults"></div>
+
+That's it. A complete metasearching application. Everything
+else is refinement.
 
 Documentation
 -------------
