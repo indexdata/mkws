@@ -191,6 +191,106 @@ containers. The structures used by the widget-set are described in the
 reference guide below.
 
 
+Customised display using Handlebars templates
+=============================================
+
+A lot can be done by styling widgets in CSS and changing basic MKWS config
+options. For further customisation, MKWS allows you to change the markup it
+outputs for any widget. This is done by overriding the
+[Handlebars](http://handlebarsjs.com/) template used to generate it. In general
+these consist of `{{things in double braces}}` that are replaced by values from
+the system. For details of Handlebars template syntax, see [the online
+documentation](http://handlebarsjs.com/).
+
+The templates used by the core widgets can be viewed in [our git
+repository](http://git.indexdata.com/?p=mkws.git;a=tree;f=src/mkws.templates;).
+Replacement values are documented in a comment at the top of each template so
+you can see what's going where. If all you want to do is add a CSS class to
+something or change a `span` to a `div` it's easy to just copy the existing
+template and make your edits.
+
+Overriding templates
+--------------------
+
+To override the template for a widget, include it inline in the document
+as a `<script>` tag marked with a class of `mkwsTemplate_Foo` where Foo is the
+name of the template you want to override (typically the name of the widget).
+Inline Handlebars templates are distinguished from Javascript via a
+`type="text/x-handlebars-template` attribute. For example, to override the
+Pager template you would include this in your document:
+
+    <script class="mkwsTemplate_Pager" type="text/x-handlebars-template">
+      ...new Pager template
+    </script>
+
+The Facet template has a special feature where you can override it on a
+per-facet basis by adding a dash and the facet name as a suffix eg.
+`Facet-Subjects` rather than `Facet`.
+
+You can also explicitly specify a different template for a particular instance
+of a widget by providing the name of your alternative (eg. SpecialPager) as the
+value of the `template` key in the MKWS config object for that widget
+(usually via the `data-mkws-config` attribute). 
+
+Templates for MKWS can also be
+[precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
+template of the same name is found in the `Handlebars.templates` object, it
+will be used instead of the default.
+
+Templating metadata
+-------------------
+
+MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
+searching. Depending on how these are configured and what is available from the
+targets you are searching there may be more data available than what is
+presented by the default templates. 
+
+Handlebars offers a convenient log helper that will output the contents of a
+variable for you to inspect. This lets you look at exactly what is being
+returned by the back end without needing to use a Javascript debugger. For
+example, you might prepend `{{log hits}}` to the Records template in order to
+see what is being returned with each search result in the list. In order for
+this to work you'll need to enable verbose output from Handlebars which is done
+by including this line or similar:
+
+    <script>Handlebars.logger.level = 1;</script>
+
+Internationalisation
+--------------------
+
+If you would like your template to use the built in translation functionality,
+output locale specific text via the mkws-translate helper like so:
+`{{{mkws-translate "a few words"}}}`.
+
+Example
+-------
+
+Rather than use the included AJAX helpers to render record details inline,
+here's a Records template that will link directly to the source via the address
+provided in the metadata as the first element of `md-electronic-url`:
+
+    <script class="mkwsTemplate_Records" type="text/x-handlebars-template">
+      {{#each hits}}
+        <div class="{{containerClass}}">
+          <a href="{{md-electronic-url.[0]}}">
+            <b>{{md-title}}</b>
+          </a>
+          {{#if md-title-remainder}}
+            <span>{{md-title-remainder}}</span>
+          {{/if}}
+          {{#if md-title-responsibility}}
+            <span><i>{{md-title-responsibility}}</i></span>
+          {{/if}}
+        </div>
+      {{/each}}
+    </script>
+
+For a more involved example where markup for multiple widgets is decorated with
+[Bootstrap](http://getbootstrap.com/) classes and a custom Handlebars helper is
+employed, take a look at the source of
+[topic.html](http://example.indexdata.com/topic.html?q=water).
+
+
 Refinements
 ===========
 
@@ -204,41 +304,6 @@ day, a welcome message or a help page. This can be done by placing an
 `mkwsMOTD` division anywhere on the page. It will be moved into the
 `mkwsResults` area and initially displayed, but will be hidden when a
 search is made.
-
-
-Customised display using Handlebars templates
----------------------------------------------
-
-Certain aspects of the widget-set's display can be customised by
-providing Handlebars templates with well-known classes that begin with
-the string `mkwsTemplate_`. At present, the supported templates are:
-
-* `mkwsTemplate_Summary` -- used for each summary record in a list of
-  results.
-
-* `mkwsTemplate_Record` -- used when displaying a full record.
-
-For both of these the metadata record is passed in, and its fields can
-be referenced in the template. As well as the metadata fields
-(`md-*`), two special fields are provided to the `mkwsTemplate_Summary`
-template, for creating popup links for full records. These are `_id`,
-which must be provided as the `id` attribute of a link tag, and
-`_onclick`, which must be provided as the `onclick` attribute.
-
-For example, an application can install a simple author+title summary
-record in place of the usual one providing the following template:
-
-        <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
-          {{#if md-author}}
-            <span>{{md-author}}</span>
-          {{/if}}
-          <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-            <b>{{md-title}}</b>
-          </a>
-        </script>
-
-For details of Handlebars template syntax, see
-[the online documentation](http://handlebarsjs.com/).
 
 
 Responsive design
