@@ -34,10 +34,10 @@ COMPONENTS = mkws-handlebars.js \
 
 DOWNLOADABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
 RELEASABLE = mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
-GENERATED = $(DOWNLOADABLE) $(RELEASABLE)
+AVAILABLE = $(DOWNLOADABLE) $(RELEASABLE) mkws-jquery.js
 INSTALLED_DOWNLOADABLE = $(DOWNLOADABLE:%=$(DEST)/%)
 INSTALLED_RELEASABLE = $(RELEASABLE:%=$(DEST)/%)
-INSTALLED = $(GENERATED:%=$(DEST)/%)
+INSTALLED = $(AVAILABLE:%=$(DEST)/%)
 
 all: $(INSTALLED)
 
@@ -78,6 +78,11 @@ $(DEST)/${JQUERY_JSON_FILE}:
 $(DEST)/${PP2_FILE}:
 	curl -sSf "${PP2_URL}" -o $@.tmp
 	mv -f $@.tmp $@
+
+$(DEST)/%: %
+	rm -f $@
+	cp $? $@
+	chmod 444 $@
 
 release: $(RELEASABLE)
 	@if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
