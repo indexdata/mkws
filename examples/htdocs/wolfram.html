@@ -20,7 +20,7 @@
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
-   
+
     <!-- <script type="text/javascript" src="tools/htdocs/mkws.js"></script> -->
     <script type="text/javascript" src="src/mkws-handlebars.js"></script>
     <script type="text/javascript" src="src/mkws-core.js"></script>
@@ -40,6 +40,9 @@
     <script type="text/javascript" src="src/mkws-templates.js"></script>
 
   </head>
+
+  <!-- Test case: using single JS files in the right order, MKWS config in HEAD
+       before JS files loaded, and a broken jQuery object in BODY section -->
   <body>
     <div class="mkwsAuthname"></div>
     <div class="mkwsSwitch"></div>
@@ -60,4 +63,3 @@
 
   </body>
 </html>
-
