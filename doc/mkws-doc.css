@@ -1,9 +1,11 @@
 body {
   font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Sans-Serif;
 }
-h1, h2, h3 { font-weight: normal; color: #606060 }
+h1, h2, h3 { color: #606060 }
 h2 { margin-top: 0.5em }
+h1.title, h2.author, h3.date { font-weight: normal }
 div#header h2 { font-size: 120% }
+div#header h3 { font-size: 100% }
 .pane {
   padding: 0em 1em; margin: 0.75em;
   border: 0.5em solid #eee;
@@ -17,7 +19,6 @@ div#header h2 { font-size: 120% }
   background-image: none;
 }
 .pane h1 a, .pane h2 a, .pane h3 a { text-decoration: none; color: black }
-.nologo { background-image: none }
 pre { background: #ddd; padding: 0.5em; }
 img:first-of-type { float: right; margin: 1.5em }
 body > p:last-of-type {

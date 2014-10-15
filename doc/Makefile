@@ -5,11 +5,17 @@
 
 DOCS = index.html index.pdf \
        mkws-manual.html mkws-manual.pdf \
-       mkws-developer.html mkws-developer.pdf
+       mkws-developer.html mkws-developer.pdf \
+       mkws-doc.css
 
 INSTALLED = $(DOCS:%=../tools/htdocs/%)
 
 all: $(INSTALLED)
+
+../tools/htdocs/%: %
+	rm -f $@
+	cp $< $@
+	chmod ugo-w $@
 
 # For a description of pandoc's markdown format, see:
 # http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
