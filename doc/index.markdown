@@ -90,8 +90,6 @@ Documentation
 
 * This file.
   [<a href="index.pdf">PDF version</a>]
-* The <a href="README.html">README</a> -- mostly technical details.
-  [<a href="README.pdf">PDF version</a>]
 * The <a href="mkws-manual.html">MKWS manual, including a reference section.</a>
   [<a href="mkws-manual.pdf">PDF version</a>]
 * The <a href="mkws-developer.html">MKWS developers' guide.</a>
