@@ -30,6 +30,21 @@ searching application:
 That's it. A complete metasearching application. Everything
 else is refinement.
 
+Supported Browsers
+------------------
+
+Any modern browser will work fine. JavaScript must be enabled.
+
+* IE8 or later
+* Firefox 17 or later
+* Google Chrome 27 or later
+* Safari 6 or later
+* Opera  12 or later
+* iOS 6.x (iPhone, iPad)
+* Android 4.x
+
+Not supported: IE6, IE7
+
 Documentation
 -------------
 
