@@ -9,7 +9,7 @@ all:
 	${MAKE} -C./doc
 
 clean distclean:
-	${MAKE} -C./tools/htdocs $@
+	${MAKE} -C./src $@
 	${MAKE} -C./doc $@
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
