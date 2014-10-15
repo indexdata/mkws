@@ -7,6 +7,7 @@ all:
 	${MAKE} -C./test node-modules
 	${MAKE} -C./src
 	${MAKE} -C./doc
+	${MAKE} -C./examples/htdocs
 
 clean distclean:
 	${MAKE} -C./src $@
