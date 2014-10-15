@@ -3,8 +3,7 @@
 # You need node.js to build MKWS. On caliban, get it using:
 # export PATH=$PATH:/home/indexdata/node/node-v0.10.32-linux-x64/bin
 
-all:
-	${MAKE} -C./test node-modules
+all: setup
 	${MAKE} -C./src
 	${MAKE} -C./doc
 	${MAKE} -C./examples/htdocs
