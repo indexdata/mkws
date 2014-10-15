@@ -3,16 +3,6 @@
 % 28 July 2014
 
 
-Introduction
-------------
-
-As much of the searching functionality as possible is hosted on
-	<http://mkws.indexdata.com/>
-so that very simple applications such as
-	<http://example.indexdata.com/simple.html>
-can have MasterKey searching with minimal effort.
-
-
 Supported Browsers
 ------------------
 
