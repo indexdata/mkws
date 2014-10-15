@@ -7,25 +7,26 @@
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
     <script type="text/javascript">
       var mkws_config = {
-	  pazpar2_url : "/service-proxy/",
 	  show_perpage: false,
 	  show_sort: false,
 	  perpage_default: 10,
 	  sort_default: "title:1",
 	  lang: "de",
-	  service_proxy_auth : "/service-proxy-testauth"
+          sp_auth_credentials: "mkwstest/mkwstest"
       };
     </script>
+
     <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
-    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
+    <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
    
     <!-- <script type="text/javascript" src="tools/htdocs/mkws.js"></script> -->
     <script type="text/javascript" src="src/mkws-handlebars.js"></script>
     <script type="text/javascript" src="src/mkws-core.js"></script>
     <script type="text/javascript" src="src/mkws-team.js"></script>
     <script type="text/javascript" src="src/mkws-filter.js"></script>
+
     <script type="text/javascript" src="src/mkws-widget.js"></script>
     <script type="text/javascript" src="src/mkws-widget-main.js"></script>
     <script type="text/javascript" src="src/mkws-widget-termlists.js"></script>
@@ -36,51 +37,18 @@
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
 
-    <style type="text/css">
-      .mkwsTermlists div.facet {
-      float:left;
-      width: 30%;
-      margin: 0.3em;
-      }
-      .mkwsStat {
-      text-align: right;
-      }
-    </style>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
+
   </head>
   <body>
-    <table width="100%" border="0">
-      <tr>
-        <td>
-	  <div class="mkwsSwitch"></div>
-          <div class="mkwsLang"></div>
-          <div class="mkwsSearch"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:500px; overflow: auto">
-            <div class="mkwsPager"></div>
-            <div class="mkwsNavi"></div>
-            <div class="mkwsRecords"></div>
-            <div class="mkwsTargets"></div>
-            <div class="mkwsRanking"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:300px; overflow: hidden">
-            <div class="mkwsTermlists"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="mkwsStat"></div>
-        </td>
-      </tr>
-    </table>
-
+    <div class="mkwsAuthname"></div>
+    <div class="mkwsSwitch"></div>
+    <div class="mkwsLang"></div>
+    <div class="mkwsProgress"></div>
+    <div class="mkwsSearch"></div>
+    <div class="mkwsResults"></div>
+    <div class="mkwsTargets"></div>
+    <div class="mkwsStat"></div>
 
     <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script> -->
     <script type="text/javascript">
