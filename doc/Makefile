@@ -4,7 +4,6 @@
 #	texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
 DOCS = index.html index.pdf \
-       README.html README.pdf \
        mkws-manual.html mkws-manual.pdf \
        mkws-developer.html mkws-developer.pdf
 
@@ -36,9 +35,9 @@ clean:
 	rm -f *.drupal.html
 
 push:
-	pandoc --toc README.markdown > README.drupal.html
+	pandoc --toc index.markdown > index.drupal.html
 	pandoc --toc mkws-manual.markdown > mkws-manual.drupal.html
-	cat README.drupal.html | ./drupaljson.pl | curl --upload-file - http://www.indexdata.com/script/node/332?services_token=cda1e26e5733ce3f604773e94f0721df5c31a948 -v --header "Content-Type:application/json"
+	cat index.drupal.html | ./drupaljson.pl | curl --upload-file - http://www.indexdata.com/script/node/332?services_token=cda1e26e5733ce3f604773e94f0721df5c31a948 -v --header "Content-Type:application/json"
 	cat mkws-manual.drupal.html | ./drupaljson.pl | curl --upload-file - http://www.indexdata.com/script/node/323?services_token=cda1e26e5733ce3f604773e94f0721df5c31a948 -v --header "Content-Type:application/json"
 
 help:
