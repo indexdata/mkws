@@ -89,8 +89,7 @@ Minified versions of the MKWS JavaScript files are also available:
 * <a href="mkws.min.js">mkws.min.js</a>
 * <a href="mkws-complete.min.js">mkws-complete.min.js</a>
 
-Versions
---------
+### Specific versions
 
 The links above to the various forms of the widget-set JavaScript
 (<a href="mkws.js">mkws.js</a>,
