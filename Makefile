@@ -14,16 +14,16 @@ clean distclean:
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
 
+check: setup check-js phantomjs
+
+setup:
+	${MAKE} -C./test node-modules
+
 check-js:
 	${MAKE} -C./test check
 
 phantomjs p p-all phantomjs-all jsb:
 	${MAKE} -C./test $@
-
-setup:
-	${MAKE} -C./test node-modules
-
-check: setup check-js phantomjs
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"
