@@ -25,12 +25,11 @@ all: check
 clean:
 	rm -f mkws-error.png mkws-error.html 
 	rm -f images/*.png
+	make -C./widgets $@
 
 distclean: clean clean-tmp clean-error
 	rm -rf node_modules
-	rm -f ${TMP_DIR}/jasmine-dev*.conf
 	rm -f libexec
-	make -C./widgets $@
 
 clean-error:
 	rm -f mkws-error.png.* mkws-error.html.*
