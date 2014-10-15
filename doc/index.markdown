@@ -10,9 +10,12 @@ The MasterKey Widget Set provides the easiest possible way to enhance
 an existing web-site with customised searching across multiple
 sources, ranking and merging the results.
 
-All you need to do is pull in our JavaScript and optional stylesheet,
-then add `<div>`s to your page that have special `class` attributes. We
-do the rest.
+As much of the searching functionality as possible is hosted on
+<http://mkws.indexdata.com/> so that very simple applications such as
+<http://example.indexdata.com/simple.html> can have MasterKey
+searching with minimal effort.  All you need to do is pull in our
+JavaScript and optional stylesheet, then add `<div>`s to your page
+that have special `class` attributes. We do the rest.
 
 A minimal example
 -----------------
