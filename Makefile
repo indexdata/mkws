@@ -4,27 +4,26 @@
 # export PATH=$PATH:/home/indexdata/node/node-v0.10.32-linux-x64/bin
 
 all: setup
-	${MAKE} -C./test node-modules
-	${MAKE} -C./tools/htdocs $@
-	${MAKE} -C./doc install
+	${MAKE} -C./src
+	${MAKE} -C./doc
+	${MAKE} -C./examples/htdocs
 
 clean distclean:
-	${MAKE} -C./tools/htdocs $@
+	${MAKE} -C./src $@
 	${MAKE} -C./doc $@
 	${MAKE} -C./examples/htdocs $@
 	${MAKE} -C./test $@
+
+check: setup check-js phantomjs
+
+setup:
+	${MAKE} -C./test node-modules
 
 check-js:
 	${MAKE} -C./test check
 
 phantomjs p p-all phantomjs-all jsb:
 	${MAKE} -C./test $@
-
-# must be called once after GIT checkout
-setup:
-	${MAKE} -C./test node-modules
-
-check: setup check-js phantomjs
 
 help:
 	@echo "make [ all | setup | clean | distclean ]"

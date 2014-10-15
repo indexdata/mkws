@@ -40,6 +40,9 @@ clean:
 	rm -f $(INSTALLED)
 	rm -f *.drupal.html
 
+distclean: clean
+	# Nothing more to remove in the doc directory
+
 push:
 	pandoc --toc index.markdown > index.drupal.html
 	pandoc --toc mkws-manual.markdown > mkws-manual.drupal.html
