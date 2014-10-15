@@ -676,7 +676,7 @@ describe("Check SortBy options", function () {
             var list = [];
             var terms = $("div.mkwsRecords > div.mkwsSummary > a");
             for (var i = 0; i < terms.length; i++) {
-                var term = $(terms[i]).text();
+                var term = $(terms[i]).text().trim();
                 list.push(term);
                 // debug(prefix + "title: " + term);
             }
