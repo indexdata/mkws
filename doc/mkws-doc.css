@@ -1,7 +1,7 @@
 body {
   font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Sans-Serif;
 }
-h1, div#header h2, h3 { font-weight: normal; color: #606060 }
+h1, h2, h3 { font-weight: normal; color: #606060 }
 h2 { margin-top: 0.5em }
 div#header h2 { font-size: 120% }
 .pane {

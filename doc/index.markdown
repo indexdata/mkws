@@ -10,9 +10,27 @@ The MasterKey Widget Set provides the easiest possible way to enhance
 an existing web-site with customised searching across multiple
 sources, ranking and merging the results.
 
-All you need to do is pull in our JavaScript and optional stylesheet,
-then add `<div>`s to your page that have special `class` attributes. We
-do the rest.
+As much of the searching functionality as possible is hosted on
+<http://mkws.indexdata.com/> so that very simple applications such as
+<http://example.indexdata.com/simple.html> can have MasterKey
+searching with minimal effort.  All you need to do is pull in our
+JavaScript and optional stylesheet, then add `<div>`s to your page
+that have special `class` attributes. We do the rest.
+
+Supported Browsers
+------------------
+
+Any modern browser will work fine. JavaScript must be enabled.
+
+* IE8 or later
+* Firefox 17 or later
+* Google Chrome 27 or later
+* Safari 6 or later
+* Opera  12 or later
+* iOS 6.x (iPhone, iPad)
+* Android 4.x
+
+Not supported: IE6, IE7
 
 A minimal example
 -----------------
@@ -27,13 +45,51 @@ searching application:
 That's it. A complete metasearching application. Everything
 else is refinement.
 
+Configuring a client (short version)
+------------------------------------
+
+The application's HTML must contains the following elements as well as
+whatever makes up the application itself:
+
+Prerequisites:
+
+~~~
+	<link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+~~~
+
+Then the following special `<div>`s can be added (with no content), and
+will be filled in by MKWS:
+
+* `<div id="mkwsSwitch"></div>` -- switch between record and target views
+* `<div id="mkwsLang"></div>  ` -- switch between English, Danish and German
+* `<div id="mkwsSearch"></div>` -- search box and button
+* `<div id="mkwsResults"></div>` -- result list, including pager/sorting
+* `<div id="mkwsTargets"></div>` -- target list, including status
+* `<div id="mkwsStat"></div>` -- summary statistics
+
+You can configure and control the client by creating an `mkws_config`
+object before loading the widget-set. Here is an example showing how
+to use options to offer a choice between English and German UI
+languages, and to default to sorting by title ascending:
+
+~~~
+    <script type="text/javascript">
+      var mkws_config = {
+        lang_options: ["en", "de" ],
+        sort_default: "title:1"
+      };
+    </script>
+~~~
+
+For much more detail, see:
+[Embedded metasearching with the MasterKey Widget Set](mkws-manual.html)
+
 Documentation
 -------------
 
 * This file.
   [<a href="index.pdf">PDF version</a>]
-* The <a href="README.html">README</a> -- mostly technical details.
-  [<a href="README.pdf">PDF version</a>]
 * The <a href="mkws-manual.html">MKWS manual, including a reference section.</a>
   [<a href="mkws-manual.pdf">PDF version</a>]
 * The <a href="mkws-developer.html">MKWS developers' guide.</a>
@@ -71,8 +127,7 @@ Minified versions of the MKWS JavaScript files are also available:
 * <a href="mkws.min.js">mkws.min.js</a>
 * <a href="mkws-complete.min.js">mkws-complete.min.js</a>
 
-Versions
---------
+### Specific versions
 
 The links above to the various forms of the widget-set JavaScript
 (<a href="mkws.js">mkws.js</a>,

@@ -16,6 +16,6 @@ See tools/htdocs/NEWS for the change-log.
 
 For more documentation:
 
-doc/README.markdown -- overview
+doc/index.markdown -- overview
 doc/mkws-manual.markdown -- how to use the widget set
 doc/mkws-developer.markdown -- how to develop and customise widgets
