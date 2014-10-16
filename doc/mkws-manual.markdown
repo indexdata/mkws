@@ -1,6 +1,6 @@
-% Embedded metasearching with the MasterKey Widget Set
+% The MKWS manual: embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% 30 July 2014
+% October 2014
 
 
 Introduction
@@ -19,10 +19,14 @@ Index Data provides several different toolkits for communicating with
 its metasearching middleware, trading off varying degrees of
 flexibility against convenience:
 
-* pz2.js -- a low-level JavaScript library for interrogating the
-  Service Proxy and Pazpar2. It allows the HTML/JavaScript programmer
-  to create JavaScript applications display facets, records, etc. that
-  are fetched from the metasearching middleware.
+* [pz2.js](http://www.indexdata.com/pazpar2/doc/ajaxdev.html) --
+  a low-level JavaScript library for interrogating the
+  [Service Proxy](http://www.indexdata.com/service-proxy/)
+  and
+  [Pazpar2](http://www.indexdata.com/pazpar2/).
+  It allows the HTML/JavaScript programmer
+  to create JavaScript applications to display facets, records,
+  etc. that are fetched from the metasearching middleware.
 
 * masterkey-ui-core -- a higher-level, complex JavaScript library that
   uses pz2.js to provide the pieces needed for building a
@@ -30,14 +34,17 @@ flexibility against convenience:
 
 * MasterKey Demo UI -- an example of a searching application built on
   top of masterkey-ui-core. Available as a public demo at
-  http://mk2.indexdata.com/
+  <http://mk2.indexdata.com/>
 
-* MKDru -- a toolkit for embedding MasterKey-like searching into
-  Drupal sites.
+* [MKDru](http://www.indexdata.com/masterkey-drupal) --
+  a toolkit for embedding MasterKey-like searching into
+  [Drupal](https://www.drupal.org/)
+  sites.
 
 All of these approaches require programming to a greater or lesser
-extent. Against this backdrop, we introduced MKWS (the MasterKey
-Widget Set) -- a set of simple, very high-level HTML+CSS+JavaScript
+extent. Against this backdrop, we introduced
+[MKWS (the MasterKey Widget Set)](http://mkws.indexdata.com/)
+-- a set of simple, very high-level HTML+CSS+JavaScript
 components that can be incorporated into any web-site to provide
 MasterKey searching facilities. By placing `<div>`s with well-known
 MKWS classes in any HTML page, the various components of an application
