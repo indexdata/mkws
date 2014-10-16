@@ -6,7 +6,7 @@ cat ${@+"$@"} |
     sed '/^<col width="[0-9]*%" \/>$/d' |
     sed 's/<body>/&\
 <img src="images\/mkws-logo-300px.png" alt="MKWS logo"\/>/' | awk '
-/^<h[12] id/ {
+/^<(h[12]|div) id/ {
   if (seen) {
     print "</div>";
   }     
