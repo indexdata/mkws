@@ -116,3 +116,8 @@ html-includes:
 clean distclean:
 	rm -f ${INSTALLED}
 
+help:
+	@echo "make [ all | clean | release ]"
+	@echo "     [ syntax-check | html-includes ]"
+	@echo "     [ mkws-templates.js | $(DEST)/mkws-complete.min.js ]"
+	@echo ""
