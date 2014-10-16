@@ -206,4 +206,4 @@ We can set that up for you: email us on <info@indexdata.com>.
 
 - - -
 
-Copyright (&copy;) 2013-2014 Index Data ApS. <http://indexdata.com>
+Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>
