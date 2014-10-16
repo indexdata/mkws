@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference widget with popup window</title>
+    <title>MKWS demo: Reference & Credo, and popup widget, development</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
       var mkws_config = {
-      	  service_proxy_auth: "//sp-mkws.indexdata.com/service-proxy-credoauth"
+      	sp_auth_credentials: "mkwstest/mkwstest"
       };
     </script>
 
@@ -24,7 +24,6 @@
     <script type="text/javascript" src="src/mkws-core.js"></script>
     <script type="text/javascript" src="src/mkws-team.js"></script>
     <script type="text/javascript" src="src/mkws-filter.js"></script>
-    <script type="text/javascript" src="src/mkws-popup.js"></script>
     <script type="text/javascript" src="src/mkws-widget.js"></script>
     <script type="text/javascript" src="src/mkws-widget-main.js"></script>
     <script type="text/javascript" src="src/mkws-widget-termlists.js"></script>
@@ -34,11 +33,13 @@
     <script type="text/javascript" src="src/mkws-widget-record.js"></script>
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
+    <script type="text/javascript" src="src/mkws-popup.js"></script>
 
     <script type="text/javascript" src="mkws-widget-credo.js"></script>
   </head>
   <body>
-    <h3>MKWS widgets in a popup window</h3>
+    <h3>MKWS demo: Reference & Credo, and popup widget, development</h3>
 
     <div class="mkwsSearch"></div>
     <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">

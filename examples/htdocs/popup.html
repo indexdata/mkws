@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference widget with popup window</title>
+    <title>MKWS demo: Reference & Credo, and popup widget</title>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="//example.indexdata.com/mkws-widget-reference.css" />
@@ -9,26 +9,22 @@
 
     <script type="text/javascript">
       var mkws_config = {
-      	  service_proxy_auth: "//sp-mkws.indexdata.com/service-proxy-credoauth"
+      	sp_auth_credentials: "mkwstest/mkwstest"
       };
     </script>
 
-    <!--
-    <script type="text/javascript" src="tools/htdocs/mkws-complete.js"></script>
-    <script>jQuery = mkws.$</script>
-    <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    -->
     <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="//jquery-json.googlecode.com/files/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
     <script type="text/javascript" src="//git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD"></script>
     <script type="text/javascript" src="//builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="//mkws.indexdata.com/mkws.js"></script>
-   
+
     <script type="text/javascript" src="//example.indexdata.com/mkws-widget-credo.js"></script>
   </head>
+
   <body>
-    <h3>MKWS widgets in a popup window</h3>
+    <h3>MKWS demo: Reference & Credo, and popup widget</h3>
 
     <div class="mkwsSearch"></div>
     <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
