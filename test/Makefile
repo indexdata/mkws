@@ -40,7 +40,7 @@ clean-tmp:
 	touch ${TMP_DIR}/.gitkeep
 
 mkws-complete-syntax-check:
-	${MAKE} -C../tools/htdocs mkws-complete.min.js
+	${MAKE} -C../src ../tools/htdocs/mkws-complete.min.js
 
 check check-js: mkws-complete-syntax-check
 	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
