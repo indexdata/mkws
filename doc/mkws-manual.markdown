@@ -70,10 +70,9 @@ The following is a complete MKWS-based searching application:
     </html>
 
 Go ahead, try it! Simply put the above in a file (e.g index.html),
-drop it into a folder accessible with an ordinary web-server (e.g Apache)
-and load it in your web browser (and no, usually, you can't just load the file
-directly from disk as some browsers, e.g Chrome, won't allow storing cookies).
-Just like that, you have working metasearching.
+drop it into a folder accessible with an ordinary web-server (e.g
+Apache) and load it in your web browser. Just like that, you have
+working metasearching.
 
 How the example works
 ---------------------
