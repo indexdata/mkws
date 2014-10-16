@@ -20,7 +20,7 @@ setup:
 	${MAKE} -C./test node-modules
 
 check-js:
-	${MAKE} -C./test check
+	${MAKE} -C./test $@
 
 phantomjs p p-all phantomjs-all jsb:
 	${MAKE} -C./test $@
