@@ -15,7 +15,8 @@ div#header h3 { font-size: 100% }
   background-position: right top;
   background-color: #eee; 
 }
-.pane:nth-child(3) {
+// Somehow, "-n+3" is how you say "first three panes"
+.pane:nth-child(-n+3) {
   background-image: none;
 }
 .pane h1 a, .pane h2 a, .pane h3 a { text-decoration: none; color: black }
