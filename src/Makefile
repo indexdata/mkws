@@ -14,7 +14,7 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 
 VERSION = $(shell tr -d '\012' < VERSION)
 HANDLEBARS = ../test/node_modules/.bin/handlebars
-YUI_COMPRESSOR = $(shell which yui-compressor ../../test/bin/yui-compressor | head -1)
+YUI_COMPRESSOR = $(shell which yui-compressor ../test/bin/yui-compressor | head -1)
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js \
