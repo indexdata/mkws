@@ -54,14 +54,15 @@ can be embedded: search-boxes, results areas, target information, etc.
 Simple Example
 ==============
 
-The following is a complete MKWS-based searching application:
+The following is
+[a complete MKWS-based searching application](//example.indexdata.com/simple.html):
 
     <html>
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>MKWS demo client</title>
-        <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
-        <link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
+        <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
+        <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
       </head>
       <body>
         <div class="mkwsSearch"></div>
@@ -83,7 +84,7 @@ you: the `<html>` element at the top level contains a `<head>` and a
 page, you can add MKWS elements.
 
 These fall into two categories. First, the prerequisites in the HTML
-header, which are loaded from the tool site mkws.indexdata.com:
+header, which are loaded from the tool site `mkws.indexdata.com`:
 
 * `mkws-complete.js`
   contains all the JavaScript needed by the widget-set.
@@ -104,9 +105,8 @@ results area. But more are supported. The main `<div>`s are:
    paging for large results sets, facets for refining a search,
    sorting facilities, etc.
 
-* `mkwsLang` -- provides links to switch between one of several
-   different UI languages. By default, English, Danish and German are
-   provided.
+* `mkwsStat` --provides a status line summarising the statistics of
+   the various targets.
 
 * `mkwsSwitch` -- provides links to switch between a view of the
    result records and of the targets that provide them. Only
@@ -116,8 +116,9 @@ results area. But more are supported. The main `<div>`s are:
    when selected by the link in the `mkwsSwitch` area. Of interest
    mostly for fault diagnosis rather than for end-users.
 
-* `mkwsStat` --provides a status line summarising the statistics of
-   the various targets.
+* `mkwsLang` -- provides links to switch between one of several
+   different UI languages. By default, English, Danish and German are
+   provided.
 
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
