@@ -3,6 +3,9 @@
 # To build the PDFs, you will need these Debian packages:
 #	texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
+# Older versions of pandoc don't do PDF output, but have a companion program
+MARKDOWN2PDF = $(shell which markdown2pdf pandoc)
+
 DOCS = index.html index.pdf \
        mkws-manual.html mkws-manual.pdf \
        mkws-developer.html mkws-developer.pdf \
@@ -33,7 +36,7 @@ all: $(INSTALLED)
 #	texlive-latex-recommended
 ../tools/htdocs/%.pdf: %.markdown
 	rm -f $@
-	pandoc --standalone $< -o $@
+	$(MARKDOWN2PDF) --standalone $< -o $@
 	chmod ugo-w $@
 
 clean:
