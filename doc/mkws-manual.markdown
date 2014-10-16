@@ -862,4 +862,4 @@ and .CLASS indicates an instance of a class.
 
 - - -
 
-Copyright (C) 2013-2014 by Index Data ApS, <http://www.indexdata.com>
+Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>
