@@ -118,9 +118,6 @@ Here are the files that this web-site provides:
 * <a href="mkws.css">mkws.css</a> --
   A stylesheet which styles only MasterKey widgets, and does not
   otherwise interfere with application-site's styles.
-* <a href="mkws-jquery.js">mkws-jquery.js</a> --
-  An experimental jQuery plugin that provides an MKWS-based
-  metasearching applet.
 
 Minified versions of the MKWS JavaScript files are also available:
 
