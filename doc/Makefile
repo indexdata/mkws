@@ -4,7 +4,7 @@
 #	texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
 # Older versions of pandoc don't do PDF output, but have a companion program
-MARKDOWN2PDF = $(shell which markdown2pdf pandoc)
+MARKDOWN2PDF = $(shell which markdown2pdf pandoc | sed 1q)
 
 DOCS = index.html index.pdf \
        mkws-manual.html mkws-manual.pdf \
