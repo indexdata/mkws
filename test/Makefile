@@ -25,7 +25,7 @@ all: check
 clean:
 	rm -f mkws-error.png mkws-error.html 
 	rm -f images/*.png
-	make -C./widgets $@
+	${MAKE} -C./widgets $@
 
 distclean: clean clean-tmp clean-error
 	rm -rf node_modules
@@ -82,7 +82,7 @@ screenshot-indexdata:
 	ls -l ${IMAGES}
 
 screenshots:
-	make -C ./widgets $@
+	${MAKE} -C ./widgets $@
 
 jsbeautifier jsb indent:
 	for i in package.json ./spec*/*.js ./js/*.js ./phantom/*.js; do \

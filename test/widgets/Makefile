@@ -30,9 +30,9 @@ screenshot:
 
 screenshots: clean
 	for i in $$(cat url.txt); do \
-	  make PHANTOMJS_URL="$$i" TIMEOUT=4 screenshot; \
+	  ${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 screenshot; \
 	done; wait
-	make index
+	${MAKE} index
 
 index:
 	cd ${IMAGES}; ls -tr *.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="$$_"/><br/><br/><p/>\n}' > index.html
