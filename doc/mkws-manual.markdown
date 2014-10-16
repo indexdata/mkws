@@ -188,7 +188,8 @@ following lower-level widgets provided instead:
 
 Customisation of MKWS searching widgets can also be achieved by
 overriding the styles set in the toolkit's CSS stylesheet. The default
-styles can be inspected in `mkws.css` and overridden in any
+styles can be inspected in [mkws.css](mkws.css)
+and overridden in any
 styles that appears later in the HTML than that file. At the simplest
 level, this might just mean changing fonts, sizes and colours, but
 more fundamental changes are also possible.
