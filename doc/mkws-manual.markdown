@@ -252,8 +252,7 @@ Inspecting metadata for templating
 MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
 searching. Depending on how these are configured and what is available from the
 targets you are searching there may be more data available than what is
-presented by the default templates. In this case, you can redefine the
-`Record` template to include more fields in the full-record popup.
+presented by the default templates.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
