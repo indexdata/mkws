@@ -329,7 +329,7 @@ mkws.log("Using window.name '" + window.name + "'");
       } else if (cname.match(/^mkws/)) {
         // Old-style names of the form mkwsFooBar
         var tmp = cname.replace(/^mkws/, '');
-        type = _old2new[tmp] || tmp;
+        type = _old2new[tmp] || tmp.toLowerCase();
       }
     }
 
