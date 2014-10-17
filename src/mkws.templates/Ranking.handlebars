@@ -15,7 +15,7 @@ perPage
 <form>
   {{~#if showSort~}}
     {{{mkws-translate "Sort by"}}}
-    <select class="mkwsSort mkwsTeam_{{team}}">
+    <select class="mkws-sort mkws-team-{{team}}">
       {{#each sort}}
         {{#if selected}}
           <option value="{{{key}}}" selected="selected">{{{mkws-translate label}}}</option>
@@ -27,7 +27,7 @@ perPage
   {{~/if~}}
   {{~#if showPerPage}}
     {{{mkws-translate "and show"}}}
-    <select class="mkwsPerpage mkwsTeam_{{team}}">
+    <select class="mkws-per-page mkws-team-{{team}}">
       {{#each perPage}}
         {{#if selected}}
           <option value="{{perPage}}" selected="selected">{{perPage}}</option>

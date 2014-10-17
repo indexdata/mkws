@@ -1,5 +1,5 @@
-mkws.registerWidgetType('Reference', function() {
-  mkws.promotionFunction('Record').call(this);
+mkws.registerWidgetType('reference', function() {
+  mkws.promotionFunction('record').call(this);
   if (!this.config.target) this.config.target = 'wikimedia_wikipedia_single_result';
   if (!this.config.template) this.config.template = 'Reference';
   this.config.template_vars.paragraphs = this.config.paragraphs || 0;

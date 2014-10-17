@@ -1,4 +1,4 @@
-mkws.registerWidgetType('Log', function() {
+mkws.registerWidgetType('log', function() {
   var that = this;
 
   this.team.queue("log").subscribe(function(teamName, timestamp, message) {

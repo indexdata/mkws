@@ -57,7 +57,7 @@ mkws.makeWidget = function($, team, type, node) {
     }
 
     var s = [];
-    s.push('<div class="mkws', type, ' mkwsTeam_', attrs._team, '"');
+    s.push('<div class="mkws', type, ' mkws-team-', attrs._team, '"');
     for (var name in attrs) {    
       if (name !== '_team')
         s.push(' ', name, '="', attrs[name], '"');
@@ -180,7 +180,7 @@ mkws.makeWidget = function($, team, type, node) {
   if (fn) {
     fn.call(that);
     log("made " + type + " widget(node=" + node + ")");
-  } else if (type.match(/-Container-(narrow|wide)$/)) {
+  } else if (type.match(/-[Cc]ontainer-(narrow|wide)$/)) {
     // Not really a widget: no need to log its lack of promotion
   } else {
     log("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
