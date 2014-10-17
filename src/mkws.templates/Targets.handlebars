@@ -6,7 +6,7 @@ data:
   hits - number of hits for this target, or "Error" if an error has occurred
   diagnostic - diagnostic code returned by target, if any. May be numeric or human-readable
   records - number of record retrieved from target
-  state - target state
+  state - target state (Client_Idle, Client_Working, Client_Disconnected or Client_Error)
 }}
 <table>
   <thead>
@@ -26,7 +26,7 @@ data:
       <td>{{hits}}</td>
       <td>{{diagnostic}}</td>
       <td>{{records}}</td>
-      <td>{{hits}}</td>
+      <td>{{state}}</td>
     </tr>
   {{/each}}
   </tbody>
