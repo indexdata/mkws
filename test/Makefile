@@ -5,7 +5,7 @@ MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
 
 APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
 
-#PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html	
+#PHANTOMJS_URL=https://mkws-dev.indexdata.com/jasmine-popup.html
 PHANTOMJS_PATH=jasmine-local-popup.html
 PHANTOMJS_URL=http://localhost:${APACHE_PORT}/${PHANTOMJS_PATH}
 PHANTOMJS_TIMEOUT=18
@@ -23,7 +23,7 @@ APACHE_PORT ?= 4040
 all: check
 
 clean:
-	rm -f mkws-error.png mkws-error.html 
+	rm -f mkws-error.png mkws-error.html
 	rm -f images/*.png
 	${MAKE} -C./widgets $@
 
@@ -43,7 +43,11 @@ mkws-complete-syntax-check:
 	${MAKE} -C../src ../tools/htdocs/mkws-complete.min.js
 
 check check-js: mkws-complete-syntax-check
-	@if [ ! -e node_modules ]; then echo "please run first: make node-modules"; exit 1; fi 
+	@if [ ! -e node_modules ]; then \
+	    echo "==> please run first: make node-modules"; \
+	    echo ""; \
+	    exit 1; \
+	fi
 	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
 
 test: check
@@ -51,7 +55,7 @@ test: check
 terse:
 	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
 
-phantomjs p: apache-stop apache-start _phantomjs 
+phantomjs p: check-js apache-stop apache-start _phantomjs
 	${MAKE} apache-stop
 
 _phantomjs:
@@ -101,7 +105,7 @@ apache-start:
 	bin/apache-template-update
 	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
 
-APACHE_PID_FILE=${TMP_DIR}/mkws-jasmine-${APACHE_PORT}.pid 
+APACHE_PID_FILE=${TMP_DIR}/mkws-jasmine-${APACHE_PORT}.pid
 apache-stop:
 	@-if [ -e ${APACHE_PID_FILE} ]; then \
 	   kill `cat ${APACHE_PID_FILE}`; \
@@ -128,4 +132,3 @@ help:
 	@echo "make APACHE_PORT=5050 apache-start"
 	@echo "make phantomjs-all"
 	@echo ""
-
