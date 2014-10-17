@@ -31,9 +31,6 @@ all: $(INSTALLED)
 	pandoc --standalone --toc -c mkws-doc.css $< | ./tweak-html > $@
 	chmod ugo-w $@
 
-# ### In order to compile the manual, which has tables, to PDF,
-# you will need to install the Debian package
-#	texlive-latex-recommended
 ../tools/htdocs/%.pdf: %.markdown
 	rm -f $@
 	$(MARKDOWN2PDF) $< -o $@
