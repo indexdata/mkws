@@ -9,7 +9,7 @@ mkws.registerWidgetType('Popup', function() {
     var debug = mkws.log;
     debug("init popup window");
 
-    var popup_window = $(this.node); // mkws.registerWidgetType('Popup',....)
+    var popup_window = $(this.node);
     // var popup_window = $(".mkwsPopup"); // $(document).ready()
     if (!popup_window) {
         debug("no popup found, skip...");
