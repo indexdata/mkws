@@ -4,10 +4,10 @@
     <title>MKWS demo</title>
     <script type="text/javascript">
       var mkws_config = {
-//        pp2_hostname: "x.sp-mkws.indexdata.com",
-      };
+        sp_auth_credentials: "mkwstest/mkwstest"
+      }
     </script>
-    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
@@ -25,13 +25,17 @@
     <script type="text/javascript" src="src/mkws-widget-record.js"></script>
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
-    <script type="text/javascript" src="mkws-widget-sru.js"></script>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
   </head>
   <body>
-    <h1>SRU example: dinosaurs at LoC</h1>
-    <div class="mkwsSRU" autosearch="dinosaur" maximumRecords="3" recordSchema="dc">Stand by ...</div>
-    <!- Use:
-http://z3950.loc.gov:7090/voyager?version=1.1&operation=searchRetrieve&query=dinosaur&maximumRecords=3&recordSchema=dc
-     -->
+    <div class="mkws-authname"></div>
+    <div class="mkws-switch"></div>
+    <div class="mkws-lang"></div>
+    <div class="mkws-progress"></div>
+    <div class="mkws-search"></div>
+    <div class="mkws-results"></div>
+    <div class="mkws-targets"></div>
+    <div class="mkws-stat"></div>
+    <div class="mkws-builder"></div>
   </body>
 </html>

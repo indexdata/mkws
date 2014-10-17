@@ -252,8 +252,7 @@ Inspecting metadata for templating
 MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
 searching. Depending on how these are configured and what is available from the
 targets you are searching there may be more data available than what is
-presented by the default templates. In this case, you can redefine the
-`Record` template to include more fields in the full-record popup.
+presented by the default templates.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
@@ -314,33 +313,6 @@ day, a welcome message or a help page. This can be done by placing an
 `mkwsMOTD` division anywhere on the page. It will be moved into the
 `mkwsResults` area and initially displayed, but will be hidden when a
 search is made.
-
-
-Responsive design
------------------
-
-Metasearching applications may need to appear differently on
-small-screened mobile devices, or change their appearance when
-screen-width changes (as when a small device is rotated). To achieve
-this, MKWS supports responsive design which will move the termlists to
-the bottom on narrow screens and to the sidebar on wide screens.
-
-To turn on this behaviour, set the `responsive_design_width` to the desired
-threshhold width in pixels. For example:
-
-        <script type="text/javascript">
-            var mkws_config = {
-                responsive_design_width: 990
-            };
-        </script>
-
-If individual result-related widgets are in use in place of the
-all-in-one mkwsResults, then the redesigned application needs to
-specify the locations where the termlists should appear in both
-cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
-`mkwsTermlists-Container-wide` element; and provide an
-`mkwsTermlists-Container-narrow` element in the place where the narrow-screen
-termlists should appear.
 
 
 Popup results with jQuery UI
