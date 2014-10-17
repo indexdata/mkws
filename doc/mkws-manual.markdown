@@ -315,33 +315,6 @@ day, a welcome message or a help page. This can be done by placing an
 search is made.
 
 
-Responsive design
------------------
-
-Metasearching applications may need to appear differently on
-small-screened mobile devices, or change their appearance when
-screen-width changes (as when a small device is rotated). To achieve
-this, MKWS supports responsive design which will move the termlists to
-the bottom on narrow screens and to the sidebar on wide screens.
-
-To turn on this behaviour, set the `responsive_design_width` to the desired
-threshhold width in pixels. For example:
-
-        <script type="text/javascript">
-            var mkws_config = {
-                responsive_design_width: 990
-            };
-        </script>
-
-If individual result-related widgets are in use in place of the
-all-in-one mkwsResults, then the redesigned application needs to
-specify the locations where the termlists should appear in both
-cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
-`mkwsTermlists-Container-wide` element; and provide an
-`mkwsTermlists-Container-narrow` element in the place where the narrow-screen
-termlists should appear.
-
-
 Popup results with jQuery UI
 ----------------------------
 
