@@ -340,10 +340,10 @@ mkws.makeTeam = function($, teamName) {
 
   // switching view between targets and records
   function switchView(view) {
-    var targets = widgetNode('Targets');
-    var results = widgetNode('Results') || widgetNode('Records');
-    var blanket = widgetNode('Blanket');
-    var motd    = widgetNode('MOTD');
+    var targets = widgetNode('targets');
+    var results = widgetNode('results') || widgetNode('records');
+    var blanket = widgetNode('blanket');
+    var motd    = widgetNode('motd');
 
     switch(view) {
     case 'targets':
