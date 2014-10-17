@@ -2,10 +2,10 @@
 Target detail
 
 data:
-  id - target id
-  hits - number of hits for this target
-  diagnostic - 
-  records - 
+  id - target id, an opaque identifier
+  hits - number of hits for this target, or "Error" if an error has occurred
+  diagnostic - diagnostic code returned by target, if any. May be numeric or human-readable
+  records - number of record retrieved from target
   state - target state
 }}
 <table>
