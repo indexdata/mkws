@@ -7,12 +7,15 @@ This directory contains the MasterKey Widget Set (MKWS) Test framework.
 Installation
 -------------------------------------
 1. install node.js, see http://nodejs.org/
+(and apache2 if you have not already)
 
 # debian7
 $ sudo apt-get install npm
+$ sudo apt-get install apache2
 
 # centos6
 $ sudo yum install npm
+$ sudo yum install httpd
 
 
 The nodejs modules are configured in ./package.json
