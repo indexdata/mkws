@@ -296,6 +296,14 @@ mkws.log("Using window.name '" + window.name + "'");
     'Perpage': 'per-page',
     'SearchForm': 'search-form',
   };
+  // Annoyingly, there is no built-in way to invert a hash
+  var _new2old = {};
+  for (var key in _old2new) {
+    if(_old2new.hasOwnProperty(key)) {
+      _new2old[_old2new[key]] = key;
+    }
+  }
+
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -461,7 +469,11 @@ mkws.log("Using window.name '" + window.name + "'");
 	s += '.mkws-' + type;
 	s += ',.mkws-' + type + "-container-wide";
 	s += ',.mkws-' + type + "-container-narrow";
-        // ### Do we need to do something about old-style names?
+        // Annoyingly, we also need to recognise old-style names
+        var oldtype = _new2old[type] || type.charAt(0).toUpperCase() + type.slice(1);
+	s += ',.mkws' + oldtype;
+	s += ',.mkws' + oldtype + "-Container-wide";
+	s += ',.mkws' + oldtype + "-Container-narrow";
       }
       return s;
     }
