@@ -1,4 +1,4 @@
-mkws.registerWidgetType('categories', function() {
+mkws.registerWidgetType('Categories', function() {
   var that = this;
 
   if (!mkws.authenticated) {
@@ -20,7 +20,7 @@ mkws.registerWidgetType('categories', function() {
 
       var text = [];
       text.push("Select category: ");
-      text.push("<select name='mkws-category' " +
+      text.push("<select name='mkwsCategory' " +
                 "onchange='mkws.limitCategory(\"" + that.team.name() + "\", this.value)'>");
       text.push("<option value=''>[All]</option>");
       $(data).find('category').each(function() {

@@ -286,16 +286,6 @@ mkws.log("Using window.name '" + window.name + "'");
 // wrapper to provide local copy of the jQuery object.
 (function($) {
   var log = mkws.log;
-  var _old2new = { // Maps old-style widget names to new-style
-    'Authname': 'auth-name',
-    'ConsoleBuilder': 'console-builder',
-    'Coverart': 'cover-art',
-    'GoogleImage': 'google-image',
-    'MOTD': 'motd',
-    'MOTDContainer': 'motd-container',
-    'Perpage': 'per-page',
-    'SearchForm': 'search-form',
-  };
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -313,15 +303,10 @@ mkws.log("Using window.name '" + window.name + "'");
 
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
-      if (cname.match(/^mkws-team-/)) {
-        teamName = cname.replace(/^mkws-team-/, '');
-      } else if (cname.match(/^mkws-/)) {
-        // New-style names of the form mkws-foo-bar
-        type = cname.replace(/^mkws-/, '');
+      if (cname.match(/^mkwsTeam_/)) {
+        teamName = cname.replace(/^mkwsTeam_/, '');
       } else if (cname.match(/^mkws/)) {
-        // Old-style names of the form mkwsFooBar
-        var tmp = cname.replace(/^mkws/, '');
-        type = _old2new[tmp] || tmp;
+        type = cname.replace(/^mkws/, '');
       }
     }
 
@@ -368,8 +353,8 @@ mkws.log("Using window.name '" + window.name + "'");
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
-          var w1 = team.widget(t + "-container-" + from);
-          var w2 = team.widget(t + "-container-" + to);
+          var w1 = team.widget(t + "-Container-" + from);
+          var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
             w1.node.hide();
           }
@@ -458,10 +443,9 @@ mkws.log("Using window.name '" + window.name + "'");
       var s = "";
       for (var type in mkws.widgetType2function) {
 	if (s) s += ',';
-	s += '.mkws-' + type;
-	s += ',.mkws-' + type + "-container-wide";
-	s += ',.mkws-' + type + "-container-narrow";
-        // ### Do we need to do something about old-style names?
+	s += '.mkws' + type;
+	s += ',.mkws' + type + "-Container-wide";
+	s += ',.mkws' + type + "-Container-narrow";
       }
       return s;
     }

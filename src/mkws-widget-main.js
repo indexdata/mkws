@@ -5,7 +5,7 @@
 // source files.
 
 
-mkws.registerWidgetType('targets', function() {
+mkws.registerWidgetType('Targets', function() {
   if (!this.config.show_switch) return;
   var that = this;
 
@@ -33,7 +33,7 @@ mkws.registerWidgetType('targets', function() {
 });
 
 
-mkws.registerWidgetType('stat', function() {
+mkws.registerWidgetType('Stat', function() {
   var that = this;
   this.team.queue("stat").subscribe(function(data) {
     var template = that.team.loadTemplate(that.config.template || "Stat");
@@ -42,7 +42,7 @@ mkws.registerWidgetType('stat', function() {
 });
 
 
-mkws.registerWidgetType('pager', function() {
+mkws.registerWidgetType('Pager', function() {
   var that = this;
   var M = mkws.M;
 
@@ -88,7 +88,7 @@ mkws.registerWidgetType('pager', function() {
   });
 });
 
-mkws.registerWidgetType('details', function() {
+mkws.registerWidgetType('Details', function() {
   var that = this;
   var recid = that.node.attr("data-mkws-recid");
   if (this.team.gotRecords()) { 
@@ -108,7 +108,7 @@ mkws.registerWidgetType('details', function() {
   that.autosearch();
 });
 
-mkws.registerWidgetType('records', function() {
+mkws.registerWidgetType('Records', function() {
   var that = this;
   var team = this.team;
 
@@ -118,7 +118,7 @@ mkws.registerWidgetType('records', function() {
       that.team.queue("record").publish(hit);
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
       hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
-      hit.containerClass = "mkws-summary mkws-team-" + team.name();
+      hit.containerClass = "mkwsSummary mkwsTeam_" + team.name();
       hit.containerClass += " " + hit.detailLinkId;
       // ### At some point, we may be able to move the
       // m_currentRecordId and m_currentRecordData members
@@ -138,7 +138,7 @@ mkws.registerWidgetType('records', function() {
 });
 
 
-mkws.registerWidgetType('navi', function() {
+mkws.registerWidgetType('Navi', function() {
   var that = this;
   var teamName = this.team.name();
 
@@ -168,10 +168,10 @@ mkws.registerWidgetType('navi', function() {
 });
 
 
-// It seems this and the per-page widget doen't need to subscribe to
+// It seems this and the Perpage widget doen't need to subscribe to
 // anything, since they produce events rather than consuming them.
 //
-mkws.registerWidgetType('sort', function() {
+mkws.registerWidgetType('Sort', function() {
   var that = this;
 
   this.node.change(function() {
@@ -184,7 +184,7 @@ mkws.registerWidgetType('sort', function() {
 });
 
 
-mkws.registerWidgetType('per-page', function() {
+mkws.registerWidgetType('Perpage', function() {
   var that = this;
 
   this.node.change(function() {
@@ -197,7 +197,7 @@ mkws.registerWidgetType('per-page', function() {
 });
 
 
-mkws.registerWidgetType('done', function() {
+mkws.registerWidgetType('Done', function() {
   var that = this;
   this.team.queue("complete").subscribe(function(n) {
     var template = that.team.loadTemplate(that.config.template || "Done");
@@ -206,7 +206,7 @@ mkws.registerWidgetType('done', function() {
 });
 
 
-mkws.registerWidgetType('switch', function() {
+mkws.registerWidgetType('Switch', function() {
   if (!this.config.show_switch) return;
   var tname = this.team.name();
   var output = {};
@@ -218,7 +218,7 @@ mkws.registerWidgetType('switch', function() {
 });
 
 
-mkws.registerWidgetType('search', function() {
+mkws.registerWidgetType('Search', function() {
   var output = {};
   output.team = this.team.name();
   output.queryWidth = this.config.query_width;
@@ -227,24 +227,24 @@ mkws.registerWidgetType('search', function() {
 });
 
 
-mkws.registerWidgetType('search-form', function() {
+mkws.registerWidgetType('SearchForm', function() {
   var team = this.team;
   this.node.submit(function() {
-    var val = team.widget('query').value();
+    var val = team.widget('Query').value();
     team.newSearch(val);
     return false;
   });
 });
 
 
-mkws.registerWidgetType('results', function() {
+mkws.registerWidgetType('Results', function() {
   var template = this.team.loadTemplate(this.config.template || "Results");
   this.node.html(template({team: this.team.name()}));
   this.autosearch();
 });
 
 
-mkws.registerWidgetType('ranking', function() {
+mkws.registerWidgetType('Ranking', function() {
   var output = {};
   output.perPage = [];
   output.sort = [];
@@ -277,7 +277,7 @@ mkws.registerWidgetType('ranking', function() {
 });
 
 
-mkws.registerWidgetType('lang', function() {
+mkws.registerWidgetType('Lang', function() {
   // dynamic URL or static page? /path/foo?query=test
   /* create locale language menu */
   if (!this.config.show_lang) return;
@@ -339,8 +339,8 @@ mkws.registerWidgetType('lang', function() {
 });
 
 
-mkws.registerWidgetType('motd', function() {
-  var container = this.team.widget('motd-container');
+mkws.registerWidgetType('MOTD', function() {
+  var container = this.team.widget('MOTDContainer');
   if (container) {
     // Move the MOTD from the provided element down into the container
     this.node.appendTo(container.node);
@@ -352,7 +352,7 @@ mkws.registerWidgetType('motd', function() {
 // is copied up into its team, allowing it to affect other widgets in
 // the team.
 //
-mkws.registerWidgetType('config', function() {
+mkws.registerWidgetType('Config', function() {
   var c = this.config;
   for (var name in c) {
     if (c.hasOwnProperty(name)) {
@@ -363,7 +363,7 @@ mkws.registerWidgetType('config', function() {
 });
 
 
-mkws.registerWidgetType('progress', function() {
+mkws.registerWidgetType('Progress', function() {
   var that = this;
   this.node.hide();
   this.team.queue("stat").subscribe(function(data) {
@@ -382,9 +382,9 @@ mkws.registerWidgetType('progress', function() {
 // no actual functionality. We register these to prevent ignorable
 // warnings when they occur.
 
-mkws.registerWidgetType('query', function() {});
-mkws.registerWidgetType('motd-container', function() {});
-mkws.registerWidgetType('button', function() {});
+mkws.registerWidgetType('Query', function() {});
+mkws.registerWidgetType('MOTDContainer', function() {});
+mkws.registerWidgetType('Button', function() {});
 
 
 })(mkws.$); // jQuery wrapper
