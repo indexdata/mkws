@@ -7,6 +7,7 @@ SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PERL_SCRIPTS=	../bin/bomb.pl
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
+URL_FILE=	koha.url
 TIMEOUT=5
 
 PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
@@ -29,7 +30,7 @@ screenshot:
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
 screenshots: clean
-	for i in $$(cat url.txt); do \
+	for i in $$(cat ${URL_FILE}); do \
 	  ${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 screenshot; \
 	done; wait
 	${MAKE} index
