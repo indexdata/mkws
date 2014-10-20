@@ -26,7 +26,7 @@ distclean: clean
 test: check
 
 screenshot:
-	file=${PREFIX}.$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g'); \
+	file=${PREFIX}.$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g; s/-$$//;'); \
 	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
