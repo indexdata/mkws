@@ -12,7 +12,7 @@ mkws.registerWidgetType('record', function() {
 });
 
 mkws.registerWidgetType('image', function() {
-  1mkws.promotionFunction('records').call(this);
+  mkws.promotionFunction('records').call(this);
   if (!this.config.template) this.config.template = 'Image';
 });
 
