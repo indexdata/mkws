@@ -175,7 +175,7 @@ are and how various things are done.
   [uses a local authentication regime](//example.indexdata.com/localauth.html)
   and the corresponding
   [Apache2 configuration stanza](//example.indexdata.com/apache-config.txt).
-* [A version that uses a jQuery popup](//example.indexdata.com/popup.html).
+* [A version that uses a jQuery popup](//example.indexdata.com/popup.html?q=sushi).
 
 ### Non-standard interfaces
 

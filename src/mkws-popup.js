@@ -4,13 +4,13 @@
 
 //"use strict";
 // $(document).ready(function () {
-mkws.registerWidgetType('popup', function() {
+mkws.registerWidgetType('Popup', function() {
     var $ = mkws.$;
     var debug = mkws.log;
     debug("init popup window");
 
     var popup_window = $(this.node);
-    // var popup_window = $(".mkws-popup"); // $(document).ready()
+    // var popup_window = $(".mkwsPopup"); // $(document).ready()
     if (!popup_window) {
         debug("no popup found, skip...");
         return;
@@ -49,7 +49,7 @@ mkws.registerWidgetType('popup', function() {
             close: function() {}
         });
 
-        // open at search query submit: "input.mkws-button"
+        // open at search query submit: "input.mkwsButton"
         var id_botton = that.attr("popup_button");
         if (id_botton) {
             $(id_botton).button().click(function() {

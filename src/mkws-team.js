@@ -191,13 +191,13 @@ mkws.makeTeam = function($, teamName) {
 
   // Used by the Records widget and onRecord()
   function recordElementId(s) {
-    return 'mkws-rec_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
   }
   that.recordElementId = recordElementId;
 
   // Used by onRecord(), showDetails() and renderDetails()
   function recordDetailsId(s) {
-    return 'mkws-det_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkwsDet_' + s.replace(/[^a-z0-9]/ig, '_');
   }
 
 
@@ -390,10 +390,10 @@ mkws.makeTeam = function($, teamName) {
     teamName = teamName || m_teamName;
 
     if (teamName === 'AUTO') {
-      selector = (selector + '.mkws-team-' + teamName + ',' +
-                  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"],[class^="mkws-team-"],[class*=" mkws-team-"])');
+      selector = (selector + '.mkwsTeam_' + teamName + ',' +
+                  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
     } else {
-      selector = selector + '.mkws-team-' + teamName;
+      selector = selector + '.mkwsTeam_' + teamName;
     }
 
     var node = $(selector);
@@ -410,7 +410,7 @@ mkws.makeTeam = function($, teamName) {
   function renderDetails(data, marker) {
     var template = loadTemplate("Record");
     var details = template(data);
-    return '<div class="mkws-details mkws-team-' + m_teamName + '" ' +
+    return '<div class="mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
   }
   that.renderDetails = renderDetails;
@@ -425,9 +425,9 @@ mkws.makeTeam = function($, teamName) {
     var template = m_template[name];
     if (template === undefined && Handlebars.compile) {
       var source;
-      var node = $(".mkws-template_" + name + " .mkws-team-" + that.name());
+      var node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
       if (node && node.length < 1) {
-        node = $(".mkws-template_" + name);
+        node = $(".mkwsTemplate_" + name);
       }
       if (node) source = node.html();
       if (!source) source = m_templateText[name];

@@ -304,7 +304,6 @@ mkws.log("Using window.name '" + window.name + "'");
     }
   }
 
-
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
     var classes = node.className || node.attr('class');
@@ -321,11 +320,8 @@ mkws.log("Using window.name '" + window.name + "'");
 
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
-      if (cname.match(/^mkws-team-/)) {
-        teamName = cname.replace(/^mkws-team-/, '');
-      } else if (cname.match(/^mkws-/)) {
-        // New-style names of the form mkws-foo-bar
-        type = cname.replace(/^mkws-/, '');
+      if (cname.match(/^mkwsTeam_/)) {
+        teamName = cname.replace(/^mkwsTeam_/, '');
       } else if (cname.match(/^mkws/)) {
         // Old-style names of the form mkwsFooBar
         var tmp = cname.replace(/^mkws/, '');
@@ -376,8 +372,8 @@ mkws.log("Using window.name '" + window.name + "'");
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
-          var w1 = team.widget(t + "-container-" + from);
-          var w2 = team.widget(t + "-container-" + to);
+          var w1 = team.widget(t + "-Container-" + from);
+          var w2 = team.widget(t + "-Container-" + to);
           if (w1) {
             w1.node.hide();
           }

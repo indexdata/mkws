@@ -1,4 +1,4 @@
-mkws.registerWidgetType('builder', function() {
+mkws.registerWidgetType('Builder', function() {
   var that = this;
   var team = this.team;
 
@@ -8,11 +8,11 @@ mkws.registerWidgetType('builder', function() {
   });
   this.node.append(button);
   button.click(function() {
-    var   query = team.widget('query').value();
-    var    sort = team.widget('sort').value();
-    var perpage = team.widget('per-page').value();
+    var   query = team.widget('Query').value();
+    var    sort = team.widget('Sort').value();
+    var perpage = team.widget('Perpage').value();
 
-    var html = ('<div class="mkws-records" ' +
+    var html = ('<div class="mkwsRecords" ' +
                 'autosearch="' + query + '" ' +
                 'sort="' + sort + '" ' +
                 'perpage="' + perpage + '"></div>');
@@ -21,8 +21,8 @@ mkws.registerWidgetType('builder', function() {
   });
 });
 
-mkws.registerWidgetType('console-builder', function() {
-  mkws.promotionFunction('builder').call(this);
+mkws.registerWidgetType('ConsoleBuilder', function() {
+  mkws.promotionFunction('Builder').call(this);
   this.callback = function(s) {
     console.log("generated widget: " + s);
   }
