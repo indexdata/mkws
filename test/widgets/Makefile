@@ -50,5 +50,7 @@ help:
 	@echo "     [ screenshots ]"
 	@echo "     [ screenshot | index ]"
 	@echo ""
-	@echo "     [ TESTS=mike screenshots ]"
+	@echo "Examples: "
+	@echo ""
+	@echo "make TESTS=mike screenshots"
 
