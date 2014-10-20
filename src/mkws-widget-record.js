@@ -1,5 +1,5 @@
 // A widget for one record
-mkws.registerWidgetType('Record', function() {
+mkws.registerWidgetType('record', function() {
   if (!this.config.maxrecs) this.config.maxrecs = 1;
   var that = this;
   var team = this.team;
@@ -11,22 +11,22 @@ mkws.registerWidgetType('Record', function() {
   that.autosearch();
 });
 
-mkws.registerWidgetType('Image', function() {
-  mkws.promotionFunction('Records').call(this);
+mkws.registerWidgetType('image', function() {
+  mkws.promotionFunction('records').call(this);
   if (!this.config.template) this.config.template = 'Image';
 });
 
-mkws.registerWidgetType('GoogleImage', function() {
-  mkws.promotionFunction('Image').call(this);
+mkws.registerWidgetType('google-image', function() {
+  mkws.promotionFunction('image').call(this);
   if (!this.config.target) this.config.target = 'Google_Images';
 });
 
-mkws.registerWidgetType('Lolcat', function() {
-  mkws.promotionFunction('GoogleImage').call(this);
+mkws.registerWidgetType('lolcat', function() {
+  mkws.promotionFunction('google-image').call(this);
   if (!this.config.autosearch) this.config.autosearch = 'kitteh';
 });
 
-mkws.registerWidgetType('Coverart', function() {
-  mkws.promotionFunction('Image').call(this);
+mkws.registerWidgetType('cover-art', function() {
+  mkws.promotionFunction('image').call(this);
   if (!this.config.target) this.config.target = 'AmazonBooks';
 });

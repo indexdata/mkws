@@ -286,6 +286,23 @@ mkws.log("Using window.name '" + window.name + "'");
 // wrapper to provide local copy of the jQuery object.
 (function($) {
   var log = mkws.log;
+  var _old2new = { // Maps old-style widget names to new-style
+    'Authname': 'auth-name',
+    'ConsoleBuilder': 'console-builder',
+    'Coverart': 'cover-art',
+    'GoogleImage': 'google-image',
+    'MOTD': 'motd',
+    'MOTDContainer': 'motd-container',
+    'Perpage': 'per-page',
+    'SearchForm': 'search-form',
+  };
+  // Annoyingly, there is no built-in way to invert a hash
+  var _new2old = {};
+  for (var key in _old2new) {
+    if(_old2new.hasOwnProperty(key)) {
+      _new2old[_old2new[key]] = key;
+    }
+  }
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -303,10 +320,19 @@ mkws.log("Using window.name '" + window.name + "'");
 
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
-      if (cname.match(/^mkwsTeam_/)) {
+      if (cname.match(/^mkws-team-/)) {
+        // New-style teamnames of the form mkws-team-xyz
+        teamName = cname.replace(/^mkws-team-/, '');
+      } else if (cname.match(/^mkwsTeam_/)) {
+        // Old-style teamnames of the form mkwsTeam_xyz
         teamName = cname.replace(/^mkwsTeam_/, '');
+      } else if (cname.match(/^mkws-/)) {
+        // New-style names of the from mkws-foo-bar
+        type = cname.replace(/^mkws-/, '');
       } else if (cname.match(/^mkws/)) {
-        type = cname.replace(/^mkws/, '');
+        // Old-style names of the form mkwsFooBar
+        var tmp = cname.replace(/^mkws/, '');
+        type = _old2new[tmp] || tmp.toLowerCase();
       }
     }
 
@@ -353,8 +379,8 @@ mkws.log("Using window.name '" + window.name + "'");
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
-          var w1 = team.widget(t + "-Container-" + from);
-          var w2 = team.widget(t + "-Container-" + to);
+          var w1 = team.widget(t + "-container-" + from);
+          var w2 = team.widget(t + "-container-" + to);
           if (w1) {
             w1.node.hide();
           }
@@ -443,9 +469,14 @@ mkws.log("Using window.name '" + window.name + "'");
       var s = "";
       for (var type in mkws.widgetType2function) {
 	if (s) s += ',';
-	s += '.mkws' + type;
-	s += ',.mkws' + type + "-Container-wide";
-	s += ',.mkws' + type + "-Container-narrow";
+	s += '.mkws-' + type;
+	s += ',.mkws-' + type + "-container-wide";
+	s += ',.mkws-' + type + "-container-narrow";
+        // Annoyingly, we also need to recognise old-style names
+        var oldtype = _new2old[type] || type.charAt(0).toUpperCase() + type.slice(1);
+	s += ',.mkws' + oldtype;
+	s += ',.mkws' + oldtype + "-Container-wide";
+	s += ',.mkws' + oldtype + "-Container-narrow";
       }
       return s;
     }
