@@ -7,8 +7,8 @@ SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PERL_SCRIPTS=	../bin/bomb.pl
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
-TESTS=	koha demos # koha.url
-TIMEOUT=5
+TESTS=	koha demos mike # koha.url
+TIMEOUT=4
 PREFIX=	test
 
 PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
@@ -50,4 +50,5 @@ help:
 	@echo "     [ screenshots ]"
 	@echo "     [ screenshot | index ]"
 	@echo ""
+	@echo "     [ TESTS=mike screenshots ]"
 
