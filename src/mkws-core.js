@@ -320,8 +320,15 @@ mkws.log("Using window.name '" + window.name + "'");
 
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
-      if (cname.match(/^mkwsTeam_/)) {
+      if (cname.match(/^mkws-team-/)) {
+        // New-style teamnames of the form mkws-team-xyz
+        teamName = cname.replace(/^mkws-team-/, '');
+      } else if (cname.match(/^mkwsTeam_/)) {
+        // Old-style teamnames of the form mkwsTeam_xyz
         teamName = cname.replace(/^mkwsTeam_/, '');
+      } else if (cname.match(/^mkws-/)) {
+        // New-style names of the from mkws-foo-bar
+        type = cname.replace(/^mkws-/, '');
       } else if (cname.match(/^mkws/)) {
         // Old-style names of the form mkwsFooBar
         var tmp = cname.replace(/^mkws/, '');
@@ -372,8 +379,8 @@ mkws.log("Using window.name '" + window.name + "'");
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
-          var w1 = team.widget(t + "-Container-" + from);
-          var w2 = team.widget(t + "-Container-" + to);
+          var w1 = team.widget(t + "-container-" + from);
+          var w2 = team.widget(t + "-container-" + to);
           if (w1) {
             w1.node.hide();
           }
