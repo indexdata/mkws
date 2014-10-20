@@ -7,8 +7,9 @@ SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PERL_SCRIPTS=	../bin/bomb.pl
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
-URL_FILE=	koha.url
+TESTS=	koha demos # koha.url
 TIMEOUT=5
+PREFIX=	test
 
 PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
 PHANTOMJS_URL=	http://www.indexdata.com/
@@ -16,27 +17,29 @@ PHANTOMJS_URL=	http://www.indexdata.com/
 all: help
 
 clean:
-	rm -f mkws-error.png mkws-error.html 
-	rm -f ${IMAGES}/*.png ${IMAGES}/*.png.tmp
-	rm -f ${IMAGES}/index.html
+	rm -f index-*.html
+	rm -f ${IMAGES}/*.png
 
 distclean: clean
+	rm -f ${IMAGES}/*.png.tmp
 
 test: check
 
 screenshot:
-	file=$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g'); \
+	file=${PREFIX}.$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g'); \
 	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
 screenshots: clean
-	for i in $$(cat ${URL_FILE}); do \
-	  ${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 screenshot; \
-	done; wait
-	${MAKE} index
+	for t in ${TESTS}; do \
+	    for i in $$(cat $$t.url); do \
+	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot; \
+	    done; \
+	    ${MAKE} PREFIX=$$t index; \
+	done
 
 index:
-	cd ${IMAGES}; ls -tr *.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="$$_"/><br/><br/><p/>\n}' > index.html
+	( cd ${IMAGES}; ls -tr ${PREFIX}.*.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="'${IMAGES}/'$$_"/><br/><br/><p/>\n}' ) > index-${PREFIX}.html
 
 help:
 	@echo "make [ all | clean | distclean ]"
