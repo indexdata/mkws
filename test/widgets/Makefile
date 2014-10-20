@@ -32,7 +32,7 @@ screenshot:
 
 screenshots: clean
 	for t in ${TESTS}; do \
-	    for i in $$(cat $$t.url); do \
+	    for i in $$(cat url.$$t); do \
 	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot; \
 	    done; \
 	    ${MAKE} PREFIX=$$t index; \
