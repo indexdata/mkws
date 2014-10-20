@@ -1,4 +1,4 @@
-mkws.registerWidgetType('Termlists', function() {
+mkws.registerWidgetType('termlists', function() {
   // Initially hide the termlists; display when we get results
   var that = this;
   var team = this.team;
@@ -15,7 +15,7 @@ mkws.registerWidgetType('Termlists', function() {
 });
 
 
-mkws.registerWidgetType('Facet', function() {
+mkws.registerWidgetType('facet', function() {
   var facetConfig = {
     xtargets: [ "Sources",  16, false ],
     subject:  [ "Subjects", 10, true ],
