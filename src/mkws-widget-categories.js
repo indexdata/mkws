@@ -1,4 +1,4 @@
-mkws.registerWidgetType('Categories', function() {
+mkws.registerWidgetType('categories', function() {
   var that = this;
 
   if (!mkws.authenticated) {

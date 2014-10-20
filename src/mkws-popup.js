@@ -4,7 +4,7 @@
 
 //"use strict";
 // $(document).ready(function () {
-mkws.registerWidgetType('Popup', function() {
+mkws.registerWidgetType('popup', function() {
     var $ = mkws.$;
     var debug = mkws.log;
     debug("init popup window");
