@@ -11,19 +11,20 @@
       };
     </script>
 
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.0.min.js"></script>
-    <script type="text/javascript" src="//jquery-json.googlecode.com/files/jquery.json-2.4.js"></script>
+    <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
+    <!-- jquery-ui need a reference to the internal jQuery object -->
+    <script>$ = jQuery = mkws.$; </script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="//git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD"></script>
-    <script type="text/javascript" src="//builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v2.0.0.js"></script>
-    <script type="text/javascript" src="//mkws.indexdata.com/mkws.js"></script>
   </head>
 
   <body>
     <h3>MKWS demo: Popup Widget</h3>
 
+    <!-- search box is outside the popup window -->
     <div class="mkwsSearch"></div>
-    <div class="mkwsPopup" popup_width="1024" popup_height="750" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+
+    <!-- popup widget config -->
+    <div class="mkwsPopup" popup_width="1024" popup_height="750" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton" autosearch="!param!q">
       <div class="mkwsSwitch"></div>
       <div class="mkwsLang"></div>
       <div class="mkwsResults"></div>
