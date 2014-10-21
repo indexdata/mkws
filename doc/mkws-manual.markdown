@@ -222,24 +222,24 @@ Overriding templates
 --------------------
 
 To override the template for a widget, include it inline in the document
-as a `<script>` tag marked with a class of `mkwsTemplate_Foo` where Foo is the
+as a `<script>` tag marked with a class of `mkws-template-foo` where foo is the
 name of the template you want to override (typically the name of the widget).
 Inline Handlebars templates are distinguished from Javascript via a
 `type="text/x-handlebars-template"` attribute. For example, to override the
-Pager template you would include this in your document:
+pager template you would include this in your document:
 
-    <script class="mkwsTemplate_Pager" type="text/x-handlebars-template">
+    <script class="mkws-template-pager" type="text/x-handlebars-template">
       ...new Pager template
     </script>
 
 The Facet template has a special feature where you can override it on a
 per-facet basis by adding a dash and the facet name as a suffix eg.
-`Facet-Subjects` rather than `Facet`. (So `class="mkwsTemplate_Facet-Subjects"`)
+`facet-subjects` rather than `facet`. (So `class="mkws-template-facet-subjects"`)
 
 You can also explicitly specify a different template for a particular instance
 of a widget by providing the name of your alternative (eg. SpecialPager) as the
 value of the `template` key in the MKWS config object for that widget:
-for example, `<div class="mkwsPager" template="specialPager"/>`.
+for example, `<div class="mkws-pager" template="special-pager"/>`.
 
 Templates for MKWS can also be
 [precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
@@ -278,7 +278,7 @@ Rather than use the included AJAX helpers to render record details inline,
 here's a Records template that will link directly to the source via the address
 provided in the metadata as the first element of `md-electronic-url`:
 
-    <script class="mkwsTemplate_Records" type="text/x-handlebars-template">
+    <script class="mkws-template-records" type="text/x-handlebars-template">
       {{#each hits}}
         <div class="{{containerClass}}">
           <a href="{{md-electronic-url.[0]}}">

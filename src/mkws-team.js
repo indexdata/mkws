@@ -425,7 +425,13 @@ mkws.makeTeam = function($, teamName) {
     var template = m_template[name];
     if (template === undefined && Handlebars.compile) {
       var source;
-      var node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
+      var node = $(".mkws-template-" + name + " .mkws-team-" + that.name());
+      if (node && node.length < 1) {
+        node = $(".mkws-template-" + name);
+      }
+      if (node && node.length < 1) {
+        node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
+      }
       if (node && node.length < 1) {
         node = $(".mkwsTemplate_" + name);
       }
@@ -438,7 +444,7 @@ mkws.makeTeam = function($, teamName) {
     }
     //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
     if (template === undefined && Handlebars.templates) {
-      template = Handlebars.templates[name];
+      template = Handlebars.templates["mkws-template-" + name];
     }
     if (template === undefined && mkws.defaultTemplates) {
       template = mkws.defaultTemplates[name];
