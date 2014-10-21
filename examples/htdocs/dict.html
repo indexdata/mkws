@@ -4,10 +4,11 @@
     <title>Dictionary lookup demo</title>
     <script type="text/javascript">
       var mkws_config = {
-	sp_auth_credentials: "dict/dict"
+	sp_auth_credentials: "mkwsdict/mkwsdict"
       };
     </script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
+    <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
     <script>$ = jQuery = mkws.$; </script>
   </head>
@@ -37,12 +38,13 @@
       </td>
       <td width="40%" align="top">
 	<div class="mkwsSearch"></div>
-	<div class="mkwsRecords"></div>
+	<div class="mkwsReference"></div>
       </td>
     </tr>
   </table>
     <script type="text/javascript">
       $(".mkwsSearch").hide();
+      $(".mkwsReference").hide();
 
       document.onclick = clickfunc;
       var selectedtext="";
@@ -52,6 +54,7 @@
         //console.log("click: " + sel + "  clicking=" + clicking );
         if ( sel != "" && ! clicking ) {
           clicking  = true;
+	  $(".mkwsReference").show();
           $("input.mkwsQuery").val(sel);
           //console.log("click: Set value " + sel + "  clicking=" + clicking );
           $("input.mkwsButton").trigger("click");
