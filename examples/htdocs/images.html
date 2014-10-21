@@ -21,10 +21,15 @@
       {{/if}}
       </a>
     </script>
+    <script type="text/javascript">
+      var mkws_config = {
+        sp_auth_credentials: "mkwsimages/mkwsimages"
+      };
+    </script>
   </head>
   <body>
     <div class='mkwsRecords' autosearch='!param!q'
-	targets='pz:id=lui.indexdata.com:8080/solr4/#5853'
+	targets='pz:id=lui.indexdata.com:8080/solr4/select?fq=database:5853'
 	>results will appear here</div>
   </body>
 </html>
