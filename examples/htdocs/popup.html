@@ -1,11 +1,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference & Credo, and popup widget</title>
+    <title>MKWS demo: Popup Widget</title>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-    <link rel="stylesheet" type="text/css" href="//example.indexdata.com/mkws-widget-reference.css" />
-    <link rel="stylesheet" type="text/css" href="//example.indexdata.com/mkws-widget-credo.css" />
 
     <script type="text/javascript">
       var mkws_config = {
@@ -19,28 +17,18 @@
     <script type="text/javascript" src="//git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/pz2.js;hb=HEAD"></script>
     <script type="text/javascript" src="//builds.handlebarsjs.com.s3.amazonaws.com/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="//mkws.indexdata.com/mkws.js"></script>
-
-    <script type="text/javascript" src="//example.indexdata.com/mkws-widget-credo.js"></script>
   </head>
 
   <body>
-    <h3>MKWS demo: Reference & Credo, and popup widget</h3>
+    <h3>MKWS demo: Popup Widget</h3>
 
     <div class="mkwsSearch"></div>
-    <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+    <div class="mkwsPopup" popup_width="1024" popup_height="750" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
       <div class="mkwsSwitch"></div>
       <div class="mkwsLang"></div>
       <div class="mkwsResults"></div>
       <div class="mkwsTargets"></div>
       <div class="mkwsStat"></div>
-    </div>
-
-    <div class="mkwsPopup" popup_width="1024" popup_height="800" popup_autoOpen="1">
-      <div class="mkwsCredo mkwsTeam_credo" autosearch="!param!q">mkwsCredo result will appear here</div>
-    </div>
-
-    <div class="mkwsPopup" popup_width="700" popup_height="600" popup_autoOpen="1">
-      <div class="mkwsReference mkwsTeam_credo" sentences="1" autosearch="!param!q">mkwsReference result will appear here</div>
     </div>
 
   </body>
