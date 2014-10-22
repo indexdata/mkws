@@ -731,7 +731,7 @@ describe("Check SortBy options", function () {
 describe("Check async widget discovery", function () {
   var $ = mkws.$;
   it("initialises a new widget", function() {
-    $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team_async"></div></div>');
+    $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
     mkws.init("Another search box", "#asyncSearch");
     waitsFor(function () {
       return $("#asyncSearch input").length >= 1 ? true : false;
