@@ -6,7 +6,7 @@
     <title>MKWS demo: Images</title>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
-    <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
+    <script class="mkws-template_summary" type="text/x-handlebars-template">
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">
         {{#each md-thumburl}}
 	  <img src="{{this}}" alt="{{../md-title}}"/>
@@ -28,7 +28,7 @@
     </script>
   </head>
   <body>
-    <div class='mkwsRecords' autosearch='!param!q'
+    <div class='mkws-records' autosearch='!param!q'
 	>results will appear here</div>
   </body>
 </html>
