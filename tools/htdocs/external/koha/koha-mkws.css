@@ -7,23 +7,23 @@
 */
 
 /* submit button color */
-form[name=mkwsSearchForm] > input[type=submit].mkwsButton {
+form[name=mkws-searchform] > input[type=submit].mkws-button {
   background: #006dcc;
   border: 3px outset #006dcc;
   margin-bottom: 10px;
 }
 
-select.mkwsTeam_AUTO {
+select.mkws-team_auto {
   width: 10em;
   font-size: 11px;
   height: 25px;
 }
 
 /* facet links */
-div.mkwsFacet > div.term { background: none; }
+div.mkws-facet > div.term { background: none; }
 
 /* facet counter for a link */
-div.mkwsFacet > div.term > span { color: #000; }
+div.mkws-facet > div.term > span { color: #000; }
 
 /* sidebar */
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -71,7 +71,7 @@ div.mkwsFacet > div.term > span { color: #000; }
   margin-bottom: 5px;
 }
 
-.mkws-autosearch div.mkwsRecords {
+.mkws-autosearch div.mkws-records {
   padding: 3px;
 }
 
@@ -88,30 +88,30 @@ div.mkwsFacet > div.term > span { color: #000; }
   text-decoration: none;
 }
 
-.mkwsSwitch a, .mkwsLang a, .mkwsFacet a, .mkwsRanking a, .mkwsPager a, .mkwsNavi a, .mkwsRecords a, .mkwsRecord a {
+.mkws-switch a, .mkws-lang a, .mkws-facet a, .mkws-ranking a, .mkws-pager a, .mkws-navi a, .mkws-records a, .mkws-record a {
   color: #0076b2;
 }
-.mkwsTargets table thead tr td {
+.mkws-targets table thead tr td {
   background-color: #0076b2;
 }
 
-.mkwsCurrentPage {
+.mkws-current-page {
   background: #0076b2;
 }
 
-input[type=submit].mkwsButton {
+input[type=submit].mkws-button {
   background: #006dcc;
 }
 
-.mkwsFacet {
+.mkws-facet {
   background: #fff;
 }
 
 /********************************************************************************
  * Koha + mkws-widget-reference.css
  */
-.mkwsReference h1 a { color: #0076b2; }
-.mkwsReference {
+.mkws-reference h1 a { color: #0076b2; }
+.mkws-reference {
     border: none;
     background: none;
     border-radius: none;

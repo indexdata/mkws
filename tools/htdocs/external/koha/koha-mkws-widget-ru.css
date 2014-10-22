@@ -1,5 +1,5 @@
 /* original "ru" config
-.mkwsReferenceUniverse {
+.mkws-reference-universe {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #FCFBFA; 
   padding: 0.5em 1em 0.25em;
@@ -13,22 +13,22 @@
 }
 */
 
-.mkwsReferenceUniverse {
+.mkws-reference-universe {
   padding: 0.5em 1em 0.25em;
 }
 
-.mkwsReferenceUniverse h2 {
+.mkws-reference-universe h2 {
   font-size: 100%;
   color: #4A5456;
   padding-bottom: .5em;
 }
 
-.mkwsReferenceUniverse ul {
+.mkws-reference-universe ul {
   margin: 0;
   padding: 0;
 }
 
-.mkwsReferenceUniverse li {
+.mkws-reference-universe li {
   margin: .95em .25em;
   padding-top: .75em;
   border-top: 1px dotted #BEC8CC;
@@ -36,7 +36,7 @@
   list-style: none;
 }
 
-.mkwsReferenceUniverse a {
+.mkws-reference-universe a {
   text-decoration: none;
   font-weight:bold;
   color: #2B77AF;

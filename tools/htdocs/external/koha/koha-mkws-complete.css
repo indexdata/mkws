@@ -1,4 +1,4 @@
-.mkwsReference {
+.mkws-reference {
     max-width: 40em;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
     background: #f0f0e0;
@@ -9,31 +9,31 @@
     -webkit-border-radius: 1em;
 }
 
-.mkwsReference h1 a {
+.mkws-reference h1 a {
     color: #806020;
 }
 
-.mkwsReference a {
+.mkws-reference a {
     text-decoration: none;
 }
 
-.mkwsReference img {
+.mkws-reference img {
     float: right;
     margin: 0 0 1em 2em;
     border: 0.5em solid white;
 }
 
-.mkwsCredit {
+.mkws-credit {
     font-size: small;
     text-align: right;
 }
 
-.mkwsCredit::before {
+.mkws-credit::before {
     content: "Source: ";
     font-weight: bold;
 }
 /* original "ru" config
-.mkwsReferenceUniverse {
+.mkws-reference-universe {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #FCFBFA; 
   padding: 0.5em 1em 0.25em;
@@ -47,22 +47,22 @@
 }
 */
 
-.mkwsReferenceUniverse {
+.mkws-reference-universe {
   padding: 0.5em 1em 0.25em;
 }
 
-.mkwsReferenceUniverse h2 {
+.mkws-reference-universe h2 {
   font-size: 100%;
   color: #4A5456;
   padding-bottom: .5em;
 }
 
-.mkwsReferenceUniverse ul {
+.mkws-reference-universe ul {
   margin: 0;
   padding: 0;
 }
 
-.mkwsReferenceUniverse li {
+.mkws-reference-universe li {
   margin: .95em .25em;
   padding-top: .75em;
   border-top: 1px dotted #BEC8CC;
@@ -70,7 +70,7 @@
   list-style: none;
 }
 
-.mkwsReferenceUniverse a {
+.mkws-reference-universe a {
   text-decoration: none;
   font-weight:bold;
   color: #2B77AF;
@@ -84,23 +84,23 @@
 */
 
 /* submit button color */
-form[name=mkwsSearchForm] > input[type=submit].mkwsButton {
+form[name=mkws-searchform] > input[type=submit].mkws-button {
   background: #006dcc;
   border: 3px outset #006dcc;
   margin-bottom: 10px;
 }
 
-select.mkwsTeam_AUTO {
+select.mkws-team_auto {
   width: 10em;
   font-size: 11px;
   height: 25px;
 }
 
 /* facet links */
-div.mkwsFacet > div.term { background: none; }
+div.mkws-facet > div.term { background: none; }
 
 /* facet counter for a link */
-div.mkwsFacet > div.term > span { color: #000; }
+div.mkws-facet > div.term > span { color: #000; }
 
 /* sidebar */
 @media (min-width: 768px) and (max-width: 1199px) {
@@ -148,7 +148,7 @@ div.mkwsFacet > div.term > span { color: #000; }
   margin-bottom: 5px;
 }
 
-.mkws-autosearch div.mkwsRecords {
+.mkws-autosearch div.mkws-records {
   padding: 3px;
 }
 
@@ -165,30 +165,30 @@ div.mkwsFacet > div.term > span { color: #000; }
   text-decoration: none;
 }
 
-.mkwsSwitch a, .mkwsLang a, .mkwsFacet a, .mkwsRanking a, .mkwsPager a, .mkwsNavi a, .mkwsRecords a, .mkwsRecord a {
+.mkws-switch a, .mkws-lang a, .mkws-facet a, .mkws-ranking a, .mkws-pager a, .mkws-navi a, .mkws-records a, .mkws-record a {
   color: #0076b2;
 }
-.mkwsTargets table thead tr td {
+.mkws-targets table thead tr td {
   background-color: #0076b2;
 }
 
-.mkwsCurrentPage {
+.mkws-current-page {
   background: #0076b2;
 }
 
-input[type=submit].mkwsButton {
+input[type=submit].mkws-button {
   background: #006dcc;
 }
 
-.mkwsFacet {
+.mkws-facet {
   background: #fff;
 }
 
 /********************************************************************************
  * Koha + mkws-widget-reference.css
  */
-.mkwsReference h1 a { color: #0076b2; }
-.mkwsReference {
+.mkws-reference h1 a { color: #0076b2; }
+.mkws-reference {
     border: none;
     background: none;
     border-radius: none;
