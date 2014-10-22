@@ -62,11 +62,11 @@ mkws.registerWidgetType('facet', function() {
     if (that.config.template) {
       template = team.loadTemplate(that.config.template);
     } else {
-      template = team.loadTemplate("Facet-" + caption);
+      template = team.loadTemplate("facet-" + name);
       if (template) {
-        that.log("Using Facet-" + caption + " template.")
+        that.log("Using facet-" + name + " template.")
       } else {
-        that.log("No " + caption + " specific template, using default.")
+        that.log("No " + name + " specific template, using default.")
         template = team.loadTemplate("Facet");
       }
     }

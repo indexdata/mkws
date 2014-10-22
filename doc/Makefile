@@ -5,11 +5,24 @@
 
 # Older versions of pandoc don't do PDF output, but have a companion program
 MARKDOWN2PDF = $(shell if which markdown2pdf > /dev/null; then echo markdown2pdf; else echo pandoc --standalone; fi)
+HAVE_PDFLATEX = $(shell which pdflatex 2>/dev/null)
 
-DOCS = index.html index.pdf \
-       mkws-manual.html mkws-manual.pdf \
-       mkws-developer.html mkws-developer.pdf \
+DOCS = index.html \
+       mkws-manual.html \
+       mkws-developer.html \
        mkws-doc.css
+
+PDFS = index.pdf \
+       mkws-manual.pdf \
+       mkws-developer.pdf
+
+#
+# skip PDF creation if pdflatex is not installed
+# The debian tex package may download up to 650MB
+#
+ifneq "${HAVE_PDFLATEX}" ""
+DOCS+= ${PDFS}
+endif
 
 INSTALLED = $(DOCS:%=../tools/htdocs/%)
 
@@ -51,4 +64,3 @@ push:
 
 help:
 	@echo "make [ all | clean | push ]"
-
