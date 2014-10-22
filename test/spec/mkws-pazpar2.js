@@ -61,9 +61,9 @@ function init_jasmine_config() {
 function get_hit_counter() {
     var $ = mkws.$;
     // not yet here
-    if ($(".mkwsPager").length == 0) return -1;
+    if ($(".mkws-pager").length == 0) return -1;
 
-    var found = $(".mkwsPager").text();
+    var found = $(".mkws-pager").text();
     var re = /\([A-Za-z]+:\s+([0-9]+)\)/;
     re.exec(found);
     var hits = -1;
@@ -97,19 +97,19 @@ xdescribe("Check MOTD before search", function () {
 
     // Check that the MOTD has been moved into its container, and
     // is visible before the search.
-    // the mkwsMOTD div was originally inside a testMOTD div, which should
+    // the mkws-motd div was originally inside a testMOTD div, which should
     // now be empty
     // Note that the testMOTD is a regular div, and uses #testMOTD,
     // since the automagic class-making does not apply to it.
     it("MOTD is hidden", function () {
-        expect($(".mkwsMOTD").length).toBe(1);
+        expect($(".mkws-motd").length).toBe(1);
         expect($("#testMOTD").length).toBe(1);
         expect($("#testMOTD").text()).toMatch("^ *$");
     });
 
-    it("mkwsMOTDContainer has received the text", function () {
-        expect($(".mkwsMOTDContainer").length).toBe(1);
-        expect($(".mkwsMOTDContainer").text()).toMatch(/MOTD/);
+    it("mkws-motd-container has received the text", function () {
+        expect($(".mkws-motd-container").length).toBe(1);
+        expect($(".mkws-motd-container").text()).toMatch(/MOTD/);
     });
 });
 
@@ -121,18 +121,18 @@ describe("Check pazpar2 search", function () {
     });
 
     it("validate HTML id's", function () {
-        expect($("input.mkwsQuery").length).toBe(1);
-        expect($("input.mkwsButton").length).toBe(1);
+        expect($("input.mkws-query").length).toBe(1);
+        expect($("input.mkws-button").length).toBe(1);
 
-        expect($(".mkwsNext").length).not.toBe(1);
-        expect($(".mkwsPrev").length).not.toBe(1);
+        expect($(".mkws-next").length).not.toBe(1);
+        expect($(".mkws-prev").length).not.toBe(1);
     });
 
     it("run search query", function () {
         var search_query = jasmine_config.search_query; // short hit counter with some paging
-        $("input.mkwsQuery").val(search_query);
+        $("input.mkws-query").val(search_query);
         debug("set search query: " + search_query)
-        expect($("input.mkwsQuery").val()).toMatch("^" + search_query + "$");
+        expect($("input.mkws-query").val()).toMatch("^" + search_query + "$");
 
         if (mkws.config.use_service_proxy) {
             // wait for service proxy auth
@@ -145,7 +145,7 @@ describe("Check pazpar2 search", function () {
 
         runs(function () {
             debug("Click on submit button");
-            $("input.mkwsButton").trigger("click");
+            $("input.mkws-button").trigger("click");
         })
     });
 });
@@ -158,10 +158,10 @@ describe("Check MOTD after search", function () {
             return;
         }
 
-        expect($(".mkwsMOTD").length).toBe(1);
-        expect($(".mkwsMOTD").is(":hidden")).toBe(true);
-        debug("motd t=" + $(".mkwsMOTD").text());
-        debug("motd v=" + $(".mkwsMOTD").is(":visible"));
+        expect($(".mkws-motd").length).toBe(1);
+        expect($(".mkws-motd").is(":hidden")).toBe(true);
+        debug("motd t=" + $(".mkws-motd").text());
+        debug("motd v=" + $(".mkws-motd").is(":visible"));
     });
 });
 
@@ -176,7 +176,7 @@ describe("Check pazpar2 navigation", function () {
 
     // Asynchronous part
     it("check running search next/prev", function () {
-        expect($(".mkwsPager").length).toBe(1);
+        expect($(".mkws-pager").length).toBe(1);
 
         function my_click(id, time) {
             setTimeout(function () {
@@ -186,22 +186,22 @@ describe("Check pazpar2 navigation", function () {
         }
 
         waitsFor(function () {
-            return $("div.mkwsPager div:nth-child(2) a").length >= 2 ? true : false;
+            return $("div.mkws-pager div:nth-child(2) a").length >= 2 ? true : false;
         }, "Expect next link 2", 10 * jasmine_config.second);
 
         runs(function () {
             // click next/prev after N seconds
-            my_click(".mkwsNext", 0);
+            my_click(".mkws-next", 0);
         });
 
         waitsFor(function () {
-            return $("div.mkwsPager div:nth-child(2) a").length >= 3 ? true : false;
+            return $("div.mkws-pager div:nth-child(2) a").length >= 3 ? true : false;
         }, "Expect next link 3", 5 * jasmine_config.second);
 
         runs(function () {
             // click next/prev after N seconds
-            my_click(".mkwsNext", 0);
-            my_click(".mkwsPrev", 0.2);
+            my_click(".mkws-next", 0);
+            my_click(".mkws-prev", 0.2);
         });
     });
 });
@@ -221,7 +221,7 @@ describe("Check pazpar2 hit counter", function () {
 
         runs(function () {
             debug("mkws pager found records: '" + hits + "'");
-            expect($(".mkwsPager").length).toBe(1);
+            expect($(".mkws-pager").length).toBe(1);
             expect(hits).toBeGreaterThan(expected_hits);
         });
     });
@@ -231,33 +231,33 @@ describe("Check Termlist", function () {
     var $ = mkws.$;
 
     it("found Termlist", function () {
-        var termlist = $("div.mkwsTermlists");
+        var termlist = $("div.mkws-termlists");
         debug("Termlist success: " + termlist.length);
         expect(termlist.length).toBe(1);
 
         waitsFor(function () {
-            return $("div.mkwsFacet[data-mkws-facet='xtargets']").length == 1 ? true : false;
+            return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
         }, "check for facet sources", 4 * jasmine_config.second);
 
         // everything displayed?
         runs(function () {
-            var sources = $("div.mkwsFacet[data-mkws-facet='xtargets']");
+            var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
             debug("Termlist sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
-            var subjects = $("div.mkwsFacet[data-mkws-facet='subject']");
+            var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
             expect(subjects.length).toBe(1);
 
-            var authors = $("div.mkwsFacet[data-mkws-facet='author']");
+            var authors = $("div.mkws-facet[data-mkws-facet='author']");
             expect(authors.length).toBe(1);
         });
 
         waitsFor(function () {
-            return $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length >= 2 ? true : false;
+            return $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term").length >= 2 ? true : false;
         }, "At least two author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
-            expect($("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length).toBeGreaterThan(1);
+            expect($("div.mkws-facet[data-mkws-facet='author'] div.mkws-term").length).toBeGreaterThan(1);
         });
     });
 });
@@ -279,7 +279,7 @@ describe("Check Author Facets", function () {
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
         runs(function () {
-            var terms = $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm a");
+            var terms = $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term a");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text();
                 if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -289,13 +289,13 @@ describe("Check Author Facets", function () {
                     break;
                 }
             }
-            if ($("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").text().length == 0) {
+            if ($("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a").text().length == 0) {
                 debug("No good authors found. Not clicking on the bad ones");
                 return;
             }
 
-            debug("Clicking on author (" + author_number + ") " + $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").text());
-            $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm:nth-child(" + author_number + ") a").trigger("click");
+            debug("Clicking on author (" + author_number + ") " + $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a").text());
+            $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a").trigger("click");
         });
 
         waitsFor(function () {
@@ -316,14 +316,14 @@ describe("Check active clients author", function () {
 
     it("check for active clients after limited author search", function () {
         waitsFor(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
+            var clients = $("div.mkws-stat span.mkws-client-count");
             // debug("clients: " + clients.text());
             return clients.length == 1 && clients.text().match("/[1-9]+[0-9]*$");
         }, "wait for Active clients: x/y", 5.5 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
-            debug("span.mkwsClientCount: " + clients.text());
+            var clients = $("div.mkws-stat span.mkws-client-count");
+            debug("span.mkws-client-count: " + clients.text());
             expect(clients.text()).toMatch("/[1-9]+[0-9]*$");
 
             // exact match of active clients (e.g. a SP misconfiguration)
@@ -344,7 +344,7 @@ describe("Check Source Facets", function () {
         // wait for a stat response
         var waitcount = 0;
         // do not click on wikipedia link - no author or subject facets possible
-        var link = "div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm a";
+        var link = "div.mkws-facet[data-mkws-facet='xtargets'] div.mkws-term a";
 
         // wait for a visible source link in facets
         waitsFor(function () {
@@ -368,22 +368,22 @@ describe("Check Source Facets", function () {
             }
             debug("Source counter: " + terms.length + ", select: " + (source_number - 1));
 
-            if ($("div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm:nth-child(" + source_number + ") a").text().length == 0) {
+            if ($("div.mkws-facet[data-mkws-facet='xtargets'] div.mkws-term:nth-child(" + source_number + ") a").text().length == 0) {
                 debug("No good source found. Not clicking on the bad ones");
                 return;
             }
 
             debug("click on source link nth-child(): " + source_number);
-            $("div.mkwsFacet[data-mkws-facet='xtargets'] div.mkwsTerm:nth-child(" + source_number + ") a").trigger("click");
+            $("div.mkws-facet[data-mkws-facet='xtargets'] div.mkws-term:nth-child(" + source_number + ") a").trigger("click");
 
-            $(".mkwsPager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $(".mkws-pager").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkwsPager, for stat: " + waitcount);
+                debug("DOM change mkws-pager, for stat: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            if ($("div.mkwsNavi").length && $("div.mkwsNavi").text().match(/(Source|datenquelle|kilder): /i)) {
+            if ($("div.mkws-navi").length && $("div.mkws-navi").text().match(/(Source|datenquelle|kilder): /i)) {
                 return true;
             } else {
                 return false;
@@ -404,7 +404,7 @@ describe("Check Source Facets", function () {
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
             jasmine_status.source_click = 1;
 
-            $(".mkwsPager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $(".mkws-pager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
@@ -420,20 +420,20 @@ describe("Check record list", function () {
         }
 
         waitsFor(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
+            var clients = $("div.mkws-stat span.mkws-client-count");
             //debug("clients: " + clients.text());
             return clients.length == 1 && clients.text().match("/1$");
         }, "wait for Active clients: x/1", 5 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
-            debug("span.mkwsClientCount: " + clients.text());
+            var clients = $("div.mkws-stat span.mkws-client-count");
+            debug("span.mkws-client-count: " + clients.text());
             expect(clients.text()).toMatch("/1$");
         });
     });
 
     it("got a record", function () {
-        var linkaddr = "div.mkwsRecords div.mkwsSummary:nth-child(1) a";
+        var linkaddr = "div.mkws-records div.mkws-summary:nth-child(1) a";
 
         waitsFor(function () {
             // remove + insert node: must be at least 2
@@ -451,20 +451,20 @@ describe("Show record", function () {
 
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
-        var click = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") a").trigger("click");
+        var click = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") a").trigger("click");
         debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
 
         // wait until the record pops up
         waitsFor(function () {
-            var show = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") > div.mkwsDetails");
-            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkwsRecords div.mkwsSummary").text());
+            var show = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") > div.mkws-details");
+            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkws-records div.mkws-summary").text());
             return show != null && show.length ? true : false;
         }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
 
         runs(function () {
             debug("show record pop up");
-            expect($("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") div")).not.toBe(null);
+            expect($("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") div")).not.toBe(null);
         });
     });
 
@@ -474,7 +474,7 @@ describe("Show record", function () {
             return;
         }
 
-        var urls = $("div.mkwsRecords div.mkwsSummary:nth-child(" + record_number + ") div table tbody tr td a");
+        var urls = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") div table tbody tr td a");
         debug("number of extracted URL from record: " + urls.length);
         // expect(urls.length).toBeGreaterThan(0); // LoC has records without links
         for (var i = 0; i < urls.length; i++) {
@@ -491,19 +491,19 @@ describe("Show record", function () {
 describe("Check switch menu Records/Targets", function () {
     var $ = mkws.$;
 
-    it("check mkwsSwitch", function () {
-        expect($("div.mkwsSwitch").length).toBe(1);
+    it("check mkws-switch", function () {
+        expect($("div.mkws-switch").length).toBe(1);
 
         // expect 2 clickable links
-        expect($("div.mkwsSwitch > a").length).toBe(2);
+        expect($("div.mkws-switch > a").length).toBe(2);
     });
 
     it("switch to target view", function () {
-        $("div.mkwsSwitch > a").eq(1).trigger("click");
+        $("div.mkws-switch > a").eq(1).trigger("click");
 
         // now the target table must be visible
-        expect($("div.mkwsTargets").is(":visible")).toBe(true);
-        expect($("div.mkwsRecords").is(":visible")).toBe(false);
+        expect($("div.mkws-targets").is(":visible")).toBe(true);
+        expect($("div.mkws-records").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
         var time = (new Date).getTime();
@@ -513,16 +513,16 @@ describe("Check switch menu Records/Targets", function () {
 
         // look for table header
         runs(function () {
-            expect($("div.mkwsTargets").html()).toMatch(/Target ID/);
+            expect($("div.mkws-targets").html()).toMatch(/Target ID/);
         });
     });
 
     it("switch back to record view", function () {
-        $("div.mkwsSwitch > a").eq(0).trigger("click");
+        $("div.mkws-switch > a").eq(0).trigger("click");
 
         // now the target table must be visible
-        expect($("div.mkwsTargets").is(":visible")).toBe(false);
-        expect($("div.mkwsRecords").is(":visible")).toBe(true);
+        expect($("div.mkws-targets").is(":visible")).toBe(false);
+        expect($("div.mkws-records").is(":visible")).toBe(true);
     });
 });
 
@@ -542,7 +542,7 @@ describe("Check status client counter", function () {
         }
 
         waitsFor(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
+            var clients = $("div.mkws-stat span.mkws-client-count");
             debug("clients: " + clients.text());
             if (clients.length == 1 && clients.text().match("0/1$")) {
                 return true;
@@ -552,8 +552,8 @@ describe("Check status client counter", function () {
         }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
 
         runs(function () {
-            var clients = $("div.mkwsStat span.mkwsClientCount");
-            debug("span.mkwsClientCount: " + clients.text());
+            var clients = $("div.mkws-stat span.mkws-client-count");
+            debug("span.mkws-client-count: " + clients.text());
             expect(clients.text()).toMatch("0/1$");
         });
     });
@@ -572,44 +572,44 @@ describe("Check removable facets links", function () {
 
 
         runs(function () {
-            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            var click = $("a.mkws-removable").eq(0).trigger("click");
             debug("Removed first facets link: " + click.length);
             expect(click.length).toBe(1);
         });
 
         runs(function () {
-            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkwsRecords for removeable: " + waitcount);
+                debug("DOM change mkws-records for removeable: " + waitcount);
             });
         });
 
         waitsFor(function () {
-            return waitcount >= 2 && $("a.mkwsRemovable").length == 1 ? 1 : 0;
-        }, "Records DOM change mkwsRecords, removable", 2 * jasmine_config.second);
+            return waitcount >= 2 && $("a.mkws-removable").length == 1 ? 1 : 0;
+        }, "Records DOM change mkws-records, removable", 2 * jasmine_config.second);
 
         runs(function () {
             debug("unbind removable");
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             waitcount = 0;
 
-            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkwsRecords for removeable2: " + waitcount);
+                debug("DOM change mkws-records for removeable2: " + waitcount);
             });
 
-            var click = $("a.mkwsRemovable").eq(0).trigger("click");
+            var click = $("a.mkws-removable").eq(0).trigger("click");
             debug("Removed second facets link: " + click.length);
             expect(click.length).toBe(1);
         });
 
         waitsFor(function () {
-            return waitcount >= 2 && $("a.mkwsRemovable").length == 0 ? true : false;
-        }, "DOM change mkwsRecords, removable2", 2 * jasmine_config.second);
+            return waitcount >= 2 && $("a.mkws-removable").length == 0 ? true : false;
+        }, "DOM change mkws-records, removable2", 2 * jasmine_config.second);
 
         runs(function () {
             debug("unbind removable2");
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
         });
     });
 });
@@ -628,30 +628,30 @@ describe("Check per page options", function () {
 
 
         runs(function () {
-            var select = $("select.mkwsPerpage option[selected='selected']");
+            var select = $("select.mkws-perpage option[selected='selected']");
             debug("per page default is: " + select.text() + " and unselect it");
             select.removeAttr('selected');
 
-            select = $("select.mkwsPerpage option[value='" + per_page_number + "']").attr('selected', true);
+            select = $("select.mkws-perpage option[value='" + per_page_number + "']").attr('selected', true);
             debug("per page is set to: " + select.text());
             select.trigger("change");
 
-            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkwsRecords, per page: " + waitcount);
+                debug("DOM change mkws-records, per page: " + waitcount);
             });
         });
 
         waitsFor(function () {
             // debug("per page waitcounter: " + waitcount)
             return waitcount >= (per_page_number + 10) ? true : false;
-        }, "DOM change mkwsRecords, by per page", 3 * jasmine_config.second);
+        }, "DOM change mkws-records, by per page", 3 * jasmine_config.second);
 
         runs(function () {
             debug("unbind per page");
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
 
-            var records = $("div.mkwsRecords > div.mkwsSummary");
+            var records = $("div.mkws-records > div.mkws-summary");
             debug("Per page got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
@@ -674,7 +674,7 @@ describe("Check SortBy options", function () {
 
         function title_list(prefix) {
             var list = [];
-            var terms = $("div.mkwsRecords > div.mkwsSummary > a");
+            var terms = $("div.mkws-records > div.mkws-summary > a");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text().trim();
                 list.push(term);
@@ -684,16 +684,16 @@ describe("Check SortBy options", function () {
         }
 
         runs(function () {
-            $("div.mkwsRecords").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkwsRecords, sort by: " + waitcount);
+                debug("DOM change mkws-records, sort by: " + waitcount);
             });
 
-            var select = $("select.mkwsSort option[selected='selected']");
+            var select = $("select.mkws-sort option[selected='selected']");
             debug("Sort by default is: " + select.text() + " and unselect it");
             select.removeAttr('selected');
 
-            select = $("select.mkwsSort option[value='" + sort_value + "']").attr('selected', true);
+            select = $("select.mkws-sort option[value='" + sort_value + "']").attr('selected', true);
             debug("sort by is set to: " + select.text());
             select.trigger("change");
         });
@@ -701,13 +701,13 @@ describe("Check SortBy options", function () {
         waitsFor(function () {
             //debug("wait for2: " + waitcount);
             return waitcount >= (per_page_number + 10) ? true : false;
-        }, "DOM change mkwsRecords, by sort page", 3 * jasmine_config.second);
+        }, "DOM change mkws-records, by sort page", 3 * jasmine_config.second);
 
         runs(function () {
-            $("div.mkwsRecords").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind by sort");
 
-            var records = $("div.mkwsRecords > div.mkwsSummary > a");
+            var records = $("div.mkws-records > div.mkws-summary > a");
             debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
@@ -731,16 +731,16 @@ describe("Check SortBy options", function () {
 describe("Check async widget discovery", function () {
   var $ = mkws.$;
   it("initialises a new widget", function() {
-    $("div.mkwsSearch").after('<div id="asyncSearch"><div class="mkwsSearch mkwsTeam_async"></div></div>');
+    $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team_async"></div></div>');
     mkws.init("Another search box", "#asyncSearch");
     waitsFor(function () {
       return $("#asyncSearch input").length >= 1 ? true : false;
-    }, "Call init() to build an .mkwsSearch", 750);
+    }, "Call init() to build an .mkws-search", 750);
     runs(function () {
-      var numInput = $("div.mkwsSearch input").length;
+      var numInput = $("div.mkws-search input").length;
       debug("Input elements present: " + numInput);
       expect(numInput).toBe(4);
-      var numRec = $("div.mkwsRecords > div.mkwsSummary > a").length;
+      var numRec = $("div.mkws-records > div.mkws-summary > a").length;
       debug("Records should still be present. There are: " + numRec);
       expect(numRec).toBeGreaterThan(0);
     });
