@@ -254,7 +254,7 @@ describe("Check Termlist", function () {
 
         waitsFor(function () {
             return $("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length >= 2 ? true : false;
-        }, "At least one author link displayed", 4 * jasmine_config.second);
+        }, "At least two author link displayed", 4 * jasmine_config.second);
 
         runs(function () {
             expect($("div.mkwsFacet[data-mkws-facet='author'] div.mkwsTerm").length).toBeGreaterThan(1);
