@@ -6,7 +6,7 @@
 // $(document).ready(function () {
 mkws.registerWidgetType('popup', function() {
     var $ = mkws.$;
-    var debug = mkws.log;
+    var debug = this.log;
     debug("init popup window");
 
     var popup_window = $(this.node);

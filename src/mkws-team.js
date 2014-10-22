@@ -185,7 +185,7 @@ mkws.makeTeam = function($, teamName) {
     }
 
     m_paz = new pz2(params);
-    log("ccreated main pz2 object");
+    log("created main pz2 object");
   }
 
 
@@ -454,7 +454,7 @@ mkws.makeTeam = function($, teamName) {
       return template;
     }
     else {
-      mkws.log("No MKWS template for " + name);
+      log("No MKWS template for " + name);
       return null;
     }  
   }

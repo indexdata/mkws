@@ -493,7 +493,6 @@ mkws.log("Using window.name '" + window.name + "'");
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
           myTeam = mkws.teams[tname] = mkws.makeTeam($, tname);
-          log("made MKWS team '" + tname + "'");
         }
 
         var oldHTML = this.innerHTML;
@@ -501,7 +500,7 @@ mkws.log("Using window.name '" + window.name + "'");
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
-          log("widget " + tname + ":" + type + " HTML changed: reparsing");
+          myTeam.log("widget " + type + " HTML changed: reparsing");
           makeWidgetsWithin(level+1, $(this));
         }
       });
@@ -601,7 +600,7 @@ mkws.log("Using window.name '" + window.name + "'");
     for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
       myTeam.makePz2();
-      log("made PZ2 object for team '" + tName + "'");
+      myTeam.log("made PZ2 object");
       /*
         myTeam.visitWidgets(function(t, w) {
           log("  has widget of type '" + t + "': " + w);
