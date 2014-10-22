@@ -114,7 +114,7 @@ html-includes:
 	  perl -n0e 'chomp(); print qq{    <script type="text/javascript" src="src/$$_"></script>\n}'
 
 clean distclean:
-	rm -f ${INSTALLED}
+	rm -f ${INSTALLED} mkws-templates.js
 
 help:
 	@echo "make [ all | clean | release ]"
