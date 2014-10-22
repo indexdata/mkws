@@ -12,7 +12,7 @@ mkws.registerWidgetType('builder', function() {
     var    sort = team.widget('sort').value();
     var perpage = team.widget('per-page').value();
 
-    var html = ('<div class="mkwsRecords" ' +
+    var html = ('<div class="mkws-records mkwsRecords" ' +
                 'autosearch="' + query + '" ' +
                 'sort="' + sort + '" ' +
                 'perpage="' + perpage + '"></div>');

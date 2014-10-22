@@ -10,7 +10,7 @@ mkws.registerWidgetType('popup', function() {
     debug("init popup window");
 
     var popup_window = $(this.node);
-    // var popup_window = $(".mkwsPopup"); // $(document).ready()
+    // var popup_window = $(".mkws-popup mkwsPopup"); // $(document).ready()
     if (!popup_window) {
         debug("no popup found, skip...");
         return;
@@ -49,7 +49,7 @@ mkws.registerWidgetType('popup', function() {
             close: function() {}
         });
 
-        // open at search query submit: "input.mkwsButton"
+        // open at search query submit: "input.mkws-button mkwsButton"
         var id_botton = that.attr("popup_button");
         if (id_botton) {
             $(id_botton).button().click(function() {

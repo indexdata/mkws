@@ -57,7 +57,7 @@ mkws.makeWidget = function($, team, type, node) {
     }
 
     var s = [];
-    s.push('<div class="mkws', type, ' mkwsTeam_', attrs._team, '"');
+    s.push('<div class="mkws', type, ' mkws-team-', attrs._team, '"');
     for (var name in attrs) {    
       if (name !== '_team')
         s.push(' ', name, '="', attrs[name], '"');

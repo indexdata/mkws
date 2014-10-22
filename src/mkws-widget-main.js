@@ -118,7 +118,7 @@ mkws.registerWidgetType('records', function() {
       that.team.queue("record").publish(hit);
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
       hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
-      hit.containerClass = "mkwsSummary mkwsTeam_" + team.name();
+      hit.containerClass = "mkws-summary mkwsSummary mkws-team-" + team.name();
       hit.containerClass += " " + hit.detailLinkId;
       // ### At some point, we may be able to move the
       // m_currentRecordId and m_currentRecordData members

@@ -191,13 +191,13 @@ mkws.makeTeam = function($, teamName) {
 
   // Used by the Records widget and onRecord()
   function recordElementId(s) {
-    return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkws-rec_' + s.replace(/[^a-z0-9]/ig, '_');
   }
   that.recordElementId = recordElementId;
 
   // Used by onRecord(), showDetails() and renderDetails()
   function recordDetailsId(s) {
-    return 'mkwsDet_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkws-det_' + s.replace(/[^a-z0-9]/ig, '_');
   }
 
 
@@ -390,10 +390,10 @@ mkws.makeTeam = function($, teamName) {
     teamName = teamName || m_teamName;
 
     if (teamName === 'AUTO') {
-      selector = (selector + '.mkwsTeam_' + teamName + ',' +
-                  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+      selector = (selector + '.mkws-team-' + teamName + ',' +
+                  selector + ':not([class^="mkws-team"],[class*=" mkws-team"])');
     } else {
-      selector = selector + '.mkwsTeam_' + teamName;
+      selector = selector + '.mkws-team-' + teamName;
     }
 
     var node = $(selector);
@@ -410,7 +410,7 @@ mkws.makeTeam = function($, teamName) {
   function renderDetails(data, marker) {
     var template = loadTemplate("Record");
     var details = template(data);
-    return '<div class="mkwsDetails mkwsTeam_' + m_teamName + '" ' +
+    return '<div class="mkws-details mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
   }
   that.renderDetails = renderDetails;
@@ -430,10 +430,10 @@ mkws.makeTeam = function($, teamName) {
         node = $(".mkws-template-" + name);
       }
       if (node && node.length < 1) {
-        node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
+        node = $(".mkws-template_" + name + " .mkws-team-" + that.name());
       }
       if (node && node.length < 1) {
-        node = $(".mkwsTemplate_" + name);
+        node = $(".mkws-template_" + name);
       }
       if (node) source = node.html();
       if (!source) source = m_templateText[name];

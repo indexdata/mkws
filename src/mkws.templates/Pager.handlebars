@@ -21,9 +21,9 @@ pages:
 
 <div style="float: clear">
   {{#if prevClick}}
-    <a href="#" class="mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{{mkws-translate "Prev"}}}</a> |
+    <a href="#" class="mkws-prev mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{{mkws-translate "Prev"}}}</a> |
   {{else}}
-    <span class="mkwsPrev">&#60;&#60; {{{mkws-translate "Prev"}}}</span> |
+    <span class="mkws-prev mkwsPrev">&#60;&#60; {{{mkws-translate "Prev"}}}</span> |
   {{/if}}
 
   {{#if morePrev}}...{{/if}}
@@ -32,15 +32,15 @@ pages:
     {{#if click}}
       <a href="#" onclick="{{click}}">{{number}}</a>
     {{else}}
-      <span class="mkwsCurrentPage">{{number}}</span>
+      <span class="mkws-current-page mkwsCurrentPage">{{number}}</span>
     {{/if}}
   {{/each}}
 
   {{#if moreNext}}...{{/if}}
 
   {{#if nextClick}}
-    | <a href="#" class="mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}} &#62;&#62;</a>
+    | <a href="#" class="mkws-next mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}} &#62;&#62;</a>
   {{else}}
-    | <span class="mkwsNext">{{{mkws-translate "Next"}}} &#62;&#62;</span>
+    | <span class="mkws-next mkwsNext">{{{mkws-translate "Next"}}} &#62;&#62;</span>
   {{/if}}
 </div>
