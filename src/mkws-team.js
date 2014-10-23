@@ -408,7 +408,7 @@ mkws.makeTeam = function($, teamName) {
   }
 
   function renderDetails(data, marker) {
-    var template = loadTemplate("Record");
+    var template = loadTemplate("details");
     var details = template(data);
     return '<div class="mkws-details mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';

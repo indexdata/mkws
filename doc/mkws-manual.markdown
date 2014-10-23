@@ -212,7 +212,7 @@ the system. For details of Handlebars template syntax, see [the online
 documentation](http://handlebarsjs.com/).
 
 The templates used by the core widgets can be viewed in [our git
-repository](http://git.indexdata.com/?p=mkws.git;a=tree;f=src/mkws.templates;).
+repository](http://git.indexdata.com/?p=mkws.git;a=tree;f=src/templates;).
 Parameters are documented in a comment at the top of each template so
 you can see what's going where. If all you want to do is add a CSS class to
 something or change a `span` to a `div` it's easy to just copy the existing

@@ -27,7 +27,7 @@ mkws.registerWidgetType('targets', function() {
       cleandata.push(cur);
     }
 
-    var template = that.team.loadTemplate(that.config.template || "Targets");
+    var template = that.team.loadTemplate(that.config.template || "targets");
     that.node.html(template({data: cleandata}));
   });
 });
@@ -36,7 +36,7 @@ mkws.registerWidgetType('targets', function() {
 mkws.registerWidgetType('stat', function() {
   var that = this;
   this.team.queue("stat").subscribe(function(data) {
-    var template = that.team.loadTemplate(that.config.template || "Stat");
+    var template = that.team.loadTemplate(that.config.template || "stat");
     that.node.html(template(data));
   });
 });
@@ -83,7 +83,7 @@ mkws.registerWidgetType('pager', function() {
 
     if (pages - currentPage > 0) output.nextClick = "mkws.pagerNext(\'" + teamName + "\')";
 
-    var template = that.team.loadTemplate(that.config.template || "Pager");
+    var template = that.team.loadTemplate(that.config.template || "pager");
     that.node.html(template(output));
   });
 });
@@ -101,7 +101,7 @@ mkws.registerWidgetType('details', function() {
   this.team.queue("record").subscribe(function(data) {
     console.log(data);
     if ($.inArray(recid, data.recid) > -1) {
-      var template = that.team.loadTemplate(that.config.template || "Record");
+      var template = that.team.loadTemplate(that.config.template || "details");
       that.node.html(template(data));
     }
   });
@@ -129,7 +129,7 @@ mkws.registerWidgetType('records', function() {
         } 
       }
     }
-    var template = team.loadTemplate(that.config.template || "Records");
+    var template = team.loadTemplate(that.config.template || "records");
     var targs = $.extend({}, {"hits": data.hits}, that.config.template_vars);
     that.node.html(template(targs));
   });
@@ -162,7 +162,7 @@ mkws.registerWidgetType('navi', function() {
       output.filters.push(cur);
     });
 
-    var template = that.team.loadTemplate(that.config.template || "Navi");
+    var template = that.team.loadTemplate(that.config.template || "navi");
     that.node.html(template(output));
   });
 });
@@ -200,7 +200,7 @@ mkws.registerWidgetType('per-page', function() {
 mkws.registerWidgetType('done', function() {
   var that = this;
   this.team.queue("complete").subscribe(function(n) {
-    var template = that.team.loadTemplate(that.config.template || "Done");
+    var template = that.team.loadTemplate(that.config.template || "done");
     that.node.html(template({count: n}));
   });
 });
@@ -212,7 +212,7 @@ mkws.registerWidgetType('switch', function() {
   var output = {};
   output.recordClick = "mkws.switchView(\'" + tname + "\', \'records\')";
   output.targetClick = "mkws.switchView(\'" + tname + "\', \'targets\')";
-  var template = this.team.loadTemplate(this.config.template || "Switch");
+  var template = this.team.loadTemplate(this.config.template || "switch");
   this.node.html(template(output));
   this.hideWhenNarrow();
 });
@@ -222,7 +222,7 @@ mkws.registerWidgetType('search', function() {
   var output = {};
   output.team = this.team.name();
   output.queryWidth = this.config.query_width;
-  var template = this.team.loadTemplate(this.config.template || "Search");
+  var template = this.team.loadTemplate(this.config.template || "search");
   this.node.html(template(output));
 });
 
@@ -238,7 +238,7 @@ mkws.registerWidgetType('search-form', function() {
 
 
 mkws.registerWidgetType('results', function() {
-  var template = this.team.loadTemplate(this.config.template || "Results");
+  var template = this.team.loadTemplate(this.config.template || "results");
   this.node.html(template({team: this.team.name()}));
   this.autosearch();
 });
@@ -272,7 +272,7 @@ mkws.registerWidgetType('ranking', function() {
     output.perPage.push(cur);
   }
 
-  var template = this.team.loadTemplate(this.config.template || "Ranking");
+  var template = this.team.loadTemplate(this.config.template || "ranking");
   this.node.html(template(output));
 });
 
@@ -314,7 +314,7 @@ mkws.registerWidgetType('lang', function() {
 
   this.log("language menu: " + list.join(", "));
 
-  var template = this.team.loadTemplate(this.config.template || "Lang");
+  var template = this.team.loadTemplate(this.config.template || "lang");
   this.node.html(template({languages: list}));
   this.hideWhenNarrow();
 
@@ -367,7 +367,7 @@ mkws.registerWidgetType('progress', function() {
   var that = this;
   this.node.hide();
   this.team.queue("stat").subscribe(function(data) {
-    var template = that.team.loadTemplate(that.config.template || "Progress");
+    var template = that.team.loadTemplate(that.config.template || "progress");
     that.node.html(template({
       done: data.clients - data.activeclients,
       waiting: data.activeclients
