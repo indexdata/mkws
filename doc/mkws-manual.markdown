@@ -65,8 +65,10 @@ The following is
         <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
       </head>
       <body>
-        <div class="mkwsSearch"></div>
-        <div class="mkwsResults"></div>
+        <div class="mkws-progress"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-results"></div>
+        <div class="mkws-stat"></div>
       </body>
     </html>
 
