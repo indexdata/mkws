@@ -9,7 +9,7 @@
     <script class="mkws-template-Records" type="text/x-handlebars-template">
       {{#each hits}}
         <div class="{{containerClass}}">
-          <a href="#" id="{{_id}}" onclick="{{_onclick}}">
+          <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
             {{#each md-thumburl}}
               <img src="{{this}}" alt="{{../md-title}}"/>
             {{/each}}
