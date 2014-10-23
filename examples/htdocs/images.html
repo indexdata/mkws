@@ -5,8 +5,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Images</title>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
-    <script class="mkws-template_summary" type="text/x-handlebars-template">
+    <script type="text/javascript" src="//x.mkws.indexdata.com/mkws-complete.js"></script>
+    <script class="mkws-template-Records" type="text/x-handlebars-template">
+     {{#each hits}}
+     <div class="{{containerClass}}">
       <a href="#" id="{{_id}}" onclick="{{_onclick}}">
         {{#each md-thumburl}}
 	  <img src="{{this}}" alt="{{../md-title}}"/>
@@ -20,6 +22,8 @@
     	<span><i>{{md-title-responsibility}}</i></span>
       {{/if}}
       </a>
+      </div>
+     {{/each}}
     </script>
     <script type="text/javascript">
       var mkws_config = {
