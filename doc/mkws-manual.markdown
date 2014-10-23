@@ -97,7 +97,12 @@ Second, within the HTML body, `<div>` elements with special IDs that
 begin `mkws-` can be provided. These are filled in by the MKWS code,
 and provide the components of the searching UI. The very simple
 application above has only two such widgets: a search box and a
-results area. But more are supported. The main widgets are:
+results area. But more are supported.
+
+Widget Elements
+===============
+
+The main widgets are:
 
 * `mkws-search` -- provides the search box and button.
 
@@ -137,6 +142,9 @@ To see all of these working together, just put them all into the HTML
 
 The full set of supported widgets is described in the
 reference guide below.
+
+Old and new-style class-names
+-----------------------------
 
 **NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
 without hyphens and with second and subsequent words capitalised. So
