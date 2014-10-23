@@ -417,11 +417,20 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.registerTemplate = function(name, text) {
+    if(mkws._old2new.hasOwnProperty(name)) {
+      mkws.log("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
+      name = mkws._old2new[name];
+    }
     m_templateText[name] = text;
   };
 
 
   function loadTemplate(name, fallbackString) {
+    if(mkws._old2new.hasOwnProperty(name)) {
+       mkws.log("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
+       name = mkws._old2new[name];
+    }
+
     var template = m_template[name];
     if (template === undefined && Handlebars.compile) {
       var source;

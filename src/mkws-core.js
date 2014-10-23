@@ -132,6 +132,11 @@ mkws.getParameterByName = function(name, url) {
 
 
 mkws.registerWidgetType = function(name, fn) {
+  if(mkws._old2new.hasOwnProperty(name)) {
+      mkws.log("Warning: registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
+      name = mkws._old2new[name];
+  }
+
   mkws.widgetType2function[name] = fn;
   mkws.log("registered widget-type '" + name + "'");
 };
@@ -304,6 +309,8 @@ mkws.log("Using window.name '" + window.name + "'");
       _new2old[_old2new[key]] = key;
     }
   }
+
+  mkws._old2new = _old2new;
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
