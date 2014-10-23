@@ -6,7 +6,7 @@ Simply paste this inline with the markup on any page:
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
     <script src="//mkws.indexdata.com/mkws-widget-ru.js"></script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws-widget-ru.css" />
-    <div class="mkwsReferenceUniverse" autosearch="!param!q"></div>
+    <div class="mkws-reference-universe" autosearch="!param!q"></div>
     
 ## A bit more detail 
 
@@ -21,9 +21,9 @@ The provided stylesheet is generic and you're encouraged to replace it entirely 
 
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws-widget-ru.css" />
     
-Any element you give the class `mkwsReferenceUniverse` will have is contents replaced by the top results from a search against the Reference Universe service for the current query.
+Any element you give the class `mkws-reference-universe` will have is contents replaced by the top results from a search against the Reference Universe service for the current query.
     
-    <div class="mkwsReferenceUniverse" autosearch="!param!q"></div>
+    <div class="mkws-reference-universe" autosearch="!param!q"></div>
 
 ### Finding the query 
 
