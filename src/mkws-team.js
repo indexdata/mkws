@@ -438,12 +438,6 @@ mkws.makeTeam = function($, teamName) {
       if (node && node.length < 1) {
         node = $(".mkws-template-" + name);
       }
-      if (node && node.length < 1) {
-        node = $(".mkws-template_" + name + " .mkws-team-" + that.name());
-      }
-      if (node && node.length < 1) {
-        node = $(".mkws-template_" + name);
-      }
       if (node) source = node.html();
       if (!source) source = m_templateText[name];
       if (source) {
