@@ -65,10 +65,8 @@ The following is
         <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
       </head>
       <body>
-        <div class="mkws-progress"></div>
         <div class="mkws-search"></div>
         <div class="mkws-results"></div>
-        <div class="mkws-stat"></div>
       </body>
     </html>
 
@@ -89,52 +87,65 @@ These fall into two categories. First, the prerequisites in the HTML
 header, which are loaded from the tool site `mkws.indexdata.com`:
 
 * `mkws-complete.js`
-  contains all the JavaScript needed by the widget-set.
+  contains all the JavaScript needed by the widget-set, including a
+  copy of the jQuery library.
 
 * `mkws.css`
   provides the default CSS styling
 
 Second, within the HTML body, `<div>` elements with special IDs that
-begin `mkws` can be provided. These are filled in by the MKWS code,
+begin `mkws-` can be provided. These are filled in by the MKWS code,
 and provide the components of the searching UI. The very simple
 application above has only two such widgets: a search box and a
 results area. But more are supported. The main widgets are:
 
-* `mkwsSearch` -- provides the search box and button.
+* `mkws-search` -- provides the search box and button.
 
-* `mkwsResults` -- provides the results area, including a list of
+* `mkws-results` -- provides the results area, including a list of
    brief records (which open out into full versions when clicked),
    paging for large results sets, facets for refining a search,
    sorting facilities, etc.
 
-* `mkwsStat` --provides a status line summarising the statistics of
+* `mkws-progress` -- shows a progress bar indicating how many of the
+   targets have responded to the search request.
+
+* `mkws-stat` -- provides a status line summarising the statistics of
    the various targets.
 
-* `mkwsSwitch` -- provides links to switch between a view of the
+* `mkws-switch` -- provides links to switch between a view of the
    result records and of the targets that provide them. Only
    meaningful when `mkwsTargets` is also provided.
 
-* `mkwsTargets` -- the area where per-target information will appear
+* `mkws-targets` -- the area where per-target information will appear
    when selected by the link in the `mkwsSwitch` area. Of interest
    mostly for fault diagnosis rather than for end-users.
 
-* `mkwsLang` -- provides links to switch between one of several
+* `mkws-lang` -- provides links to switch between one of several
    different UI languages. By default, English, Danish and German are
    provided.
 
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
 
-        <div id="mkwsSwitch"></div>
-        <div id="mkwsLang"></div>
-        <div id="mkwsSearch"></div>
-        <div id="mkwsResults"></div>
-        <div id="mkwsTargets"></div>
-        <div id="mkwsStat"></div>
+        <div id="mkws-switch"></div>
+        <div id="mkws-lang"></div>
+        <div id="mkws-progress"></div>
+        <div id="mkws-search"></div>
+        <div id="mkws-results"></div>
+        <div id="mkws-targets"></div>
+        <div id="mkws-stat"></div>
 
 The full set of supported widgets is described in the
 reference guide below.
 
+**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
+without hyphens and with second and subsequent words capitalised. So
+instead of `mkws-search`, it used to be `mkwsSearch`. The 1.x series
+of MKWS versions also recognise these old-style class-names as a
+facility for backwards compatibility. However, these **old class-names
+are deprecated, and support will be removed in v2.0**. Existing
+applications that use them should be upgraded to the new-style class
+names as soon as convenient.
 
 Configuration
 =============
