@@ -100,8 +100,8 @@ $(DEST)/mkws.js: $(COMPONENTS) Makefile
 	mv -f $@.tmp $@
 	chmod 444 $@
 
-mkws-templates.js: *.templates/*.handlebars
-	${HANDLEBARS} -n mkws.defaultTemplates *.templates/*.handlebars -f $@.tmp
+mkws-templates.js: templates/*.handlebars
+	${HANDLEBARS} -n mkws.defaultTemplates templates/*.handlebars -f $@.tmp
 	mv -f $@.tmp $@
 
 # Checks that the JavaScript can be parsed
