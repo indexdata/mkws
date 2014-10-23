@@ -4,7 +4,7 @@ mkws.registerWidgetType('record', function() {
   var that = this;
   var team = this.team;
   team.queue("records").subscribe(function(data) {
-    var template = team.loadTemplate(that.config.template || "Record");
+    var template = team.loadTemplate(that.config.template || "details");
     var targs = mkws.$.extend({}, data.hits[0], that.config.template_vars);
     that.node.html(template(targs));
   });

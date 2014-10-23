@@ -6,7 +6,7 @@ mkws.registerWidgetType('termlists', function() {
     that.node.addClass("active");
   });
 
-  var template = team.loadTemplate(this.config.template || "Termlists");
+  var template = team.loadTemplate(this.config.template || "termlists");
   this.node.html(template({
     team: team.name(),
     facets: this.config.facets
@@ -67,7 +67,7 @@ mkws.registerWidgetType('facet', function() {
         that.log("Using facet-" + name + " template.")
       } else {
         that.log("No " + name + " specific template, using default.")
-        template = team.loadTemplate("Facet");
+        template = team.loadTemplate("facet");
       }
     }
     that.node.html(template({
