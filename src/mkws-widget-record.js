@@ -1,4 +1,4 @@
-// A widget for one record
+// A widget for a record-list of a single record
 mkws.registerWidgetType('record', function() {
   if (!this.config.maxrecs) this.config.maxrecs = 1;
   var that = this;
