@@ -11,13 +11,13 @@ mkws.registerWidgetType('record', function() {
   that.autosearch();
 });
 
-mkws.registerWidgetType('image', function() {
+mkws.registerWidgetType('images', function() {
   mkws.promotionFunction('records').call(this);
-  if (!this.config.template) this.config.template = 'Image';
+  if (!this.config.template) this.config.template = 'images';
 });
 
 mkws.registerWidgetType('google-image', function() {
-  mkws.promotionFunction('image').call(this);
+  mkws.promotionFunction('images').call(this);
   if (!this.config.target) this.config.target = 'Google_Images';
 });
 
@@ -27,6 +27,6 @@ mkws.registerWidgetType('lolcat', function() {
 });
 
 mkws.registerWidgetType('cover-art', function() {
-  mkws.promotionFunction('image').call(this);
+  mkws.promotionFunction('images').call(this);
   if (!this.config.target) this.config.target = 'AmazonBooks';
 });
