@@ -186,8 +186,11 @@ compatibility. However, **these old class-names are deprecated, and
 support will be removed in v2.0**. Existing applications that use them
 should be upgraded to the new-style class names as soon as convenient.
 
-Configuration
-=============
+Configuring widgets
+===================
+
+Global configuration
+--------------------
 
 Many aspects of the behaviour of MKWS can be modified by setting
 parameters into the `mkws_config` object. So the HTML header looks
@@ -195,6 +198,7 @@ like this:
 
         <script type="text/javascript">
           var mkws_config = {
+            lang_options: [ "en", "da" ]
             lang: "da",
             sort_default: "title",
             query_width: 60
@@ -202,13 +206,51 @@ like this:
         </script>
         <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
-This configuration sets the UI language to Danish (rather than the
-default of English), initially sorts search results by title rather
-than relevance (though as always this can be changed in the UI) and
-makes the search box a bit wider than the default.
+This configuration restricts the set of available UI languages English
+and Danish (omitting German), sets the default to Danish (rather than
+the English), initially sorts search results by title rather than
+relevance (though as always this can be changed in the UI) and makes
+the search box a bit wider than the default.
 
 The full set of supported configuration items is described in the
 reference guide below.
+
+Per-widget configuration
+------------------------
+
+In addition to the global configuration provided by the `mkws_config`
+object, individual widgets' behaviour can be configured by providing
+configuration items as attributed on their HTML elements. For example,
+a `records` widget might be restricted to displaying no more than
+three records by setting the `numrecs` parameter as follows:
+
+	<div class="mkws-records" maxrecs="3">
+
+Although this works well, HTML validators will consider this element
+acceptable, since the `maxrecs` attribute is not part of the HTML
+schema. However, attributes beginning `data-` are always accepted as
+HTML extensions, much like email headers beginning with
+`X-`. Therefore, the widget set also recognises configuration
+attributes prefixed with `data-mkws-`, so:
+
+	<div class="mkws-records" data-mkws-maxrecs="3">
+
+For first form is more convenient; the second is more correct.
+
+Because some configuration items take structured values rather than
+simple strings, they cannot be directly provided by inline
+attributes. To allow for this, the special attribute
+`data-mkws-config`, if provided, is parsed as JSON and its key-value
+pairs set as configuration items for the widget in question. For
+example, the value of `lang_options` is an array of strings specifying
+which of the supported UI languages should be made available. The
+following invocation will limit this list to only English and Danish
+(omitting German):
+
+	<div class="mkws-lang" data-mkws-config='{ "lang_options": [ "en", "da" ] }'></div>
+
+(Note that, as JSON requires double quotes around all strings, single
+quotes must be used to contain the entire attribute value.)
 
 
 Control over HTML and CSS
