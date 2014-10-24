@@ -42,13 +42,15 @@ clean-tmp:
 mkws-complete-syntax-check:
 	${MAKE} -C../src ../tools/htdocs/mkws-complete.min.js
 
-check check-js: mkws-complete-syntax-check
+check check-js: node-modules mkws-complete-syntax-check
+	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
+
+check-node-installation:
 	@if [ ! -e node_modules ]; then \
 	    echo "==> please run first: make node-modules"; \
 	    echo ""; \
 	    exit 1; \
 	fi
-	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
 
 test: check
 
