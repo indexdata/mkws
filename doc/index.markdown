@@ -184,11 +184,6 @@ are and how various things are done.
   when you highlight them.
 * An application that
   [runs an automatic search on load](//example.indexdata.com/auto.html).  
-* An existing web-site,
-  [The Self-Appointed Grammar Police](//sagp.miketaylor.org.uk/)
-  which has been fitted with an MKWS searching widget.
-  (See also the MKWS-widget customisations in
-  [that site's stylesheet](//sagp.miketaylor.org.uk/style.css).)
 * Another existing web-site,
   [The Zthes specifications](//zthes.z3950.org/),
   which has been fitted with a popup MKWS search-box.
