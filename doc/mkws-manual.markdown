@@ -51,7 +51,7 @@ MKWS classes in any HTML page, the various components of an application
 can be embedded: search-boxes, results areas, target information, etc.
 
 
-Simple Example
+Simple example
 ==============
 
 The following is
@@ -99,7 +99,7 @@ and provide the components of the searching UI. The very simple
 application above has only two such widgets: a search box and a
 results area. But more are supported.
 
-Defining Widget Elements
+Defining widget elements
 ========================
 
 Widget type
@@ -405,7 +405,7 @@ authentication tokens (to prevent unauthorised use of subscription
 resources). For information on how to do this, see the next section.
 
 
-MKWS Target Selection
+MKWS target selection
 =====================
 
 MKWS accesses targets using the Pazpar2 metasearching engine. Although
@@ -625,7 +625,7 @@ attribute as follows:
 	<div class="mkwsRecords" targetfilter='categories=news'/>
 
 
-Reference Guide
+Reference guide
 ===============
 
 Configuration object
