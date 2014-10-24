@@ -130,8 +130,9 @@ mkws.registerWidgetType('records', function() {
       }
     }
     var template = team.loadTemplate(that.config.template || "records");
-    var targs = $.extend({}, {"hits": data.hits}, that.config.template_vars);
-    that.node.html(template(targs));
+    var summaryPartial = team.loadTemplate("summary");
+    var tdata = $.extend({}, {"hits": data.hits}, that.config.template_vars);
+    that.node.html(template(tdata, {"partials":{"summary":summaryPartial}}));
   });
 
   that.autosearch();
