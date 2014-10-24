@@ -141,13 +141,13 @@ The main widgets are:
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
 
-        <div id="mkws-switch"></div>
-        <div id="mkws-lang"></div>
-        <div id="mkws-progress"></div>
-        <div id="mkws-search"></div>
-        <div id="mkws-results"></div>
-        <div id="mkws-targets"></div>
-        <div id="mkws-stat"></div>
+        <div class="mkws-switch"></div>
+        <div class="mkws-lang"></div>
+        <div class="mkws-progress"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-results"></div>
+        <div class="mkws-targets"></div>
+        <div class="mkws-stat"></div>
 
 The full set of supported widgets is described in the
 reference guide below.
