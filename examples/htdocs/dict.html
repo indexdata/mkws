@@ -50,6 +50,7 @@
       var selectedtext="";
       var clicking = false;
       function clickfunc(e) {
+	// may not work on older Browsers, as IE8
         var sel = window.getSelection();
         //console.log("click: " + sel + "  clicking=" + clicking );
         if ( sel != "" && ! clicking ) {
