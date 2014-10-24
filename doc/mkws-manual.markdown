@@ -99,8 +99,17 @@ and provide the components of the searching UI. The very simple
 application above has only two such widgets: a search box and a
 results area. But more are supported.
 
-Widget Elements
-===============
+Defining Widget Elements
+========================
+
+Widget type
+-----------
+
+An HTML element is made an MKWS widget by including an MKWS
+class-name. These names begin `mkws-`: what follows that prefix
+specifies the type of the widget. The type can be any sequence of
+alphanumeric characters and hyphens _except_ something beginning
+`team` -- see below.
 
 The main widgets are:
 
@@ -143,17 +152,39 @@ To see all of these working together, just put them all into the HTML
 The full set of supported widgets is described in the
 reference guide below.
 
+Widget team
+-----------
+
+In general a set of widgets work together in a team: in the example
+above, the search-term that the user enters in the `mkws-search`
+widget is used to generate the set of records that are displayed in
+the `mkws-results` widget.
+
+Sometimes, it's desirable to have multiple teams in a single page. A
+widget can be placed in a named team by giving it (in addition to its
+main class) a class that begins with `mkws-team-`: what follows that
+prefix specifies the team that the widget is part of. For example,
+`<div class="mkws-search mkws-team-aux">` creates a search widget that
+is part of the `aux` team.
+
+Widgets that do not have a team specified (as in the examples above)
+are placed in the team called `AUTO`.
+
 Old and new-style class-names
 -----------------------------
 
 **NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
 without hyphens and with second and subsequent words capitalised. So
-instead of `mkws-search`, it used to be `mkwsSearch`. The 1.x series
-of MKWS versions also recognise these old-style class-names as a
-facility for backwards compatibility. However, these **old class-names
-are deprecated, and support will be removed in v2.0**. Existing
-applications that use them should be upgraded to the new-style class
-names as soon as convenient.
+instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
+used to specify team names used an `mkwsTeam_` prefix (with an
+underscore). So instead of `mkws-team-foo`, it used to be
+`mkwsTeam_foo`.
+
+The 1.x series of MKWS releases recognise these old-style class-names
+as well as the canonical ones, as a facility for backwards
+compatibility. However, **these old class-names are deprecated, and
+support will be removed in v2.0**. Existing applications that use them
+should be upgraded to the new-style class names as soon as convenient.
 
 Configuration
 =============
