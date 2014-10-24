@@ -27,7 +27,7 @@ clean:
 	rm -f images/*.png
 	${MAKE} -C./widgets $@
 
-distclean: clean clean-tmp clean-error
+distclean: apache-stop clean clean-tmp clean-error
 	rm -rf node_modules
 	rm -f libexec
 
