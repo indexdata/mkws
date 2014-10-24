@@ -349,7 +349,7 @@ mkws.log("Using window.name '" + window.name + "'");
       teamName = "AUTO";
       // Autosearch widgets don't join team AUTO if there is already an
       // autosearch on the team or the team has otherwise gotten a query
-      if (node.hasAttribute("autosearch")) {
+      if (node.getAttribute("autosearch")) {
         if (mkws.autoHasAuto ||
             mkws.teams["AUTO"] && mkws.teams["AUTO"].config["query"]) {
           log("AUTO team already has a query, using unique team");

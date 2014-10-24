@@ -27,7 +27,7 @@ clean:
 	rm -f images/*.png
 	${MAKE} -C./widgets $@
 
-distclean: clean clean-tmp clean-error
+distclean: apache-stop clean clean-tmp clean-error
 	rm -rf node_modules
 	rm -f libexec
 
@@ -42,13 +42,15 @@ clean-tmp:
 mkws-complete-syntax-check:
 	${MAKE} -C../src ../tools/htdocs/mkws-complete.min.js
 
-check check-js: mkws-complete-syntax-check
+check check-js: node-modules mkws-complete-syntax-check
+	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
+
+check-node-installation:
 	@if [ ! -e node_modules ]; then \
 	    echo "==> please run first: make node-modules"; \
 	    echo ""; \
 	    exit 1; \
 	fi
-	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
 
 test: check
 
@@ -110,7 +112,7 @@ apache-stop:
 	@-if [ -e ${APACHE_PID_FILE} ]; then \
 	   kill `cat ${APACHE_PID_FILE}`; \
 	else \
-	   killall apache2 2> /dev/null; \
+	   killall ${APACHE_HTTPD} 2> /dev/null; \
 	fi
 	@sleep 0.6
 	rm -f ${APACHE_PID_FILE}
