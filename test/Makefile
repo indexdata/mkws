@@ -110,7 +110,7 @@ apache-stop:
 	@-if [ -e ${APACHE_PID_FILE} ]; then \
 	   kill `cat ${APACHE_PID_FILE}`; \
 	else \
-	   killall apache2 2> /dev/null; \
+	   killall ${APACHE_HTTPD} 2> /dev/null; \
 	fi
 	@sleep 0.6
 	rm -f ${APACHE_PID_FILE}
