@@ -371,24 +371,21 @@ output locale specific text via the mkws-translate helper like so:
 Example
 -------
 
-Rather than use the included AJAX helpers to render record details inline,
-here's a Records template that will link directly to the source via the address
-provided in the metadata as the first element of `md-electronic-url`:
+Rather than use the toolkit's included AJAX helpers to render record
+details inline, here's a summary template that will link directly to
+the source via the address provided in the metadata as the first
+element of `md-electronic-url`:
 
-    <script class="mkws-template-records" type="text/x-handlebars-template">
-      {{#each hits}}
-        <div class="{{containerClass}}">
-          <a href="{{md-electronic-url.[0]}}">
-            <b>{{md-title}}</b>
-          </a>
-          {{#if md-title-remainder}}
-            <span>{{md-title-remainder}}</span>
-          {{/if}}
-          {{#if md-title-responsibility}}
-            <span><i>{{md-title-responsibility}}</i></span>
-          {{/if}}
-        </div>
-      {{/each}}
+    <script class="mkws-template-summary" type="text/x-handlebars-template">
+      <a href="{{md-electronic-url.[0]}}">
+        <b>{{md-title}}</b>
+      </a>
+      {{#if md-title-remainder}}
+        <span>{{md-title-remainder}}</span>
+      {{/if}}
+      {{#if md-title-responsibility}}
+        <span><i>{{md-title-responsibility}}</i></span>
+      {{/if}}
     </script>
 
 For a more involved example where markup for multiple widgets is decorated with
