@@ -419,7 +419,7 @@ in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
         <div class="mkws-search"></div>
-        <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0">
+        <div class="mkws-popup" popup_width="1024" popup_height="650">
           <div class="mkws-results"></div>
         </div>
 
@@ -434,8 +434,13 @@ in the reference section.
 Authentication and target configuration
 ---------------------------------------
 
-By default, MKWS configures itself to use a demonstration account on a
-service hosted by mkws.indexdata.com. This account (username `demo`,
+MKWS configures itself to use an account on a service hosted by
+`sp-mkws.indexdata.com`. By default, it sends no authentication
+credentials, allowing the appropriate account to be selected on the
+basis of referring URL or IP address.
+
+TODO REWRITE
+This account (username `demo`,
 password `demo`) provides access to about a dozen free data
 sources. Authentication onto this service is via an authentication URL
 on the same MKWS server, so no explicit configuration is needed.
