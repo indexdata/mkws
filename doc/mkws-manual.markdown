@@ -326,14 +326,17 @@ pager template you would include this in your document:
       ...new Pager template
     </script>
 
-The Facet template has a special feature where you can override it on a
-per-facet basis by adding a dash and the facet name as a suffix eg.
-`facet-subjects` rather than `facet`. (So `class="mkws-template-facet-subjects"`)
+The Facet template has a special feature where you can override it on
+a per-facet basis by adding a dash and the facet name as a suffix eg.
+`facet-subjects`. (So `class="mkws-template-facet-subjects"`.) When
+rendering a facet for which no specific template is defined, the code
+falls back to using the generic facet template, just called `facet`.
 
-You can also explicitly specify a different template for a particular instance
-of a widget by providing the name of your alternative (eg. SpecialPager) as the
-value of the `template` key in the MKWS config object for that widget:
-for example, `<div class="mkws-pager" template="special-pager"/>`.
+You can also explicitly specify a different template for a particular
+instance of a widget by providing the name of your alternative
+(eg. `special-pager`) as the value of the `template` key in the MKWS
+config object for that widget: for example, `<div class="mkws-pager"
+template="special-pager"/>`.
 
 Templates for MKWS can also be
 [precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
@@ -343,10 +346,10 @@ will be used instead of the default.
 Inspecting metadata for templating
 ----------------------------------
 
-MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
-searching. Depending on how these are configured and what is available from the
-targets you are searching there may be more data available than what is
-presented by the default templates.
+MKWS makes requests to the Service Proxy or Pazpar2 that perform the
+actual searching. Depending on how these are configured and what is
+available from the targets you are searching there may be more data
+available than what is presented by the default templates.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
@@ -442,7 +445,7 @@ on the same MKWS server, so no explicit configuration is needed.
 
 In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
-Index Data's hosted service proxy, and protect that account with
+Index Data's hosted Service Proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
 resources). For information on how to do this, see the next section.
 
@@ -465,7 +468,7 @@ available targets to use.
 Maintaining the library
 -----------------------
 
-The service proxy accesses sets of targets that are known as
+The Service Proxy accesses sets of targets that are known as
 "libraries". In general, each customer will have their own library,
 though some standard libraries may be shared between many customers --
 for example, a library containing all open-access academic journals.
