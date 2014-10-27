@@ -428,7 +428,7 @@ the MKWS jQuery plugin:
         </div>
 
 The necessary scaffolding can be seen in an example application,
-http://example.indexdata.com/index-popup.html
+[popup.html](http://example.indexdata.com/popup.html).
 
 
 Authentication and target configuration
