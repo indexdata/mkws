@@ -394,8 +394,8 @@ employed, take a look at the source of
 [topic.html](http://example.indexdata.com/topic.html?q=water).
 
 
-Refinements
-===========
+Some Refinements
+================
 
 
 Message of the day
