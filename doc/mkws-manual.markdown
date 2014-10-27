@@ -404,9 +404,9 @@ Message of the day
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkws-motd` division anywhere on the page. It will be moved into the
-`mkws-results` area and initially displayed, but will be hidden when a
-search is made.
+`mkws-motd` division anywhere on the page. It will initially be moved
+into the `mkws-results` area and displayed, but will be hidden as soon
+as the first search is made.
 
 
 Popup results with jQuery UI
