@@ -148,9 +148,7 @@ mkws.promotionFunction = function(name) {
 
 mkws.setMkwsConfig = function(overrides) {
   // Set global log_level flag early so that mkws.log() works
-  // Fall back to old "debug_level" setting for backwards compatibility
   var tmp = overrides.log_level;
-  if (typeof(tmp) === 'undefined') tmp = overrides.debug_level;
   if (typeof(tmp) !== 'undefined') mkws.log_level = tmp;
 
   var config_default = {
