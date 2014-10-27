@@ -128,10 +128,10 @@ The main widgets are:
 
 * `mkws-switch` -- provides links to switch between a view of the
    result records and of the targets that provide them. Only
-   meaningful when `mkwsTargets` is also provided.
+   meaningful when `mkws-targets` is also provided.
 
 * `mkws-targets` -- the area where per-target information will appear
-   when selected by the link in the `mkwsSwitch` area. Of interest
+   when selected by the link in the `mkws-switch` area. Of interest
    mostly for fault diagnosis rather than for end-users.
 
 * `mkws-lang` -- provides links to switch between one of several
@@ -256,29 +256,29 @@ quotes must be used to contain the entire attribute value.)
 Control over HTML and CSS
 =========================
 
-More sophisticated applications will not simply place the `<div>`s
+More sophisticated applications will not simply place the widgets
 together, but position them carefully within an existing page
 framework -- such as a Drupal template, an OPAC or a SharePoint page.
 
 While it's convenient for simple applications to use a monolithic
-`mkwsResults` area which contains record, facets, sorting options,
+`mkws-results` area which contains record, facets, sorting options,
 etc., customised layouts may wish to treat each of these components
-separately. In this case, `mkwsResults` can be omitted, and the
+separately. In this case, `mkws-results` can be omitted, and the
 following lower-level widgets provided instead:
 
-* `mkwsTermlists` -- provides the facets
+* `mkws-termlists` -- provides the facets
 
-* `mkwsRanking` -- provides the options for how records are sorted and
+* `mkws-ranking` -- provides the options for how records are sorted and
    how many are included on each page of results.
 
-* `mkwsPager` -- provides the links for navigating back and forth
+* `mkws-pager` -- provides the links for navigating back and forth
    through the pages of records.
 
-* `mkwsNavi` -- when a search result has been narrowed by one or more
+* `mkws-navi` -- when a search result has been narrowed by one or more
    facets, this area shows the names of those facets, and allows the
    selected values to be clicked in order to remove them.
 
-* `mkwsRecords` -- lists the actual result records.
+* `mkws-records` -- lists the actual result records.
 
 Customisation of MKWS searching widgets can also be achieved by
 overriding the styles set in the toolkit's CSS stylesheet. The default
@@ -404,8 +404,8 @@ Message of the day
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkwsMOTD` division anywhere on the page. It will be moved into the
-`mkwsResults` area and initially displayed, but will be hidden when a
+`mkws-motd` division anywhere on the page. It will be moved into the
+`mkws-results` area and initially displayed, but will be hidden when a
 search is made.
 
 
@@ -418,13 +418,13 @@ generally visible on the page is a search box, and the results appear
 in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
-        <div class="mkwsSearch"></div>
-        <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-          <div class="mkwsSwitch"></div>
-          <div class="mkwsLang"></div>
-          <div class="mkwsResults"></div>
-          <div class="mkwsTargets"></div>
-          <div class="mkwsStat"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+          <div class="mkws-switch"></div>
+          <div class="mkws-lang"></div>
+          <div class="mkws-results"></div>
+          <div class="mkws-targets"></div>
+          <div class="mkws-stat"></div>
         </div>
 
 The necessary scaffolding can be seen in an example application,
@@ -664,7 +664,7 @@ For example, a `Records` widget can be limited to searching only in
 targets that have been categorised as news sources by providing an
 attribute as follows:
 
-	<div class="mkwsRecords" targetfilter='categories=news'/>
+	<div class="mkws-records" targetfilter='categories=news'/>
 
 
 Reference guide
@@ -747,7 +747,7 @@ use_service_proxy         bool    true      If true, then a Service Proxy is use
 
 Perhaps we should get rid of the `show_lang`, `show_perpage`,
 `show_sort` and `show_switch` configuration items, and simply display the relevant menus
-only when their containers are provided -- e.g. an `mkwsLang` element
+only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
 to lightly customise the display than my changing providing a full HTML
 structure.
@@ -831,13 +831,13 @@ from that toolkit. The relevant lines are:
     <link rel="stylesheet" type="text/css"
           href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-    <div class="mkwsSearch"></div>
-    <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-      <div class="mkwsSwitch"></div>
-      <div class="mkwsLang"></div>
-      <div class="mkwsResults"></div>
-      <div class="mkwsTargets"></div>
-      <div class="mkwsStat"></div>
+    <div class="mkws-search"></div>
+    <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+      <div class="mkws-switch"></div>
+      <div class="mkws-lang"></div>
+      <div class="mkws-results"></div>
+      <div class="mkws-targets"></div>
+      <div class="mkws-stat"></div>
     </div>
 
 ----
@@ -865,7 +865,7 @@ In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand that structure of the HTML elements that are
 generated within the widgets. This knowledge make it possible, for example,
 to style each `<div>` with class `term` but only when it occurs inside an
-element with ID `#mkwsTermlists`, so as to avoid inadvertently styling other
+element with class `mkws-termlists`, so as to avoid inadvertently styling other
 elements using the same class in the non-MKWS parts of the page.
 
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
