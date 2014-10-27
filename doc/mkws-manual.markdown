@@ -419,16 +419,16 @@ in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
         <div class="mkws-search"></div>
-        <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-          <div class="mkws-switch"></div>
-          <div class="mkws-lang"></div>
+        <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0">
           <div class="mkws-results"></div>
-          <div class="mkws-targets"></div>
-          <div class="mkws-stat"></div>
         </div>
 
 The necessary scaffolding can be seen in an example application,
 [popup.html](http://example.indexdata.com/popup.html).
+
+The relevant properties (`popup_width`, etc.) are documented
+[below](#jquery-ui-popup-invocation)
+in the reference section.
 
 
 Authentication and target configuration
