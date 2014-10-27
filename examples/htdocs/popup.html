@@ -16,10 +16,20 @@
     <!-- jquery-ui need a reference to the internal jQuery object -->
     <script>$ = jQuery = mkws.$; </script>
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+
+    <style>
+    .mkws-search { float: left !important; }
+    .mkws-search input.mkws-button { color: black; }
+    </style>
   </head>
 
   <body>
-    <h3>MKWS demo: Popup Widget</h3>
+    <h3>MKWS demo: popup widget(s)</h3>
+
+    <div>
+      <p><a id="popup_no1">popup number 1</a></p>
+      <p><a id="popup_no2">popup number 2</a></p>
+    </div>
 
     <!-- search box is outside the popup window -->
     <div class="mkws-search"></div>
@@ -31,6 +41,17 @@
       <div class="mkws-results"></div>
       <div class="mkws-targets"></div>
       <div class="mkws-stat"></div>
+    </div>
+
+    <!-- popup widget config -->
+    <div class="mkws-popup" popup_width="500" popup_height="350" popup_modal="0" popup_autoOpen="0" popup_button="a#popup_no1">
+	<h1>popup no 1</h1>
+	some text...
+    </div>
+
+    <div class="mkws-popup" popup_width="400" popup_height="250" popup_modal="0" popup_autoOpen="0" popup_button="a#popup_no2">
+	<h1>popup no 2</h1>
+	other text...
     </div>
 
   </body>
