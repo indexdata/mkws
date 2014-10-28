@@ -1,0 +1,33 @@
+{{!
+Target detail
+
+data:
+  id - target id, an opaque identifier
+  hits - number of hits for this target, or "Error" if an error has occurred
+  diagnostic - diagnostic code returned by target, if any. May be numeric or human-readable
+  records - number of record retrieved from target
+  state - target state (Client_Idle, Client_Working, Client_Disconnected or Client_Error)
+}}
+<table>
+  <thead>
+    <tr>
+      <td>{{{mkws-translate "Target ID"}}}</td>
+      <td>{{{mkws-translate "Hits"}}}</td>
+      <td>{{{mkws-translate "Diags"}}}</td>
+      <td>{{{mkws-translate "Records"}}}</td>
+      <td>{{{mkws-translate "State"}}}</td>
+      </td>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each data}}
+    <tr>
+      <td>{{{id}}}</td>
+      <td>{{hits}}</td>
+      <td>{{diagnostic}}</td>
+      <td>{{records}}</td>
+      <td>{{state}}</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

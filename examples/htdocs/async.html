@@ -6,7 +6,7 @@
     <title>MKWS demo: Async feeling.</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/jquery.json-2.4.js"></script>
-    <script type="text/javascript" src="http://mkws.indexdata.com/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="http://mkws.indexdata.com/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="http://mkws.indexdata.com/pazpar2/js/pz2.js"></script>
     <script type="text/javascript" src="http://mkws.local/mkws.js"></script>
     <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
@@ -14,19 +14,19 @@
   <body>
     <div id="first"></div>
     <script type="text/javascript">
-      $("#first").html("<div class='mkwsReference' autosearch='one' sentences='1'>result will appear here</div>");
+      $("#first").html("<div class='mkws-reference' autosearch='one' sentences='1'>result will appear here</div>");
       mkws.init("First div", "#first");
     </script>
     <div id="second"></div>
     <script type="text/javascript">
-      $("#second").html("<div class='mkwsReference' autosearch='two' sentences='1'>result will appear here</div>");
+      $("#second").html("<div class='mkws-reference' autosearch='two' sentences='1'>result will appear here</div>");
       mkws.init("Second div", document.getElementById("second"));
     </script>
     <div id="third"></div>
     <script type="text/javascript">
-      $("#third").html("<div class='mkwsReference' autosearch='three' sentences='1'>result will appear here</div>");
+      $("#third").html("<div class='mkws-reference' autosearch='three' sentences='1'>result will appear here</div>");
       mkws.init("Third div", "#third");
     </script>
-    <div class='mkwsReference' autosearch='four' sentences='1'>This would have been four but we're not searching it.</div>
+    <div class='mkws-reference' autosearch='four' sentences='1'>This would have been four but we're not searching it.</div>
   </body>
 </html>

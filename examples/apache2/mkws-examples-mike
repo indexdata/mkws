@@ -1,20 +1,21 @@
 <VirtualHost *:80>
     ServerName x.example.indexdata.com
-    DocumentRoot /usr/local/src/git/mkws/examples/htdocs/
-    Alias /tools/htdocs/ /usr/local/src/git/mkws/tools/htdocs/
-    Alias /src/ /usr/local/src/git/mkws/src/
-    Alias /jasmine/ /usr/local/src/git/mkws/examples/jasmine/
-    Alias /test/ /usr/local/src/git/mkws/test/
+    DocumentRoot /home/mike/git/work/mkws/examples/htdocs/
+    Alias /tools/htdocs/ /home/mike/git/work/mkws/tools/htdocs/
+    Alias /src/ /home/mike/git/work/mkws/src/
+    Alias /jasmine/ /home/mike/git/work/mkws/examples/jasmine/
+    Alias /test/ /home/mike/git/work/mkws/test/
 
     <Directory />
         Allow from all
+	Require all granted
     </Directory>
 
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
 
     RewriteEngine on
-    RewriteRule      /service-proxy-auth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
+    RewriteRule      /service-proxy-auth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
     #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
     #RewriteLogLevel 9
 </VirtualHost>

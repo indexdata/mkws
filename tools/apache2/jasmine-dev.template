@@ -7,6 +7,7 @@ User ${APACHE_RUN_USER}
 Group ${APACHE_RUN_GROUP}
 PidFile ${APACHE_PID_FILE}
 LockFile ${APACHE_LOCK_FILE}
+ErrorLog ${APACHE_LOG_DIR}/error-${APACHE_PORT}.log
 
 ServerName localhost
 ServerRoot ${APACHE_SERVER_ROOT}
@@ -16,7 +17,9 @@ Listen ${APACHE_PORT}
 Include ${APACHE_MODULES}
 
 <IfModule log_config_module>
-   LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+   # %O only works if mod_logio is enabled, which it isn't on Mike's MacBook
+   # LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"" combined
+   LogFormat "%{X-Forwarded-For}i %l %u %t \"%r\" %>s \"%{Referer}i\" \"%{User-Agent}i\"" combined
 </IfModule>
 
 # pazpar2 / service proxy config
@@ -25,12 +28,12 @@ Include ${APACHE_MODULES}
     ServerAlias mkws-dev a.mkws.indexdata.com a.mkws-dev.indexdata.com mkws-dev.indexdata.com 127.0.0.1
 
     ServerAdmin webmaster@indexdata.com
-    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error.log
-    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access.log combined
+    ErrorLog ${APACHE_LOG_DIR}/mkws-jasmine-error-${APACHE_PORT}.log
+    CustomLog ${APACHE_LOG_DIR}/mkws-jasmine-access-${APACHE_PORT}.log combined
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite.log 
+    RewriteLog ${APACHE_LOG_DIR}/mkws-jasmine-rewrite-${APACHE_PORT}.log 
 
     DocumentRoot ${MKWS_ROOT}/examples/htdocs
     Alias /tools/htdocs ${MKWS_ROOT}/tools/htdocs

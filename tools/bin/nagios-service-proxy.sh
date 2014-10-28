@@ -4,7 +4,7 @@
 # nagios test if the the service proxy is up and running
 
 set -e
-: ${mkws_host="http://mkws.indexdata.com/service-proxy/"}
+: ${mkws_host="http://sp-mkws.indexdata.com/service-proxy/"}
 : ${mkws_username="mkws"}
 : ${mkws_password="mkws"}
 : ${user_agent="nagios service-proxy v0.9"}

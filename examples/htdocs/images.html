@@ -4,27 +4,35 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MKWS demo: Images</title>
-    <link rel="stylesheet" type="text/css" href="http://mkws.indexdata.com/mkws.css" />
-    <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
-    <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-        {{#each md-thumburl}}
-	  <img src="{{this}}" alt="{{../md-title}}"/>
-        {{/each}}
-	<br/>
-	{{md-title}}
-      {{#if md-title-remainder}}
-        <span>{{md-title-remainder}}</span>
-      {{/if}}
-      {{#if md-title-responsibility}}
-    	<span><i>{{md-title-responsibility}}</i></span>
-      {{/if}}
-      </a>
+    <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
+    <script type="text/javascript" src="//x.mkws.indexdata.com/mkws-complete.js"></script>
+    <script class="mkws-template-records" type="text/x-handlebars-template">
+      {{#each hits}}
+        <div class="{{containerClass}}">
+          <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
+            {{#each md-thumburl}}
+              <img src="{{this}}" alt="{{../md-title}}"/>
+            {{/each}}
+            <br/>
+            {{md-title}}
+          {{#if md-title-remainder}}
+            <span>{{md-title-remainder}}</span>
+          {{/if}}
+          {{#if md-title-responsibility}}
+            <span><i>{{md-title-responsibility}}</i></span>
+          {{/if}}
+          </a>
+        </div>
+      {{/each}}
+    </script>
+    <script type="text/javascript">
+      var mkws_config = {
+        sp_auth_credentials: "mkwsimages/mkwsimages"
+      };
     </script>
   </head>
   <body>
-    <div class='mkwsRecords' autosearch='!param!q'
-	targets='pz:id=lui.indexdata.com:8080/solr4/#5853'
-	>results will appear here</div>
+    <div class='mkws-records' autosearch='!param!q'
+        >results will appear here</div>
   </body>
 </html>

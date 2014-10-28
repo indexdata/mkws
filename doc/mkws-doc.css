@@ -1,71 +1,28 @@
 body {
-    font-family: Baskerville, "Baskervald ADF Std", "Times New Roman", "Times Roman", Times;
+  font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Sans-Serif;
 }
-
-h1, h2, h3, h4 {
-    color: #68a;
-    font-weight: bold;
-    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+h1, h2, h3 { color: #606060 }
+h2 { margin-top: 0.5em }
+h1.title, h2.author, h3.date { font-weight: normal }
+div#header h2 { font-size: 120% }
+div#header h3 { font-size: 100% }
+.pane {
+  padding: 0em 1em; margin: 0.75em;
+  border: 0.5em solid #eee;
+  border-radius: 1em;
+  background-image: url('images/mkws-logo-48x48-light.png');
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-color: #eee; 
 }
-
-h1 a, h2 a, h3 a, h4 a, div#TOC a {
-    color: #68a;
-    text-decoration: none;
+// Somehow, "-n+3" is how you say "first three panes"
+.pane:nth-child(-n+3) {
+  background-image: none;
 }
-
-h2, h3 {
-    /* Default spacing is way off in both Chrome and Firefox */
-    margin-bottom: -0.5em;
-}
-
-h1.title {
-    background: #e0e8f8;
-    padding: 0.2em;
-    font-weight: normal;
-}
-
-h2.author {
-    font-size: 120%;
-    color: black
-}
-
-h3.date {
-    font-size: 100%;
-    color: black
-}
-
-body > p, ul, ol, pre, table, h4, blockquote {
-    margin-left: 10%;
-}
-
-blockquote {
-    padding-left: 4em;
-    padding-right: 4em;
-}
-
-p, ul {
-    max-width: 40em;
-}
-
-pre {
-    background: #eee;
-}
-
-table tr th {
-    color: white;
-    background: #68a;
-    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
-}
-
-th, td {
-    padding: 0.2em 0.5em;
-    vertical-align: top;
-}
-
-table tr:nth-child(odd) {
-    background: #a9c6e3;
-}
-
-table tr:nth-child(even) {
-    background: #bfdcf8;
+.pane h1 a, .pane h2 a, .pane h3 a { text-decoration: none; color: black }
+pre { background: #ddd; padding: 0.5em; }
+img:first-of-type { float: right; margin: 1.5em }
+body > p:last-of-type {
+    text-align: right;
+    font-size: small;
 }

@@ -1,6 +1,6 @@
-% Embedded metasearching with the MasterKey Widget Set
+% The MKWS manual: embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% 30 July 2014
+% October 2014
 
 
 Introduction
@@ -19,10 +19,14 @@ Index Data provides several different toolkits for communicating with
 its metasearching middleware, trading off varying degrees of
 flexibility against convenience:
 
-* pz2.js -- a low-level JavaScript library for interrogating the
-  Service Proxy and Pazpar2. It allows the HTML/JavaScript programmer
-  to create JavaScript applications display facets, records, etc. that
-  are fetched from the metasearching middleware.
+* [pz2.js](http://www.indexdata.com/pazpar2/doc/ajaxdev.html) --
+  a low-level JavaScript library for interrogating the
+  [Service Proxy](http://www.indexdata.com/service-proxy/)
+  and
+  [Pazpar2](http://www.indexdata.com/pazpar2/).
+  It allows the HTML/JavaScript programmer
+  to create JavaScript applications to display facets, records,
+  etc. that are fetched from the metasearching middleware.
 
 * masterkey-ui-core -- a higher-level, complex JavaScript library that
   uses pz2.js to provide the pieces needed for building a
@@ -30,44 +34,46 @@ flexibility against convenience:
 
 * MasterKey Demo UI -- an example of a searching application built on
   top of masterkey-ui-core. Available as a public demo at
-  http://mk2.indexdata.com/
+  <http://mk2.indexdata.com/>
 
-* MKDru -- a toolkit for embedding MasterKey-like searching into
-  Drupal sites.
+* [MKDru](http://www.indexdata.com/masterkey-drupal) --
+  a toolkit for embedding MasterKey-like searching into
+  [Drupal](https://www.drupal.org/)
+  sites.
 
 All of these approaches require programming to a greater or lesser
-extent. Against this backdrop, we introduced MKWS (the MasterKey
-Widget Set) -- a set of simple, very high-level HTML+CSS+JavaScript
+extent. Against this backdrop, we introduced
+[MKWS (the MasterKey Widget Set)](http://mkws.indexdata.com/)
+-- a set of simple, very high-level HTML+CSS+JavaScript
 components that can be incorporated into any web-site to provide
 MasterKey searching facilities. By placing `<div>`s with well-known
-identifiers in any HTML page, the various components of an application
+MKWS classes in any HTML page, the various components of an application
 can be embedded: search-boxes, results areas, target information, etc.
 
 
-Simple Example
+Simple example
 ==============
 
-The following is a complete MKWS-based searching application:
+The following is
+[a complete MKWS-based searching application](//example.indexdata.com/simple.html):
 
     <html>
       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>MKWS demo client</title>
-        <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
-        <link rel="stylesheet" href="http://mkws.indexdata.com/mkws.css" />
+        <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
+        <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
       </head>
       <body>
-        <div id="mkwsSearch"></div>
-        <div id="mkwsResults"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-results"></div>
       </body>
     </html>
 
-Go ahead, try it! You don't even need a web-server. Just copy and
-paste this HTML into a file on your computer -- `/tmp/magic.html`,
-say -- and point your web-browser at it:
-`file:///tmp/magic.html`. Just like that, you have working
-metasearching.
-
+Go ahead, try it! Simply put the above in a file (e.g index.html),
+drop it into a folder accessible with an ordinary web-server (e.g
+Apache) and load it in your web browser. Just like that, you have
+working metasearching.
 
 How the example works
 ---------------------
@@ -78,64 +84,121 @@ you: the `<html>` element at the top level contains a `<head>` and a
 page, you can add MKWS elements.
 
 These fall into two categories. First, the prerequisites in the HTML
-header, which are loaded from the tool site mkws.indexdata.com:
+header, which are loaded from the tool site `mkws.indexdata.com`:
 
 * `mkws-complete.js`
-  contains all the JavaScript needed by the widget-set.
+  contains all the JavaScript needed by the widget-set, including a
+  copy of the jQuery library.
 
 * `mkws.css`
   provides the default CSS styling
 
 Second, within the HTML body, `<div>` elements with special IDs that
-begin `mkws` can be provided. These are filled in by the MKWS code,
+begin `mkws-` can be provided. These are filled in by the MKWS code,
 and provide the components of the searching UI. The very simple
-application above has only two such components: a search box and a
-results area. But more are supported. The main `<div>`s are:
+application above has only two such widgets: a search box and a
+results area. But more are supported.
 
-* `mkwsSearch` -- provides the search box and button.
+Defining widget elements
+========================
 
-* `mkwsResults` -- provides the results area, including a list of
+Widget type
+-----------
+
+An HTML element is made an MKWS widget by including an MKWS
+class-name. These names begin `mkws-`: what follows that prefix
+specifies the type of the widget. The type can be any sequence of
+alphanumeric characters and hyphens _except_ something beginning
+`team` -- see below.
+
+The main widgets are:
+
+* `mkws-search` -- provides the search box and button.
+
+* `mkws-results` -- provides the results area, including a list of
    brief records (which open out into full versions when clicked),
    paging for large results sets, facets for refining a search,
    sorting facilities, etc.
 
-* `mkwsLang` -- provides links to switch between one of several
-   different UI languages. By default, English, Danish and German are
-   provided.
+* `mkws-progress` -- shows a progress bar indicating how many of the
+   targets have responded to the search request.
 
-* `mkwsSwitch` -- provides links to switch between a view of the
+* `mkws-stat` -- provides a status line summarising the statistics of
+   the various targets.
+
+* `mkws-switch` -- provides links to switch between a view of the
    result records and of the targets that provide them. Only
-   meaningful when `mkwsTargets` is also provided.
+   meaningful when `mkws-targets` is also provided.
 
-* `mkwsTargets` -- the area where per-target information will appear
-   when selected by the link in the `mkwsSwitch` area. Of interest
+* `mkws-targets` -- the area where per-target information will appear
+   when selected by the link in the `mkws-switch` area. Of interest
    mostly for fault diagnosis rather than for end-users.
 
-* `mkwsStat` --provides a status line summarising the statistics of
-   the various targets.
+* `mkws-lang` -- provides links to switch between one of several
+   different UI languages. By default, English, Danish and German are
+   provided.
 
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
 
-        <div id="mkwsSwitch"></div>
-        <div id="mkwsLang"></div>
-        <div id="mkwsSearch"></div>
-        <div id="mkwsResults"></div>
-        <div id="mkwsTargets"></div>
-        <div id="mkwsStat"></div>
+        <div class="mkws-switch"></div>
+        <div class="mkws-lang"></div>
+        <div class="mkws-progress"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-results"></div>
+        <div class="mkws-targets"></div>
+        <div class="mkws-stat"></div>
 
+The full set of supported widgets is described in the
+reference guide below.
 
-Configuration
-=============
+Widget team
+-----------
+
+In general a set of widgets work together in a team: in the example
+above, the search-term that the user enters in the `mkws-search`
+widget is used to generate the set of records that are displayed in
+the `mkws-results` widget.
+
+Sometimes, it's desirable to have multiple teams in a single page. A
+widget can be placed in a named team by giving it (in addition to its
+main class) a class that begins with `mkws-team-`: what follows that
+prefix specifies the team that the widget is part of. For example,
+`<div class="mkws-search mkws-team-aux">` creates a search widget that
+is part of the `aux` team.
+
+Widgets that do not have a team specified (as in the examples above)
+are placed in the team called `AUTO`.
+
+Old and new-style class-names
+-----------------------------
+
+**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
+without hyphens and with second and subsequent words capitalised. So
+instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
+used to specify team names used an `mkwsTeam_` prefix (with an
+underscore). So instead of `mkws-team-foo`, it used to be
+`mkwsTeam_foo`.
+
+The 1.x series of MKWS releases recognise these old-style class-names
+as well as the canonical ones, as a facility for backwards
+compatibility. However, **these old class-names are deprecated, and
+support will be removed in v2.0**. Existing applications that use them
+should be upgraded to the new-style class names as soon as convenient.
+
+Configuring widgets
+===================
+
+Global configuration
+--------------------
 
 Many aspects of the behaviour of MKWS can be modified by setting
-parameters into the `mkws_config` object. **This must be done *before*
-including the MKWS JavaScript** so that when that code is executed it
-can refer to the configuration values. So the HTML header looks like
-this:
+parameters into the `mkws_config` object. So the HTML header looks
+like this:
 
         <script type="text/javascript">
           var mkws_config = {
+            lang_options: [ "en", "da" ]
             lang: "da",
             sort_default: "title",
             query_width: 60
@@ -143,45 +206,84 @@ this:
         </script>
         <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
-This configuration sets the UI language to Danish (rather than the
-default of English), initially sorts search results by title rather
-than relevance (though as always this can be changed in the UI) and
-makes the search box a bit wider than the default.
+This configuration restricts the set of available UI languages English
+and Danish (omitting German), sets the default to Danish (rather than
+the English), initially sorts search results by title rather than
+relevance (though as always this can be changed in the UI) and makes
+the search box a bit wider than the default.
 
 The full set of supported configuration items is described in the
 reference guide below.
+
+Per-widget configuration
+------------------------
+
+In addition to the global configuration provided by the `mkws_config`
+object, individual widgets' behaviour can be configured by providing
+configuration items as attributed on their HTML elements. For example,
+a `records` widget might be restricted to displaying no more than
+three records by setting the `numrecs` parameter as follows:
+
+	<div class="mkws-records" maxrecs="3">
+
+Although this works well, HTML validators will consider this element
+acceptable, since the `maxrecs` attribute is not part of the HTML
+schema. However, attributes beginning `data-` are always accepted as
+HTML extensions, much like email headers beginning with
+`X-`. Therefore, the widget set also recognises configuration
+attributes prefixed with `data-mkws-`, so:
+
+	<div class="mkws-records" data-mkws-maxrecs="3">
+
+For first form is more convenient; the second is more correct.
+
+Because some configuration items take structured values rather than
+simple strings, they cannot be directly provided by inline
+attributes. To allow for this, the special attribute
+`data-mkws-config`, if provided, is parsed as JSON and its key-value
+pairs set as configuration items for the widget in question. For
+example, the value of `lang_options` is an array of strings specifying
+which of the supported UI languages should be made available. The
+following invocation will limit this list to only English and Danish
+(omitting German):
+
+	<div class="mkws-lang" data-mkws-config='{ "lang_options": [ "en", "da" ] }'></div>
+
+(Note that, as JSON requires double quotes around all strings, single
+quotes must be used to contain the entire attribute value.)
 
 
 Control over HTML and CSS
 =========================
 
-More sophisticated applications will not simply place the `<div>`s
+More sophisticated applications will not simply place the widgets
 together, but position them carefully within an existing page
 framework -- such as a Drupal template, an OPAC or a SharePoint page.
 
 While it's convenient for simple applications to use a monolithic
-`mkwsResults` area which contains record, facets, sorting options,
+`mkws-results` area which contains record, facets, sorting options,
 etc., customised layouts may wish to treat each of these components
-separately. In this case, `mkwsResults` can be omitted, and the
-following lower-level components provided instead:
+separately. In this case, `mkws-results` can be omitted, and the
+following lower-level widgets provided instead:
 
-* `mkwsTermlists` -- provides the facets
+* `mkws-termlists` -- provides the facets
 
-* `mkwsRanking` -- provides the options for how records are sorted and
+* `mkws-ranking` -- provides the options for how records are sorted and
    how many are included on each page of results.
 
-* `mkwsPager` -- provides the links for navigating back and forth
+* `mkws-pager` -- provides the links for navigating back and forth
    through the pages of records.
 
-* `mkwsNavi` -- when a search result has been narrowed by one or more
+* `mkws-navi` -- when a search result has been narrowed by one or more
    facets, this area shows the names of those facets, and allows the
    selected values to be clicked in order to remove them.
 
-* `mkwsRecords` -- lists the actual result records.
+* `mkws-records` -- lists the actual result records.
 
 Customisation of MKWS searching widgets can also be achieved by
 overriding the styles set in the toolkit's CSS stylesheet. The default
-styles can be inspected in `mkws.css` and overridden in any
+styles can be inspected in [mkws.css](mkws.css)
+and overridden in any
 styles that appears later in the HTML than that file. At the simplest
 level, this might just mean changing fonts, sizes and colours, but
 more fundamental changes are also possible.
@@ -192,8 +294,108 @@ containers. The structures used by the widget-set are described in the
 reference guide below.
 
 
-Refinements
-===========
+Customised display using Handlebars templates
+=============================================
+
+A lot can be done by styling widgets in CSS and changing basic MKWS config
+options. For further customisation, MKWS allows you to change the markup it
+outputs for any widget. This is done by overriding the
+[Handlebars](http://handlebarsjs.com/) template used to generate it. In general
+these consist of `{{things in double braces}}` that are replaced by values from
+the system. For details of Handlebars template syntax, see [the online
+documentation](http://handlebarsjs.com/).
+
+The templates used by the core widgets can be viewed in [our git
+repository](http://git.indexdata.com/?p=mkws.git;a=tree;f=src/templates;).
+Parameters are documented in a comment at the top of each template so
+you can see what's going where. If all you want to do is add a CSS class to
+something or change a `span` to a `div` it's easy to just copy the existing
+template and make your edits.
+
+Overriding templates
+--------------------
+
+To override the template for a widget, include it inline in the document
+as a `<script>` tag marked with a class of `mkws-template-foo` where foo is the
+name of the template you want to override (typically the name of the widget).
+Inline Handlebars templates are distinguished from Javascript via a
+`type="text/x-handlebars-template"` attribute. For example, to override the
+pager template you would include this in your document:
+
+    <script class="mkws-template-pager" type="text/x-handlebars-template">
+      ...new Pager template
+    </script>
+
+The Facet template has a special feature where you can override it on
+a per-facet basis by adding a dash and the facet name as a suffix eg.
+`facet-subjects`. (So `class="mkws-template-facet-subjects"`.) When
+rendering a facet for which no specific template is defined, the code
+falls back to using the generic facet template, just called `facet`.
+
+You can also explicitly specify a different template for a particular
+instance of a widget by providing the name of your alternative
+(eg. `special-pager`) as the value of the `template` key in the MKWS
+config object for that widget: for example, `<div class="mkws-pager"
+template="special-pager"/>`.
+
+Templates for MKWS can also be
+[precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
+template of the same name is found in the `Handlebars.templates` object, it
+will be used instead of the default.
+
+Inspecting metadata for templating
+----------------------------------
+
+MKWS makes requests to the Service Proxy or Pazpar2 that perform the
+actual searching. Depending on how these are configured and what is
+available from the targets you are searching there may be more data
+available than what is presented by the default templates.
+
+Handlebars offers a convenient log helper that will output the contents of a
+variable for you to inspect. This lets you look at exactly what is being
+returned by the back end without needing to use a Javascript debugger. For
+example, you might prepend `{{log hits}}` to the Records template in order to
+see what is being returned with each search result in the list. In order for
+this to work you'll need to enable verbose output from Handlebars which is done
+by including this line or similar:
+
+    <script>Handlebars.logger.level = 1;</script>
+
+Internationalisation
+--------------------
+
+If you would like your template to use the built in translation functionality,
+output locale specific text via the mkws-translate helper like so:
+`{{{mkws-translate "a few words"}}}`.
+
+Example
+-------
+
+Rather than use the toolkit's included AJAX helpers to render record
+details inline, here's a summary template that will link directly to
+the source via the address provided in the metadata as the first
+element of `md-electronic-url`:
+
+    <script class="mkws-template-summary" type="text/x-handlebars-template">
+      <a href="{{md-electronic-url.[0]}}">
+        <b>{{md-title}}</b>
+      </a>
+      {{#if md-title-remainder}}
+        <span>{{md-title-remainder}}</span>
+      {{/if}}
+      {{#if md-title-responsibility}}
+        <span><i>{{md-title-responsibility}}</i></span>
+      {{/if}}
+    </script>
+
+For a more involved example where markup for multiple widgets is decorated with
+[Bootstrap](http://getbootstrap.com/) classes and a custom Handlebars helper is
+employed, take a look at the source of
+[topic.html](http://example.indexdata.com/topic.html?q=water).
+
+
+Some Refinements
+================
 
 
 Message of the day
@@ -202,112 +404,55 @@ Message of the day
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkwsMOTD` division anywhere on the page. It will be moved into the
-`mkwsResults` area and initially displayed, but will be hidden when a
-search is made.
-
-
-Customised display using Handlebars templates
----------------------------------------------
-
-Certain aspects of the widget-set's display can be customised by
-providing Handlebars templates with well-known classes that begin with
-the string `mkwsTemplate_`. At present, the supported templates are:
-
-* `mkwsTemplate_Summary` -- used for each summary record in a list of
-  results.
-
-* `mkwsTemplate_Record` -- used when displaying a full record.
-
-For both of these the metadata record is passed in, and its fields can
-be referenced in the template. As well as the metadata fields
-(`md-*`), two special fields are provided to the `mkwsTemplate_Summary`
-template, for creating popup links for full records. These are `_id`,
-which must be provided as the `id` attribute of a link tag, and
-`_onclick`, which must be provided as the `onclick` attribute.
-
-For example, an application can install a simple author+title summary
-record in place of the usual one providing the following template:
-
-        <script class="mkwsTemplate_Summary" type="text/x-handlebars-template">
-          {{#if md-author}}
-            <span>{{md-author}}</span>
-          {{/if}}
-          <a href="#" id="{{_id}}" onclick="{{_onclick}}">
-            <b>{{md-title}}</b>
-          </a>
-        </script>
-
-For details of Handlebars template syntax, see
-[the online documentation](http://handlebarsjs.com/).
-
-
-Responsive design
------------------
-
-Metasearching applications may need to appear differently on
-small-screened mobile devices, or change their appearance when
-screen-width changes (as when a small device is rotated). To achieve
-this, MKWS supports responsive design which will move the termlists to
-the bottom on narrow screens and to the sidebar on wide screens.
-
-To turn on this behaviour, set the `responsive_design_width` to the desired
-threshhold width in pixels. For example:
-
-        <script type="text/javascript">
-            var mkws_config = {
-                responsive_design_width: 990
-            };
-        </script>
-
-If individual result-related components are in use in place of the
-all-in-one mkwsResults, then the redesigned application needs to
-specify the locations where the termlists should appear in both
-cases. In this case, wrap the wide-screen `mkwsTermlists` element in a
-`mkwsTermlists-Container-wide` element; and provide an
-`mkwsTermlists-Container-narrow` element in the place where the narrow-screen
-termlists should appear.
+`mkws-motd` division anywhere on the page. It will initially be moved
+into the `mkws-results` area and displayed, but will be hidden as soon
+as the first search is made.
 
 
 Popup results with jQuery UI
 ----------------------------
 
 The [jQuery UI library](http://en.wikipedia.org/wiki/JQuery_UI)
-can be used to construct MKWS applications in which the only component
+can be used to construct MKWS applications in which the only widget
 generally visible on the page is a search box, and the results appear
 in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
-        <div class="mkwsSearch"></div>
-        <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-          <div class="mkwsSwitch"></div>
-          <div class="mkwsLang"></div>
-          <div class="mkwsResults"></div>
-          <div class="mkwsTargets"></div>
-          <div class="mkwsStat"></div>
+        <div class="mkws-search"></div>
+        <div class="mkws-popup" popup_width="1024" popup_height="650">
+          <div class="mkws-results"></div>
         </div>
 
 The necessary scaffolding can be seen in an example application,
-http://example.indexdata.com/index-popup.html
+[popup.html](http://example.indexdata.com/popup.html).
+
+The relevant properties (`popup_width`, etc.) are documented
+[below](#jquery-ui-popup-invocation)
+in the reference section.
 
 
 Authentication and target configuration
 ---------------------------------------
 
-By default, MKWS configures itself to use a demonstration account on a
-service hosted by mkws.indexdata.com. This account (username `demo`,
+MKWS configures itself to use an account on a service hosted by
+`sp-mkws.indexdata.com`. By default, it sends no authentication
+credentials, allowing the appropriate account to be selected on the
+basis of referring URL or IP address.
+
+TODO REWRITE
+This account (username `demo`,
 password `demo`) provides access to about a dozen free data
 sources. Authentication onto this service is via an authentication URL
 on the same MKWS server, so no explicit configuration is needed.
 
 In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
-Index Data's hosted service proxy, and protect that account with
+Index Data's hosted Service Proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
 resources). For information on how to do this, see the next section.
 
 
-MKWS Target Selection
+MKWS target selection
 =====================
 
 MKWS accesses targets using the Pazpar2 metasearching engine. Although
@@ -325,7 +470,7 @@ available targets to use.
 Maintaining the library
 -----------------------
 
-The service proxy accesses sets of targets that are known as
+The Service Proxy accesses sets of targets that are known as
 "libraries". In general, each customer will have their own library,
 though some standard libraries may be shared between many customers --
 for example, a library containing all open-access academic journals.
@@ -482,7 +627,7 @@ yourname.com:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
 <http://yourname.com/spauth/>
@@ -524,10 +669,10 @@ For example, a `Records` widget can be limited to searching only in
 targets that have been categorised as news sources by providing an
 attribute as follows:
 
-	<div class="mkwsRecords" targetfilter='categories=news'/>
+	<div class="mkws-records" targetfilter='categories=news'/>
 
 
-Reference Guide
+Reference guide
 ===============
 
 Configuration object
@@ -544,7 +689,7 @@ reasonably narrow.
 ----
 Element                   Type    Default   Description
 --------                  -----   --------- ------------
-debug_level               int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                             datestamps, 3 = messages with datestamps and stack-traces.
 
 facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
@@ -607,7 +752,7 @@ use_service_proxy         bool    true      If true, then a Service Proxy is use
 
 Perhaps we should get rid of the `show_lang`, `show_perpage`,
 `show_sort` and `show_switch` configuration items, and simply display the relevant menus
-only when their containers are provided -- e.g. an `mkwsLang` element
+only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
 to lightly customise the display than my changing providing a full HTML
 structure.
@@ -620,9 +765,9 @@ structure.
 
 3. [10, 20, 30, 50]
 
-4. http://mkws.indexdata.com/service-proxy-auth
+4. http://sp-mkws.indexdata.com/service-proxy-auth
 
-5. http://mkws.indexdata.com/service-proxy/
+5. http://sp-mkws.indexdata.com/service-proxy/
 
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
 
@@ -691,13 +836,13 @@ from that toolkit. The relevant lines are:
     <link rel="stylesheet" type="text/css"
           href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-    <div class="mkwsSearch"></div>
-    <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-      <div class="mkwsSwitch"></div>
-      <div class="mkwsLang"></div>
-      <div class="mkwsResults"></div>
-      <div class="mkwsTargets"></div>
-      <div class="mkwsStat"></div>
+    <div class="mkws-search"></div>
+    <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+      <div class="mkws-switch"></div>
+      <div class="mkws-lang"></div>
+      <div class="mkws-results"></div>
+      <div class="mkws-targets"></div>
+      <div class="mkws-stat"></div>
     </div>
 
 ----
@@ -709,7 +854,8 @@ popup_width     string  880                 Width of the popup window (if used),
 popup_height    string  760                 Height of the popup window (if used), in
                                             pixels.
 
-popup_button    string  `input.mkwsButton`  (Never change this.)
+popup_button    string  `input.mkwsButton`  A click on this selector will trigger the
+					    popup to open
 
 popup_modal     string  0                   Modal confirmation mode. Valid values are 0 or 1
 
@@ -717,15 +863,17 @@ popup_autoOpen  string  1                   Open popup window on load. Valid val
 
 ----
 
+You can have more than one mkws-popup widgets on a page. Please use a different 
+popup_button value to address the right ones.
 
 The structure of the HTML generated by the MKWS widgets
 -------------------------------------------------------
 
 In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand that structure of the HTML elements that are
-generated within the components. This knowledge make it possible, for example,
+generated within the widgets. This knowledge make it possible, for example,
 to style each `<div>` with class `term` but only when it occurs inside an
-element with ID `#mkwsTermlists`, so as to avoid inadvertently styling other
+element with class `mkws-termlists`, so as to avoid inadvertently styling other
 elements using the same class in the non-MKWS parts of the page.
 
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
@@ -790,4 +938,4 @@ and .CLASS indicates an instance of a class.
 
 - - -
 
-Copyright (C) 2013-2014 by IndexData ApS, <http://www.indexdata.com>
+Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>

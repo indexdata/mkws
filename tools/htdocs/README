@@ -1,17 +1,5 @@
-OVERVIEW
-========
-
-The MasterKey Widget Set, or MKWS, is a project to create some very
-simple HTML/JS/CSS widgets that can be dropped into ANY website,
-irrespective of CMS or lack thereof, to enable MasterKey searching.
-
-
-WHAT'S WHAT
-===========
+Subdirectories:
 
 external -- CSS/JS files for external plugins, e.g. Koha
 releases -- released MKWS JS/CSS files, with version number
 images   -- MKWS images and logos
-
---
-https://mkws.indexdata.com

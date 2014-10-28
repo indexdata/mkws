@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (c) 2014 IndexData ApS. http://indexdata.com
+# Copyright (c) 2014 Index Data ApS. http://indexdata.com
 #
 # bomb.pl - wrapper to stop a process after N seconds
 #
@@ -45,7 +45,7 @@ eval {
     BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
 };
 if ($@) {
-    warn "Please install the package BSD::Resource!\n\n$@\n";
+    warn "WARNING: things would go more nicely with the BSD::Resource package\n";
 }
 
 

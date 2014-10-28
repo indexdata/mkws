@@ -1,39 +1,21 @@
-OVERVIEW
-========
-
-The MasterKey Widget Set, or MKWS, is a project to create some very
-simple HTML/JS/CSS widgets that can be dropped into ANY website,
-irrespective of CMS or lack thereof, to enable MasterKey searching.
-
-
-WHAT'S WHAT
-===========
+The MasterKey Widget Set, or MKWS, provides HTML/JS/CSS widgets that
+can be dropped into ANY website, irrespective of CMS or lack thereof,
+to enable MasterKey searching.
 
 README   -- this file
+LICENSE  -- The GNU LGPL (Lesser General Public Licence)
 Makefile -- delegates to tools/htdocs/Makefile
+src      -- source-code that is compiled into the tools area
 tools 	 -- the tools that make up the Widget Set
 examples -- examples of applications that use MKWS
-
+doc      -- documentation (in Markdown, compiles to HTML)
+test     -- regression-testing scripts
 notes    -- internal documents, not for customers
 
+See tools/htdocs/NEWS for the change-log.
 
-Required devel tools
-====================
+For more documentation:
 
-On debian, you will need:
-$ sudo apt-get install curl git-core pandoc yui-compressor node-js libbsd-resource-perl
-
-On Debian 7 (wheezy), you do not need git-core, plain git will do, but
-you probably have that on a development box already. Unfortunately, node-js
-is not available for wheezy. Either you can get it from wheezy-backports,
-or you can download the source from http://nodejs.org/download/ and build
-it yourself. Looks like you need node and npm, make install puts them
-into /usr/local/bin.
-
-For apache setup, see tools/apache2/README
-
-NEWS
-=========
-
-see tools/htdocs/NEWS
-
+doc/index.markdown -- overview
+doc/mkws-manual.markdown -- how to use the widget set
+doc/mkws-developer.markdown -- how to develop and customise widgets

@@ -1,0 +1,11 @@
+{{!
+Progress
+
+done - number of targets complete
+waiting - number of targets waiting
+}}
+<span class="mkws-done mkws-done mkwsDone">{{#mkws-repeat done}}&#x2588;{{/mkws-repeat}}</span>
+{{~#if waiting~}}
+<span class="mkws-waiting mkws-waiting mkwsWaiting">{{#mkws-repeat waiting}}&#x2588;{{/mkws-repeat}}</span>
+{{~/if~}}
+

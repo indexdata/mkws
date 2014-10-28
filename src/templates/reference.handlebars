@@ -1,0 +1,17 @@
+{{!
+Paragraphs and images from a reference source.
+
+sentences - number of sentences to include
+paragraphs - number of paragraphs to include
+md-* - metadata fields passed through from backend
+}}
+<img src="{{md-thumburl}}" alt="{{md-title}}">
+<h1><a href="{{md-electronic-url}}">{{md-title}}</a></h1>
+{{#if md-title-remainder}}
+<b>{{md-title-remainder}}</b>
+{{/if}}
+{{#if md-title-responsibility}}
+<i>{{md-title-responsibility}}</i>
+{{/if}}
+{{{mkws-paragraphs md-description paragraphs sentences}}}
+<p class="mkws-credit mkwsCredit">Wikipedia</p>

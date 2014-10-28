@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo: Reference widget with popup window</title>
+    <title>MKWS demo: Reference & Credo, and popup widget, development</title>
     <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
     <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
     <link rel="stylesheet" type="text/css" href="mkws-widget-reference.css" />
@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
       var mkws_config = {
-      	  service_proxy_auth: "//mkws.indexdata.com/service-proxy-credoauth"
+      	sp_auth_credentials: "mkwstest/mkwstest"
       };
     </script>
 
@@ -17,14 +17,13 @@
     <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 
     <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
-    <script type="text/javascript" src="tools/htdocs/handlebars-v1.1.2.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
 
     <script type="text/javascript" src="src/mkws-handlebars.js"></script>
     <script type="text/javascript" src="src/mkws-core.js"></script>
     <script type="text/javascript" src="src/mkws-team.js"></script>
     <script type="text/javascript" src="src/mkws-filter.js"></script>
-    <script type="text/javascript" src="src/mkws-popup.js"></script>
     <script type="text/javascript" src="src/mkws-widget.js"></script>
     <script type="text/javascript" src="src/mkws-widget-main.js"></script>
     <script type="text/javascript" src="src/mkws-widget-termlists.js"></script>
@@ -34,27 +33,29 @@
     <script type="text/javascript" src="src/mkws-widget-record.js"></script>
     <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
     <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
+    <script type="text/javascript" src="src/mkws-popup.js"></script>
 
     <script type="text/javascript" src="mkws-widget-credo.js"></script>
   </head>
   <body>
-    <h3>MKWS widgets in a popup window</h3>
+    <h3>MKWS demo: Reference & Credo, and popup widget, development</h3>
 
-    <div class="mkwsSearch"></div>
-    <div class="mkwsPopup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-      <div class="mkwsSwitch"></div>
-      <div class="mkwsLang"></div>
-      <div class="mkwsResults"></div>
-      <div class="mkwsTargets"></div>
-      <div class="mkwsStat"></div>
+    <div class="mkws-search"></div>
+    <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkws-button">
+      <div class="mkws-switch"></div>
+      <div class="mkws-lang"></div>
+      <div class="mkws-results"></div>
+      <div class="mkws-targets"></div>
+      <div class="mkws-stat"></div>
     </div>
 
-    <div class="mkwsPopup" popup_width="1024" popup_height="800" popup_autoOpen="1">
-      <div class="mkwsCredo mkwsTeam_credo" autosearch="!param!q">mkwsCredo result will appear here</div>
+    <div class="mkws-popup" popup_width="1024" popup_height="800" popup_autoOpen="1">
+      <div class="mkws-credo mkws-team-credo" autosearch="!param!q">mkws-credo result will appear here</div>
     </div>
 
-    <div class="mkwsPopup" popup_width="700" popup_height="600" popup_autoOpen="1">
-      <div class="mkwsReference mkwsTeam_credo" sentences="1" autosearch="!param!q">mkwsReference result will appear here</div>
+    <div class="mkws-popup" popup_width="700" popup_height="600" popup_autoOpen="1">
+      <div class="mkws-reference mkws-team-credo" sentences="1" autosearch="!param!q">mkws-reference result will appear here</div>
     </div>
 
   </body>

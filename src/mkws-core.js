@@ -20,6 +20,7 @@ window.mkws = {
                 // initial value allows jQuery popup to use logging.
   teams: {},
   widgetType2function: {},
+  defaultTemplates: {},
 
   locale_lang: {
     "de": {
@@ -108,24 +109,6 @@ mkws.log = function(string) {
 };
 
 
-// Incredible that the standard JavaScript runtime doesn't define a
-// unique windowId. Instead, we have to make one up. And since there's
-// no global area shared between windows, the best we can do for
-// ensuring uniqueness is generating a random ID and crossing our
-// fingers. We stash this in window.name, as it's the only place to
-// keep data that is preserved across reloads and within-site
-// navigation. pz2.js picks this up and uses it as part of the
-// cookie-name, to ensure each tab gets its own session.
-if (window.name) {
-  mkws.log("Using existing window.name '" + window.name + "'");
-} else {
-  // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
-  // At one per second, it will take 116 million years to duplicate a session
-  window.name = Math.random().toString(36).slice(2, 12);
-  mkws.log("Generated new window.name '" + window.name + "'");
-}
-
-
 // Translation function.
 mkws.M = function(word) {
   var lang = mkws.config.lang;
@@ -149,6 +132,11 @@ mkws.getParameterByName = function(name, url) {
 
 
 mkws.registerWidgetType = function(name, fn) {
+  if(mkws._old2new.hasOwnProperty(name)) {
+      mkws.log("Warning: registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
+      name = mkws._old2new[name];
+  }
+
   mkws.widgetType2function[name] = fn;
   mkws.log("registered widget-type '" + name + "'");
 };
@@ -160,9 +148,7 @@ mkws.promotionFunction = function(name) {
 
 mkws.setMkwsConfig = function(overrides) {
   // Set global log_level flag early so that mkws.log() works
-  // Fall back to old "debug_level" setting for backwards compatibility
   var tmp = overrides.log_level;
-  if (typeof(tmp) === 'undefined') tmp = overrides.debug_level;
   if (typeof(tmp) !== 'undefined') mkws.log_level = tmp;
 
   var config_default = {
@@ -188,6 +174,7 @@ mkws.setMkwsConfig = function(overrides) {
     facets: ["xtargets", "subject", "author"], /* display facets, in this order, [] for none */
     responsive_design_width: undefined, /* a page with less pixel width considered as narrow */
     log_level: 1,     /* log level for development: 0..2 */
+    template_vars: {}, /* values that may be exposed to templates */
 
     dummy: "dummy"
   };
@@ -209,110 +196,6 @@ mkws.objectInheritingFrom = function(o) {
   F.prototype = o;
   return new F();
 }
-
-
-mkws.defaultTemplate = function(name) {
-  if (name === 'Record') {
-    return '\
-<table>\
-  <tr>\
-    <th>{{mkws-translate "Title"}}</th>\
-    <td>\
-      {{md-title}}\
-      {{#if md-title-remainder}}\
-        ({{md-title-remainder}})\
-      {{/if}}\
-      {{#if md-title-responsibility}}\
-        <i>{{md-title-responsibility}}</i>\
-      {{/if}}\
-    </td>\
-  </tr>\
-  {{#if md-date}}\
-  <tr>\
-    <th>{{mkws-translate "Date"}}</th>\
-    <td>{{md-date}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-author}}\
-  <tr>\
-    <th>{{mkws-translate "Author"}}</th>\
-    <td>{{md-author}}</td>\
-  </tr>\
-  {{/if}}\
-  {{#if md-electronic-url}}\
-  <tr>\
-    <th>{{mkws-translate "Links"}}</th>\
-    <td>\
-      {{#each md-electronic-url}}\
-        <a href="{{this}}">Link{{mkws-index1}}</a>\
-      {{/each}}\
-    </td>\
-  </tr>\
-  {{/if}}\
-  {{#mkws-if-any location having="md-subject"}}\
-  <tr>\
-    <th>{{mkws-translate "Subject"}}</th>\
-    <td>\
-      {{#mkws-first location having="md-subject"}}\
-        {{#if md-subject}}\
-          {{#mkws-commaList md-subject}}\
-            {{this}}{{/mkws-commaList}}\
-        {{/if}}\
-      {{/mkws-first}}\
-    </td>\
-  </tr>\
-  {{/mkws-if-any}}\
-  <tr>\
-    <th>{{mkws-translate "Locations"}}</th>\
-    <td>\
-      {{#mkws-commaList location}}\
-        {{mkws-attr "@name"}}{{/mkws-commaList}}\
-    </td>\
-  </tr>\
-</table>\
-';
-  } else if (name === "Summary") {
-    return '\
-<a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-  <b>{{md-title}}</b>\
-</a>\
-{{#if md-title-remainder}}\
-  <span>{{md-title-remainder}}</span>\
-{{/if}}\
-{{#if md-title-responsibility}}\
-  <span><i>{{md-title-responsibility}}</i></span>\
-{{/if}}\
-{{#if md-date}}, {{md-date}}\
-{{#if location}}\
-, {{#mkws-first location}}{{mkws-attr "@name"}}{{/mkws-first}}\
-{{/if}}\
-{{#if md-medium}}\
-<span>, {{md-medium}}</span>\
-{{/if}}\
-{{/if}}\
-';
-  } else if (name === "Image") {
-    return '\
-      <a href="#" id="{{_id}}" onclick="{{_onclick}}">\
-        {{#mkws-first md-thumburl}}\
-          <img src="{{this}}" alt="{{../md-title}}"/>\
-        {{/mkws-first}}\
-        <br/>\
-      </a>\
-';
-  } else if (name === 'Facet') {
-    return '\
-<a href="#"\
-{{#if fn}}\
-onclick="mkws.{{fn}}(\'{{team}}\', \'{{field}}\', \'{{term}}\');return false;"\
-{{/if}}\
->{{term}}</a>\
-<span>{{count}}</span>\
-';
-  }
-
-  return null;
-};
 
 
 // The following functions are dispatchers for team methods that
@@ -371,9 +254,61 @@ mkws.pazpar2_url = function() {
 };
 
 
+// We put a session token in window.name, as it's the only place to
+// keep data that is preserved across reloads and within-site
+// navigation. pz2.js picks this up and uses it as part of the
+// cookie-name, to ensure we get a new session when we need one.
+//
+// We want to use different sessions for different windows/tabs (so
+// they don't receive each other's messages), different hosts and
+// different paths on a host (since in general these will
+// authenticate as different libraries). So the window name needs to
+// include the hostname and the path from the URL, plus the token.
+//
+var token;
+if (window.name) {
+  token = window.name.replace(/.*\//, '');
+  mkws.log("Reusing existing window token '" + token + "'");
+} else {
+  // Incredible that the standard JavaScript runtime doesn't define a
+  // unique windowId. Instead, we have to make one up. And since there's
+  // no global area shared between windows, the best we can do for
+  // ensuring uniqueness is generating a random ID and crossing our
+  // fingers.
+  //
+  // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
+  // At one per second, it will take 116 million years to duplicate a token
+  token = Math.random().toString(36).slice(2, 12);
+  mkws.log("Generated new window token '" + token + "'");
+}
+
+window.name = window.location.hostname + window.location.pathname + '/' + token;
+mkws.log("Using window.name '" + window.name + "'");
+
+
 // wrapper to provide local copy of the jQuery object.
 (function($) {
   var log = mkws.log;
+  var _old2new = { // Maps old-style widget names to new-style
+    'Authname': 'auth-name',
+    'ConsoleBuilder': 'console-builder',
+    'Coverart': 'cover-art',
+    'GoogleImage': 'google-image',
+    'MOTD': 'motd',
+    'MOTDContainer': 'motd-container',
+    'Perpage': 'per-page',
+    'SearchForm': 'search-form',
+    'ReferenceUniverse': 'reference-universe'
+  };
+  // Annoyingly, there is no built-in way to invert a hash
+  var _new2old = {};
+  for (var key in _old2new) {
+    if(_old2new.hasOwnProperty(key)) {
+      _new2old[_old2new[key]] = key;
+    }
+  }
+
+  mkws._old2new = _old2new;
 
   function handleNodeWithTeam(node, callback) {
     // First branch for DOM objects; second branch for jQuery objects
@@ -391,10 +326,19 @@ mkws.pazpar2_url = function() {
 
     for (var i = 0; i < list.length; i++) {
       var cname = list[i];
-      if (cname.match(/^mkwsTeam_/)) {
+      if (cname.match(/^mkws-team-/)) {
+        // New-style teamnames of the form mkws-team-xyz
+        teamName = cname.replace(/^mkws-team-/, '');
+      } else if (cname.match(/^mkwsTeam_/)) {
+        // Old-style teamnames of the form mkwsTeam_xyz
         teamName = cname.replace(/^mkwsTeam_/, '');
+      } else if (cname.match(/^mkws-/)) {
+        // New-style names of the from mkws-foo-bar
+        type = cname.replace(/^mkws-/, '');
       } else if (cname.match(/^mkws/)) {
-        type = cname.replace(/^mkws/, '');
+        // Old-style names of the form mkwsFooBar
+        var tmp = cname.replace(/^mkws/, '');
+        type = _old2new[tmp] || tmp.toLowerCase();
       }
     }
 
@@ -403,7 +347,7 @@ mkws.pazpar2_url = function() {
       teamName = "AUTO";
       // Autosearch widgets don't join team AUTO if there is already an
       // autosearch on the team or the team has otherwise gotten a query
-      if (node.hasAttribute("autosearch")) {
+      if (node.getAttribute("autosearch")) {
         if (mkws.autoHasAuto ||
             mkws.teams["AUTO"] && mkws.teams["AUTO"].config["query"]) {
           log("AUTO team already has a query, using unique team");
@@ -441,8 +385,8 @@ mkws.pazpar2_url = function() {
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
-          var w1 = team.widget(t + "-Container-" + from);
-          var w2 = team.widget(t + "-Container-" + to);
+          var w1 = team.widget(t + "-container-" + from);
+          var w2 = team.widget(t + "-container-" + to);
           if (w1) {
             w1.node.hide();
           }
@@ -531,9 +475,14 @@ mkws.pazpar2_url = function() {
       var s = "";
       for (var type in mkws.widgetType2function) {
 	if (s) s += ',';
-	s += '.mkws' + type;
-	s += ',.mkws' + type + "-Container-wide";
-	s += ',.mkws' + type + "-Container-narrow";
+	s += '.mkws-' + type;
+	s += ',.mkws-' + type + "-container-wide";
+	s += ',.mkws-' + type + "-container-narrow";
+        // Annoyingly, we also need to recognise old-style names
+        var oldtype = _new2old[type] || type.charAt(0).toUpperCase() + type.slice(1);
+	s += ',.mkws' + oldtype;
+	s += ',.mkws' + oldtype + "-Container-wide";
+	s += ',.mkws' + oldtype + "-Container-narrow";
       }
       return s;
     }
@@ -549,16 +498,15 @@ mkws.pazpar2_url = function() {
       handleNodeWithTeam(this, function(tname, type) {
         var myTeam = mkws.teams[tname];
         if (!myTeam) {
-          myTeam = mkws.teams[tname] = team($, tname);
-          log("made MKWS team '" + tname + "'");
+          myTeam = mkws.teams[tname] = mkws.makeTeam($, tname);
         }
 
         var oldHTML = this.innerHTML;
-        var myWidget = widget($, myTeam, type, this);
+        var myWidget = mkws.makeWidget($, myTeam, type, this);
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
-          log("widget " + tname + ":" + type + " HTML changed: reparsing");
+          myTeam.log("widget " + type + " HTML changed: reparsing");
           makeWidgetsWithin(level+1, $(this));
         }
       });
@@ -584,21 +532,6 @@ mkws.pazpar2_url = function() {
     if (rootsel) greet += " (limited to " + rootsel + ")"
     if (message) greet += " :: " + message; 
     mkws.log(greet);
-
-    // TODO: Let's remove this soon
-    // Backwards compatibility: set new magic class names on any
-    // elements that have the old magic IDs.
-    var ids = [ "Switch", "Lang", "Search", "Pager", "Navi",
-                "Results", "Records", "Targets", "Ranking",
-                "Termlists", "Stat", "MOTD" ];
-    for (var i = 0; i < ids.length; i++) {
-      var id = 'mkws' + ids[i];
-      var node = $('#' + id);
-      if (node.attr('id')) {
-        node.addClass(id);
-        log("added magic class to '" + node.attr('id') + "'");
-      }
-    }
 
     // MKWS is not active until init() has been run against an object with widget nodes.
     // We only set initial configuration when MKWS is first activated.
@@ -670,16 +603,16 @@ mkws.pazpar2_url = function() {
     var now = $.now();
 
     log("walking MKWS nodes took " + (now-then) + " ms");
-
-    /*
-      for (var tName in mkws.teams) {
+    for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
-      log("team '" + tName + "' = " + myTeam + " ...");
-      myTeam.visitWidgets(function(t, w) {
-      log("  has widget of type '" + t + "': " + w);
-      });
-      }
-    */
+      myTeam.makePz2();
+      myTeam.log("made PZ2 object");
+      /*
+        myTeam.visitWidgets(function(t, w) {
+          log("  has widget of type '" + t + "': " + w);
+        });
+      */
+    }
 
     function sp_auth_url(config) {
       if (config.service_proxy_auth) {

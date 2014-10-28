@@ -1,30 +1,30 @@
-.mkwsCredo {
+.mkws-credo {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
-.mkwsCredo table {
+.mkws-credo table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.mkwsCredo table tr.front {
+.mkws-credo table tr.front {
     background: #ddf3c3;
 }
 
-.mkwsCredo table tr:first-child td:first-child {
+.mkws-credo table tr:first-child td:first-child {
     width: 70%;
 }
 
-.mkwsCredo table tr:first-child .section {
+.mkws-credo table tr:first-child .section {
     margin: 10px;
     border: 1px solid #c0c0c0;
 }
 
-.mkwsCredo table tr {
+.mkws-credo table tr {
     vertical-align: top;
 }
 
-.mkwsCredo .front div.title {
+.mkws-credo .front div.title {
     font-size: 150%;
     font-weight: bold;
     color: white;
@@ -32,7 +32,7 @@
     padding: 0.25em 0.5em;
 }
 
-.mkwsCredo div.title {
+.mkws-credo div.title {
     font-size: 150%;
     font-weight: bold;
     color: #666699;
@@ -40,7 +40,7 @@
     padding: 0.25em 0.5em;
 }
 
-.mkwsCredo div.content {
+.mkws-credo div.content {
     background: white;
     padding: 0.5em 1em;
 
@@ -49,26 +49,26 @@
     overflow: auto;
 }
 
-.mkwsReference h1 {
+.mkws-reference h1 {
     display:none;
 }
 
-.mkwsReference img {
+.mkws-reference img {
     float: left;
     margin: 0 1.5em 1em 0;
     border: 2px solid #c0c0c0;
     padding: 0.5em;
 }
 
-.mkwsCredo .image .mkwsSummary {
+.mkws-credo .image .mkws-summary {
     float: left;
 }
 
-.mkwsCredo .image a {
+.mkws-credo .image a {
     text-decoration: none;
 }
 
-.mkwsCredo hr.divider {
+.mkws-credo hr.divider {
     margin: 20px 1%;
     border-top: 3px dotted #c0c0c0;
     color: #fff;
@@ -77,29 +77,29 @@
     width: 98%;
 }
 
-.mkwsCredit {
+.mkws-credit {
     font-size: small;
     text-align: right;
 }
 
-.mkwsCredit::before {
+.mkws-credit::before {
     content: "Source: ";
     font-weight: bold;
 }
 
-.mkwsFacet a {
+.mkws-facet a {
     text-decoration: none;
 }
 
-.mkwsFacet a:hover {
+.mkws-facet a:hover {
     text-decoration: underline;
 }
 
-.mkwsTerm {
+.mkws-term {
     clear: both;
 }
 
-.mkwsTerm span {
+.mkws-term span {
     float: right;
 }
 

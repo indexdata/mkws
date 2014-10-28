@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="copyright" content="(c) 1999-2013 IndexData ApS, http://indexdata.com" />
+    <meta name="copyright" content="(c) 1999-2013 Index Data ApS, http://indexdata.com" />
     <title>MKWS demo: Automatic search</title>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws.css" />
     <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
@@ -25,12 +25,11 @@
 	  <h2>News</h2>
 
 
-<div class='mkwsRecords'
-	autosearch='mike'
+<div class='mkws-records'
+	autosearch='sushi'
 	sort='relevance'
-	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware'
+	targets='pz:id~josiah.brown.edu:210/innopac|connect.indexdata.com:9000/mit_opencourseware|lui.indexdata.com:8080/solr4/select?fq=database:3602'
 >results will appear here</div>
-
 
 	</td>
       </tr>
@@ -38,5 +37,10 @@
     <p style="color:grey">
       <a href="http://mkws.indexdata.com/">About MKWS</p>
     </p>
+    <script type="text/javascript">
+      var mkws_config = {
+        sp_auth_credentials: "mkwstest/mkwstest"
+      };
+    </script>
   </body>
 </html>

@@ -1,0 +1,13 @@
+{{!
+Facet breadcrumbs -- filters on the current search
+
+filters
+  facet - name of facet being limited
+  value - limit to this value
+  click - handler script to remove limit
+}}
+{{#each filters}}
+  {{{mkws-translate facet}}}: <a class="mkws-removable mkwsRemovable" href="#" onclick="{{{click}}}">{{value}}</a>
+  {{#unless @last}}|{{/unless}}
+{{/each}}
+

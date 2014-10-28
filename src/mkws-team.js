@@ -8,7 +8,10 @@
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
-function team($, teamName) {
+// Before the team can be used for searching and related operations,
+// its pz2 object must be created by calling team.makePz2().
+//
+mkws.makeTeam = function($, teamName) {
   var that = {};
   var m_teamName = teamName;
   var m_submitted = false;
@@ -41,11 +44,13 @@ function team($, teamName) {
   that.submitted = function() { return m_submitted; };
   that.sortOrder = function() { return m_sortOrder; };
   that.perpage = function() { return m_perpage; };
+  that.query = function() { return m_query; };
   that.totalRecordCount = function() { return m_totalRecordCount; };
   that.currentPage = function() { return m_currentPage; };
   that.currentRecordId = function() { return m_currentRecordId; };
   that.currentRecordData = function() { return m_currentRecordData; };
   that.filters = function() { return m_filterSet; };
+  that.gotRecords = function() { return m_gotRecords; };
 
   // Accessor methods for individual widgets: writers
   that.set_sortOrder = function(val) { m_sortOrder = val };
@@ -59,17 +64,17 @@ function team($, teamName) {
   //    team.queue("eventName").subscribe(function(param1, param2 ...) { ... });
   //    team.queue("eventName").publish(arg1, arg2, ...);
   //
-  var queues = {};
+  var m_queues = {};
   function queue(id) {
-    if (!queues[id]) {
+    if (!m_queues[id]) {
       var callbacks = $.Callbacks();
-      queues[id] = {
+      m_queues[id] = {
         publish: callbacks.fire,
         subscribe: callbacks.add,
         unsubscribe: callbacks.remove
       };
     }
-    return queues[id];
+    return m_queues[id];
   };
   that.queue = queue;
 
@@ -89,24 +94,7 @@ function team($, teamName) {
 
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
-
-  // create a parameters array and pass it to the pz2's constructor
-  // then register the form submit event with the pz2.search function
-  // autoInit is set to true on default
-  m_paz = new pz2({ "windowid": teamName,
-                    "pazpar2path": mkws.pazpar2_url(),
-                    "usesessions" : config.use_service_proxy ? false : true,
-                    "oninit": onInit,
-                    "onbytarget": onBytarget,
-                    "onstat": onStat,
-                    "onterm": (config.facets.length ? onTerm : undefined),
-                    "onshow": onShow,
-                    "onrecord": onRecord,
-                    "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
-                    "termlist": config.facets.join(',')
-                  });
-  log("created main pz2 object");
-
+ 
   // pz2.js event handlers:
   function onInit() {
     log("init");
@@ -149,6 +137,7 @@ function team($, teamName) {
     log("record");
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
+    queue("record").publish(data);
     var detRecordDiv = findnode(recordDetailsId(data.recid[0]));
     if (detRecordDiv.length) {
       // in case on_show was faster to redraw element
@@ -161,15 +150,54 @@ function team($, teamName) {
   }
 
 
+  // create a parameters array and pass it to the pz2's constructor
+  // then register the form submit event with the pz2.search function
+  // autoInit is set to true on default
+  that.makePz2 = function() {
+    log("m_queues=" + $.toJSON(m_queues));
+    var params = {
+      "windowid": teamName,
+      "pazpar2path": mkws.pazpar2_url(),
+      "usesessions" : config.use_service_proxy ? false : true,
+      "showtime": 500,            //each timer (show, stat, term, bytarget) can be specified this way
+      "termlist": config.facets.join(',')
+    };
+
+    params.oninit = onInit;
+    if (m_queues.targets) {
+      params.onbytarget = onBytarget;
+      log("setting bytarget callback");
+    }
+    if (m_queues.stat) {
+      params.onstat = onStat;
+      log("setting stat callback");
+    }
+    if (m_queues.termlists && config.facets.length) {
+      params.onterm = onTerm;
+      log("setting term callback");
+    }
+    if (m_queues.records) {
+      log("setting show callback");
+      params.onshow = onShow;
+      // Record callback is subscribed from records callback
+      log("setting record callback");
+      params.onrecord = onRecord;
+    }
+
+    m_paz = new pz2(params);
+    log("created main pz2 object");
+  }
+
+
   // Used by the Records widget and onRecord()
   function recordElementId(s) {
-    return 'mkwsRec_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkws-rec_' + s.replace(/[^a-z0-9]/ig, '_');
   }
   that.recordElementId = recordElementId;
 
   // Used by onRecord(), showDetails() and renderDetails()
   function recordDetailsId(s) {
-    return 'mkwsDet_' + s.replace(/[^a-z0-9]/ig, '_');
+    return 'mkws-det_' + s.replace(/[^a-z0-9]/ig, '_');
   }
 
 
@@ -303,13 +331,19 @@ function team($, teamName) {
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
   }
 
+  // fetch record details to be retrieved from the record queue
+  that.fetchDetails = function(recId) {
+    log("fetchDetails() requesting record '" + recId + "'");
+    m_paz.record(recId);
+  };
+
 
   // switching view between targets and records
   function switchView(view) {
-    var targets = widgetNode('Targets');
-    var results = widgetNode('Results') || widgetNode('Records');
-    var blanket = widgetNode('Blanket');
-    var motd    = widgetNode('MOTD');
+    var targets = widgetNode('targets');
+    var results = widgetNode('results') || widgetNode('records');
+    var blanket = widgetNode('blanket');
+    var motd    = widgetNode('motd');
 
     switch(view) {
     case 'targets':
@@ -356,10 +390,10 @@ function team($, teamName) {
     teamName = teamName || m_teamName;
 
     if (teamName === 'AUTO') {
-      selector = (selector + '.mkwsTeam_' + teamName + ',' +
-                  selector + ':not([class^="mkwsTeam"],[class*=" mkwsTeam"])');
+      selector = (selector + '.mkws-team-' + teamName + ',' +
+                  selector + ':not([class^="mkws-team"],[class*=" mkws-team"])');
     } else {
-      selector = selector + '.mkwsTeam_' + teamName;
+      selector = selector + '.mkws-team-' + teamName;
     }
 
     var node = $(selector);
@@ -374,53 +408,58 @@ function team($, teamName) {
   }
 
   function renderDetails(data, marker) {
-    var template = loadTemplate("Record");
+    var template = loadTemplate("details");
     var details = template(data);
-    return '<div class="mkwsDetails mkwsTeam_' + m_teamName + '" ' +
+    return '<div class="mkws-details mkwsDetails mkwsTeam_' + m_teamName + '" ' +
       'id="' + recordDetailsId(data.recid[0]) + '">' + details + '</div>';
   }
   that.renderDetails = renderDetails;
 
 
   that.registerTemplate = function(name, text) {
+    if(mkws._old2new.hasOwnProperty(name)) {
+      mkws.log("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
+      name = mkws._old2new[name];
+    }
     m_templateText[name] = text;
   };
 
 
   function loadTemplate(name, fallbackString) {
-    var template = m_template[name];
-
-    if (template === undefined) {
-      // Fall back to generic template if there is no team-specific one
-      var source;
-      var node = $(".mkwsTemplate_" + name + " .mkwsTeam_" + that.name());
-      if (node && node.length < 1) {
-        node = $(".mkwsTemplate_" + name);
-      }
-      if (node) {
-        source = node.html();
-      }
-
-      // If the template is not defined in HTML, check the following
-      // in order: template registered in the team by a widget;
-      // fallback string provided on this invocation; global default.
-      if (!source) {
-        source = m_templateText[name];
-      }
-      if (!source) {
-        source = fallbackString;
-      }
-      if (!source) {
-        source = mkws.defaultTemplate(name);
-      }
-
-      if (!source) return null;
-      template = Handlebars.compile(source);
-      log("compiled template '" + name + "'");
-      m_template[name] = template;
+    if(mkws._old2new.hasOwnProperty(name)) {
+       mkws.log("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
+       name = mkws._old2new[name];
     }
 
-    return template;
+    var template = m_template[name];
+    if (template === undefined && Handlebars.compile) {
+      var source;
+      var node = $(".mkws-template-" + name + " .mkws-team-" + that.name());
+      if (node && node.length < 1) {
+        node = $(".mkws-template-" + name);
+      }
+      if (node) source = node.html();
+      if (!source) source = m_templateText[name];
+      if (source) {
+        template = Handlebars.compile(source);
+        log("compiled template '" + name + "'");
+      }
+    }
+    //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
+    if (template === undefined && Handlebars.templates) {
+      template = Handlebars.templates["mkws-template-" + name];
+    }
+    if (template === undefined && mkws.defaultTemplates) {
+      template = mkws.defaultTemplates[name];
+    }
+    if (template) {
+      m_template[name] = template;
+      return template;
+    }
+    else {
+      log("No MKWS template for " + name);
+      return null;
+    }  
   }
   that.loadTemplate = loadTemplate;
 

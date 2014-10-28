@@ -1,5 +1,5 @@
 // Factory function for widget objects.
-function widget($, team, type, node) {
+mkws.makeWidget = function($, team, type, node) {
   // Static register of attributes that do not contribute to config
   var ignoreAttrs = {
     id:1, 'class':1, style:1, name:1, action:1, type:1, size:1,
@@ -57,7 +57,7 @@ function widget($, team, type, node) {
     }
 
     var s = [];
-    s.push('<div class="mkws', type, ' mkwsTeam_', attrs._team, '"');
+    s.push('<div class="mkws', type, ' mkws-team-', attrs._team, '"');
     for (var name in attrs) {    
       if (name !== '_team')
         s.push(' ', name, '="', attrs[name], '"');
@@ -66,8 +66,7 @@ function widget($, team, type, node) {
     return s.join('');
   };
 
-  // ### why is this a member function? It's never called from outside this file.
-  that.expandValue = function(val) {
+  function expandValue(val) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
       val = mkws.getParameterByName(param);
@@ -153,7 +152,7 @@ function widget($, team, type, node) {
 
   for (var i = 0; i < node.attributes.length; i++) {
     var a = node.attributes[i];
-    var val = that.expandValue(a.value);
+    var val = expandValue(a.value);
     if (a.name === 'data-mkws-config') {
       // Treat as a JSON fragment configuring just this widget
       log(node + ": parsing config fragment '" + val + "'");
@@ -188,4 +187,4 @@ function widget($, team, type, node) {
   }
 
   return that;
-}
+};

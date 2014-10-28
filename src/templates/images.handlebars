@@ -1,0 +1,21 @@
+{{!
+Records presented as images.
+
+The non-metadata keys enable an optional link to display an AJAX popup that
+fetches additional record detail.
+
+hits:
+  containerClass - partial class attribute for element containing a record
+  detailLinkId - id for the element triggering detail display
+  detailClick - a click event handler for details
+  renderedDetails - active record details rendered from the Record template
+  md-* - metadata fields passed through from backend
+}}
+{{#each hits}}
+  <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
+    {{#mkws-first md-thumburl}}
+      <img src="{{this}}" alt="{{../md-title}}"/>
+    {{/mkws-first}}
+    <br/>
+  </a>
+{{/each}}

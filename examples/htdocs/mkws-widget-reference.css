@@ -1,4 +1,4 @@
-.mkwsReference {
+.mkws-reference {
     max-width: 40em;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
     background: #f0f0e0;
@@ -9,26 +9,26 @@
     -webkit-border-radius: 1em;
 }
 
-.mkwsReference h1 a {
+.mkws-reference h1 a {
     color: #806020;
 }
 
-.mkwsReference a {
+.mkws-reference a {
     text-decoration: none;
 }
 
-.mkwsReference img {
+.mkws-reference img {
     float: right;
     margin: 0 0 1em 2em;
     border: 0.5em solid white;
 }
 
-.mkwsCredit {
+.mkws-credit {
     font-size: small;
     text-align: right;
 }
 
-.mkwsCredit::before {
+.mkws-credit::before {
     content: "Source: ";
     font-weight: bold;
 }

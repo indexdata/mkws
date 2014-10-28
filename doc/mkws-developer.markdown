@@ -3,6 +3,29 @@
 % 11 August 2014
 
 
+Required development tools
+==========================
+
+If you are building the widget set, as opposed to just using it, you
+will need the following Debian packages (or their equivalents on your
+operating system):
+
+	$ sudo apt-get install curl git make unzip \
+	    pandoc yui-compressor libbsd-resource-perl
+
+You also need Node.js, but unfortunately the `node-js` package is not
+available for Debian wheezy. You can either get it from
+wheezy-backports or download the source from
+http://nodejs.org/download/ and build it yourself. You need both Node
+itself and its package manager NPM: `make install` puts them into
+`/usr/local/bin`.
+
+To compile the default templates you'll need to install the stable
+version of Handlebars. Currently it's at 2.0.0 and available by npm:
+
+	$ npm install handlebars@2.0.0 -g
+
+
 Overview
 ========
 
@@ -258,4 +281,4 @@ TODO: list of events that can be usefully subscribed to.
 
 - - -
 
-Copyright (C) 2013-2014 by IndexData ApS, <http://www.indexdata.com>
+Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>
