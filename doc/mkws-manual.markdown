@@ -446,10 +446,10 @@ to go about making a set of targets (a "library") available, how to
 connect your MKWS application to that library, and how to choose which
 of the available targets to use.
 
-MKWS configures itself to use an account on a service hosted by
-`sp-mkws.indexdata.com`. By default, it sends no authentication
-credentials, allowing the appropriate account to be selected on the
-basis of referring URL or IP address.
+By default MKWS configures itself to use an account on a service
+hosted by `sp-mkws.indexdata.com`. By default, it sends no
+authentication credentials, allowing the appropriate account to be
+selected on the basis of referring URL or IP address.
 
 If no account has been set up to recognise the referring URL of the
 application or the IP address of the client, then a default "MKWS
@@ -477,18 +477,17 @@ Libraries are maintained using MKAdmin (MasterKey
 Admin). Specifically, those used by MKWS are generally maintained on
 the "MKX Admin" installation at
 <http://mkx-admin.indexdata.com/console/>
-
 In general, Index Data will create a library for each customer, then
 give the customer a username/password pair that they can use to enter
 MKAdmin and administrate that library.
 
 Once logged in, customers can select which targets to include (from
 the list of several thousand that MKAdmin knows about), and make
-customer-specific modifications -- e.g. overriding the titles of the
-targets.
+customer-specific modifications to the target profiles --
+e.g. overriding the titles of the targets.
 
 Most importantly, customers' administrators can add authentication
-credentials that the Service Proxy will used on their behalf when
+credentials that the Service Proxy will use on their behalf when
 accessing subscription resources -- username/password pairs or proxies
 to use for IP-based authentication. Note that **it is then crucial to
 secure the library from use by unauthorised clients**, otherwise the
@@ -525,19 +524,12 @@ Log in to MKAdmin to add a User Access account for your library:
 * Create an end-user account
 * Depending on what authentication method it be used, set the
   User Access account's username and password, or referring URL, or
-  Service Proxy hostname, or IP-address range.
+  IP-address range.
 
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
 the "Referring URL" field.
-
-If your application accesses the Service Proxy by a unique virtual
-hostname -- yourname.sp-mkws.indexdata.com, say -- you can tie the use
-of this hostname to your library by setting the User Access record's
-"Host Name" field to name of the host where the SP is accessed. **Note
-that this is not secure, as other applications can use this virtual
-hostname to gain access to your library.**
 
 Or if your application's users are coming from a well-known range of
 IP-address space, you can enter the range in the "IP Ranges"
@@ -576,21 +568,6 @@ this is very simple:
 
 And ensure that access to the MWKS application is from the correct
 Referrer URL or IP-range.
-
-### (Optional): access by a different virtual hostname
-
-When hostname-based authentication is in use, it's necessary to access
-the Service Proxy as the correctly named virtual host. This can be
-done by setting the `service_proxy_auth` configuration item to a
-URL containing that hostname, such as
-`//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
-
-> TODO It should be possible to change just the hostname without
-> needing to repeat the rest of the URL (protocol, path, query): see
-> **MKWS-252**.
-
-> TODO When changing the SP authentication URL, the Pazpar2 URL should
-> in general change along with it: see **MKWS-253**.
 
 ### (Optional): embed credentials for access to the library
 
