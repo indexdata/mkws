@@ -441,7 +441,7 @@ basis of referring URL or IP address.
 
 If no account has been set up to recognise the referring URL of the
 application or the IP address of the client, then a default "MKWS
-demo" account is used. This account (which can also be explicitly
+Demo" account is used. This account (which can also be explicitly
 chosen by using the username `mkws`, password `mkws`) provides access
 to about a dozen free data sources.
 
