@@ -431,8 +431,20 @@ The relevant properties (`popup_width`, etc.) are documented
 in the reference section.
 
 
-Authentication and target configuration
----------------------------------------
+MKWS target selection
+=====================
+
+Introduction
+------------
+
+MKWS accesses targets using the Pazpar2 metasearching engine. Although
+Pazpar2 can be used directly, using a statically configured set of
+targets, this usage is unusual. More often, Pazpar2 is fronted by the
+Service Proxy (SP), which manages authentication, sessions, target
+selection, etc. This document assumes the SP is used, and explains how
+to go about making a set of targets (a "library") available, how to
+connect your MKWS application to that library, and how to choose which
+of the available targets to use.
 
 MKWS configures itself to use an account on a service hosted by
 `sp-mkws.indexdata.com`. By default, it sends no authentication
@@ -449,23 +461,7 @@ In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
 Index Data's hosted Service Proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
-resources). For information on how to do this, see the next section.
-
-
-MKWS target selection
-=====================
-
-MKWS accesses targets using the Pazpar2 metasearching engine. Although
-Pazpar2 can be used directly, using a statically configured set of
-targets, this usage is unusual. More often, Pazpar2 is fronted by the
-Service Proxy (SP), which manages authentication, sessions, target
-selection, etc.
-
-This document assumes the SP is used, and explains how to go about
-making a set of targets (a "library") available, how to connect your
-MKWS application to that library, and how to choose which of the
-available targets to use.
-
+resources).
 
 Maintaining the library
 -----------------------
