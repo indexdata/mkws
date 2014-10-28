@@ -439,11 +439,11 @@ MKWS configures itself to use an account on a service hosted by
 credentials, allowing the appropriate account to be selected on the
 basis of referring URL or IP address.
 
-TODO REWRITE
-This account (username `demo`,
-password `demo`) provides access to about a dozen free data
-sources. Authentication onto this service is via an authentication URL
-on the same MKWS server, so no explicit configuration is needed.
+If no account has been set up to recognise the referring URL of the
+application or the IP address of the client, then a default "MKWS
+demo" account is used. This account (which can also be explicitly
+chosen by using the username `mkws`, password `mkws`) provides access
+to about a dozen free data sources.
 
 In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
