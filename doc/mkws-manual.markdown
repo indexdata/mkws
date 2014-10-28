@@ -326,14 +326,17 @@ pager template you would include this in your document:
       ...new Pager template
     </script>
 
-The Facet template has a special feature where you can override it on a
-per-facet basis by adding a dash and the facet name as a suffix eg.
-`facet-subjects` rather than `facet`. (So `class="mkws-template-facet-subjects"`)
+The Facet template has a special feature where you can override it on
+a per-facet basis by adding a dash and the facet name as a suffix eg.
+`facet-subjects`. (So `class="mkws-template-facet-subjects"`.) When
+rendering a facet for which no specific template is defined, the code
+falls back to using the generic facet template, just called `facet`.
 
-You can also explicitly specify a different template for a particular instance
-of a widget by providing the name of your alternative (eg. SpecialPager) as the
-value of the `template` key in the MKWS config object for that widget:
-for example, `<div class="mkws-pager" template="special-pager"/>`.
+You can also explicitly specify a different template for a particular
+instance of a widget by providing the name of your alternative
+(eg. `special-pager`) as the value of the `template` key in the MKWS
+config object for that widget: for example, `<div class="mkws-pager"
+template="special-pager"/>`.
 
 Templates for MKWS can also be
 [precompiled](http://handlebarsjs.com/precompilation.html). If a precompiled
@@ -343,10 +346,10 @@ will be used instead of the default.
 Inspecting metadata for templating
 ----------------------------------
 
-MKWS makes requests to Service Proxy or Pazpar2 that perform the actual
-searching. Depending on how these are configured and what is available from the
-targets you are searching there may be more data available than what is
-presented by the default templates.
+MKWS makes requests to the Service Proxy or Pazpar2 that perform the
+actual searching. Depending on how these are configured and what is
+available from the targets you are searching there may be more data
+available than what is presented by the default templates.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
@@ -368,24 +371,21 @@ output locale specific text via the mkws-translate helper like so:
 Example
 -------
 
-Rather than use the included AJAX helpers to render record details inline,
-here's a Records template that will link directly to the source via the address
-provided in the metadata as the first element of `md-electronic-url`:
+Rather than use the toolkit's included AJAX helpers to render record
+details inline, here's a summary template that will link directly to
+the source via the address provided in the metadata as the first
+element of `md-electronic-url`:
 
-    <script class="mkws-template-records" type="text/x-handlebars-template">
-      {{#each hits}}
-        <div class="{{containerClass}}">
-          <a href="{{md-electronic-url.[0]}}">
-            <b>{{md-title}}</b>
-          </a>
-          {{#if md-title-remainder}}
-            <span>{{md-title-remainder}}</span>
-          {{/if}}
-          {{#if md-title-responsibility}}
-            <span><i>{{md-title-responsibility}}</i></span>
-          {{/if}}
-        </div>
-      {{/each}}
+    <script class="mkws-template-summary" type="text/x-handlebars-template">
+      <a href="{{md-electronic-url.[0]}}">
+        <b>{{md-title}}</b>
+      </a>
+      {{#if md-title-remainder}}
+        <span>{{md-title-remainder}}</span>
+      {{/if}}
+      {{#if md-title-responsibility}}
+        <span><i>{{md-title-responsibility}}</i></span>
+      {{/if}}
     </script>
 
 For a more involved example where markup for multiple widgets is decorated with
@@ -394,8 +394,8 @@ employed, take a look at the source of
 [topic.html](http://example.indexdata.com/topic.html?q=water).
 
 
-Refinements
-===========
+Some Refinements
+================
 
 
 Message of the day
@@ -404,9 +404,9 @@ Message of the day
 Some applications might like to open with content in the area that
 will subsequently be filled with result-records -- a message of the
 day, a welcome message or a help page. This can be done by placing an
-`mkws-motd` division anywhere on the page. It will be moved into the
-`mkws-results` area and initially displayed, but will be hidden when a
-search is made.
+`mkws-motd` division anywhere on the page. It will initially be moved
+into the `mkws-results` area and displayed, but will be hidden as soon
+as the first search is made.
 
 
 Popup results with jQuery UI
@@ -419,30 +419,35 @@ in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
         <div class="mkws-search"></div>
-        <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-          <div class="mkws-switch"></div>
-          <div class="mkws-lang"></div>
+        <div class="mkws-popup" popup_width="1024" popup_height="650">
           <div class="mkws-results"></div>
-          <div class="mkws-targets"></div>
-          <div class="mkws-stat"></div>
         </div>
 
 The necessary scaffolding can be seen in an example application,
-http://example.indexdata.com/index-popup.html
+[popup.html](http://example.indexdata.com/popup.html).
+
+The relevant properties (`popup_width`, etc.) are documented
+[below](#jquery-ui-popup-invocation)
+in the reference section.
 
 
 Authentication and target configuration
 ---------------------------------------
 
-By default, MKWS configures itself to use a demonstration account on a
-service hosted by mkws.indexdata.com. This account (username `demo`,
-password `demo`) provides access to about a dozen free data
-sources. Authentication onto this service is via an authentication URL
-on the same MKWS server, so no explicit configuration is needed.
+MKWS configures itself to use an account on a service hosted by
+`sp-mkws.indexdata.com`. By default, it sends no authentication
+credentials, allowing the appropriate account to be selected on the
+basis of referring URL or IP address.
+
+If no account has been set up to recognise the referring URL of the
+application or the IP address of the client, then a default "MKWS
+Demo" account is used. This account (which can also be explicitly
+chosen by using the username `mkws`, password `mkws`) provides access
+to about a dozen free data sources.
 
 In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
-Index Data's hosted service proxy, and protect that account with
+Index Data's hosted Service Proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
 resources). For information on how to do this, see the next section.
 
@@ -465,7 +470,7 @@ available targets to use.
 Maintaining the library
 -----------------------
 
-The service proxy accesses sets of targets that are known as
+The Service Proxy accesses sets of targets that are known as
 "libraries". In general, each customer will have their own library,
 though some standard libraries may be shared between many customers --
 for example, a library containing all open-access academic journals.
