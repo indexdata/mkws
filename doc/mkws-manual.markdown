@@ -555,22 +555,6 @@ that can be used when running an application from a different URL. But
 if multiple Referring URLs are needed, then each must be specified in
 its own User Access record.
 
-### Tell the application to use the library
-
-In the HTML of the application, tell MKWS to authenticate on to the
-Service Proxy. When referer-based or IP-based authentication is used,
-this is very simple:
-
-	<script type="text/javascript">
-	  var mkws_config = { service_proxy_auth:
-	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
-	</script>
-
-> TODO This should be the default setting: see **MKWS-251**.
-
-And ensure that access to the MWKS application is from the correct
-Referrer URL or IP-range.
-
 ### (Optional): embed credentials for access to the library
 
 When credential-based authentication is in use (username and
