@@ -529,7 +529,9 @@ Log in to MKAdmin to add a User Access account for your library:
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
-the "Referring URL" field.
+the "Referring URL" field. Then the application will always use that
+library that this User Access record is associated with (unless it
+sends a username/password pair to override this default).
 
 Or if your application's users are coming from a well-known range of
 IP-address space, you can enter the range in the "IP Ranges"
@@ -543,15 +545,15 @@ Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
 including when you need to specify the use of a different library from
 usual one. To arrange for this, set the username and password as a
-single string separated by a slash -- e.g. "mike/swordfish" -- into
+single string separated by a slash -- e.g. `mike/swordfish` -- into
 the User Access record's Authentication field.
 
 You can set multiple fields into a single User Access record; or
 create multiple User Access records. For example, a single User Access
-record can specify both a Referring URL a username/password pair that
-can be used when running an application from a different URL. But if
-multiple Referring URLs are needed, then each must be specified in its
-own User Access record.
+record can specify both a Referring URL and a username/password pair
+that can be used when running an application from a different URL. But
+if multiple Referring URLs are needed, then each must be specified in
+its own User Access record.
 
 ### Tell the application to use the library
 
