@@ -150,7 +150,8 @@ To see all of these working together, just put them all into the HTML
 	<div class="mkws-stat"></div>
 
 The full set of supported widgets is described in the
-reference guide below.
+reference guide
+[below](#widgets).
 
 Widget team
 -----------
