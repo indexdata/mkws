@@ -637,6 +637,85 @@ attribute as follows:
 Reference guide
 ===============
 
+Widgets
+-------
+
+The following widgets are provided in the core set. (Others can be
+added: see the [MKWS developers' guide](mkws-developer.html).)
+
+----
+Name              Description
+----              -----------
+`auth-name`       x
+
+`builder`         x
+
+`button`          x
+
+`categories`      x
+
+`config`          x
+
+`console-builder` x
+
+`cover-art`       x
+
+`details`         x
+
+`done`            x
+
+`facet`           x
+
+`google-image`    x
+
+`images`          x
+
+`lang`            x
+
+`log`             x
+
+`lolcat`          x
+
+`motd-container`  x
+
+`motd`            x
+
+`navi`            x
+
+`pager`           x
+
+`per-page`        x
+
+`progress`        x
+
+`query`           x
+
+`ranking`         x
+
+`record`          x
+
+`records`         x
+
+`reference`       x
+
+`results`         x
+
+`search-form`     x
+
+`search`          x
+
+`sort`            x
+
+`stat`            x
+
+`switch`          x
+
+`targets`         x
+
+`termlists`       x
+----
+
+
 Configuration object
 --------------------
 
