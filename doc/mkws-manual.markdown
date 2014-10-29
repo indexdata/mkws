@@ -57,18 +57,18 @@ Simple example
 The following is
 [a complete MKWS-based searching application](//example.indexdata.com/simple.html):
 
-    <html>
-      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>MKWS demo client</title>
-        <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
-        <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
-      </head>
-      <body>
-        <div class="mkws-search"></div>
-        <div class="mkws-results"></div>
-      </body>
-    </html>
+	<html>
+	  <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <title>MKWS demo client</title>
+	    <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
+	    <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
+	  </head>
+	  <body>
+	    <div class="mkws-search"></div>
+	    <div class="mkws-results"></div>
+	  </body>
+	</html>
 
 Go ahead, try it! Simply put the above in a file (e.g index.html),
 drop it into a folder accessible with an ordinary web-server (e.g
@@ -141,13 +141,13 @@ The main widgets are:
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
 
-        <div class="mkws-switch"></div>
-        <div class="mkws-lang"></div>
-        <div class="mkws-progress"></div>
-        <div class="mkws-search"></div>
-        <div class="mkws-results"></div>
-        <div class="mkws-targets"></div>
-        <div class="mkws-stat"></div>
+	<div class="mkws-switch"></div>
+	<div class="mkws-lang"></div>
+	<div class="mkws-progress"></div>
+	<div class="mkws-search"></div>
+	<div class="mkws-results"></div>
+	<div class="mkws-targets"></div>
+	<div class="mkws-stat"></div>
 
 The full set of supported widgets is described in the
 reference guide below.
@@ -196,15 +196,15 @@ Many aspects of the behaviour of MKWS can be modified by setting
 parameters into the `mkws_config` object. So the HTML header looks
 like this:
 
-        <script type="text/javascript">
-          var mkws_config = {
-            lang_options: [ "en", "da" ]
-            lang: "da",
-            sort_default: "title",
-            query_width: 60
-          };
-        </script>
-        <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+	<script type="text/javascript">
+	  var mkws_config = {
+	    lang_options: [ "en", "da" ]
+	    lang: "da",
+	    sort_default: "title",
+	    query_width: 60
+	  };
+	</script>
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
 This configuration restricts the set of available UI languages English
 and Danish (omitting German), sets the default to Danish (rather than
@@ -322,9 +322,9 @@ Inline Handlebars templates are distinguished from Javascript via a
 `type="text/x-handlebars-template"` attribute. For example, to override the
 pager template you would include this in your document:
 
-    <script class="mkws-template-pager" type="text/x-handlebars-template">
-      ...new Pager template
-    </script>
+	<script class="mkws-template-pager" type="text/x-handlebars-template">
+	  ...new Pager template
+	</script>
 
 The Facet template has a special feature where you can override it on
 a per-facet basis by adding a dash and the facet name as a suffix eg.
@@ -359,7 +359,7 @@ see what is being returned with each search result in the list. In order for
 this to work you'll need to enable verbose output from Handlebars which is done
 by including this line or similar:
 
-    <script>Handlebars.logger.level = 1;</script>
+	<script>Handlebars.logger.level = 1;</script>
 
 Internationalisation
 --------------------
@@ -376,17 +376,17 @@ details inline, here's a summary template that will link directly to
 the source via the address provided in the metadata as the first
 element of `md-electronic-url`:
 
-    <script class="mkws-template-summary" type="text/x-handlebars-template">
-      <a href="{{md-electronic-url.[0]}}">
-        <b>{{md-title}}</b>
-      </a>
-      {{#if md-title-remainder}}
-        <span>{{md-title-remainder}}</span>
-      {{/if}}
-      {{#if md-title-responsibility}}
-        <span><i>{{md-title-responsibility}}</i></span>
-      {{/if}}
-    </script>
+	<script class="mkws-template-summary" type="text/x-handlebars-template">
+	  <a href="{{md-electronic-url.[0]}}">
+	    <b>{{md-title}}</b>
+	  </a>
+	  {{#if md-title-remainder}}
+	    <span>{{md-title-remainder}}</span>
+	  {{/if}}
+	  {{#if md-title-responsibility}}
+	    <span><i>{{md-title-responsibility}}</i></span>
+	  {{/if}}
+	</script>
 
 For a more involved example where markup for multiple widgets is decorated with
 [Bootstrap](http://getbootstrap.com/) classes and a custom Handlebars helper is
@@ -418,10 +418,10 @@ generally visible on the page is a search box, and the results appear
 in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
-        <div class="mkws-search"></div>
-        <div class="mkws-popup" popup_width="1024" popup_height="650">
-          <div class="mkws-results"></div>
-        </div>
+	<div class="mkws-search"></div>
+	<div class="mkws-popup" popup_width="1024" popup_height="650">
+	  <div class="mkws-results"></div>
+	</div>
 
 The necessary scaffolding can be seen in an example application,
 [popup.html](http://example.indexdata.com/popup.html).
@@ -561,9 +561,9 @@ When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This is done 
 by setting the `sp_auth_credentials` configuration item to a string
-containing the username, a slash, and the password:
+containing the username and password separated by a slash:
 
-    mkws_config = { sp_auth_credentials: "mike/swordfish" };
+	mkws_config = { sp_auth_credentials: "mike/swordfish" };
 
 ### (Optional): conceal credentials from HTML source
 
@@ -739,13 +739,13 @@ French. Then value of this entry must be a key-value lookup table,
 mapping the English-language strings of the UI into their equivalents
 in the specified language. For example:
 
-            var mkws_config = {
-              language_French: {
-                "Authors": "Auteurs",
-                "Subjects": "Sujets",
-                // ... and others ...
-              }
-            }
+	var mkws_config = {
+	  language_French: {
+	    "Authors": "Auteurs",
+	    "Subjects": "Sujets",
+	    // ... and others ...
+	  }
+	}
 
 The following strings occurring in the UI can be translated:
 `Displaying`,
@@ -789,18 +789,18 @@ Note that when using the `popup` layout, facilities from the jQuery UI
 toolkit are used, so it's necessary to include both CSS and JavaScript
 from that toolkit. The relevant lines are:
 
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+	      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-    <div class="mkws-search"></div>
-    <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-      <div class="mkws-switch"></div>
-      <div class="mkws-lang"></div>
-      <div class="mkws-results"></div>
-      <div class="mkws-targets"></div>
-      <div class="mkws-stat"></div>
-    </div>
+	<div class="mkws-search"></div>
+	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+	  <div class="mkws-switch"></div>
+	  <div class="mkws-lang"></div>
+	  <div class="mkws-results"></div>
+	  <div class="mkws-targets"></div>
+	  <div class="mkws-stat"></div>
+	</div>
 
 ----
 Element         Type    Default             Description
@@ -836,62 +836,62 @@ elements using the same class in the non-MKWS parts of the page.
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
 and .CLASS indicates an instance of a class.
 
-    #mkwsSwitch
-      a*
-
-    #mkwsLang
-      ( a | span )*
-
-    #mkwsSearch
-      form
-        input#mkwsQuery type=text
-        input#mkwsButton type=submit
-
-    #mkwsBlanket
-      (no contents -- used only for masking)
-
-    #mkwsResults
-      table
-        tbody
-          tr
-            td
-              #mkwsTermlists
-                div.title
-                div.facet*
-                  div.termtitle
-                  ( a span br )*
-            td
-              div#mkwsRanking
-                form#mkwsSelect
-                  select#mkwsSort
-                  select#mkwsPerpage
-              #mkwsPager
-              #mkwsNavi
-              #mkwsRecords
-                div.record*
-                  span (for sequence number)
-                  a (for title)
-                  span (for other information such as author)
-                  div.details (sometimes)
-                    table
-                      tbody
-                        tr*
-                          th
-                          td
-    #mkwsTargets
-      #mkwsBytarget
-        table
-          thead
-            tr*
-              td*
-          tbody
-            tr*
-              td*
-
-    #mkwsStat
-      span.head
-      span.clients
-      span.records
+	#mkwsSwitch
+	  a*
+	
+	#mkwsLang
+	  ( a | span )*
+	
+	#mkwsSearch
+	  form
+	    input#mkwsQuery type=text
+	    input#mkwsButton type=submit
+	
+	#mkwsBlanket
+	  (no contents -- used only for masking)
+	
+	#mkwsResults
+	  table
+	    tbody
+	      tr
+	        td
+	          #mkwsTermlists
+	            div.title
+	            div.facet*
+	              div.termtitle
+	              ( a span br )*
+	        td
+	          div#mkwsRanking
+	            form#mkwsSelect
+	              select#mkwsSort
+	              select#mkwsPerpage
+	          #mkwsPager
+	          #mkwsNavi
+	          #mkwsRecords
+	            div.record*
+	              span (for sequence number)
+	              a (for title)
+	              span (for other information such as author)
+	              div.details (sometimes)
+	                table
+	                  tbody
+	                    tr*
+	                      th
+	                      td
+	#mkwsTargets
+	  #mkwsBytarget
+	    table
+	      thead
+	        tr*
+	          td*
+	      tbody
+	        tr*
+	          td*
+	
+	#mkwsStat
+	  span.head
+	  span.clients
+	  span.records
 
 - - -
 
