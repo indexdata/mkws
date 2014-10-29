@@ -647,9 +647,17 @@ added: see the [MKWS developers' guide](mkws-developer.html).)
 ----
 Name              Description
 ----              -----------
-`auth-name`       x
+`auth-name`       Initially empty, it updates itself to shows the name
+                  of the library that the application is logged in as
+                  when authentication is complete.
 
-`builder`         x
+`builder`         A button which, when pressed, analyses the current
+                  settings of the team that it is a part of, and
+                  generates the HTML for an auto-searching element
+                  that will replicate the present search. This HTML is
+                  displayed in an alert box: it is intended that this
+                  widget be subclassed to store the generated widget
+                  definitions in more useful places.
 
 `button`          x
 
@@ -657,7 +665,10 @@ Name              Description
 
 `config`          x
 
-`console-builder` x
+`console-builder` Like the `builder` widget, but emits the generated
+                  HTML on the JavaScript console. This exists to
+                  provide an example of how to subclass the `builder`
+                  widget.
 
 `cover-art`       x
 
