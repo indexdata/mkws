@@ -567,19 +567,24 @@ containing the username and password separated by a slash:
 
 ### (Optional): conceal credentials from HTML source
 
-Using a credential-based Service-Proxy authentication URL such as the
-one above reveals the the credentials to public view -- to anyone who
-does View Source on the MKWS application. This may be acceptable for
-some libraries, but is intolerable for those which provide
-authenticated access to subscription resources.
+Using credential-based authentication settings such as those above
+reveals the the credentials to public view -- to anyone who does View
+Source on the MKWS application. This may be acceptable for some
+libraries, but is intolerable for those which provide authenticated
+access to subscription resources.
 
-In these circumstances, a more elaborate approach is necessary. The
-idea is to make a URL local to the customer that is used for
-authentication onto the Service Proxy, hiding the credentials in a
-local rewrite rule. Then local mechanisms can be used to limit access
-to that local authentication URL. Here is one way to do it when
+In these circumstances, a different approach is
+necessary. Referer-based or IP-based authentication may be
+appropriate. But if these are not possible, then a more elaborate
+approach can be used to hide the credentials in a web-server
+configuration that is not visible to users.
+
+The idea is to make a Service Proxy authentication URL local to the
+customer, hiding the credentials in a rewrite rule in the local
+web-server's configuration. Then local mechanisms can be used to limit
+access to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
-yourname.com:
+yourname.com`:
 
 Step 1: add a rewriting authentication alias to the configuration:
 
@@ -587,9 +592,9 @@ Step 1: add a rewriting authentication alias to the configuration:
 	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
-<http://yourname.com/spauth/>
+`http://yourname.com/spauth/`.
 
-Step 3: protect access to the local path <http://yourname.com/spauth/>
+Step 3: protect access to the local path `http://yourname.com/spauth/`
 (e.g. using a `.htaccess` file).
 
 
