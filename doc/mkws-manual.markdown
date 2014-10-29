@@ -559,13 +559,11 @@ its own User Access record.
 
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
-Proxy when establishing the session. This can most simply be done just
-by setting the `service_proxy_auth` configuration item to a URL such as
-`//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
+Proxy when establishing the session. This is done 
+by setting the `sp_auth_credentials` configuration item to a string
+containing the username, a slash, and the password:
 
-> TODO It should be possible to add the username and password to the
-> configuration without needing to repeat the rest of the URL: see
-> **MKWS-254**.
+    mkws_config = { sp_auth_credentials: "mike/swordfish" };
 
 ### (Optional): conceal credentials from HTML source
 
