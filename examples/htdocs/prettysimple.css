@@ -32,11 +32,9 @@ a {
 .mkws-search {
   width: 30em;
   margin-left: auto;
-  flex: 0 0 min-content;
 }
 .mkws-results {
   display: flex;
-  margin-left: 70px;
 }
 .mkws-termlists {
   margin-top: 72px;
@@ -48,7 +46,6 @@ a {
 /* https://github.com/philipwalton/solved-by-flexbox/blob/master/_sass/components/_input-add-on.scss */
 .mkws-search-form {
   display: flex;
-  width: min-content;
   margin-left: auto;
   margin-bottom: 1em;
 }
@@ -171,10 +168,13 @@ a {
 
 /* Result containers */
 .mkws-summary {
-  height: 120px;
-  width: 100%;
   padding: 40px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: row;
+}
+.result-data {
+  flex: 1;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -184,14 +184,15 @@ a {
 }
 
 /* Result fields */
+.result-data > * {
+  flex 1;
+}
 .result-date {
-  flex: 1 1 min-content;
   order: 1;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.3);
 }
 .result-title {
-  flex: 1 1 min-content;
   order: 2;
   font-family: "Open Sans Light", sans-serif;
   font-size: 24px;
@@ -200,11 +201,9 @@ a {
   margin-bottom: 4px;
 }
 .result-title-remainder {
-  flex: 1 1 min-content;
   order: 3;
   font-family: "Open Sans Light", sans-serif;
   font-size: 12px;
-  line-height: .8;
   margin-top: -4px;
   margin-bottom: 4px;
   overflow: hidden; 
@@ -212,7 +211,6 @@ a {
   white-space: nowrap;
 }
 .result-description {
-  flex: 1 1 min-content;
   order: 4;
   font-family: "Open Sans Light", sans-serif;
   font-size: 18px;
@@ -221,7 +219,6 @@ a {
   overflow: hidden;
 }
 .result-author {
-  flex: 1 1 min-content;
   order: 5;
   font-weight: bold;
   font-size: 12px;
