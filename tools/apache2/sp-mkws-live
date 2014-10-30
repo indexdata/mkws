@@ -7,6 +7,8 @@
 #
 <VirtualHost *:80>
     ServerName sp-mkws.indexdata.com
+    ServerAlias sp-mkws01.indexdata.com
+    ServerAlias sp-mkws02.indexdata.com
 
     ErrorLog /var/log/apache2/sp-mkws-error.log
     CustomLog /var/log/apache2/sp-mkws-access.log combined
