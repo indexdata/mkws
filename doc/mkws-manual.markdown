@@ -57,18 +57,18 @@ Simple example
 The following is
 [a complete MKWS-based searching application](//example.indexdata.com/simple.html):
 
-    <html>
-      <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>MKWS demo client</title>
-        <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
-        <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
-      </head>
-      <body>
-        <div class="mkws-search"></div>
-        <div class="mkws-results"></div>
-      </body>
-    </html>
+	<html>
+	  <head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <title>MKWS demo client</title>
+	    <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
+	    <link rel="stylesheet" href="//mkws.indexdata.com/mkws.css" />
+	  </head>
+	  <body>
+	    <div class="mkws-search"></div>
+	    <div class="mkws-results"></div>
+	  </body>
+	</html>
 
 Go ahead, try it! Simply put the above in a file (e.g index.html),
 drop it into a folder accessible with an ordinary web-server (e.g
@@ -141,16 +141,17 @@ The main widgets are:
 To see all of these working together, just put them all into the HTML
 `<body>` like so:
 
-        <div class="mkws-switch"></div>
-        <div class="mkws-lang"></div>
-        <div class="mkws-progress"></div>
-        <div class="mkws-search"></div>
-        <div class="mkws-results"></div>
-        <div class="mkws-targets"></div>
-        <div class="mkws-stat"></div>
+	<div class="mkws-switch"></div>
+	<div class="mkws-lang"></div>
+	<div class="mkws-progress"></div>
+	<div class="mkws-search"></div>
+	<div class="mkws-results"></div>
+	<div class="mkws-targets"></div>
+	<div class="mkws-stat"></div>
 
 The full set of supported widgets is described in the
-reference guide below.
+reference guide
+[below](#widgets).
 
 Widget team
 -----------
@@ -196,15 +197,15 @@ Many aspects of the behaviour of MKWS can be modified by setting
 parameters into the `mkws_config` object. So the HTML header looks
 like this:
 
-        <script type="text/javascript">
-          var mkws_config = {
-            lang_options: [ "en", "da" ]
-            lang: "da",
-            sort_default: "title",
-            query_width: 60
-          };
-        </script>
-        <script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
+	<script type="text/javascript">
+	  var mkws_config = {
+	    lang_options: [ "en", "da" ]
+	    lang: "da",
+	    sort_default: "title",
+	    query_width: 60
+	  };
+	</script>
+	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
 This configuration restricts the set of available UI languages English
 and Danish (omitting German), sets the default to Danish (rather than
@@ -322,9 +323,9 @@ Inline Handlebars templates are distinguished from Javascript via a
 `type="text/x-handlebars-template"` attribute. For example, to override the
 pager template you would include this in your document:
 
-    <script class="mkws-template-pager" type="text/x-handlebars-template">
-      ...new Pager template
-    </script>
+	<script class="mkws-template-pager" type="text/x-handlebars-template">
+	  ...new Pager template
+	</script>
 
 The Facet template has a special feature where you can override it on
 a per-facet basis by adding a dash and the facet name as a suffix eg.
@@ -359,7 +360,7 @@ see what is being returned with each search result in the list. In order for
 this to work you'll need to enable verbose output from Handlebars which is done
 by including this line or similar:
 
-    <script>Handlebars.logger.level = 1;</script>
+	<script>Handlebars.logger.level = 1;</script>
 
 Internationalisation
 --------------------
@@ -376,17 +377,17 @@ details inline, here's a summary template that will link directly to
 the source via the address provided in the metadata as the first
 element of `md-electronic-url`:
 
-    <script class="mkws-template-summary" type="text/x-handlebars-template">
-      <a href="{{md-electronic-url.[0]}}">
-        <b>{{md-title}}</b>
-      </a>
-      {{#if md-title-remainder}}
-        <span>{{md-title-remainder}}</span>
-      {{/if}}
-      {{#if md-title-responsibility}}
-        <span><i>{{md-title-responsibility}}</i></span>
-      {{/if}}
-    </script>
+	<script class="mkws-template-summary" type="text/x-handlebars-template">
+	  <a href="{{md-electronic-url.[0]}}">
+	    <b>{{md-title}}</b>
+	  </a>
+	  {{#if md-title-remainder}}
+	    <span>{{md-title-remainder}}</span>
+	  {{/if}}
+	  {{#if md-title-responsibility}}
+	    <span><i>{{md-title-responsibility}}</i></span>
+	  {{/if}}
+	</script>
 
 For a more involved example where markup for multiple widgets is decorated with
 [Bootstrap](http://getbootstrap.com/) classes and a custom Handlebars helper is
@@ -418,10 +419,10 @@ generally visible on the page is a search box, and the results appear
 in a popup. The key part of such an application is this invocation of
 the MKWS jQuery plugin:
 
-        <div class="mkws-search"></div>
-        <div class="mkws-popup" popup_width="1024" popup_height="650">
-          <div class="mkws-results"></div>
-        </div>
+	<div class="mkws-search"></div>
+	<div class="mkws-popup" popup_width="1024" popup_height="650">
+	  <div class="mkws-results"></div>
+	</div>
 
 The necessary scaffolding can be seen in an example application,
 [popup.html](http://example.indexdata.com/popup.html).
@@ -431,13 +432,25 @@ The relevant properties (`popup_width`, etc.) are documented
 in the reference section.
 
 
-Authentication and target configuration
----------------------------------------
+MKWS target selection
+=====================
 
-MKWS configures itself to use an account on a service hosted by
-`sp-mkws.indexdata.com`. By default, it sends no authentication
-credentials, allowing the appropriate account to be selected on the
-basis of referring URL or IP address.
+Introduction
+------------
+
+MKWS accesses targets using the Pazpar2 metasearching engine. Although
+Pazpar2 can be used directly, using a statically configured set of
+targets, this usage is unusual. More often, Pazpar2 is fronted by the
+Service Proxy (SP), which manages authentication, sessions, target
+selection, etc. This document assumes the SP is used, and explains how
+to go about making a set of targets (a "library") available, how to
+connect your MKWS application to that library, and how to choose which
+of the available targets to use.
+
+By default MKWS configures itself to use an account on a service
+hosted by `sp-mkws.indexdata.com`. By default, it sends no
+authentication credentials, allowing the appropriate account to be
+selected on the basis of referring URL or IP address.
 
 If no account has been set up to recognise the referring URL of the
 application or the IP address of the client, then a default "MKWS
@@ -449,23 +462,7 @@ In order to search in a customised set of targets, including
 subscription resources, it's necessary to create an account with
 Index Data's hosted Service Proxy, and protect that account with
 authentication tokens (to prevent unauthorised use of subscription
-resources). For information on how to do this, see the next section.
-
-
-MKWS target selection
-=====================
-
-MKWS accesses targets using the Pazpar2 metasearching engine. Although
-Pazpar2 can be used directly, using a statically configured set of
-targets, this usage is unusual. More often, Pazpar2 is fronted by the
-Service Proxy (SP), which manages authentication, sessions, target
-selection, etc.
-
-This document assumes the SP is used, and explains how to go about
-making a set of targets (a "library") available, how to connect your
-MKWS application to that library, and how to choose which of the
-available targets to use.
-
+resources).
 
 Maintaining the library
 -----------------------
@@ -481,18 +478,17 @@ Libraries are maintained using MKAdmin (MasterKey
 Admin). Specifically, those used by MKWS are generally maintained on
 the "MKX Admin" installation at
 <http://mkx-admin.indexdata.com/console/>
-
 In general, Index Data will create a library for each customer, then
 give the customer a username/password pair that they can use to enter
 MKAdmin and administrate that library.
 
 Once logged in, customers can select which targets to include (from
 the list of several thousand that MKAdmin knows about), and make
-customer-specific modifications -- e.g. overriding the titles of the
-targets.
+customer-specific modifications to the target profiles --
+e.g. overriding the titles of the targets.
 
 Most importantly, customers' administrators can add authentication
-credentials that the Service Proxy will used on their behalf when
+credentials that the Service Proxy will use on their behalf when
 accessing subscription resources -- username/password pairs or proxies
 to use for IP-based authentication. Note that **it is then crucial to
 secure the library from use by unauthorised clients**, otherwise the
@@ -529,19 +525,14 @@ Log in to MKAdmin to add a User Access account for your library:
 * Create an end-user account
 * Depending on what authentication method it be used, set the
   User Access account's username and password, or referring URL, or
-  Service Proxy hostname, or IP-address range.
+  IP-address range.
 
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
-the "Referring URL" field.
-
-If your application accesses the Service Proxy by a unique virtual
-hostname -- yourname.sp-mkws.indexdata.com, say -- you can tie the use
-of this hostname to your library by setting the User Access record's
-"Host Name" field to name of the host where the SP is accessed. **Note
-that this is not secure, as other applications can use this virtual
-hostname to gain access to your library.**
+the "Referring URL" field. Then the application will always use that
+library that this User Access record is associated with (unless it
+sends a username/password pair to override this default).
 
 Or if your application's users are coming from a well-known range of
 IP-address space, you can enter the range in the "IP Ranges"
@@ -555,74 +546,46 @@ Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
 including when you need to specify the use of a different library from
 usual one. To arrange for this, set the username and password as a
-single string separated by a slash -- e.g. "mike/swordfish" -- into
+single string separated by a slash -- e.g. `mike/swordfish` -- into
 the User Access record's Authentication field.
 
 You can set multiple fields into a single User Access record; or
 create multiple User Access records. For example, a single User Access
-record can specify both a Referring URL a username/password pair that
-can be used when running an application from a different URL. But if
-multiple Referring URLs are needed, then each must be specified in its
-own User Access record.
-
-### Tell the application to use the library
-
-In the HTML of the application, tell MKWS to authenticate on to the
-Service Proxy. When referer-based or IP-based authentication is used,
-this is very simple:
-
-	<script type="text/javascript">
-	  var mkws_config = { service_proxy_auth:
-	  "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig" };
-	</script>
-
-> TODO This should be the default setting: see **MKWS-251**.
-
-And ensure that access to the MWKS application is from the correct
-Referrer URL or IP-range.
-
-### (Optional): access by a different virtual hostname
-
-When hostname-based authentication is in use, it's necessary to access
-the Service Proxy as the correctly named virtual host. This can be
-done by setting the `service_proxy_auth` configuration item to a
-URL containing that hostname, such as
-`//yourname.sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig`
-
-> TODO It should be possible to change just the hostname without
-> needing to repeat the rest of the URL (protocol, path, query): see
-> **MKWS-252**.
-
-> TODO When changing the SP authentication URL, the Pazpar2 URL should
-> in general change along with it: see **MKWS-253**.
+record can specify both a Referring URL and a username/password pair
+that can be used when running an application from a different URL. But
+if multiple Referring URLs are needed, then each must be specified in
+its own User Access record.
 
 ### (Optional): embed credentials for access to the library
 
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
-Proxy when establishing the session. This can most simply be done just
-by setting the `service_proxy_auth` configuration item to a URL such as
-`//sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig&username=mike&password=swordfish`
+Proxy when establishing the session. This is done 
+by setting the `sp_auth_credentials` configuration item to a string
+containing the username and password separated by a slash:
 
-> TODO It should be possible to add the username and password to the
-> configuration without needing to repeat the rest of the URL: see
-> **MKWS-254**.
+	mkws_config = { sp_auth_credentials: "mike/swordfish" };
 
 ### (Optional): conceal credentials from HTML source
 
-Using a credential-based Service-Proxy authentication URL such as the
-one above reveals the the credentials to public view -- to anyone who
-does View Source on the MKWS application. This may be acceptable for
-some libraries, but is intolerable for those which provide
-authenticated access to subscription resources.
+Using credential-based authentication settings such as those above
+reveals the the credentials to public view -- to anyone who does View
+Source on the MKWS application. This may be acceptable for some
+libraries, but is intolerable for those which provide authenticated
+access to subscription resources.
 
-In these circumstances, a more elaborate approach is necessary. The
-idea is to make a URL local to the customer that is used for
-authentication onto the Service Proxy, hiding the credentials in a
-local rewrite rule. Then local mechanisms can be used to limit access
-to that local authentication URL. Here is one way to do it when
+In these circumstances, a different approach is
+necessary. Referer-based or IP-based authentication may be
+appropriate. But if these are not possible, then a more elaborate
+approach can be used to hide the credentials in a web-server
+configuration that is not visible to users.
+
+The idea is to make a Service Proxy authentication URL local to the
+customer, hiding the credentials in a rewrite rule in the local
+web-server's configuration. Then local mechanisms can be used to limit
+access to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
-yourname.com:
+yourname.com`:
 
 Step 1: add a rewriting authentication alias to the configuration:
 
@@ -630,9 +593,9 @@ Step 1: add a rewriting authentication alias to the configuration:
 	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
-<http://yourname.com/spauth/>
+`http://yourname.com/spauth/`.
 
-Step 3: protect access to the local path <http://yourname.com/spauth/>
+Step 3: protect access to the local path `http://yourname.com/spauth/`
 (e.g. using a `.htaccess` file).
 
 
@@ -674,6 +637,119 @@ attribute as follows:
 
 Reference guide
 ===============
+
+Widgets
+-------
+
+The following widgets are provided in the core set. (Others can be
+added: see the [MKWS developers' guide](mkws-developer.html).)
+
+----
+Name              Description
+----              -----------
+`auth-name`       Initially empty, it updates itself to shows the name
+                  of the library that the application is logged in as
+                  when authentication is complete.
+
+`builder`         A button which, when pressed, analyses the current
+                  settings of the team that it is a part of, and
+                  generates the HTML for an auto-searching element
+                  that will replicate the present search. This HTML is
+                  displayed in an alert box: it is intended that this
+                  widget be subclassed to store the generated widget
+                  definitions in more useful places.
+
+`categories`      Obtains from the Service Proxy a list of the target
+                  categories associated with the library in use, and
+                  displays them in a drop-down list. When a category
+                  is selected, searches are limited to the targets
+                  that are part of that category.
+
+`config`          This widget has no functionality of its own, but its
+                  configuration is copied up into its team, allowing
+                  it to affect other widgets in the team. This is the
+                  only way to set configuration items at the team
+                  level.
+
+`console-builder` Like the `builder` widget, but emits the generated
+                  HTML on the JavaScript console. This exists to
+                  provide an example of how to subclass the `builder`
+                  widget.
+
+`cover-art`       Displays cover art for a book by searching in
+                  Amazon. Often used with an `autosearch` attribute to
+                  indicate what book to display. For example,
+                  `<div class="mkws-cover-art" autosearch="isbn=1291177124"></div>`
+                  displays cover art for _All Yesterdays: Unique and
+                  Speculative Views of Dinosaurs and Other Prehistoric
+                  Animals_.
+                  For this widget to work, a library that includes the
+                  AmazonBooks target must be used. For example, the
+                  "DEMO AmazonBooks for MKWS" account, which can be
+                  selected with `sp_auth_credentials="mkws-amazon/mkws"`.
+
+`details`         This widget is generated by the toolkit itself to
+                  hold the full details of records that are initially
+                  listed in summary form.
+
+`done`            Initially empty, this widget is set to display
+                  "Search complete: found _n_ records" when all
+                  targets have completed their work, either returning
+                  a hit-count or an error. The message displayed can
+                  be changed by overriding the `done` template using
+                  `<script class="mkws-template-done" type="text/x-handlebars-template">`.
+
+`facet`           x
+
+`google-image`    x
+
+`images`          x
+
+`lang`            x
+
+`log`             x
+
+`lolcat`          x
+
+`motd-container`  x
+
+`motd`            x
+
+`navi`            x
+
+`pager`           x
+
+`per-page`        x
+
+`progress`        x
+
+`query`           x
+
+`ranking`         x
+
+`record`          x
+
+`records`         x
+
+`reference`       x
+
+`results`         x
+
+`search-form`     x
+
+`search`          x
+
+`sort`            x
+
+`stat`            x
+
+`switch`          x
+
+`targets`         x
+
+`termlists`       x
+----
+
 
 Configuration object
 --------------------
@@ -782,13 +858,13 @@ French. Then value of this entry must be a key-value lookup table,
 mapping the English-language strings of the UI into their equivalents
 in the specified language. For example:
 
-            var mkws_config = {
-              language_French: {
-                "Authors": "Auteurs",
-                "Subjects": "Sujets",
-                // ... and others ...
-              }
-            }
+	var mkws_config = {
+	  language_French: {
+	    "Authors": "Auteurs",
+	    "Subjects": "Sujets",
+	    // ... and others ...
+	  }
+	}
 
 The following strings occurring in the UI can be translated:
 `Displaying`,
@@ -832,18 +908,18 @@ Note that when using the `popup` layout, facilities from the jQuery UI
 toolkit are used, so it's necessary to include both CSS and JavaScript
 from that toolkit. The relevant lines are:
 
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css"
+	      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
-    <div class="mkws-search"></div>
-    <div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
-      <div class="mkws-switch"></div>
-      <div class="mkws-lang"></div>
-      <div class="mkws-results"></div>
-      <div class="mkws-targets"></div>
-      <div class="mkws-stat"></div>
-    </div>
+	<div class="mkws-search"></div>
+	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+	  <div class="mkws-switch"></div>
+	  <div class="mkws-lang"></div>
+	  <div class="mkws-results"></div>
+	  <div class="mkws-targets"></div>
+	  <div class="mkws-stat"></div>
+	</div>
 
 ----
 Element         Type    Default             Description
@@ -879,62 +955,62 @@ elements using the same class in the non-MKWS parts of the page.
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
 and .CLASS indicates an instance of a class.
 
-    #mkwsSwitch
-      a*
-
-    #mkwsLang
-      ( a | span )*
-
-    #mkwsSearch
-      form
-        input#mkwsQuery type=text
-        input#mkwsButton type=submit
-
-    #mkwsBlanket
-      (no contents -- used only for masking)
-
-    #mkwsResults
-      table
-        tbody
-          tr
-            td
-              #mkwsTermlists
-                div.title
-                div.facet*
-                  div.termtitle
-                  ( a span br )*
-            td
-              div#mkwsRanking
-                form#mkwsSelect
-                  select#mkwsSort
-                  select#mkwsPerpage
-              #mkwsPager
-              #mkwsNavi
-              #mkwsRecords
-                div.record*
-                  span (for sequence number)
-                  a (for title)
-                  span (for other information such as author)
-                  div.details (sometimes)
-                    table
-                      tbody
-                        tr*
-                          th
-                          td
-    #mkwsTargets
-      #mkwsBytarget
-        table
-          thead
-            tr*
-              td*
-          tbody
-            tr*
-              td*
-
-    #mkwsStat
-      span.head
-      span.clients
-      span.records
+	#mkwsSwitch
+	  a*
+	
+	#mkwsLang
+	  ( a | span )*
+	
+	#mkwsSearch
+	  form
+	    input#mkwsQuery type=text
+	    input#mkwsButton type=submit
+	
+	#mkwsBlanket
+	  (no contents -- used only for masking)
+	
+	#mkwsResults
+	  table
+	    tbody
+	      tr
+	        td
+	          #mkwsTermlists
+	            div.title
+	            div.facet*
+	              div.termtitle
+	              ( a span br )*
+	        td
+	          div#mkwsRanking
+	            form#mkwsSelect
+	              select#mkwsSort
+	              select#mkwsPerpage
+	          #mkwsPager
+	          #mkwsNavi
+	          #mkwsRecords
+	            div.record*
+	              span (for sequence number)
+	              a (for title)
+	              span (for other information such as author)
+	              div.details (sometimes)
+	                table
+	                  tbody
+	                    tr*
+	                      th
+	                      td
+	#mkwsTargets
+	  #mkwsBytarget
+	    table
+	      thead
+	        tr*
+	          td*
+	      tbody
+	        tr*
+	          td*
+	
+	#mkwsStat
+	  span.head
+	  span.clients
+	  span.records
 
 - - -
 

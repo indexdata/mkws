@@ -10,7 +10,8 @@
 .mkwsRecord, .mkws-record,
 .mkwsTargets, .mkws-targets,
 .mkwsStat, .mkws-stat,
-.mkwsMOTD, .mkws-motd {
+.mkwsMOTD, .mkws-motd,
+.mkwsAuthname, .mkws-auth-name {
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
@@ -92,6 +93,10 @@
     font-size: 10px;
     margin-left: 8px;
     cursor: pointer;
+}
+
+.mkwsAuthname, .mkws-auth-name {
+    color: #132194;
 }
 
 .mkwsSearch input.mkwsQuery, .mkws-search input.mkws-query {
