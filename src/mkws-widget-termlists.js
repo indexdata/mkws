@@ -2,7 +2,7 @@ mkws.registerWidgetType('termlists', function() {
   // Initially hide the termlists; display when we get results
   var that = this;
   var team = this.team;
-  team.queue("termlists").subscribe(function(data) {
+  team.queue("facets").subscribe(function(data) {
     that.node.addClass("active");
   });
 
@@ -33,7 +33,7 @@ mkws.registerWidgetType('facet', function() {
     return '[Widget ' + team.name() + ':' + that.type + '(' + name + ')]';
   };
 
-  team.queue("termlists").subscribe(function(data) {
+  team.queue("facets").subscribe(function(data) {
     data = data[name];
     var terms = [];
     var teamName = team.name();
