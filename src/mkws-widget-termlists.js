@@ -6,7 +6,7 @@ mkws.registerWidgetType('termlists', function() {
     that.node.addClass("active");
   });
 
-  var template = team.loadTemplate(this.config.template || "termlists");
+  var template = team.loadTemplate(this.config.template || "facets");
   this.node.html(template({
     team: team.name(),
     facets: this.config.facets
