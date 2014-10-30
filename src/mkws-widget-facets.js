@@ -1,5 +1,5 @@
 mkws.registerWidgetType('termlists', function() {
-  // Initially hide the termlists; display when we get results
+  // Initially hide the facets; display when we get results
   var that = this;
   var team = this.team;
   team.queue("facets").subscribe(function(data) {
