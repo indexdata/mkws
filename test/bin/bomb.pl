@@ -42,26 +42,31 @@ die usage if !@system;
 # be ignored
 eval {
     require BSD::Resource;
-    BSD::Resource::setrlimit("RLIMIT_CPU", $timeout, 2*$timeout) or die "Cannot set CPU limit: $!\n";
+    BSD::Resource::setrlimit( "RLIMIT_CPU", $timeout, 2 * $timeout )
+      or die "Cannot set CPU limit: $!\n";
 };
 if ($@) {
-    warn "WARNING: things would go more nicely with the BSD::Resource package\n";
+    warn
+      "WARNING: things would go more nicely with the BSD::Resource package\n";
 }
 
-
 #
-# use fork/exec instead system()
+# configure signal handlers
 #
-$pid = fork();
-die "fork() failed: $!" unless defined $pid;
+$SIG{ALRM} = sub {
+    my $pgid = getpgrp();
 
-# child
-if ($pid) {
-    alarm($timeout);
-    exec(@system) or die "exec @system: $!\n";
-}
+    # kill process group
+    kill "INT", -$pgid;
+};
 
-# parent
-else { }
+# don't kill ourself
+$SIG{INT} = "IGNORE";
+
+alarm($timeout);
+
+system(@system) == 0
+  or die "system @system failed: $?";
 
 1;
+
