@@ -13,6 +13,10 @@
     ProxyPass        /service-proxy/ http://x.sp-mkws.indexdata.com:8585/service-proxy/
     ProxyPassReverse /service-proxy/ http://x.sp-mkws.indexdata.com:8585/service-proxy/
 
+    <Directory />
+        Allow from all
+    </Directory>
+
 #    PerlOptions +Parent
 #    PerlSwitches -I/home/indexdata/mkws/tools/mod_perl
 #    <Location /service-proxy>
