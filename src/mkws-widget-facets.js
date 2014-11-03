@@ -1,4 +1,4 @@
-mkws.registerWidgetType('termlists', function() {
+mkws.registerWidgetType('facets', function() {
   // Initially hide the facets; display when we get results
   var that = this;
   var team = this.team;

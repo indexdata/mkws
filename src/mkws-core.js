@@ -298,7 +298,8 @@ mkws.log("Using window.name '" + window.name + "'");
     'MOTDContainer': 'motd-container',
     'Perpage': 'per-page',
     'SearchForm': 'search-form',
-    'ReferenceUniverse': 'reference-universe'
+    'ReferenceUniverse': 'reference-universe',
+    'Termlists': 'facets'
   };
   // Annoyingly, there is no built-in way to invert a hash
   var _new2old = {};

@@ -1,7 +1,7 @@
 .mkwsLang, .mkws-lang,
 .mkwsSwitch, .mkws-switch,
 .mkwsSearch, .mkws-search,
-.mkwsTermlists, .mkws-termlists,
+.mkwsTermlists, .mkws-facets,
 .mkwsFacet, .mkws-facet,
 .mkwsRanking, .mkws-ranking,
 .mkwsPager, .mkws-pager,
@@ -112,7 +112,7 @@
     text-transform: uppercase;
 }
 
-.mkwsTermlists, .mkws-termlists {
+.mkwsTermlists, .mkws-facets {
     background: #d0e0ff;
     padding: 0.7em;
     font-size: small;
@@ -123,7 +123,7 @@
     -webkit-border-top-right-radius: 10px;
 }
 
-.mkwsTermlists.active, .mkws-termlists.active {
+.mkwsTermlists.active, .mkws-facets.active {
     display: block;
 }
 

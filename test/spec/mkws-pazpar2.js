@@ -231,7 +231,7 @@ describe("Check Termlist", function () {
     var $ = mkws.$;
 
     it("found Termlist", function () {
-        var termlist = $("div.mkws-termlists");
+        var termlist = $("div.mkws-facets");
         debug("Termlist success: " + termlist.length);
         expect(termlist.length).toBe(1);
 
