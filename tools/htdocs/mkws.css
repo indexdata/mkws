@@ -106,7 +106,7 @@
     background: #f0f8ff;
 }
 
-.mkwsTermlistsTitle, .mkws-termlists-title {
+.mkwsTermlistsTitle, .mkws-facets-title {
     font-size: large;
     font-weight: bold;
     text-transform: uppercase;
