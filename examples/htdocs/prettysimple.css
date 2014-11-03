@@ -26,11 +26,11 @@ a {
   margin-left: auto;
 }
 .main {
-  margin: auto;
   max-width: 1100px;
+  margin: auto;
 }
 .mkws-search {
-  width: 30em;
+  max-width: 30em;
   margin-left: auto;
 }
 .mkws-results {
@@ -207,7 +207,6 @@ a {
   margin-bottom: 4px;
   overflow: hidden; 
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .result-description {
   order: 4;
@@ -253,7 +252,6 @@ a {
     flex-direction: row;
     flex-wrap: wrap;
     align-content: flex-start;
-    margin: none;
   }
   .mkws-pager {
     margin: 0;
@@ -309,6 +307,12 @@ a {
   }
   .mkws-pager > div {
     float: none !important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .main {
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
