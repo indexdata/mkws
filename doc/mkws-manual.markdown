@@ -267,7 +267,7 @@ etc., customised layouts may wish to treat each of these components
 separately. In this case, `mkws-results` can be omitted, and the
 following lower-level widgets provided instead:
 
-* `mkws-termlists` -- provides the facets
+* `mkws-facets` -- provides the facets
 
 * `mkws-ranking` -- provides the options for how records are sorted and
    how many are included on each page of results.
@@ -701,6 +701,8 @@ Name              Description
 
 `facet`           x
 
+`facets`          x
+
 `google-image`    x
 
 `images`          x
@@ -746,8 +748,6 @@ Name              Description
 `switch`          x
 
 `targets`         x
-
-`termlists`       x
 ----
 
 
@@ -874,7 +874,7 @@ The following strings occurring in the UI can be translated:
 `Search`,
 `Sort by`,
 `Targets`,
-`Termlists`,
+`Facets`,
 `and show`,
 `found`,
 `of`,
@@ -949,7 +949,7 @@ In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand that structure of the HTML elements that are
 generated within the widgets. This knowledge make it possible, for example,
 to style each `<div>` with class `term` but only when it occurs inside an
-element with class `mkws-termlists`, so as to avoid inadvertently styling other
+element with class `mkws-facets`, so as to avoid inadvertently styling other
 elements using the same class in the non-MKWS parts of the page.
 
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
