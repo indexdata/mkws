@@ -3,38 +3,21 @@
 
 <VirtualHost *:80>
     ServerName x.mkws.indexdata.com
-    ErrorLog /opt/local/apache2/logs/mkws-error.log
-    CustomLog /opt/local/apache2/logs/mkws-access.log combined
+    ErrorLog /var/log/apache2/mkws-error.log
+    CustomLog /var/log/apache2/mkws-access.log combined
 
-    DocumentRoot /usr/local/src/git/mkws/tools/htdocs
-    Alias /libjs-pz2/ /usr/local/src/git/libjs-pz2/
-    Alias /pazpar2/ /usr/local/src/git/pazpar2/
+    DocumentRoot /Users/mike/git/work/mkws/tools/htdocs
+    Alias /libjs-pz2/ /Users/mike/git/work/libjs-pz2/
+    Alias /pazpar2/ /Users/mike/git/work/pazpar2/
 
     RewriteEngine on
     RewriteLogLevel 1
-    RewriteLog /opt/local/apache2/logs/spclient-rewrite.log 
+    RewriteLog /var/log/apache2/spclient-rewrite.log 
     RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)? /service-proxy/$2?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
 
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
-
-    # Needed on Mac, which locks Apache down hard by default.
-    <Directory />
-        Allow from all
-    </Directory>
-</VirtualHost>
-
-<VirtualHost *:80>
-    ServerName x.example.indexdata.com
-    ErrorLog /opt/local/apache2/logs/example-error.log
-    CustomLog /opt/local/apache2/logs/example-access.log combined
-
-    DocumentRoot /usr/local/src/git/mkws/examples/htdocs
-    Alias /tools/htdocs/ /usr/local/src/git/mkws/tools/htdocs/
-    Alias /src/ /usr/local/src/git/mkws/src/
-    Alias /jasmine/ /usr/local/src/git/mkws/examples/jasmine/
-    Alias /test/ /usr/local/src/git/mkws/test/
 
     # Needed on Mac, which locks Apache down hard by default.
     <Directory />
