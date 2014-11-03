@@ -231,9 +231,9 @@ describe("Check Facets", function () {
     var $ = mkws.$;
 
     it("found Facets", function () {
-        var termlist = $("div.mkws-facets");
-        debug("Facet success: " + termlist.length);
-        expect(termlist.length).toBe(1);
+        var facets = $("div.mkws-facets");
+        debug("Facet success: " + facets.length);
+        expect(facets.length).toBe(1);
 
         waitsFor(function () {
             return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
