@@ -854,8 +854,15 @@ reasonably narrow.
 ----
 Element                   Type    Default   Description
 --------                  -----   --------- ------------
-log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                            datestamps, 3 = messages with datestamps and stack-traces.
+auth_hostname
+
+autosearch
+
+facet
+
+facet_caption_*
+
+facet_max_*
 
 facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
                                             `xtargets`, `subject` and `author`.
@@ -871,21 +878,42 @@ language_*                hash              Support for any number of languages 
                                             `language_` followed by the code of the language. See the separate section below for
                                             details.
 
+limit
+
+log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                            datestamps, 3 = messages with datestamps and stack-traces.
+
+maxrecs
+
+paragraphs
+
 pazpar2_url               string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
                                             provide search results, facets, etc. It may be either unmediated or Pazpar2 the
                                             MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
                                             the latter case, `service_proxy_auth` must be provided.
+
+perpage
 
 perpage_default           string  20        The initial value for the number of records to show on each page.
 
 perpage_options           array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
                                             records are displayed on each page of results.
 
+pp2_hostname
+
+pp2_path
+
+query
+
 query_width               int     50        The width of the query box, in characters.
 
 responsive_design_width   int               If defined, then the facets display moves between two locations as the screen-width
                                             varies, as described above. The specified number is the threshhold width, in pixels,
                                             at which the facets move between their two locations.
+
+scan_all_nodes
+
+sentences
 
 service_proxy_auth        url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
                                             session to authenticate the user and establish a session that encompasses a defined set
@@ -904,12 +932,30 @@ show_sort                 bool    true      Indicates whether or not to display 
 show_switch               bool    true      Indicates whether or not to display the switch menu, for switching between showing
                                             retrieved records and target information.
 
+sort
+
 sort_default              string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
                                             array.
 
 sort_options              array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
                                             the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
                                             the second is a human-readable label such as `newest`.
+
+sp_auth_credentials
+
+sp_auth_path
+
+sp_auth_query
+
+target
+
+targetfilter
+
+targets
+
+template
+
+text
 
 use_service_proxy         bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
                                             Pazpar2.
