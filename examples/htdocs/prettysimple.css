@@ -5,11 +5,13 @@ html {
 }
 body {
   display: flex;
-  flex-direction: column;
-  align-content: center;
+  align-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
   height: 100%;
-  margin: 0 auto;
-  padding: 0 1em;
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
   font-family: "Open Sans", sans-serif;
 }
 a {
@@ -19,45 +21,54 @@ a {
 
 /* Top level layout */
 .header {
+  width: 100%;
   display: flex;
-  min-height: 2.5em;
+  margin: .5em;
+  margin-bottom: 1em;
 }
 .mkws-switch {
   margin-left: auto;
 }
 .main {
-  max-width: 1100px;
-  margin: auto;
-}
-.mkws-search {
-  max-width: 30em;
-  margin-left: auto;
-}
-.mkws-results {
+  width: 100%;
   display: flex;
+  align-items: flex-start;
+  margin: 1em;
+  margin-bottom: auto;
+}
+.forms {
+  width: 100%;
+  margin: 1em;
 }
 .mkws-termlists {
-  margin-top: 72px;
+  margin-right: 66px;
   flex: 1;
+}
+.results {
+  flex: 3;
 }
 
 /* Search form */
 /* heavily inspired by: */
 /* https://github.com/philipwalton/solved-by-flexbox/blob/master/_sass/components/_input-add-on.scss */
+.mkws-search {
+  margin-left: auto;
+  margin-bottom: 0;
+}
 .mkws-search-form {
   display: flex;
   margin-left: auto;
-  margin-bottom: 1em;
+  max-width: 30em;
 }
 .mkws-search-form .mkws-query {
   flex: 1;
   border-right: 0 !important;
   border-radius: 2px 0 0 2px;
+  font-size: 1.1em;
 }
 .mkws-search-form .mkws-button {
   border-radius: 0 2px 2px 0;
   background-color: hsla(31, 15%, 50%, 0.1);
-  /* color: hsl(0, 0%, 40%); */
   font: inherit;
   font-weight: normal;
 }
@@ -65,6 +76,22 @@ a {
   border: 1px solid hsla(31, 15%, 50%, 0.25);
   padding: 0.5em 0.75em;
   margin: 0;
+}
+.mkws-ranking {
+  font-family: "Open Sans Light", sans-serif;
+  border-top: none;
+  border-bottom-left-radius: 5em 100%;
+  margin-top: 0;
+  margin-left: auto;
+  font-size: .9em;
+  text-align: right;
+  max-width: 25em;
+}
+.mkws-ranking select {
+ font-size: 1.0em;
+ font-family: "Open Sans", sans-serif;
+ border: none;
+ background: none;
 }
 
 /* Misc. elements */
@@ -76,13 +103,6 @@ a {
   color: black;
   font-family: "Open Sans", sans-serif;
 }
-.mkws-motd-container {
-  flex: 3;
-  margin-left: 70px;
-  margin-bottom: auto;
-  display: flex;
-  flex-wrap: wrap;
-}
 .mkws-switch {
   color: gray;
   font-family: "Open Sans Light", sans-serif;
@@ -90,18 +110,7 @@ a {
 .mkws-switch > a {
   color: black;
 }
-.mkws-ranking {
-  width: 30em;
-  margin-left: auto;
-  font-size: .9em;
-  text-align: right;
-}
-.mkws-ranking select {
- border: none;
- background: none;
-}
 .mkws-pager {
-  margin-top: 40px;
   width: 100%;
 }
 .mkws-current-page {
@@ -171,6 +180,9 @@ a {
   padding: 40px 20px;
   min-height: 120px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.mkws-summary:last-child {
+  border: none;
 }
 .result-data {
   min-height: 120px;
@@ -243,32 +255,31 @@ a {
 
 /* Responsive */
 @media screen and (max-width: 1020px) {
-  .mkws-motd-container {
-    margin-left: 30px;
+  .mkws-termlists {
+    margin-right: 30px;
   }
 }
 @media screen and (max-width: 900px) {
-  .mkws-results {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-content: flex-start;
-  }
   .mkws-pager {
     margin: 0;
   }
   .mkws-pager > div {
     margin-top: 10px;
   }
+  .main {
+    flex-wrap: wrap;
+  }
   .mkws-termlists {
     order: 99;
     width: 100%;
-    flex: none;
     margin-top: 40px;
-  }
-  .mkws-motd-container {
+    margin-right: 0;
     flex: none;
-    margin-left: 0;
+  }
+  .results {
     width: 100%;
+    order 1;
+    flex: none;
   }
   .mkws-ranking {
     width: 100%;
@@ -307,12 +318,6 @@ a {
   }
   .mkws-pager > div {
     float: none !important;
-  }
-}
-@media screen and (max-width: 600px) {
-  .main {
-    margin-left: 0;
-    margin-right: 0;
   }
 }
 
