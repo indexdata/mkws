@@ -18,6 +18,7 @@ all: help
 
 clean:
 	rm -f index-*.html
+	rm -f iframe-*.html
 	rm -f ${IMAGES}/*.png
 
 distclean: clean
