@@ -40,7 +40,7 @@ a {
   width: 100%;
   margin: 1em;
 }
-.mkws-termlists {
+.mkws-facets {
   margin-right: 66px;
   flex: 1;
 }
@@ -261,7 +261,7 @@ a {
 
 /* Responsive */
 @media screen and (max-width: 1020px) {
-  .mkws-termlists {
+  .mkws-facets {
     margin-right: 30px;
   }
 }
@@ -275,7 +275,7 @@ a {
   .main {
     flex-wrap: wrap;
   }
-  .mkws-termlists {
+  .mkws-facets {
     order: 99;
     width: 100%;
     margin-top: 40px;
