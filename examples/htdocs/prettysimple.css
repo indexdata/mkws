@@ -184,7 +184,7 @@ a {
 .mkws-summary:last-child {
   border: none;
 }
-.result-data {
+.mkws-field-data {
   min-height: 120px;
   display: flex;
   flex-direction: column;
@@ -195,15 +195,15 @@ a {
 }
 
 /* Result fields */
-.result-data > * {
+.mkws-field-data > * {
   flex 1;
 }
-.result-date {
+.mkws-field-date {
   order: 1;
   font-size: 14px;
   color: rgba(0, 0, 0, 0.3);
 }
-.result-title {
+.mkws-field-title {
   order: 2;
   font-family: "Open Sans Light", sans-serif;
   font-size: 24px;
@@ -211,7 +211,7 @@ a {
   letter-spacing: -0.02em;
   margin-bottom: 4px;
 }
-.result-title-remainder {
+.mkws-field-title-remainder {
   order: 3;
   font-family: "Open Sans Light", sans-serif;
   font-size: 12px;
@@ -220,7 +220,7 @@ a {
   overflow: hidden; 
   text-overflow: ellipsis;
 }
-.result-description {
+.mkws-field-description {
   order: 4;
   font-family: "Open Sans Light", sans-serif;
   font-size: 18px;
@@ -228,18 +228,18 @@ a {
   max-height: 44px;
   overflow: hidden;
 }
-.result-author {
+.mkws-field-author {
   order: 5;
   font-weight: bold;
   font-size: 12px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
-.result-thumb {
+.mkws-field-thumb {
   float: left;
   margin-right: 25px;
 }
-.result-thumb > img {
+.mkws-field-thumb > img {
   width: 140px;
   height: 120px;
   object-fit: contain;
@@ -291,27 +291,27 @@ a {
     min-height: 60px;
     padding: 20px 10px;
   }
-  .result-data {
+  .mkws-field-data {
     min-height: 60px;
   }
-  .result-date {
+  .mkws-field-date {
     font-size: 12px;
   }
-  .result-title {
+  .mkws-field-title {
     font-size: 18px;
   }
-  .result-description {
+  .mkws-field-description {
     font-size: 14px;
     max-height: 34px;
   }
-  .result-author {
+  .mkws-field-author {
     font-size: 11px;
   }
-  .result-thumb {
+  .mkws-field-thumb {
     order: -1;
     margin-right: 10px;
   }
-  .result-thumb > img {
+  .mkws-field-thumb > img {
     width: 70px;
     height: 60px;
     object-fit: contain;

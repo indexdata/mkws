@@ -11,31 +11,31 @@ renderedDetails - active record details rendered from the details template
 md-* - metadata fields passed through from backend
 }}
 {{#if md-thumburl}}
-  <a class="result-thumb" href="#" onclick="{{detailClick}}">
+  <a class="mkws-field-thumb" href="#" onclick="{{detailClick}}">
     <img src="{{md-thumburl}}"/>
   </a>
 {{/if}}
-<div class="result-data">
-  <span class="result-title">
+<div class="mkws-field-data">
+  <span class="mkws-field-title">
   <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
     {{md-title}}
   </a>
   </span>
   {{#if md-title-remainder}}
-    <span class="result-title-remainder">{{md-title-remainder}}</span>
+    <span class="mkws-field-title-remainder">{{md-title-remainder}}</span>
   {{/if}}
   {{#if md-author}}
-    <span class="result-author">{{md-author}}</span>
+    <span class="mkws-field-author">{{md-author}}</span>
   {{else}}
     {{#if md-title-responsibility}}
-      <span class="result-author">{{md-title-responsibility}}</span>
+      <span class="mkws-field-author">{{md-title-responsibility}}</span>
     {{/if}}
   {{/if}}
   {{#if md-description}}
-    <div class="result-description">{{md-description}}</div>
+    <div class="mkws-field-description">{{md-description}}</div>
   {{/if}}
   {{#if md-date}}
-    <span class="result-date">{{md-date}}</span>
+    <span class="mkws-field-date">{{md-date}}</span>
   {{/if}}
 </div>
 {{#if renderedDetails}}
