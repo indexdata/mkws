@@ -674,7 +674,7 @@ describe("Check SortBy options", function () {
 
         function title_list(prefix) {
             var list = [];
-            var terms = $("div.mkws-records > div.mkws-summary > a");
+            var terms = $("div.mkws-records > div.mkws-summary");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text().trim();
                 list.push(term);
