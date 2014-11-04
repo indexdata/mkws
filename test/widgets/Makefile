@@ -30,7 +30,7 @@ screenshot:
 	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
-screenshots: clean estimate-time
+screenshots: clean estimate-time iframe
 	for t in ${TESTS}; do \
 	    for i in $$(cat url.$$t); do \
 	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot; \
@@ -45,10 +45,14 @@ estimate-time:
 index:
 	( cd ${IMAGES}; ls -tr ${PREFIX}.*.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="'${IMAGES}/'$$_"/><br/><br/><p/>\n}' ) > index-${PREFIX}.html
 
+iframe: index-iframe-demo
+index-iframe-demo:
+	( cat url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos.html
+
 help:
 	@echo "make [ all | clean | distclean ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ screenshot | index ]"
+	@echo "     [ screenshot | index | iframe ]"
 	@echo ""
 	@echo "Examples: "
 	@echo ""
