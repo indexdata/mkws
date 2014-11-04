@@ -12,7 +12,7 @@ md-* - metadata fields passed through from backend
 }}
 {{#if md-thumburl}}
   <a class="mkws-field-thumb" href="#" onclick="{{detailClick}}">
-    <img src="{{md-thumburl}}"/>
+    <img src="{{md-thumburl.[0]}}"/>
   </a>
 {{/if}}
 <div class="mkws-field-data">
