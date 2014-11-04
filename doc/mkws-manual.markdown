@@ -854,9 +854,6 @@ reasonably narrow.
 ----
 Element                   Type    Default   Description
 --------                  -----   --------- ------------
-log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                            datestamps, 3 = messages with datestamps and stack-traces.
-
 facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
                                             `xtargets`, `subject` and `author`.
 
@@ -870,6 +867,9 @@ lang_options              array   []        A list of the languages to offer as 
 language_*                hash              Support for any number of languages can be added by providing entries whose name is
                                             `language_` followed by the code of the language. See the separate section below for
                                             details.
+
+log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                            datestamps, 3 = messages with datestamps and stack-traces.
 
 pazpar2_url               string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
                                             provide search results, facets, etc. It may be either unmediated or Pazpar2 the
