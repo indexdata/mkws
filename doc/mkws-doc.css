@@ -26,3 +26,9 @@ body > p:last-of-type {
     text-align: right;
     font-size: small;
 }
+
+table { background: #ddd; border-collapse: collapse; }
+tr.header { color: #fff; background: #888; }
+table, th, td { border: 1px solid #ccc; }
+td { vertical-align: top; }
+td, th { padding: 0.3em 0.6em; }

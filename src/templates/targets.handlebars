@@ -4,7 +4,8 @@ Target detail
 data:
   id - target id, an opaque identifier
   hits - number of hits for this target, or "Error" if an error has occurred
-  diagnostic - diagnostic code returned by target, if any. May be numeric or human-readable
+  diagnostic - numeric diagnostic code returned by target; 0 if OK
+  message - message corresponding to diagnostic code, if any.
   records - number of record retrieved from target
   state - target state (Client_Idle, Client_Working, Client_Disconnected or Client_Error)
 }}
@@ -24,7 +25,11 @@ data:
     <tr>
       <td>{{{id}}}</td>
       <td>{{hits}}</td>
-      <td>{{diagnostic}}</td>
+      <td>
+       {{#if message}}
+         {{diagnostic}} ({{message}})
+       {{/if}}
+      </td>
       <td>{{records}}</td>
       <td>{{state}}</td>
     </tr>

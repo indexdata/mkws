@@ -227,13 +227,13 @@ describe("Check pazpar2 hit counter", function () {
     });
 });
 
-describe("Check Termlist", function () {
+describe("Check Facets", function () {
     var $ = mkws.$;
 
-    it("found Termlist", function () {
-        var termlist = $("div.mkws-termlists");
-        debug("Termlist success: " + termlist.length);
-        expect(termlist.length).toBe(1);
+    it("found Facets", function () {
+        var facets = $("div.mkws-facets");
+        debug("Facet success: " + facets.length);
+        expect(facets.length).toBe(1);
 
         waitsFor(function () {
             return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
@@ -242,7 +242,7 @@ describe("Check Termlist", function () {
         // everything displayed?
         runs(function () {
             var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
-            debug("Termlist sources success: " + sources.length);
+            debug("Facet sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
             var subjects = $("div.mkws-facet[data-mkws-facet='subject']");

@@ -122,7 +122,7 @@ mkws.makeTeam = function($, teamName) {
 
   function onTerm(data) {
     log("term");
-    queue("termlists").publish(data);
+    queue("facets").publish(data);
   }
 
   function onShow(data, teamName) {
@@ -172,7 +172,7 @@ mkws.makeTeam = function($, teamName) {
       params.onstat = onStat;
       log("setting stat callback");
     }
-    if (m_queues.termlists && config.facets.length) {
+    if (m_queues.facets && config.facets.length) {
       params.onterm = onTerm;
       log("setting term callback");
     }

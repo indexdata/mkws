@@ -1,12 +1,12 @@
-mkws.registerWidgetType('termlists', function() {
-  // Initially hide the termlists; display when we get results
+mkws.registerWidgetType('facets', function() {
+  // Initially hide the facets; display when we get results
   var that = this;
   var team = this.team;
-  team.queue("termlists").subscribe(function(data) {
+  team.queue("facets").subscribe(function(data) {
     that.node.addClass("active");
   });
 
-  var template = team.loadTemplate(this.config.template || "termlists");
+  var template = team.loadTemplate(this.config.template || "facets");
   this.node.html(template({
     team: team.name(),
     facets: this.config.facets
@@ -33,7 +33,7 @@ mkws.registerWidgetType('facet', function() {
     return '[Widget ' + team.name() + ':' + that.type + '(' + name + ')]';
   };
 
-  team.queue("termlists").subscribe(function(data) {
+  team.queue("facets").subscribe(function(data) {
     data = data[name];
     var terms = [];
     var teamName = team.name();

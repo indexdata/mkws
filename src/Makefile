@@ -22,7 +22,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-filter.js \
 	mkws-widget.js \
 	mkws-widget-main.js \
-	mkws-widget-termlists.js \
+	mkws-widget-facets.js \
 	mkws-widget-authname.js \
 	mkws-widget-categories.js \
 	mkws-widget-log.js \

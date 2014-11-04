@@ -28,7 +28,7 @@ window.mkws = {
       "Subjects": "Schlagw&ouml;rter",
       "Sources": "Daten und Quellen",
       "source": "datenquelle",
-      "Termlists": "Termlisten",
+      "Facets": "Termlisten",
       "Next": "Weiter",
       "Prev": "Zur&uuml;ck",
       "Search": "Suche",
@@ -57,7 +57,7 @@ window.mkws = {
       "Subjects": "Emner",
       "Sources": "Kilder",
       "source": "kilder",
-      "Termlists": "Termlists",
+      "Facets": "Termlists",
       "Next": "N&aelig;ste",
       "Prev": "Forrige",
       "Search": "S&oslash;g",
@@ -298,7 +298,8 @@ mkws.log("Using window.name '" + window.name + "'");
     'MOTDContainer': 'motd-container',
     'Perpage': 'per-page',
     'SearchForm': 'search-form',
-    'ReferenceUniverse': 'reference-universe'
+    'ReferenceUniverse': 'reference-universe',
+    'Termlists': 'facets'
   };
   // Annoyingly, there is no built-in way to invert a hash
   var _new2old = {};
