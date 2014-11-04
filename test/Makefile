@@ -105,7 +105,7 @@ node_modules node-modules:
 
 apache-start:
 	bin/apache-template-update
-	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
+	umask 002; ${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
 
 APACHE_PID_FILE=${TMP_DIR}/mkws-jasmine-${APACHE_PORT}.pid
 apache-stop:
