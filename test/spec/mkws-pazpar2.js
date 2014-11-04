@@ -707,7 +707,7 @@ describe("Check SortBy options", function () {
             $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind by sort");
 
-            var records = $("div.mkws-records > div.mkws-summary > a");
+            var records = $("div.mkws-records > div.mkws-summary");
             debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
@@ -740,7 +740,7 @@ describe("Check async widget discovery", function () {
       var numInput = $("div.mkws-search input").length;
       debug("Input elements present: " + numInput);
       expect(numInput).toBe(4);
-      var numRec = $("div.mkws-records > div.mkws-summary > a").length;
+      var numRec = $("div.mkws-records > div.mkws-summary").length;
       debug("Records should still be present. There are: " + numRec);
       expect(numRec).toBeGreaterThan(0);
     });
