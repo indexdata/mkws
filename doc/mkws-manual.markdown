@@ -1018,12 +1018,12 @@ use_service_proxy         _global_  bool    true      If true, then a Service Pr
                                                       than raw Pazpar2.
 ----
 
-Perhaps we should get rid of the `show_lang`, `show_perpage`,
+(Perhaps we should get rid of the `show_lang`, `show_perpage`,
 `show_sort` and `show_switch` configuration settings, as we display the relevant menus
 only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
 to lightly customise the display than by providing a full HTML
-structure.
+structure.)
 
 ### Notes
 
