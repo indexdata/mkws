@@ -841,16 +841,21 @@ Name              Description
 ----
 
 
-Configuration object
---------------------
+Configuration settings
+----------------------
 
-The configuration object `mkws_config` may be created before including
-the MKWS JavaScript code to modify default behaviour. This structure
-is a key-value lookup table, whose entries are described in the table
-below. All entries are optional, but if specified must be given values
-of the specified type. If ommitted, each setting takes the indicated
-default value; long default values are in footnotes to keep the table
-reasonably narrow.
+Configuration settings may be provided at the level of a indiviual widget, or a team, or globally. Per-widget configuration is
+described above; per-team settings can be placed in a `config` widget belonging to the relevant team, and will be applied to that
+team as a whole; and global settings are provided in the global variable `mkws_config`. This structure is a key-value lookup
+table, and may specify the values of many settings.
+
+Some settings apply only to specific widgets; others to the behaviour of the tookit as a whole. When a widget does not itself have
+a value specified for a particular configuration setting, its team is consulted; and if that also does not have a value, the global
+settings are consulted. Only if this, too, is unspecified, is the default value used.
+
+The supported configuration settings are described in the table below. For those settings that apply only to particular widgets,
+the relevant widgets are listed. All entries are optional, but if specified must be given values of the specified type. Long
+default values are in footnotes to keep the table reasonably narrow.
 
 ----
 Element                   Widget  Type    Default   Description
