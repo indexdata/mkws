@@ -69,7 +69,7 @@ $SIG{INT} = "IGNORE";
 alarm($timeout);
 
 system(@system) == 0
-  or die "system @system failed: $?";
+  or die "system('@system') failed: ?='$?', !='$!', ^E='$^E', ?='$?'";
 
 1;
 
