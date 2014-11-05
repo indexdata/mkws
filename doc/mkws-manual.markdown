@@ -213,7 +213,7 @@ the English), initially sorts search results by title rather than
 relevance (though as always this can be changed in the UI) and makes
 the search box a bit wider than the default.
 
-The full set of supported configuration items is described in the
+The full set of supported configuration settings is described in the
 reference guide below.
 
 Per-widget configuration
@@ -221,7 +221,7 @@ Per-widget configuration
 
 In addition to the global configuration provided by the `mkws_config`
 object, individual widgets' behaviour can be configured by providing
-configuration items as attributed on their HTML elements. For example,
+configuration settings as attributes on their HTML elements. For example,
 a `records` widget might be restricted to displaying no more than
 three records by setting the `numrecs` parameter as follows:
 
@@ -238,11 +238,11 @@ attributes prefixed with `data-mkws-`, so:
 
 For first form is more convenient; the second is more correct.
 
-Because some configuration items take structured values rather than
+Because some configuration settings take structured values rather than
 simple strings, they cannot be directly provided by inline
 attributes. To allow for this, the special attribute
 `data-mkws-config`, if provided, is parsed as JSON and its key-value
-pairs set as configuration items for the widget in question. For
+pairs used as configuration settings for the widget in question. For
 example, the value of `lang_options` is an array of strings specifying
 which of the supported UI languages should be made available. The
 following invocation will limit this list to only English and Danish
@@ -561,7 +561,7 @@ its own User Access record.
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This is done 
-by setting the `sp_auth_credentials` configuration item to a string
+by providing the `sp_auth_credentials` configuration setting as a string
 containing the username and password separated by a slash:
 
 	mkws_config = { sp_auth_credentials: "mike/swordfish" };
@@ -593,7 +593,7 @@ Step 1: add a rewriting authentication alias to the configuration:
 	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/\
 		?command=auth&action=check,login&username=U&password=PW [P]
 
-Step 2: set the MKWS configuration item `service_proxy_auth` to
+Step 2: set the MKWS configuration setting `service_proxy_auth` to
 `http://yourname.com/spauth/`.
 
 Step 3: protect access to the local path `http://yourname.com/spauth/`
@@ -672,7 +672,7 @@ Name              Description
 `config`          This widget has no functionality of its own, but its
                   configuration is copied up into its team, allowing
                   it to affect other widgets in the team. This is the
-                  only way to set configuration items at the team
+                  only way to set configuration settings at the team
                   level.
 
 `console-builder` Like the `builder` widget, but emits the generated
@@ -706,7 +706,7 @@ Name              Description
 `facet`           A facet that displays the frequency with which a set
                   of terms occur within a specific field. The specific
                   field whose contents are analysed must be specified
-                  by the widget's `facet` configuration item, which
+                  by the widget's `facet` configuration setting, which
                   may conveniently be done by means of the
                   `data-mkws-facet` attribute on the HTML
                   element. The supported facets are "subject",
@@ -718,10 +718,10 @@ Name              Description
 
 `facets`          An area that contains a "Facets" heading and several
                   `facet` widgets. The set of facet widgets generated
-                  is specified by the `facets` configuration item,
+                  is specified by the `facets` configuration setting,
                   which may be set globally or at the level of the
                   widget or the team. The value of this configuration
-                  item is an array of zero or more strings, each
+                  setting is an array of zero or more strings, each
                   naming a facet.
 
 `google-image`    A specialisation of the `images` widget which
@@ -736,7 +736,7 @@ Name              Description
 `lang`            Provides a selection between the supported set of
                   languages (which defaults to English, German and
                   Danish, but can be configured by the `lang`
-                  configuration item, whose value is an array of
+                  configuration setting, whose value is an array of
                   two-letter language codes).
 
 `log`             Initially empty, this widget accumulates a log of
@@ -766,10 +766,10 @@ Name              Description
 
 `per-page`        Provides a dropdown allowing the user to choose how
                   many records should appear on each page. The
-                  available set of page-sizes can be set as the
-                  `perpage_options` configuration item, whose value is
+                  available set of page-sizes can be specified as the
+                  `perpage_options` configuration setting, whose value is
                   an array of integers. The initial selected value can
-                  be set by the `perpage_default` configuration item.
+                  be specified by the `perpage_default` configuration setting.
 
 `progress`        Shows a progress bar which indicates how many of the
                   targets have responded to the search.
@@ -790,7 +790,7 @@ Name              Description
                   record.)
 
 `reference`       A short summary about a subject specified by the
-                  `autosearch` configuration item. This is created by
+                  `autosearch` configuration setting. This is created by
                   drawing a picture and a paragraph of text from
                   Wikipedia. To work correctly, this widget must be
                   used in a library that provides the
@@ -809,14 +809,14 @@ Name              Description
 
 `sort`            Provides a dropdown allowing the user to choose how
                   the displayed records should be sorted. The
-                  available set of sort criteria can be set as the
-                  `sort_options` configuration item, whose value is
+                  available set of sort criteria can be specified as the
+                  `sort_options` configuration setting, whose value is
                   an array of two-element arrays. The first item of
                   each sub-array is a pazpar2 sort-expression such as
                   `data:0` and the second is a human-readable label
                   such as `newest`. The initial selected
-                  value can be set by the `sort_default` configuration
-                  item.
+                  value can be specified by the `sort_default` configuration
+                  setting.
 
 `stat`            A summary line stating how many targets remain
                   active, how many records have been found, and how
@@ -969,10 +969,10 @@ use_service_proxy                 bool    true      If true, then a Service Prox
 ----
 
 Perhaps we should get rid of the `show_lang`, `show_perpage`,
-`show_sort` and `show_switch` configuration items, and simply display the relevant menus
+`show_sort` and `show_switch` configuration settings, as we display the relevant menus
 only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
-to lightly customise the display than my changing providing a full HTML
+to lightly customise the display than by providing a full HTML
 structure.
 
 ### Notes
