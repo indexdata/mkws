@@ -221,3 +221,8 @@
   display: inline-table /* only for Firefox! */
 }
 
+.mkws-field-description, .mkws-field-date, .mkws-field-thumb {
+  display: none;
+}
+
+

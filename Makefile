@@ -29,5 +29,5 @@ help:
 	@echo "make [ all | setup | clean | distclean ]"
 	@echo "     [ check | check-js | phantomjs ]"
 	@echo ""
-	@echo "If 'make check' timeout is too short, extend with: make check PHANTOMJS_TIMEOUT=40"
+	@echo "If 'make check' timeout is too short, extend with: make check PHANTOMJS_TIMEOUT=120"
 

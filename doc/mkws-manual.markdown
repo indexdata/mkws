@@ -213,7 +213,7 @@ the English), initially sorts search results by title rather than
 relevance (though as always this can be changed in the UI) and makes
 the search box a bit wider than the default.
 
-The full set of supported configuration items is described in the
+The full set of supported configuration settings is described in the
 reference guide below.
 
 Per-widget configuration
@@ -221,7 +221,7 @@ Per-widget configuration
 
 In addition to the global configuration provided by the `mkws_config`
 object, individual widgets' behaviour can be configured by providing
-configuration items as attributed on their HTML elements. For example,
+configuration settings as attributes on their HTML elements. For example,
 a `records` widget might be restricted to displaying no more than
 three records by setting the `numrecs` parameter as follows:
 
@@ -238,11 +238,11 @@ attributes prefixed with `data-mkws-`, so:
 
 For first form is more convenient; the second is more correct.
 
-Because some configuration items take structured values rather than
+Because some configuration settings take structured values rather than
 simple strings, they cannot be directly provided by inline
 attributes. To allow for this, the special attribute
 `data-mkws-config`, if provided, is parsed as JSON and its key-value
-pairs set as configuration items for the widget in question. For
+pairs used as configuration settings for the widget in question. For
 example, the value of `lang_options` is an array of strings specifying
 which of the supported UI languages should be made available. The
 following invocation will limit this list to only English and Danish
@@ -561,7 +561,7 @@ its own User Access record.
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This is done 
-by setting the `sp_auth_credentials` configuration item to a string
+by providing the `sp_auth_credentials` configuration setting as a string
 containing the username and password separated by a slash:
 
 	mkws_config = { sp_auth_credentials: "mike/swordfish" };
@@ -590,9 +590,10 @@ yourname.com`:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/\
+		?command=auth&action=check,login&username=U&password=PW [P]
 
-Step 2: set the MKWS configuration item `service_proxy_auth` to
+Step 2: set the MKWS configuration setting `service_proxy_auth` to
 `http://yourname.com/spauth/`.
 
 Step 3: protect access to the local path `http://yourname.com/spauth/`
@@ -671,7 +672,7 @@ Name              Description
 `config`          This widget has no functionality of its own, but its
                   configuration is copied up into its team, allowing
                   it to affect other widgets in the team. This is the
-                  only way to set configuration items at the team
+                  only way to set configuration settings at the team
                   level.
 
 `console-builder` Like the `builder` widget, but emits the generated
@@ -705,7 +706,7 @@ Name              Description
 `facet`           A facet that displays the frequency with which a set
                   of terms occur within a specific field. The specific
                   field whose contents are analysed must be specified
-                  by the widget's `facet` configuration item, which
+                  by the widget's `facet` configuration setting, which
                   may conveniently be done by means of the
                   `data-mkws-facet` attribute on the HTML
                   element. The supported facets are "subject",
@@ -717,10 +718,10 @@ Name              Description
 
 `facets`          An area that contains a "Facets" heading and several
                   `facet` widgets. The set of facet widgets generated
-                  is specified by the `facets` configuration item,
+                  is specified by the `facets` configuration setting,
                   which may be set globally or at the level of the
                   widget or the team. The value of this configuration
-                  item is an array of zero or more strings, each
+                  setting is an array of zero or more strings, each
                   naming a facet.
 
 `google-image`    A specialisation of the `images` widget which
@@ -735,7 +736,7 @@ Name              Description
 `lang`            Provides a selection between the supported set of
                   languages (which defaults to English, German and
                   Danish, but can be configured by the `lang`
-                  configuration item, whose value is an array of
+                  configuration setting, whose value is an array of
                   two-letter language codes).
 
 `log`             Initially empty, this widget accumulates a log of
@@ -765,10 +766,10 @@ Name              Description
 
 `per-page`        Provides a dropdown allowing the user to choose how
                   many records should appear on each page. The
-                  available set of page-sizes can be set as the
-                  `perpage_options` configuration item, whose value is
+                  available set of page-sizes can be specified as the
+                  `perpage_options` configuration setting, whose value is
                   an array of integers. The initial selected value can
-                  be set by the `perpage_default` configuration item.
+                  be specified by the `perpage_default` configuration setting.
 
 `progress`        Shows a progress bar which indicates how many of the
                   targets have responded to the search.
@@ -789,7 +790,7 @@ Name              Description
                   record.)
 
 `reference`       A short summary about a subject specified by the
-                  `autosearch` configuration item. This is created by
+                  `autosearch` configuration setting. This is created by
                   drawing a picture and a paragraph of text from
                   Wikipedia. To work correctly, this widget must be
                   used in a library that provides the
@@ -808,14 +809,14 @@ Name              Description
 
 `sort`            Provides a dropdown allowing the user to choose how
                   the displayed records should be sorted. The
-                  available set of sort criteria can be set as the
-                  `sort_options` configuration item, whose value is
+                  available set of sort criteria can be specified as the
+                  `sort_options` configuration setting, whose value is
                   an array of two-element arrays. The first item of
                   each sub-array is a pazpar2 sort-expression such as
                   `data:0` and the second is a human-readable label
                   such as `newest`. The initial selected
-                  value can be set by the `sort_default` configuration
-                  item.
+                  value can be specified by the `sort_default` configuration
+                  setting.
 
 `stat`            A summary line stating how many targets remain
                   active, how many records have been found, and how
@@ -840,133 +841,189 @@ Name              Description
 ----
 
 
-Configuration object
---------------------
+Configuration settings
+----------------------
 
-The configuration object `mkws_config` may be created before including
-the MKWS JavaScript code to modify default behaviour. This structure
-is a key-value lookup table, whose entries are described in the table
-below. All entries are optional, but if specified must be given values
-of the specified type. If ommitted, each setting takes the indicated
-default value; long default values are in footnotes to keep the table
-reasonably narrow.
+Configuration settings may be provided at the level of a indiviual widget, or a team, or globally. Per-widget configuration is
+described above; per-team settings can be placed in a `config` widget belonging to the relevant team, and will be applied to that
+team as a whole; and global settings are provided in the global variable `mkws_config`. This structure is a key-value lookup
+table, and may specify the values of many settings.
+
+Some settings apply only to specific widgets; others to the behaviour of the tookit as a whole. When a widget does not itself have
+a value specified for a particular configuration setting, its team is consulted; and if that also does not have a value, the global
+settings are consulted. Only if this, too, is unspecified, is the default value used.
+
+The supported configuration settings are described in the table below. For those settings that apply only to particular widgets,
+the relevant widgets are listed. All entries are optional, but if specified must be given values of the specified type. Long
+default values are in footnotes to keep the table reasonably narrow.
 
 ----
-Element                   Type    Default   Description
---------                  -----   --------- ------------
-auth_hostname
+Element                   Widget    Type    Default   Description
+--------                  ------    -----   --------- ------------
+auth_hostname             _global_
 
-autosearch
+autosearch                facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-facet
+facet                     facet
 
-facet_caption_*
+facet_caption_*           facet
 
-facet_max_*
+facet_max_*               facet
 
-facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
-                                            `xtargets`, `subject` and `author`.
+facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
+                                                      `xtargets`, `subject` and `author`.
 
-lang                      string  en        Code of the default language to display the UI in. Supported language codes are `en` =
-                                            English, `de` = German, `da` = Danish, and whatever additional languages are configured
-                                            using `language_*` entries (see below).
+lang                      _team_    string  en        Code of the default language to display the UI in. Supported language codes
+                                                      are `en` = English, `de` = German, `da` = Danish, and whatever additional
+                                                      languages are configured using `language_*` entries (see below).
 
-lang_options              array   []        A list of the languages to offer as options. If empty (the default), then all
-                                            configured languages are listed.
+lang_options              lang      array   []        A list of the languages to offer as options. If empty (the default), then all
+                                                      configured languages are listed.
 
-language_*                hash              Support for any number of languages can be added by providing entries whose name is
-                                            `language_` followed by the code of the language. See the separate section below for
-                                            details.
+language_*                _global_  hash              Support for any number of languages can be added by providing entries whose
+                                                      name is `language_` followed by the code of the language. See the separate
+                                                      section below for details.
 
-limit
+limit                     facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                            datestamps, 3 = messages with datestamps and stack-traces.
+log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                                      datestamps, 3 = messages with datestamps and stack-traces.
 
-maxrecs
+maxrecs                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-paragraphs
+paragraphs                reference
 
-pazpar2_url               string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
-                                            provide search results, facets, etc. It may be either unmediated or Pazpar2 the
-                                            MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
-                                            the latter case, `service_proxy_auth` must be provided.
+pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
+                                                      configured to provide search results, facets, etc. It may be either
+                                                      unmediated or Pazpar2 the MasterKey Service Proxy, which mediates access to
+                                                      an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
+                                                      be provided.
 
-perpage
+perpage                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-perpage_default           string  20        The initial value for the number of records to show on each page.
+perpage_default           _team_    string  20        The initial value for the number of records to show on each page.
 
-perpage_options           array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
-                                            records are displayed on each page of results.
+perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
+                                                      how many records are displayed on each page of results.
 
-pp2_hostname
+pp2_hostname              _global_
 
-pp2_path
+pp2_path                  _global_
 
-query
+query_width               _search_  int     50        The width of the query box, in characters.
 
-query_width               int     50        The width of the query box, in characters.
+responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
+                                                      screen-width varies, as described above. The specified number is the
+                                                      threshhold width, in pixels, at which the facets move between their two
+                                                      locations.
 
-responsive_design_width   int               If defined, then the facets display moves between two locations as the screen-width
-                                            varies, as described above. The specified number is the threshhold width, in pixels,
-                                            at which the facets move between their two locations.
+scan_all_nodes            _global_
 
-scan_all_nodes
+sentences                 reference
 
-sentences
+service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
+                                                      beginning of each session to authenticate the user and establish a session
+                                                      that encompasses a defined set of targets to search in.
 
-service_proxy_auth        url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
-                                            session to authenticate the user and establish a session that encompasses a defined set
-                                            of targets to search in.
+service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
+                                                      authentication, so that cookies are rewritten to appear to be from this
+                                                      domain. In general, this is not necessary, as this setting defaults to the
+                                                      domain of `pazpar2_url`.
 
-service_proxy_auth_domain domain            Can be set to the domain for which `service_proxy_auth` proxies authentication, so
-                                            that cookies are rewritten to appear to be from this domain. In general, this is not
-                                            necessary, as this setting defaults to the domain of `pazpar2_url`.
+show_lang                lang       bool    true      Indicates whether or not to display the language menu.
 
-show_lang                 bool    true      Indicates whether or not to display the language menu.
+show_perpage             ranking    bool    true      Indicates whether or not to display the perpage menu.
 
-show_perpage              bool    true      Indicates whether or not to display the perpage menu.
+show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
 
-show_sort                 bool    true      Indicates whether or not to display the sort menu.
+show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
+                                                      showing retrieved records and target information.
 
-show_switch               bool    true      Indicates whether or not to display the switch menu, for switching between showing
-                                            retrieved records and target information.
+sort                      facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-sort
+sort_default              _team_    string  relevance The label of the default sort criterion to use. Must be one of those in the
+                                                      `sort` array.
 
-sort_default              string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
-                                            array.
+sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
+                                                      two-element list: the first element of each sublist is a pazpar2
+                                                      sort-expression such as `data:0` and the second is a human-readable label
+                                                      such as `newest`.
 
-sort_options              array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
-                                            the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
-                                            the second is a human-readable label such as `newest`.
+sp_auth_credentials       _global_
 
-sp_auth_credentials
+sp_auth_path              _global_
 
-sp_auth_path
+sp_auth_query             _global_
 
-sp_auth_query
+target                    facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-target
+targetfilter              facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-targetfilter
+targets                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-targets
+template                  details,
+                          done,
+                          facet,
+                          facets,
+                          images,
+                          lang,
+                          navi,
+                          pager,
+                          progress,
+                          ranking,
+                          record,
+                          records,
+                          reference,
+                          results,
+                          search,
+                          stat,
+                          switch,
+                          targets
 
-template
+text                      builder
 
-text
-
-use_service_proxy         bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
-                                            Pazpar2.
+use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
+                                                      than raw Pazpar2.
 ----
 
-Perhaps we should get rid of the `show_lang`, `show_perpage`,
-`show_sort` and `show_switch` configuration items, and simply display the relevant menus
+(Perhaps we should get rid of the `show_lang`, `show_perpage`,
+`show_sort` and `show_switch` configuration settings, as we display the relevant menus
 only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
-to lightly customise the display than my changing providing a full HTML
-structure.
+to lightly customise the display than by providing a full HTML
+structure.)
 
 ### Notes
 
@@ -1048,7 +1105,7 @@ from that toolkit. The relevant lines are:
 	      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 	<div class="mkws-search"></div>
-	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_autoOpen="0">
 	  <div class="mkws-switch"></div>
 	  <div class="mkws-lang"></div>
 	  <div class="mkws-results"></div>

@@ -670,11 +670,13 @@ describe("Check SortBy options", function () {
         var waitcount = 0;
         var sort_value = 'title:1';
         var per_page_number = 20;
+
+	// keep current title list
         var title_list_old = title_list("xxx ");
 
         function title_list(prefix) {
             var list = [];
-            var terms = $("div.mkws-records > div.mkws-summary");
+            var terms = $("div.mkws-records > div.mkws-summary > div.mkws-field-data span.mkws-field-title");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text().trim();
                 list.push(term);
