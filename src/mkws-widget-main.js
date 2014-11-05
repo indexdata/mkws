@@ -106,7 +106,6 @@ mkws.registerWidgetType('details', function() {
       that.node.html(template(data));
     }
   });
-  that.autosearch();
 });
 
 mkws.registerWidgetType('records', function() {
