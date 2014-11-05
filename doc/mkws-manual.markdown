@@ -860,19 +860,19 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-auth_hostname             _global_
+auth_hostname             _global_  string
 
-autosearch                facet,
+autosearch                facet,    string
                           facets,
                           record,
                           records,
                           results
 
-facet                     facet
+facet                     facet     string
 
-facet_caption_*           facet
+facet_caption_*           facet     string
 
-facet_max_*               facet
+facet_max_*               facet     int
 
 facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
                                                       `xtargets`, `subject` and `author`.
@@ -888,7 +888,7 @@ language_*                _global_  hash              Support for any number of 
                                                       name is `language_` followed by the code of the language. See the separate
                                                       section below for details.
 
-limit                     facet,
+limit                     facet,    string            ### See http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html
                           facets,
                           record,
                           records,
@@ -897,13 +897,13 @@ limit                     facet,
 log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                                       datestamps, 3 = messages with datestamps and stack-traces.
 
-maxrecs                   facet,
+maxrecs                   facet,    int
                           facets,
                           record,
                           records,
                           results
 
-paragraphs                reference
+paragraphs                reference int
 
 pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
                                                       configured to provide search results, facets, etc. It may be either
@@ -911,7 +911,7 @@ pazpar2_url               _global_  string  *Note 2*  The URL used to access the
                                                       an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
                                                       be provided.
 
-perpage                   facet,
+perpage                   facet,    int
                           facets,
                           record,
                           records,
@@ -922,9 +922,9 @@ perpage_default           _team_    string  20        The initial value for the 
 perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
                                                       how many records are displayed on each page of results.
 
-pp2_hostname              _global_
+pp2_hostname              _global_  string
 
-pp2_path                  _global_
+pp2_path                  _global_  string
 
 query_width               _search_  int     50        The width of the query box, in characters.
 
@@ -933,9 +933,9 @@ responsive_design_width   _global_  int               If defined, then the facet
                                                       threshhold width, in pixels, at which the facets move between their two
                                                       locations.
 
-scan_all_nodes            _global_
+scan_all_nodes            _global_  bool
 
-sentences                 reference
+sentences                 reference int
 
 service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
                                                       beginning of each session to authenticate the user and establish a session
@@ -955,7 +955,7 @@ show_sort                ranking    bool    true      Indicates whether or not t
 show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
                                                       showing retrieved records and target information.
 
-sort                      facet,
+sort                      facet,    string
                           facets,
                           record,
                           records,
@@ -969,31 +969,31 @@ sort_options              ranking   array   *Note 6*  List of supported sort cri
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
 
-sp_auth_credentials       _global_
+sp_auth_credentials       _global_  string
 
-sp_auth_path              _global_
+sp_auth_path              _global_  string
 
-sp_auth_query             _global_
+sp_auth_query             _global_  string
 
-target                    facet,
+target                    facet,    string
                           facets,
                           record,
                           records,
                           results
 
-targetfilter              facet,
+targetfilter              facet,    string
                           facets,
                           record,
                           records,
                           results
 
-targets                   facet,
+targets                   facet,    string
                           facets,
                           record,
                           records,
                           results
 
-template                  details,
+template                  details,  string
                           done,
                           facet,
                           facets,
@@ -1012,7 +1012,7 @@ template                  details,
                           switch,
                           targets
 
-text                      builder
+text                      builder   string
 
 use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
                                                       than raw Pazpar2.
