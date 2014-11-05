@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MKWS demo: Compound reference widget, Bootstrap edition</title>
+  <title>MKWS demo</title>
+
+  <!-- Include Bootstrap. It needs jQuery. -->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
@@ -13,35 +14,33 @@
   <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.1.1/amelia/bootstrap.min.css" rel="stylesheet"> -->
   <!-- <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.1.1/united/bootstrap.min.css" rel="stylesheet"> -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+  <!-- Before including MKWS we can define a configuration object. -->
   <script type="text/javascript">
     var mkws_config = { sp_auth_credentials: "credo/emu" };
   </script>
+
+  <!-- mkws-complete.js includes jQuery and Handlebars. It will co-exist with
+       another copy of jQuery as we have here but you can also use mkws.js
+       if you have included both separately -->
   <script type="text/javascript" src="//mkws.indexdata.com/mkws-complete.js"></script>
-  <!-- <script type="text/javascript" src="//mkws.local/mkws&#45;complete.js"></script> -->
   <link rel="stylesheet" type="text/css" href="topic.css">
+
+  <!-- Handlebars templates can make calls to Javascript functions you
+       define this way. -->
   <script>
-    // The Google Images database returns links like:
-    //      http://images.google.com/url?q=http://eofdreams.com/fish.html&sa=U&ei=RAB-U9XNDo2Dqga1o4L4Bw&ved=0CC4Q9QEwAA&usg=AFQjCNFhRtn6GMevHbpITZ6kfx6rsHV2ow
-    // This Handlebars helper avoids a pointless redirect by transforming
-    // this to the URL of the underling page, in this case
-    //      http://eofdreams.com/fish.html
-    Handlebars.registerHelper('mkws-googleurl', function(obj) {
-      if (!obj) {
-        return "obj undefined";
-      } else if (!obj[0]) {
-        return "obj[0] undefined, JSON=" + $.toJSON(obj);
-      } else {
-        return mkws.getParameterByName('q', obj[0]);
-      }
-    });
     Handlebars.registerHelper('mkws-topicurl', function(topic) {
+      /* Creates a link back to this page with the topic as a parameter */
       return window.location.pathname + "?q=" + encodeURIComponent(topic);
     });
   </script>
+
+  <!-- Here we create replacement templates that incorporate bootstrap. 
+       The prefix "mkws-template-" makes them available to MKWS -->
   <script class="mkws-template-topic-image" type="text/x-handlebars-template">
     {{#each hits}}
       <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-       <a href="{{mkws-googleurl md-electronic-url}}" target="_blank">
+       <a href="{{md-electronic-url}}" target="_blank">
         {{#mkws-first md-thumburl}}
           <img src="{{this}}" alt="{{../md-title}}"/>
         {{/mkws-first}}
@@ -60,19 +59,31 @@
     {{/each}}
   </script>
 </head>
+
 <body>
-  <div class='page-header container' autosearch='!param!q'>
+  <div class='page-header container'>
     <div class="row">
-      <!-- reference entry -->
-      <div class="jumbotron panel col-md-8">
+      <!-- mkws-reference - A widget that fetches a Wikipedia entry -->
+      <div class="jumbotron panel col-md-8 col-sm-7">
+        <!-- Note the "autosearch" attribute. It indicates where to get
+             the search term from, in this case a URL parameter.  A URL
+             path component or Javascript variable are also possible. --> 
         <div class="panel-body mkws-reference mkws-team-ref" autosearch="!param!q"
              data-mkws-config='{"paragraphs":1}'></div>
       </div>
-      <!-- related topics -->
-      <div class="col-md-offset-1 col-md-3"><div class="panel panel-default">
+      <!-- Related topics -->
+      <div class="col-md-offset-1 col-md-3 col-sm-5"><div class="panel panel-default">
         <div class="panel-heading title">
           <h3 class="panel-title">Related Topics</h3>
         </div>
+        <!-- This mkws-facet widget is particularly illustrative: 
+             * the data-mkws-facet attribute specifies a particular facet
+             * data-mkws-config allows configuration override; in this case
+               we employ one of the templates we defined above.
+             * having the class mkws-team-main groups this widget with others
+               on the same team. The mkws-records widget at the bottom of
+               the page shares the same team and is thus working from the same
+               result set. -->
         <ul class="panel-body list-group mkws-facet mkws-team-main"
             autosearch="!param!q"
             data-mkws-facet="subject"
@@ -85,6 +96,7 @@
         <div class="panel-heading title">
           <h3 class="panel-title">Images</h3>
         </div>
+        <!-- The "target" config key narrows the search to a list of targets -->
         <div class="panel-body mkws-google-image" autosearch="!param!q"
              data-mkws-config='{ "maxrecs": 4, "template": "topic-image", "target": "google_images_js" }'></div>
       </div></div>
@@ -92,15 +104,16 @@
 
     <!-- sources -->
     <div class="row">
-        <div class="col-md-4 col-sm-6"><div class="panel panel-default">
+        <div class="news col-md-4 col-sm-6"><div class="panel panel-default">
           <div class="panel-heading title">
             <h3 class="panel-title">News</h3>
           </div>
+          <!-- The "targetfilter" narrows the search to targets matching some criteria -->
           <div class="panel-body mkws-records mkws-team-news" autosearch="!param!q"
                data-mkws-config='{"targetfilter":"categories=news",
                                   "perpage":7}'></div>
         </div></div>
-        <div class="col-md-4 col-sm-6"><div class="panel panel-default">
+        <div class="articles col-md-4 col-sm-6"><div class="panel panel-default">
           <div class="panel-heading title">
             <h3 class="panel-title">Articles</h3>
           </div>
@@ -108,7 +121,7 @@
                data-mkws-config='{"targetfilter":"categories=articles",
                                   "perpage":7}'></div>
         </div></div>
-        <div class="col-md-4 col-sm-6"><div class="panel panel-default">
+        <div class="books col-md-4 col-sm-6"><div class="panel panel-default">
           <div class="panel-heading title">
             <h3 class="panel-title">Books</h3>
           </div>
@@ -118,7 +131,7 @@
         </div></div>
     </div>
     <div class="row">
-        <div class="col-md-12"><div class="panel panel-default">
+        <div class="alltargets col-md-12"><div class="panel panel-default">
           <div class="panel-heading title">
             <h3 class="panel-title">Results from all targets</h3>
           </div>
