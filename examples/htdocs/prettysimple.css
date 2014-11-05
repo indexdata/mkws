@@ -1,0 +1,386 @@
+/* General styling */
+html {
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  align-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  max-width: 1100px;
+  margin: auto;
+  font-family: "Open Sans", sans-serif;
+}
+a {
+ text-decoration: none;
+ color: black;
+}
+
+/* Top level layout */
+.header {
+  width: 100%;
+  display: flex;
+  margin: .5em;
+  margin-bottom: 1em;
+}
+.mkws-switch {
+  margin-left: auto;
+}
+.main {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  margin: 1em;
+  margin-bottom: auto;
+}
+.forms {
+  width: 100%;
+  margin: 1em;
+}
+.mkws-facets {
+  margin-right: 66px;
+  flex: 1;
+}
+.results {
+  flex: 3;
+}
+
+/* Search form */
+/* heavily inspired by: */
+/* https://github.com/philipwalton/solved-by-flexbox/blob/master/_sass/components/_input-add-on.scss */
+.mkws-search {
+  margin-left: auto;
+  margin-bottom: 0;
+}
+.mkws-search-form {
+  display: flex;
+  margin-left: auto;
+  max-width: 30em;
+}
+.mkws-search-form .mkws-query {
+  flex: 1;
+  border-right: 0 !important;
+  border-radius: 2px 0 0 2px;
+  font-size: 1.1em;
+}
+.mkws-search-form .mkws-button {
+  border-radius: 0 2px 2px 0;
+  background-color: hsla(31, 15%, 50%, 0.1);
+  font: inherit;
+  font-weight: normal;
+}
+.mkws-search-form .mkws-query, .mkws-search-form .mkws-button {
+  border: 1px solid hsla(31, 15%, 50%, 0.25);
+  padding: 0.5em 0.75em;
+  margin: 0;
+}
+.mkws-ranking {
+  font-family: "Open Sans Light", sans-serif;
+  border-top: none;
+  border-bottom-left-radius: 5em 100%;
+  margin-top: 0;
+  margin-left: auto;
+  font-size: .9em;
+  text-align: right;
+  max-width: 25em;
+}
+.mkws-ranking select {
+ font-size: 1.0em;
+ font-family: "Open Sans", sans-serif;
+ border: none;
+ background: none;
+}
+
+/* Misc. elements */
+.mkws-lang {
+  color: gray;
+  font-family: "Open Sans Light", sans-serif;
+}
+.mkws-lang > span {
+  color: black;
+  font-family: "Open Sans", sans-serif;
+}
+.mkws-switch {
+  color: gray;
+  font-family: "Open Sans Light", sans-serif;
+}
+.mkws-switch > a {
+  color: black;
+}
+.mkws-pager {
+  width: 100%;
+}
+.mkws-current-page {
+  background: gray;
+  border-radius: 3em;
+  padding: 0 .5em;
+  color: white;
+}
+.mkws-navi {
+  margin-top: 10px;
+  width: 100%;
+  
+}
+.mkws-removable:after {
+  content: " X";
+  color: DarkRed; 
+}
+.mkws-removable:hover {
+  text-decoration: line-through;
+}
+.mkws-records {
+  width: 100%;
+}
+
+
+/* Facets */
+.mkws-facet {
+  padding-bottom: 1em;
+}
+.mkws-facet-title {
+  border-left: 5px solid #7d8187;
+  padding: .5em 10px;
+  text-transform: uppercase;
+}
+.mkws-facet:nth-child(1)>.mkws-facet-title {
+  border-color: #2980b9;
+}
+.mkws-facet:nth-child(2)>.mkws-facet-title {
+  border-color: #68a863;
+}
+.mkws-facet:nth-child(3)>.mkws-facet-title {
+  border-color: #b45b47;
+}
+
+.mkws-facet:last-child {
+  padding-bottom: initial;
+}
+.mkws-term {
+  display: flex;
+  padding-left: 15px;
+  font-size: .9em;
+}
+.mkws-term a {
+  flex: 1;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.mkws-term span {
+  flex: 0 0 min-content;
+  float: right;
+  margin-left: .7em;
+}
+.mkws-stat {
+  font-family: "Open Sans Light", sans-serif;
+  text-align: right;
+  font-size: .9em;
+}
+
+
+/* Result containers */
+.mkws-summary {
+  padding: 40px 20px;
+  min-height: 120px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+.mkws-summary:last-child {
+  border: none;
+}
+.mkws-field-data {
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: space-around;
+}
+
+/* Result fields */
+.mkws-field-data > * {
+  flex 1;
+}
+.mkws-field-date {
+  order: 1;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.3);
+}
+.mkws-field-title {
+  order: 2;
+  font-family: "Open Sans Light", sans-serif;
+  font-size: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.mkws-field-title-remainder {
+  order: 3;
+  font-family: "Open Sans Light", sans-serif;
+  font-size: 12px;
+  margin-top: -4px;
+  margin-bottom: 4px;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+.mkws-field-description {
+  order: 4;
+  font-family: "Open Sans Light", sans-serif;
+  font-size: 18px;
+  line-height: 1.2;
+  max-height: 44px;
+  overflow: hidden;
+}
+.mkws-field-author {
+  order: 5;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.mkws-field-thumb {
+  float: left;
+  margin-right: 25px;
+}
+.mkws-field-thumb > img {
+  width: 140px;
+  height: 120px;
+  object-fit: contain;
+}
+.mkws-details {
+  margin-top: 25px;
+}
+.mkws-prev, .mkws-next {
+  text-transform: uppercase;
+  font-size: .75em;
+} 
+
+
+/* Responsive */
+@media screen and (max-width: 1020px) {
+  .mkws-facets {
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .mkws-pager {
+    margin: 0;
+  }
+  .mkws-pager > div {
+    margin-top: 10px;
+  }
+  .main {
+    flex-wrap: wrap;
+  }
+  .mkws-facets {
+    order: 99;
+    width: 100%;
+    margin-top: 40px;
+    margin-right: 0;
+    flex: none;
+  }
+  .results {
+    width: 100%;
+    order 1;
+    flex: none;
+  }
+  .mkws-ranking {
+    width: 100%;
+  }
+  .mkws-search {
+    width: 100%;
+  }
+  .mkws-summary {
+    min-height: 60px;
+    padding: 20px 10px;
+  }
+  .mkws-field-data {
+    min-height: 60px;
+  }
+  .mkws-field-date {
+    font-size: 12px;
+  }
+  .mkws-field-title {
+    font-size: 18px;
+  }
+  .mkws-field-description {
+    font-size: 14px;
+    max-height: 34px;
+  }
+  .mkws-field-author {
+    font-size: 11px;
+  }
+  .mkws-field-thumb {
+    order: -1;
+    margin-right: 10px;
+  }
+  .mkws-field-thumb > img {
+    width: 70px;
+    height: 60px;
+    object-fit: contain;
+  }
+  .mkws-pager > div {
+    float: none !important;
+  }
+}
+
+/* Font (from mozilla.org) */
+@font-face{
+  font-family:'Open Sans Light';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Light-webfont.svg#OpenSansLight) format('svg');
+  font-weight:400;
+  font-style:normal
+}
+
+@font-face{
+  font-family:'Open Sans Light';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular) format('svg');
+  font-weight:700;
+  font-style:normal
+}
+
+@font-face{
+  font-family:'Open Sans Light';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-LightItalic-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-LightItalic-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-LightItalic-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-LightItalic-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-LightItalic-webfont.svg#OpenSansRegular) format('svg');
+  font-weight:400;
+  font-style:italic
+}
+
+@font-face{
+  font-family:'Open Sans';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Regular-webfont.svg#OpenSansRegular) format('svg');
+  font-weight:400;
+  font-style:normal
+}
+
+@font-face{
+  font-family:'Open Sans';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Semibold-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Semibold-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Semibold-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Semibold-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold) format('svg');
+  font-weight:700;
+  font-style:normal
+}
+
+@font-face{
+  font-family:'Open Sans';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Italic-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Italic-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Italic-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Italic-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-Italic-webfont.svg#OpenSansItalic) format('svg');
+  font-weight:400;
+  font-style:italic
+}
+
+@font-face{
+  font-family:'Open Sans Extra Bold';
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-ExtraBold-webfont.eot);
+  src:url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-ExtraBold-webfont.eot?#iefix) format('embedded-opentype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-ExtraBold-webfont.woff) format('woff'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-ExtraBold-webfont.ttf) format('truetype'),url(//mozorg.cdn.mozilla.net/media/fonts/OpenSans-ExtraBold-webfont.svg#OpenSansSemibold) format('svg');
+  font-weight:700;
+  font-style:normal
+}
+

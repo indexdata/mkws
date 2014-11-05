@@ -1,7 +1,7 @@
 # Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
 PHANTOMJS_TIMEOUT=30
-PHANTOMJS=	../node_modules/phantomjs/bin/phantomjs
+PHANTOMJS=	perl ../bin/bomb.pl --timeout=${PHANTOMJS_TIMEOUT} ../node_modules/phantomjs/bin/phantomjs
 IMAGES=		./images
 SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PERL_SCRIPTS=	../bin/bomb.pl
@@ -18,6 +18,7 @@ all: help
 
 clean:
 	rm -f index-*.html
+	rm -f iframe-*.html
 	rm -f ${IMAGES}/*.png
 
 distclean: clean
@@ -27,10 +28,11 @@ test: check
 
 screenshot:
 	file=${PREFIX}.$$(echo "${PHANTOMJS_URL}" | perl -npe 's,(\W),-,g; s/-$$//;'); \
-	  ${PHANTOMJS} ${PROG} ${PHANTOMJS_URL} ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
+	  ${PHANTOMJS} ${PROG} "${PHANTOMJS_URL}" ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
-screenshots: clean estimate-time
+screenshots: clean estimate-time iframe
+	set -e; \
 	for t in ${TESTS}; do \
 	    for i in $$(cat url.$$t); do \
 	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot; \
@@ -45,10 +47,14 @@ estimate-time:
 index:
 	( cd ${IMAGES}; ls -tr ${PREFIX}.*.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="'${IMAGES}/'$$_"/><br/><br/><p/>\n}' ) > index-${PREFIX}.html
 
+iframe: index-iframe-demo
+index-iframe-demo:
+	( cat url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos.html
+
 help:
 	@echo "make [ all | clean | distclean ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ screenshot | index ]"
+	@echo "     [ screenshot | index | iframe ]"
 	@echo ""
 	@echo "Examples: "
 	@echo ""

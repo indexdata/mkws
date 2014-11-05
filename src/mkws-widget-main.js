@@ -56,7 +56,7 @@ mkws.registerWidgetType('pager', function() {
     output.found = data.total;
 
     //client indexes pages from 1 but pz2 from 0
-    var onsides = 6;
+    var onsides = 5;
     var pages = Math.ceil(that.team.totalRecordCount() / that.team.perpage());
     var currentPage = that.team.currentPage();
 
@@ -106,7 +106,6 @@ mkws.registerWidgetType('details', function() {
       that.node.html(template(data));
     }
   });
-  that.autosearch();
 });
 
 mkws.registerWidgetType('records', function() {

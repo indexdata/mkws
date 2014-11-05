@@ -227,13 +227,13 @@ describe("Check pazpar2 hit counter", function () {
     });
 });
 
-describe("Check Termlist", function () {
+describe("Check Facets", function () {
     var $ = mkws.$;
 
-    it("found Termlist", function () {
-        var termlist = $("div.mkws-termlists");
-        debug("Termlist success: " + termlist.length);
-        expect(termlist.length).toBe(1);
+    it("found Facets", function () {
+        var facets = $("div.mkws-facets");
+        debug("Facet success: " + facets.length);
+        expect(facets.length).toBe(1);
 
         waitsFor(function () {
             return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
@@ -242,7 +242,7 @@ describe("Check Termlist", function () {
         // everything displayed?
         runs(function () {
             var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
-            debug("Termlist sources success: " + sources.length);
+            debug("Facet sources success: " + sources.length);
             expect(sources.length).toBe(1);
 
             var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
@@ -670,11 +670,13 @@ describe("Check SortBy options", function () {
         var waitcount = 0;
         var sort_value = 'title:1';
         var per_page_number = 20;
+
+	// keep current title list
         var title_list_old = title_list("xxx ");
 
         function title_list(prefix) {
             var list = [];
-            var terms = $("div.mkws-records > div.mkws-summary > a");
+            var terms = $("div.mkws-records > div.mkws-summary > div.mkws-field-data span.mkws-field-title");
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text().trim();
                 list.push(term);
@@ -707,7 +709,7 @@ describe("Check SortBy options", function () {
             $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
             debug("unbind by sort");
 
-            var records = $("div.mkws-records > div.mkws-summary > a");
+            var records = $("div.mkws-records > div.mkws-summary");
             debug("Sort by got now " + records.length + " records");
             expect(records.length).toBe(per_page_number);
         });
@@ -740,7 +742,7 @@ describe("Check async widget discovery", function () {
       var numInput = $("div.mkws-search input").length;
       debug("Input elements present: " + numInput);
       expect(numInput).toBe(4);
-      var numRec = $("div.mkws-records > div.mkws-summary > a").length;
+      var numRec = $("div.mkws-records > div.mkws-summary").length;
       debug("Records should still be present. There are: " + numRec);
       expect(numRec).toBeGreaterThan(0);
     });

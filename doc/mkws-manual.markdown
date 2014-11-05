@@ -213,7 +213,7 @@ the English), initially sorts search results by title rather than
 relevance (though as always this can be changed in the UI) and makes
 the search box a bit wider than the default.
 
-The full set of supported configuration items is described in the
+The full set of supported configuration settings is described in the
 reference guide below.
 
 Per-widget configuration
@@ -221,7 +221,7 @@ Per-widget configuration
 
 In addition to the global configuration provided by the `mkws_config`
 object, individual widgets' behaviour can be configured by providing
-configuration items as attributed on their HTML elements. For example,
+configuration settings as attributes on their HTML elements. For example,
 a `records` widget might be restricted to displaying no more than
 three records by setting the `numrecs` parameter as follows:
 
@@ -238,11 +238,11 @@ attributes prefixed with `data-mkws-`, so:
 
 For first form is more convenient; the second is more correct.
 
-Because some configuration items take structured values rather than
+Because some configuration settings take structured values rather than
 simple strings, they cannot be directly provided by inline
 attributes. To allow for this, the special attribute
 `data-mkws-config`, if provided, is parsed as JSON and its key-value
-pairs set as configuration items for the widget in question. For
+pairs used as configuration settings for the widget in question. For
 example, the value of `lang_options` is an array of strings specifying
 which of the supported UI languages should be made available. The
 following invocation will limit this list to only English and Danish
@@ -267,7 +267,7 @@ etc., customised layouts may wish to treat each of these components
 separately. In this case, `mkws-results` can be omitted, and the
 following lower-level widgets provided instead:
 
-* `mkws-termlists` -- provides the facets
+* `mkws-facets` -- provides the facets
 
 * `mkws-ranking` -- provides the options for how records are sorted and
    how many are included on each page of results.
@@ -561,7 +561,7 @@ its own User Access record.
 When credential-based authentication is in use (username and
 password), it's necessary to pass these credentials into the Service
 Proxy when establishing the session. This is done 
-by setting the `sp_auth_credentials` configuration item to a string
+by providing the `sp_auth_credentials` configuration setting as a string
 containing the username and password separated by a slash:
 
 	mkws_config = { sp_auth_credentials: "mike/swordfish" };
@@ -590,9 +590,10 @@ yourname.com`:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/\
+		?command=auth&action=check,login&username=U&password=PW [P]
 
-Step 2: set the MKWS configuration item `service_proxy_auth` to
+Step 2: set the MKWS configuration setting `service_proxy_auth` to
 `http://yourname.com/spauth/`.
 
 Step 3: protect access to the local path `http://yourname.com/spauth/`
@@ -659,156 +660,370 @@ Name              Description
                   widget be subclassed to store the generated widget
                   definitions in more useful places.
 
-`button`          x
+`button`          The search button. Usually generated a `search`
+                  widget.
 
-`categories`      x
+`categories`      Obtains from the Service Proxy a list of the target
+                  categories associated with the library in use, and
+                  displays them in a drop-down list. When a category
+                  is selected, searches are limited to the targets
+                  that are part of that category.
 
-`config`          x
+`config`          This widget has no functionality of its own, but its
+                  configuration is copied up into its team, allowing
+                  it to affect other widgets in the team. This is the
+                  only way to set configuration settings at the team
+                  level.
 
 `console-builder` Like the `builder` widget, but emits the generated
                   HTML on the JavaScript console. This exists to
                   provide an example of how to subclass the `builder`
                   widget.
 
-`cover-art`       x
+`cover-art`       Displays cover art for a book by searching in
+                  Amazon. Often used with an `autosearch` attribute to
+                  indicate what book to display. For example,
+                  `<div class="mkws-cover-art" autosearch="isbn=1291177124"></div>`
+                  displays cover art for _All Yesterdays: Unique and
+                  Speculative Views of Dinosaurs and Other Prehistoric
+                  Animals_.
+                  For this widget to work, a library that includes the
+                  AmazonBooks target must be used. For example, the
+                  "DEMO AmazonBooks for MKWS" account, which can be
+                  selected with `sp_auth_credentials="mkws-amazon/mkws"`.
 
-`details`         x
+`details`         This widget is generated by the toolkit itself to
+                  hold the full details of records that are initially
+                  listed in summary form.
 
-`done`            x
+`done`            Initially empty, this widget is set to display
+                  "Search complete: found _n_ records" when all
+                  targets have completed their work, either returning
+                  a hit-count or an error. The message displayed can
+                  be changed by overriding the `done` template using
+                  `<script class="mkws-template-done" type="text/x-handlebars-template">`.
 
-`facet`           x
+`facet`           A facet that displays the frequency with which a set
+                  of terms occur within a specific field. The specific
+                  field whose contents are analysed must be specified
+                  by the widget's `facet` configuration setting, which
+                  may conveniently be done by means of the
+                  `data-mkws-facet` attribute on the HTML
+                  element. The supported facets are "subject",
+                  "author" and "xtargets" -- the latter a special case
+                  which treats the target providing a record as a
+                  facet. Most often, `facet` widgets are generated
+                  by a `facets` widget, which knows which facets are
+                  required, but they can also be placed individually.
 
-`google-image`    x
+`facets`          An area that contains a "Facets" heading and several
+                  `facet` widgets. The set of facet widgets generated
+                  is specified by the `facets` configuration setting,
+                  which may be set globally or at the level of the
+                  widget or the team. The value of this configuration
+                  setting is an array of zero or more strings, each
+                  naming a facet.
 
-`images`          x
+`google-image`    A specialisation of the `images` widget which
+                  defaults to the `Google_Images` target.
 
-`lang`            x
+`images`          A specialisation of the `records` widget which
+                  defaults to the `images` template. Unlike the default
+                  summary template, this displays an image from the
+                  URL specified by the `md-thumburl` field of each
+                  record.
 
-`log`             x
+`lang`            Provides a selection between the supported set of
+                  languages (which defaults to English, German and
+                  Danish, but can be configured by the `lang`
+                  configuration setting, whose value is an array of
+                  two-letter language codes).
 
-`lolcat`          x
+`log`             Initially empty, this widget accumulates a log of
+                  messages generated by the widget set, similar to
+                  those emitted on the JavaScript console.
 
-`motd-container`  x
+`lolcat`          A specialisation of the `google-image` widget which
+                  defaults to the search-term "kitteh" and
+                  auto-executes.
 
-`motd`            x
+`motd-container`  An empty container which the `motd` widget, if any,
+                  is moved into for initial display. Usually generated
+                  as part of the `results` widget.
 
-`navi`            x
+`motd`            May be provided, containing content to appear in the
+                  area where records will later appear. It is moved
+                  into this area (the `motd-container` widget) and
+                  initially displayed; then hidden when the first
+                  search is run. It can be used to provide a "message
+                  of the day".
 
-`pager`           x
+`navi`            Shows a list of the facets that have been selected,
+                  and allows them to be deselected.
 
-`per-page`        x
+`pager`           Shows a list of the available pages of results, and
+                  allows the user to navigate to a selected page.
 
-`progress`        x
+`per-page`        Provides a dropdown allowing the user to choose how
+                  many records should appear on each page. The
+                  available set of page-sizes can be specified as the
+                  `perpage_options` configuration setting, whose value is
+                  an array of integers. The initial selected value can
+                  be specified by the `perpage_default` configuration setting.
 
-`query`           x
+`progress`        Shows a progress bar which indicates how many of the
+                  targets have responded to the search.
 
-`ranking`         x
+`query`           The input area for a query. Usually generated a `search`
+                  widget.
 
-`record`          x
+`ranking`         The result-ranking area, consisting of a `sort`
+                  widget and a `per-page` widget. These may instead
+                  be specified separately if preferred.
 
-`records`         x
+`record`          A detailed display of a single record, usually
+                  appearing when the user clicks on a summary
+                  record. This is generated by the `records` widget.
 
-`reference`       x
+`records`         The area in which summary records appear. (Clicking
+                  on a summary record make it pop up as a detailed
+                  record.)
 
-`results`         x
+`reference`       A short summary about a subject specified by the
+                  `autosearch` configuration setting. This is created by
+                  drawing a picture and a paragraph of text from
+                  Wikipedia. To work correctly, this widget must be
+                  used in a library that provides the
+                  `wikimedia_wikipedia_single_result` target.
 
-`search-form`     x
+`results`         A large compound widget used to provide the most
+                  important results-oriented widgets in a pre-packaged
+                  framework: `facets`, `ranking`, `pager`, `navi` and
+                  `records`.
 
-`search`          x
+`search-form`     The search form, containing the query area and the
+                  button. Usually generated a `search` widget.
 
-`sort`            x
+`search`          The search box, consisting of a form containing a
+                  query area and a button.
 
-`stat`            x
+`sort`            Provides a dropdown allowing the user to choose how
+                  the displayed records should be sorted. The
+                  available set of sort criteria can be specified as the
+                  `sort_options` configuration setting, whose value is
+                  an array of two-element arrays. The first item of
+                  each sub-array is a pazpar2 sort-expression such as
+                  `data:0` and the second is a human-readable label
+                  such as `newest`. The initial selected
+                  value can be specified by the `sort_default` configuration
+                  setting.
 
-`switch`          x
+`stat`            A summary line stating how many targets remain
+                  active, how many records have been found, and how
+                  many of them have been retrieved for display. For
+                  most purposes, the `progress` widget may be
+                  preferable.
 
-`targets`         x
+`summary`         A short record, included in the list shown when a
+                  search is run. When clicked, this generally pops up
+                  a detailed `record` widget. This widget is generated
+                  by the toolkit in response to search results.
 
-`termlists`       x
+`switch`          A pair of buttons allowing the user to switch
+                  between viewing the search results (the usual case)
+                  or the target list.
+
+`targets`         A list of all targets in the present library,
+                  showing their ID, the number of records they have
+                  found for the current search, any diagnostics they
+                  have returned, the number of records that have been
+                  returned for display, and the connection state.
 ----
 
 
-Configuration object
---------------------
+Configuration settings
+----------------------
 
-The configuration object `mkws_config` may be created before including
-the MKWS JavaScript code to modify default behaviour. This structure
-is a key-value lookup table, whose entries are described in the table
-below. All entries are optional, but if specified must be given values
-of the specified type. If ommitted, each setting takes the indicated
-default value; long default values are in footnotes to keep the table
-reasonably narrow.
+Configuration settings may be provided at the level of a indiviual widget, or a team, or globally. Per-widget configuration is
+described above; per-team settings can be placed in a `config` widget belonging to the relevant team, and will be applied to that
+team as a whole; and global settings are provided in the global variable `mkws_config`. This structure is a key-value lookup
+table, and may specify the values of many settings.
+
+Some settings apply only to specific widgets; others to the behaviour of the tookit as a whole. When a widget does not itself have
+a value specified for a particular configuration setting, its team is consulted; and if that also does not have a value, the global
+settings are consulted. Only if this, too, is unspecified, is the default value used.
+
+The supported configuration settings are described in the table below. For those settings that apply only to particular widgets,
+the relevant widgets are listed. All entries are optional, but if specified must be given values of the specified type. Long
+default values are in footnotes to keep the table reasonably narrow.
 
 ----
-Element                   Type    Default   Description
---------                  -----   --------- ------------
-log_level                 int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                            datestamps, 3 = messages with datestamps and stack-traces.
+Element                   Widget    Type    Default   Description
+--------                  ------    -----   --------- ------------
+auth_hostname             _global_
 
-facets                    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
-                                            `xtargets`, `subject` and `author`.
+autosearch                facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-lang                      string  en        Code of the default language to display the UI in. Supported language codes are `en` =
-                                            English, `de` = German, `da` = Danish, and whatever additional languages are configured
-                                            using `language_*` entries (see below).
+facet                     facet
 
-lang_options              array   []        A list of the languages to offer as options. If empty (the default), then all
-                                            configured languages are listed.
+facet_caption_*           facet
 
-language_*                hash              Support for any number of languages can be added by providing entries whose name is
-                                            `language_` followed by the code of the language. See the separate section below for
-                                            details.
+facet_max_*               facet
 
-pazpar2_url               string  *Note 2*  The URL used to access the metasearch middleware. This service must be configured to
-                                            provide search results, facets, etc. It may be either unmediated or Pazpar2 the
-                                            MasterKey Service Proxy, which mediates access to an underlying Pazpar2 instance. In
-                                            the latter case, `service_proxy_auth` must be provided.
+facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
+                                                      `xtargets`, `subject` and `author`.
 
-perpage_default           string  20        The initial value for the number of records to show on each page.
+lang                      _team_    string  en        Code of the default language to display the UI in. Supported language codes
+                                                      are `en` = English, `de` = German, `da` = Danish, and whatever additional
+                                                      languages are configured using `language_*` entries (see below).
 
-perpage_options           array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine how many
-                                            records are displayed on each page of results.
+lang_options              lang      array   []        A list of the languages to offer as options. If empty (the default), then all
+                                                      configured languages are listed.
 
-query_width               int     50        The width of the query box, in characters.
+language_*                _global_  hash              Support for any number of languages can be added by providing entries whose
+                                                      name is `language_` followed by the code of the language. See the separate
+                                                      section below for details.
 
-responsive_design_width   int               If defined, then the facets display moves between two locations as the screen-width
-                                            varies, as described above. The specified number is the threshhold width, in pixels,
-                                            at which the facets move between their two locations.
+limit                     facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-service_proxy_auth        url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the beginning of each
-                                            session to authenticate the user and establish a session that encompasses a defined set
-                                            of targets to search in.
+log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+                                                      datestamps, 3 = messages with datestamps and stack-traces.
 
-service_proxy_auth_domain domain            Can be set to the domain for which `service_proxy_auth` proxies authentication, so
-                                            that cookies are rewritten to appear to be from this domain. In general, this is not
-                                            necessary, as this setting defaults to the domain of `pazpar2_url`.
+maxrecs                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-show_lang                 bool    true      Indicates whether or not to display the language menu.
+paragraphs                reference
 
-show_perpage              bool    true      Indicates whether or not to display the perpage menu.
+pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
+                                                      configured to provide search results, facets, etc. It may be either
+                                                      unmediated or Pazpar2 the MasterKey Service Proxy, which mediates access to
+                                                      an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
+                                                      be provided.
 
-show_sort                 bool    true      Indicates whether or not to display the sort menu.
+perpage                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-show_switch               bool    true      Indicates whether or not to display the switch menu, for switching between showing
-                                            retrieved records and target information.
+perpage_default           _team_    string  20        The initial value for the number of records to show on each page.
 
-sort_default              string  relevance The label of the default sort criterion to use. Must be one of those in the `sort`
-                                            array.
+perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
+                                                      how many records are displayed on each page of results.
 
-sort_options              array   *Note 6*  List of supported sort criteria. Each element of the list is itself a two-element list:
-                                            the first element of each sublist is a pazpar2 sort-expression such as `data:0` and
-                                            the second is a human-readable label such as `newest`.
+pp2_hostname              _global_
 
-use_service_proxy         bool    true      If true, then a Service Proxy is used to deliver searching services rather than raw
-                                            Pazpar2.
+pp2_path                  _global_
+
+query_width               _search_  int     50        The width of the query box, in characters.
+
+responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
+                                                      screen-width varies, as described above. The specified number is the
+                                                      threshhold width, in pixels, at which the facets move between their two
+                                                      locations.
+
+scan_all_nodes            _global_
+
+sentences                 reference
+
+service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
+                                                      beginning of each session to authenticate the user and establish a session
+                                                      that encompasses a defined set of targets to search in.
+
+service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
+                                                      authentication, so that cookies are rewritten to appear to be from this
+                                                      domain. In general, this is not necessary, as this setting defaults to the
+                                                      domain of `pazpar2_url`.
+
+show_lang                lang       bool    true      Indicates whether or not to display the language menu.
+
+show_perpage             ranking    bool    true      Indicates whether or not to display the perpage menu.
+
+show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
+
+show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
+                                                      showing retrieved records and target information.
+
+sort                      facet,
+                          facets,
+                          record,
+                          records,
+                          results
+
+sort_default              _team_    string  relevance The label of the default sort criterion to use. Must be one of those in the
+                                                      `sort` array.
+
+sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
+                                                      two-element list: the first element of each sublist is a pazpar2
+                                                      sort-expression such as `data:0` and the second is a human-readable label
+                                                      such as `newest`.
+
+sp_auth_credentials       _global_
+
+sp_auth_path              _global_
+
+sp_auth_query             _global_
+
+target                    facet,
+                          facets,
+                          record,
+                          records,
+                          results
+
+targetfilter              facet,
+                          facets,
+                          record,
+                          records,
+                          results
+
+targets                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
+
+template                  details,
+                          done,
+                          facet,
+                          facets,
+                          images,
+                          lang,
+                          navi,
+                          pager,
+                          progress,
+                          ranking,
+                          record,
+                          records,
+                          reference,
+                          results,
+                          search,
+                          stat,
+                          switch,
+                          targets
+
+text                      builder
+
+use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
+                                                      than raw Pazpar2.
 ----
 
-Perhaps we should get rid of the `show_lang`, `show_perpage`,
-`show_sort` and `show_switch` configuration items, and simply display the relevant menus
+(Perhaps we should get rid of the `show_lang`, `show_perpage`,
+`show_sort` and `show_switch` configuration settings, as we display the relevant menus
 only when their containers are provided -- e.g. an `mkws-lang` element
 for the language menu. But for now we retain these, as an easier route
-to lightly customise the display than my changing providing a full HTML
-structure.
+to lightly customise the display than by providing a full HTML
+structure.)
 
 ### Notes
 
@@ -851,7 +1066,7 @@ The following strings occurring in the UI can be translated:
 `Search`,
 `Sort by`,
 `Targets`,
-`Termlists`,
+`Facets`,
 `and show`,
 `found`,
 `of`,
@@ -890,7 +1105,7 @@ from that toolkit. The relevant lines are:
 	      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 	<div class="mkws-search"></div>
-	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_autoOpen="0">
 	  <div class="mkws-switch"></div>
 	  <div class="mkws-lang"></div>
 	  <div class="mkws-results"></div>
@@ -926,7 +1141,7 @@ In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand that structure of the HTML elements that are
 generated within the widgets. This knowledge make it possible, for example,
 to style each `<div>` with class `term` but only when it occurs inside an
-element with class `mkws-termlists`, so as to avoid inadvertently styling other
+element with class `mkws-facets`, so as to avoid inadvertently styling other
 elements using the same class in the non-MKWS parts of the page.
 
 The HTML structure is as follows. As in CSS, #ID indicates a unique identifier
