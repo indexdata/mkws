@@ -860,7 +860,7 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-auth_hostname
+auth_hostname             _global_
 
 autosearch                facet,
                           facets,
@@ -868,110 +868,153 @@ autosearch                facet,
                           records,
                           results
 
-facet
+facet                     facet
 
-facet_caption_*
+facet_caption_*           facet
 
-facet_max_*
+facet_max_*               facet
 
-facets                              array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
+facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
                                                       `xtargets`, `subject` and `author`.
 
-lang                                string  en        Code of the default language to display the UI in. Supported language codes
+lang                      _team_    string  en        Code of the default language to display the UI in. Supported language codes
                                                       are `en` = English, `de` = German, `da` = Danish, and whatever additional
                                                       languages are configured using `language_*` entries (see below).
 
-lang_options                        array   []        A list of the languages to offer as options. If empty (the default), then all
+lang_options              lang      array   []        A list of the languages to offer as options. If empty (the default), then all
                                                       configured languages are listed.
 
-language_*                          hash              Support for any number of languages can be added by providing entries whose
+language_*                _global_  hash              Support for any number of languages can be added by providing entries whose
                                                       name is `language_` followed by the code of the language. See the separate
                                                       section below for details.
 
-limit
+limit                     facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-log_level                           int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
+log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                                       datestamps, 3 = messages with datestamps and stack-traces.
 
-maxrecs
+maxrecs                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-paragraphs
+paragraphs                reference
 
-pazpar2_url                         string  *Note 2*  The URL used to access the metasearch middleware. This service must be
+pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
                                                       configured to provide search results, facets, etc. It may be either
                                                       unmediated or Pazpar2 the MasterKey Service Proxy, which mediates access to
                                                       an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
                                                       be provided.
 
-perpage
+perpage                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-perpage_default                     string  20        The initial value for the number of records to show on each page.
+perpage_default           _team_    string  20        The initial value for the number of records to show on each page.
 
-perpage_options                     array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
+perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
                                                       how many records are displayed on each page of results.
 
-pp2_hostname
+pp2_hostname              _global_
 
-pp2_path
+pp2_path                  _global_
 
-query
+query_width               _search_  int     50        The width of the query box, in characters.
 
-query_width                         int     50        The width of the query box, in characters.
-
-responsive_design_width             int               If defined, then the facets display moves between two locations as the
+responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
                                                       screen-width varies, as described above. The specified number is the
                                                       threshhold width, in pixels, at which the facets move between their two
                                                       locations.
 
-scan_all_nodes
+scan_all_nodes            _global_
 
-sentences
+sentences                 reference
 
-service_proxy_auth                  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
+service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
                                                       beginning of each session to authenticate the user and establish a session
                                                       that encompasses a defined set of targets to search in.
 
-service_proxy_auth_domain           domain            Can be set to the domain for which `service_proxy_auth` proxies
+service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
                                                       authentication, so that cookies are rewritten to appear to be from this
                                                       domain. In general, this is not necessary, as this setting defaults to the
                                                       domain of `pazpar2_url`.
 
-show_lang                           bool    true      Indicates whether or not to display the language menu.
+show_lang                lang       bool    true      Indicates whether or not to display the language menu.
 
-show_perpage                        bool    true      Indicates whether or not to display the perpage menu.
+show_perpage             ranking    bool    true      Indicates whether or not to display the perpage menu.
 
-show_sort                           bool    true      Indicates whether or not to display the sort menu.
+show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
 
-show_switch                         bool    true      Indicates whether or not to display the switch menu, for switching between
+show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
                                                       showing retrieved records and target information.
 
-sort
+sort                      facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-sort_default                        string  relevance The label of the default sort criterion to use. Must be one of those in the
+sort_default              _team_    string  relevance The label of the default sort criterion to use. Must be one of those in the
                                                       `sort` array.
 
-sort_options                        array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
+sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
                                                       two-element list: the first element of each sublist is a pazpar2
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
 
-sp_auth_credentials
+sp_auth_credentials       _global_
 
-sp_auth_path
+sp_auth_path              _global_
 
-sp_auth_query
+sp_auth_query             _global_
 
-target
+target                    facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-targetfilter
+targetfilter              facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-targets
+targets                   facet,
+                          facets,
+                          record,
+                          records,
+                          results
 
-template
+template                  details,
+                          done,
+                          facet,
+                          facets,
+                          images,
+                          lang,
+                          navi,
+                          pager,
+                          progress,
+                          ranking,
+                          record,
+                          records,
+                          reference,
+                          results,
+                          search,
+                          stat,
+                          switch,
+                          targets
 
-text
+text                      builder
 
-use_service_proxy                   bool    true      If true, then a Service Proxy is used to deliver searching services rather
+use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
                                                       than raw Pazpar2.
 ----
 
