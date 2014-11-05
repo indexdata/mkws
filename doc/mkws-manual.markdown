@@ -860,10 +860,13 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-auth_hostname             _global_  string
+auth_hostname             _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
+                                                      Service Proxy authentication URL. This need only be used when authentication
+                                                      is performed on a different host from the remaining operations (search,
+                                                      retrieve, etc.)
 
-autosearch                facet,    string
-                          facets,
+autosearch                facet,    string            If provided, this setting contains a query which is immediately run on behalf
+                          facets,                     of the team. Often used with an [indirect setting](#indirect-settings).
                           record,
                           records,
                           results
@@ -888,9 +891,9 @@ language_*                _global_  hash              Support for any number of 
                                                       name is `language_` followed by the code of the language. See the separate
                                                       section below for details.
 
-limit                     facet,    string            ### See http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html
-                          facets,
-                          record,
+limit                     facet,    string            ### See the Search section in
+                          facets,                     [the Protocol chapter of the Pazpar2 manual
+                          record,                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
                           records,
                           results
 
@@ -1039,6 +1042,9 @@ structure.)
 
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
 
+### Indirect settings
+
+FIXME !query!q, !path!2, etc.
 
 Language specification
 ----------------------
