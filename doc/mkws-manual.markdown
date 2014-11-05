@@ -590,7 +590,8 @@ yourname.com`:
 Step 1: add a rewriting authentication alias to the configuration:
 
 	RewriteEngine on
-	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=check,login&username=U&password=PW [P]
+	RewriteRule /spauth/ http://sp-mkws.indexdata.com/service-proxy/\
+		?command=auth&action=check,login&username=U&password=PW [P]
 
 Step 2: set the MKWS configuration item `service_proxy_auth` to
 `http://yourname.com/spauth/`.
@@ -1048,7 +1049,7 @@ from that toolkit. The relevant lines are:
 	      href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
 	<div class="mkws-search"></div>
-	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_modal="0" popup_autoOpen="0" popup_button="input.mkwsButton">
+	<div class="mkws-popup" popup_width="1024" popup_height="650" popup_autoOpen="0">
 	  <div class="mkws-switch"></div>
 	  <div class="mkws-lang"></div>
 	  <div class="mkws-results"></div>
