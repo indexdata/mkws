@@ -288,7 +288,7 @@ mkws.registerWidgetType('lang', function() {
   var list = [];
 
   /* display a list of configured languages, or all */
-  var lang_options = this.config.lang_options || [];
+  var lang_options = this.config.lang_options;
   var toBeIncluded = {};
   for (var i = 0; i < lang_options.length; i++) {
     toBeIncluded[lang_options[i]] = true;
