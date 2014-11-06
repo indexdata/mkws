@@ -27,8 +27,10 @@ body > p:last-of-type {
     font-size: small;
 }
 
-table { background: #ddd; border-collapse: collapse; }
+table { border-collapse: collapse; }
 tr.header { color: #fff; background: #888; }
-table, th, td { border: 1px solid #ccc; }
+tr.odd { background: #ddd }
+tr.even { background: #ccc }
+table, th, td { border: 1px solid #bbb; }
 td { vertical-align: top; }
 td, th { padding: 0.3em 0.6em; }
