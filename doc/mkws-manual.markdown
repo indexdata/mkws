@@ -871,18 +871,26 @@ autosearch                facet,    string            If provided, this setting 
                           records,
                           results
 
-facet                     facet     string
+facet                     facet     string            For a `facet` widget, this setting is mandatory, and indicates which field to
+                                                      list terms for. Three fields are supported: `subject`, `author` and
+                                                      `xtargets` -- the latter a special case which treats the target providing a
+                                                      record as a facet. Any other field may also be used, but the default caption
+                                                      and maximum term-count may not be appropriate, needing to be overridden by
+                                                      `facet_caption_*` and `facet_max_*` settings.
 
-facet_caption_*           facet     string
+facet_caption_*           facet     string            Specifies what on-screen caption is to be used for the named facet: for
+                                                      example, if a `date` facet is generated, then `facet_caption_date` can be
+                                                      used to set the caption to "Year".
 
-facet_max_*               facet     int
+facet_max_*               facet     int               Specifies how many terms are to be displayed for the named facet: for
+                                                      example, if a `publisher` facet is generated, then `facet_max_publisher` can
+                                                      be used to limit the list to the top six.
 
-facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
-                                                      `xtargets`, `subject` and `author`.
+facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
-lang                      _team_    string  en        Code of the default language to display the UI in. Supported language codes
-                                                      are `en` = English, `de` = German, `da` = Danish, and whatever additional
-                                                      languages are configured using `language_*` entries (see below).
+lang                      _team_    string  en        Two-letter ISO code of the default language to display the UI in. Supported
+                                                      language codes are `en` = English, `de` = German, `da` = Danish, and whatever
+                                                      additional languages are configured using `language_*` entries (see below).
 
 lang_options              lang      array   []        A list of the languages to offer as options. If empty (the default), then all
                                                       configured languages are listed.
