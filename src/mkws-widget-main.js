@@ -114,7 +114,6 @@ mkws.registerWidgetType('records', function() {
   this.team.queue("records").subscribe(function(data) {
     for (var i = 0; i < data.hits.length; i++) {
       var hit = data.hits[i];
-      that.team.queue("record").publish(hit);
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
       hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
       hit.containerClass = "mkws-summary mkwsSummary mkws-team-" + team.name();
