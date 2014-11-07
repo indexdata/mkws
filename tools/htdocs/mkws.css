@@ -104,6 +104,8 @@
     padding: 3px;
     font-size: 12px;
     background: #f0f8ff;
+    width: 30em;
+    max-width: 100%;
 }
 
 .mkwsTermlistsTitle, .mkws-facets-title {
