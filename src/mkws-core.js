@@ -157,7 +157,7 @@ mkws.setMkwsConfig = function(overrides) {
     pp2_hostname: "sp-mkws.indexdata.com",
     pp2_path: "service-proxy/",
     service_proxy_auth: undefined,
-    sp_auth_path: "service-proxy/",
+    sp_auth_path: undefined,
     sp_auth_query: "command=auth&action=perconfig",
     sp_auth_credentials: undefined,
     lang: "",
@@ -616,7 +616,8 @@ mkws.log("Using window.name '" + window.name + "'");
       } else {
 	var s = '//';
 	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	s += '/' + config.sp_auth_path;
+	s += '/';
+	s += config.sp_auth_path ? config.sp_auth_path : config.pp2_path;
         var q = config.sp_auth_query;
         if (q) {
           s += '?' + q;
