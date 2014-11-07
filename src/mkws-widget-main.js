@@ -100,7 +100,6 @@ mkws.registerWidgetType('details', function() {
     });
   }
   this.team.queue("record").subscribe(function(data) {
-    console.log(data);
     if ($.inArray(recid, data.recid) > -1) {
       var template = that.team.loadTemplate(that.config.template || "details");
       that.node.html(template(data));
