@@ -1071,6 +1071,10 @@ customise the display than by providing a full HTML structure.
 
 ### Indirect settings
 
+The values of any setting are generally interpreted literally. However, it is possible to specify a value indirectly -- for
+example, by reference to a query parameter -- and this is often useful in contexts such as specifying an autosearch query. FIXME
+say more.
+
 FIXME !query!q, !path!2, etc.
 
 ### Assembling Pazpar2 URLs
