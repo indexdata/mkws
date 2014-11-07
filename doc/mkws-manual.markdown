@@ -1072,10 +1072,14 @@ assembled from the two configuration sessings `pp2_hostname` and `pp2_path`. How
 endpoint must be used, that endpoint can be specified in the `pazpar2_url` setting, and that will be used instead.
 
 In the common case where Pazpar2 is accessed via the Service Proxy, an authentication call is made during initialisation. The call
-is generally made to the same endpoint as the other requests. However, 
+is generally made to the same endpoint as the other requests. However, the hostname used for authentication may if necessary be
+overridden using the `sp_auth_hostname` setting, and the path overridden by `sp_auth_path`. In any case, the value of
+`sp_auth_query` is appended; and if `sp_auth_credentials` is set, then it is used to add username and password parameters.
 
-and how `service_proxy_auth` is assembled from
-`sp_auth_hostname` or `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and `sp_auth_credentials`.
+So in the absence of any configuration added by an application, the Service Proxy authentication URL is made up of `pp2_hostname`
+(sp-mkws.indexdata.com) since `sp_auth_hostname` is undefined; and `pp2_path` (service-proxy/) since `sp_auth_path` is undefined;
+and `sp_auth_query` (command=auth&action=perconfig); and no credentials, since `sp_auth_credentials` is undefined. Therefore the
+URL `http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig` is generated.
 
 Language specification
 ----------------------
