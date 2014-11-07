@@ -155,7 +155,7 @@ mkws.setMkwsConfig = function(overrides) {
     use_service_proxy: true,
     pazpar2_url: undefined,
     pp2_hostname: "sp-mkws.indexdata.com",
-    pp2_path: "service-proxy",
+    pp2_path: "service-proxy/",
     service_proxy_auth: undefined,
     sp_auth_path: "service-proxy/",
     sp_auth_query: "command=auth&action=perconfig",
@@ -246,7 +246,7 @@ mkws.pazpar2_url = function() {
     mkws.log("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
     return mkws.config.pazpar2_url;
   } else {
-    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path + "/";
+    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path;
     mkws.log("generated pazpar2_url '" + s + "'");
     return s;
   }
