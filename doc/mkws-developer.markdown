@@ -10,7 +10,7 @@ If you are building the widget set, as opposed to just using it, you
 will need the following Debian packages (or their equivalents on your
 operating system):
 
-	$ sudo apt-get install curl git make unzip \
+	$ sudo apt-get install curl git make unzip apache2 \
 	    pandoc yui-compressor libbsd-resource-perl
 
 You also need Node.js, but unfortunately the `node-js` package is not
