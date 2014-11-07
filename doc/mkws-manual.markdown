@@ -865,7 +865,7 @@ facet_max_*               facet     int               Specifies how many terms a
 
 facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
-lang                      _team_    string            Two-letter ISO code of the default language to display the UI in. Supported
+lang                      _team_    string            The code of the default language to display the UI in. Supported
                                                       language codes are `en` = English, `de` = German, `da` = Danish, and whatever
                                                       additional languages are configured using `language_*` entries (see below).
 
