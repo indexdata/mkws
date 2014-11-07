@@ -1016,8 +1016,6 @@ template                  details,  string            Numerous widgets use Handl
                           switch,
                           targets
 
-<!--- The widget called "record" is a special-case of "records"; both also use "summary" -->
-
 text                      builder   string  "Build!"  Specifies what text to use for the Builder button.
 
 use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
