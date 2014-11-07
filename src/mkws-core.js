@@ -462,7 +462,7 @@ mkws.log("Using window.name '" + window.name + "'");
       // This is the old version, which works by telling jQuery to
       // find every node that has a class beginning with "mkws". In
       // theory it should be slower than the class-based selector; but
-      // instrumentation suprisnigly shows this is consistently
+      // instrumentation suprisingly shows this is consistently
       // faster. It also has the advantage that any widgets of
       // non-registered types are logged as warnings rather than
       // silently ignored.
