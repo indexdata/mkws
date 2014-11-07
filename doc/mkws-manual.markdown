@@ -932,15 +932,15 @@ perpage                   facet,    int               Specifies the number of re
 
 perpage_default           _team_    string  20        The initial value for the number of records to show on each page.
 
-perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
+perpage_options           ranking   array   *Note 2*  A list of candidate page sizes. Users can choose between these to determine
                                                       how many records are displayed on each page of results.
 
-pp2_hostname              _global_  string  *Note 7*  Unless overridden by the `pazpar2_url` setting, this is used together with
+pp2_hostname              _global_  string  *Note 3*  Unless overridden by the `pazpar2_url` setting, this is used together with
                                                       `pp2_path` to construct the URL to the Pazpar2 service (or Service
                                                       Proxy). Set this to connect to a service on a different host from the
                                                       default.
 
-pp2_path                  _global_  string  *Note 8*  Unless overridden by the `pazpar2_url` setting, this is used together with
+pp2_path                  _global_  string  *Note 4*  Unless overridden by the `pazpar2_url` setting, this is used together with
                                                       `pp2_hostname` to construct the URL to the Pazpar2 service (or Service
                                                       Proxy). Set this to connect to a service on a different host from the
                                                       default.
@@ -989,7 +989,7 @@ sort                      facet,    string            Specifies the order in whi
 sort_default              _team_    string  relevance The default sort criterion to use. Must be one of those in the
                                                       `sort_options` array.
 
-sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
+sort_options              ranking   array   *Note 5*  List of supported sort criteria. Each element of the list is itself a
                                                       two-element list: the first element of each sublist is a pazpar2
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
@@ -999,10 +999,10 @@ sp_auth_credentials       _global_  string            If defined, this must be a
                                                       initialisation. See the [Assembling Pazpar2 URLs](#assembling-pazpar2-urls)
                                                       section below.
 
-sp_auth_path              _global_  string  *Note 9*  Part of the URL used for authentication. See the [Assembling Pazpar2
+sp_auth_path              _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
-sp_auth_query             _global_  string  *Note 10* Part of the URL used for authentication. See the [Assembling Pazpar2
+sp_auth_query             _global_  string  *Note 7*  Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
 target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
@@ -1060,23 +1060,17 @@ structure.)
 
 1. The default for `facets` is `["xtargets", "subject", "author"]`
 
-2. FIXME unused
+2. The default for `perpage_options` is `[10, 20, 30, 50]`
 
-3. The default for `perpage_options` is `[10, 20, 30, 50]`
+3. The default for `pp2_hostname` is `"sp-mkws.indexdata.com"`
 
-4. FIXME unused
+4. The default for `pp2_path` is `"service-proxy"`
 
-5. FIXME unused
+5. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
 
-6. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
+6. The default for `sp_auth_path` is `"service-proxy/"`.
 
-7. The default for `pp2_hostname` is `"sp-mkws.indexdata.com"`
-
-8. The default for `pp2_path` is `"service-proxy"`
-
-9. The default for `sp_auth_path` is `"service-proxy/"`.
-
-10. The default for `sp_auth_query` is `"command=auth&action=perconfig"`.
+7. The default for `sp_auth_query` is `"command=auth&action=perconfig"`.
 
 ### Indirect settings
 
