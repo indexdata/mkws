@@ -1034,13 +1034,13 @@ customise the display than by providing a full HTML structure.
 
 3. The default for `pp2_hostname` is `"sp-mkws.indexdata.com"`
 
-4. The default for `pp2_path` is `"service-proxy"`
+4. The default for `pp2_path` is `"service-proxy/"`
 
 5. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
 
-6. The default for `sp_auth_path` is `"service-proxy/"`.
+6. The default for `sp_auth_path` is `"service-proxy/"`
 
-7. The default for `sp_auth_query` is `"command=auth&action=perconfig"`.
+7. The default for `sp_auth_query` is `"command=auth&action=perconfig"`
 
 ### Indirect settings
 
@@ -1069,7 +1069,14 @@ invoked from the URL `http://example.com/magic/lookup/dinosaur`
 
 ### Assembling Pazpar2 URLs
 
-FIXME describe how `pazpar2_url` is assembled from `pp2_hostname` and `pp2_path`; and how `service_proxy_auth` is assembled from
+Most of MKWS's functionality is achieved by use of the Pazpar2 middleware. This is accessed on an endpoint URL which is usually
+assembled from the two configuration sessings `pp2_hostname` and `pp2_path`. However, if for some reason an unusual Pazpar2
+endpoint must be used, that endpoint can be specified in the `pazpar2_url` setting, and that will be used instead.
+
+In the common case where Pazpar2 is accessed via the Service Proxy, an authentication call is made during initialisation. The call
+is generally made to the same endpoint as the other requests. However, 
+
+and how `service_proxy_auth` is assembled from
 `auth_hostname` or `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and `sp_auth_credentials`.
 
 Language specification
