@@ -1023,17 +1023,16 @@ targets                   facet,    string            One of three ways to selec
                           records,
                           results
 
-template                  details,  string            Numerous widgets use Handlebars templates ### say more!
-                          done,
-                          facet,
-                          facets,
-                          images,
-                          lang,
+template                  details,  string            Numerous widgets use Handlebars templates to render HTML. In general, each
+                          done,                       of these by default uses a template with the same name as the widget
+                          facet,                      itself. Individual widgets can be customised to use a template of a
+                          facets,                     different name by means of their `template` setting. The `records` widget
+                          images,                     (and `record`, an equivalent that shows only a single record) use the
+                          lang,                       `summary` template as well as the `records` template.
                           navi,
                           pager,
                           progress,
                           ranking,
-                          record,
                           records,
                           reference,
                           results,
