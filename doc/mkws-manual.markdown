@@ -914,7 +914,8 @@ maxrecs                   facet,    int               Limits the metasearching m
                           records,
                           results
 
-paragraphs                reference int               Limits the number of paragraphs rendered to the specified number.
+paragraphs                reference int               Limits the number of paragraphs rendered to the specified number. If
+                                                      omitted, there is no limit.
 
 pazpar2_url               _global_  string            If specified, this is the URL used to access the metasearch middleware. This
                                                       service must be configured to provide search results, facets, etc. It may be
@@ -925,7 +926,7 @@ pazpar2_url               _global_  string            If specified, this is the 
 
 perpage                   facet,    int               Specifies the number of records to show per page in an auto-executing
                           facets,                     widget. Contrast with `perpage_default`, which is used to prime the dropdown
-                          record,                     which which a user chooses the page-size in an interactive session.
+                          record,                     with which a user chooses the page-size in an interactive session.
                           records,
                           results
 
@@ -947,25 +948,29 @@ pp2_path                  _global_  string  *Note 8*  Unless overridden by the `
 query_width               _search_  int     50        The width of the query box, in characters.
 
 responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
-                                                      screen-width varies, as described above. The specified number is the
-                                                      threshhold width, in pixels, at which the facets move between their two
-                                                      locations.
+                                                      screen-width varies. The specified number is the threshhold width, in
+                                                      pixels, at which the facets move between their two locations. The `switch`
+                                                      and `lang` widgets also disappear entirely below this threshhold.
 
-scan_all_nodes            _global_  bool
+scan_all_nodes            _global_  bool    false     An internal setting that changes how MKWS scans the HTML documen to discover
+                                                      widgets. If set to true, a different approach is used which may be faster
+                                                      under some circumstances.
 
-sentences                 reference int               Limits the number of paragraphs rendered to the specified number.
+sentences                 reference int               Limits the number of sentences rendered to the specified number. If
+                                                      omitted, there is no limit.
 
 service_proxy_auth        _global_  url               If defined, this is the URL which, when `use_service_proxy` is true, is
                                                       fetched once at the beginning of each session to authenticate the user and
                                                       establish a session that encompasses a defined set of targets to search
                                                       in. When not defined, the URL is assembled from `auth_hostname` or
                                                       `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and
-                                                      `sp_auth_credentials`. See *Note 4* for details.
+                                                      `sp_auth_credentials`. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
-                                                      authentication, so that cookies are rewritten to appear to be from this
-                                                      domain. In general, this is not necessary, as this setting defaults to the
-                                                      domain of `pazpar2_url`.
+service_proxy_auth_domain _global_  domain            When the server used for authentication -- e.g. the one identified by the
+                                                      `service_proxy_auth` URL -- proxies for different server, this can be set to
+                                                      the domain of the server that it proxies for, so that cookies are rewritten
+                                                      to appear to be from this domain.
 
 show_lang                lang       bool    true      Indicates whether or not to display the language menu.
 
@@ -973,48 +978,52 @@ show_perpage             ranking    bool    true      Indicates whether or not t
 
 show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
 
-show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
-                                                      showing retrieved records and target information.
+show_switch              switch     bool    true      Indicates whether or not to display the switch menu.
 
-sort                      facet,    string
-                          facets,
-                          record,
-                          records,
+sort                      facet,    string            Specifies the order in which to sort the records retrieved by an
+                          facets,                     auto-executing widget. Must be one of those in the `sort_options`
+                          record,                     array. Contrast with `sort_default`, which is used to prime the dropdown
+                          records,                    with which a user chooses the sortorder in an interactive session.
                           results
 
-sort_default              _team_    string  relevance The label of the default sort criterion to use. Must be one of those in the
-                                                      `sort` array.
+sort_default              _team_    string  relevance The default sort criterion to use. Must be one of those in the
+                                                      `sort_options` array.
 
 sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
                                                       two-element list: the first element of each sublist is a pazpar2
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
 
-sp_auth_credentials       _global_  string
+sp_auth_credentials       _global_  string            If defined, this must be a slash-separated combination of username and
+                                                      password, which is sent as the authentication credentials on session
+                                                      initialisation. See the [Assembling Pazpar2 URLs](#assembling-pazpar2-urls)
+                                                      section below.
 
-sp_auth_path              _global_  string  *Note 9*
+sp_auth_path              _global_  string  *Note 9*  Part of the URL used for authentication. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-sp_auth_query             _global_  string  *Note 10*
+sp_auth_query             _global_  string  *Note 10* Part of the URL used for authentication. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-target                    facet,    string
-                          facets,
-                          record,
+target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-targetfilter              facet,    string
-                          facets,
-                          record,
+targetfilter              facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-targets                   facet,    string
-                          facets,
-                          record,
+targets                   facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-template                  details,  string
+template                  details,  string            Numerous widgets use Handlebars templates ### say more!
                           done,
                           facet,
                           facets,
@@ -1033,10 +1042,12 @@ template                  details,  string
                           switch,
                           targets
 
-text                      builder   string
+<!--- The widget called "record" is a special-case of "records"; both also use "summary" -->
+
+text                      builder   string  "Build!"  Specifies what text to use for the Builder button.
 
 use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
-                                                      than raw Pazpar2.
+                                                      than raw Pazpar2. An authentication phase is run during initialisation.
 ----
 
 (Perhaps we should get rid of the `show_lang`, `show_perpage`,
