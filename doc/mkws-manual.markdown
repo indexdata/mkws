@@ -1047,10 +1047,27 @@ customise the display than by providing a full HTML structure.
 ### Indirect settings
 
 The values of any setting are generally interpreted literally. However, it is possible to specify a value indirectly -- for
-example, by reference to a query parameter -- and this is often useful in contexts such as specifying an autosearch query. FIXME
-say more.
+example, by reference to a query parameter -- and this is often useful in contexts such as specifying an autosearch
+query. Settings of this kind have values beginning with an exclamation mark, and take the form `!`_type_`!`_value_.
 
-FIXME !query!q, !path!2, etc.
+The currently supported types are:
+
+* `param` -- uses the value of the specified query parameter for the URL. For example
+`<div class="mkws-results" autosearch="!param!term">` will auto-search for the word "sushi" if the page containing that widget is
+invoked from the URL `http://example.com/magic/example.html?term=sushi`
+
+* `path` -- uses the value of the _n_th component of the URL path, as specified by the value. For example
+`!path!3` will auto-search for the word "dinosaur" if the page containing that widget is
+invoked from the URL `http://example.com/magic/lookup/dinosaur`
+
+* `var` -- uses the value of the named JavaScript global variable. This is a very powerful and general mechanism. For example, to
+  search for the reversed value of the query parameter called `reverseTerm`, you might write a JavaScript function to do the
+  extraction and reversing, the use the HTML:
+
+<!--- Due to a bug in pandoc, we need this comment to force the following code-block to be recognised -->
+
+		<script>var _reversedParam = extractAndReverse("term");</script>
+		<div class="mkws-results" autosearch="!var!_reversedParam">
 
 ### Assembling Pazpar2 URLs
 
