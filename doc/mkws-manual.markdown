@@ -202,16 +202,14 @@ like this:
 	    lang_options: [ "en", "da" ]
 	    lang: "da",
 	    sort_default: "title",
-	    query_width: 60
 	  };
 	</script>
 	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
 This configuration restricts the set of available UI languages English
 and Danish (omitting German), sets the default to Danish (rather than
-the English), initially sorts search results by title rather than
-relevance (though as always this can be changed in the UI) and makes
-the search box a bit wider than the default.
+the English), and initially sorts search results by title rather than
+relevance (though as always this can be changed in the UI).
 
 The full set of supported configuration settings is described in the
 reference guide below.
@@ -944,8 +942,6 @@ pp2_path                  _global_  string  *Note 4*  Unless overridden by the `
                                                       `pp2_hostname` to construct the URL to the Pazpar2 service (or Service
                                                       Proxy). Set this to connect to a service on a different host from the
                                                       default.
-
-query_width               _search_  int     50        The width of the query box, in characters.
 
 responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
                                                       screen-width varies. The specified number is the threshhold width, in
