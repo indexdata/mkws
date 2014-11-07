@@ -155,17 +155,16 @@ mkws.setMkwsConfig = function(overrides) {
     use_service_proxy: true,
     pazpar2_url: undefined,
     pp2_hostname: "sp-mkws.indexdata.com",
-    pp2_path: "service-proxy",
+    pp2_path: "service-proxy/",
     service_proxy_auth: undefined,
-    sp_auth_path: "service-proxy/",
+    sp_auth_path: undefined,
     sp_auth_query: "command=auth&action=perconfig",
-    sp_auth_credentials: "XXX/XXX", // Should be undefined: see bug MKSP-125.
+    sp_auth_credentials: undefined,
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
     sort_default: "relevance",
     perpage_default: 20,
-    query_width: 50,
     show_lang: true,    /* show/hide language menu */
     show_sort: true,    /* show/hide sort menu */
     show_perpage: true, /* show/hide perpage menu */
@@ -247,7 +246,7 @@ mkws.pazpar2_url = function() {
     mkws.log("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
     return mkws.config.pazpar2_url;
   } else {
-    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path + "/";
+    var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path;
     mkws.log("generated pazpar2_url '" + s + "'");
     return s;
   }
@@ -462,7 +461,7 @@ mkws.log("Using window.name '" + window.name + "'");
       // This is the old version, which works by telling jQuery to
       // find every node that has a class beginning with "mkws". In
       // theory it should be slower than the class-based selector; but
-      // instrumentation suprisnigly shows this is consistently
+      // instrumentation suprisingly shows this is consistently
       // faster. It also has the advantage that any widgets of
       // non-registered types are logged as warnings rather than
       // silently ignored.
@@ -575,11 +574,6 @@ mkws.log("Using window.name '" + window.name + "'");
 
       log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
-      if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
-        log("reset query width to " + mkws.config.query_width);
-        mkws.config.query_width = 50;
-      }
-
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
       if (mkws.pazpar2_url().match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
@@ -621,8 +615,9 @@ mkws.log("Using window.name '" + window.name + "'");
 	return config.service_proxy_auth;
       } else {
 	var s = '//';
-	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
-	s += '/' + config.sp_auth_path;
+	s += config.sp_auth_hostname ? config.sp_auth_hostname : config.pp2_hostname;
+	s += '/';
+	s += config.sp_auth_path ? config.sp_auth_path : config.pp2_path;
         var q = config.sp_auth_query;
         if (q) {
           s += '?' + q;

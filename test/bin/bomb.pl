@@ -56,6 +56,9 @@ if ($@) {
 $SIG{ALRM} = sub {
     my $pgid = getpgrp();
 
+    warn "Alarm handler got called after $timeout seconds\n";
+    warn "Kill now the process group...\n\n";
+
     # kill process group
     kill "INT", -$pgid;
 };
@@ -66,7 +69,7 @@ $SIG{INT} = "IGNORE";
 alarm($timeout);
 
 system(@system) == 0
-  or die "system @system failed: $?";
+  or die "system('@system') failed: ?='$?', !='$!', ^E='$^E', ?='$?'";
 
 1;
 

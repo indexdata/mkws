@@ -105,7 +105,7 @@ node_modules node-modules:
 
 apache-start:
 	bin/apache-template-update
-	${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
+	umask 002; ${APACHE_HTTPD} -f `pwd`/${TMP_DIR}/jasmine-dev-${APACHE_PORT}.conf
 
 APACHE_PID_FILE=${TMP_DIR}/mkws-jasmine-${APACHE_PORT}.pid
 apache-stop:
@@ -128,7 +128,7 @@ help:
 	@echo "Examples: "
 	@echo ""
 	@echo "make phantomjs PHANTOMJS_PATH=${PHANTOMJS_PATH}"
-	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
+	@echo "DEBUG=0 APACHE_PORT=5050 make -s phantomjs PHANTOMJS_TIMEOUT=16 PHANTOMJS_PATH=${PHANTOMJS_PATH}"
 	@echo "DEBUG=2 make phantomjs PHANTOMJS_TIMEOUT=12 PHANTOMJS_URL=${PHANTOMJS_URL}"
 	@echo ""
 	@echo "make APACHE_PORT=5050 apache-start"

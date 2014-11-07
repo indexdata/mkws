@@ -10,15 +10,34 @@ detailClick - a click event handler for details
 renderedDetails - active record details rendered from the details template
 md-* - metadata fields passed through from backend
 }}
-<a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
-  <b>{{md-title}}</b>
-</a>
-{{#if md-title-remainder}}
-  <span>{{md-title-remainder}}</span>
+{{#if md-thumburl}}
+  <a class="mkws-field-thumb" href="#" onclick="{{detailClick}}">
+    <img src="{{md-thumburl.[0]}}"/>
+  </a>
 {{/if}}
-{{#if md-title-responsibility}}
-  <span><i>{{md-title-responsibility}}</i></span>
-{{/if}}
+<div class="mkws-field-data">
+  <span class="mkws-field-title">
+  <a href="#" id="{{detailLinkId}}" onclick="{{detailClick}}">
+    {{md-title}}
+  </a>
+  </span>
+  {{#if md-title-remainder}}
+    <span class="mkws-field-title-remainder">{{md-title-remainder}}</span>
+  {{/if}}
+  {{#if md-author}}
+    <span class="mkws-field-author">{{md-author}}</span>
+  {{else}}
+    {{#if md-title-responsibility}}
+      <span class="mkws-field-author">{{md-title-responsibility}}</span>
+    {{/if}}
+  {{/if}}
+  {{#if md-description}}
+    <div class="mkws-field-description">{{md-description}}</div>
+  {{/if}}
+  {{#if md-date}}
+    <span class="mkws-field-date">{{md-date}}</span>
+  {{/if}}
+</div>
 {{#if renderedDetails}}
   {{{renderedDetails}}}
 {{/if}}
