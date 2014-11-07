@@ -842,7 +842,7 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-auth_hostname             _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
+sp_auth_hostname          _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
                                                       Service Proxy authentication URL. This need only be used when authentication
                                                       is performed on a different host from the remaining operations (search,
                                                       retrieve, etc.)
@@ -937,7 +937,7 @@ sentences                 reference int               Limits the number of sente
 service_proxy_auth        _global_  url               If defined, this is the URL which, when `use_service_proxy` is true, is
                                                       fetched once at the beginning of each session to authenticate the user and
                                                       establish a session that encompasses a defined set of targets to search
-                                                      in. When not defined, the URL is assembled from `auth_hostname` or
+                                                      in. When not defined, the URL is assembled from `sp_auth_hostname` or
                                                       `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and
                                                       `sp_auth_credentials`. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
@@ -1075,7 +1075,7 @@ In the common case where Pazpar2 is accessed via the Service Proxy, an authentic
 is generally made to the same endpoint as the other requests. However, 
 
 and how `service_proxy_auth` is assembled from
-`auth_hostname` or `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and `sp_auth_credentials`.
+`sp_auth_hostname` or `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and `sp_auth_credentials`.
 
 Language specification
 ----------------------

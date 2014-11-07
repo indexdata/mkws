@@ -615,7 +615,7 @@ mkws.log("Using window.name '" + window.name + "'");
 	return config.service_proxy_auth;
       } else {
 	var s = '//';
-	s += config.auth_hostname ? config.auth_hostname : config.pp2_hostname;
+	s += config.sp_auth_hostname ? config.sp_auth_hostname : config.pp2_hostname;
 	s += '/';
 	s += config.sp_auth_path ? config.sp_auth_path : config.pp2_path;
         var q = config.sp_auth_query;
