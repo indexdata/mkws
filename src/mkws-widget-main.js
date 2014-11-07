@@ -220,7 +220,6 @@ mkws.registerWidgetType('switch', function() {
 mkws.registerWidgetType('search', function() {
   var output = {};
   output.team = this.team.name();
-  output.queryWidth = this.config.query_width;
   var template = this.team.loadTemplate(this.config.template || "search");
   this.node.html(template(output));
 });
