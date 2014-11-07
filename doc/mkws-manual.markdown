@@ -842,11 +842,6 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-sp_auth_hostname          _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
-                                                      Service Proxy authentication URL. This need only be used when authentication
-                                                      is performed on a different host from the remaining operations (search,
-                                                      retrieve, etc.)
-
 autosearch                facet,    string            If provided, this setting contains a query which is immediately run on behalf
                           facets,                     of the team. Often used with an [indirect setting](#indirect-settings).
                           record,
@@ -973,6 +968,11 @@ sp_auth_credentials       _global_  string            If defined, this must be a
                                                       password, which is sent as the authentication credentials on session
                                                       initialisation. See the [Assembling Pazpar2 URLs](#assembling-pazpar2-urls)
                                                       section below.
+
+sp_auth_hostname          _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
+                                                      Service Proxy authentication URL. This need only be used when authentication
+                                                      is performed on a different host from the remaining operations (search,
+                                                      retrieve, etc.)
 
 sp_auth_path              _global_  string            Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
