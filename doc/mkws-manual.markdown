@@ -927,11 +927,6 @@ pp2_path                  _global_  string  *Note 4*  Unless overridden by the `
                                                       Proxy). Set this to connect to a service on a different host from the
                                                       default.
 
-responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
-                                                      screen-width varies. The specified number is the threshhold width, in
-                                                      pixels, at which the facets move between their two locations. The `switch`
-                                                      and `lang` widgets also disappear entirely below this threshhold.
-
 scan_all_nodes            _global_  bool    false     An internal setting that changes how MKWS scans the HTML documen to discover
                                                       widgets. If set to true, a different approach is used which may be faster
                                                       under some circumstances.
