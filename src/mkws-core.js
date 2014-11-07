@@ -159,7 +159,7 @@ mkws.setMkwsConfig = function(overrides) {
     service_proxy_auth: undefined,
     sp_auth_path: "service-proxy/",
     sp_auth_query: "command=auth&action=perconfig",
-    sp_auth_credentials: "XXX/XXX", // Should be undefined: see bug MKSP-125.
+    sp_auth_credentials: undefined,
     lang: "",
     sort_options: [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]],
     perpage_options: [10, 20, 30, 50],
