@@ -41,7 +41,7 @@ flexibility against convenience:
   [Drupal](https://www.drupal.org/)
   sites.
 
-All of these approaches require programming to a greater or lesser
+All but the last of these approaches require programming to a greater or lesser
 extent. Against this backdrop, we introduced
 [MKWS (the MasterKey Widget Set)](http://mkws.indexdata.com/)
 -- a set of simple, very high-level HTML+CSS+JavaScript
@@ -171,22 +171,6 @@ is part of the `aux` team.
 Widgets that do not have a team specified (as in the examples above)
 are placed in the team called `AUTO`.
 
-Old and new-style class-names
------------------------------
-
-**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
-without hyphens and with second and subsequent words capitalised. So
-instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
-used to specify team names used an `mkwsTeam_` prefix (with an
-underscore). So instead of `mkws-team-foo`, it used to be
-`mkwsTeam_foo`.
-
-The 1.x series of MKWS releases recognise these old-style class-names
-as well as the canonical ones, as a facility for backwards
-compatibility. However, **these old class-names are deprecated, and
-support will be removed in v2.0**. Existing applications that use them
-should be upgraded to the new-style class names as soon as convenient.
-
 Configuring widgets
 ===================
 
@@ -202,16 +186,14 @@ like this:
 	    lang_options: [ "en", "da" ]
 	    lang: "da",
 	    sort_default: "title",
-	    query_width: 60
 	  };
 	</script>
 	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
 
 This configuration restricts the set of available UI languages English
 and Danish (omitting German), sets the default to Danish (rather than
-the English), initially sorts search results by title rather than
-relevance (though as always this can be changed in the UI) and makes
-the search box a bit wider than the default.
+the English), and initially sorts search results by title rather than
+relevance (though as always this can be changed in the UI).
 
 The full set of supported configuration settings is described in the
 reference guide below.
@@ -860,26 +842,32 @@ default values are in footnotes to keep the table reasonably narrow.
 ----
 Element                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
-auth_hostname             _global_
-
-autosearch                facet,
-                          facets,
+autosearch                facet,    string            If provided, this setting contains a query which is immediately run on behalf
+                          facets,                     of the team. Often used with an [indirect setting](#indirect-settings).
                           record,
                           records,
                           results
 
-facet                     facet
+facet                     facet     string            For a `facet` widget, this setting is mandatory, and indicates which field to
+                                                      list terms for. Three fields are supported: `subject`, `author` and
+                                                      `xtargets` -- the latter a special case which treats the target providing a
+                                                      record as a facet. Any other field may also be used, but the default caption
+                                                      and maximum term-count may not be appropriate, needing to be overridden by
+                                                      `facet_caption_*` and `facet_max_*` settings.
 
-facet_caption_*           facet
+facet_caption_*           facet     string            Specifies what on-screen caption is to be used for the named facet: for
+                                                      example, if a `date` facet is generated, then `facet_caption_date` can be
+                                                      used to set the caption to "Year".
 
-facet_max_*               facet
+facet_max_*               facet     int               Specifies how many terms are to be displayed for the named facet: for
+                                                      example, if a `publisher` facet is generated, then `facet_max_publisher` can
+                                                      be used to limit the list to the top six.
 
-facets                    _team_    array   *Note 1*  Ordered list of names of facets to display. Supported facet names are
-                                                      `xtargets`, `subject` and `author`.
+facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
-lang                      _team_    string  en        Code of the default language to display the UI in. Supported language codes
-                                                      are `en` = English, `de` = German, `da` = Danish, and whatever additional
-                                                      languages are configured using `language_*` entries (see below).
+lang                      _team_    string            Two-letter ISO code of the default language to display the UI in. Supported
+                                                      language codes are `en` = English, `de` = German, `da` = Danish, and whatever
+                                                      additional languages are configured using `language_*` entries (see below).
 
 lang_options              lang      array   []        A list of the languages to offer as options. If empty (the default), then all
                                                       configured languages are listed.
@@ -888,63 +876,71 @@ language_*                _global_  hash              Support for any number of 
                                                       name is `language_` followed by the code of the language. See the separate
                                                       section below for details.
 
-limit                     facet,
-                          facets,
-                          record,
-                          records,
-                          results
+limit                     facet,    string            Allows a partial search to be included in the specification of an
+                          facets,                     auto-executing widget. This is ANDed with the submitted query, as though it
+                          record,                     had been selected from a facet. See the Search section in [the Protocol
+                          records,                    chapter of the Pazpar2 manual
+                          results                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
 
 log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                                       datestamps, 3 = messages with datestamps and stack-traces.
 
-maxrecs                   facet,
-                          facets,
+maxrecs                   facet,    int               Limits the metasearching middleware to retrieving no more than the specified
+                          facets,                     number of records from each target.
                           record,
                           records,
                           results
 
-paragraphs                reference
+paragraphs                reference int               Limits the number of paragraphs rendered to the specified number. If
+                                                      omitted, there is no limit.
 
-pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
-                                                      configured to provide search results, facets, etc. It may be either
-                                                      unmediated or Pazpar2 the MasterKey Service Proxy, which mediates access to
-                                                      an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
-                                                      be provided.
+pazpar2_url               _global_  string            If specified, this is the URL used to access the metasearch middleware. This
+                                                      service must be configured to provide search results, facets, etc. It may be
+                                                      either unmediated Pazpar2 or the MasterKey Service Proxy, which mediates
+                                                      access to an underlying Pazpar2 instance. When not specified, the URL is
+                                                      assembled from `pp2_hostname` and `pp2_path`. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-perpage                   facet,
-                          facets,
-                          record,
+perpage                   facet,    int               Specifies the number of records to show per page in an auto-executing
+                          facets,                     widget. Contrast with `perpage_default`, which is used to prime the dropdown
+                          record,                     with which a user chooses the page-size in an interactive session.
                           records,
                           results
 
 perpage_default           _team_    string  20        The initial value for the number of records to show on each page.
 
-perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
+perpage_options           ranking   array   *Note 2*  A list of candidate page sizes. Users can choose between these to determine
                                                       how many records are displayed on each page of results.
 
-pp2_hostname              _global_
+pp2_hostname              _global_  string  *Note 3*  Unless overridden by the `pazpar2_url` setting, this is used together with
+                                                      `pp2_path` to construct the URL to the Pazpar2 service (or Service
+                                                      Proxy). Set this to connect to a service on a different host from the
+                                                      default.
 
-pp2_path                  _global_
+pp2_path                  _global_  string  *Note 4*  Unless overridden by the `pazpar2_url` setting, this is used together with
+                                                      `pp2_hostname` to construct the URL to the Pazpar2 service (or Service
+                                                      Proxy). Set this to connect to a service on a different host from the
+                                                      default.
 
-query_width               _search_  int     50        The width of the query box, in characters.
+scan_all_nodes            _global_  bool    false     An internal setting that changes how MKWS scans the HTML documen to discover
+                                                      widgets. If set to true, a different approach is used which may be faster
+                                                      under some circumstances.
 
-responsive_design_width   _global_  int               If defined, then the facets display moves between two locations as the
-                                                      screen-width varies, as described above. The specified number is the
-                                                      threshhold width, in pixels, at which the facets move between their two
-                                                      locations.
+sentences                 reference int               Limits the number of sentences rendered to the specified number. If
+                                                      omitted, there is no limit.
 
-scan_all_nodes            _global_
+service_proxy_auth        _global_  url               If defined, this is the URL which, when `use_service_proxy` is true, is
+                                                      fetched once at the beginning of each session to authenticate the user and
+                                                      establish a session that encompasses a defined set of targets to search
+                                                      in. When not defined, the URL is assembled from `sp_auth_hostname` or
+                                                      `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and
+                                                      `sp_auth_credentials`. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-sentences                 reference
-
-service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
-                                                      beginning of each session to authenticate the user and establish a session
-                                                      that encompasses a defined set of targets to search in.
-
-service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
-                                                      authentication, so that cookies are rewritten to appear to be from this
-                                                      domain. In general, this is not necessary, as this setting defaults to the
-                                                      domain of `pazpar2_url`.
+service_proxy_auth_domain _global_  domain            When the server used for authentication -- e.g. the one identified by the
+                                                      `service_proxy_auth` URL -- proxies for different server, this can be set to
+                                                      the domain of the server that it proxies for, so that cookies are rewritten
+                                                      to appear to be from this domain.
 
 show_lang                lang       bool    true      Indicates whether or not to display the language menu.
 
@@ -952,58 +948,66 @@ show_perpage             ranking    bool    true      Indicates whether or not t
 
 show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
 
-show_switch              switch     bool    true      Indicates whether or not to display the switch menu, for switching between
-                                                      showing retrieved records and target information.
+show_switch              switch     bool    true      Indicates whether or not to display the switch menu.
 
-sort                      facet,
-                          facets,
-                          record,
-                          records,
+sort                      facet,    string            Specifies the order in which to sort the records retrieved by an
+                          facets,                     auto-executing widget. Must be one of those in the `sort_options`
+                          record,                     array. Contrast with `sort_default`, which is used to prime the dropdown
+                          records,                    with which a user chooses the sortorder in an interactive session.
                           results
 
-sort_default              _team_    string  relevance The label of the default sort criterion to use. Must be one of those in the
-                                                      `sort` array.
+sort_default              _team_    string  relevance The default sort criterion to use. Must be one of those in the
+                                                      `sort_options` array.
 
-sort_options              ranking   array   *Note 6*  List of supported sort criteria. Each element of the list is itself a
+sort_options              ranking   array   *Note 5*  List of supported sort criteria. Each element of the list is itself a
                                                       two-element list: the first element of each sublist is a pazpar2
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
 
-sp_auth_credentials       _global_
+sp_auth_credentials       _global_  string            If defined, this must be a slash-separated combination of username and
+                                                      password, which is sent as the authentication credentials on session
+                                                      initialisation. See the [Assembling Pazpar2 URLs](#assembling-pazpar2-urls)
+                                                      section below.
 
-sp_auth_path              _global_
+sp_auth_hostname          _global_  string            If provided, overrides the `pp2_hostname` setting when constructing the
+                                                      Service Proxy authentication URL. This need only be used when authentication
+                                                      is performed on a different host from the remaining operations (search,
+                                                      retrieve, etc.)
 
-sp_auth_query             _global_
+sp_auth_path              _global_  string            Part of the URL used for authentication. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
-target                    facet,
-                          facets,
-                          record,
+sp_auth_query             _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
+
+target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-targetfilter              facet,
-                          facets,
-                          record,
+targetfilter              facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-targets                   facet,
-                          facets,
-                          record,
+targets                   facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+                          facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
+                          record,                     section above.
                           records,
                           results
 
-template                  details,
-                          done,
-                          facet,
-                          facets,
-                          images,
-                          lang,
+template                  details,  string            Numerous widgets use Handlebars templates to render HTML. In general, each
+                          done,                       of these by default uses a template with the same name as the widget
+                          facet,                      itself. Individual widgets can be customised to use a template of a
+                          facets,                     different name by means of their `template` setting. The `records` widget
+                          images,                     (and `record`, an equivalent that shows only a single record) use the
+                          lang,                       `summary` template as well as the `records` template.
                           navi,
                           pager,
                           progress,
                           ranking,
-                          record,
                           records,
                           reference,
                           results,
@@ -1012,33 +1016,70 @@ template                  details,
                           switch,
                           targets
 
-text                      builder
+text                      builder   string  "Build!"  Specifies what text to use for the Builder button.
 
 use_service_proxy         _global_  bool    true      If true, then a Service Proxy is used to deliver searching services rather
-                                                      than raw Pazpar2.
+                                                      than raw Pazpar2. An authentication phase is run during initialisation.
 ----
 
-(Perhaps we should get rid of the `show_lang`, `show_perpage`,
-`show_sort` and `show_switch` configuration settings, as we display the relevant menus
-only when their containers are provided -- e.g. an `mkws-lang` element
-for the language menu. But for now we retain these, as an easier route
-to lightly customise the display than by providing a full HTML
-structure.)
+The `show_lang`, `show_perpage`, `show_sort` and `show_switch` configuration settings are technically redundant, as the relevant
+widgets, like all widgets, are displayed only when they are provided. But they are retained as an easier route to lightly
+customise the display than by providing a full HTML structure.
 
 ### Notes
 
-1. ["sources", "subjects", "authors"]
+1. The default for `facets` is `["xtargets", "subject", "author"]`
 
-2. /pazpar2/search.pz2
+2. The default for `perpage_options` is `[10, 20, 30, 50]`
 
-3. [10, 20, 30, 50]
+3. The default for `pp2_hostname` is `"sp-mkws.indexdata.com"`
 
-4. http://sp-mkws.indexdata.com/service-proxy-auth
+4. The default for `pp2_path` is `"service-proxy/"`
 
-5. http://sp-mkws.indexdata.com/service-proxy/
+5. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
 
-6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
+6. The default for `sp_auth_query` is `"command=auth&action=perconfig"`
 
+### Indirect settings
+
+The values of any setting are generally interpreted literally. However, it is possible to specify a value indirectly -- for
+example, by reference to a query parameter -- and this is often useful in contexts such as specifying an autosearch
+query. Settings of this kind have values beginning with an exclamation mark, and take the form `!`_type_`!`_value_.
+
+The currently supported types are:
+
+* `param` -- uses the value of the specified query parameter for the URL. For example
+`<div class="mkws-results" autosearch="!param!term">` will auto-search for the word "sushi" if the page containing that widget is
+invoked from the URL `http://example.com/magic/example.html?term=sushi`
+
+* `path` -- uses the value of the _n_th component of the URL path, as specified by the value. For example
+`!path!3` will auto-search for the word "dinosaur" if the page containing that widget is
+invoked from the URL `http://example.com/magic/lookup/dinosaur`
+
+* `var` -- uses the value of the named JavaScript global variable. This is a very powerful and general mechanism. For example, to
+  search for the reversed value of the query parameter called `reverseTerm`, you might write a JavaScript function to do the
+  extraction and reversing, the use the HTML:
+
+<!--- Due to a bug in pandoc, we need this comment to force the following code-block to be recognised -->
+
+		<script>var _reversedParam = extractAndReverse("term");</script>
+		<div class="mkws-results" autosearch="!var!_reversedParam">
+
+### Assembling Pazpar2 URLs
+
+Most of MKWS's functionality is achieved by use of the Pazpar2 middleware. This is accessed on an endpoint URL which is usually
+assembled from the two configuration sessings `pp2_hostname` and `pp2_path`. However, if for some reason an unusual Pazpar2
+endpoint must be used, that endpoint can be specified in the `pazpar2_url` setting, and that will be used instead.
+
+In the common case where Pazpar2 is accessed via the Service Proxy, an authentication call is made during initialisation. The call
+is generally made to the same endpoint as the other requests. However, the hostname used for authentication may if necessary be
+overridden using the `sp_auth_hostname` setting, and the path overridden by `sp_auth_path`. In any case, the value of
+`sp_auth_query` is appended; and if `sp_auth_credentials` is set, then it is used to add username and password parameters.
+
+So in the absence of any configuration added by an application, the Service Proxy authentication URL is made up of `pp2_hostname`
+(sp-mkws.indexdata.com) since `sp_auth_hostname` is undefined; and `pp2_path` (service-proxy/) since `sp_auth_path` is undefined;
+and `sp_auth_query` (command=auth&action=perconfig); and no credentials, since `sp_auth_credentials` is undefined. Therefore the
+URL `http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=perconfig` is generated.
 
 Language specification
 ----------------------
@@ -1203,6 +1244,30 @@ and .CLASS indicates an instance of a class.
 	  span.head
 	  span.clients
 	  span.records
+
+
+Appendix: compatibility roadmap
+===============================
+
+FIXME: more to write here.
+
+
+Old and new-style class-names
+-----------------------------
+
+**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
+without hyphens and with second and subsequent words capitalised. So
+instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
+used to specify team names used an `mkwsTeam_` prefix (with an
+underscore). So instead of `mkws-team-foo`, it used to be
+`mkwsTeam_foo`.
+
+The 1.x series of MKWS releases recognise these old-style class-names
+as well as the canonical ones, as a facility for backwards
+compatibility. However, **these old class-names are deprecated, and
+support will be removed in v2.0**. Existing applications that use them
+should be upgraded to the new-style class names as soon as convenient.
+
 
 - - -
 

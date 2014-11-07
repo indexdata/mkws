@@ -100,7 +100,6 @@ mkws.registerWidgetType('details', function() {
     });
   }
   this.team.queue("record").subscribe(function(data) {
-    console.log(data);
     if ($.inArray(recid, data.recid) > -1) {
       var template = that.team.loadTemplate(that.config.template || "details");
       that.node.html(template(data));
@@ -115,7 +114,6 @@ mkws.registerWidgetType('records', function() {
   this.team.queue("records").subscribe(function(data) {
     for (var i = 0; i < data.hits.length; i++) {
       var hit = data.hits[i];
-      that.team.queue("record").publish(hit);
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
       hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
       hit.containerClass = "mkws-summary mkwsSummary mkws-team-" + team.name();
@@ -222,7 +220,6 @@ mkws.registerWidgetType('switch', function() {
 mkws.registerWidgetType('search', function() {
   var output = {};
   output.team = this.team.name();
-  output.queryWidth = this.config.query_width;
   var template = this.team.loadTemplate(this.config.template || "search");
   this.node.html(template(output));
 });
@@ -288,7 +285,7 @@ mkws.registerWidgetType('lang', function() {
   var list = [];
 
   /* display a list of configured languages, or all */
-  var lang_options = this.config.lang_options || [];
+  var lang_options = this.config.lang_options;
   var toBeIncluded = {};
   for (var i = 0; i < lang_options.length; i++) {
     toBeIncluded[lang_options[i]] = true;
