@@ -41,7 +41,7 @@ flexibility against convenience:
   [Drupal](https://www.drupal.org/)
   sites.
 
-All of these approaches require programming to a greater or lesser
+All but the last of these approaches require programming to a greater or lesser
 extent. Against this backdrop, we introduced
 [MKWS (the MasterKey Widget Set)](http://mkws.indexdata.com/)
 -- a set of simple, very high-level HTML+CSS+JavaScript
@@ -170,22 +170,6 @@ is part of the `aux` team.
 
 Widgets that do not have a team specified (as in the examples above)
 are placed in the team called `AUTO`.
-
-Old and new-style class-names
------------------------------
-
-**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
-without hyphens and with second and subsequent words capitalised. So
-instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
-used to specify team names used an `mkwsTeam_` prefix (with an
-underscore). So instead of `mkws-team-foo`, it used to be
-`mkwsTeam_foo`.
-
-The 1.x series of MKWS releases recognise these old-style class-names
-as well as the canonical ones, as a facility for backwards
-compatibility. However, **these old class-names are deprecated, and
-support will be removed in v2.0**. Existing applications that use them
-should be upgraded to the new-style class names as soon as convenient.
 
 Configuring widgets
 ===================
@@ -1241,6 +1225,30 @@ and .CLASS indicates an instance of a class.
 	  span.head
 	  span.clients
 	  span.records
+
+
+Appendix: compatibility roadmap
+===============================
+
+FIXME: more to write here.
+
+
+Old and new-style class-names
+-----------------------------
+
+**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
+without hyphens and with second and subsequent words capitalised. So
+instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
+used to specify team names used an `mkwsTeam_` prefix (with an
+underscore). So instead of `mkws-team-foo`, it used to be
+`mkwsTeam_foo`.
+
+The 1.x series of MKWS releases recognise these old-style class-names
+as well as the canonical ones, as a facility for backwards
+compatibility. However, **these old class-names are deprecated, and
+support will be removed in v2.0**. Existing applications that use them
+should be upgraded to the new-style class names as soon as convenient.
+
 
 - - -
 
