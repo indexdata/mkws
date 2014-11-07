@@ -574,11 +574,6 @@ mkws.log("Using window.name '" + window.name + "'");
 
       log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
-      if (mkws.config.query_width < 5 || mkws.config.query_width > 150) {
-        log("reset query width to " + mkws.config.query_width);
-        mkws.config.query_width = 50;
-      }
-
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
       if (mkws.pazpar2_url().match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
