@@ -1100,36 +1100,55 @@ in the specified language. For example:
 	}
 
 The following strings occurring in the UI can be translated:
-`Displaying`,
-`Next`,
-`Prev`,
-`Records`,
-`Search`,
-`Sort by`,
-`Targets`,
-`Facets`,
-`and show`,
-`found`,
-`of`,
-`per page`
-and
-`to`.
+
+* `Search complete: found`
+* `records`
+* `Displaying`
+* `to`
+* `of`
+* `found`
+* `Prev`
+* `Next`
+* `Sort by`
+* `and show`
+* `per page`
+* `Search`
+* `Active clients`
+* `Retrieved records`
+* `Records`
+* `Targets`
+* `Target ID`
+* `Hits`
+* `Diags`
+* `Records`
+* `State`
 
 In addition, facet names can be translated:
-`Authors`,
-`Sources`
-and
-`Subjects`.
+
+* `Authors`
+* `Sources`
+* `Subjects`
+
+and whatever field captions are defined by `facet_caption_*` settings.
+
+And sort-orders:
+
+* `relevance`
+* `title`
+* `newest`
+* `oldest`
+
+and whatever sort-orders are defined by the `sort_options` setting.
 
 Finally, the names of fields in the full-record display can be
 translated. These include, but may not be limited to:
-`Title`,
-`Date`,
-`Author`,
-`Links`,
-`Subject`
-and
-`Locations`.
+
+* `Title`
+* `Date`
+* `Author`
+* `Links`
+* `Subject`
+* `Locations`
 
 jQuery UI popup invocation
 --------------------------
