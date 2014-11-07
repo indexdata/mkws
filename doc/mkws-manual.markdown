@@ -1049,12 +1049,9 @@ use_service_proxy         _global_  bool    true      If true, then a Service Pr
                                                       than raw Pazpar2. An authentication phase is run during initialisation.
 ----
 
-(Perhaps we should get rid of the `show_lang`, `show_perpage`,
-`show_sort` and `show_switch` configuration settings, as we display the relevant menus
-only when their containers are provided -- e.g. an `mkws-lang` element
-for the language menu. But for now we retain these, as an easier route
-to lightly customise the display than by providing a full HTML
-structure.)
+The `show_lang`, `show_perpage`, `show_sort` and `show_switch` configuration settings are technically redundant, as the relevant
+widgets, like all widgets, are displayed only when they are provided. But they are retained as an easier route to lightly
+customise the display than by providing a full HTML structure.
 
 ### Notes
 
