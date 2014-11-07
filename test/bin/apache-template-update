@@ -28,9 +28,6 @@ case $(uname) in
   Linux )  MKWS_OS=debian
 	   if [ -e /etc/debian_version ]; then
 		MKWS_OS=debian
-                if $apache2 -v | egrep -q 'Server version: Apache/2\.4\.'; then
-                    APACHE_VERSION=2.4
-	   	fi
 	   fi
 	   if [ -e /etc/redhat-release ]; then
 		MKWS_OS=centos
@@ -38,6 +35,10 @@ case $(uname) in
 	   ;;
   * ) MKWS_OS=debian ;;
 esac
+
+if $apache2 -v | egrep -q 'Server version: Apache/2\.4\.'; then
+    APACHE_VERSION=2.4
+fi
 
 
 if [ "$APACHE_VERSION" = "2.4" ]; then
