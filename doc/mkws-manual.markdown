@@ -920,7 +920,8 @@ pazpar2_url               _global_  string            If specified, this is the 
                                                       service must be configured to provide search results, facets, etc. It may be
                                                       either unmediated Pazpar2 or the MasterKey Service Proxy, which mediates
                                                       access to an underlying Pazpar2 instance. When not specified, the URL is
-                                                      assembled from `pp2_hostname` and `pp2_path`. See *Note 2*
+                                                      assembled from `pp2_hostname` and `pp2_path`. See the [Assembling Pazpar2
+                                                      URLs](#assembling-pazpar2-urls) section below.
 
 perpage                   facet,    int               Specifies the number of records to show per page in an auto-executing
                           facets,                     widget. Contrast with `perpage_default`, which is used to prime the dropdown
@@ -1049,12 +1050,11 @@ structure.)
 
 1. ["xtargets", "subject", "author"]
 
-2. ### describe how `pazpar2_url` is assembled from `pp2_hostname` and `pp2_path`.
+2. ### unused
 
 3. [10, 20, 30, 50]
 
-4. ### describe how `service_proxy_auth` is assembled from `auth_hostname` or `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and
-`sp_auth_credentials`.
+4. ### unused
 
 5. "http://sp-mkws.indexdata.com/service-proxy/"
 
@@ -1071,6 +1071,11 @@ structure.)
 ### Indirect settings
 
 FIXME !query!q, !path!2, etc.
+
+### Assembling Pazpar2 URLs
+
+FIXME describe how `pazpar2_url` is assembled from `pp2_hostname` and `pp2_path`; and how `service_proxy_auth` is assembled from
+`auth_hostname` or `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and `sp_auth_credentials`.
 
 Language specification
 ----------------------
