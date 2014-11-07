@@ -888,7 +888,7 @@ facet_max_*               facet     int               Specifies how many terms a
 
 facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
-lang                      _team_    string  en        Two-letter ISO code of the default language to display the UI in. Supported
+lang                      _team_    string            Two-letter ISO code of the default language to display the UI in. Supported
                                                       language codes are `en` = English, `de` = German, `da` = Danish, and whatever
                                                       additional languages are configured using `language_*` entries (see below).
 
@@ -899,32 +899,32 @@ language_*                _global_  hash              Support for any number of 
                                                       name is `language_` followed by the code of the language. See the separate
                                                       section below for details.
 
-limit                     facet,    string            ### See the Search section in
-                          facets,                     [the Protocol chapter of the Pazpar2 manual
-                          record,                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
-                          records,
-                          results
+limit                     facet,    string            Allows a partial search to be included in the specification of an
+                          facets,                     auto-executing widget. This is ANDed with the submitted query, as though it
+                          record,                     had been selected from a facet. See the Search section in [the Protocol
+                          records,                    chapter of the Pazpar2 manual
+                          results                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
 
 log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
                                                       datestamps, 3 = messages with datestamps and stack-traces.
 
-maxrecs                   facet,    int
-                          facets,
+maxrecs                   facet,    int               Limits the metasearching middleware to retrieving no more than the specified
+                          facets,                     number of records from each target.
                           record,
                           records,
                           results
 
-paragraphs                reference int
+paragraphs                reference int               Limits the number of paragraphs rendered to the specified number.
 
-pazpar2_url               _global_  string  *Note 2*  The URL used to access the metasearch middleware. This service must be
-                                                      configured to provide search results, facets, etc. It may be either
-                                                      unmediated or Pazpar2 the MasterKey Service Proxy, which mediates access to
-                                                      an underlying Pazpar2 instance. In the latter case, `service_proxy_auth` must
-                                                      be provided.
+pazpar2_url               _global_  string            If specified, this is the URL used to access the metasearch middleware. This
+                                                      service must be configured to provide search results, facets, etc. It may be
+                                                      either unmediated Pazpar2 or the MasterKey Service Proxy, which mediates
+                                                      access to an underlying Pazpar2 instance. When not specified, the URL is
+                                                      assembled from `pp2_hostname` and `pp2_path`. See *Note 2*
 
-perpage                   facet,    int
-                          facets,
-                          record,
+perpage                   facet,    int               Specifies the number of records to show per page in an auto-executing
+                          facets,                     widget. Contrast with `perpage_default`, which is used to prime the dropdown
+                          record,                     which which a user chooses the page-size in an interactive session.
                           records,
                           results
 
@@ -933,9 +933,15 @@ perpage_default           _team_    string  20        The initial value for the 
 perpage_options           ranking   array   *Note 3*  A list of candidate page sizes. Users can choose between these to determine
                                                       how many records are displayed on each page of results.
 
-pp2_hostname              _global_  string
+pp2_hostname              _global_  string  *Note 7*  Unless overridden by the `pazpar2_url` setting, this is used together with
+                                                      `pp2_path` to construct the URL to the Pazpar2 service (or Service
+                                                      Proxy). Set this to connect to a service on a different host from the
+                                                      default.
 
-pp2_path                  _global_  string
+pp2_path                  _global_  string  *Note 8*  Unless overridden by the `pazpar2_url` setting, this is used together with
+                                                      `pp2_hostname` to construct the URL to the Pazpar2 service (or Service
+                                                      Proxy). Set this to connect to a service on a different host from the
+                                                      default.
 
 query_width               _search_  int     50        The width of the query box, in characters.
 
@@ -946,11 +952,14 @@ responsive_design_width   _global_  int               If defined, then the facet
 
 scan_all_nodes            _global_  bool
 
-sentences                 reference int
+sentences                 reference int               Limits the number of paragraphs rendered to the specified number.
 
-service_proxy_auth        _global_  url     *Note 4*  A URL which, when `use_service_proxy` is true, is fetched once at the
-                                                      beginning of each session to authenticate the user and establish a session
-                                                      that encompasses a defined set of targets to search in.
+service_proxy_auth        _global_  url               If defined, this is the URL which, when `use_service_proxy` is true, is
+                                                      fetched once at the beginning of each session to authenticate the user and
+                                                      establish a session that encompasses a defined set of targets to search
+                                                      in. When not defined, the URL is assembled from `auth_hostname` or
+                                                      `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and
+                                                      `sp_auth_credentials`. See *Note 4* for details.
 
 service_proxy_auth_domain _global_  domain            Can be set to the domain for which `service_proxy_auth` proxies
                                                       authentication, so that cookies are rewritten to appear to be from this
@@ -982,9 +991,9 @@ sort_options              ranking   array   *Note 6*  List of supported sort cri
 
 sp_auth_credentials       _global_  string
 
-sp_auth_path              _global_  string
+sp_auth_path              _global_  string  *Note 9*
 
-sp_auth_query             _global_  string
+sp_auth_query             _global_  string  *Note 10*
 
 target                    facet,    string
                           facets,
@@ -1038,17 +1047,26 @@ structure.)
 
 ### Notes
 
-1. ["sources", "subjects", "authors"]
+1. ["xtargets", "subject", "author"]
 
-2. /pazpar2/search.pz2
+2. ### describe how `pazpar2_url` is assembled from `pp2_hostname` and `pp2_path`.
 
 3. [10, 20, 30, 50]
 
-4. http://sp-mkws.indexdata.com/service-proxy-auth
+4. ### describe how `service_proxy_auth` is assembled from `auth_hostname` or `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and
+`sp_auth_credentials`.
 
-5. http://sp-mkws.indexdata.com/service-proxy/
+5. "http://sp-mkws.indexdata.com/service-proxy/"
 
 6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
+
+7. "sp-mkws.indexdata.com"
+
+8. "service-proxy"
+
+9. The default for `sp_auth_path` is `"service-proxy/"`.
+
+10. The default for `sp_auth_query` is `"command=auth&action=perconfig"`.
 
 ### Indirect settings
 
