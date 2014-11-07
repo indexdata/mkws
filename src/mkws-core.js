@@ -165,7 +165,6 @@ mkws.setMkwsConfig = function(overrides) {
     perpage_options: [10, 20, 30, 50],
     sort_default: "relevance",
     perpage_default: 20,
-    query_width: 50,
     show_lang: true,    /* show/hide language menu */
     show_sort: true,    /* show/hide sort menu */
     show_perpage: true, /* show/hide perpage menu */
