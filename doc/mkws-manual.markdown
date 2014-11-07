@@ -1060,11 +1060,11 @@ structure.)
 
 1. ["xtargets", "subject", "author"]
 
-2. ### unused
+2. FIXME unused
 
 3. [10, 20, 30, 50]
 
-4. ### unused
+4. FIXME unused
 
 5. "http://sp-mkws.indexdata.com/service-proxy/"
 
