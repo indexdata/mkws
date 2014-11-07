@@ -1123,14 +1123,13 @@ and
 
 Finally, the names of fields in the full-record display can be
 translated. These include, but may not be limited to:
-`Author`,
+`Title`,
 `Date`,
-`Location`,
+`Author`,
+`Links`,
 `Subject`
 and
-`Title`.
-
-
+`Locations`.
 
 jQuery UI popup invocation
 --------------------------
