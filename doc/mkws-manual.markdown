@@ -938,7 +938,7 @@ service_proxy_auth        _global_  url               If defined, this is the UR
                                                       fetched once at the beginning of each session to authenticate the user and
                                                       establish a session that encompasses a defined set of targets to search
                                                       in. When not defined, the URL is assembled from `auth_hostname` or
-                                                      `pp2_hostname`, `sp_auth_path`, `sp_auth_query` and
+                                                      `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and
                                                       `sp_auth_credentials`. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
@@ -974,10 +974,10 @@ sp_auth_credentials       _global_  string            If defined, this must be a
                                                       initialisation. See the [Assembling Pazpar2 URLs](#assembling-pazpar2-urls)
                                                       section below.
 
-sp_auth_path              _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
+sp_auth_path              _global_  string            Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
-sp_auth_query             _global_  string  *Note 7*  Part of the URL used for authentication. See the [Assembling Pazpar2
+sp_auth_query             _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
 target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
@@ -1038,9 +1038,7 @@ customise the display than by providing a full HTML structure.
 
 5. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
 
-6. The default for `sp_auth_path` is `"service-proxy/"`
-
-7. The default for `sp_auth_query` is `"command=auth&action=perconfig"`
+6. The default for `sp_auth_query` is `"command=auth&action=perconfig"`
 
 ### Indirect settings
 
