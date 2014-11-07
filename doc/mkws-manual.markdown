@@ -1058,21 +1058,21 @@ structure.)
 
 ### Notes
 
-1. ["xtargets", "subject", "author"]
+1. The default for `facets` is `["xtargets", "subject", "author"]`
 
 2. FIXME unused
 
-3. [10, 20, 30, 50]
+3. The default for `perpage_options` is `[10, 20, 30, 50]`
 
 4. FIXME unused
 
-5. "http://sp-mkws.indexdata.com/service-proxy/"
+5. FIXME unused
 
-6. [["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]
+6. The default for `sort_options` is `[["relevance"], ["title:1", "title"], ["date:0", "newest"], ["date:1", "oldest"]]`
 
-7. "sp-mkws.indexdata.com"
+7. The default for `pp2_hostname` is `"sp-mkws.indexdata.com"`
 
-8. "service-proxy"
+8. The default for `pp2_path` is `"service-proxy"`
 
 9. The default for `sp_auth_path` is `"service-proxy/"`.
 
