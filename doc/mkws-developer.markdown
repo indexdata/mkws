@@ -1,6 +1,6 @@
 % The MasterKey Widget Set developer's guide
 % Mike Taylor
-% 11 August 2014
+% November 2014
 
 
 Required development tools
