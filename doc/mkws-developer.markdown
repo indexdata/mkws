@@ -3,12 +3,23 @@
 % November 2014
 
 
+Introduction
+============
+
+This manual is for people who want to build the widget set from
+source, develop the widget set's core code, or (more likely) create
+their own widgets as extensions to the main set.
+
+Those who want to use existing widgets should read
+[The MKWS manual: embedded metasearching with the MasterKey Widget
+Set](mkws-manual.html) instead.
+
+
 Required development tools
 ==========================
 
-If you are building the widget set, as opposed to just using it, you
-will need the following Debian packages (or their equivalents on your
-operating system):
+If you are building the widget set, you will need the following Debian
+packages (or their equivalents on your operating system):
 
 	$ sudo apt-get install curl git make unzip apache2 \
 	    pandoc yui-compressor libbsd-resource-perl
@@ -19,11 +30,6 @@ wheezy-backports or download the source from
 http://nodejs.org/download/ and build it yourself. You need both Node
 itself and its package manager NPM: `make install` puts them into
 `/usr/local/bin`.
-
-To compile the default templates you'll need to install the stable
-version of Handlebars. Currently it's at 2.0.0 and available by npm:
-
-	$ npm install handlebars@2.0.0 -g
 
 
 Overview
