@@ -1,6 +1,6 @@
 % MKWS: the MasterKey Widget Set
 % Mike Taylor
-% October 2014
+% November 2014
 
 
 Add metasearching to your web-site painlessly
