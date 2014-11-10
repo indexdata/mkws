@@ -1155,9 +1155,9 @@ jQuery UI popup invocation
 
 The MasterKey Widget Set can be invoked in a popup window on top of the page.
 
-Note that when using the `popup` layout, facilities from the jQuery UI
-toolkit are used, so it's necessary to include both CSS and JavaScript
-from that toolkit. The relevant lines are:
+Note that the `popup` widget uses facilities from the jQuery UI, so
+it's necessary to include both CSS and JavaScript from that
+toolkit. The relevant lines are:
 
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
 	<link rel="stylesheet" type="text/css"
@@ -1179,15 +1179,16 @@ The properties of the `popup` widget are as follows:
 ----
 Element         Type    Default             Description
 --------        -----   -------             ------------
-popup_width     string  880                 Width of the popup window, in pixels.
+popup_width     int     880                 Width of the popup window, in pixels.
 
-popup_height    string  760                 Height of the popup window, in pixels.
+popup_height    int     760                 Height of the popup window, in pixels.
 
-popup_button    string  `input.mkwsButton`  A click on this selector will trigger the popup to open
+popup_button    string  `input.mkwsButton`  A jQuery selector identifying the element which, which clicked, pops up the window.
 
-popup_modal     string  0                   Modal confirmation mode. Valid values are 0 or 1
+popup_modal     bool    0                   Indicates whether the popup is modal (blocks access to the background page until
+                                            dismissed). Set to 1 if a modal popup is required.
 
-popup_autoOpen  string  1                   Open popup window on load. Valid values are 0 or 1
+popup_autoOpen  bool    1                   Indictaes whether to pop up the window automatically when the page is loaded.
 
 ----
 
