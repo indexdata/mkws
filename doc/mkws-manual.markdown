@@ -1266,18 +1266,26 @@ more instances; a trailing `?` indicates zero or one instance.
 Appendix: compatibility roadmap
 ===============================
 
-FIXME: more to write here.
+Wherever possible, we ensure that all functional changes in MKWS are
+backwards-compatible, so that applications written against old versions of the
+toolkit will continue to work when running against newer versions.
+
+However, a few aspects of functionality unavoidably change in backwards
+incompatible ways. We ensure that **this only happens with new major
+versions** -- so it should _always_ be safe to upgrade to a new minor version.
+As an aid to porting old applications, we here note the specific
+backwards-incompatible changes in the various major releases, and those
+planned for future major releases.
 
 
-Old and new-style class-names
------------------------------
+Major version 1.x
+-----------------
 
-**NOTE.** Versions of MKWS before v1.0 used camel-case class-names:
-without hyphens and with second and subsequent words capitalised. So
-instead of `mkws-search`, it used to be `mkwsSearch`. And the classes
-used to specify team names used an `mkwsTeam_` prefix (with an
-underscore). So instead of `mkws-team-foo`, it used to be
-`mkwsTeam_foo`.
+Versions of MKWS before v1.0 (including the only prior release, v0.9.1) used
+camel-case class-names: without hyphens and with second and subsequent words
+capitalised. So instead of `mkws-search`, it used to be `mkwsSearch`. And the
+classes used to specify team names used an `mkwsTeam_` prefix (with an
+underscore). So instead of `mkws-team-foo`, it used to be `mkwsTeam_foo`.
 
 The 1.x series of MKWS releases recognise these old-style class-names
 as well as the canonical ones, as a facility for backwards
