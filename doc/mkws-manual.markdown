@@ -1,6 +1,6 @@
 % The MKWS manual: embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% October 2014
+% November 2014
 
 
 Introduction
