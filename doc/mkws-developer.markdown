@@ -87,29 +87,30 @@ Defining new types of widget
 ----------------------------
 
 Development with MKWS consists primarily of defining new types of
-widgets. These can interact with the core functionality is several
-defined ways.
+widgets. This is done using exactly the same API as the the widgets
+that come as part of the set: they have no privileged access.
 
 You create a new widget type by calling the `mkws.registerWidgetType`
 function, passing in the widget name and a function. The name is used
 to recognise HTML elements as being widgets of this type -- for
-example, if you register a `Foo` widget, elements like
-`<div class="mkwsFoo">` will be widgets of this type.
+example, if you register a `foo` widget, elements like
+`<div class="mkws-foo">` will become widgets of this type.
 
-The function promotes a bare widget object (passed as `this`) into a
+The function promotes a bare widget object (which is created by the
+core widget code and passed in as `this`) into a
 widget of the appropriate type. MKWS doesn't use classes or explicit
 prototypes: it just makes objects that have the necessary
 behaviours. There are _no_ behaviours that Widgets are obliged to
 provide: you can make a doesn't-do-anything-at-all widget if you like:
 
-	mkws.registerWidgetType('Sluggard', function() {});
+	mkws.registerWidgetType('sluggard', function() {});
 
 More commonly, widgets will subscribe to one or more events, so that
 they're notified when something interesting happens. For example, the
-`Log` widget asks to be notified when a `log` event happens, and
+`log` widget asks to be notified when a `log` event happens, and
 appends the logged message to its node, as follows:
 
-	mkws.registerWidgetType('Log', function() {
+	mkws.registerWidgetType('log', function() {
 	  var that = this;
 
 	  this.team.queue("log").subscribe(function(teamName, timestamp, message) {
@@ -131,11 +132,11 @@ This simple widget illustrates several important points:
 * You can add functionality to a widget by subscribing it to an
   event's queue using `this.team.queue("EVENT").subscribe`. The
   argument is a function which is called whenever the event is
-  published. The arguments to the function are different for different
-  events.
+  published. The arguments to the event-callback function are
+  different for different events.
 
 * As with so much JavaScript programming, the value of the special
-  variable `this` is lost inside the `subscribez` callback function,
+  variable `this` is lost inside the `subscribe` callback function,
   so it must be saved if it's to be used inside that callback
   (typically as a local variable named `that`).
 
