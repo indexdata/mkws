@@ -79,11 +79,6 @@ $(DEST)/${PP2_FILE}:
 	curl -sSf "${PP2_URL}" -o $@.tmp
 	mv -f $@.tmp $@
 
-$(DEST)/%: %
-	rm -f $@
-	cp $? $@
-	chmod 444 $@
-
 release: $(RELEASABLE)
 	@if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
