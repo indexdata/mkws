@@ -32,11 +32,59 @@ itself and its package manager NPM: `make install` puts them into
 `/usr/local/bin`.
 
 
-Overview
+Concepts
 ========
 
-Core concepts
--------------
+Code structure
+--------------
+
+The code of the widget set is in four main layers, described here from
+the bottom up:
+
+1. The core code, which manages the set of widget teams, default
+options, authentication onto the Service Proxy, and the creation of
+widgets from HTML elements.
+This code is in `mkws-core.js`
+
+2. The team code, which manages teams of widgets. This is responsible
+for the collections of widgets that make up teams, event queues, and
+handling search-and-retrieval events
+This code is in `mkws-team.js`
+
+3. The generic widget code, which handles the creation of widget
+objects, parsing configuration attributes from their HTML elements,
+and firing off automatic searches.
+
+4. The code for individual widgets, which is specific to those
+widgets. It often involves subscribing to events and responding to
+them by setting the HTML of the widget element, but need not do
+so. The code for many of the most important widgets is in
+`mkws-widget-main.js`, but certain other widgets are defined in other
+files beginning with the prefix `mkws-widget-`.
+
+In addition to this code, there are several source files containing
+support code:
+
+* `mkws-filter.js` contains support routine implementing the
+filter-set data structure, which contains information about which
+filters (e.g. by target, or by facet) are in force.
+
+* `mkws-handlebars.js` contains Handlebars helpers which can be used
+by the HTML templates.
+
+* `mkws-popup.js` defines a special widget for creating popup
+  windows. These may, but need not, contain other MKWS widgets,
+  forming a popup searching application.
+
+The final component of the source code is the set of Handlebars
+templates, in the `templates` directory, which are used to emit the
+HTML of the various widgets' contents. These are compiled into the
+file `mkws-templates.js`.
+
+
+
+Defining new types of widget
+----------------------------
 
 Development with MKWS consists primarily of defining new types of
 widgets. These can interact with the core functionality is several
