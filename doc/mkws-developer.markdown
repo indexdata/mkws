@@ -256,14 +256,16 @@ properties.
 * `String team.currentRecordData()`
 
 These are all simple accessor functions that provide the ability to
-read properties of the team.
+read properties of the team. `submitted` is initially false, then
+becomes true when the first search is submitted (manually or
+automatically).
 
 * `Array team.filters()` --
 	Another accessor function, providing access to the array of
 	prevailing filters (which narrow the search results by means
 	of Pazpar2 filters and limits). This is really too complicated
 	an object for the widgets to be given access to, but it's
-	convenient to do it this way. If you must insist on using
+	convenient to do it this way. If you have a reason for using
 	this, see the `Navi` widget, which is the only place it's used.
 
 * `Bool team.targetFiltered(targetId)` --
@@ -272,23 +274,27 @@ read properties of the team.
 	and there is probably no reason for you to use it.
 
 * `Hash team.config()` --
-	Access to the team's configuration settings. There is almost
-	certainly no reason to use this: the settings that haven't
+	Access to the team's configuration settings. There is
+	rarely a need to use this: the settings that haven't
 	been overridden are accessible via `this.config`.
 
 * `Void team.set_sortOrder(string)`, `Void team.set_perpage(number)` --
-	"Setter" functions for the team's sortOrder and perpage
+	"Setter" functions for the team's `sortOrder` and `perpage`
 	functions. Unlikely to be needed outside of the `Sort` and
 	`Perpage` widgets.
 
 * `Queue team.queue(eventName)` --
 	Returns the queue associated with the named event: this can be
-	used to subscribe to the event (or more rarely to publish it).
+	used to subscribe to the event (or more rarely to publish
+	it). See [the section on events, below](#events).
 
 * `Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)` --
 	Starts a new search with the specified parameters. All but the
 	query may be omitted, in which case the prevailing defaults
-	are used.
+	are used. The meanings of the parameters are those of the
+	same-named [configuration
+	settings](mkws-manual.html#configuration-settings) described in
+	the user's manual.
 
 * `Void team.reShow()` --
 	Using the existing search, re-shows the result records after a
@@ -308,11 +314,11 @@ read properties of the team.
 	and returns it in a form that can be invoked as a function,
 	passed a data-set.
 
-Some of these methods either (A) are really too low-level and should
-not be exposed, or (B) should be widget-level methods. The present
-infelicities reflect the fact that some code that rightly belongs in
-widgets is still in the team. When we finish migrating it, the widget
-API should get simpler.
+Some of these methods are arguably too low-level and should not be
+exposed; others should probably be widget-level methods. The present
+infelicities should be fixed in future releases, but backwards
+compatibility with the present API will be maintained for at least one
+complete major-release cycle.
 
 
 Events
