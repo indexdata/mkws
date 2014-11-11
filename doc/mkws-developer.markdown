@@ -83,6 +83,25 @@ file `mkws-templates.js`.
 
 
 
+Event passing
+-------------
+
+The primary method of communication between components of the widget
+set -- specifically, between teams and their widgets -- is event
+passing. Widgets subscribe to named events; when something relevant
+happens (such as the reception of a message from metasearch
+middleware), the event is published, along with the relevant data. All
+widgets that susbcribed to the event are then notified, and can take
+appropriate action.
+
+Different kinds of events have different data associated with
+them. This data is passed when the event is published, and so is made
+available to the subscribing code.
+
+The possible events, and their associated data, are described
+[below](#events).
+
+
 Defining new types of widget
 ----------------------------
 
