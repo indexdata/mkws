@@ -221,9 +221,6 @@ be used by the derived widget.
 	widgets such as `Records` and `Facet` that display some part
 	of a search result.
 
-* `expandValue()` --
-	FIXME: either document this or remove it from the API.
-
 * `subwidget(type, overrides, defaults)` --
 	Returns the HTML of a subwidget of the specified type, which
 	can then be inserted into the widget using the
