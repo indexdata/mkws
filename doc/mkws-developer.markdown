@@ -145,13 +145,13 @@ Widget specialisation (inheritance)
 -----------------------------------
 
 Many widgets are simple specialisations of existing widgets. For
-example, the `Record` widget is the same as the `Records` widget
-except that it defaults to displaying a single record. It's defined as
-follows:
+example, the `images` widget is the same as the `records` widget
+except that it defaults to using the `images` template for displaying
+its result list. It's defined as follows:
 
-	mkws.registerWidgetType('Record', function() {
-	  mkws.promotionFunction('Records').call(this);
-	  if (!this.config.maxrecs) this.config.maxrecs = 1;
+	mkws.registerWidgetType('images', function() {
+	  mkws.promotionFunction('records').call(this);
+	  if (!this.config.template) this.config.template = 'images';
 	});
 
 Remember that when a promotion function is called, it's passed a base
@@ -161,11 +161,11 @@ that you want to specialise from -- in this case, `Records` -- using
 the promotion function that's been registered for that type.
 
 Once this has been done, the specialisations can be introduced. In
-this case, it's a very simple matter of changing the `maxrecs`
-configuration setting to 1 unless it's already been given an explicit
-value. (That would occur if the HTML used an element like `<div
-class="mkwsRecord" maxrecs="2">`, though it's not obvious why anyone
-would do that.)
+this case, it's a very simple matter of changing the `template`
+configuration setting to `'images'` unless it's already been given an
+explicit value. (That would occur if the HTML used an element like
+`<div class="mkws-images" template="my-images">` to use a customised
+template.
 
 
 Reference Guide
