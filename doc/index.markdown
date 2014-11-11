@@ -127,12 +127,16 @@ The links above to the various forms of the widget-set JavaScript
 [mkws.min.js](mkws.min.js)
 and
 [mkws-complete.min.js](mkws-complete.min.js))
+together with the CSS file
+([mkws.css](mkws.css))
 are always to the current versions of those
 files. Applications that rely on a particular version can
 instead use the specific numbered versions in
 [the releases area](releases/),
 for example
 [releases/mkws-0.9.1.js](releases/mkws-0.9.1.js).
+and
+[releases/mkws-0.9.1.css](releases/mkws-0.9.1.css).
 
 The current version number is always in
 [the VERSION file](VERSION).
