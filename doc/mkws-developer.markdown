@@ -234,10 +234,10 @@ be used by the derived widget.
 
 In addition to these properties and methods of the bare widget object,
 some kinds of specific widget add other properties of their own. For
-example, the `Builder` widget uses a `callback` property as the
+example, the `builder` widget uses a `callback` property as the
 function that it use to publish the widget definition that it
 constructs. This defaults to the builtin function `alert`, but can be
-overridden by derived widgets such as `ConsoleBuilder`.
+overridden by derived widgets such as `console-builder`.
 
 
 Team methods
