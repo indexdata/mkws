@@ -229,13 +229,8 @@ be used by the derived widget.
 	except where overrides are passed in. If defaults are also
 	provided, then these are used when the parent widget provides
 	no values. Both the `overrides` and `defaults` arguments are
-	hashes: the latter is optional.
-  
-	See for example the `Credo` widget defined in the example
-	area's `mkws-widget-credo.js` file. This uses several
-	invocations of `subwidget` to create a complex compound widget
-	with numerous text, facet and image panes. FIXME: rename this
-	widget and everything related to it.
+	hashes: the latter is optional. This can be used to assemble
+	compound widgets containing several subwidgets.
 
 In addition to these properties and methods of the bare widget object,
 some kinds of specific widget add other properties of their own. For
