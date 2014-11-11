@@ -96,7 +96,8 @@ release: $(RELEASABLE)
 		cp -p $(DEST)/mkws.js ${DEST}/releases/mkws-$(VERSION).js; \
 		cp -p $(DEST)/mkws.min.js ${DEST}/releases/mkws-$(VERSION).min.js; \
 		cp -p $(DEST)/mkws-complete.js ${DEST}/releases/mkws-complete-$(VERSION).js; \
-		cp -p $(DEST)/mkws-complete.min.js ${DEST}/releases/mkws-complete-$(VERSION).min.js; \
+		cp -p $(DEST)/mkws-complete.min.js ${DEST}/releases/mkws-complete-$(VERSION).min.js;
+		cp -p $(DEST)/mkws.css ${DEST}/releases/mkws-$(VERSION).css; \
 		echo "Made release $(VERSION)"; \
 	fi
 
