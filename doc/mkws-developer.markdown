@@ -180,7 +180,8 @@ that is passed into `registerWidgetType`'s callback function, and can
 be used by the derived widget.
 
 * `String this.type` --
-	A string containing the type of the widget.
+	A string containing the type of the widget (`search`,
+	`switch`, etc.)
 
 * `Team this.team` --
 	The team object to which this widget belongs. The team has
@@ -188,7 +189,8 @@ be used by the derived widget.
 	below.
 
 * `DOMElement this.node` --
-	The DOM element of the widget
+	The DOM element of the widget. Most often used for inserting
+	HTML into the widget element.
 
 * `Hash this.config` --
 	A table of configuration values for the widget. This table
@@ -197,7 +199,7 @@ be used by the derived widget.
 	inherits from the default configuration. Instances of widgets
 	in HTML can set configuration items as HTML attributes: for
 	example, the HTML element
-	`<div class="mkwsRecords" maxrecs="10">`.
+	`<div class="mkwsRecords" maxrecs="10">`
 	creates a widget for which `this.config.maxrecs` is set to 10.
 
 * `String this.toString()` --
