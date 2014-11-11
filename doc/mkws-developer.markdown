@@ -227,7 +227,7 @@ be used by the derived widget.
 	widgets that can be omitted from the mobile version of a site.
 
 * `expandValue()` --
-	TODO: either document this or remove it from the API.
+	FIXME: either document this or remove it from the API.
 
 * `subwidget(type, overrides, defaults)` --
 	Returns the HTML of a subwidget of the specified type, which
@@ -242,7 +242,7 @@ be used by the derived widget.
 	See for example the `Credo` widget defined in the example
 	area's `mkws-widget-credo.js` file. This uses several
 	invocations of `subwidget` to create a complex compound widget
-	with numerous text, facet and image panes. TODO: rename this
+	with numerous text, facet and image panes. FIXME: rename this
 	widget and everything related to it.
 
 In addition to these properties and methods of the bare widget object,
@@ -331,7 +331,7 @@ API should get simpler.
 Events
 ------
 
-TODO: list of events that can be usefully subscribed to.
+FIXME: list of events that can be usefully subscribed to.
 
 
 - - -
