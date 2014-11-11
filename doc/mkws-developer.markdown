@@ -221,13 +221,6 @@ be used by the derived widget.
 	widgets such as `Records` and `Facet` that display some part
 	of a search result.
 
-* `VOID hideWhenNarrow()` --
-	Registers that this widget should hide itself when the page
-	becomes "narrow" -- that is, fewer pixels in width that the
-	threshhold value specified by the top-level configuration item
-	`responsive_design_width`. Should be used for "unimportant"
-	widgets that can be omitted from the mobile version of a site.
-
 * `expandValue()` --
 	FIXME: either document this or remove it from the API.
 
