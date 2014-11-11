@@ -151,8 +151,7 @@ This simple widget illustrates several important points:
 * You can add functionality to a widget by subscribing it to an
   event's queue using `this.team.queue("EVENT").subscribe`. The
   argument is a function which is called whenever the event is
-  published. The arguments to the event-callback function are
-  different for different events.
+  published.
 
 * As with so much JavaScript programming, the value of the special
   variable `this` is lost inside the `subscribe` callback function,
