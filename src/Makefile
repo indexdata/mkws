@@ -89,14 +89,14 @@ $(DEST)/VERSION: VERSION
 	cp $? $@
 	chmod 444 $@
 
-release: $(RELEASABLE)
-	@if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
+release: $(INSTALLED_RELEASABLE)
+	if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
 		cp -p $(DEST)/mkws.js ${DEST}/releases/mkws-$(VERSION).js; \
 		cp -p $(DEST)/mkws.min.js ${DEST}/releases/mkws-$(VERSION).min.js; \
 		cp -p $(DEST)/mkws-complete.js ${DEST}/releases/mkws-complete-$(VERSION).js; \
-		cp -p $(DEST)/mkws-complete.min.js ${DEST}/releases/mkws-complete-$(VERSION).min.js;
+		cp -p $(DEST)/mkws-complete.min.js ${DEST}/releases/mkws-complete-$(VERSION).min.js; \
 		cp -p $(DEST)/mkws.css ${DEST}/releases/mkws-$(VERSION).css; \
 		echo "Made release $(VERSION)"; \
 	fi
