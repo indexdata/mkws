@@ -90,6 +90,9 @@ $(DEST)/VERSION: VERSION
 	chmod 444 $@
 
 release: $(INSTALLED_RELEASABLE)
+	@if ! which yui-compressor >/dev/null; then \
+		echo "*** please install the yui-compressor program"; exit 1; \
+	fi
 	if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
