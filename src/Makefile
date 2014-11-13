@@ -14,6 +14,7 @@ PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};
 
 VERSION = $(shell tr -d '\012' < VERSION)
 HANDLEBARS = ../test/node_modules/.bin/handlebars
+UGLIFYJS = ../test/node_modules/.bin/uglifyjs
 
 COMPONENTS = mkws-handlebars.js \
 	mkws-core.js \
@@ -58,7 +59,7 @@ $(DEST)/mkws-complete.js: Makefile $(INSTALLED_DOWNLOADABLE) $(DEST)/mkws.js
 	mv -f $@.tmp $@
 
 %.min.js: %.js
-	yui-compressor $? > $@.tmp
+	${UGLIFYJS} $? > $@.tmp
 	mv -f $@.tmp $@
 
 $(DEST)/${HANDLEBARS_FILE}:
@@ -89,9 +90,6 @@ $(DEST)/VERSION: VERSION
 	chmod 444 $@
 
 release: $(INSTALLED_RELEASABLE)
-	@if ! which yui-compressor >/dev/null; then \
-		echo "*** please install the yui-compressor program"; exit 1; \
-	fi
 	if [ -f ${DEST}/releases/mkws-$(VERSION).js ]; then \
 		echo "*** There is already a release $(VERSION)"; \
 	else \
@@ -114,7 +112,7 @@ mkws-templates.js: templates/*.handlebars
 
 # Checks that the JavaScript can be parsed
 syntax-check: $(DEST)/mkws.js
-	yui-compressor $(DEST)/mkws.js >/dev/null
+	${UGLIFYJS} $(DEST)/mkws.js >/dev/null
 
 # Emits a list of <script> elements to include in HTML applications
 html-includes:
