@@ -12,7 +12,7 @@ cd $dir
 
 : ${debug=""}
 
-git clone -q ssh://git.indexdata.com:222/home/git/private/mkws.git
+git clone -q ssh://git.indexdata.com:222/home/git/pub/mkws.git
 cd mkws
 
 test -n "$debug" && echo "start bootstraping in $dir"
