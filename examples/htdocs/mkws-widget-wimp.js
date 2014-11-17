@@ -2,10 +2,10 @@ var mkws_config = {
    service_proxy_auth: "//sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=wimp&password=wimp6363"
 };
 
-mkws.registerWidgetType('Wimp', function() {
+mkws.registerWidgetType('wimp', function() {
   if (!this.config.perpage) this.config.perpage = 5;
   if (!this.config.sort) this.config.sort = "position";
-  this.team.registerTemplate('Wimp', '\
+  this.team.registerTemplate('wimp', '\
 <h2>Results from Wimp</h2>\
 <ul>\
 {{#each hits}}\
@@ -27,7 +27,7 @@ mkws.registerWidgetType('Wimp', function() {
 ');
 
   var that = this;
-  var template = that.team.loadTemplate(that.config.template || "Wimp");
+  var template = that.team.loadTemplate(that.config.template || "wimp");
   this.team.queue("records").subscribe(function(data) {
     that.node.html(template(data));
   }); 
