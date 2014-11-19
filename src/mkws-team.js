@@ -79,31 +79,32 @@ mkws.makeTeam = function($, teamName) {
   that.queue = queue;
 
 
-  function log(s) {
+  function _log(fn, s) {
     var now = $.now();
     var timestamp = (((now - m_logTime.start)/1000).toFixed(3) + " (+" +
                      ((now - m_logTime.last)/1000).toFixed(3) + ") ");
     m_logTime.last = now;
-    mkws.log(m_teamName + ": " + timestamp + s);
+    fn.call(mkws.log, m_teamName + ": " + timestamp + s);
     that.queue("log").publish(m_teamName, timestamp, s);
   }
-  that.log = log;
+
+  that.log = function (x) { _log(mkws.log, x) };
 
 
-  log("making new widget team");
+  that.log("making new widget team");
 
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
  
   // pz2.js event handlers:
   function onInit() {
-    log("init");
+    that.log("init");
     m_paz.stat();
     m_paz.bytarget();
   }
 
   function onBytarget(data) {
-    log("bytarget");
+    that.log("bytarget");
     queue("targets").publish(data);
   }
 
@@ -115,26 +116,26 @@ mkws.makeTeam = function($, teamName) {
       queue("firstrecords").publish(hitcount);
     }
     if (parseInt(data.activeclients[0], 10) === 0) {
-      log("complete");
+      that.log("complete");
       queue("complete").publish(hitcount);
     }
   }
 
   function onTerm(data) {
-    log("term");
+    that.log("term");
     queue("facets").publish(data);
   }
 
   function onShow(data, teamName) {
-    log("show");
+    that.log("show");
     m_totalRecordCount = data.merged;
-    log("found " + m_totalRecordCount + " records");
+    that.log("found " + m_totalRecordCount + " records");
     queue("pager").publish(data);
     queue("records").publish(data);
   }
 
   function onRecord(data, args, teamName) {
-    log("record");
+    that.log("record");
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
     queue("record").publish(data);
@@ -154,7 +155,7 @@ mkws.makeTeam = function($, teamName) {
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   that.makePz2 = function() {
-    log("m_queues=" + $.toJSON(m_queues));
+    that.log("m_queues=" + $.toJSON(m_queues));
     var params = {
       "windowid": teamName,
       "pazpar2path": mkws.pazpar2_url(),
@@ -166,26 +167,26 @@ mkws.makeTeam = function($, teamName) {
     params.oninit = onInit;
     if (m_queues.targets) {
       params.onbytarget = onBytarget;
-      log("setting bytarget callback");
+      that.log("setting bytarget callback");
     }
     if (m_queues.stat) {
       params.onstat = onStat;
-      log("setting stat callback");
+      that.log("setting stat callback");
     }
     if (m_queues.facets && config.facets.length) {
       params.onterm = onTerm;
-      log("setting term callback");
+      that.log("setting term callback");
     }
     if (m_queues.records) {
-      log("setting show callback");
+      that.log("setting show callback");
       params.onshow = onShow;
       // Record callback is subscribed from records callback
-      log("setting record callback");
+      that.log("setting record callback");
       params.onrecord = onRecord;
     }
 
     m_paz = new pz2(params);
-    log("created main pz2 object");
+    that.log("created main pz2 object");
   }
 
 
@@ -207,7 +208,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitTarget = function(id, name) {
-    log("limitTarget(id=" + id + ", name=" + name + ")");
+    that.log("limitTarget(id=" + id + ", name=" + name + ")");
     m_filterSet.add(targetFilter(id, name));
     if (m_query) triggerSearch();
     return false;
@@ -215,7 +216,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitQuery = function(field, value) {
-    log("limitQuery(field=" + field + ", value=" + value + ")");
+    that.log("limitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.add(fieldFilter(field, value));
     if (m_query) triggerSearch();
     return false;
@@ -223,7 +224,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitCategory = function(id) {
-    log("limitCategory(id=" + id + ")");
+    that.log("limitCategory(id=" + id + ")");
     // Only one category filter at a time
     m_filterSet.removeMatching(function(f) { return f.type === 'category' });
     if (id !== '') m_filterSet.add(categoryFilter(id));
@@ -233,7 +234,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.delimitTarget = function(id) {
-    log("delimitTarget(id=" + id + ")");
+    that.log("delimitTarget(id=" + id + ")");
     m_filterSet.removeMatching(function(f) { return f.type === 'target' });
     if (m_query) triggerSearch();
     return false;
@@ -241,7 +242,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.delimitQuery = function(field, value) {
-    log("delimitQuery(field=" + field + ", value=" + value + ")");
+    that.log("delimitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
                                              field == f.field && value == f.value });
     if (m_query) triggerSearch();
@@ -284,7 +285,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   function newSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
-    log("newSearch: " + query);
+    that.log("newSearch: " + query);
 
     if (config.use_service_proxy && !mkws.authenticated) {
       alert("searching before authentication");
@@ -325,7 +326,7 @@ mkws.makeTeam = function($, teamName) {
       params.torusquery = torusquery;
     }
 
-    log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
+    that.log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
         "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
@@ -333,7 +334,7 @@ mkws.makeTeam = function($, teamName) {
 
   // fetch record details to be retrieved from the record queue
   that.fetchDetails = function(recId) {
-    log("fetchDetails() requesting record '" + recId + "'");
+    that.log("fetchDetails() requesting record '" + recId + "'");
     m_paz.record(recId);
   };
 
@@ -380,7 +381,7 @@ mkws.makeTeam = function($, teamName) {
       return;
     }
     // request the record
-    log("showDetails() requesting record '" + recId + "'");
+    that.log("showDetails() requesting record '" + recId + "'");
     m_paz.record(recId);
   };
 
@@ -397,7 +398,7 @@ mkws.makeTeam = function($, teamName) {
     }
 
     var node = $(selector);
-    //log('findnode(' + selector + ') found ' + node.length + ' nodes');
+    //that.log('findnode(' + selector + ') found ' + node.length + ' nodes');
     return node;
   }
 
@@ -418,7 +419,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.registerTemplate = function(name, text) {
     if(mkws._old2new.hasOwnProperty(name)) {
-      mkws.log("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
+      that.log("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
       name = mkws._old2new[name];
     }
     m_templateText[name] = text;
@@ -427,7 +428,7 @@ mkws.makeTeam = function($, teamName) {
 
   function loadTemplate(name, fallbackString) {
     if(mkws._old2new.hasOwnProperty(name)) {
-       mkws.log("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
+       that.log("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
        name = mkws._old2new[name];
     }
 
@@ -442,7 +443,7 @@ mkws.makeTeam = function($, teamName) {
       if (!source) source = m_templateText[name];
       if (source) {
         template = Handlebars.compile(source);
-        log("compiled template '" + name + "'");
+        that.log("compiled template '" + name + "'");
       }
     }
     //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
@@ -457,7 +458,7 @@ mkws.makeTeam = function($, teamName) {
       return template;
     }
     else {
-      log("No MKWS template for " + name);
+      that.log("No MKWS template for " + name);
       return null;
     }  
   }
