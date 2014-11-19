@@ -96,7 +96,7 @@ var consoleAppender = JL.createConsoleAppender('consoleAppender');
 mkws.logger.setOptions({ "appenders": [consoleAppender]} );
 
 
-mkws.log = function(string) {
+function _log(fn, string) {
   if (!mkws.log_level)
     return;
 
@@ -105,10 +105,22 @@ mkws.log = function(string) {
     // Works in Chrome; not sure about elsewhere
     console.trace();
   } else if (mkws.log_level >= 2) {
-    console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
+
   }
-  mkws.logger.info(string);
+  fn.call(mkws.logger, string);
 };
+
+
+mkws.log = function(x) { _log(mkws.logger.debug, x) };
+/*
+trace("message with severity trace");
+debug("message with severity debug");
+info("message with severity info");
+warn("message with severity warn");
+error("message with severity error");
+fatal("message with severity fatal");
+*/
+
 
 
 // Translation function.
