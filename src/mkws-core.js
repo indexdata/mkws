@@ -16,6 +16,7 @@ window.mkws = {
   authenticated: false,
   authenticating: false,
   active: false,
+  logger: undefined,
   log_level: 1, // Will be overridden from mkws.config, but
                 // initial value allows jQuery popup to use logging.
   teams: {},
@@ -90,13 +91,14 @@ if (typeof(mkws_jQuery) !== "undefined") {
   mkws.$ = jQuery;
 }
 
+mkws.logger = JL('mkws');
+var consoleAppender = JL.createConsoleAppender('consoleAppender');
+mkws.logger.setOptions({ "appenders": [consoleAppender]} );
+
+
 mkws.log = function(string) {
   if (!mkws.log_level)
     return;
-
-  if (typeof console === "undefined" || typeof console.log === "undefined") { /* ARGH!!! old IE */
-    return;
-  }
 
   // you need to disable use strict at the top of the file!!!
   if (mkws.log_level >= 3) {
@@ -105,7 +107,7 @@ mkws.log = function(string) {
   } else if (mkws.log_level >= 2) {
     console.log(">>> called from function " + arguments.callee.caller.name + ' <<<');
   }
-  console.log(string);
+  mkws.logger.info(string);
 };
 
 
