@@ -113,15 +113,13 @@ function _log(fn, string) {
 
 // ### transitional placeholder function until we have promoted all invocations
 mkws.log = function(x) { _log(mkws.logger.debug, "LEGACY LOG: " + x) };
-/*
-trace("message with severity trace");
-debug("message with severity debug");
-info("message with severity info");
-warn("message with severity warn");
-error("message with severity error");
-fatal("message with severity fatal");
-*/
 
+mkws.trace = function(x) { _log(mkws.logger.trace, x) };
+mkws.debug = function(x) { _log(mkws.logger.debug, x) };
+mkws.info = function(x) { _log(mkws.logger.info, x) };
+mkws.warn = function(x) { _log(mkws.logger.warn, x) };
+mkws.error = function(x) { _log(mkws.logger.error, x) };
+mkws.fatal = function(x) { _log(mkws.logger.fatal, x) };
 
 
 // Translation function.
@@ -148,12 +146,12 @@ mkws.getParameterByName = function(name, url) {
 
 mkws.registerWidgetType = function(name, fn) {
   if(mkws._old2new.hasOwnProperty(name)) {
-      mkws.log("Warning: registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
+      mkws.warn("Warning: registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
       name = mkws._old2new[name];
   }
 
   mkws.widgetType2function[name] = fn;
-  mkws.log("registered widget-type '" + name + "'");
+  mkws.info("registered widget-type '" + name + "'");
 };
 
 mkws.promotionFunction = function(name) {
@@ -162,7 +160,7 @@ mkws.promotionFunction = function(name) {
 
 
 mkws.setMkwsConfig = function(overrides) {
-  // Set global log_level flag early so that mkws.log() works
+  // Set global log_level flag early so that _log() works
   var tmp = overrides.log_level;
   if (typeof(tmp) !== 'undefined') mkws.log_level = tmp;
 
@@ -258,11 +256,11 @@ mkws.pagerNext = function(tname) {
 
 mkws.pazpar2_url = function() {
   if (mkws.config.pazpar2_url) {
-    mkws.log("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
+    mkws.info("using pre-baked pazpar2_url '" + mkws.config.pazpar2_url + "'");
     return mkws.config.pazpar2_url;
   } else {
     var s = document.location.protocol + "//" + mkws.config.pp2_hostname + "/" + mkws.config.pp2_path;
-    mkws.log("generated pazpar2_url '" + s + "'");
+    mkws.info("generated pazpar2_url '" + s + "'");
     return s;
   }
 };
@@ -282,7 +280,7 @@ mkws.pazpar2_url = function() {
 var token;
 if (window.name) {
   token = window.name.replace(/.*\//, '');
-  mkws.log("Reusing existing window token '" + token + "'");
+  mkws.debug("Reusing existing window token '" + token + "'");
 } else {
   // Incredible that the standard JavaScript runtime doesn't define a
   // unique windowId. Instead, we have to make one up. And since there's
@@ -293,16 +291,15 @@ if (window.name) {
   // Ten chars from 26 alpha-numerics = 36^10 = 3.65e15 combinations.
   // At one per second, it will take 116 million years to duplicate a token
   token = Math.random().toString(36).slice(2, 12);
-  mkws.log("Generated new window token '" + token + "'");
+  mkws.debug("Generated new window token '" + token + "'");
 }
 
 window.name = window.location.hostname + window.location.pathname + '/' + token;
-mkws.log("Using window.name '" + window.name + "'");
+mkws.info("Using window.name '" + window.name + "'");
 
 
 // wrapper to provide local copy of the jQuery object.
 (function($) {
-  var log = mkws.log;
   var _old2new = { // Maps old-style widget names to new-style
     'Authname': 'auth-name',
     'ConsoleBuilder': 'console-builder',
@@ -333,7 +330,7 @@ mkws.log("Using window.name '" + window.name + "'");
       // undefined, we don't get an error message, but this
       // function and its callers, up several stack level,
       // silently return. What a crock.
-      log("handleNodeWithTeam() called on node with no classes");
+      mkws.fatal("handleNodeWithTeam() called on node with no classes");
       return;
     }
     var list = classes.split(/\s+/)
@@ -365,7 +362,7 @@ mkws.log("Using window.name '" + window.name + "'");
       if (node.getAttribute("autosearch")) {
         if (mkws.autoHasAuto ||
             mkws.teams["AUTO"] && mkws.teams["AUTO"].config["query"]) {
-          log("AUTO team already has a query, using unique team");
+          mkws.warn("AUTO team already has a query, using unique team");
           teamName = "UNIQUE";
         }
         mkws.autoHasAuto = true;
@@ -396,7 +393,7 @@ mkws.log("Using window.name '" + window.name + "'");
     mkws.width = width;
 
     if (from) {
-      log("changing from " + from + " to " + to + ": " + width);
+      mkws.info("changing from " + from + " to " + to + ": " + width);
       for (var tname in mkws.teams) {
         var team = mkws.teams[tname];
         team.visitWidgets(function(t, w) {
@@ -423,11 +420,11 @@ mkws.log("Using window.name '" + window.name + "'");
    */
   function authenticateSession(auth_url, auth_domain, pp2_url) {
     mkws.authenticating = true;
-    log("service proxy authentication on URL: " + auth_url);
+    mkws.info("service proxy authentication on URL: " + auth_url);
 
     if (!auth_domain) {
       auth_domain = pp2_url.replace(/^(https?:)?\/\/(.*?)\/.*/, '$2');
-      log("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
+      mkws.info("guessed auth_domain '" + auth_domain + "' from pp2_url '" + pp2_url + "'");
     }
 
     var request = new pzHttpRequest(auth_url, function(err) {
@@ -448,7 +445,7 @@ mkws.log("Using window.name '" + window.name + "'");
         return;
       }
 
-      log("service proxy authentication successful");
+      mkws.info("service proxy authentication successful");
       mkws.authenticated = true;
       var authName = $(data).find("displayName").text();
       // You'd think there would be a better way to do this:
@@ -463,7 +460,7 @@ mkws.log("Using window.name '" + window.name + "'");
 
 
   function runAutoSearches() {
-    log("running auto searches");
+    mkws.info("running auto searches");
 
     for (var teamName in mkws.teams) {
       mkws.teams[teamName].queue("ready").publish();
@@ -546,14 +543,14 @@ mkws.log("Using window.name '" + window.name + "'");
     var greet = "MKWS initialised";
     if (rootsel) greet += " (limited to " + rootsel + ")"
     if (message) greet += " :: " + message; 
-    mkws.log(greet);
+    mkws.warn(greet);
 
     // MKWS is not active until init() has been run against an object with widget nodes.
     // We only set initial configuration when MKWS is first activated.
     if (!mkws.isActive) {
       var widgetSelector = selectorForAllWidgets();
       if ($(widgetSelector).length < 1) {
-        mkws.log("no widgets found");
+        mkws.warn("no widgets found");
         return;
       }
 
@@ -561,10 +558,10 @@ mkws.log("Using window.name '" + window.name + "'");
       mkws.autoHasAuto = false;
       var saved_config;
       if (typeof mkws_config === 'undefined') {
-        log("setting empty config");
+        mkws.info("setting empty config");
         saved_config = {};
       } else {
-        log("using config: " + $.toJSON(mkws_config));
+        mkws.info("using config: " + $.toJSON(mkws_config));
         saved_config = mkws_config;
       }
       mkws.setMkwsConfig(saved_config);
@@ -575,7 +572,7 @@ mkws.log("Using window.name '" + window.name + "'");
             var lang = key.replace(/^language_/, "");
             // Copy custom languages into list
             mkws.locale_lang[lang] = mkws.config[key];
-            log("added locally configured language '" + lang + "'");
+            mkws.info("added locally configured language '" + lang + "'");
           }
         }
       }
@@ -587,12 +584,12 @@ mkws.log("Using window.name '" + window.name + "'");
         mkws.config.lang = lang;
       }
 
-      log("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
+      mkws.info("using language: " + (mkws.config.lang ? mkws.config.lang : "none"));
 
       // protocol independent link for pazpar2: "//mkws/sp" -> "https://mkws/sp"
       if (mkws.pazpar2_url().match(/^\/\//)) {
         mkws.config.pazpar2_url = document.location.protocol + mkws.config.pazpar2_url;
-        log("adjusted protocol independent link to " + mkws.pazpar2_url());
+        mkws.info("adjusted protocol independent link to " + mkws.pazpar2_url());
       }
 
       if (mkws.config.responsive_design_width) {
@@ -612,21 +609,21 @@ mkws.log("Using window.name '" + window.name + "'");
     }
     var now = $.now();
 
-    log("walking MKWS nodes took " + (now-then) + " ms");
+    mkws.info("walking MKWS nodes took " + (now-then) + " ms");
     for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
       myTeam.makePz2();
       myTeam.log("made PZ2 object");
       /*
         myTeam.visitWidgets(function(t, w) {
-          log("  has widget of type '" + t + "': " + w);
+          mkws.debug("  has widget of type '" + t + "': " + w);
         });
       */
     }
 
     function sp_auth_url(config) {
       if (config.service_proxy_auth) {
-	mkws.log("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
+	mkws.info("using pre-baked sp_auth_url '" + config.service_proxy_auth + "'");
 	return config.service_proxy_auth;
       } else {
 	var s = '//';
@@ -642,7 +639,7 @@ mkws.log("Using window.name '" + window.name + "'");
 	  s += ('&username=' + c.substr(0, c.indexOf('/')) +
 		'&password=' + c.substr(c.indexOf('/')+1));
 	}
-	mkws.log("generated sp_auth_url '" + s + "'");
+	mkws.info("generated sp_auth_url '" + s + "'");
 	return s;
       }
     }
