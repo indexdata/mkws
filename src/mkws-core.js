@@ -543,7 +543,7 @@ mkws.info("Using window.name '" + window.name + "'");
     var greet = "MKWS initialised";
     if (rootsel) greet += " (limited to " + rootsel + ")"
     if (message) greet += " :: " + message; 
-    mkws.warn(greet);
+    mkws.info(greet);
 
     // MKWS is not active until init() has been run against an object with widget nodes.
     // We only set initial configuration when MKWS is first activated.
