@@ -91,27 +91,27 @@ mkws.makeTeam = function($, teamName) {
   // ### transitional placeholder function until we have promoted all invocations
   that.log = function (x) { _log(mkws.log, x) };
 
-  mkws.trace = function(x) { _log(mkws.trace, x) };
-  mkws.debug = function(x) { _log(mkws.debug, x) };
-  mkws.info = function(x) { _log(mkws.info, x) };
-  mkws.warn = function(x) { _log(mkws.warn, x) };
-  mkws.error = function(x) { _log(mkws.error, x) };
-  mkws.fatal = function(x) { _log(mkws.fatal, x) };
+  that.trace = function(x) { _log(mkws.trace, x) };
+  that.debug = function(x) { _log(mkws.debug, x) };
+  that.info = function(x) { _log(mkws.info, x) };
+  that.warn = function(x) { _log(mkws.warn, x) };
+  that.error = function(x) { _log(mkws.error, x) };
+  that.fatal = function(x) { _log(mkws.fatal, x) };
 
-  that.log("making new widget team");
+  that.info("making new widget team");
 
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
  
   // pz2.js event handlers:
   function onInit() {
-    that.log("init");
+    that.info("init");
     m_paz.stat();
     m_paz.bytarget();
   }
 
   function onBytarget(data) {
-    that.log("bytarget");
+    that.info("bytarget");
     queue("targets").publish(data);
   }
 
@@ -123,26 +123,26 @@ mkws.makeTeam = function($, teamName) {
       queue("firstrecords").publish(hitcount);
     }
     if (parseInt(data.activeclients[0], 10) === 0) {
-      that.log("complete");
+      that.info("complete");
       queue("complete").publish(hitcount);
     }
   }
 
   function onTerm(data) {
-    that.log("term");
+    that.info("term");
     queue("facets").publish(data);
   }
 
   function onShow(data, teamName) {
-    that.log("show");
+    that.info("show");
     m_totalRecordCount = data.merged;
-    that.log("found " + m_totalRecordCount + " records");
+    that.info("found " + m_totalRecordCount + " records");
     queue("pager").publish(data);
     queue("records").publish(data);
   }
 
   function onRecord(data, args, teamName) {
-    that.log("record");
+    that.info("record");
     // FIXME: record is async!!
     clearTimeout(m_paz.recordTimer);
     queue("record").publish(data);
@@ -162,7 +162,7 @@ mkws.makeTeam = function($, teamName) {
   // then register the form submit event with the pz2.search function
   // autoInit is set to true on default
   that.makePz2 = function() {
-    that.log("m_queues=" + $.toJSON(m_queues));
+    that.debug("m_queues=" + $.toJSON(m_queues));
     var params = {
       "windowid": teamName,
       "pazpar2path": mkws.pazpar2_url(),
@@ -174,26 +174,26 @@ mkws.makeTeam = function($, teamName) {
     params.oninit = onInit;
     if (m_queues.targets) {
       params.onbytarget = onBytarget;
-      that.log("setting bytarget callback");
+      that.info("setting bytarget callback");
     }
     if (m_queues.stat) {
       params.onstat = onStat;
-      that.log("setting stat callback");
+      that.info("setting stat callback");
     }
     if (m_queues.facets && config.facets.length) {
       params.onterm = onTerm;
-      that.log("setting term callback");
+      that.info("setting term callback");
     }
     if (m_queues.records) {
-      that.log("setting show callback");
+      that.info("setting show callback");
       params.onshow = onShow;
       // Record callback is subscribed from records callback
-      that.log("setting record callback");
+      that.info("setting record callback");
       params.onrecord = onRecord;
     }
 
     m_paz = new pz2(params);
-    that.log("created main pz2 object");
+    that.info("created main pz2 object");
   }
 
 
@@ -215,7 +215,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitTarget = function(id, name) {
-    that.log("limitTarget(id=" + id + ", name=" + name + ")");
+    that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_filterSet.add(targetFilter(id, name));
     if (m_query) triggerSearch();
     return false;
@@ -223,7 +223,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitQuery = function(field, value) {
-    that.log("limitQuery(field=" + field + ", value=" + value + ")");
+    that.info("limitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.add(fieldFilter(field, value));
     if (m_query) triggerSearch();
     return false;
@@ -231,7 +231,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.limitCategory = function(id) {
-    that.log("limitCategory(id=" + id + ")");
+    that.info("limitCategory(id=" + id + ")");
     // Only one category filter at a time
     m_filterSet.removeMatching(function(f) { return f.type === 'category' });
     if (id !== '') m_filterSet.add(categoryFilter(id));
@@ -241,7 +241,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.delimitTarget = function(id) {
-    that.log("delimitTarget(id=" + id + ")");
+    that.info("delimitTarget(id=" + id + ")");
     m_filterSet.removeMatching(function(f) { return f.type === 'target' });
     if (m_query) triggerSearch();
     return false;
@@ -249,7 +249,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.delimitQuery = function(field, value) {
-    that.log("delimitQuery(field=" + field + ", value=" + value + ")");
+    that.info("delimitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
                                              field == f.field && value == f.value });
     if (m_query) triggerSearch();
@@ -292,7 +292,7 @@ mkws.makeTeam = function($, teamName) {
 
 
   function newSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
-    that.log("newSearch: " + query);
+    that.info("newSearch: " + query);
 
     if (config.use_service_proxy && !mkws.authenticated) {
       alert("searching before authentication");
@@ -333,7 +333,7 @@ mkws.makeTeam = function($, teamName) {
       params.torusquery = torusquery;
     }
 
-    that.log("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
+    that.info("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
         "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
@@ -341,7 +341,7 @@ mkws.makeTeam = function($, teamName) {
 
   // fetch record details to be retrieved from the record queue
   that.fetchDetails = function(recId) {
-    that.log("fetchDetails() requesting record '" + recId + "'");
+    that.info("fetchDetails() requesting record '" + recId + "'");
     m_paz.record(recId);
   };
 
@@ -388,7 +388,7 @@ mkws.makeTeam = function($, teamName) {
       return;
     }
     // request the record
-    that.log("showDetails() requesting record '" + recId + "'");
+    that.info("showDetails() requesting record '" + recId + "'");
     m_paz.record(recId);
   };
 
@@ -405,7 +405,7 @@ mkws.makeTeam = function($, teamName) {
     }
 
     var node = $(selector);
-    //that.log('findnode(' + selector + ') found ' + node.length + ' nodes');
+    //that.debug('findnode(' + selector + ') found ' + node.length + ' nodes');
     return node;
   }
 
@@ -426,7 +426,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.registerTemplate = function(name, text) {
     if(mkws._old2new.hasOwnProperty(name)) {
-      that.log("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
+      that.warn("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
       name = mkws._old2new[name];
     }
     m_templateText[name] = text;
@@ -435,7 +435,7 @@ mkws.makeTeam = function($, teamName) {
 
   function loadTemplate(name, fallbackString) {
     if(mkws._old2new.hasOwnProperty(name)) {
-       that.log("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
+       that.warn("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
        name = mkws._old2new[name];
     }
 
@@ -450,7 +450,7 @@ mkws.makeTeam = function($, teamName) {
       if (!source) source = m_templateText[name];
       if (source) {
         template = Handlebars.compile(source);
-        that.log("compiled template '" + name + "'");
+        that.info("compiled template '" + name + "'");
       }
     }
     //if (template === undefined) template = mkws_templatesbyteam[m_teamName][name];
@@ -465,7 +465,7 @@ mkws.makeTeam = function($, teamName) {
       return template;
     }
     else {
-      that.log("No MKWS template for " + name);
+      that.info("No MKWS template for " + name);
       return null;
     }  
   }
