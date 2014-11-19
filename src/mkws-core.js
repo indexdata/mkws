@@ -518,7 +518,7 @@ mkws.info("Using window.name '" + window.name + "'");
         myTeam.addWidget(myWidget);
         var newHTML = this.innerHTML;
         if (newHTML !== oldHTML) {
-          myTeam.log("widget " + type + " HTML changed: reparsing");
+          myTeam.info("widget " + type + " HTML changed: reparsing");
           makeWidgetsWithin(level+1, $(this));
         }
       });
@@ -613,7 +613,7 @@ mkws.info("Using window.name '" + window.name + "'");
     for (var tName in mkws.teams) {
       var myTeam = mkws.teams[tName]
       myTeam.makePz2();
-      myTeam.log("made PZ2 object");
+      myTeam.info("made PZ2 object");
       /*
         myTeam.visitWidgets(function(t, w) {
           mkws.debug("  has widget of type '" + t + "': " + w);
