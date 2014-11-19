@@ -88,8 +88,15 @@ mkws.makeTeam = function($, teamName) {
     that.queue("log").publish(m_teamName, timestamp, s);
   }
 
+  // ### transitional placeholder function until we have promoted all invocations
   that.log = function (x) { _log(mkws.log, x) };
 
+  mkws.trace = function(x) { _log(mkws.trace, x) };
+  mkws.debug = function(x) { _log(mkws.debug, x) };
+  mkws.info = function(x) { _log(mkws.info, x) };
+  mkws.warn = function(x) { _log(mkws.warn, x) };
+  mkws.error = function(x) { _log(mkws.error, x) };
+  mkws.fatal = function(x) { _log(mkws.fatal, x) };
 
   that.log("making new widget team");
 
