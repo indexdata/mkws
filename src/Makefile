@@ -5,11 +5,13 @@ DEST = ../tools/htdocs
 HANDLEBARS_FILE = handlebars-v2.0.0.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
+JSNLOG_FILE = jsnlog.min.js
 PP2_FILE = pz2.js
 
 HANDLEBARS_URL = http://builds.handlebarsjs.com.s3.amazonaws.com/${HANDLEBARS_FILE}
 JQUERY_URL = http://code.jquery.com/${JQUERY_FILE}
 JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
+JSNLOG_URL = https://raw.githubusercontent.com/mperdeck/jsnlog.js/2.7.5/${JSNLOG_FILE}
 PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};hb=HEAD
 
 VERSION = $(shell tr -d '\012' < VERSION)
@@ -32,7 +34,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-templates.js \
 	mkws-popup.js
 
-DOWNLOADABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${PP2_FILE}
+DOWNLOADABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${JSNLOG_FILE} ${PP2_FILE}
 RELEASABLE = mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
 AVAILABLE = $(DOWNLOADABLE) $(RELEASABLE) NEWS VERSION
 INSTALLED_DOWNLOADABLE = $(DOWNLOADABLE:%=$(DEST)/%)
@@ -51,6 +53,7 @@ $(DEST)/mkws-complete.js: Makefile $(INSTALLED_DOWNLOADABLE) $(DEST)/mkws.js
 	  echo "*/"; \
 	  cat $(DEST)/${JQUERY_FILE}; \
 	  cat $(DEST)/${JQUERY_JSON_FILE}; \
+	  cat $(DEST)/${JSNLOG_FILE}; \
 	  echo 'mkws_jQuery = jQuery.noConflict(true);'; \
 	  cat $(DEST)/${HANDLEBARS_FILE}; \
 	  cat $(DEST)/${PP2_FILE}; \
@@ -73,6 +76,10 @@ $(DEST)/${JQUERY_FILE}:
 
 $(DEST)/${JQUERY_JSON_FILE}:
 	curl -sSf ${JQUERY_JSON_URL} -o $@.tmp
+	mv -f $@.tmp $@
+
+$(DEST)/${JSNLOG_FILE}:
+	curl -sSf ${JSNLOG_URL} -o $@.tmp
 	mv -f $@.tmp $@
 
 $(DEST)/${PP2_FILE}:
