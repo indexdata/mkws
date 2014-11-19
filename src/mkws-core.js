@@ -111,7 +111,8 @@ function _log(fn, string) {
 };
 
 
-mkws.log = function(x) { _log(mkws.logger.debug, x) };
+// \\\ transitional placeholder function until we have promoted all invocations
+mkws.log = function(x) { _log(mkws.logger.debug, "LEGACY LOG: " + x) };
 /*
 trace("message with severity trace");
 debug("message with severity debug");
