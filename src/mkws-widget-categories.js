@@ -16,7 +16,7 @@ mkws.registerWidgetType('categories', function() {
         alert("categories response document is not XML");
         return;
       }
-      that.log("got categories: " + data);
+      that.info("got categories: " + data);
 
       var text = [];
       text.push("Select category: ");
