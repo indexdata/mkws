@@ -3,7 +3,7 @@
  *  See the file LICENSE for details
  */
 
-"use strict"; // HTML5: disable for log_level >= 2
+"use strict";
 
 
 // Set up global mkws object. Contains truly global state such as SP
@@ -17,8 +17,7 @@ window.mkws = {
   authenticating: false,
   active: false,
   logger: undefined,
-  log_level: 1, // Will be overridden from mkws.config, but
-                // initial value allows jQuery popup to use logging.
+  log_level: "info",
   teams: {},
   widgetType2function: {},
   defaultTemplates: {},
@@ -91,9 +90,29 @@ if (typeof(mkws_jQuery) !== "undefined") {
   mkws.$ = jQuery;
 }
 
+// It's ridiculous that JSNLog doesn't provide this
+mkws.stringToLevel = function(s) {
+  if (s === 'trace') {
+    return JL.getTraceLevel();
+  } else if (s === 'debug') {
+    return JL.getDebugLevel();
+  } else if (s === 'info') {
+    return JL.getInfoLevel();
+  } else if (s === 'warn') {
+    return JL.getWarnLevel();
+  } else if (s === 'error') {
+    return JL.getErrorLevel();
+  } else if (s === 'fatal') {
+    return JL.getFatalLevel();
+  } else {
+    throw "bad log-level '" + s + "'";
+  }
+}
+
 mkws.logger = JL('mkws');
 var consoleAppender = JL.createConsoleAppender('consoleAppender');
-mkws.logger.setOptions({ "appenders": [consoleAppender]} );
+mkws.logger.setOptions({ "appenders": [consoleAppender],
+                         "level": mkws.stringToLevel(mkws.log_level) });
 
 
 function _log(fn, string) {
