@@ -45,9 +45,9 @@ function filterSet(team) {
     for (var i in m_list) {
       var filter = m_list[i];
       if (matchFn(filter)) {
-        m_team.log("removeMatching: removing filter " + mkws.$.toJSON(filter));
+        m_team.info("removeMatching: removing filter " + mkws.$.toJSON(filter));
       } else {
-        m_team.log("removeMatching: keeping filter " + mkws.$.toJSON(filter));
+        m_team.info("removeMatching: keeping filter " + mkws.$.toJSON(filter));
         newList.push(filter);
       }
     }
@@ -70,7 +70,7 @@ function filterSet(team) {
     that.visitTargets(function(id, name) {
       if (res) res += ",";
       if (id.match(/^[a-z:]+[=~]/)) {
-        m_team.log("filter '" + id + "' already begins with SETTING OP");
+        m_team.info("filter '" + id + "' already begins with SETTING OP");
       } else {
         id = 'pz:id=' + id;
       }
