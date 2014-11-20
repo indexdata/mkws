@@ -161,13 +161,6 @@ mkws.promotionFunction = function(name) {
 
 
 mkws.setMkwsConfig = function(overrides) {
-  // Set global log_level flag early so that _log() works
-  var tmp = overrides.log_level;
-  if (typeof(tmp) !== 'undefined') {
-    console.log("setting level to '" + tmp + "'");
-    mkws.logger.setOptions({ "level": mkws.stringToLevel(tmp) });
-  }
-
   var config_default = {
     use_service_proxy: true,
     pazpar2_url: undefined,
@@ -667,4 +660,11 @@ mkws.info("Using window.name '" + window.name + "'");
     }
   });
 
+  // Set global log_level flag early so that _log() works
+  if (typeof mkws_config !== 'undefined') {
+    var tmp = mkws_config.log_level;
+    if (typeof tmp !== 'undefined') {
+      mkws.logger.setOptions({ "level": mkws.stringToLevel(tmp) });
+    }
+  }
 })(mkws.$);
