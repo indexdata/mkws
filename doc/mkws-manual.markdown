@@ -882,8 +882,8 @@ limit                     facet,    string            Allows a partial search to
                           records,                    chapter of the Pazpar2 manual
                           results                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
 
-log_level                 _global_  int     1         Level of debugging output to emit. 0 = none, 1 = messages, 2 = messages with
-                                                      datestamps, 3 = messages with datestamps and stack-traces.
+log_level                 _global_  string  info      The lowest level of logging output to emit. Acceptable values are
+                                                      `trace`, `debug`, `info`, `warn`, `error` and `fatal`.
 
 maxrecs                   facet,    int               Limits the metasearching middleware to retrieving no more than the specified
                           facets,                     number of records from each target.
