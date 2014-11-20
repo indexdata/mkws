@@ -88,9 +88,6 @@ mkws.makeTeam = function($, teamName) {
     that.queue("log").publish(m_teamName, timestamp, s);
   }
 
-  // ### transitional placeholder function until we have promoted all invocations
-  that.log = function (x) { _log(mkws.log, x) };
-
   that.trace = function(x) { _log(mkws.trace, x) };
   that.debug = function(x) { _log(mkws.debug, x) };
   that.info = function(x) { _log(mkws.info, x) };
