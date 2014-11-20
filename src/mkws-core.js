@@ -146,7 +146,7 @@ mkws.getParameterByName = function(name, url) {
 
 mkws.registerWidgetType = function(name, fn) {
   if(mkws._old2new.hasOwnProperty(name)) {
-      mkws.warn("Warning: registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
+      mkws.warn("registerWidgetType old widget name: " + name + " => " + mkws._old2new[name]);
       name = mkws._old2new[name];
   }
 
