@@ -426,7 +426,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.registerTemplate = function(name, text) {
     if(mkws._old2new.hasOwnProperty(name)) {
-      that.warn("Warning: registerTemplate old widget name: " + name + " => " + mkws._old2new[name]);
+      that.warn("registerTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
       name = mkws._old2new[name];
     }
     m_templateText[name] = text;
@@ -435,7 +435,7 @@ mkws.makeTeam = function($, teamName) {
 
   function loadTemplate(name, fallbackString) {
     if(mkws._old2new.hasOwnProperty(name)) {
-       that.warn("Warning loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
+       that.warn("loadTemplate: old widget name: " + name + " => " + mkws._old2new[name]);
        name = mkws._old2new[name];
     }
 
