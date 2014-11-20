@@ -64,9 +64,9 @@ mkws.registerWidgetType('facet', function() {
     } else {
       template = team.loadTemplate("facet-" + name);
       if (template) {
-        that.log("Using facet-" + name + " template.")
+        that.info("Using facet-" + name + " template.")
       } else {
-        that.log("No " + name + " specific template, using default.")
+        that.info("No " + name + " specific template, using default.")
         template = team.loadTemplate("facet");
       }
     }
