@@ -7,7 +7,7 @@
 // get references from mkws.js, lazy evaluation
 var debug = function (text) {
         // use a debug function with time stamps
-        mkws.teams["AUTO"].log("Jasmine: " + text);
+        mkws.teams["AUTO"].info("Jasmine: " + text);
 
         //mkws.log("Jasmine: " + text)
     }
