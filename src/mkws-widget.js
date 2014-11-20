@@ -13,7 +13,6 @@ mkws.makeWidget = function($, team, type, node) {
     config: mkws.objectInheritingFrom(team.config)
   };
 
-  that.log = team.log;
   that.trace = team.trace;
   that.debug = team.debug;
   that.info = team.info;
