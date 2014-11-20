@@ -111,9 +111,6 @@ function _log(fn, string) {
 };
 
 
-// ### transitional placeholder function until we have promoted all invocations
-mkws.log = function(x) { _log(mkws.logger.debug, "LEGACY LOG: " + x) };
-
 mkws.trace = function(x) { _log(mkws.logger.trace, x) };
 mkws.debug = function(x) { _log(mkws.logger.debug, x) };
 mkws.info = function(x) { _log(mkws.logger.info, x) };
