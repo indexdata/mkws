@@ -14,6 +14,12 @@ mkws.makeWidget = function($, team, type, node) {
   };
 
   that.log = team.log;
+  that.trace = team.trace;
+  that.debug = team.debug;
+  that.info = team.info;
+  that.warn = team.warn;
+  that.error = team.error;
+  that.fatal = team.fatal;
 
   that.toString = function() {
     return '[Widget ' + team.name() + ':' + type + ']';
