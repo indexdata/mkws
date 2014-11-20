@@ -13,9 +13,7 @@ mkws.makeWidget = function($, team, type, node) {
     config: mkws.objectInheritingFrom(team.config)
   };
 
-  function log(s) {
-    team.log(s);
-  }
+  var log = team.log;
   that.log = log;
 
   that.toString = function() {
