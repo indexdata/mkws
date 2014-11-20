@@ -251,7 +251,7 @@ mkws.registerWidgetType('ranking', function() {
   output.showPerPage = this.config.show_perpage;
 
   var order = this.team.sortOrder();
-  this.log("making sort, sortOrder = '" + order + "'");
+  this.info("making sort, sortOrder = '" + order + "'");
   for (var i = 0; i < this.config.sort_options.length; i++) {
     var cur = {};
     var opt = this.config.sort_options[i];
@@ -262,7 +262,7 @@ mkws.registerWidgetType('ranking', function() {
   }
 
   var perpage = this.team.perpage();
-  this.log("making perpage, perpage = " + perpage);
+  this.info("making perpage, perpage = " + perpage);
   for(var i = 0; i < this.config.perpage_options.length; i++) {
     var cur = {};
     cur.perPage = this.config.perpage_options[i];
@@ -310,7 +310,7 @@ mkws.registerWidgetType('lang', function() {
       list.push(cur);
   }
 
-  this.log("language menu: " + list.join(", "));
+  this.info("language menu: " + list.join(", "));
 
   var template = this.team.loadTemplate(this.config.template || "lang");
   this.node.html(template({languages: list}));
@@ -355,7 +355,7 @@ mkws.registerWidgetType('config', function() {
   for (var name in c) {
     if (c.hasOwnProperty(name)) {
       this.team.config[name] = c[name];
-      this.log(this + " copied property " + name + "='" + c[name] + "' up to team");
+      this.info(this + " copied property " + name + "='" + c[name] + "' up to team");
     }
   }
 });
