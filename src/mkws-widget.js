@@ -41,12 +41,12 @@ mkws.makeWidget = function($, team, type, node) {
     for (var name in this.config) {
       if (this.config.hasOwnProperty(name)) {
         attrs[name] = this.config[name];
-        this.log(this + " copied property " + name + "='" + attrs[name] + "' to " + type + " subwidget");
+        this.info(this + " copied property " + name + "='" + attrs[name] + "' to " + type + " subwidget");
       }
     }
     
     for (var name in overrides) {
-      this.log(this + " overrode property " + name + "='" + overrides[name] + "' (was '" + attrs[name] + "') for " + type + " subwidget");
+      this.info(this + " overrode property " + name + "='" + overrides[name] + "' (was '" + attrs[name] + "') for " + type + " subwidget");
       attrs[name] = overrides[name];
     }
 
@@ -54,7 +54,7 @@ mkws.makeWidget = function($, team, type, node) {
       for (var name in defaults) {
         if (!attrs[name]) {
           attrs[name] = defaults[name];
-          this.log(this + " fell back to default property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
+          this.info(this + " fell back to default property " + name + "='" + attrs[name] + "' for " + type + " subwidget");
         }
       }
     }
@@ -73,7 +73,7 @@ mkws.makeWidget = function($, team, type, node) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
       val = mkws.getParameterByName(param);
-      that.log("obtained val '" + val + "' from param '" + param + "'");
+      that.info("obtained val '" + val + "' from param '" + param + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the '" + param + "' parameter");
       }
@@ -81,14 +81,14 @@ mkws.makeWidget = function($, team, type, node) {
       var index = val.replace(/^!path!/, '');
       var path = window.location.pathname.split('/');
       val = path[path.length - index];
-      that.log("obtained val '" + val + "' from path-component '" + index + "'");
+      that.info("obtained val '" + val + "' from path-component '" + index + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the path-component " + index);
       }
     } else if (val.match(/^!var!/)) {
       var name = val.replace(/^!var!/, '');
       val = window[name]; // It's ridiculous that this works
-      that.log("obtained val '" + val + "' from variable '" + name + "'");
+      that.info("obtained val '" + val + "' from variable '" + name + "'");
       if (!val) {
         alert("This page has a MasterKey widget that needs a val specified by the '" + name + "' variable");
       }
@@ -106,10 +106,10 @@ mkws.makeWidget = function($, team, type, node) {
         // Stash this for subsequent inspection
         this.team.config.query = query;
       } else if (old === query) {
-        this.log("duplicate autosearch: '" + query + "': ignoring");
+        this.warn("duplicate autosearch: '" + query + "': ignoring");
         return;
       } else {
-        this.log("conflicting autosearch: '" + query + "' vs '" + old + "': ignoring");
+        this.warn("conflicting autosearch: '" + query + "' vs '" + old + "': ignoring");
         return;
       }
 
@@ -134,7 +134,7 @@ mkws.makeWidget = function($, team, type, node) {
         if (limit) s += " limited by '" + limit + "'";
         if (targets) s += " in targets '" + targets + "'";
         if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
-        that.log(s);
+        that.info(s);
 
         that.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
       });
@@ -158,12 +158,12 @@ mkws.makeWidget = function($, team, type, node) {
     var val = expandValue(a.value);
     if (a.name === 'data-mkws-config') {
       // Treat as a JSON fragment configuring just this widget
-      this.log(node + ": parsing config fragment '" + val + "'");
+      this.info(node + ": parsing config fragment '" + val + "'");
       var data;
       try {
         data = $.parseJSON(val);
         for (var key in data) {
-          this.log(node + ": adding config element " + key + "='" + data[key] + "'");
+          this.info(node + ": adding config element " + key + "='" + data[key] + "'");
           that.config[key] = data[key];
         }
       } catch (err) {
@@ -172,21 +172,21 @@ mkws.makeWidget = function($, team, type, node) {
     } else if (a.name.match (/^data-mkws-/)) {
       var name = a.name.replace(/^data-mkws-/, '')
       that.config[name] = val;
-      this.log(that + ": set data-mkws attribute " + name + "='" + val + "'");
+      this.info(that + ": set data-mkws attribute " + name + "='" + val + "'");
     } else if (!ignoreAttrs[a.name]) {
       that.config[a.name] = val;
-      this.log(that + ": set regular attribute " + a.name + "='" + val + "'");
+      this.info(that + ": set regular attribute " + a.name + "='" + val + "'");
     }
   }
 
   var fn = mkws.promotionFunction(type);
   if (fn) {
     fn.call(that);
-    this.log("made " + type + " widget(node=" + node + ")");
+    this.info("made " + type + " widget(node=" + node + ")");
   } else if (type.match(/-Container-(narrow|wide)$/)) {
     // Not really a widget: no need to log its lack of promotion
   } else {
-    this.log("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
+    this.info("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
   }
 
   return that;
