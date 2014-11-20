@@ -114,21 +114,7 @@ var consoleAppender = JL.createConsoleAppender('consoleAppender');
 mkws.logger.setOptions({ "appenders": [consoleAppender] });
 
 
-function _log(fn, string) {
-  if (!mkws.log_level)
-    return;
-
-  // you need to disable use strict at the top of the file!!!
-  if (mkws.log_level >= 3) {
-    // Works in Chrome; not sure about elsewhere
-    console.trace();
-  } else if (mkws.log_level >= 2) {
-
-  }
-  fn.call(mkws.logger, string);
-};
-
-
+function _log(fn, string) { fn.call(mkws.logger, string); };
 mkws.trace = function(x) { _log(mkws.logger.trace, x) };
 mkws.debug = function(x) { _log(mkws.logger.debug, x) };
 mkws.info = function(x) { _log(mkws.logger.info, x) };
