@@ -114,7 +114,11 @@ var consoleAppender = JL.createConsoleAppender('consoleAppender');
 mkws.logger.setOptions({ "appenders": [consoleAppender] });
 
 
-function _log(fn, string) { fn.call(mkws.logger, string); };
+function _log() {
+  var argsAsARealArray = Array.prototype.slice.call(arguments);
+  var fn = argsAsARealArray.shift();
+  fn.apply(mkws.logger, argsAsARealArray);
+};
 mkws.trace = function(x) { _log(mkws.logger.trace, x) };
 mkws.debug = function(x) { _log(mkws.logger.debug, x) };
 mkws.info = function(x) { _log(mkws.logger.info, x) };
