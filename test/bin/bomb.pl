@@ -57,7 +57,7 @@ $SIG{ALRM} = sub {
     my $pgid = getpgrp();
 
     warn "Alarm handler got called after $timeout seconds\n";
-    warn "Kill now the process group...\n\n";
+    warn "Kill now the process group $pgid\n\n";
 
     # kill process group
     kill "INT", -$pgid;
