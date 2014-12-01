@@ -5,14 +5,6 @@
  */
 
 describe("Check for external JavaScript libs", function () {
-    it("JSNlog", function () {
-        expect(typeof JL).not.toBe('undefined');
-    });
-
-    it("Handlebars", function () {
-        expect(typeof Handlebars).not.toBe('undefined');
-    });
-
     it("jQuery", function () {
         expect(typeof mkws.$).not.toBe('undefined');
     });
@@ -22,15 +14,23 @@ describe("Check for external JavaScript libs", function () {
         expect(typeof mkws.$.toJSON).not.toBe('undefined');
     });
 
-    it("pazpar2", function () {
-        expect(typeof pz2).not.toBe('undefined');
-    });
-
     it("jQuery UI", function () {
         // if we have a popup widget, check for the jQuery UI lib
         if (mkws.$(".mkws-popup").length > 0) {
             expect(typeof mkws.$.ui).not.toBe('undefined');
         }
+    });
+
+    it("pazpar2", function () {
+        expect(typeof pz2).not.toBe('undefined');
+    });
+
+    it("JSNlog", function () {
+        expect(typeof JL).not.toBe('undefined');
+    });
+
+    it("Handlebars", function () {
+        expect(typeof Handlebars).not.toBe('undefined');
     });
 });
 
