@@ -17,6 +17,15 @@ describe("Check for external JavaScript libs", function () {
         expect(typeof mkws.$).not.toBe('undefined');
     });
 
+    // jquery.json-2.4.js
+    it("jQuery JSON", function () {
+        expect(typeof mkws.$.toJSON).not.toBe('undefined');
+    });
+
+    it("pazpar2", function () {
+        expect(typeof pz2).not.toBe('undefined');
+    });
+
     it("jQuery UI", function () {
         // if we have a popup widget, check for the jQuery UI lib
         if (mkws.$(".mkws-popup").length > 0) {
