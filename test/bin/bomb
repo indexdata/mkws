@@ -1,0 +1,17 @@
+#!/bin/sh
+# Copyright (c) 2014 Index Data ApS. http://indexdata.com
+#
+# bomb - wrapper to stop a process after N seconds
+
+# Turn on job control. This will switch to process group
+# as on an interactive shell, and make sure that a signal
+# to the process group will not kill any parent processes
+set -o monitor
+
+# now run the perl script. For unknown reasons, the
+# call to setpgrp() in perl does not work as expected,
+# and we solve the issue by this simple shell wrapper
+
+exec $0.pl "$@"
+
+# EOF
