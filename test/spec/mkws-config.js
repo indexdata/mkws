@@ -19,7 +19,7 @@ describe("Check for external JavaScript libs", function () {
 
     it("jQuery UI", function () {
         // if we have a popup widget, check for the jQuery UI lib
-        if (mkws.$(".popup").length > 0) {
+        if (mkws.$(".mkws-popup").length > 0) {
             expect(typeof mkws.$.ui).not.toBe('undefined');
         }
     });
