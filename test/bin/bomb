@@ -12,6 +12,6 @@ set -o monitor
 # call to setpgrp() in perl does not work as expected,
 # and we solve the issue by this simple shell wrapper
 
-exec $0.pl "$@"
+perl $0.pl "$@"
 
 # EOF
