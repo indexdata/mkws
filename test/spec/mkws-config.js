@@ -4,6 +4,27 @@
  *
  */
 
+describe("Check for external JavaScript libs", function () {
+    it("JSNlog", function () {
+        expect(typeof JL).not.toBe('undefined');
+    });
+
+    it("Handlebars", function () {
+        expect(typeof Handlebars).not.toBe('undefined');
+    });
+
+    it("jQuery", function () {
+        expect(typeof mkws.$).not.toBe('undefined');
+    });
+
+    xit("jQuery UI", function () {
+        // if we have a popup widget, check for the jQuery UI lib
+        if ($(".popup").length > 0) {
+            expect(typeof mkws.$.ui).not.toBe('undefined');
+        }
+    });
+});
+
 describe("Check mkws.config object", function () {
     it("mkws.config exists", function () {
         expect(mkws.config).not.toBe(undefined);
