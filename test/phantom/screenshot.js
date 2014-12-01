@@ -5,7 +5,7 @@ var url = system.args[1] || 'http://www.indexdata.com/';
 var file_png = system.args[2] || 'indexdata.png';
 var timeout = system.args[5] ? system.args[5] : 0.2;
 
-function usage (message) {
+function usage(message) {
     if (message) {
         console.log(message + "\n");
     }

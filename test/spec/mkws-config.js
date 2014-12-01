@@ -39,7 +39,7 @@ describe("Check mkws.config object", function () {
         expect(mkws.locale_lang.da.Location).toMatch(/^Lokation$/);
     });
 
-    /*
+/*
      * this is a test if the config value is a boolean JavaScript object: true or false
      * and nothing else (0, '0', undefined, "false" etc.)
      */
