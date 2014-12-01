@@ -3,9 +3,9 @@
 #
 # bomb - wrapper to stop a process after N seconds
 
-# Turn on job control. This will switch to process group
+# Turn on job control. This will switch the process group
 # as on an interactive shell, and make sure that a signal
-# to the process group will not kill any parent processes
+# to the process group will not kill any parent processes.
 set -o monitor
 
 # now run the perl script. For unknown reasons, the
