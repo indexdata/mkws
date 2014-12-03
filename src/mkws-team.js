@@ -173,7 +173,7 @@ mkws.makeTeam = function($, teamName) {
       params.onbytarget = onBytarget;
       that.info("setting bytarget callback");
     }
-    if (m_queues.stat) {
+    if (m_queues.stat || m_queues.firstrecords || m_queues.complete) {
       params.onstat = onStat;
       that.info("setting stat callback");
     }
