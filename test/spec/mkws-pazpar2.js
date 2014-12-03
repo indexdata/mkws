@@ -671,7 +671,7 @@ describe("Check SortBy options", function () {
         var sort_value = 'title:1';
         var per_page_number = 20;
 
-	// keep current title list
+        // keep current title list
         var title_list_old = title_list("xxx ");
 
         function title_list(prefix) {
@@ -718,7 +718,7 @@ describe("Check SortBy options", function () {
             var title_list_new = title_list("yyy ");
             var diff_flag = 0;
             for (var i = 0; i < title_list_old.length; i++) {
-                debug((i+1) + ". " + title_list_old[i] + " :: " + title_list_new[i]);
+                debug((i + 1) + ". " + title_list_old[i] + " :: " + title_list_new[i]);
 
                 if (title_list_old[i] != title_list_new[i]) {
                     diff_flag++;
@@ -731,22 +731,22 @@ describe("Check SortBy options", function () {
 });
 
 describe("Check async widget discovery", function () {
-  var $ = mkws.$;
-  it("initialises a new widget", function() {
-    $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
-    mkws.init("Another search box", "#asyncSearch");
-    waitsFor(function () {
-      return $("#asyncSearch input").length >= 1 ? true : false;
-    }, "Call init() to build an .mkws-search", 750);
-    runs(function () {
-      var numInput = $("div.mkws-search input").length;
-      debug("Input elements present: " + numInput);
-      expect(numInput).toBe(4);
-      var numRec = $("div.mkws-records > div.mkws-summary").length;
-      debug("Records should still be present. There are: " + numRec);
-      expect(numRec).toBeGreaterThan(0);
+    var $ = mkws.$;
+    it("initialises a new widget", function () {
+        $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
+        mkws.init("Another search box", "#asyncSearch");
+        waitsFor(function () {
+            return $("#asyncSearch input").length >= 1 ? true : false;
+        }, "Call init() to build an .mkws-search", 750);
+        runs(function () {
+            var numInput = $("div.mkws-search input").length;
+            debug("Input elements present: " + numInput);
+            expect(numInput).toBe(4);
+            var numRec = $("div.mkws-records > div.mkws-summary").length;
+            debug("Records should still be present. There are: " + numRec);
+            expect(numRec).toBeGreaterThan(0);
+        });
     });
-  });
 });
 
 /* done */

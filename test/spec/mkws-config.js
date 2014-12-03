@@ -4,6 +4,36 @@
  *
  */
 
+describe("Check for external JavaScript libs", function () {
+    it("jQuery", function () {
+        expect(typeof mkws.$).not.toBe('undefined');
+    });
+
+    // jquery.json-2.4.js
+    it("jQuery JSON", function () {
+        expect(typeof mkws.$.toJSON).not.toBe('undefined');
+    });
+
+    it("jQuery UI", function () {
+        // if we have a popup widget, check for the jQuery UI lib
+        if (mkws.$(".mkws-popup").length > 0) {
+            expect(typeof mkws.$.ui).not.toBe('undefined');
+        }
+    });
+
+    it("pazpar2", function () {
+        expect(typeof pz2).not.toBe('undefined');
+    });
+
+    it("JSNlog", function () {
+        expect(typeof JL).not.toBe('undefined');
+    });
+
+    it("Handlebars", function () {
+        expect(typeof Handlebars).not.toBe('undefined');
+    });
+});
+
 describe("Check mkws.config object", function () {
     it("mkws.config exists", function () {
         expect(mkws.config).not.toBe(undefined);
@@ -18,7 +48,7 @@ describe("Check mkws.config object", function () {
         expect(mkws.locale_lang.da.Location).toMatch(/^Lokation$/);
     });
 
-    /*
+/*
      * this is a test if the config value is a boolean JavaScript object: true or false
      * and nothing else (0, '0', undefined, "false" etc.)
      */

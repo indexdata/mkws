@@ -35,7 +35,7 @@ function mkws_jasmine_init(delay) {
     }
 };
 
-mkws.$(document).ready(function() { 
+mkws.$(document).ready(function () {
     mkws_jasmine_init(0);
 });
 
