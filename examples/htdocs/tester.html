@@ -51,7 +51,7 @@
 </head>
 
 <body>
-Relevant?
+Relevant to query <span id="query"></span>?
 <button id="yes" class="judgement">Yes</button>
 <button id="no" class="judgement">No</button>
 <button id="maybe" class="judgement">Maybe</button>
@@ -68,7 +68,7 @@ Results:
 <div id="queries" class="dialog" title="Queries">
   <textarea></textarea>
 </div>
-<div id="results-csv" class="dialog" title="Results as CSV">
+<div id="results-csv" class="dialog" title="| delimited results">
   <textarea readonly></textarea>
 </div>
 <div id="results-table" class="dialog" title="Results as table">
@@ -94,6 +94,7 @@ var context = this;
 var showNext = function () {
   if (next <  this.queries.length) {
     $('#test-subject').html(this.widgetMarkup.replace("{{query}}", this.queries[next]));
+    $('#query').html('"' + this.queries[next] + '"');
     next++;
     mkws.init('#test-subject');
   }
