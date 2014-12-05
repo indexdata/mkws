@@ -51,7 +51,7 @@ html {
   height: 100%;
 }
 body {
-  background-color: #888892;
+  background-color: #bbbbbb;
   margin: 0;
   padding: 0;
   display: flex;
@@ -62,8 +62,8 @@ header {
   font-size: 1.3em;
 }
 #top-bar, #current-bar {
-  padding: .5em;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
 }
@@ -123,12 +123,12 @@ header button:hover, header button:active, header button:focus {
   font-size: 110%;
 }
 #settings, #judiciary {
-  flex: 1;
+  padding: .5em;
   display: flex;
   align-items: center;
 }
 #results, #query-info {
-  flex: 1;
+  padding: .5em;
   display: flex;
   text-align: right;
   align-items: center;
@@ -139,11 +139,13 @@ header button:hover, header button:active, header button:focus {
 }
 #test-area {
   flex: 1;
-  padding: 1em;
+  padding: 2em;
   display: flex;
   justify-content: center;
-  align-items: center;
   overflow: auto;
+}
+#test-subject {
+  margin: auto;
 }
 #results-table {
   flex: 1;
