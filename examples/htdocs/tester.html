@@ -223,18 +223,32 @@ header button:hover, header button:active, header button:focus {
 (function () { // wrapper
 // Initial data
 this.queries = ["sushi", "wurst", "berlin", "hammer", "bristol", "copenhagen", "tea", "latte"];
-$("#queries > textarea").html(this.queries.join("\n"));
 this.widgetMarkup = '<div class="mkws-reference" autosearch="{{query}}">Loading..</div>';
+if (localStorage.getItem('mkwstest-queries')) {
+  this.queries = JSON.parse(localStorage.getItem('mkwstest-queries'));
+}
+if (localStorage.getItem('mkwstest-widget-markup')) {
+  this.widgetMarkup = localStorage.getItem('mkwstest-widget-markup');
+}
+$("#queries > textarea").html(this.queries.join("\n"));
 $("#widget-markup > textarea").html(this.widgetMarkup);
 
 this.results = {};
-var next;
+var next = 0;
+if (localStorage.getItem('mkwstest-results')) {
+  this.results = JSON.parse(localStorage.getItem('mkwstest-results'));
+}
+if (localStorage.getItem('mkwstest-next') !== null) {
+  next = parseInt(localStorage.getItem('mkwstest-next'));
+}
+
 var context = this;
 
 var showNext = function () {
   if (next <  this.queries.length) {
     $('#test-subject').html(this.widgetMarkup.replace("{{query}}", this.queries[next]));
     $('#query').html('"' + this.queries[next] + '"');
+    localStorage.setItem("mkwstest-next", next);
     next++;
     $('#count').html(next + " / " + this.queries.length);
     mkws.init('#test-subject');
@@ -251,6 +265,7 @@ var startEval = function () {
 var judge = function (e) {
   var query = $('#test-subject > div').attr('autosearch');
   context.results[query] = {judgement: $(this).html()};
+  localStorage.setItem("mkwstest-results", JSON.stringify(context.results));
   showNext();
 }
 
@@ -268,6 +283,7 @@ $(".dialog").dialog({
 // Markup dialog
 var updateMarkup = function () {
   context.widgetMarkup = $("#widget-markup > textarea").val();
+  localStorage.setItem("mkwstest-widget-markup", context.widgetMarkup);
   startEval();
 }
 $("#widget-markup-button").click(function () {
@@ -281,6 +297,7 @@ $("#widget-markup").dialog("option", "buttons", [
 // Queries dialog
 var updateQueries = function () {
   context.queries = $("#queries > textarea").val().split("\n");
+  localStorage.setItem("mkwstest-queries", JSON.stringify(context.queries));
   startEval();
 }
 $("#queries-button").click(function () {
@@ -322,7 +339,7 @@ $("#results-csv").dialog("option", "open", function () {
 });
 
 $('button.judgement').click(judge);
-startEval();
+showNext();
 })();// wrapper
 </script>
 
