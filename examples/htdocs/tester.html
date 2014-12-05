@@ -85,7 +85,7 @@ header button {
   font: inherit;
   font-weight: normal;
   border: 1px solid #7492c3;
-  padding: 0.1em 0.15em;
+  padding: 0.15em 0.25em;
 }
 header button:hover, header button:active, header button:focus {
   background-color: #2f5591;
@@ -146,6 +146,30 @@ header button:hover, header button:active, header button:focus {
   justify-content: center;
   align-items: center;
 }
+#results-table {
+  flex: 1;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+}
+#results-table table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+#results-table td, #results-table th {
+  padding: .25em 1.25em;
+  font-size: .9em;
+}
+#results-table tr:first-child {
+  border-bottom: 1px solid black;
+}
+#results-table tr {
+  border-bottom: 1px dotted black;
+}
+#results-table tr:last-child {
+  border-bottom: none;
+}
+  
 </style>
 
 </head>
@@ -214,6 +238,8 @@ var showNext = function () {
     next++;
     $('#count').html(next + " / " + this.queries.length);
     mkws.init('#test-subject');
+  } else {
+    $("#results-table").dialog("open");
   }
 } 
 var startEval = function () {
