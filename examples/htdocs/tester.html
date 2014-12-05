@@ -48,21 +48,126 @@
   height: 100%;
   width: 100%;
 }
+html {
+  margin: 0;
+  height: 100%;
+}
+body {
+  background-color: #888892;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+header {
+  font-size: 1.3em;
+}
+#top-bar {
+  background-color: #002868;
+  color: white;
+  padding: .5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+header button {
+  margin-left: 1em;
+  border-radius: 4px;
+  background-color: #4368a1;
+  color: #dbe9ff;
+  font: inherit;
+  font-weight: normal;
+  border: 1px solid #7492c3;
+  padding: 0.1em 0.15em;
+}
+header button:hover, header button:active, header button:focus {
+  background-color: #2f5591;
+}
+#maybe {
+  background-color: #F0AD4E;
+  border-color: #EEA236;
+  color: #664009;
+  color: white;
+}
+#maybe:hover, #maybe:active, #maybe:focus {
+  background-color: #EC971F;
+  border-color: #D58512;
+}
+#yes {
+  background-color: #5CB85C;
+  border-color: #4CAE4C;
+  color: #214d21;
+  color: white;
+}
+#yes:hover, #yes:focus, #yes:active {
+  background-color: #449D44;
+  border-color: #398439;
+}
+#no {
+  background-color: #D9534F;
+  border-color: #D43F3A;
+  color: #4f1311;
+  color: white;
+}
+#no:hover, #no:focus, #no:active {
+  background-color: #C9302C;
+  border-color: #AC2925;
+}
+#current-bar {
+  background-color: #54d8a8;
+  color: #002868;
+  padding: .5em;
+}
+#query {
+  font-weight: bold;
+  font-size: 110%;
+}
+#settings {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+#results {
+  flex: 1;
+  display: flex;
+  text-align: right;
+  align-items: center;
+  justify-content: flex-end;
+}
+#test-area {
+  flex: 1;
+  padding: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
 
 </head>
 
 <body>
-Relevant to query <span id="query"></span>?
-<button id="yes" class="judgement">Yes</button>
-<button id="no" class="judgement">No</button>
-<button id="maybe" class="judgement">Maybe</button>
-Settings:
-<button id="widget-markup-button">Widget</button>
-<button id="queries-button">Queries</button>
-Results:
-<button id="results-table-button">Table</button>
-<button id="results-csv-button">CSV</button>
+<header>
+  <div id="top-bar">
+    <span id="settings">
+      Settings:
+      <button id="widget-markup-button">Widget</button>
+      <button id="queries-button">Queries</button>
+    </span>
+    <span id="results">
+      Results:
+      <button id="results-table-button">Table</button>
+      <button id="results-csv-button">| delimited</button>
+    </span>
+  </div>
+</header>
+
+<header id="current-bar">
+  Relevant to query <span id="query"></span>?
+  <button id="yes" class="judgement">Yes</button>
+  <button id="no" class="judgement">No</button>
+  <button id="maybe" class="judgement">Maybe</button>
+</header>
 
 <div id="widget-markup" class="dialog" title="Widget markup">
   <textarea></textarea>
@@ -77,9 +182,9 @@ Results:
   <table></table>
 </div>
 
-<hr>
-
-<div id="test-subject"></div>
+<div id="test-area">
+  <div id="test-subject"></div>
+</div>
 
 <script>
 (function () { // wrapper
