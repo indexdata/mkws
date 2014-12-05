@@ -63,13 +63,19 @@ body {
 header {
   font-size: 1.3em;
 }
-#top-bar {
-  background-color: #002868;
-  color: white;
+#top-bar, #current-bar {
   padding: .5em;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+#top-bar {
+  background-color: #002868;
+  color: white;
+}
+#current-bar {
+  background-color: #54d8a8;
+  color: #002868;
 }
 header button {
   margin-left: 1em;
@@ -114,26 +120,24 @@ header button:hover, header button:active, header button:focus {
   background-color: #C9302C;
   border-color: #AC2925;
 }
-#current-bar {
-  background-color: #54d8a8;
-  color: #002868;
-  padding: .5em;
-}
 #query {
   font-weight: bold;
   font-size: 110%;
 }
-#settings {
+#settings, #judiciary {
   flex: 1;
   display: flex;
   align-items: center;
 }
-#results {
+#results, #query-info {
   flex: 1;
   display: flex;
   text-align: right;
   align-items: center;
   justify-content: flex-end;
+}
+#count {
+  font-size: 120%;
 }
 #test-area {
   flex: 1;
@@ -163,10 +167,15 @@ header button:hover, header button:active, header button:focus {
 </header>
 
 <header id="current-bar">
-  Relevant to query <span id="query"></span>?
-  <button id="yes" class="judgement">Yes</button>
-  <button id="no" class="judgement">No</button>
-  <button id="maybe" class="judgement">Maybe</button>
+  <span id="judiciary">
+    Relevant to query <span id="query"></span>?
+    <button id="yes" class="judgement">Yes</button>
+    <button id="no" class="judgement">No</button>
+    <button id="maybe" class="judgement">Maybe</button>
+  </span>
+  <span id="query-info">
+    <span id="count"></span>
+  </span>
 </header>
 
 <div id="widget-markup" class="dialog" title="Widget markup">
@@ -203,6 +212,7 @@ var showNext = function () {
     $('#test-subject').html(this.widgetMarkup.replace("{{query}}", this.queries[next]));
     $('#query').html('"' + this.queries[next] + '"');
     next++;
+    $('#count').html(next + " / " + this.queries.length);
     mkws.init('#test-subject');
   }
 } 
