@@ -8,6 +8,10 @@
 # to the process group will not kill any parent processes.
 set -o monitor
 
+# the maximum amount of cpu time in seconds
+# last resort if BSD::Resource is not available in ./bomb.pl
+ulimit -t 120
+
 # now run the perl script. For unknown reasons, the
 # call to setpgrp() in perl does not work as expected,
 # and we solve the issue by this simple shell wrapper
