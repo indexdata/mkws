@@ -61,7 +61,20 @@ body {
 header {
   font-size: 1.3em;
 }
-#top-bar, #current-bar {
+header button, #note > input {
+  margin-left: 1em;
+  border-radius: 4px;
+  background-color: #4368a1;
+  color: #dbe9ff;
+  font: inherit;
+  font-weight: normal;
+  border: 1px solid #7492c3;
+  padding: 0.15em 0.25em;
+}
+header button:hover, header button:active, header button:focus {
+  background-color: #2f5591;
+}
+#top-bar, #current-bar, #note {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -75,18 +88,15 @@ header {
   background-color: #54d8a8;
   color: #002868;
 }
-header button {
-  margin-left: 1em;
-  border-radius: 4px;
-  background-color: #4368a1;
-  color: #dbe9ff;
-  font: inherit;
-  font-weight: normal;
-  border: 1px solid #7492c3;
-  padding: 0.15em 0.25em;
+#note {
+  width: 100%;
+  padding: .5em;
 }
-header button:hover, header button:active, header button:focus {
-  background-color: #2f5591;
+#note > input {
+  flex: 1;
+  background-color: #7de3be;
+  border-color: #7ed6b6;
+  color: #002868;
 }
 #maybe {
   background-color: #F0AD4E;
@@ -201,6 +211,9 @@ header button:hover, header button:active, header button:focus {
   <span id="query-info">
     <span id="count"></span>
   </span>
+  <span id="note">
+    Note: <input type="text"></input>
+  </span>
 </header>
 
 <div id="widget-markup" class="dialog" title="Widget markup">
@@ -247,6 +260,7 @@ var context = this;
 
 var showNext = function () {
   if (next <  this.queries.length) {
+    $('#note > input').val("");
     $('#test-subject').html(this.widgetMarkup.replace("{{query}}", this.queries[next]));
     $('#query').html('"' + this.queries[next] + '"');
     localStorage.setItem("mkwstest-next", next);
@@ -265,7 +279,7 @@ var startEval = function () {
 }
 var judge = function (e) {
   var query = $('#test-subject > div').attr('autosearch');
-  context.results[query] = {judgement: $(this).html()};
+  context.results[query] = {judgement: $(this).html(), note: $("#note > input").val() || ""};
   localStorage.setItem("mkwstest-results", JSON.stringify(context.results));
   showNext();
 }
@@ -317,23 +331,23 @@ $("#results-csv-button").click(function () {
   $("#results-csv").dialog("open");
 });
 $("#results-table").dialog("option", "open", function () {
-  var html = "<tr><th>Query</th><th>Relevant?</th><tr>";
+  var html = "<tr><th>Query</th><th>Relevant?</th><th>Note</th><tr>";
   for (var i = 0; i < context.queries.length; i++) {
     var q = context.queries[i];
     var r = context.results;
     if (r[q]) {
-      html += "<tr><td>" + q + "</td><td>" + r[q].judgement + "</td></tr>\n";
+      html += "<tr><td>" + q + "</td><td>" + r[q].judgement + "</td><td>" + r[q].note + "</td></tr>\n";
     }
   } 
   $("#results-table > table").html(html);
 });
 $("#results-csv").dialog("option", "open", function () {
-  var csv = "Query|Relevant?\n";
+  var csv = "Query|Relevant?|Note\n";
   for (var i = 0; i < context.queries.length; i++) {
     var q = context.queries[i];
     var r = context.results;
     if (r[q]) {
-      csv += [q, r[q].judgement].join("|") + "\n";
+      csv += [q, r[q].judgement, r[q].note].join("|") + "\n";
     }
   } 
   $("#results-csv > textarea").html(csv);
