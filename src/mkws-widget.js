@@ -182,7 +182,7 @@ mkws.makeWidget = function($, team, type, node) {
   if (fn) {
     fn.call(that);
     this.info("made " + type + " widget(node=" + node + ")");
-  } else if (type.match(/-Container-(narrow|wide)$/)) {
+  } else if (type.match(/-[Cc]ontainer-(narrow|wide)$/)) {
     // Not really a widget: no need to log its lack of promotion
   } else {
     this.info("made UNPROMOTED widget(type=" + type + ", node=" + node + ")");
