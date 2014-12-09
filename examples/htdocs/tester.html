@@ -191,6 +191,7 @@ header button:hover, header button:active, header button:focus {
     <span id="settings">
       Settings:
       <button id="widget-markup-button">Widget</button>
+      <button id="mkws-config-button">MKWS config</button>
       <button id="queries-button">Queries</button>
     </span>
     <span id="results">
@@ -219,6 +220,9 @@ header button:hover, header button:active, header button:focus {
 <div id="widget-markup" class="dialog" title="Widget markup">
   <textarea></textarea>
 </div>
+<div id="mkws-config" class="dialog" title="MKWS configuration">
+  <textarea></textarea>
+</div>
 <div id="queries" class="dialog" title="Queries">
   <textarea></textarea>
 </div>
@@ -244,8 +248,15 @@ if (localStorage.getItem('mkwstest-queries')) {
 if (localStorage.getItem('mkwstest-widget-markup')) {
   this.widgetMarkup = localStorage.getItem('mkwstest-widget-markup');
 }
+if (localStorage.getItem('mkwstest-mkws-config')) {
+  mkws_config = JSON.parse(localStorage.getItem('mkwstest-mkws-config'));
+}
 $("#queries > textarea").html(this.queries.join("\n"));
 $("#widget-markup > textarea").html(this.widgetMarkup);
+$("#mkws-config > textarea").html(JSON.stringify(mkws_config));
+mkws.setMkwsConfig(mkws_config);
+mkws.authenticated = false;
+mkws.authenticating = false;
 
 this.results = {};
 var next = 0;
@@ -306,6 +317,22 @@ $("#widget-markup-button").click(function () {
 });
 $("#widget-markup").dialog("option", "buttons", [
   {text: "Start new evaluation", click: updateMarkup},
+  {text: "Cancel", click: function() { $(this).dialog("close"); }}   
+]);
+
+// MKWS config dialog
+var updateConfig = function () {
+  mkws.setMkwsConfig(JSON.parse($("#mkws-config > textarea").val()));
+  mkws.authenticated = false;
+  mkws.authenticating = false;
+  localStorage.setItem("mkwstest-mkws-config", $("#mkws-config > textarea").val());
+  startEval();
+}
+$("#mkws-config-button").click(function () {
+  $("#mkws-config").dialog("open");
+});
+$("#mkws-config").dialog("option", "buttons", [
+  {text: "Start new evaluation", click: updateConfig},
   {text: "Cancel", click: function() { $(this).dialog("close"); }}   
 ]);
 
