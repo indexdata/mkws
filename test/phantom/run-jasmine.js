@@ -50,7 +50,9 @@ function wait_for_jasmine(checkFx, readyFx, failFx, timeout) {
             // See: https://github.com/ariya/phantomjs/issues/12697
             // phantomjs 1.9.8
             page.close();
-            setTimeout(function(){ phantom.exit(result.failed == 0 ? 0 : 2); }, 0);
+            setTimeout(function () {
+                phantom.exit(result.failed == 0 ? 0 : 2);
+            }, 0);
         }
 
         // timeout
