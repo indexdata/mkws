@@ -580,7 +580,9 @@ describe("Check removable facets links", function () {
         runs(function () {
             $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkws-records for removeable: " + waitcount);
+                if (waitcount <= 5 || (waitcount % 5 == 0)) {
+                    debug("DOM change mkws-records for removeable: " + waitcount);
+                }
             });
         });
 
@@ -595,7 +597,9 @@ describe("Check removable facets links", function () {
 
             $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkws-records for removeable2: " + waitcount);
+                if (waitcount <= 5 || (waitcount % 5 == 0)) {
+                    debug("DOM change mkws-records for removeable2: " + waitcount);
+                }
             });
 
             var click = $("a.mkws-removable").eq(0).trigger("click");
@@ -638,7 +642,9 @@ describe("Check per page options", function () {
 
             $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkws-records, per page: " + waitcount);
+                if (waitcount <= 5 || (waitcount % 10 == 0)) {
+                    debug("DOM change mkws-records, per page: " + waitcount);
+                }
             });
         });
 
@@ -688,7 +694,9 @@ describe("Check SortBy options", function () {
         runs(function () {
             $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
                 waitcount++;
-                debug("DOM change mkws-records, sort by: " + waitcount);
+                if (waitcount <= 5 || (waitcount % 10 == 0)) {
+                    debug("DOM change mkws-records, sort by: " + waitcount);
+                }
             });
 
             var select = $("select.mkws-sort option[selected='selected']");
