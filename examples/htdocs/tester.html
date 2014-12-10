@@ -339,6 +339,8 @@ $("#mkws-config").dialog("option", "buttons", [
 // Queries dialog
 var updateQueries = function () {
   context.queries = $("#queries > textarea").val().split("\n");
+  // ignore empty query values
+  context.queries = $.grep(context.queries, function (query, index) { return query.match(/^\s*\S+/) } );
   localStorage.setItem("mkwstest-queries", JSON.stringify(context.queries));
   startEval();
 }
