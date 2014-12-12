@@ -1,88 +1,81 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MKWS demo jasmine test framework</title>
-    <script type="text/javascript">
-      var mkws_config = {
-	  use_service_proxy: false,
-	  disable_facet_authors_search: true, // does not work with raw pazpar2
-	  pazpar2_url : "/pazpar2/",
-	  perpage_default: 10
-      };
+    <title>MKWS demo: jQuery popup plugin with jasmine test framework</title>
 
-      var jasmine_config = {
-	"show_record_url": false // URLs not configured for pp2
-      };
-    </script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
+
+    <script type="text/javascript" src="tools/htdocs/jquery-1.10.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
     <script type="text/javascript" src="tools/htdocs/pz2.js"></script>
-    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
     <script type="text/javascript" src="tools/htdocs/jquery.json-2.4.js"></script>
     <script type="text/javascript" src="tools/htdocs/jsnlog.min.js"></script>
-    <script type="text/javascript" src="tools/htdocs/mkws.js"></script>
+    <script type="text/javascript" src="tools/htdocs/handlebars-v2.0.0.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="tools/htdocs/mkws.css" />
-    <style type="text/css">
-      .mkws-facets div.facet {
-      float:left;
-      width: 30%;
-      margin: 0.3em;
-      }
-      .mkws-stat {
-      text-align: right;
-      }
-    </style>
+    <script type="text/javascript" src="src/mkws-handlebars.js"></script>
+    <script type="text/javascript" src="src/mkws-core.js"></script>
+    <script type="text/javascript" src="src/mkws-team.js"></script>
+    <script type="text/javascript" src="src/mkws-filter.js"></script>
+    <script type="text/javascript" src="src/mkws-widget.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-main.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-facets.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-authname.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-categories.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-log.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-record.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-reference.js"></script>
+    <script type="text/javascript" src="src/mkws-widget-builder.js"></script>
+    <script type="text/javascript" src="src/mkws-templates.js"></script>
+    <script type="text/javascript" src="src/mkws-popup.js"></script>
 
-  <!-- SECTION jasmine -->
     <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-1.3.1/jasmine_favicon.png">
     <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-1.3.1/jasmine.css">
     <script type="text/javascript" src="jasmine/lib/jasmine-1.3.1/jasmine.js"></script>
     <script type="text/javascript" src="jasmine/lib/jasmine-1.3.1/jasmine-html.js"></script>
 
-    <!-- include MKWS spec files ... -->
     <script type="text/javascript" src="test/spec/true.spec.js"></script>
     <script type="text/javascript" src="test/spec/mkws-config.js"></script>
     <script type="text/javascript" src="test/spec/mkws-pazpar2.js"></script>
 
-    <!-- init and run jasmine -->
     <script type="text/javascript" src="test/js/mkws-jasmine-run.js"></script>
-  <!-- EOF jasmine -->
+    <!-- jquery null test
+    <script type="text/javascript">$ = undefined;</script>
+	-->
 
+    <style type="text/css">
+      body > div > form > input.ui-state-default { background: none; }
+    </style>
   </head>
-  <body>
-    <table width="100%" border="0">
-      <tr>
-        <td>
-          <div class="mkws-switch"></div>
-          <div class="mkws-lang"></div>
-          <div class="mkws-search"></div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:500px; overflow: auto">
-            <div class="mkws-pager"></div>
-            <div class="mkws-navi"></div>
-            <div class="mkws-records"></div>
-            <div class="mkws-targets"></div>
-            <div class="mkws-ranking"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div style="height:300px; overflow: hidden">
-            <div class="mkws-facets"></div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <div class="mkws-stat"></div>
-        </td>
-      </tr>
-    </table>
 
-    <div id="testMOTD"><div class="mkws-motd">This is the mkws-motd div</div></div>
+  <body>
+    <script type="text/javascript">
+    var mkws_config = {
+	use_service_proxy: false,
+	disable_facet_authors_search: true, // does not work with raw pazpar2
+	pazpar2_url : "/pazpar2/",
+	perpage_default: 10
+    };
+
+    var jasmine_config = {
+      search_query: "freebsd",
+      expected_hits: 20,
+      active_clients: 16,
+      check_motd: false,
+      show_record_url: false // URLs not configured for pp2
+    };
+    </script>
+
+
+    <h2>MKWS Jasmine regression tests</h2>
+    <div class="mkws-search"></div>
+    <div class="mkws-popup" popup_width="990" popup_height="760" popup_modal="0" popup_autoOpen="0" popup_button="input.mkws-button">
+      <div class="mkws-switch"></div>
+      <div class="mkws-lang"></div>
+      <div class="mkws-results"></div>
+      <div class="mkws-targets"></div>
+      <div class="mkws-stat"></div>
+    </div>
+
   </body>
 </html>
