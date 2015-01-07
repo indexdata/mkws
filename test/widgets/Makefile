@@ -59,7 +59,7 @@ index-iframe-demo:
 tidy:
 	for i in iframe-demos.html index-*.html; do \
 	    tidy -i -m $$i >/dev/null 2>&1; \
-	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" />\n$$1,' $$i; \
+	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" /> $$1,' $$i; \
 	done
 
 help:
