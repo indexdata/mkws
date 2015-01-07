@@ -13,13 +13,13 @@
         "jquery": "*",
         "jsdom": "*",
         "xmlhttprequest": "*",
-        "cssstyle": "<= 0.2.14",
+        "cssstyle": "*",
         "request": "*",
-        "jasmine-reporters": "<= 0.4.1",
+        "jasmine-reporters": "*",
         "jasmine-node": "*",
         "phantomjs": "*",
-        "handlebars": "= 2.0.0",
-        "uglify-js": "> 2.0.0"
+        "handlebars": "*",
+        "uglify-js": "*"
     },
     "repository": {
         "type": "git",
