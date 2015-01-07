@@ -39,6 +39,7 @@ screenshots: clean estimate-time iframe tidy
 	    done; \
 	    ${MAKE} PREFIX=$$t index; \
 	done
+	@echo "Please check now: http://localhost/test/widgets/"
 
 estimate-time:
 	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}'), "seconds" }'
