@@ -31,7 +31,7 @@ screenshot:
 	  ${PHANTOMJS} ${PROG} "${PHANTOMJS_URL}" ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
-screenshots: clean estimate-time iframe tidy help-url
+screenshots: clean estimate-time iframe
 	set -e; \
 	for t in ${TESTS}; do \
 	    for i in $$(cat url.$$t); do \
@@ -39,6 +39,7 @@ screenshots: clean estimate-time iframe tidy help-url
 	    done; \
 	    ${MAKE} PREFIX=$$t index; \
 	done
+	${MAKE} tidy help-url
 
 help-url:
 	@echo ""
