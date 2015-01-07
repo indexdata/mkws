@@ -51,10 +51,16 @@ iframe: index-iframe-demo
 index-iframe-demo:
 	( cat url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos.html
 
+tidy:
+	for i in iframe-demos.html index-*.html; do \
+	    tidy -i -m $$i >/dev/null 2>&1; \
+	    perl -i -npe 's,(</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" />\n$$1,' $$i; \
+	done
+
 help:
 	@echo "make [ all | clean | distclean ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ screenshot | index | iframe ]"
+	@echo "     [ screenshot | index | iframe | tidy ]"
 	@echo ""
 	@echo "Examples: "
 	@echo ""
