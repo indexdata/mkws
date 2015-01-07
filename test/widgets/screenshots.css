@@ -1,0 +1,11 @@
+/*
+ * screen shots have usually a white background
+ * 
+ * change the default browser background to orange
+ * to make the screen shots more visible
+ */
+
+body {
+    background-color: darkorange;
+}
+
