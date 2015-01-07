@@ -31,7 +31,7 @@ screenshot:
 	  ${PHANTOMJS} ${PROG} "${PHANTOMJS_URL}" ${IMAGES}/tmp.$$file.png ${SCREENSHOT_WIDTH_HEIGHT} ${TIMEOUT}; \
 	  mv -f  ${IMAGES}/tmp.$$file.png  ${IMAGES}/$$file.png
 
-screenshots: clean estimate-time iframe tidy
+screenshots: clean estimate-time iframe tidy help-url
 	set -e; \
 	for t in ${TESTS}; do \
 	    for i in $$(cat url.$$t); do \
@@ -39,6 +39,9 @@ screenshots: clean estimate-time iframe tidy
 	    done; \
 	    ${MAKE} PREFIX=$$t index; \
 	done
+
+help-url:
+	@echo ""
 	@echo "Please check now: http://localhost/test/widgets/"
 
 estimate-time:
