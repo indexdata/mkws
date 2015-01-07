@@ -10,9 +10,9 @@
         "email": "wosch@indexdata.com"
     }],
     "devDependencies": {
-        "jQuery": "*",
+        "jquery": "*",
+        "jsdom": "*",
         "xmlhttprequest": "*",
-        "jsdom": "<= 0.11.1",
         "cssstyle": "<= 0.2.14",
         "request": "*",
         "jasmine-reporters": "<= 0.4.1",
