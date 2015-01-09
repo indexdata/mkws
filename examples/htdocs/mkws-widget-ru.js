@@ -1,4 +1,5 @@
 mkws.registerWidgetType('reference-universe', function() {
+  if (!this.config.target) this.config.target = 'paratext_ruprime';
   if (!this.config.perpage) this.config.perpage = 5;
   if (!this.config.sort) this.config.sort = "position";
   this.team.registerTemplate('reference-universe', '\
