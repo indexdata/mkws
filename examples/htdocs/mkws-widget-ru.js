@@ -1,5 +1,3 @@
-var mkws_config = { sp_auth_credentials: "paratext/paratext_mkc" };
-
 mkws.registerWidgetType('reference-universe', function() {
   if (!this.config.perpage) this.config.perpage = 5;
   if (!this.config.sort) this.config.sort = "position";
