@@ -5,6 +5,7 @@ Simply paste this inline with the markup on any page:
 
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
     <script src="//mkws.indexdata.com/mkws-widget-ru.js"></script>
+    <script>var mkws_config = { sp_auth_credentials: "paratext/paratext_mkc" }</script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws-widget-ru.css" />
     <div class="mkws-reference-universe" autosearch="!param!q"></div>
     
@@ -17,6 +18,10 @@ You need to include two scripts: one for MKWS and one for the Reference Universe
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
     <script src="//mkws.indexdata.com/mkws-widget-ru.js"></script>
     
+You also need to tell the widget how to authenticate onto the searching service:
+
+    <script>var mkws_config = { sp_auth_credentials: "paratext/paratext_mkc" }</script>
+
 The provided stylesheet is generic and you're encouraged to replace it entirely by styling the new elements to fit seamlessly with your content. 
 
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws-widget-ru.css" />
