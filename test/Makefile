@@ -87,7 +87,7 @@ screenshot-indexdata:
 	done; wait
 	ls -l ${IMAGES}
 
-screenshots:
+screenshots: check
 	${MAKE} -C ./widgets $@
 
 jsbeautifier jsb indent:

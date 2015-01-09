@@ -1,13 +1,13 @@
-/* Copyright (c) 2013 Index Data ApS. http://indexdata.com
+/* Copyright (c) 2013-2015 Index Data ApS. http://indexdata.com
  *
- * jQuery test
+ * jquery test
  *
  */
 
-describe("jQuery suite simple", function () {
-    var $ = require('jQuery');
+describe("jquery suite simple", function () {
+    var $ = require('jquery')(require("jsdom").jsdom().parentWindow);
 
-    it("jQuery append test", function () {
+    it("jquery append test", function () {
         $("body").append("<h1>test passes h1</h1>");
         expect($("body").html()).toMatch(/<h1>/);
         $("<p>this is a paragraph</p>").appendTo("h1");

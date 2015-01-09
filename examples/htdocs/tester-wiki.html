@@ -11,8 +11,8 @@
 
 <script type="text/javascript">
   var mkws_config = {
-    // target: 'wikimedia_wikipedia_single_result',
-    sp_auth_credentials: "mkwstest/mkwstest"
+    sp_auth_url: "http://mkwsex.local/service-proxy/?command=auth&action=login&username=mkctest&password=mkctestallcon",
+    pazpar2_url: "http://mkwsex.local/service-proxy/"
   };
 </script>
 
@@ -40,7 +40,7 @@
 <script type="text/javascript" src="src/mkws-templates.js"></script>
 <script type="text/javascript" src="src/mkws-popup.js"></script>
 
-<script type="text/javascript" src="mkws-widget-credo.js"></script>
+<script type="text/javascript" src="mkws-widget-wikicat.js"></script>
 
 <style>
 .dialog > textarea {
@@ -241,7 +241,7 @@ header button:hover, header button:active, header button:focus {
 <script>
 (function () { // wrapper
 // Initial data
-this.queries = ["sushi", "wurst", "tea", "latte"];
+this.queries = ["sushi", "wurst", "berlin", "hammer", "bristol", "copenhagen", "tea", "latte"];
 this.widgetMarkup = '<div class="mkws-reference" autosearch="{{query}}">Loading..</div>';
 if (localStorage.getItem('mkwstest-queries')) {
   this.queries = JSON.parse(localStorage.getItem('mkwstest-queries'));
@@ -340,8 +340,6 @@ $("#mkws-config").dialog("option", "buttons", [
 // Queries dialog
 var updateQueries = function () {
   context.queries = $("#queries > textarea").val().split("\n");
-  // ignore empty query values
-  context.queries = $.grep(context.queries, function (query, index) { return query.match(/^\s*\S+/) } );
   localStorage.setItem("mkwstest-queries", JSON.stringify(context.queries));
   startEval();
 }

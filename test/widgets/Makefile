@@ -35,13 +35,18 @@ screenshots: clean estimate-time iframe
 	set -e; \
 	for t in ${TESTS}; do \
 	    for i in $$(cat url.$$t); do \
-	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot; \
-	    done; \
+	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot & sleep 1; \
+	    done; wait; \
 	    ${MAKE} PREFIX=$$t index; \
 	done
+	${MAKE} tidy help-url
+
+help-url:
+	@echo ""
+	@echo "Please check now: http://localhost/test/widgets/"
 
 estimate-time:
-	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}'), "seconds" }'
+	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
 	@echo ""
 
 index:
@@ -51,10 +56,16 @@ iframe: index-iframe-demo
 index-iframe-demo:
 	( cat url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos.html
 
+tidy:
+	for i in iframe-demos.html index-*.html; do \
+	    tidy -i -m $$i >/dev/null 2>&1; \
+	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" /> $$1,' $$i; \
+	done
+
 help:
 	@echo "make [ all | clean | distclean ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ screenshot | index | iframe ]"
+	@echo "     [ screenshot | index | iframe | tidy ]"
 	@echo ""
 	@echo "Examples: "
 	@echo ""

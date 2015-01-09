@@ -4,4 +4,5 @@ mkws.registerWidgetType('reference', function() {
   if (!this.config.template) this.config.template = 'reference';
   this.config.template_vars.paragraphs = this.config.paragraphs || 0;
   this.config.template_vars.sentences = this.config.sentences || 0;
+  this.config.template_vars.credit = this.config.credit || "Wikipedia";
 });

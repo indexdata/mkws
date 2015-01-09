@@ -1,6 +1,6 @@
 {
     "name": "MKWS",
-    "version": "0.9.1",
+    "version": "1.0.0",
     "license": "GPL, http://www.indexdata.com/licences/gpl",
     "contributors": [{
         "name": "Mike Taylor",
@@ -10,16 +10,16 @@
         "email": "wosch@indexdata.com"
     }],
     "devDependencies": {
-        "jQuery": "*",
+        "jquery": "*",
+        "jsdom": "*",
         "xmlhttprequest": "*",
-        "jsdom": "<= 0.11.1",
-        "cssstyle": "<= 0.2.14",
+        "cssstyle": "*",
         "request": "*",
-        "jasmine-reporters": "<= 0.4.1",
+        "jasmine-reporters": "*",
         "jasmine-node": "*",
         "phantomjs": "*",
-        "handlebars": "= 2.0.0",
-        "uglify-js": "> 2.0.0"
+        "handlebars": "*",
+        "uglify-js": "*"
     },
     "repository": {
         "type": "git",
