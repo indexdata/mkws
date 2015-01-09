@@ -1,6 +1,4 @@
-var mkws_config = {
-   service_proxy_auth: "http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=paratext&password=paratext_mkc"
-};
+var mkws_config = { sp_auth_credentials: "paratext/paratext_mkc" };
 
 mkws.registerWidgetType('reference-universe', function() {
   if (!this.config.perpage) this.config.perpage = 5;
