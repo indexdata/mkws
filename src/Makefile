@@ -30,6 +30,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-widget-log.js \
 	mkws-widget-record.js \
 	mkws-widget-wikipedia.js \
+	mkws-widget-ru.js \
 	mkws-widget-builder.js \
 	mkws-templates.js \
 	mkws-popup.js
