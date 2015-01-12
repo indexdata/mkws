@@ -3,7 +3,7 @@
 # this makefile will generate CSS files for Koha MKWS widgets
 
 E_DIR=	../../../../examples/htdocs
-COMPONENTS = ${E_DIR}/mkws-widget-reference.css koha-mkws-widget-ru.css
+COMPONENTS = ${E_DIR}/mkws-widget-wikipedia.css koha-mkws-widget-ru.css
 
 KOHA_CSS = koha-mkws.css 
 KOHA_COMPLETE_CSS = koha-mkws-complete.css 
