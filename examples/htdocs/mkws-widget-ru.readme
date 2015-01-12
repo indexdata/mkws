@@ -4,7 +4,6 @@
 Simply paste this inline with the markup on any page: 
 
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
-    <script src="//mkws.indexdata.com/mkws-widget-ru.js"></script>
     <script>var mkws_config = { sp_auth_credentials: "paratext/paratext_mkc" }</script>
     <link rel="stylesheet" type="text/css" href="//mkws.indexdata.com/mkws-widget-ru.css" />
     <div class="mkws-reference-universe" autosearch="!param!q"></div>
@@ -13,10 +12,9 @@ Simply paste this inline with the markup on any page:
 
 The MasterKey Widget Set ([MKWS](http://mkws.indexdata.com/)) lets you easily embed search-enabled widgets which run in the client browser and display results from a web service. In this case, it searches Reference Universe.
 
-You need to include two scripts: one for MKWS and one for the Reference Universe widget. This can be inline as above or you can include them in the header or aggregate them with your application's scripts.
+You need to include the main MKWS scripts. This can be inline as above or you can include it in the header or aggregate it with your application's scripts.
 
     <script src="//mkws.indexdata.com/mkws-complete.js"></script>
-    <script src="//mkws.indexdata.com/mkws-widget-ru.js"></script>
     
 You also need to tell the widget how to authenticate onto the searching service:
 
