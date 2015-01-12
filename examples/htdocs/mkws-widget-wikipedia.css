@@ -1,3 +1,4 @@
+.mkws-wikipedia,
 .mkws-reference {
     max-width: 40em;
     font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
@@ -9,14 +10,17 @@
     -webkit-border-radius: 1em;
 }
 
+.mkws-wikipedia h1 a,
 .mkws-reference h1 a {
     color: #806020;
 }
 
+.mkws-wikipedia a,
 .mkws-reference a {
     text-decoration: none;
 }
 
+.mkws-wikipedia img,
 .mkws-reference img {
     float: right;
     margin: 0 0 1em 2em;
