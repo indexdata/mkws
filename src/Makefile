@@ -29,7 +29,7 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-widget-categories.js \
 	mkws-widget-log.js \
 	mkws-widget-record.js \
-	mkws-widget-reference.js \
+	mkws-widget-wikipedia.js \
 	mkws-widget-builder.js \
 	mkws-templates.js \
 	mkws-popup.js
