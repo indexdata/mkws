@@ -159,6 +159,12 @@ mkws.registerWidgetType = function(name, fn) {
   mkws.info("registered widget-type '" + name + "'");
 };
 
+mkws.aliasWidgetType = function(newName, oldName) {
+  mkws.widgetType2function[newName] = mkws.widgetType2function[oldName];
+  mkws.info("aliased widget-type '" + newName + "' to '" + oldName + "'");
+  
+};
+
 mkws.promotionFunction = function(name) {
   return mkws.widgetType2function[name];
 };
