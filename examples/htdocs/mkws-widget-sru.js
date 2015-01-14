@@ -1,2 +1,0 @@
-mkws.registerWidgetType('SRU', function() {
-});
