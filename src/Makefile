@@ -72,7 +72,7 @@ $(DEST)/${HANDLEBARS_FILE}:
 
 $(DEST)/${JQUERY_FILE}:
 	curl -sSf ${JQUERY_URL} -o $@.tmp
-	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.tmp > $@
+	perl -npe 's,sourceMappingURL=jquery.*map,,' $@.tmp | sed 's@<input>@<input/>@' > $@
 	rm -f $@.tmp
 
 $(DEST)/${JQUERY_JSON_FILE}:
