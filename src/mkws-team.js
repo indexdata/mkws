@@ -306,7 +306,6 @@ mkws.makeTeam = function($, teamName) {
 
   function triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
     resetPage();
-    queue("navi").publish();
 
     // Continue to use previous query/sort-order unless new ones are specified
     if (query) m_query = query;
@@ -334,6 +333,7 @@ mkws.makeTeam = function($, teamName) {
         "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
     m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
+    queue("searchtriggered").publish();
   }
 
   // fetch record details to be retrieved from the record queue

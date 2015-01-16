@@ -141,7 +141,7 @@ mkws.registerWidgetType('navi', function() {
   var that = this;
   var teamName = this.team.name();
 
-  this.team.queue("navi").subscribe(function() {
+  this.team.queue("searchtriggered").subscribe(function() {
     var filters = that.team.filters();
     var output = {filters:[]};
 
