@@ -10,17 +10,12 @@
     Alias /libjs-pz2/ /Users/mike/git/work/libjs-pz2/
     Alias /pazpar2/ /Users/mike/git/work/pazpar2/
 
-    RewriteEngine on
-    RewriteLogLevel 1
-    RewriteLog /var/log/apache2/spclient-rewrite.log 
-    RewriteRule /service-proxy-auth(/)?(;jsessionid=.+)? /service-proxy/$2?command=auth&action=login&username=guest&password=guest [P] # [NE,P]
-
     # For MKC Service Proxy
     ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
     ProxyPassReverse /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
 
     # Needed on Mac, which locks Apache down hard by default.
     <Directory />
-        Allow from all
+	Require all granted
     </Directory>
 </VirtualHost>

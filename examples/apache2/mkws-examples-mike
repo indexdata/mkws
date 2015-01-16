@@ -1,10 +1,13 @@
 <VirtualHost *:80>
     ServerName x.example.indexdata.com
-    DocumentRoot /home/mike/git/work/mkws/examples/htdocs/
+    DocumentRoot /home/mike/git/work/demos/
     Alias /tools/htdocs/ /home/mike/git/work/mkws/tools/htdocs/
     Alias /src/ /home/mike/git/work/mkws/src/
     Alias /jasmine/ /home/mike/git/work/mkws/examples/jasmine/
     Alias /test/ /home/mike/git/work/mkws/test/
+
+    Alias /mkws-sandbox/ /home/mike/git/work/mkws/examples/htdocs/
+    Alias /metarepo/ /home/mike/git/work/metarepo/htdocs/
 
     <Directory />
         Allow from all

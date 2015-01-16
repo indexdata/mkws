@@ -7,14 +7,10 @@
     Alias /test/ /Users/mike/git/work/mkws/test/
 
     <Directory />
-        Allow from all
+        #Allow from all <-- This is for Apache v2.4, but for v4.4 we need ...
+	Require all granted
     </Directory>
 
     ErrorLog /var/log/apache2/mkws-examples-error.log
     CustomLog /var/log/apache2/mkws-examples-access.log combined
-
-    RewriteEngine on
-    RewriteRule      /service-proxy-auth/ http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
-    #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
-    #RewriteLogLevel 9
 </VirtualHost>
