@@ -658,6 +658,9 @@ mkws.info("Using window.name '" + window.name + "'");
     } else if (!mkws.authenticating) {
       // raw pp2 or we have a session already open
       runAutoSearches();
+      for (var teamName in mkws.teams) {
+        mkws.teams[teamName].queue("authenticated").publish();
+      }
     }
     
     mkws.isActive = true;
