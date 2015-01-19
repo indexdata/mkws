@@ -20,7 +20,7 @@ mkws.registerWidgetType('targets', function() {
     for (var i = 0; i < data.length; i++) {
       var cur = {};
       cur.name = data[i].name;
-      cur.id = that.team.targetName(data[i].id);
+      cur.id = data[i].id;
       cur.hits = data[i].hits;
       cur.diagnostic = data[i].diagnostic;
       cur.message = data[i].message;
