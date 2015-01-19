@@ -1,10 +1,13 @@
 <VirtualHost *:80>
     ServerName x.example.indexdata.com
-    DocumentRoot /Users/mike/git/work/mkws/examples/htdocs/
+    DocumentRoot /Users/mike/git/work/demos/
     Alias /tools/htdocs/ /Users/mike/git/work/mkws/tools/htdocs/
     Alias /src/ /Users/mike/git/work/mkws/src/
     Alias /jasmine/ /Users/mike/git/work/mkws/examples/jasmine/
     Alias /test/ /Users/mike/git/work/mkws/test/
+
+    Alias /mkws-sandbox/ /Users/mike/git/work/mkws/examples/htdocs/
+    Alias /metarepo/ /Users/mike/git/work/metarepo/htdocs/
 
     <Directory />
         #Allow from all <-- This is for Apache v2.4, but for v4.4 we need ...
