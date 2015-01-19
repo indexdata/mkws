@@ -33,6 +33,7 @@ mkws.makeTeam = function($, teamName) {
   var m_template = {}; // compiled templates, from any source
   var m_widgets = {}; // Maps widget-type to array of widget objects
   var m_gotRecords = false;
+  var m_targetMap = {}; // Maps target ID to human-readable name
   
   var config = mkws.objectInheritingFrom(mkws.config);
   that.config = config;
@@ -499,8 +500,19 @@ mkws.makeTeam = function($, teamName) {
       }
     }
     return undefined;
-  }
+  };
 
+  that.mapTarget = function(id, name) {
+    var old = m_targetMap[id];
+    m_targetMap[id] = name;
+    if (old && name !== old) {
+      that.warn("targetMap for id '" + id + "' changed from '" + old + "' to '" + name + "'");
+    }
+  };
+
+  that.targetName = function(id) {
+    return m_targetMap[id] || id;
+  }
 
   return that;
 };
