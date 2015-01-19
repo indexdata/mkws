@@ -56,10 +56,6 @@ mkws.registerWidgetType('facet', function() {
         count: data[i].freq,
         linkdata: linkdata
       }); 
-      
-      if (!pzIndex) {
-        team.mapTarget(data[i].id, data[i].name);
-      }
     }
     // configured template > facet specific template > default facet template
     var template;
