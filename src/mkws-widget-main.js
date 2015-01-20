@@ -29,6 +29,8 @@ mkws.registerWidgetType('targets', function() {
       cleandata.push(cur);
     }
 
+    cleandata.sort(function(a,b) { return a.name.localeCompare(b.name) });
+
     var template = that.team.loadTemplate(that.config.template || "targets");
     that.node.html(template({data: cleandata}));
   });
