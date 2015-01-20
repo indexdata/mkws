@@ -183,6 +183,14 @@
     padding: 0.3em;
 }
 
+.mkws-pager-desc {
+    float: right;
+}
+
+.mkws-pager-list {
+    float: clear;
+}
+
 .mkwsTargets table thead tr td, .mkws-targets table thead tr td {
     background-color: #132194;
     color: white;
