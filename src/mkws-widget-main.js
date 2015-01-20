@@ -25,7 +25,7 @@ mkws.registerWidgetType('targets', function() {
       cur.diagnostic = data[i].diagnostic;
       cur.message = data[i].message;
       cur.records = data[i].records;
-      cur.state = data[i].state;
+      cur.state = data[i].state.replace(/^Client_/, '');
       cleandata.push(cur);
     }
 
