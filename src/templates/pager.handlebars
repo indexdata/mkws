@@ -13,13 +13,13 @@ pages:
   number - page number
   click - script to go to this page unless it is the current one
 }}
-<div style="float: right">
+<div class="mkws-pager-desc">
   {{mkws-translate "Displaying"}}:
   {{first}} {{mkws-translate "to"}} {{last}}
   {{mkws-translate "of"}} {{count}} ({{{mkws-translate "found"}}}: {{found}})
 </div>
 
-<div style="float: clear">
+<div class="mkws-pager-list">
   {{#if prevClick}}
     <a href="#" class="mkws-prev mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{{mkws-translate "Prev"}}}</a> |
   {{else}}
