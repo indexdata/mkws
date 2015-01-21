@@ -5,7 +5,20 @@ sentences - number of sentences to include
 paragraphs - number of paragraphs to include
 md-* - metadata fields passed through from backend
 }}
-<img src="{{md-thumburl}}" alt="{{md-title}}">
+
+<!--
+display only the first image
+
+{{#if md-thumburl}}
+<img src="{{md-thumburl.[0]}}" alt="{{md-title}}">
+{{/if}}
+-->
+
+<!-- multiple images -->
+{{#each md-thumburl}}
+  <img src="{{this}}" alt="{{md-title}}">
+{{/each}}
+
 <h1><a href="{{md-electronic-url}}">{{md-title}}</a></h1>
 {{#if md-title-remainder}}
 <b>{{md-title-remainder}}</b>
