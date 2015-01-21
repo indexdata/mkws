@@ -19,6 +19,10 @@
     Alias /test /home/indexdata/mkws-dev/test
     Alias /jasmine /home/indexdata/mkws-dev/examples/jasmine
 
+    Alias /demos/src /home/indexdata/mkws-dev/src
+    Alias /demos/tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
+    Alias /demos /home/indexdata/demos
+
     # CORS setting
     Header set Access-Control-Allow-Credentials true
     Header set Access-Control-Allow-Origin "*"
