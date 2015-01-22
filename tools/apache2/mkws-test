@@ -18,6 +18,9 @@
     Alias /test /home/indexdata/mkws-test/test
     Alias /jasmine /home/indexdata/mkws-test/examples/jasmine
 
+    Alias /demos/src /home/indexdata/mkws-test/src
+    Alias /demos/tools/htdocs /home/indexdata/mkws-test/tools/htdocs
+    Alias /demos /home/indexdata/demos
 
     # CORS setting
     Header set Access-Control-Allow-Credentials true
@@ -37,8 +40,10 @@
     RewriteRule /service-proxy-kohaauth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=kohademo&password=kohademo [P]
     #RewriteRule /service-proxy-kohaauth(/)?(;jsessionid=.+)?  /service-proxy/$2?command=auth&action=login&username=mkwsdev&password=mkwsdev [P]
 
-    ProxyPass        /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
-    ProxyPassReverse /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
+    ProxyPass        /service-proxy/ http://sp-mkws02.indexdata.com/service-proxy/
+    ProxyPassReverse /service-proxy/ http://sp-mkws02.indexdata.com/service-proxy/
+    #ProxyPass        /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
+    #ProxyPassReverse /service-proxy/ http://sp-mkc-sansa.indexdata.com:8080/service-proxy/
     #ProxyPass        /service-proxy/ http://sp-mkc-arya.indexdata.com:8080/service-proxy/
     #ProxyPassReverse /service-proxy/ http://sp-mkc-arya.indexdata.com:8080/service-proxy/
     #ProxyPass        /service-proxy/ http://sp-mkc.indexdata.com/service-proxy/
