@@ -191,6 +191,14 @@
     float: clear;
 }
 
+.mkws-prev::before {
+    content: "<< ";
+}
+
+.mkws-next::after {
+    content: " >>";
+}
+
 .mkwsTargets table thead tr td, .mkws-targets table thead tr td {
     background-color: #132194;
     color: white;
