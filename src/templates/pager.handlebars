@@ -21,9 +21,9 @@ pages:
 
 <div class="mkws-pager-list">
   {{#if prevClick}}
-    <a href="#" class="mkws-prev mkwsPrev" onclick="{{prevClick}}">&#60;&#60; {{{mkws-translate "Prev"}}}</a> |
+    <a href="#" class="mkws-prev mkwsPrev" onclick="{{prevClick}}">{{{mkws-translate "Prev"}}}</a> |
   {{else}}
-    <span class="mkws-prev mkwsPrev">&#60;&#60; {{{mkws-translate "Prev"}}}</span> |
+    <span class="mkws-prev mkwsPrev">{{{mkws-translate "Prev"}}}</span> |
   {{/if}}
 
   {{#if morePrev}}...{{/if}}
@@ -39,8 +39,8 @@ pages:
   {{#if moreNext}}...{{/if}}
 
   {{#if nextClick}}
-    | <a href="#" class="mkws-next mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}} &#62;&#62;</a>
+    | <a href="#" class="mkws-next mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}}</a>
   {{else}}
-    | <span class="mkws-next mkwsNext">{{{mkws-translate "Next"}}} &#62;&#62;</span>
+    | <span class="mkws-next mkwsNext">{{{mkws-translate "Next"}}}</span>
   {{/if}}
 </div>
