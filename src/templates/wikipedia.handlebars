@@ -19,7 +19,7 @@ display only the first image
   <img src="{{this}}" alt="{{md-title}}">
 {{/each}}
 
-<h1><a href="{{md-electronic-url}}">{{md-title}}</a></h1>
+<h1><a href="{{md-electronic-url}}" target="_blank">{{md-title}}</a></h1>
 {{#if md-title-remainder}}
 <b>{{md-title-remainder}}</b>
 {{/if}}
@@ -27,4 +27,8 @@ display only the first image
 <i>{{md-title-responsibility}}</i>
 {{/if}}
 {{{mkws-paragraphs md-description paragraphs sentences}}}
+{{#if md-disambiguationurl}}
+<p>Or did you mean <a href="{{md-disambiguationurl}}" target="_blank"
+	>a different {{md-title}}</a>?</p>
+{{/if}}
 <p class="mkws-credit mkwsCredit">{{credit}}</p>
