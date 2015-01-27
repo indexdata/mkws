@@ -71,9 +71,13 @@ mkws.makeWidget = function($, team, type, node) {
   function expandValue(val) {
     if (val.match(/^!param!/)) {
       var param = val.replace(/^!param!/, '');
+      var optional = param.match(/^\?/);
+      if (optional) {
+        param = param.replace(/^\?/, ''); 
+      }
       val = mkws.getParameterByName(param);
       that.info("obtained val '" + val + "' from param '" + param + "'");
-      if (!val) {
+      if (!val && !optional) {
         alert("This page has a MasterKey widget that needs a val specified by the '" + param + "' parameter");
       }
     } else if (val.match(/^!path!/)) {
