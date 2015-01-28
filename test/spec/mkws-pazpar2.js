@@ -616,6 +616,9 @@ describe("Check translations", function () {
             expect("Sorter efter").toBe(M("Sort by"));
             expect("Sorter efter").toBe($(list[0]).text());
         }
+
+
+        expect($("select.mkws-sort > option[selected=selected").text()).toBe(M("relevance"));
     });
 
     xit("facets sidebar", function () {
