@@ -786,6 +786,10 @@ describe("Check translations", function () {
     },
 */
 
+    it("search button", function () {
+        expect($("form > input[type=submit]").attr("value")).toBe(M("Search"));
+    });
+
     it("ranking form", function () {
         var list = $(".mkws-ranking > form > span");
 
@@ -828,6 +832,8 @@ describe("Check translations", function () {
         expect($(".mkws-next").text()).toBe(M("Next"));
         expect($(".mkws-prev").text()).toBe(M("Prev"));
     });
+
+
 });
 
 xdescribe("Check async widget discovery", function () {
