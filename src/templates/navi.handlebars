@@ -7,7 +7,7 @@ filters
   click - handler script to remove limit
 }}
 {{#each filters}}
-  {{{mkws-translate facet}}}: <a class="mkws-removable mkwsRemovable" href="#" onclick="{{{click}}}">{{value}}</a>
+  <span>{{{mkws-translate facet}}}</span>: <a class="mkws-removable mkwsRemovable" href="#" onclick="{{{click}}}">{{value}}</a>
   {{#unless @last}}|{{/unless}}
 {{/each}}
 

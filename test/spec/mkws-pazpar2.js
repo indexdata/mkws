@@ -819,7 +819,7 @@ describe("Check translations", function () {
         }
     });
 
-    xit("facets", function () {
+    xit("facets sidebar", function () {
         var list = $(".mkws-facet-title");
 
         expect(list.length).toBe(3);
@@ -827,6 +827,15 @@ describe("Check translations", function () {
         expect($(list[0]).text()).toBe(M("Sources"));
         expect($(list[1]).text()).toBe(M("Subjects"));
         expect($(list[2]).text()).toBe(M("Authors"));
+    });
+
+    it("facets navigation", function () {
+        var list = $(".mkws-navi > span");
+
+        expect(list.length).toBe(2);
+
+        expect($(list[0]).text()).toBe(M("source"));
+        expect($(list[1]).text()).toBe(M("author"));
     });
 
     it("navigation", function () {
