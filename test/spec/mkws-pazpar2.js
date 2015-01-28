@@ -580,6 +580,10 @@ describe("Check translations", function () {
       "Location": "Ort",
       "Records": "Datens&auml;tze",
       "Targets": "Datenbanken",
+      "relevance": "Relevanz",
+      "title": "Titel",
+      "newest": "Neueste",
+      "oldest": "&Auml;lteste",
 
       "dummy": "dummy"
     },
