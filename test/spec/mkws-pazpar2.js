@@ -738,7 +738,37 @@ describe("Check SortBy options", function () {
     });
 });
 
-describe("Check async widget discovery", function () {
+describe("Check translations", function () {
+    var $ = mkws.$;
+
+    it("check language", function () {
+        var lang = mkws.config.lang;
+        debug("lang: " + lang);
+        expect(lang).toMatch(/^(de|da|)$/);
+    });
+
+    it("ranking form", function () {
+        var list = $(".mkws-ranking > form > span");
+        var lang = mkws.config.lang;
+
+        expect(list.length).toBe(3);
+
+        expect(mkws.M("Sort by")).toBe($(list[0]).text());
+        expect(mkws.M("and show")).toBe($(list[1]).text());
+        expect(mkws.M("per page")).toBe($(list[2]).text());
+
+        // double check
+        if (lang == "de") {
+            expect(mkws.M("Sort by")).toBe("Sortieren nach");
+            expect($(list[0]).text()).toBe("Sortieren nach");
+        } else if (lang == "da") {
+            expect(mkws.M("Sort by")).toBe("Sorter efter");
+            expect($(list[0]).text()).toBe("Sorter efter");
+        }
+    });
+});
+
+xdescribe("Check async widget discovery", function () {
     var $ = mkws.$;
     it("initialises a new widget", function () {
         $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
