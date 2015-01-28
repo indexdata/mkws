@@ -740,6 +740,10 @@ describe("Check SortBy options", function () {
 
 describe("Check translations", function () {
     var $ = mkws.$;
+    var M = mkws.M;
+    var lang = function () {
+            return mkws.config.lang
+        };
 
     it("check language", function () {
         var lang = mkws.config.lang;
@@ -747,24 +751,65 @@ describe("Check translations", function () {
         expect(lang).toMatch(/^(de|da|)$/);
     });
 
+/*
+  locale_lang: {
+    "de": {
+      "Authors": "Autoren",
+      "Subjects": "Schlagw&ouml;rter",
+      "Sources": "Daten und Quellen",
+      "source": "datenquelle",
+      "Facets": "Termlisten",
+      "Next": "Weiter",
+      "Prev": "Zur&uuml;ck",
+      "Search": "Suche",
+      "Sort by": "Sortieren nach",
+      "and show": "und zeige",
+      "per page": "pro Seite",
+      "Displaying": "Zeige",
+      "to": "von",
+      "of": "aus",
+      "found": "gefunden",
+      "Title": "Titel",
+      "Author": "Autor",
+      "author": "autor",
+      "Date": "Datum",
+      "Subject": "Schlagwort",
+      "subject": "schlagwort",
+      "Location": "Ort",
+      "Records": "Datens&auml;tze",
+      "Targets": "Datenbanken",
+
+      "dummy": "dummy"
+    },
+*/
+
     it("ranking form", function () {
         var list = $(".mkws-ranking > form > span");
-        var lang = mkws.config.lang;
 
         expect(list.length).toBe(3);
 
-        expect(mkws.M("Sort by")).toBe($(list[0]).text());
-        expect(mkws.M("and show")).toBe($(list[1]).text());
-        expect(mkws.M("per page")).toBe($(list[2]).text());
+        expect($(list[0]).text()).toBe(M("Sort by"));
+        expect($(list[1]).text()).toBe(M("and show"));
+        expect($(list[2]).text()).toBe(M("per page"));
 
         // double check
         if (lang == "de") {
-            expect(mkws.M("Sort by")).toBe("Sortieren nach");
-            expect($(list[0]).text()).toBe("Sortieren nach");
+            expect("Sortieren nach").toBe(M("Sort by"));
+            expect("Sortieren nach").toBe($(list[0]).text());
         } else if (lang == "da") {
-            expect(mkws.M("Sort by")).toBe("Sorter efter");
-            expect($(list[0]).text()).toBe("Sorter efter");
+            expect("Sorter efter").toBe(M("Sort by"));
+            expect("Sorter efter").toBe($(list[0]).text());
         }
+    });
+
+    it("facets", function () {
+        var list = $(".mkws-facet-title");
+
+        expect(list.length).toBe(3);
+
+        expect($(list[0]).text()).toBe(M("Sources"));
+        expect($(list[1]).text()).toBe(M("Subjects"));
+        expect($(list[2]).text()).toBe(M("Authors"));
     });
 });
 
