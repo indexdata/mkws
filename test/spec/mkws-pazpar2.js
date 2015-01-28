@@ -790,7 +790,7 @@ describe("Check per page options", function () {
 describe("Check SortBy options", function () {
     var $ = mkws.$;
 
-    it("show per page", function () {
+    it("sort by title", function () {
         if (!jasmine_config.check_sortby) {
             debug("ignore check for sort by");
             return;
