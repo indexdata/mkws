@@ -104,6 +104,10 @@ mkws.makeWidget = function($, team, type, node) {
     var that = this;
     var query = this.config.autosearch;
     if (query) {
+      // Should do this more elegantly with message passing
+      var widget = this.team.widget('query');
+      if (widget) { widget.node.val(query); }
+
       this.team.queue("ready").subscribe(function() {
         // Postpone testing for the configuration items: these are not
         // yet set for Record subclass widgets that fill them in in the
