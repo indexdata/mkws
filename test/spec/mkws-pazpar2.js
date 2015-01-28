@@ -855,7 +855,15 @@ describe("Check translations", function () {
         expect($(".mkws-prev").text()).toBe(M("Prev"));
     });
 
+    it("record details", function () {
+        var list = $("div.mkws-details table > tbody > tr > th");
+        var text = ["Title", "Date", "Author", "Subject", "Locations"];
 
+        expect(list.length).toBe(text.length);
+        for (var i = 0; i < text.length; i++) {
+            expect($(list[i]).text()).toBe(M(text[i]));
+        }
+    });
 });
 
 xdescribe("Check async widget discovery", function () {
