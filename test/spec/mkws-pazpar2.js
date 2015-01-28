@@ -751,6 +751,14 @@ describe("Check translations", function () {
             return mkws.config.lang
         };
 
+    function check_translation(list, text) {
+        expect(list.length).toBe(text.length);
+
+        for (var i = 0; i < text.length; i++) {
+            expect($(list[i]).text()).toBe(M(text[i]));
+        }
+    }
+
     it("check language", function () {
         var lang = mkws.config.lang;
         debug("lang: " + lang);
@@ -790,27 +798,23 @@ describe("Check translations", function () {
 */
 
     it("search button", function () {
-        var list = $(".mkws-switch > a")
-
-        expect(list.length).toBe(2);
-        expect($(list[0]).text()).toBe(M("Records"));
-        expect($(list[1]).text()).toBe(M("Targets"));
+        var list = $(".mkws-pager-desc > span");
+        expect($("form > input[type=submit]").attr("value")).toBe(M("Search"));
     });
 
     it("switch", function () {
-        var list = $(".mkws-pager-desc > span");
-        expect($("form > input[type=submit]").attr("value")).toBe(M("Search"));
+        var list = $(".mkws-switch > a")
+        var text = ["Records", "Targets"];
+
+        check_translation(list, text);
     });
 
 
     it("ranking form", function () {
         var list = $(".mkws-ranking > form > span");
+        var text = ["Sort by", "and show", "per page"];
 
-        expect(list.length).toBe(3);
-
-        expect($(list[0]).text()).toBe(M("Sort by"));
-        expect($(list[1]).text()).toBe(M("and show"));
-        expect($(list[2]).text()).toBe(M("per page"));
+        check_translation(list, text);
 
         // double check
         if (lang == "de") {
@@ -824,32 +828,23 @@ describe("Check translations", function () {
 
     xit("facets sidebar", function () {
         var list = $(".mkws-facet-title");
+        var text = ["Sources", "Subjects", "Authors"];
 
-        expect(list.length).toBe(3);
-
-        expect($(list[0]).text()).toBe(M("Sources"));
-        expect($(list[1]).text()).toBe(M("Subjects"));
-        expect($(list[2]).text()).toBe(M("Authors"));
+        check_translation(list, text);
     });
 
     it("facets navigation/filter", function () {
         var list = $(".mkws-navi > span");
+        var text = ["source", "author"];
 
-        expect(list.length).toBe(2);
-
-        expect($(list[0]).text()).toBe(M("source"));
-        expect($(list[1]).text()).toBe(M("author"));
+        check_translation(list, text);
     });
 
     it("navigation", function () {
         var list = $(".mkws-pager-desc > span");
+        var text = ["Displaying", "to", "of", "found"];
 
-        expect(list.length).toBe(4);
-
-        expect($(list[0]).text()).toBe(M("Displaying"));
-        expect($(list[1]).text()).toBe(M("to"));
-        expect($(list[2]).text()).toBe(M("of"));
-        expect($(list[3]).text()).toBe(M("found"));
+        check_translation(list, text);
 
         expect($(".mkws-next").text()).toBe(M("Next"));
         expect($(".mkws-prev").text()).toBe(M("Prev"));
@@ -859,10 +854,7 @@ describe("Check translations", function () {
         var list = $("div.mkws-details table > tbody > tr > th");
         var text = ["Title", "Date", "Author", "Subject", "Locations"];
 
-        expect(list.length).toBe(text.length);
-        for (var i = 0; i < text.length; i++) {
-            expect($(list[i]).text()).toBe(M(text[i]));
-        }
+        check_translation(list, text);
     });
 });
 
