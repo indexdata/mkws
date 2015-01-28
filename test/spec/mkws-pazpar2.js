@@ -787,8 +787,18 @@ describe("Check translations", function () {
 */
 
     it("search button", function () {
+        var list = $(".mkws-switch > a")
+
+        expect(list.length).toBe(2);
+        expect($(list[0]).text()).toBe(M("Records"));
+        expect($(list[1]).text()).toBe(M("Targets"));
+    });
+
+    it("switch", function () {
+        var list = $(".mkws-pager-desc > span");
         expect($("form > input[type=submit]").attr("value")).toBe(M("Search"));
     });
+
 
     it("ranking form", function () {
         var list = $(".mkws-ranking > form > span");
