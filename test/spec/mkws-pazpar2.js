@@ -618,7 +618,7 @@ describe("Check translations", function () {
         }
 
 
-        expect($("select.mkws-sort > option[selected=selected").text()).toBe(M("relevance"));
+        expect($("select.mkws-sort > option[selected=selected]").text()).toBe(M("relevance"));
     });
 
     xit("facets sidebar", function () {
