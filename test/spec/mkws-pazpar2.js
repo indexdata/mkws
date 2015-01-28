@@ -740,9 +740,12 @@ describe("Check SortBy options", function () {
 
 describe("Check translations", function () {
     var $ = mkws.$;
+
     // handle html entities, "Zur&uuml;ck" => "Zurück"
     var M = function (string) {
-            return $("<span/>").html(mkws.M(string)).text()
+            var text = $("<span/>").html(mkws.M(string)).text()
+            debug("translate check for: " + text);
+            return text;
         };
     var lang = function () {
             return mkws.config.lang
@@ -829,7 +832,7 @@ describe("Check translations", function () {
         expect($(list[2]).text()).toBe(M("Authors"));
     });
 
-    it("facets navigation", function () {
+    it("facets navigation/filter", function () {
         var list = $(".mkws-navi > span");
 
         expect(list.length).toBe(2);
