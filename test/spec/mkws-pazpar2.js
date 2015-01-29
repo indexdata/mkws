@@ -654,6 +654,12 @@ describe("Check translations", function () {
 
         check_translation(list, text);
     });
+    
+    /* not tested
+     *
+     * Status line:  -- Active clients : 0/1 -- Retrieved records : 4/4
+     *
+     */
 });
 
 describe("Check status client counter", function () {
