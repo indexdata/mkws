@@ -82,7 +82,7 @@ window.mkws = {
       "Location": "Lokation",
       "Records": "Poster",
       "Targets": "Baser",
-      "State": "Tilstand",
+      "State": "Status",
       "relevance": "Relevans",
       "title": "Titel",
       "newest": "Nyeste",
