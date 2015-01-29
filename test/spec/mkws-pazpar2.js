@@ -621,7 +621,7 @@ describe("Check translations", function () {
         expect($("select.mkws-sort > option[selected=selected]").text()).toBe(M("relevance"));
     });
 
-    xit("facets sidebar", function () {
+    it("facets sidebar", function () {
         var list = $(".mkws-facet-title");
         var text = ["Sources", "Subjects", "Authors"];
 
