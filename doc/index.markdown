@@ -106,6 +106,7 @@ Here are the files that this web-site provides:
   since it doesn't like to be hotlinked.
 * Local copy of [jquery-1.10.0.min.js](jquery-1.10.0.min.js)
 * Local copy of [jquery.json-2.4.js](jquery.json-2.4.js)
+* Local copy of [jsnlog.min.js](jsnlog.min.js)
 * [mkws-complete.js](mkws-complete.js) --
   A single large JavaScript file containing everything needed for
   MKWS to work: the widget-set itself, the API library, and
