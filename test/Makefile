@@ -65,9 +65,9 @@ _phantomjs:
 
 phantomjs-all p-all:
 	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-local-popup.html
-	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-popup.html
-	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-cms-popup.html
-	${MAKE} phantomjs PHANTOMJS_PATH=jasmine.html
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-popup.html?lang=de
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-cms-popup.html?lang=en
+	${MAKE} phantomjs PHANTOMJS_PATH=jasmine.html?lang=da
 
 mike-test:
 	$(MAKE) _phantomjs PHANTOMJS_URL=http://x.example.indexdata.com/jasmine-popup.html

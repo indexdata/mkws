@@ -48,6 +48,11 @@ window.mkws = {
       "Location": "Ort",
       "Records": "Datens&auml;tze",
       "Targets": "Datenbanken",
+      "State": "Status",
+      "relevance": "Relevanz",
+      "title": "Titel",
+      "newest": "Neueste",
+      "oldest": "&Auml;lteste",
 
       "dummy": "dummy"
     },
@@ -77,6 +82,11 @@ window.mkws = {
       "Location": "Lokation",
       "Records": "Poster",
       "Targets": "Baser",
+      "State": "Status",
+      "relevance": "Relevans",
+      "title": "Titel",
+      "newest": "Nyeste",
+      "oldest": "Ældste",
 
       "dummy": "dummy"
     }
@@ -162,7 +172,7 @@ mkws.registerWidgetType = function(name, fn) {
 mkws.aliasWidgetType = function(newName, oldName) {
   mkws.widgetType2function[newName] = mkws.widgetType2function[oldName];
   mkws.info("aliased widget-type '" + newName + "' to '" + oldName + "'");
-  
+
 };
 
 mkws.promotionFunction = function(name) {
@@ -538,7 +548,7 @@ mkws.info("Using window.name '" + window.name + "'");
   // or a selector string you would like to constrain the search for widgets to.
   //
   // This function has no side effects if run again on an operating session,
-  // even if the element/selector passed causes existing widgets to be reparsed: 
+  // even if the element/selector passed causes existing widgets to be reparsed:
   //
   // (TODO: that last bit isn't true and we currently have to avoid reinitialising
   // widgets, MKWS-261)
@@ -549,7 +559,7 @@ mkws.info("Using window.name '" + window.name + "'");
   mkws.init = function(message, rootsel) {
     var greet = "MKWS initialised";
     if (rootsel) greet += " (limited to " + rootsel + ")"
-    if (message) greet += " :: " + message; 
+    if (message) greet += " :: " + message;
     mkws.info(greet);
 
     // MKWS is not active until init() has been run against an object with widget nodes.
@@ -662,7 +672,7 @@ mkws.info("Using window.name '" + window.name + "'");
         mkws.teams[teamName].queue("authenticated").publish();
       }
     }
-    
+
     mkws.isActive = true;
     return true;
   };

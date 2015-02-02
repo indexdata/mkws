@@ -259,7 +259,7 @@ mkws.registerWidgetType('ranking', function() {
     var cur = {};
     var opt = this.config.sort_options[i];
     cur.key = opt[0];
-    cur.label = opt.length == 1 ? opt[0] : opt[1];
+    cur.label = opt.length == 1 ? opt[0] : mkws.M(opt[1]);
     if (order == cur.key || order == cur.label) cur.selected = true;
     output.sort.push(cur);
   }

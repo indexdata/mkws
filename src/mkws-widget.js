@@ -104,17 +104,9 @@ mkws.makeWidget = function($, team, type, node) {
     var that = this;
     var query = this.config.autosearch;
     if (query) {
-      var old = this.team.config.query;
-      if (!old) {
-        // Stash this for subsequent inspection
-        this.team.config.query = query;
-      } else if (old === query) {
-        this.warn("duplicate autosearch: '" + query + "': ignoring");
-        return;
-      } else {
-        this.warn("conflicting autosearch: '" + query + "' vs '" + old + "': ignoring");
-        return;
-      }
+      // Should do this more elegantly with message passing
+      var widget = this.team.widget('query');
+      if (widget) { widget.node.val(query); }
 
       this.team.queue("ready").subscribe(function() {
         // Postpone testing for the configuration items: these are not

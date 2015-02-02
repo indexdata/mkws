@@ -73,7 +73,6 @@ mkws.registerWidgetType('facet', function() {
     that.node.html(template({
       name: name,
       caption: caption,
-      query: that.config.query,
       terms: terms
     }));
   });

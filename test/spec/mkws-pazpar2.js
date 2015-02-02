@@ -526,6 +526,142 @@ describe("Check switch menu Records/Targets", function () {
     });
 });
 
+describe("Check translations", function () {
+    var $ = mkws.$;
+
+    // handle html entities, "Zur&uuml;ck" => "Zurück"
+    var M = function (string) {
+            var text = $("<span/>").html(mkws.M(string)).text()
+            debug("translate check for: " + text);
+            return text;
+        };
+    var lang = function () {
+            return mkws.config.lang
+        };
+
+    function check_translation(list, text) {
+        expect(list.length).toBe(text.length);
+
+        for (var i = 0; i < text.length; i++) {
+            expect($(list[i]).text()).toBe(M(text[i]));
+        }
+    }
+
+    it("check language", function () {
+        var lang = mkws.config.lang;
+        debug("lang: " + lang);
+        expect(lang).toMatch(/^(de|da|)$/);
+    });
+
+/*
+  locale_lang: {
+    "de": {
+      "Authors": "Autoren",
+      "Subjects": "Schlagw&ouml;rter",
+      "Sources": "Daten und Quellen",
+      "source": "datenquelle",
+      "Facets": "Termlisten",
+      "Next": "Weiter",
+      "Prev": "Zur&uuml;ck",
+      "Search": "Suche",
+      "Sort by": "Sortieren nach",
+      "and show": "und zeige",
+      "per page": "pro Seite",
+      "Displaying": "Zeige",
+      "to": "von",
+      "of": "aus",
+      "found": "gefunden",
+      "Title": "Titel",
+      "Author": "Autor",
+      "author": "autor",
+      "Date": "Datum",
+      "Subject": "Schlagwort",
+      "subject": "schlagwort",
+      "Location": "Ort",
+      "Records": "Datens&auml;tze",
+      "Targets": "Datenbanken",
+      "relevance": "Relevanz",
+      "title": "Titel",
+      "newest": "Neueste",
+      "oldest": "&Auml;lteste",
+
+      "dummy": "dummy"
+    },
+*/
+
+    it("search button", function () {
+        var list = $(".mkws-pager-desc > span");
+        expect($("form > input[type=submit]").attr("value")).toBe(M("Search"));
+    });
+
+    it("switch", function () {
+        var list = $(".mkws-switch > a")
+        var text = ["Records", "Targets"];
+
+        check_translation(list, text);
+    });
+
+
+    it("ranking form", function () {
+        var list = $(".mkws-ranking > form > span");
+        var text = ["Sort by", "and show", "per page"];
+
+        check_translation(list, text);
+
+        // double check
+        if (lang == "de") {
+            expect("Sortieren nach").toBe(M("Sort by"));
+            expect("Sortieren nach").toBe($(list[0]).text());
+        } else if (lang == "da") {
+            expect("Sorter efter").toBe(M("Sort by"));
+            expect("Sorter efter").toBe($(list[0]).text());
+        }
+
+
+        expect($("select.mkws-sort > option[selected=selected]").text()).toBe(M("relevance"));
+    });
+
+    it("facets sidebar", function () {
+        var list = $(".mkws-facet-title");
+        var text = ["Sources", "Subjects", "Authors"];
+
+        check_translation(list, text);
+    });
+
+    it("facets navigation/filter", function () {
+        var list = $(".mkws-navi > span");
+        var text = ["source", "author"];
+
+        check_translation(list, text);
+    });
+
+    it("navigation", function () {
+        var list = $(".mkws-pager-desc > span");
+        var text = ["Displaying", "to", "of", "found"];
+
+        check_translation(list, text);
+
+        expect($(".mkws-next").text()).toBe(M("Next"));
+        expect($(".mkws-prev").text()).toBe(M("Prev"));
+    });
+
+    it("record details", function () {
+        var text = ["Title", "Date", "Author"]; // , "Subject", "Locations"];
+        var list = $("div.mkws-details table > tbody > tr > th");
+
+        // compare only the first 3 elements
+        list = list.splice(0, text.length)
+
+        check_translation(list, text);
+    });
+
+/* not tested
+     *
+     * Status line:  -- Active clients : 0/1 -- Retrieved records : 4/4
+     *
+     */
+});
+
 describe("Check status client counter", function () {
     var $ = mkws.$;
 
@@ -667,7 +803,7 @@ describe("Check per page options", function () {
 describe("Check SortBy options", function () {
     var $ = mkws.$;
 
-    it("show per page", function () {
+    it("sort by title", function () {
         if (!jasmine_config.check_sortby) {
             debug("ignore check for sort by");
             return;
@@ -738,7 +874,8 @@ describe("Check SortBy options", function () {
     });
 });
 
-describe("Check async widget discovery", function () {
+
+xdescribe("Check async widget discovery", function () {
     var $ = mkws.$;
     it("initialises a new widget", function () {
         $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
