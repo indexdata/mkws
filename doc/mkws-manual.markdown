@@ -840,7 +840,7 @@ the relevant widgets are listed. All entries are optional, but if specified must
 default values are in footnotes to keep the table reasonably narrow.
 
 ----
-Element                   Widget    Type    Default   Description
+Setting                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
 autosearch                facet,    string            If provided, this setting contains a query which is immediately run on behalf
                           facets,                     of the team. Often used with an [indirect setting](#indirect-settings).
@@ -1177,7 +1177,7 @@ Popup windows can contain any HTML, not just MKWS widgets.
 The properties of the `popup` widget are as follows:
 
 ----
-Element         Type    Default             Description
+Setting         Type    Default             Description
 --------        -----   -------             ------------
 popup_width     int     880                 Width of the popup window, in pixels.
 
