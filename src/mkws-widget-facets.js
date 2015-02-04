@@ -2,7 +2,14 @@ mkws.registerWidgetType('facets', function() {
   // Initially hide the facets; display when we get results
   var that = this;
   var team = this.team;
+
+  this.team.queue("searchtriggered").subscribe(function() {
+    var op = that.config['new-search-opacity'];
+    if (op !== undefined) { that.node.fadeTo(500, op); }
+  });
+
   team.queue("facets").subscribe(function(data) {
+    that.node.css('opacity', 1);
     that.node.addClass("active");
   });
 
