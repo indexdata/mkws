@@ -820,6 +820,11 @@ Name              Description
                   found for the current search, any diagnostics they
                   have returned, the number of records that have been
                   returned for display, and the connection state.
+
+`waiting`         An image, defaulting to <http://mkws.indexdata.com/progress.gif> unless overridden with the `src` configuration
+                  item, which is initially invisible, appears when a search is submitted, and disappears when the search is
+                  complete.
+
 ----
 
 
@@ -983,6 +988,9 @@ sp_auth_path              _global_  string            Part of the URL used for a
 
 sp_auth_query             _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
+
+src                       waiting   url               The address of an image to use in the `waiting` widget in place of the
+                                                      default spinning wheel. Used to indicate that a search is in progress.
 
 target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
                           facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
