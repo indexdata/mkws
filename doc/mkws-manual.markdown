@@ -891,6 +891,10 @@ maxrecs                   facet,    int               Limits the metasearching m
                           records,
                           results
 
+newsearch_opacity         records,  float             If defined, a fractional value between in the range 0.0 (transparent) to 1.0
+                          facets                      (opaque), and the widget fades to that opacity when a new search is
+                                                      submitted (reverting to full opacity when data arrives).
+
 paragraphs                reference int               Limits the number of paragraphs rendered to the specified number. If
                                                       omitted, there is no limit.
 
