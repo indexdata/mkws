@@ -4,7 +4,7 @@ mkws.registerWidgetType('facets', function() {
   var team = this.team;
 
   this.team.queue("searchtriggered").subscribe(function() {
-    var op = that.config['newsearch_opacity'];
+    var op = that.config.newsearch_opacity;
     if (op !== undefined) { that.node.fadeTo(500, op); }
   });
 
