@@ -820,6 +820,11 @@ Name              Description
                   found for the current search, any diagnostics they
                   have returned, the number of records that have been
                   returned for display, and the connection state.
+
+`waiting`         An image, defaulting to <http://mkws.indexdata.com/progress.gif> unless overridden with the `src` configuration
+                  item, which is initially invisible, appears when a search is submitted, and disappears when the search is
+                  complete.
+
 ----
 
 
@@ -840,7 +845,7 @@ the relevant widgets are listed. All entries are optional, but if specified must
 default values are in footnotes to keep the table reasonably narrow.
 
 ----
-Element                   Widget    Type    Default   Description
+Setting                   Widget    Type    Default   Description
 --------                  ------    -----   --------- ------------
 autosearch                facet,    string            If provided, this setting contains a query which is immediately run on behalf
                           facets,                     of the team. Often used with an [indirect setting](#indirect-settings).
@@ -890,6 +895,10 @@ maxrecs                   facet,    int               Limits the metasearching m
                           record,
                           records,
                           results
+
+newsearch_opacity         records,  float             If defined, a fractional value between in the range 0.0 (transparent) to 1.0
+                          facets                      (opaque). When a new search is submitted, the widget fades to that opacity
+                                                      (reverting to full opacity when data arrives).
 
 paragraphs                reference int               Limits the number of paragraphs rendered to the specified number. If
                                                       omitted, there is no limit.
@@ -979,6 +988,9 @@ sp_auth_path              _global_  string            Part of the URL used for a
 
 sp_auth_query             _global_  string  *Note 6*  Part of the URL used for authentication. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
+
+src                       waiting   url               The address of an image to use in the `waiting` widget in place of the
+                                                      default spinning wheel. Used to indicate that a search is in progress.
 
 target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
                           facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
@@ -1177,7 +1189,7 @@ Popup windows can contain any HTML, not just MKWS widgets.
 The properties of the `popup` widget are as follows:
 
 ----
-Element         Type    Default             Description
+Setting         Type    Default             Description
 --------        -----   -------             ------------
 popup_width     int     880                 Width of the popup window, in pixels.
 

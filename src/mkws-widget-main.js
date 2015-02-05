@@ -114,7 +114,13 @@ mkws.registerWidgetType('records', function() {
   var that = this;
   var team = this.team;
 
+  this.team.queue("searchtriggered").subscribe(function() {
+    var op = that.config.newsearch_opacity;
+    if (op !== undefined) { that.node.fadeTo(500, op); }
+  });
+
   this.team.queue("records").subscribe(function(data) {
+    that.node.css('opacity', 1);
     for (var i = 0; i < data.hits.length; i++) {
       var hit = data.hits[i];
       hit.detailLinkId = team.recordElementId(hit.recid[0]);
@@ -374,6 +380,22 @@ mkws.registerWidgetType('progress', function() {
       waiting: data.activeclients
     }));
     that.node.show();
+  });
+});
+
+
+mkws.registerWidgetType('waiting', function() {
+  var that = this;
+
+  this.node.css("visibility", "hidden");
+  var src = this.config.src || "http://mkws.indexdata.com/progress.gif";
+  this.node.html('<img src="' + src + '"/>');
+
+  this.team.queue("searchtriggered").subscribe(function(data) {
+    that.node.css("visibility", "visible");
+  });
+  this.team.queue("complete").subscribe(function(n) {
+    that.node.css("visibility", "hidden");
   });
 });
 

@@ -14,9 +14,13 @@ pages:
   click - script to go to this page unless it is the current one
 }}
 <div class="mkws-pager-desc">
+ {{#if found}}
   <span>{{mkws-translate "Displaying"}}</span>:
   {{first}} <span>{{mkws-translate "to"}}</span> {{last}}
   <span>{{mkws-translate "of"}}</span> {{count}} (<span>{{{mkws-translate "found"}}}</span>: {{found}})
+ {{else}}
+  No hits.
+ {{/if}}
 </div>
 
 <div class="mkws-pager-list">
