@@ -95,7 +95,7 @@ function filterSet(team) {
 
     that.visitCategories(function(id) {
       if (res) res += ",";
-      res += "category~" + id.replace(/[\,]/g, '\\$&');
+      res += "category~" + id.replace(/[\\,]/g, '\\$&');
     });
     return res;
   }
