@@ -388,8 +388,10 @@ mkws.registerWidgetType('waiting', function() {
   var that = this;
 
   this.node.css("visibility", "hidden");
-  var src = this.config.src || "http://mkws.indexdata.com/progress.gif";
-  this.node.html('<img src="' + src + '"/>');
+  var template = that.team.loadTemplate(that.config.template || "waiting");
+  this.node.html(template({
+    src: this.config.src || "http://mkws.indexdata.com/progress.gif"
+  }));
 
   this.team.queue("searchtriggered").subscribe(function(data) {
     that.node.css("visibility", "visible");
