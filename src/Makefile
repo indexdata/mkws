@@ -46,7 +46,7 @@ all: $(INSTALLED)
 
 $(DEST)/mkws-complete.js: Makefile $(INSTALLED_DOWNLOADABLE) $(DEST)/mkws.js
 	( set -e; \
-	  echo "/*! Copyright (c) 2013-$(date '+%Y') Index Data ApS. http://indexdata.com"; \
+	  echo "/*! Copyright (c) 2013-$$(date '+%Y') Index Data ApS. http://indexdata.com"; \
 	  echo "   Licence: LGPL, http://www.indexdata.com/licences/lgpl"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   MKWS GIT id: $$(git show | head -n 1 | perl -npe 's,\S+\s+,,')"; \
