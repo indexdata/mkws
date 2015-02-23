@@ -1,5 +1,5 @@
 /*! MKWS, the MasterKey Widget Set.
- *  Copyright (C) 2013-2014 Index Data
+ *  Copyright (C) 2013-2015 Index Data
  *  See the file LICENSE for details
  */
 
