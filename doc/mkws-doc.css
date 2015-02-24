@@ -1,5 +1,6 @@
 body {
   font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Sans-Serif;
+  font-weight: normal;
 }
 h1, h2, h3 { color: #606060 }
 h2 { margin-top: 0.5em }
