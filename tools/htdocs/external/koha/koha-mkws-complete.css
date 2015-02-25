@@ -1,6 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Cabin:400,400italic,700,700italic);
+
 .mkws-reference {
     max-width: 40em;
-    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+    font-family: Cabin, Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
     background: #f0f0e0;
     padding: 0.5em 1em;
     border: 1px solid #c0c0a0;
