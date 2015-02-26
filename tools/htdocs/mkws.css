@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Cabin:400,400italic,700,700italic);
+
 .mkwsLang, .mkws-lang,
 .mkwsSwitch, .mkws-switch,
 .mkwsSearch, .mkws-search,
@@ -12,7 +14,7 @@
 .mkwsStat, .mkws-stat,
 .mkwsMOTD, .mkws-motd,
 .mkwsAuthname, .mkws-auth-name {
-    font-family: Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+    font-family: Cabin, Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
 }
 
 .mkwsLang, .mkws-lang {
