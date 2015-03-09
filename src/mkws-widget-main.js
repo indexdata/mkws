@@ -178,23 +178,6 @@ mkws.registerWidgetType('records', function() {
   }
   this.node.mouseleave(unfreezeRecordDisplay);
 
-/*
-  var m_busy = false;
-  this.node.mousemove(function() {
-    if (!m_busy) {
-      m_busy = true;
-      that.info("making semi-transparent in 0.001 s");
-      that.node.fadeTo(1, 0.5, function() {
-        that.info("making opaque in 2 s");
-        that.node.fadeTo(2000, 1, function() {
-          that.info("done making opaque");
-          m_busy = false;
-        });
-      });
-    }
-  });
-*/
-
   that.autosearch();
 });
 
