@@ -113,33 +113,64 @@ mkws.registerWidgetType('details', function() {
 mkws.registerWidgetType('records', function() {
   var that = this;
   var team = this.team;
+  var m_data;
+  var m_needRedraw = false;
+  var m_frozen = false;
 
   this.team.queue("searchtriggered").subscribe(function() {
     var op = that.config.newsearch_opacity;
     if (op !== undefined) { that.node.fadeTo(500, op); }
   });
 
-  this.team.queue("records").subscribe(function(data) {
+  function refreshRecordData() {
     that.node.css('opacity', 1);
-    for (var i = 0; i < data.hits.length; i++) {
-      var hit = data.hits[i];
-      hit.detailLinkId = team.recordElementId(hit.recid[0]);
-      hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
-      hit.containerClass = "mkws-summary mkwsSummary mkws-team-" + team.name();
-      hit.containerClass += " " + hit.detailLinkId;
-      // ### At some point, we may be able to move the
-      // m_currentRecordId and m_currentRecordData members
-      // from the team object into this widget.
-      if (hit.recid == team.currentRecordId()) {
-        if (team.currentRecordData()) {
-          hit.renderedDetails = team.renderDetails(team.currentRecordData());
-        } 
+
+    if (m_needRedraw) {
+      for (var i = 0; i < m_data.hits.length; i++) {
+        var hit = m_data.hits[i];
+        hit.detailLinkId = team.recordElementId(hit.recid[0]);
+        hit.detailClick = "mkws.showDetails('" + team.name() + "', '" + hit.recid[0] + "');return false;";
+        hit.containerClass = "mkws-summary mkwsSummary mkws-team-" + team.name();
+        hit.containerClass += " " + hit.detailLinkId;
+        // ### At some point, we may be able to move the
+        // m_currentRecordId and m_currentRecordData members
+        // from the team object into this widget.
+        if (hit.recid == team.currentRecordId()) {
+          if (team.currentRecordData()) {
+            hit.renderedDetails = team.renderDetails(team.currentRecordData());
+          } 
+        }
       }
+      var template = team.loadTemplate(that.config.template || "records");
+      var summaryPartial = team.loadTemplate(that.config['summary-template'] || "summary");
+      var tdata = $.extend({}, {"hits": m_data.hits}, that.config.template_vars);
+      that.node.html(template(tdata, {"partials":{"summary":summaryPartial}}));
     }
-    var template = team.loadTemplate(that.config.template || "records");
-    var summaryPartial = team.loadTemplate(that.config['summary-template'] || "summary");
-    var tdata = $.extend({}, {"hits": data.hits}, that.config.template_vars);
-    that.node.html(template(tdata, {"partials":{"summary":summaryPartial}}));
+
+    m_needRedraw = false;
+  }
+
+  function setRecordData(data) {
+    m_data = data;
+    m_needRedraw = true;
+    if (!m_frozen) {
+      refreshRecordData();
+    }
+  }
+
+  this.team.queue("records").subscribe(setRecordData);
+  
+  this.node.mouseenter(function() {
+    that.info("freezing display records");
+    that.node.css('opacity', 0.5);
+    m_frozen = true;
+  });
+
+  this.node.mouseleave(function() {
+    that.info("refreshing records");
+    that.node.css('opacity', 1);
+    m_frozen = false;
+    refreshRecordData();
   });
 
   that.autosearch();
