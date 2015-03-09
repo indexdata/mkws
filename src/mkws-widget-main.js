@@ -160,18 +160,23 @@ mkws.registerWidgetType('records', function() {
 
   this.team.queue("records").subscribe(setRecordData);
 
+  var m_timer;
   this.node.mousemove(function() {
     that.info("freezing display records");
     that.node.css('opacity', 0.5);
     m_frozen = true;
+    clearTimeout(m_timer);
+    m_timer = setTimeout(unfreezeRecordDisplay, 1000);
   });
 
-  this.node.mouseleave(function() {
+  function unfreezeRecordDisplay() {
+    clearTimeout(m_timer);
     that.info("refreshing records");
     that.node.css('opacity', 1);
     m_frozen = false;
     refreshRecordData();
-  });
+  }
+  this.node.mouseleave(unfreezeRecordDisplay);
 
 /*
   var m_busy = false;
