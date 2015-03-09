@@ -113,14 +113,13 @@ mkws.registerWidgetType('details', function() {
 mkws.registerWidgetType('records', function() {
   var that = this;
   var team = this.team;
-  var m_dataToRedraw = null;
-  var m_frozen = false;
 
   this.team.queue("searchtriggered").subscribe(function() {
     var op = that.config.newsearch_opacity;
     if (op !== undefined) { that.node.fadeTo(500, op); }
   });
 
+  var m_dataToRedraw = null;
   function refreshRecordData() {
     that.node.css('opacity', 1);
 
@@ -149,6 +148,7 @@ mkws.registerWidgetType('records', function() {
     m_dataToRedraw = null;
   }
 
+  var m_frozen = false;
   function setRecordData(data) {
     m_dataToRedraw = data;
     if (!m_frozen) {
