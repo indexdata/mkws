@@ -870,6 +870,12 @@ facet_max_*               facet     int               Specifies how many terms a
 
 facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
+freeze_opacity            records   float             If defined, a fractional value between in the range 0.0 (transparent) to 1.0
+                                                      (opaque). During the short period after a mouse-move over the records when
+                                                      the display will not be updated, the widget is faded to that opacity
+                                                      (reverting to full opacity when the period elapses or the mouse leaves the
+                                                      area).
+
 lang                      _team_    string            The code of the default language to display the UI in. Supported
                                                       language codes are `en` = English, `de` = German, `da` = Danish, and whatever
                                                       additional languages are configured using `language_*` entries (see below).
