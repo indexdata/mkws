@@ -160,7 +160,7 @@ mkws.registerWidgetType('records', function() {
 
   this.team.queue("records").subscribe(setRecordData);
 
-  this.node.mouseenter(function() {
+  this.node.mousemove(function() {
     that.info("freezing display records");
     that.node.css('opacity', 0.5);
     m_frozen = true;
