@@ -149,14 +149,12 @@ mkws.registerWidgetType('records', function() {
   }
 
   var m_frozen = false;
-  function setRecordData(data) {
+  this.team.queue("records").subscribe(function(data) {
     m_dataToRedraw = data;
     if (!m_frozen) {
       refreshRecordData();
     }
-  }
-
-  this.team.queue("records").subscribe(setRecordData);
+  });
 
   var m_timer;
   this.node.mousemove(function() {
