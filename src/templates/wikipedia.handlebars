@@ -6,6 +6,7 @@ paragraphs - number of paragraphs to include
 md-* - metadata fields passed through from backend
 }}
 
+{{#if md-title}}
 <!--
 display only the first image
 
@@ -33,3 +34,6 @@ display only the first image
 {{/if}}
 {{{mkws-paragraphs md-description paragraphs sentences}}}
 <p class="mkws-credit mkwsCredit">{{credit}}</p>
+{{else}}
+<p>Not found in Wikipedia.</p>
+{{/if}}
