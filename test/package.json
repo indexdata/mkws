@@ -11,7 +11,7 @@
     }],
     "devDependencies": {
         "jquery": "*",
-        "jsdom": "*",
+        "jsdom": "3.*",
         "xmlhttprequest": "*",
         "cssstyle": "*",
         "request": "*",
