@@ -104,3 +104,15 @@ Handlebars.registerHelper('mkws-repeat', function(count, options) {
   }
   return out;
 });
+
+// Ridiculous that Handlebars has no way to do "or"
+Handlebars.registerHelper('mkws-if-either', function(cond1, cond2, options) {
+  if (typeof cond1 === 'function') { cond1 = cond1.call(this); }
+  if (typeof cond2 === 'function') { cond2 = cond2.call(this); }
+
+  if (cond1 || cond2) {
+    return options.fn(this);
+  } else {
+    return options.inverse(this);
+  }
+});
