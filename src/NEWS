@@ -5,6 +5,9 @@ Version history for the MasterKey Widget Set (MKWS)
 	  two conditions and runs the bracketed template if either is
 	  true. Astonishingly, there is no way to make such a check
 	  using stock Handlebars.
+	- Add another Handlebars helper, "compare". This code is by
+	  Mike Griffin, taken from a blog comment (see source code for
+	  details).
 	- ### Check JIRA.
 
 1.0.0  Tue Nov 11 13:34:28 GMT 2014
