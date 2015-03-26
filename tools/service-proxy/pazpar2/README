@@ -1,4 +1,4 @@
-This contains an ICU-stripped version of the coniguration used by the
+This contains an ICU-stripped version of the configuration used by the
 live MKC service, since I (Mike) need to run it on a Mac where YAZ is
 installed (using "brew install yaz") compiled without ICU.
 
