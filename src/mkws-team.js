@@ -13,6 +13,7 @@
 //
 mkws.makeTeam = function($, teamName) {
   var that = {};
+  // Note: separate constants from state
   var m_teamName = teamName;
   var m_submitted = false;
   var m_query; // initially undefined
