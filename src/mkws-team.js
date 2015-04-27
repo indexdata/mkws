@@ -13,23 +13,28 @@
 //
 mkws.makeTeam = function($, teamName) {
   var that = {};
-  // Note: separate constants from state, which should be in an object
-  var m_teamName = teamName;
-  var m_submitted = false;
+
+  // Member variables are separated into two categories
+
+  // 1. Persistent state (to be coded in URL fragment)
   var m_query; // initially undefined
   var m_sortOrder; // will be set below
   var m_perpage; // will be set below
   var m_filterSet = filterSet(that);
-  var m_totalRecordCount = 0;
   var m_currentPage = 1;
   var m_currentRecordId = '';
+
+  // 2. Internal state (not to be coded)
+  var m_teamName = teamName;
+  var m_paz; // will be initialised below
+  var m_submitted = false;
+  var m_totalRecordCount = 0;
   var m_currentRecordData = null;
   var m_logTime = {
     // Timestamps for logging
     "start": $.now(),
     "last": $.now()
   };
-  var m_paz; // will be initialised below
   var m_templateText = {}; // widgets can register templates to be compiled
   var m_template = {}; // compiled templates, from any source
   var m_widgets = {}; // Maps widget-type to array of widget objects
