@@ -1,3 +1,4 @@
+"use strict";
 // Factory function for team objects. As much as possible, this uses
 // only member variables (prefixed "m_") and inner functions with
 // private scope.
@@ -17,7 +18,9 @@ mkws.makeTeam = function($, teamName) {
   // Member variables are separated into two categories
 
   // 1. Persistent state (to be coded in URL fragment)
-  var m_query; // initially undefined
+  var m_state = {
+    query: null // initially undefined
+  }
   var m_sortOrder; // will be set below
   var m_perpage; // will be set below
   var m_filterSet = filterSet(that);
@@ -50,7 +53,7 @@ mkws.makeTeam = function($, teamName) {
   that.submitted = function() { return m_submitted; };
   that.sortOrder = function() { return m_sortOrder; };
   that.perpage = function() { return m_perpage; };
-  that.query = function() { return m_query; };
+  that.query = function() { return m_state.query; };
   that.totalRecordCount = function() { return m_totalRecordCount; };
   that.currentPage = function() { return m_currentPage; };
   that.currentRecordId = function() { return m_currentRecordId; };
@@ -220,7 +223,7 @@ mkws.makeTeam = function($, teamName) {
   that.limitTarget = function(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_filterSet.add(targetFilter(id, name));
-    if (m_query) triggerSearch();
+    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -228,7 +231,7 @@ mkws.makeTeam = function($, teamName) {
   that.limitQuery = function(field, value) {
     that.info("limitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.add(fieldFilter(field, value));
-    if (m_query) triggerSearch();
+    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -238,7 +241,7 @@ mkws.makeTeam = function($, teamName) {
     // Only one category filter at a time
     m_filterSet.removeMatching(function(f) { return f.type === 'category' });
     if (id !== '') m_filterSet.add(categoryFilter(id));
-    if (m_query) triggerSearch();
+    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -246,7 +249,7 @@ mkws.makeTeam = function($, teamName) {
   that.delimitTarget = function(id) {
     that.info("delimitTarget(id=" + id + ")");
     m_filterSet.removeMatching(function(f) { return f.type === 'target' });
-    if (m_query) triggerSearch();
+    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -255,7 +258,7 @@ mkws.makeTeam = function($, teamName) {
     that.info("delimitQuery(field=" + field + ", value=" + value + ")");
     m_filterSet.removeMatching(function(f) { return f.type == 'field' &&
                                              field == f.field && value == f.value });
-    if (m_query) triggerSearch();
+    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -314,7 +317,7 @@ mkws.makeTeam = function($, teamName) {
     resetPage();
 
     // Continue to use previous query/sort-order unless new ones are specified
-    if (query) m_query = query;
+    if (query) m_state.query = query;
     if (sortOrder) m_sortOrder = sortOrder;
     if (perpage) m_perpage = perpage;
     if (targets) m_filterSet.add(targetFilter(targets, targets));
@@ -335,10 +338,10 @@ mkws.makeTeam = function($, teamName) {
       params.torusquery = torusquery;
     }
 
-    that.info("triggerSearch(" + m_query + "): filters = " + m_filterSet.toJSON() + ", " +
+    that.info("triggerSearch(" + m_state.query + "): filters = " + m_filterSet.toJSON() + ", " +
         "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-    m_paz.search(m_query, m_perpage, m_sortOrder, pp2filter, undefined, params);
+    m_paz.search(m_state.query, m_perpage, m_sortOrder, pp2filter, undefined, params);
     queue("searchtriggered").publish();
   }
 
