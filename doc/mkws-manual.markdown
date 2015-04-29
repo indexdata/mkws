@@ -957,13 +957,13 @@ service_proxy_auth_domain _global_  domain            When the server used for a
                                                       the domain of the server that it proxies for, so that cookies are rewritten
                                                       to appear to be from this domain.
 
-show_lang                lang       bool    true      Indicates whether or not to display the language menu.
+show_lang                 lang      bool    true      Indicates whether or not to display the language menu.
 
-show_perpage             ranking    bool    true      Indicates whether or not to display the perpage menu.
+show_perpage              ranking   bool    true      Indicates whether or not to display the perpage menu.
 
-show_sort                ranking    bool    true      Indicates whether or not to display the sort menu.
+show_sort                 ranking   bool    true      Indicates whether or not to display the sort menu.
 
-show_switch              switch     bool    true      Indicates whether or not to display the switch menu.
+show_switch               switch    bool    true      Indicates whether or not to display the switch menu.
 
 sort                      facet,    string            Specifies the order in which to sort the records retrieved by an
                           facets,                     auto-executing widget. Must be one of those in the `sort_options`
