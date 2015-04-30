@@ -54,6 +54,7 @@ function filterSet(team) {
     m_list = newList;
   };
 
+  // ### Surely the || in this function should be &&
   that.targetFiltered = function(id) {
     for (var i = 0; i < m_list.length; i++) {
       if (m_list[i].type === 'target' ||
@@ -98,6 +99,29 @@ function filterSet(team) {
       res += "category~" + id.replace(/[\\,]/g, '\\$&');
     });
     return res;
+  }
+
+  // Returns a hash of key=value pairs representing the filter-set
+  // These will become part of the URL-fragment representing the state
+  that.fragmentItems = function() {
+    var hash = {};
+
+    for (var i in m_list) {
+      var filter = m_list[i];
+      var type = filter.type;
+      if (type === 'target') {
+        hash['xt-' + filter.id] = filter.name;
+      } else if (type === 'field') {
+        // Ugly names, but we need to include the value because fields can be repeated
+        hash['xf-' + filter.field + '-' + filter.value] = 1;
+      } else if (type === 'category') {
+        hash['xc-' + filter.id] = 1;
+      } else {
+        alert("unsupported filter-type '" + type + "'");
+      }
+    }
+    
+    return hash;
   }
 
   return that;
