@@ -20,11 +20,11 @@ mkws.makeTeam = function($, teamName) {
   // 1. Persistent state (to be coded in URL fragment)
   var m_state = {
     query: null,                // initially undefined
-    sortOrder: null,            // will be set below
-    perpage: null,              // will be set below
-    currentPage: 1,
-    currentRecordId: '',
-    filterSet: filterSet(that)
+    sort: null,                 // will be set below
+    size: null,                 // will be set below
+    page: 1,
+    recid: '',
+    filters: filterSet(that)
   }
 
   // 2. Internal state (not to be coded)
@@ -51,19 +51,19 @@ mkws.makeTeam = function($, teamName) {
   // Accessor methods for individual widgets: readers
   that.name = function() { return m_teamName; };
   that.submitted = function() { return m_submitted; };
-  that.sortOrder = function() { return m_state.sortOrder; };
-  that.perpage = function() { return m_state.perpage; };
+  that.sortOrder = function() { return m_state.sort; };
+  that.perpage = function() { return m_state.size; };
   that.query = function() { return m_state.query; };
   that.totalRecordCount = function() { return m_totalRecordCount; };
-  that.currentPage = function() { return m_state.currentPage; };
-  that.currentRecordId = function() { return m_state.currentRecordId; };
+  that.currentPage = function() { return m_state.page; };
+  that.currentRecordId = function() { return m_state.recid; };
   that.currentRecordData = function() { return m_currentRecordData; };
-  that.filters = function() { return m_state.filterSet; };
+  that.filters = function() { return m_state.filters; };
   that.gotRecords = function() { return m_gotRecords; };
 
   // Accessor methods for individual widgets: writers
-  that.set_sortOrder = function(val) { m_state.sortOrder = val };
-  that.set_perpage = function(val) { m_state.perpage = val };
+  that.set_sortOrder = function(val) { m_state.sort = val };
+  that.set_perpage = function(val) { m_state.size = val };
 
 
   // The following PubSub code is modified from the jQuery manual:
@@ -106,8 +106,8 @@ mkws.makeTeam = function($, teamName) {
 
   that.info("making new widget team");
 
-  m_state.sortOrder = config.sort_default;
-  m_state.perpage = config.perpage_default;
+  m_state.sort = config.sort_default;
+  m_state.size = config.perpage_default;
  
   // pz2.js event handlers:
   function onInit() {
@@ -216,13 +216,13 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.targetFiltered = function(id) {
-    return m_state.filterSet.targetFiltered(id);
+    return m_state.filters.targetFiltered(id);
   };
 
 
   that.limitTarget = function(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
-    m_state.filterSet.add(targetFilter(id, name));
+    m_state.filters.add(targetFilter(id, name));
     if (m_state.query) triggerSearch();
     return false;
   };
@@ -230,7 +230,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.limitQuery = function(field, value) {
     that.info("limitQuery(field=" + field + ", value=" + value + ")");
-    m_state.filterSet.add(fieldFilter(field, value));
+    m_state.filters.add(fieldFilter(field, value));
     if (m_state.query) triggerSearch();
     return false;
   };
@@ -239,8 +239,8 @@ mkws.makeTeam = function($, teamName) {
   that.limitCategory = function(id) {
     that.info("limitCategory(id=" + id + ")");
     // Only one category filter at a time
-    m_state.filterSet.removeMatching(function(f) { return f.type === 'category' });
-    if (id !== '') m_state.filterSet.add(categoryFilter(id));
+    m_state.filters.removeMatching(function(f) { return f.type === 'category' });
+    if (id !== '') m_state.filters.add(categoryFilter(id));
     if (m_state.query) triggerSearch();
     return false;
   };
@@ -248,7 +248,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.delimitTarget = function(id) {
     that.info("delimitTarget(id=" + id + ")");
-    m_state.filterSet.removeMatching(function(f) { return f.type === 'target' });
+    m_state.filters.removeMatching(function(f) { return f.type === 'target' });
     if (m_state.query) triggerSearch();
     return false;
   };
@@ -256,7 +256,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.delimitQuery = function(field, value) {
     that.info("delimitQuery(field=" + field + ", value=" + value + ")");
-    m_state.filterSet.removeMatching(function(f) { return f.type == 'field' &&
+    m_state.filters.removeMatching(function(f) { return f.type == 'field' &&
                                              field == f.field && value == f.value });
     if (m_state.query) triggerSearch();
     return false;
@@ -264,33 +264,33 @@ mkws.makeTeam = function($, teamName) {
 
 
   that.showPage = function(pageNum) {
-    m_state.currentPage = pageNum;
-    m_paz.showPage(m_state.currentPage - 1);
+    m_state.page = pageNum;
+    m_paz.showPage(m_state.page - 1);
   };
 
 
   that.pagerNext = function() {
-    if (m_totalRecordCount - m_state.perpage*m_state.currentPage > 0) {
+    if (m_totalRecordCount - m_state.size * m_state.page > 0) {
       m_paz.showNext();
-      m_state.currentPage++;
+      m_state.page++;
     }
   };
 
 
   that.pagerPrev = function() {
     if (m_paz.showPrev() != false)
-      m_state.currentPage--;
+      m_state.page--;
   };
 
 
   that.reShow = function() {
     resetPage();
-    m_paz.show(0, m_state.perpage, m_state.sortOrder);
+    m_paz.show(0, m_state.size, m_state.sort);
   };
 
 
   function resetPage() {
-    m_state.currentPage = 1;
+    m_state.page = 1;
     m_totalRecordCount = 0;
     m_gotRecords = false;
   }
@@ -305,7 +305,7 @@ mkws.makeTeam = function($, teamName) {
       return;
     }
 
-    m_state.filterSet.removeMatching(function(f) { return f.type !== 'category' });
+    m_state.filters.removeMatching(function(f) { return f.type !== 'category' });
     triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery);
     switchView('records'); // In case it's configured to start off as hidden
     m_submitted = true;
@@ -318,13 +318,13 @@ mkws.makeTeam = function($, teamName) {
 
     // Continue to use previous query/sort-order unless new ones are specified
     if (query) m_state.query = query;
-    if (sortOrder) m_state.sortOrder = sortOrder;
-    if (perpage) m_state.perpage = perpage;
-    if (targets) m_state.filterSet.add(targetFilter(targets, targets));
+    if (sortOrder) m_state.sort = sortOrder;
+    if (perpage) m_state.size = perpage;
+    if (targets) m_state.filters.add(targetFilter(targets, targets));
 
-    var pp2filter = m_state.filterSet.pp2filter();
-    var pp2limit = m_state.filterSet.pp2limit(limit);
-    var pp2catLimit = m_state.filterSet.pp2catLimit();
+    var pp2filter = m_state.filters.pp2filter();
+    var pp2limit = m_state.filters.pp2limit(limit);
+    var pp2catLimit = m_state.filters.pp2catLimit();
     if (pp2catLimit) {
       pp2filter = pp2filter ? pp2filter + "," + pp2catLimit : pp2catLimit;
     }
@@ -338,10 +338,10 @@ mkws.makeTeam = function($, teamName) {
       params.torusquery = torusquery;
     }
 
-    that.info("triggerSearch(" + m_state.query + "): filters = " + m_state.filterSet.toJSON() + ", " +
+    that.info("triggerSearch(" + m_state.query + "): filters = " + m_state.filters.toJSON() + ", " +
         "pp2filter = " + pp2filter + ", params = " + $.toJSON(params));
 
-    m_paz.search(m_state.query, m_state.perpage, m_state.sortOrder, pp2filter, undefined, params);
+    m_paz.search(m_state.query, m_state.size, m_state.sort, pp2filter, undefined, params);
     queue("searchtriggered").publish();
   }
 
@@ -381,15 +381,15 @@ mkws.makeTeam = function($, teamName) {
 
   // detailed record drawing
   that.showDetails = function(recId) {
-    var oldRecordId = m_state.currentRecordId;
-    m_state.currentRecordId = recId;
+    var oldRecordId = m_state.recid;
+    m_state.recid = recId;
 
     // remove current detailed view if any
     findnode('#' + recordDetailsId(oldRecordId)).remove();
 
     // if the same clicked, just hide
     if (recId == oldRecordId) {
-      m_state.currentRecordId = '';
+      m_state.recid = '';
       m_currentRecordData = null;
       return;
     }
