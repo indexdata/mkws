@@ -65,6 +65,31 @@ mkws.makeTeam = function($, teamName) {
   that.set_sortOrder = function(val) { m_state.sort = val };
   that.set_perpage = function(val) { m_state.size = val };
 
+  m_state.sort = config.sort_default;
+  m_state.size = config.perpage_default;
+  var m_default = $.extend(true, {}, m_state);
+
+  that.urlFragment = function () {
+    var s;
+
+    for (var key in m_state) {
+      if (m_state.hasOwnProperty(key) &&
+          m_state[key] != m_default[key]) {
+        if (!s) {
+          var s = 'mkws';
+          if (m_teamName !== 'AUTO') s += m_teamName;
+          s += '=';
+        } else {
+          s += "@";
+        }
+
+        s += key + '=' + m_state[key];
+      }
+    }
+
+    return s;
+  }
+
 
   // The following PubSub code is modified from the jQuery manual:
   // http://api.jquery.com/jQuery.Callbacks/
@@ -106,9 +131,6 @@ mkws.makeTeam = function($, teamName) {
 
   that.info("making new widget team");
 
-  m_state.sort = config.sort_default;
-  m_state.size = config.perpage_default;
- 
   // pz2.js event handlers:
   function onInit() {
     that.info("init");
@@ -286,6 +308,8 @@ mkws.makeTeam = function($, teamName) {
   that.reShow = function() {
     resetPage();
     m_paz.show(0, m_state.size, m_state.sort);
+    // ### not really the right place for this but it will do for now.
+    that.warn("fragment: " + that.urlFragment());
   };
 
 
@@ -343,6 +367,9 @@ mkws.makeTeam = function($, teamName) {
 
     m_paz.search(m_state.query, m_state.size, m_state.sort, pp2filter, undefined, params);
     queue("searchtriggered").publish();
+
+    // ### not really the right place for this but it will do for now.
+    that.warn("fragment: " + that.urlFragment());
   }
 
   // fetch record details to be retrieved from the record queue
