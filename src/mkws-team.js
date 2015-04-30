@@ -73,7 +73,7 @@ mkws.makeTeam = function($, teamName) {
   delete m_default.filters;
   $.extend(m_default, tmp.fragmentItems());
 
-  that.urlFragment = function () {
+  that.urlFragment = function() {
     var s;
 
     // Expand the filterSet into a set of key=value properties 
