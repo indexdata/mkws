@@ -67,14 +67,24 @@ mkws.makeTeam = function($, teamName) {
 
   m_state.sort = config.sort_default;
   m_state.size = config.perpage_default;
+
   var m_default = $.extend(true, {}, m_state);
+  var tmp = m_default.filters;
+  delete m_default.filters;
+  $.extend(m_default, tmp.fragmentItems());
 
   that.urlFragment = function () {
     var s;
 
-    for (var key in m_state) {
-      if (m_state.hasOwnProperty(key) &&
-          m_state[key] != m_default[key]) {
+    // Expand the filterSet into a set of key=value properties 
+    var state = $.extend(true, {}, m_state);
+    var tmp = state.filters;
+    delete state.filters;
+    $.extend(state, tmp.fragmentItems());
+
+    for (var key in state) {
+      if (state.hasOwnProperty(key) &&
+          state[key] != m_default[key]) {
         if (!s) {
           var s = 'mkws';
           if (m_teamName !== 'AUTO') s += m_teamName;
@@ -83,7 +93,8 @@ mkws.makeTeam = function($, teamName) {
           s += "@";
         }
 
-        s += key + '=' + m_state[key];
+        // ### how do we need to quote this?
+        s += key + '=' + state[key];
       }
     }
 
