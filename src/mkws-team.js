@@ -299,6 +299,7 @@ mkws.makeTeam = function($, teamName) {
   that.showPage = function(pageNum) {
     m_state.page = pageNum;
     m_paz.showPage(m_state.page - 1);
+    that.warn("fragment: " + that.urlFragment());
   };
 
 
@@ -306,13 +307,16 @@ mkws.makeTeam = function($, teamName) {
     if (m_totalRecordCount - m_state.size * m_state.page > 0) {
       m_paz.showNext();
       m_state.page++;
+      that.warn("fragment: " + that.urlFragment());
     }
   };
 
 
   that.pagerPrev = function() {
-    if (m_paz.showPrev() != false)
+    if (m_paz.showPrev() != false) {
       m_state.page--;
+      that.warn("fragment: " + that.urlFragment());
+    }
   };
 
 
@@ -387,6 +391,7 @@ mkws.makeTeam = function($, teamName) {
   that.fetchDetails = function(recId) {
     that.info("fetchDetails() requesting record '" + recId + "'");
     m_paz.record(recId);
+    that.warn("fragment: " + that.urlFragment());
   };
 
 
