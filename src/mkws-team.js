@@ -114,6 +114,16 @@ mkws.makeTeam = function($, teamName) {
     return x;
   }
 
+  that.handleChanges = function(oldState, newState) {
+    for (var key in newState) {
+      if (newState.hasOwnProperty(key) &&
+          (!oldState || newState[key] != oldState[key])) {
+        that.warn("changed property " + key + ": '" + oldState[key] + "' -> '" + newState[key] + "'");
+      }
+    }
+  };
+
+
   // The following PubSub code is modified from the jQuery manual:
   // http://api.jquery.com/jQuery.Callbacks/
   //
