@@ -696,8 +696,20 @@ mkws.info("Using window.name '" + window.name + "'");
         d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
         q = s.substring(1);
 
-    while (e = r.exec(q))
-      hashParams[d(e[1])] = d(e[2]);
+    while (e = r.exec(q)) {
+      var key = d(e[1]);
+      if (key === 'mkws') {
+        key = 'AUTO';
+      } else {
+        key = key.replace('mkws', '');
+      }
+      var team = mkws.teams[key];
+      if (team) {
+        hashParams[key] = team.parseFragment(d(e[2]));
+      } else {
+        alert("can't resolve team name '" + key + "'");
+      }
+    }
 
     return hashParams;
   }
