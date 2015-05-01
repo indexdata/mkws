@@ -43,7 +43,7 @@ mkws-complete-syntax-check:
 	${MAKE} -C../src ../tools/htdocs/mkws-complete.min.js
 
 check check-js: node-modules mkws-complete-syntax-check
-	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
+	${JASMINE_NODE} --noColor --captureExceptions --forceExit ./spec
 
 check-node-installation:
 	@if [ ! -e node_modules ]; then \
@@ -55,7 +55,7 @@ check-node-installation:
 test: check
 
 terse:
-	$(MIKE) jasmine-node --noColor --captureExceptions --forceexit spec
+	$(MIKE) jasmine-node --noColor --captureExceptions --forceExit spec
 
 phantomjs p: check-js apache-stop apache-start _phantomjs
 	${MAKE} apache-stop
