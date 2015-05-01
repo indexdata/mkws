@@ -719,7 +719,16 @@ mkws.info("Using window.name '" + window.name + "'");
     mkws.warn("hashchange: old='" + oldHash + "', new='" + location.hash + "'");
     var oldStates = parse_fragment(oldHash);
     var newStates = parse_fragment(location.hash);
-    mkws.warn(mkws.$.toJSON(newStates));
     oldHash = location.hash;
+
+    for (var teamName in newStates) {
+      var team = mkws.teams[teamName];
+      if (!team) {
+        alert("can't resolve team name '" + teamName + "'");
+        continue;
+      }
+
+      team.handleChanges(oldStates[teamName], newStates[teamName]);
+    }
   });
 })(mkws.$);
