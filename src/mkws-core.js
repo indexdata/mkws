@@ -631,11 +631,6 @@ mkws.info("Using window.name '" + window.name + "'");
       var myTeam = mkws.teams[tName]
       myTeam.makePz2();
       myTeam.info("made PZ2 object");
-      /*
-        myTeam.visitWidgets(function(t, w) {
-          mkws.debug("  has widget of type '" + t + "': " + w);
-        });
-      */
     }
 
     function sp_auth_url(config) {
@@ -690,4 +685,8 @@ mkws.info("Using window.name '" + window.name + "'");
       mkws.logger.setOptions({ "level": mkws.stringToLevel(tmp) });
     }
   }
+
+  $(window).bind( 'hashchange', function() {
+    mkws.warn("hashchange")
+  });
 })(mkws.$);
