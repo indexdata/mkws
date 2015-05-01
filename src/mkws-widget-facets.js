@@ -9,6 +9,7 @@ mkws.registerWidgetType('facets', function() {
   });
 
   team.queue("facets").subscribe(function(data) {
+    that.node.stop();
     that.node.css('opacity', 1);
     that.node.addClass("active");
   });

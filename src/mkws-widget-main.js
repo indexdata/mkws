@@ -121,6 +121,7 @@ mkws.registerWidgetType('records', function() {
 
   var m_dataToRedraw = null;
   function refreshRecordData() {
+    that.node.stop();
     that.node.css('opacity', 1);
 
     if (m_dataToRedraw) {
