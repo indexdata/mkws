@@ -2,7 +2,7 @@
 
 DEST = ../tools/htdocs
 
-HANDLEBARS_FILE = handlebars-v2.0.0.js
+HANDLEBARS_FILE = handlebars-v3.0.3.js
 JQUERY_FILE = jquery-1.10.0.min.js
 JQUERY_JSON_FILE = jquery.json-2.4.js
 JSNLOG_FILE = jsnlog.min.js
