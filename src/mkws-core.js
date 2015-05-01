@@ -686,7 +686,28 @@ mkws.info("Using window.name '" + window.name + "'");
     }
   }
 
-  $(window).bind( 'hashchange', function() {
-    mkws.warn("hashchange")
+  // This function is adapted from Yarin's code at
+  // https://stackoverflow.com/questions/4197591/parsing-url-hash-fragment-identifier-with-javascript#4198132
+  function parse_fragment(s) {
+    var hashParams = {};
+    var e,
+        a = /\+/g,  // Regex for replacing addition symbol with a space
+        r = /([^&;=]+)=?([^&;]*)/g,
+        d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+        q = s.substring(1);
+
+    while (e = r.exec(q))
+      hashParams[d(e[1])] = d(e[2]);
+
+    return hashParams;
+  }
+
+  var oldHash = location.hash;
+  $(window).bind('hashchange', function(e) {
+    mkws.warn("hashchange: old='" + oldHash + "', new='" + location.hash + "'");
+    var oldStates = parse_fragment(oldHash);
+    var newStates = parse_fragment(location.hash);
+    mkws.warn(mkws.$.toJSON(newStates));
+    oldHash = location.hash;
   });
 })(mkws.$);
