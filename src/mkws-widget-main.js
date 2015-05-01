@@ -73,19 +73,19 @@ mkws.registerWidgetType('pager', function() {
     if (firstClkbl > 1) output.morePrev = true;
     if (lastClkbl < pages) output.moreNext = true;
 
-    if (currentPage > 1) output.prevClick = "mkws.pagerPrev(\'" + teamName + "\');";
+    if (currentPage > 1) output.prevHref = '#' + that.team.urlFragment({ page: currentPage-1 });
 
     output.pages = [];
     for(var i = firstClkbl; i <= lastClkbl; i++) {
       var o = {};
       o.number = i;
       if (i !== currentPage) {
-        o.click = "mkws.showPage(\'" + teamName + "\', " + i + ");";
+        o.href = '#' + that.team.urlFragment({ page: i });
       }
       output.pages.push(o);
     }
 
-    if (pages - currentPage > 0) output.nextClick = "mkws.pagerNext(\'" + teamName + "\')";
+    if (pages - currentPage > 0) output.nextHref = '#' + that.team.urlFragment({ page: currentPage+1 });
 
     var template = that.team.loadTemplate(that.config.template || "pager");
     that.node.html(template(output));
