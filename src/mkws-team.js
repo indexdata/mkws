@@ -73,11 +73,12 @@ mkws.makeTeam = function($, teamName) {
   delete m_default.filters;
   $.extend(m_default, tmp.fragmentItems());
 
-  that.urlFragment = function() {
+  that.urlFragment = function(overrides) {
     var s;
 
+    that.warn("making urlFragment with overrides " + mkws.$.toJSON(overrides));
     // Expand the filterSet into a set of key=value properties 
-    var state = $.extend(true, {}, m_state);
+    var state = $.extend(true, {}, m_state, overrides ? overrides : {});
     var tmp = state.filters;
     delete state.filters;
     $.extend(state, tmp.fragmentItems());
