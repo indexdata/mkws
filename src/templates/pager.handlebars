@@ -1,8 +1,8 @@
 {{!
 Pager
 
-nextClick - handler script for "next" button, only available if there is a next page
-prevClick - handler script for "previous" button if there is a previous page
+nextHref - link for "next" button, only available if there is a next page
+prevHref - link for "previous" button if there is a previous page
 moreNext - indicates there are more pages following those displayed
 morePrev - indicates there are more pages preceding
 first - first record displayed
@@ -11,7 +11,7 @@ count - number of records available
 found - number of records found
 pages:
   number - page number
-  click - script to go to this page unless it is the current one
+  href - link to this page unless it is the current one
 }}
 <div class="mkws-pager-desc">
  {{#if found}}
@@ -24,8 +24,8 @@ pages:
 </div>
 
 <div class="mkws-pager-list">
-  {{#if prevClick}}
-    <a href="#" class="mkws-prev mkwsPrev" onclick="{{prevClick}}">{{{mkws-translate "Prev"}}}</a> |
+  {{#if prevHref}}
+    <a href="{{prevHref}}" class="mkws-prev mkwsPrev">{{{mkws-translate "Prev"}}}</a> |
   {{else}}
     <span class="mkws-prev mkwsPrev">{{{mkws-translate "Prev"}}}</span> |
   {{/if}}
@@ -33,8 +33,8 @@ pages:
   {{#if morePrev}}...{{/if}}
 
   {{#each pages}}
-    {{#if click}}
-      <a href="#" onclick="{{click}}">{{number}}</a>
+    {{#if href}}
+      <a href="{{href}}">{{number}}</a>
     {{else}}
       <span class="mkws-current-page mkwsCurrentPage">{{number}}</span>
     {{/if}}
@@ -42,8 +42,8 @@ pages:
 
   {{#if moreNext}}...{{/if}}
 
-  {{#if nextClick}}
-    | <a href="#" class="mkws-next mkwsNext" onclick="{{nextClick}}">{{{mkws-translate "Next"}}}</a>
+  {{#if nextHref}}
+    | <a href="{{nextHref}}" class="mkws-next mkwsNext">{{{mkws-translate "Next"}}}</a>
   {{else}}
     | <span class="mkws-next mkwsNext">{{{mkws-translate "Next"}}}</span>
   {{/if}}
