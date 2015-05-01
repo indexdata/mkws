@@ -101,6 +101,18 @@ mkws.makeTeam = function($, teamName) {
     return s;
   }
 
+  // ### what quoting do we need to undo? Complement of previous function
+  that.parseFragment = function(s) {
+    var x = {};
+
+    var list = s.split('@');
+    for (var i in list) {
+      var a = list[i].split('=');
+      x[a[0]] = a[1];
+    }
+
+    return x;
+  }
 
   // The following PubSub code is modified from the jQuery manual:
   // http://api.jquery.com/jQuery.Callbacks/
