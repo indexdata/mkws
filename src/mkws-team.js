@@ -129,6 +129,11 @@ mkws.makeTeam = function($, teamName) {
           if (that.submitted()) {
             that.reShow();
           }
+        } else if (key === 'size') {
+          that.set_perpage(val);
+          if (that.submitted()) {
+            that.reShow();
+          }
         }
       }
     }
