@@ -124,6 +124,11 @@ mkws.makeTeam = function($, teamName) {
                   " -> '" + val + "'");
         if (key === 'page') {
           that.showPage(parseInt(val));
+        } else if (key === 'sort') {
+          that.set_sortOrder(val);
+          if (that.submitted()) {
+            that.reShow();
+          }
         }
       }
     }
