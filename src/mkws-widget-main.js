@@ -227,10 +227,7 @@ mkws.registerWidgetType('per-page', function() {
   var that = this;
 
   this.node.change(function() {
-    that.team.set_perpage(that.node.val());
-    if (that.team.submitted()) {
-      that.team.reShow();
-    }
+    window.location.href = '#' + that.team.urlFragment({ size: that.node.val() });
     return false;
   });
 });
