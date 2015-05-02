@@ -217,10 +217,7 @@ mkws.registerWidgetType('sort', function() {
   var that = this;
 
   this.node.change(function() {
-    that.team.set_sortOrder(that.node.val());
-    if (that.team.submitted()) {
-      that.team.reShow();
-    }
+    window.location.href = '#' + that.team.urlFragment({ sort: that.node.val() });
     return false;
   });
 });
