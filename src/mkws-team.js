@@ -116,9 +116,15 @@ mkws.makeTeam = function($, teamName) {
 
   that.handleChanges = function(oldState, newState) {
     for (var key in newState) {
+      var val = newState[key];
       if (newState.hasOwnProperty(key) &&
-          (!oldState || newState[key] != oldState[key])) {
-        that.warn("changed property " + key + ": '" + oldState[key] + "' -> '" + newState[key] + "'");
+          (!oldState || val != oldState[key])) {
+        that.warn("changed property " + key + ": " + 
+                  (oldState ? ("'" + oldState[key] + "'") : "undefined") +
+                  " -> '" + val + "'");
+        if (key === 'page') {
+          that.showPage(parseInt(val));
+        }
       }
     }
   };
