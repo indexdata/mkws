@@ -61,6 +61,12 @@ function init_jasmine_config() {
     // jenkins batch tests
     if (jasmine_config.batch_tuning) {
         var sec = mkws.getParameterByName("second", document.location);
+
+        // run on localhost
+        if (!sec && document.location.href.match(/^http:\/\/localhost:4040/)) {
+            sec = 2000;
+        }
+
         if (sec && parseInt(sec) >= 100) {
             jasmine_config.second = parseInt(sec);
             debug("longer timeouts for batch testing: " + jasmine_config.second);
