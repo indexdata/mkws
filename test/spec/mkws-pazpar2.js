@@ -30,6 +30,9 @@ var jasmine_status = {
 function init_jasmine_config() {
 
     var jasmine_config_default = {
+        // tune parameter for batch testing
+        batch_tuning: true,
+
         search_query: "freebsd",
         max_time: 17,
         // in seconds
@@ -53,6 +56,15 @@ function init_jasmine_config() {
             jasmine_config[key] = jasmine_config_default[key];
         }
         debug("jasmine config: " + key + " => " + jasmine_config[key]);
+    }
+
+    // jenkins batch tests
+    if (jasmine_config.batch_tuning) {
+        var sec = mkws.getParameterByName("second", document.location);
+        if (sec && parseInt(sec) >= 100) {
+            jasmine_config.second = parseInt(sec);
+            debug("longer timeouts for batch testing: " + jasmine_config.second);
+        }
     }
 
     mkws.jasmine_done = false;
