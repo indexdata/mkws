@@ -46,22 +46,17 @@ mkws.registerWidgetType('facet', function() {
     var terms = [];
     var teamName = team.name();
     for (var i = 0; i < data.length && i < max; i++) {
-      var linkdata = "";
-      var action = "";
+      var fs = filterSet(team)
       if (!pzIndex) {
         // Special case: target selection
-        linkdata += ('target_id='+data[i].id+' ');
-        if (!team.targetFiltered(data[i].id)) {
-          action = 'mkws.limitTarget(\'' + teamName + '\', this.getAttribute(\'target_id\'),this.firstChild.nodeValue)';
-        }
+        fs.add(targetFilter(data[i].id, data[i].name));
       } else {
-        action = 'mkws.limitQuery(\'' + teamName + '\', \'' + pzIndex + '\', this.firstChild.nodeValue)';
+        fs.add(fieldFilter(pzIndex, data[i].name));
       }
-      linkdata += 'onclick="' + action + ';return false;"';
       terms.push({
         term: data[i].name,
         count: data[i].freq,
-        linkdata: linkdata
+        href: '#' + team.urlFragment({ filters: fs })
       }); 
     }
     // configured template > facet specific template > default facet template
