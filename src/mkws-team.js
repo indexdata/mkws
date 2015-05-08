@@ -77,10 +77,10 @@ mkws.makeTeam = function($, teamName) {
     var s;
 
     // Expand the filterSet into a set of key=value properties 
-    var state = $.extend(true, {}, m_state);
+    var state = $.extend(true, {}, m_state, overrides ? overrides : {});
     var tmp = state.filters;
     delete state.filters;
-    $.extend(state, tmp.fragmentItems(), overrides ? overrides : {});
+    $.extend(state, tmp.fragmentItems());
 
     for (var key in state) {
       if (state.hasOwnProperty(key) &&
