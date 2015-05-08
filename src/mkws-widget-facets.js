@@ -60,7 +60,6 @@ mkws.registerWidgetType('facet', function() {
       linkdata += 'onclick="' + action + ';return false;"';
       terms.push({
         term: data[i].name,
-        field: data[i].id,
         count: data[i].freq,
         linkdata: linkdata
       }); 
