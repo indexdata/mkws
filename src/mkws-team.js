@@ -134,6 +134,11 @@ mkws.makeTeam = function($, teamName) {
           if (that.submitted()) {
             that.reShow();
           }
+        } else if (key.indexOf('xt-') == 0) {
+          that.limitTarget(key.substring(3), val);
+        } else if (key.indexOf('xf-') == 0) {
+          var a = key.split('-');
+          that.limitQuery(a[1], a[2]);
         }
       }
     }
