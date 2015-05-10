@@ -351,6 +351,19 @@ describe("Check active clients author", function () {
             }
         });
     });
+
+    // avoid race conditions of source facets updates
+    it("wait a little bit for source facets", function () {
+        // wait a half second, to show the target view
+        var waittime = 0.5;
+        var time = (new Date).getTime();
+
+        waitsFor(function () {
+            return (new Date).getTime() - time > waittime * jasmine_config.second ? true : false;
+        }, "wait some miliseconds", (waittime + 0.5) * jasmine_config.second);
+
+        runs(function () {});
+    });
 });
 
 describe("Check Source Facets", function () {
