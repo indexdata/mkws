@@ -537,10 +537,11 @@ describe("Check switch menu Records/Targets", function () {
         expect($("div.mkws-records").is(":visible")).toBe(false);
 
         // wait a half second, to show the target view
+        var waittime = 0.7;
         var time = (new Date).getTime();
         waitsFor(function () {
-            return (new Date).getTime() - time > 700 ? true : false;
-        }, "wait some miliseconds", 1 * jasmine_config.second);
+            return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
+        }, "wait some miliseconds", (waittime + 0.3) * jasmine_config.second);
 
         // look for table header
         runs(function () {
