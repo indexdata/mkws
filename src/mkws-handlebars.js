@@ -143,7 +143,8 @@ Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options
     '>': function (l, r) { return l > r; },
     '<=': function (l, r) { return l <= r; },
     '>=': function (l, r) { return l >= r; },
-    'typeof': function (l, r) { return typeof l == r; }
+    'typeof': function (l, r) { return typeof l == r; },
+    'matches': function (l, r) { return l.match(r); }
   };
 
   if (!operators[operator]) {
