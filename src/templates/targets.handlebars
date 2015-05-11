@@ -26,7 +26,7 @@ data:
     <tr>
       <td>{{{name}}}</td>
       <td>
-	{{#compare id 'matches' '^solr-'}}
+        {{#compare id 'matches' '^(solr-|lui.)'}}
 	  <b title="Harvested, and stored locally" style="color:darkgreen">H</b>
 	{{else}}
 	  <span title="Searched on the remote site" style="color:darkred">S</span>
