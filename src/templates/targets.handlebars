@@ -13,6 +13,7 @@ data:
   <thead>
     <tr>
       <td>{{{mkws-translate "Target ID"}}}</td>
+      <td>{{{mkws-translate "Type"}}}</td>
       <td>{{{mkws-translate "Hits"}}}</td>
       <td>{{{mkws-translate "Diags"}}}</td>
       <td>{{{mkws-translate "Records"}}}</td>
@@ -24,6 +25,13 @@ data:
   {{#each data}}
     <tr>
       <td>{{{name}}}</td>
+      <td>
+	{{#compare id 'matches' '^solr-'}}
+	  <b title="Harvested, and stored locally" style="color:darkgreen">H</b>
+	{{else}}
+	  <span title="Searched on the remote site" style="color:darkred">S</span>
+	{{/compare}}
+      </td>
       <td>{{hits}}</td>
       <td>
        {{#if message}}
