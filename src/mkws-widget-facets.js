@@ -46,13 +46,9 @@ mkws.registerWidgetType('facet', function() {
     var terms = [];
     for (var i = 0; i < data.length && i < max; i++) {
       var fs = team.filters().deepCopy();
-      //team.warn("fs = " + mkws.$.toJSON(fs));
-      //team.warn("team.filters = " + mkws.$.toJSON(team.filters()));
       if (!pzIndex) {
         // Special case: target selection
-        team.warn("before: team.filters = " + mkws.$.toJSON(team.filters()));
         fs.add(targetFilter(data[i].id, data[i].name));
-        team.warn("after: team.filters = " + mkws.$.toJSON(team.filters()));
       } else {
         fs.add(fieldFilter(pzIndex, data[i].name));
       }
