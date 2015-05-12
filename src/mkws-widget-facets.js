@@ -45,10 +45,8 @@ mkws.registerWidgetType('facet', function() {
     data = data[name];
     var terms = [];
     var teamName = team.name();
-    var base = team.filters();
-    var fs;
     for (var i = 0; i < data.length && i < max; i++) {
-      fs = $.extend(base, [], false);
+      var fs = $.extend(true, {}, team.filters());
       //team.warn("fs = " + mkws.$.toJSON(fs));
       //team.warn("team.filters = " + mkws.$.toJSON(team.filters()));
       if (!pzIndex) {
