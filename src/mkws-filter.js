@@ -89,7 +89,7 @@ function filterSet(team) {
       res += field + "=" + value.replace(/[\\|,]/g, '\\$&');
     });
     return res;
-  }
+  };
 
   that.pp2catLimit = function() {
     var res = "";
@@ -99,7 +99,7 @@ function filterSet(team) {
       res += "category~" + id.replace(/[\\,]/g, '\\$&');
     });
     return res;
-  }
+  };
 
   // Returns a hash of key=value pairs representing the filter-set
   // These will become part of the URL-fragment representing the state
@@ -122,7 +122,7 @@ function filterSet(team) {
     }
     
     return hash;
-  }
+  };
 
   return that;
 }
