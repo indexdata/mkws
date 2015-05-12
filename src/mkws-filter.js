@@ -126,19 +126,13 @@ function filterSet(team) {
 
   that.deepCopy = function() {
     var fs = filterSet(m_team);
-    document.write("setting list to " + mkws.$.toJSON(m_list) + "<br/>");
-    fs._setList($.extend({}, m_list));
+    fs._setList($.extend([], m_list));
     return fs;
   };
 
   // Used only by clone()
   that._setList = function(list) {
     m_list = list;
-  };
-
-  /// Shouldn't be used at all
-  that._list = function() {
-    return m_list;
   };
 
   return that;
