@@ -238,14 +238,6 @@ mkws.showDetails = function(tname, prefixRecId) {
   mkws.teams[tname].showDetails(prefixRecId);
 };
 
-mkws.limitTarget  = function(tname, id, name) {
-  mkws.teams[tname].limitTarget(id, name);
-};
-
-mkws.limitQuery  = function(tname, field, value) {
-  mkws.teams[tname].limitQuery(field, value);
-};
-
 mkws.limitCategory  = function(tname, id) {
   mkws.teams[tname].limitCategory(id);
 };
