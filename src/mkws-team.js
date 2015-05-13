@@ -115,6 +115,10 @@ mkws.makeTeam = function($, teamName) {
   }
 
   that.handleChanges = function(oldState, newState) {
+    var reSearch = false;
+    var reShow = false;
+    var showPage = undefined;
+
     for (var key in newState) {
       var val = newState[key];
       if (newState.hasOwnProperty(key) &&
@@ -122,25 +126,40 @@ mkws.makeTeam = function($, teamName) {
         that.warn("changed property " + key + ": " + 
                   (oldState ? ("'" + oldState[key] + "'") : "undefined") +
                   " -> '" + val + "'");
-        if (key === 'page') {
-          that.showPage(parseInt(val));
+        if (key === 'query') {
+          m_state.query = val;
+          reSearch = true;
+        } else if (key === 'page') {
+          showPage = parseInt(val);
         } else if (key === 'sort') {
           that.set_sortOrder(val);
-          if (that.submitted()) {
-            that.reShow();
-          }
+          if (m_state.query) reShow = true;
         } else if (key === 'size') {
           that.set_perpage(val);
-          if (that.submitted()) {
-            that.reShow();
-          }
+          if (m_state.query) reShow = true;
         } else if (key.indexOf('xt-') == 0) {
           that.limitTarget(key.substring(3), val);
+          that.warn("limited target to " + val + ": m_state.query=" + m_state.query);
+          if (m_state.query) reSearch = true;
         } else if (key.indexOf('xf-') == 0) {
           var a = key.split('-');
           that.limitQuery(a[1], a[2]);
+          if (m_state.query) reSearch = true;
+        } else {
+          that.warn("unsupported fragment property '" + key + "'='" + val + "'");
         }
       }
+    }
+
+    if (reSearch) {
+      that.warn("searching");
+      triggerSearch();
+    } else if (showPage) {
+      that.warn("showing page " + showPage);
+      that.showPage(showPage);
+    } else if (reShow) {
+      that.warn("showing");
+      that.reShow();      
     }
   };
 
@@ -299,7 +318,6 @@ mkws.makeTeam = function($, teamName) {
   that.limitTarget = function(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_state.filters.add(targetFilter(id, name));
-    if (m_state.query) triggerSearch();
     return false;
   };
 
@@ -307,7 +325,6 @@ mkws.makeTeam = function($, teamName) {
   that.limitQuery = function(field, value) {
     that.info("limitQuery(field=" + field + ", value=" + value + ")");
     m_state.filters.add(fieldFilter(field, value));
-    if (m_state.query) triggerSearch();
     return false;
   };
 
