@@ -5,7 +5,7 @@
 //
 // Some functions are visible as member-functions to be called from
 // outside code -- specifically, from generated HTML. These functions
-// are that.switchView(), showDetails(), limitTarget(), limitQuery(),
+// are that.switchView(), showDetails(),
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
@@ -138,12 +138,12 @@ mkws.makeTeam = function($, teamName) {
           that.set_perpage(val);
           if (m_state.query) reShow = true;
         } else if (key.indexOf('xt-') == 0) {
-          that.limitTarget(key.substring(3), val);
+          limitTarget(key.substring(3), val);
           that.warn("limited target to " + val + ": m_state.query=" + m_state.query);
           if (m_state.query) reSearch = true;
         } else if (key.indexOf('xf-') == 0) {
           var a = key.split('-');
-          that.limitQuery(a[1], a[2]);
+          limitQuery(a[1], a[2]);
           if (m_state.query) reSearch = true;
         } else {
           that.warn("unsupported fragment property '" + key + "'='" + val + "'");
@@ -315,14 +315,14 @@ mkws.makeTeam = function($, teamName) {
   };
 
 
-  that.limitTarget = function(id, name) {
+  function limitTarget(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_state.filters.add(targetFilter(id, name));
     return false;
   };
 
 
-  that.limitQuery = function(field, value) {
+  function limitQuery(field, value) {
     that.info("limitQuery(field=" + field + ", value=" + value + ")");
     m_state.filters.add(fieldFilter(field, value));
     return false;
