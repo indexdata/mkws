@@ -2,8 +2,8 @@
 
 <VirtualHost *:80>
     ServerName example.indexdata.com
-    #DocumentRoot /home/indexdata/mkws/examples/htdocs/
-    DocumentRoot /home/indexdata/demos
+    DocumentRoot /home/indexdata/demos/
+    Alias /mkws-sandbox/ /home/indexdata/mkws/examples/htdocs/
     Alias /tools/htdocs/ /home/indexdata/mkws/tools/htdocs/
     Alias /src/ /home/indexdata/mkws/src/
     Alias /jasmine/ /home/indexdata/mkws/examples/jasmine/
@@ -13,6 +13,10 @@
 
     RewriteEngine on
     RewriteRule /service-proxy-auth http://sp-mkws.indexdata.com/service-proxy/?command=auth&action=login&username=mkws&password=mkws [P]
+    #ProxyPass /spcat/ http://spcatdemo.indexdata.com/spcat/
+    #ProxyPassReverse /spcat/ http://spcatdemo.indexdata.com/spcat/
+    ProxyPass /spcat/ http://catdemo-us.indexdata.com/spcat/
+    ProxyPassReverse /spcat/ http://catdemo-us.indexdata.com/spcat/
     #RewriteLog /var/log/apache2/mkws-examples-rewrite.log
     #RewriteLogLevel 9
 </VirtualHost>
