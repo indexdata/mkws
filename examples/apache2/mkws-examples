@@ -2,7 +2,8 @@
 
 <VirtualHost *:80>
     ServerName example.indexdata.com
-    DocumentRoot /home/indexdata/mkws/examples/htdocs/
+    #DocumentRoot /home/indexdata/mkws/examples/htdocs/
+    DocumentRoot /home/indexdata/demos
     Alias /tools/htdocs/ /home/indexdata/mkws/tools/htdocs/
     Alias /src/ /home/indexdata/mkws/src/
     Alias /jasmine/ /home/indexdata/mkws/examples/jasmine/
