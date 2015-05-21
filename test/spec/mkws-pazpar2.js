@@ -575,7 +575,7 @@ describe("Check translations", function () {
         expect(list.length).toBe(text.length);
 
         for (var i = 0; i < text.length; i++) {
-            expect($(list[i]).text()).toBe(M(text[i]));
+            expect($(list[i]).text().match(M(text[i]))).not.toBeNull();
         }
     }
 
