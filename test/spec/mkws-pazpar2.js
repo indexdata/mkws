@@ -673,8 +673,9 @@ describe("Check translations", function () {
 
         check_translation(list, text);
 
-        expect($(".mkws-next").text()).toBe(M("Next"));
-        expect($(".mkws-prev").text()).toBe(M("Prev"));
+        expect($(".mkws-next").text().match(M("Next"))).not.toBeNull();
+        expect($(".mkws-next").text().match(M("NextXXX"))).toBeNull();
+        expect($(".mkws-prev").text().match(M("Prev"))).not.toBeNull();
     });
 
     it("record details", function () {
