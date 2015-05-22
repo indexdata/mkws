@@ -1,11 +1,6 @@
 mkws.registerWidgetType('categories', function() {
   var that = this;
 
-  if (!mkws.authenticated) {
-    alert("can't use categories widget when not authenticated");
-    return;
-  }
-
   this.team.queue("authenticated").subscribe(function(authName, realm) {
     var req = new pzHttpRequest(mkws.pazpar2_url() + "?command=categories", function(err) {
       alert("HTTP call for categories failed: " + err)
