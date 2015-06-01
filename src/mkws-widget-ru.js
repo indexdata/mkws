@@ -30,4 +30,3 @@ mkws.registerWidgetType('reference-universe', function() {
   }); 
   that.autosearch();
 });
-
