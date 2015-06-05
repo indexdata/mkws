@@ -7,6 +7,7 @@ mkws.registerWidgetType('categories', function() {
     });
 
     req.get(null, function(data) {
+      var $ = mkws.$;
       if (!$.isXMLDoc(data)) {
         alert("categories response document is not XML");
         return;
