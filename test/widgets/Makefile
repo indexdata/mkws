@@ -61,7 +61,7 @@ index-iframe-demo:
 	( egrep -v example.indexdata.com url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos-other.html
 
 tidy:
-	for i in iframe-demos.html index*.html; do \
+	for i in iframe-demos*.html index*.html; do \
 	    tidy -i -m $$i >/dev/null 2>&1; \
 	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" /> $$1,' $$i; \
 	done
