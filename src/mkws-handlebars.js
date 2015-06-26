@@ -81,6 +81,31 @@ Handlebars.registerHelper('mkws-first', function(items, options) {
 });
 
 
+var _urlRegexp = /^(https?:)?\/\//;
+Handlebars.registerHelper('mkws-best-url', function(items) {
+  for (var i in items) {
+    var item = items[i]
+    if (item.match(_urlRegexp)) {
+      mkws.warn("'" + item + "' *is* a URL");
+      return item;
+    }
+    mkws.warn("'" + item + "' is not a URL");
+  }
+  return "";
+});
+Handlebars.registerHelper('mkws-other-urls', function(items) {
+  var res = [];
+  for (var i in items) {
+    var item = items[i]
+    if (item.match(_urlRegexp)) {
+      res.push(item);
+    }
+  }
+  return res;
+});
+
+
+
 Handlebars.registerHelper('mkws-commaList', function(items, options) {
   var out = "";
 
