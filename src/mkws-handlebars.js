@@ -86,10 +86,10 @@ Handlebars.registerHelper('mkws-best-url', function(items) {
   for (var i in items) {
     var item = items[i]
     if (item.match(_urlRegexp)) {
-      mkws.warn("'" + item + "' *is* a URL");
+      mkws.debug("'" + item + "' *is* a URL");
       return item;
     }
-    mkws.warn("'" + item + "' is not a URL");
+    mkws.debug("'" + item + "' is not a URL");
   }
   return "";
 });
