@@ -147,13 +147,8 @@ mkws.registerWidgetType('records', function() {
           var url = urls[j];
           that.warn("url #" + (j+1) + " = " + url);
           if (!bestLink && url.match(/^(https?:)?\/\//)) {
-            mkws.debug("'" + url + "' *is* a URL");
             bestLink = url;
-          } else if (bestLink) {
-            mkws.debug("'" + url + "' not tested");
-            otherLinks.push(url);
           } else {
-            mkws.debug("'" + url + "' is not a URL");
             otherLinks.push(url);
           }
         }
