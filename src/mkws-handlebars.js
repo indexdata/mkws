@@ -122,6 +122,10 @@ Handlebars.registerHelper('mkws-index1', function(obj) {
   return obj.data.index + 1;
 });
 
+Handlebars.registerHelper('mkws-indexplus', function(delta, obj) {
+  return obj.data.index + delta;
+});
+
 Handlebars.registerHelper('mkws-repeat', function(count, options) {
   var out = "";
   for (var i = 0; i < count; i++) {
