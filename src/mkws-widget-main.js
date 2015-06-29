@@ -138,7 +138,29 @@ mkws.registerWidgetType('records', function() {
             hit.renderedDetails = team.renderDetails(team.currentRecordData());
           } 
         }
+
+        var urls = hit['md-electronic-url'];
+        that.warn("urls = " + mkws.$.toJSON(urls));
+        var bestLink = null;
+        var otherLinks = [];
+        for (var j = 0; j < urls.length; j++) {
+          var url = urls[j];
+          that.warn("url #" + (j+1) + " = " + url);
+          if (!bestLink && url.match(/^(https?:)?\/\//)) {
+            mkws.debug("'" + url + "' *is* a URL");
+            bestLink = url;
+          } else if (bestLink) {
+            mkws.debug("'" + url + "' not tested");
+            otherLinks.push(url);
+          } else {
+            mkws.debug("'" + url + "' is not a URL");
+            otherLinks.push(url);
+          }
+        }
+        hit.bestLink = bestLink;
+        hit.otherLinks = otherLinks;
       }
+
       var template = team.loadTemplate(that.config.template || "records");
       var summaryPartial = team.loadTemplate(that.config['summary-template'] || "summary");
       var tdata = $.extend({}, {"hits": m_dataToRedraw.hits}, that.config.template_vars);
