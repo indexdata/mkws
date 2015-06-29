@@ -159,7 +159,6 @@ mkws.registerWidgetType('records', function() {
 
   var m_timer;
   this.node.mousemove(function() {
-    //that.debug("freezing records");
     var op = that.config.freeze_opacity;
     if (op !== undefined) { that.node.css('opacity', op); }
     m_frozen = true;
@@ -169,7 +168,6 @@ mkws.registerWidgetType('records', function() {
 
   function unfreezeRecordDisplay() {
     clearTimeout(m_timer);
-    //that.debug("unfreezing records");
     that.node.css('opacity', 1);
     m_frozen = false;
     refreshRecordData();

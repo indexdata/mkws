@@ -39,11 +39,11 @@ screenshots: clean estimate-time iframe
 	    done; wait; \
 	    ${MAKE} PREFIX=$$t index; \
 	done
-	${MAKE} tidy help-url
+	${MAKE} index-widgets tidy help-url
 
 help-url:
 	@echo ""
-	@echo "Please check now: http://localhost/test/widgets/"
+	@echo "Please check now: http://localhost/test/widgets/index.html"
 
 estimate-time:
 	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
@@ -52,12 +52,16 @@ estimate-time:
 index:
 	( cd ${IMAGES}; ls -tr ${PREFIX}.*.png | perl -ne 'chomp; print qq{<h2>$$_</h2><img src="'${IMAGES}/'$$_"/><br/><br/><p/>\n}' ) > index-${PREFIX}.html
 
+index-widgets:
+	ls -t index-*html iframe-*.html | perl -ne 'chomp; print qq{<a href="$$_">$$_</a><br/>\n}' > index.html
+
 iframe: index-iframe-demo
 index-iframe-demo:
-	( cat url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos.html
+	( egrep example.indexdata.com url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos-example.html
+	( egrep -v example.indexdata.com url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos-other.html
 
 tidy:
-	for i in iframe-demos.html index-*.html; do \
+	for i in iframe-demos*.html index*.html; do \
 	    tidy -i -m $$i >/dev/null 2>&1; \
 	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" /> $$1,' $$i; \
 	done
