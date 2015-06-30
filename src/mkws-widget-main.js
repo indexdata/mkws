@@ -140,12 +140,13 @@ mkws.registerWidgetType('records', function() {
         }
 
         var urls = hit['md-electronic-url'];
-        that.warn("urls = " + mkws.$.toJSON(urls));
         var bestLink = null;
         var otherLinks = [];
         for (var j = 0; j < urls.length; j++) {
           var url = urls[j];
-          if (!bestLink && url.match(/^(https?:)?\/\//)) {
+          if (!url.match(/^(https?:)?\/\//)) {
+            that.warn("link '" + url + "' is not a valid URL");
+          } else if (!bestLink) {
             bestLink = url;
           } else {
             otherLinks.push(url);
