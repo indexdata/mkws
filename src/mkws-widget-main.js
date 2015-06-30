@@ -145,7 +145,6 @@ mkws.registerWidgetType('records', function() {
         var otherLinks = [];
         for (var j = 0; j < urls.length; j++) {
           var url = urls[j];
-          that.warn("url #" + (j+1) + " = " + url);
           if (!bestLink && url.match(/^(https?:)?\/\//)) {
             bestLink = url;
           } else {
