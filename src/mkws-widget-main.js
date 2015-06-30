@@ -139,7 +139,24 @@ mkws.registerWidgetType('records', function() {
             hit.renderedDetails = team.renderDetails(team.currentRecordData());
           } 
         }
+
+        var urls = hit['md-electronic-url'];
+        var bestLink = null;
+        var otherLinks = [];
+        for (var j = 0; j < urls.length; j++) {
+          var url = urls[j];
+          if (!url.match(/^(https?:)?\/\//)) {
+            that.warn("link '" + url + "' is not a valid URL");
+          } else if (!bestLink) {
+            bestLink = url;
+          } else {
+            otherLinks.push(url);
+          }
+        }
+        hit.bestLink = bestLink;
+        hit.otherLinks = otherLinks;
       }
+
       var template = team.loadTemplate(that.config.template || "records");
       var summaryPartial = team.loadTemplate(that.config['summary-template'] || "summary");
       var tdata = $.extend({}, {"hits": m_dataToRedraw.hits}, that.config.template_vars);
