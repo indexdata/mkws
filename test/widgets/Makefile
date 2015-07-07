@@ -43,7 +43,10 @@ screenshots: clean estimate-time iframe
 
 help-url:
 	@echo ""
-	@echo "Please check now: http://localhost:${APACHE_PORT}/test/widgets/index.html"
+	@echo "Please check now: "
+	@echo "   http://localhost:${APACHE_PORT}/test/widgets/index.html"
+	@echo ""
+	@echo "You can start the web server with: make apache-start"
 
 estimate-time:
 	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
