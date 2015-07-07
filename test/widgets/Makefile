@@ -9,6 +9,7 @@ MD5=	$(shell which md5 md5sum)
 TESTS=	koha demos mike # koha.url
 TIMEOUT=4
 PREFIX=	test
+APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
 
 PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
 PHANTOMJS_URL=	http://www.indexdata.com/
@@ -42,7 +43,7 @@ screenshots: clean estimate-time iframe
 
 help-url:
 	@echo ""
-	@echo "Please check now: http://localhost/test/widgets/index.html"
+	@echo "Please check now: http://localhost:${APACHE_PORT}/test/widgets/index.html"
 
 estimate-time:
 	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
