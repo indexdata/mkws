@@ -1,10 +1,9 @@
 # Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
 
 PHANTOMJS_TIMEOUT=30
-PHANTOMJS=	perl ../bin/bomb.pl --timeout=${PHANTOMJS_TIMEOUT} ../node_modules/phantomjs/bin/phantomjs
+PHANTOMJS=	../bin/bomb --timeout=${PHANTOMJS_TIMEOUT} ../node_modules/phantomjs/bin/phantomjs
 IMAGES=		./images
 SCREENSHOT_WIDTH_HEIGHT=	1000 1200
-PERL_SCRIPTS=	../bin/bomb.pl
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
 TESTS=	koha demos mike # koha.url
