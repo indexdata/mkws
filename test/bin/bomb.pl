@@ -38,17 +38,18 @@ my @system = @ARGV;
 die usage if $help;
 die usage if !@system;
 
-# set CPU limit, in case the alarm handler will
-# be ignored
-eval {
-    require BSD::Resource;
-    BSD::Resource::setrlimit( "RLIMIT_CPU", $timeout, 2 * $timeout )
-      or die "Cannot set CPU limit: $!\n";
-};
-if ($@) {
-    warn
-      "WARNING: things would go more nicely with the BSD::Resource package\n";
-}
+# disabled - we set the CPU limit in the wrapper ./bomb
+## set CPU limit, in case the alarm handler will
+## be ignored
+#eval {
+#    require BSD::Resource;
+#    BSD::Resource::setrlimit( "RLIMIT_CPU", $timeout, 2 * $timeout )
+#      or die "Cannot set CPU limit: $!\n";
+#};
+#if ($@) {
+#    warn
+#      "WARNING: things would go more nicely with the BSD::Resource package\n";
+#}
 
 #
 # configure signal handlers
@@ -72,4 +73,3 @@ system(@system) == 0
   or die "system('@system') failed: ?='$?', !='$!', ^E='$^E'\n";
 
 1;
-
