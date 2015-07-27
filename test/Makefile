@@ -46,6 +46,9 @@ mkws-complete-syntax-check:
 check check-js: node-modules mkws-complete-syntax-check
 	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec
 
+check-dev: node-modules mkws-complete-syntax-check
+	${JASMINE_NODE} --noColor --captureExceptions --forceexit ./spec-dev
+
 check-node-installation:
 	@if [ ! -e node_modules ]; then \
 	    echo "==> please run first: make node-modules"; \
@@ -119,7 +122,7 @@ apache-stop:
 	rm -f ${APACHE_PID_FILE}
 
 help:
-	@echo "make [ all | check | clean | distclean ]"
+	@echo "make [ all | check | check-dev | clean | distclean ]"
 	@echo "     [ phantomjs | phantomjs-all ]"
 	@echo "     [ jsbeautifier | perltidy | screenshot ]"
 	@echo "     [ screenshots ]"

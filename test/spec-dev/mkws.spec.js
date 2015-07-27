@@ -1,4 +1,4 @@
-describe("jsdom/jQuery suite simple", function () {
+xdescribe("jsdom/jQuery suite simple", function () {
     it("jsdom test", function () {
         var jsdom = require("jsdom");
         var DOMParser = require('xmldom').DOMParser;
