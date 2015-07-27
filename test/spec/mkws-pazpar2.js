@@ -559,7 +559,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-xdescribe("Check translations", function () {
+describe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
@@ -568,6 +568,7 @@ xdescribe("Check translations", function () {
             debug("translate check for: " + text);
             return text;
         };
+
     var lang = function () {
             return mkws.config.lang
         };
@@ -578,6 +579,24 @@ xdescribe("Check translations", function () {
         for (var i = 0; i < text.length; i++) {
             expect($(list[i]).text().match(M(text[i]))).not.toBeNull();
         }
+    }
+
+    function check_translation_list(list, keywords) {
+        var errors = [];
+        for (var i = 0; i < keywords.length; i++) {
+            var text = $(list[i]);
+            var keyword = keywords[i];
+
+            if (text.text().match("^" + M(keyword) + "")) {
+                debug("found: " + text.text() + " :: " + keyword);
+            } else {
+                debug("NOT found: " + text.text() + " :: " + keyword);
+                errors.push(keyword)
+            }
+        }
+
+        // we except one missing field, or one error
+        expect(errors.length).not.toBeGreaterThan(1);
     }
 
     it("check language", function () {
@@ -680,13 +699,12 @@ xdescribe("Check translations", function () {
     });
 
     it("record details", function () {
-        var text = ["Title", "Date", "Author"]; // , "Subject", "Locations"];
+        var keywords = ["Title", "Date", "Author"]; // , "Subject", "Locations"];
         var list = $("div.mkws-details table > tbody > tr > th");
 
         // compare only the first 3 elements
-        list = list.splice(0, text.length)
-
-        check_translation(list, text);
+        // list = list.splice(0, text.length)
+        check_translation_list(list, keywords);
     });
 
 /* not tested
