@@ -21,8 +21,7 @@ Required development tools
 If you are building the widget set, you will need the following Debian
 packages (or their equivalents on your operating system):
 
-	$ sudo apt-get install curl git make unzip apache2 \
-	    pandoc libbsd-resource-perl
+	$ sudo apt-get install curl git make unzip apache2 pandoc
 
 You also need Node.js, but unfortunately the `node-js` package is not
 available for Debian wheezy. You can either get it from
