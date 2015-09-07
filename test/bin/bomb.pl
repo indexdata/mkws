@@ -62,7 +62,7 @@ $SIG{ALRM} = sub {
     warn "Command: @system\n";
 
     # kill process group
-    kill "INT", -$pgid;
+    kill "TERM", -$pgid;
 };
 
 # don't kill ourself
