@@ -57,7 +57,9 @@
     <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.js"></script> -->
     <script type="text/javascript">
       // check for the real jQuery / $ object
-      mkws.log("Reset jQuery and $ objection to null....");
+      if (typeof console != 'undefined') { // !IE8
+	console.log("Reset jQuery and $ objection to null....");
+      }
       $ = null;
       jQuery = null;
     </script>
