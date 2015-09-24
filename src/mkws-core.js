@@ -81,7 +81,7 @@ window.mkws = {
       "Subject": "Emneord",
       "subject": "emneord",
       "Location": "Lokation",
-      "Locations": "Lokation",
+      "Locations": "Lokationer",
       "Records": "Poster",
       "Targets": "Baser",
       "State": "Status",
