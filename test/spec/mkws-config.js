@@ -41,7 +41,7 @@ describe("Check mkws.config object", function () {
 
     it("mkws.config locale check German", function () {
         expect(mkws.locale_lang.de.Authors).toMatch(/^Autoren$/);
-        expect(mkws.locale_lang.de.Location).toMatch(/^Ort$/);
+        expect(mkws.locale_lang.de.Location).toMatch(/^Bestand$/);
     });
     it("mkws.config locale check Danish", function () {
         expect(mkws.locale_lang.da.Authors).toMatch(/^Forfattere$/);

@@ -80,7 +80,9 @@ describe("Init jasmine config", function () {
 
 // temporary disabled due records without an author, MKWS-400
 describe("Check translations", function () {
-    var $ = function (string) { return string };
+    var $ = function (string) {
+            return string
+        };
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
     var M = function (string) {
@@ -98,47 +100,49 @@ describe("Check translations", function () {
 
     var locale_lang = {
         "de": {
-      "Authors": "Autoren",
-      "Subjects": "Schlagw&ouml;rter",
-      "Sources": "Daten und Quellen",
-      "source": "datenquelle",
-      "Facets": "Termlisten",
-      "Next": "Weiter",
-      "Prev": "Zur&uuml;ck",
-      "Search": "Suche",
-      "Sort by": "Sortieren nach",
-      "and show": "und zeige",
-      "per page": "pro Seite",
-      "Displaying": "Zeige",
-      "to": "von",
-      "of": "aus",
-      "found": "gefunden",
-      "Title": "Titel",
-      "Author": "Autor",
-      "author": "autor",
-      "Date": "Datum",
-      "Subject": "Schlagwort",
-      "subject": "schlagwort",
-      "Location": "Ort",
-      "Records": "Datens&auml;tze",
-      "Targets": "Datenbanken",
-      "relevance": "Relevanz",
-      "title": "Titel",
-      "newest": "Neueste",
-      "oldest": "&Auml;lteste",
+            "Authors": "Autoren",
+            "Subjects": "Schlagw&ouml;rter",
+            "Sources": "Daten und Quellen",
+            "source": "datenquelle",
+            "Facets": "Termlisten",
+            "Next": "Weiter",
+            "Prev": "Zur&uuml;ck",
+            "Search": "Suche",
+            "Sort by": "Sortieren nach",
+            "and show": "und zeige",
+            "per page": "pro Seite",
+            "Displaying": "Zeige",
+            "to": "von",
+            "of": "aus",
+            "found": "gefunden",
+            "Title": "Titel",
+            "Author": "Autor",
+            "author": "autor",
+            "Date": "Datum",
+            "Subject": "Schlagwort",
+            "subject": "schlagwort",
+            "Location": "Bestand",
+            "Locations": "Bestand",
+            "Records": "Datens&auml;tze",
+            "Targets": "Datenbanken",
+            "relevance": "Relevanz",
+            "title": "Titel",
+            "newest": "Neueste",
+            "oldest": "&Auml;lteste",
 
-      "dummy": "dummy"
-        }};
+            "dummy": "dummy"
+        }
+    };
 
     function check_translation_list(keywords, list) {
         var errors = [];
         for (var i = 0; i < keywords.length; i++) {
-             if ($(list[i]).match("^" + M(keywords[i]) + ": ") ) {
+            if ($(list[i]).match("^" + M(keywords[i]) + ": ")) {
                 debug("found: " + list[i] + " :: " + keywords[i]);
-             } else {
+            } else {
                 debug("NOT found: " + list[i] + " :: " + keywords[i]);
                 errors.push(keywords[i])
-             }
+            }
         }
         expect(errors.length).not.toBeGreaterThan(1);
     }
@@ -152,8 +156,8 @@ describe("Check translations", function () {
 
         check_translation_list(keywords, list);
 
-        for(var i = 0; i < keywords.length; i++ ) {
-                keywords_de.push(locale_lang["de"][keywords[i]]);
+        for (var i = 0; i < keywords.length; i++) {
+            keywords_de.push(locale_lang["de"][keywords[i]]);
         }
         debug(keywords_de);
         check_translation_list(keywords_de, list_de);
