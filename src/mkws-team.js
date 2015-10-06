@@ -296,6 +296,26 @@ mkws.makeTeam = function($, teamName) {
       return;
     }
 
+    {
+      if (!sortOrder) sortOrder = that.config.sort;
+      if (!maxrecs) maxrecs = that.config.maxrecs;
+      if (!perpage) perpage = that.config.perpage;
+      if (!limit) limit = that.config.limit;
+      if (!targets) targets = that.config.targets;
+      if (!torusquery) torusquery = that.config.targetfilter;
+      var target = that.config.target;
+      if (target) torusquery = 'udb=="' + target + '"';
+
+      var s = "running search: '" + query + "'";
+      if (sortOrder) s += " sorted by '" + sortOrder + "'";
+      if (maxrecs) s += " restricted to " + maxrecs + " records";
+      if (perpage) s += " with " + perpage + " per page";
+      if (limit) s += " limited by '" + limit + "'";
+      if (targets) s += " in targets '" + targets + "'";
+      if (torusquery) s += " constrained by torusquery '" + torusquery + "'";
+      that.info(s);
+    }
+
     m_filterSet.removeMatching(function(f) { return f.type !== 'category' });
     triggerSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery);
     switchView('records'); // In case it's configured to start off as hidden
