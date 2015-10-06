@@ -131,7 +131,7 @@ mkws.makeWidget = function($, team, type, node) {
         if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
         that.info(s);
 
-        that.team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
+        that.team.newSearch(that, query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
       });
     }
   };

@@ -288,7 +288,7 @@ mkws.registerWidgetType('search-form', function() {
   var team = this.team;
   this.node.submit(function() {
     var val = team.widget('query').value();
-    team.newSearch(val);
+    team.newSearch(this, val);
     return false;
   });
 });

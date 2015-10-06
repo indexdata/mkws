@@ -288,7 +288,7 @@ mkws.makeTeam = function($, teamName) {
   that.resetPage = resetPage;
 
 
-  function newSearch(query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
+  function newSearch(widget, query, sortOrder, maxrecs, perpage, limit, targets, torusquery) {
     that.info("newSearch: " + query);
 
     if (config.use_service_proxy && !mkws.authenticated) {
