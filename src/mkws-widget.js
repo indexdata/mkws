@@ -109,28 +109,11 @@ mkws.makeWidget = function($, team, type, node) {
       if (widget) { widget.node.val(query); }
 
       this.team.queue("ready").subscribe(function() {
-        // Postpone testing for the configuration items: these are not
-        // yet set for Record subclass widgets that fill them in in the
-        // subclass, as widget.autosearch is called in the superclass,
-        // before the subclass fiddles with the configuration.
-        var sortOrder = that.config.sort;
-        var maxrecs = that.config.maxrecs;
-        var perpage = that.config.perpage;
-        var limit = that.config.limit;
-        var targets = that.config.targets;
-        var targetfilter = that.config.targetfilter;
-        var target = that.config.target;
-        if (target) targetfilter = 'udb=="' + target + '"';
-
-        var s = "running auto search: '" + query + "'";
-        if (sortOrder) s += " sorted by '" + sortOrder + "'";
-        if (maxrecs) s += " restricted to " + maxrecs + " records";
-        if (perpage) s += " with " + perpage + " per page";
-        if (limit) s += " limited by '" + limit + "'";
-        if (targets) s += " in targets '" + targets + "'";
-        if (targetfilter) s += " constrained by targetfilter '" + targetfilter + "'";
-        that.info(s);
-
+        // Postpone search until the team is ready: configuration
+        // items are not yet set for Record subclass widgets that fill
+        // them in in the subclass, as widget.autosearch is called in
+        // the superclass, before the subclass fiddles with the
+        // configuration.
         that.team.newSearch(that, query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
       });
     }
