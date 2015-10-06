@@ -114,7 +114,7 @@ mkws.makeWidget = function($, team, type, node) {
         // them in in the subclass, as widget.autosearch is called in
         // the superclass, before the subclass fiddles with the
         // configuration.
-        that.team.newSearch(that, query, sortOrder, maxrecs, perpage, limit, targets, targetfilter);
+        that.team.newSearch(that, query);
       });
     }
   };
