@@ -114,7 +114,10 @@ mkws.makeWidget = function($, team, type, node) {
         // them in in the subclass, as widget.autosearch is called in
         // the superclass, before the subclass fiddles with the
         // configuration.
-        that.team.newSearch(that, query);
+        var torusquery = undefined;
+        var target = that.config.target;
+        if (target) torusquery = 'udb=="' + target + '"';
+        that.team.newSearch(that, query, undefined, undefined, undefined, undefined, undefined, torusquery);
       });
     }
   };
