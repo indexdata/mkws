@@ -297,13 +297,13 @@ mkws.makeTeam = function($, teamName) {
     }
 
     {
-      if (!sortOrder) sortOrder = that.config.sort;
-      if (!maxrecs) maxrecs = that.config.maxrecs;
-      if (!perpage) perpage = that.config.perpage;
-      if (!limit) limit = that.config.limit;
-      if (!targets) targets = that.config.targets;
-      if (!torusquery) torusquery = that.config.targetfilter;
-      var target = that.config.target;
+      if (!sortOrder) sortOrder = widget.config.sort;
+      if (!maxrecs) maxrecs = widget.config.maxrecs;
+      if (!perpage) perpage = widget.config.perpage;
+      if (!limit) limit = widget.config.limit;
+      if (!targets) targets = widget.config.targets;
+      if (!torusquery) torusquery = widget.config.targetfilter;
+      var target = widget.config.target;
       if (target) torusquery = 'udb=="' + target + '"';
 
       var s = "running search: '" + query + "'";
