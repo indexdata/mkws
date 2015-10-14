@@ -305,13 +305,14 @@ automatically).
 	used to subscribe to the event (or more rarely to publish
 	it). See [the section on events, below](#events).
 
-* `Void team.newSearch(query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)` --
-	Starts a new search with the specified parameters. All but the
-	query may be omitted, in which case the prevailing defaults
-	are used. The meanings of the parameters are those of the
-	same-named [configuration
-	settings](mkws-manual.html#configuration-settings) described in
-	the user's manual.
+* `Void team.newSearch(widget, query, sortOrder, maxrecs, perpage, limit, targets, targetfilter)` --
+	Starts a new search with the specified parameters, taking
+	settings from the nominated widget's configuration when not
+	specified explicitly. All but the query may be omitted. The
+	meanings of the parameters are those of the same-named
+	[configuration
+	settings](mkws-manual.html#configuration-settings) described
+	in the user's manual.
 
 * `Void team.reShow()` --
 	Using the existing search, re-shows the result records after a
