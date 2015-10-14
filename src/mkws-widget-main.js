@@ -286,9 +286,10 @@ mkws.registerWidgetType('search', function() {
 
 mkws.registerWidgetType('search-form', function() {
   var team = this.team;
+  var that = this;
   this.node.submit(function() {
     var val = team.widget('query').value();
-    team.newSearch(this, val);
+    team.newSearch(that, val);
     return false;
   });
 });
