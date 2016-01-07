@@ -12,7 +12,7 @@ HANDLEBARS_URL = http://builds.handlebarsjs.com.s3.amazonaws.com/${HANDLEBARS_FI
 JQUERY_URL = http://code.jquery.com/${JQUERY_FILE}
 JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
 JSNLOG_URL = https://raw.githubusercontent.com/mperdeck/jsnlog.js/2.7.5/${JSNLOG_FILE}
-PP2_URL = http://git.indexdata.com/?p=pazpar2.git;a=blob_plain;f=js/${PP2_FILE};hb=HEAD
+PP2_URL = https://raw.githubusercontent.com/indexdata/pazpar2/master/js/pz2.js
 
 VERSION = $(shell tr -d '\012' < VERSION)
 HANDLEBARS = ../test/node_modules/.bin/handlebars
