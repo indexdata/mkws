@@ -50,7 +50,7 @@ $(DEST)/mkws-complete.js: Makefile $(INSTALLED_DOWNLOADABLE) $(DEST)/mkws.js
 	  echo "   Licence: LGPL, http://www.indexdata.com/licences/lgpl"; \
 	  echo "   created at: $$(date)"; \
 	  echo "   MKWS GIT id: $$(git show | head -n 1 | perl -npe 's,\S+\s+,,')"; \
-	  echo "   pz2.js GIT id: $$(curl -sSf 'http://git.indexdata.com/?p=pazpar2.git;a=rss' | egrep '<guid' | head -1 | perl -ne 'print "$$1\n" if m,.*=([0-9a-f]+)</guid>,')"; \
+	  echo "   pz2.js GIT id: $$(curl -sSf 'https://github.com/indexdata/pazpar2' | egrep '"commit-tease-sha"' | perl -ne 'print "$$1\n" if m,href=".*/([0-9a-f]+)",')"; \
 	  echo "*/"; \
 	  cat $(DEST)/${JQUERY_FILE}; \
 	  cat $(DEST)/${JQUERY_JSON_FILE}; \
