@@ -48,7 +48,7 @@ else is refinement.
 Configuring a client (short version)
 ------------------------------------
 
-The application's HTML must contain the following elements as well as
+The application's HTML must contain the following elements, as well as
 whatever makes up the application itself:
 
 	<script type="text/javascript" src="http://mkws.indexdata.com/mkws-complete.js"></script>
@@ -75,7 +75,7 @@ sorting by title ascending:
 
 	<script type="text/javascript">
 	  var mkws_config = {
-	    lang_options: ["en", "de" ],
+	    lang_options: [ "en", "de" ],
 	    sort_default: "title:1"
 	  };
 	</script>

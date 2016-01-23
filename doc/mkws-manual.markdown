@@ -42,7 +42,7 @@ flexibility against convenience:
   sites.
 
 All but the last of these approaches require programming to a greater or lesser
-extent. Against this backdrop, we introduced
+extent. Against this backdrop, we introduce
 [MKWS (the MasterKey Widget Set)](http://mkws.indexdata.com/)
 -- a set of simple, very high-level HTML+CSS+JavaScript
 components that can be incorporated into any web-site to provide
@@ -70,15 +70,15 @@ The following is
 	  </body>
 	</html>
 
-Go ahead, try it! Simply put the above in a file (e.g index.html),
-drop it into a folder accessible with an ordinary web-server (e.g
-Apache) and load it in your web browser. Just like that, you have
+Go ahead, try it! Simply put the above in a file (e.g. index.html),
+drop it into a folder accessible with an ordinary web-server (e.g.
+Apache HTTP Server) and load it in your web browser. Just like that, you have
 working metasearching.
 
 How the example works
 ---------------------
 
-If you know any HTML, the structure of the file will be familar to
+If you know any HTML, the structure of the file will be familiar to
 you: the `<html>` element at the top level contains a `<head>` and a
 `<body>`. In addition to whatever else you might want to put on your
 page, you can add MKWS elements.
@@ -91,7 +91,7 @@ header, which are loaded from the tool site `mkws.indexdata.com`:
   copy of the jQuery library.
 
 * `mkws.css`
-  provides the default CSS styling
+  provides the default CSS styling.
 
 Second, within the HTML body, `<div>` elements with special IDs that
 begin `mkws-` can be provided. These are filled in by the MKWS code,
@@ -106,7 +106,7 @@ Widget type
 -----------
 
 An HTML element is made an MKWS widget by including an MKWS
-class-name. These names begin `mkws-`: what follows that prefix
+class-name. These names begin `mkws-` and what follows that prefix
 specifies the type of the widget. The type can be any sequence of
 alphanumeric characters and hyphens _except_ something beginning
 `team` -- see below.
@@ -163,7 +163,7 @@ the `mkws-results` widget.
 
 Sometimes, it's desirable to have multiple teams in a single page. A
 widget can be placed in a named team by giving it (in addition to its
-main class) a class that begins with `mkws-team-`: what follows that
+main class) a class that begins with `mkws-team-` and what follows that
 prefix specifies the team that the widget is part of. For example,
 `<div class="mkws-search mkws-team-aux">` creates a search widget that
 is part of the `aux` team.
@@ -218,7 +218,7 @@ attributes prefixed with `data-mkws-`, so:
 
 	<div class="mkws-records" data-mkws-maxrecs="3">
 
-For first form is more convenient; the second is more correct.
+The first form is more convenient; the second is more correct.
 
 Because some configuration settings take structured values rather than
 simple strings, they cannot be directly provided by inline
@@ -301,7 +301,7 @@ Overriding templates
 To override the template for a widget, include it inline in the document
 as a `<script>` tag marked with a class of `mkws-template-foo` where foo is the
 name of the template you want to override (typically the name of the widget).
-Inline Handlebars templates are distinguished from Javascript via a
+Inline Handlebars templates are distinguished from JavaScript via a
 `type="text/x-handlebars-template"` attribute. For example, to override the
 pager template you would include this in your document:
 
@@ -310,14 +310,14 @@ pager template you would include this in your document:
 	</script>
 
 The Facet template has a special feature where you can override it on
-a per-facet basis by adding a dash and the facet name as a suffix eg.
+a per-facet basis by adding a dash and the facet name as a suffix e.g.
 `facet-subjects`. (So `class="mkws-template-facet-subjects"`.) When
 rendering a facet for which no specific template is defined, the code
 falls back to using the generic facet template, just called `facet`.
 
 You can also explicitly specify a different template for a particular
 instance of a widget by providing the name of your alternative
-(eg. `special-pager`) as the value of the `template` key in the MKWS
+(e.g. `special-pager`) as the value of the `template` key in the MKWS
 config object for that widget: for example, `<div class="mkws-pager"
 template="special-pager"/>`.
 
@@ -331,15 +331,15 @@ Inspecting metadata for templating
 
 MKWS makes requests to the Service Proxy or Pazpar2 that perform the
 actual searching. Depending on how these are configured and what is
-available from the targets you are searching there may be more data
+available from the targets you are searching, there may be more data
 available than what is presented by the default templates.
 
 Handlebars offers a convenient log helper that will output the contents of a
 variable for you to inspect. This lets you look at exactly what is being
-returned by the back end without needing to use a Javascript debugger. For
+returned by the back-end without needing to use a JavaScript debugger. For
 example, you might prepend `{{log hits}}` to the Records template in order to
 see what is being returned with each search result in the list. In order for
-this to work you'll need to enable verbose output from Handlebars which is done
+this to work, you will need to enable verbose output from Handlebars which is done
 by including this line or similar:
 
 	<script>Handlebars.logger.level = 1;</script>
@@ -347,7 +347,7 @@ by including this line or similar:
 Internationalisation
 --------------------
 
-If you would like your template to use the built in translation functionality,
+If you would like your template to use the built-in translation functionality,
 output locale specific text via the mkws-translate helper like so:
 `{{{mkws-translate "a few words"}}}`.
 
@@ -502,17 +502,17 @@ Setting up such a library is a process of several stages.
 Log in to MKAdmin to add a User Access account for your library:
 
 * Go to <http://mkx-admin.indexdata.com/console/>
-* Enter the adminstrative username/password
+* Enter the administrative username/password
 * Go to the User Access tab
 * Create an end-user account
-* Depending on what authentication method it be used, set the
+* Depending on what authentication method is to be used, set the
   User Access account's username and password, or referring URL, or
   IP-address range.
 
 If your MWKS application runs at a well-known, permanent address --
 <http://yourname.com/app.html>, say -- you can set the User Access
 record so that this originating URL is recognised by setting it into
-the "Referring URL" field. Then the application will always use that
+the "Referring URL" field. Then the application will always use the
 library that this User Access record is associated with (unless it
 sends a username/password pair to override this default).
 
@@ -527,11 +527,11 @@ four small integers separated by periods. For example,
 Alternatively, your application can authenticate by username and
 password credentials. This is a useful approach in several situations,
 including when you need to specify the use of a different library from
-usual one. To arrange for this, set the username and password as a
+the usual one. To arrange for this, set the username and password as a
 single string separated by a slash -- e.g. `mike/swordfish` -- into
 the User Access record's Authentication field.
 
-You can set multiple fields into a single User Access record; or
+You can set multiple fields into a single User Access record, or
 create multiple User Access records. For example, a single User Access
 record can specify both a Referring URL and a username/password pair
 that can be used when running an application from a different URL. But
@@ -551,7 +551,7 @@ containing the username and password separated by a slash:
 ### (Optional): conceal credentials from HTML source
 
 Using credential-based authentication settings such as those above
-reveals the the credentials to public view -- to anyone who does View
+reveals the credentials to public view -- to anyone who does View
 Source on the MKWS application. This may be acceptable for some
 libraries, but is intolerable for those which provide authenticated
 access to subscription resources.
@@ -605,7 +605,7 @@ in the `mkws_config` structure:
   or
   `categories=news`
 
-* `target` -- contains a single UDB, that of the sole target to be
+* `target` -- contains a single UDB: that of the sole target to be
   used. For example,
   `Google_Images`.
   This is merely syntactic sugar for "targetfilter" with the query
@@ -642,7 +642,7 @@ Name              Description
                   widget be subclassed to store the generated widget
                   definitions in more useful places.
 
-`button`          The search button. Usually generated a `search`
+`button`          The search button. Usually generated by a `search`
                   widget.
 
 `categories`      Obtains from the Service Proxy a list of the target
@@ -692,7 +692,7 @@ Name              Description
                   may conveniently be done by means of the
                   `data-mkws-facet` attribute on the HTML
                   element. The supported facets are "subject",
-                  "author" and "xtargets" -- the latter a special case
+                  "author", and "xtargets" -- the latter a special case
                   which treats the target providing a record as a
                   facet. Most often, `facet` widgets are generated
                   by a `facets` widget, which knows which facets are
@@ -729,7 +729,7 @@ Name              Description
                   defaults to the search-term "kitteh" and
                   auto-executes.
 
-`motd-container`  An empty container which the `motd` widget, if any,
+`motd-container`  An empty container, which the `motd` widget (if there is one)
                   is moved into for initial display. Usually generated
                   as part of the `results` widget.
 
@@ -756,7 +756,7 @@ Name              Description
 `progress`        Shows a progress bar which indicates how many of the
                   targets have responded to the search.
 
-`query`           The input area for a query. Usually generated a `search`
+`query`           The input area for a query. Usually generated by a `search`
                   widget.
 
 `ranking`         The result-ranking area, consisting of a `sort`
@@ -784,7 +784,7 @@ Name              Description
                   `records`.
 
 `search-form`     The search form, containing the query area and the
-                  button. Usually generated a `search` widget.
+                  button. Usually generated by a `search` widget.
 
 `search`          The search box, consisting of a form containing a
                   query area and a button.
@@ -794,7 +794,7 @@ Name              Description
                   available set of sort criteria can be specified as the
                   `sort_options` configuration setting, whose value is
                   an array of two-element arrays. The first item of
-                  each sub-array is a pazpar2 sort-expression such as
+                  each sub-array is a Pazpar2 sort-expression such as
                   `data:0` and the second is a human-readable label
                   such as `newest`. The initial selected
                   value can be specified by the `sort_default` configuration
@@ -809,7 +809,7 @@ Name              Description
 `summary`         A short record, included in the list shown when a
                   search is run. When clicked, this generally pops up
                   a detailed `record` widget. This widget is generated
-                  by the toolkit in response to search results.
+                  by the toolkit, in response to search results.
 
 `switch`          A pair of buttons allowing the user to switch
                   between viewing the search results (the usual case)
@@ -831,12 +831,12 @@ Name              Description
 Configuration settings
 ----------------------
 
-Configuration settings may be provided at the level of a indiviual widget, or a team, or globally. Per-widget configuration is
+Configuration settings may be provided at the level of a individual widget, or a team, or globally. Per-widget configuration is
 described above; per-team settings can be placed in a `config` widget belonging to the relevant team, and will be applied to that
 team as a whole; and global settings are provided in the global variable `mkws_config`. This structure is a key-value lookup
 table, and may specify the values of many settings.
 
-Some settings apply only to specific widgets; others to the behaviour of the tookit as a whole. When a widget does not itself have
+Some settings apply only to specific widgets; others to the behaviour of the toolkit as a whole. When a widget does not itself have
 a value specified for a particular configuration setting, its team is consulted; and if that also does not have a value, the global
 settings are consulted. Only if this, too, is unspecified, is the default value used.
 
@@ -854,9 +854,9 @@ autosearch                facet,    string            If provided, this setting 
                           results
 
 facet                     facet     string            For a `facet` widget, this setting is mandatory, and indicates which field to
-                                                      list terms for. Three fields are supported: `subject`, `author` and
-                                                      `xtargets` -- the latter a special case which treats the target providing a
-                                                      record as a facet. Any other field may also be used, but the default caption
+                                                      list terms for. Three fields are supported: `subject`, `author`, and
+                                                      `xtargets` -- the latter is a special case which treats the target (that is providing a
+                                                      record) as a facet. Any other field may also be used, but the default caption
                                                       and maximum term-count may not be appropriate, needing to be overridden by
                                                       `facet_caption_*` and `facet_max_*` settings.
 
@@ -876,7 +876,7 @@ freeze_opacity            records   float             If defined, a fractional v
                                                       (reverting to full opacity when the period elapses or the mouse leaves the
                                                       area).
 
-lang                      _team_    string            The code of the default language to display the UI in. Supported
+lang                      _team_    string            The code of the default language in which to display the UI. Supported
                                                       language codes are `en` = English, `de` = German, `da` = Danish, and whatever
                                                       additional languages are configured using `language_*` entries (see below).
 
@@ -894,7 +894,7 @@ limit                     facet,    string            Allows a partial search to
                           results                     ](http://www.indexdata.com/pazpar2/doc/pazpar2_protocol.html)
 
 log_level                 _global_  string  info      The lowest level of logging output to emit. Acceptable values are
-                                                      `trace`, `debug`, `info`, `warn`, `error` and `fatal`.
+                                                      `trace`, `debug`, `info`, `warn`, `error`, and `fatal`.
 
 maxrecs                   facet,    int               Limits the metasearching middleware to retrieving no more than the specified
                           facets,                     number of records from each target.
@@ -937,7 +937,7 @@ pp2_path                  _global_  string  *Note 4*  Unless overridden by the `
                                                       Proxy). Set this to connect to a service on a different host from the
                                                       default.
 
-scan_all_nodes            _global_  bool    false     An internal setting that changes how MKWS scans the HTML documen to discover
+scan_all_nodes            _global_  bool    false     An internal setting that changes how MKWS scans the HTML document to discover
                                                       widgets. If set to true, a different approach is used which may be faster
                                                       under some circumstances.
 
@@ -948,7 +948,7 @@ service_proxy_auth        _global_  url               If defined, this is the UR
                                                       fetched once at the beginning of each session to authenticate the user and
                                                       establish a session that encompasses a defined set of targets to search
                                                       in. When not defined, the URL is assembled from `sp_auth_hostname` or
-                                                      `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query` and
+                                                      `pp2_hostname`, `pp2_path` or `sp_auth_path`, `sp_auth_query`, and
                                                       `sp_auth_credentials`. See the [Assembling Pazpar2
                                                       URLs](#assembling-pazpar2-urls) section below.
 
@@ -975,7 +975,7 @@ sort_default              _team_    string  relevance The default sort criterion
                                                       `sort_options` array.
 
 sort_options              ranking   array   *Note 5*  List of supported sort criteria. Each element of the list is itself a
-                                                      two-element list: the first element of each sublist is a pazpar2
+                                                      two-element list: the first element of each sublist is a Pazpar2
                                                       sort-expression such as `data:0` and the second is a human-readable label
                                                       such as `newest`.
 
@@ -998,19 +998,19 @@ sp_auth_query             _global_  string  *Note 6*  Part of the URL used for a
 src                       waiting   url               The address of an image to use in the `waiting` widget in place of the
                                                       default spinning wheel. Used to indicate that a search is in progress.
 
-target                    facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+target                    facet,    string            One of three ways to select which targets are used by an auto-searching widget. See
                           facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
                           record,                     section above.
                           records,
                           results
 
-targetfilter              facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+targetfilter              facet,    string            One of three ways to select which targets are used by an auto-searching widget. See
                           facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
                           record,                     section above.
                           records,
                           results
 
-targets                   facet,    string            One of three ways to select which targets an auto-searching widgets uses. See
+targets                   facet,    string            One of three ways to select which targets are used by an auto-searching widget. See
                           facets,                     the [Choosing targets from the library](#choosing-targets-from-the-library)
                           record,                     section above.
                           records,
@@ -1019,8 +1019,8 @@ targets                   facet,    string            One of three ways to selec
 template                  details,  string            Numerous widgets use Handlebars templates to render HTML. In general, each
                           done,                       of these by default uses a template with the same name as the widget
                           facet,                      itself. Individual widgets can be customised to use a template of a
-                          facets,                     different name by means of their `template` setting. The `records` widget
-                          images,                     (and `record`, an equivalent that shows only a single record) use the
+                          facets,                     different name, by means of their `template` setting. The `records` widget
+                          images,                     (and `record`: an equivalent that shows only a single record) use the
                           lang,                       `summary` template as well as the `records` template.
                           navi,
                           pager,
@@ -1040,9 +1040,9 @@ use_service_proxy         _global_  bool    true      If true, then a Service Pr
                                                       than raw Pazpar2. An authentication phase is run during initialisation.
 ----
 
-The `show_lang`, `show_perpage`, `show_sort` and `show_switch` configuration settings are technically redundant, as the relevant
+The `show_lang`, `show_perpage`, `show_sort`, and `show_switch` configuration settings are technically redundant, as the relevant
 widgets, like all widgets, are displayed only when they are provided. But they are retained as an easier route to lightly
-customise the display than by providing a full HTML structure.
+customise the display, than by providing a full HTML structure.
 
 ### Notes
 
@@ -1076,7 +1076,7 @@ invoked from the URL `http://example.com/magic/lookup/dinosaur`
 
 * `var` -- uses the value of the named JavaScript global variable. This is a very powerful and general mechanism. For example, to
   search for the reversed value of the query parameter called `reverseTerm`, you might write a JavaScript function to do the
-  extraction and reversing, the use the HTML:
+  extraction and reversing, then use the following HTML:
 
 <!--- Due to a bug in pandoc, we need this comment to force the following code-block to be recognised -->
 
@@ -1085,8 +1085,10 @@ invoked from the URL `http://example.com/magic/lookup/dinosaur`
 
 ### Assembling Pazpar2 URLs
 
-Most of MKWS's functionality is achieved by use of the Pazpar2 middleware. This is accessed on an endpoint URL which is usually
-assembled from the two configuration sessings `pp2_hostname` and `pp2_path`. However, if for some reason an unusual Pazpar2
+Most of MKWS's functionality is achieved by use of the
+[Pazpar2](http://www.indexdata.com/pazpar2)
+middleware. This is accessed on an endpoint URL which is usually
+assembled from the two configuration settings `pp2_hostname` and `pp2_path`. However, if for some reason an unusual Pazpar2
 endpoint must be used, that endpoint can be specified in the `pazpar2_url` setting, and that will be used instead.
 
 In the common case where Pazpar2 is accessed via the Service Proxy, an authentication call is made during initialisation. The call
@@ -1105,7 +1107,7 @@ Language specification
 Support for another UI language can be added by providing an entry in
 the `mkws_config` object whose name is `language_` followed by the
 name of the language: for example, `language_French` to support
-French. Then value of this entry must be a key-value lookup table,
+French. The value of this entry must be a key-value lookup table,
 mapping the English-language strings of the UI into their equivalents
 in the specified language. For example:
 
@@ -1171,7 +1173,7 @@ translated. These include, but may not be limited to:
 jQuery UI popup invocation
 --------------------------
 
-The MasterKey Widget Set can be invoked in a popup window on top of the page.
+The MasterKey Widget Set can be invoked in a popup window at the top of the page.
 
 Note that the `popup` widget uses facilities from the jQuery UI, so
 it's necessary to include both CSS and JavaScript from that
@@ -1218,7 +1220,7 @@ Structure of HTML generated by widgets
 
 In order to override the default CSS styles provided by the MasterKey Widget
 Set, it's necessary to understand the structure of the HTML elements that are
-generated within the widgets. The HTML structure is as follows. As in CSS,
+generated within the widgets. The HTML structure is as follows. As in CSS
 _.class_ indicates an instance of a class. A trailing `*` indicates zero or
 more instances; a trailing `?` indicates zero or one instance.
 
@@ -1288,12 +1290,12 @@ Wherever possible, we ensure that all functional changes in MKWS are
 backwards-compatible, so that applications written against old versions of the
 toolkit will continue to work when running against newer versions.
 
-However, a few aspects of functionality unavoidably change in backwards
+However, a few aspects of functionality may unavoidably change in backwards
 incompatible ways. We ensure that **this only happens with new major
 versions** -- so it should _always_ be safe to upgrade to a new minor version.
 As an aid to porting old applications, we here note the specific
 backwards-incompatible changes in the various major releases, and those
-planned for future major releases.
+planned for future major releases:
 
 
 Major version 1.x
@@ -1309,7 +1311,7 @@ The 1.x series of MKWS releases recognise these old-style class-names
 as well as the canonical ones, as a facility for backwards
 compatibility. However, **these old class-names are deprecated, and
 support will be removed in v2.0**. Existing applications that use them
-should be upgraded to the new-style class names as soon as convenient.
+should be upgraded to the new-style class names as soon as is convenient.
 
 
 - - -
