@@ -1,7 +1,7 @@
 {
     "name": "MKWS",
     "version": "1.0.0",
-    "license": "GPL, http://www.indexdata.com/licences/gpl",
+    "license": "GPL-3.0",
     "contributors": [{
         "name": "Mike Taylor",
         "email": "mike@indexdata.com"
