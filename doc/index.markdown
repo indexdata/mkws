@@ -193,6 +193,13 @@ are and how various things are done.
   [The Zthes specifications](//zthes.z3950.org/),
   which has been fitted with a popup MKWS search-box.
 
+### Real-world examples
+
+* [The One Repo](http://onerepo.net/), a growing repository that
+  aggregates open-access papers from repositories around the
+  world. (Read more in this blog-post: [The world needs One
+  Repo](http://blogs.biomedcentral.com/bmcblog/2016/01/22/world-needs-one-repo/).)
+
 Target selection
 ----------------
 
