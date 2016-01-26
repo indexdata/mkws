@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2014-2014 Index Data ApS. http://indexdata.com
+# Copyright (c) 2014-2016 Index Data ApS. http://indexdata.com
 # Wolfram Schneider
 #
 # generate temp config file for testing

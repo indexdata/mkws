@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 Index Data ApS. http://indexdata.com
+# Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
 
 DEST = ../tools/htdocs
 

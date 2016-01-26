@@ -1,6 +1,5 @@
 % MKWS: the MasterKey Widget Set
 % Mike Taylor
-% November 2014
 
 
 Add metasearching to your web-site painlessly
@@ -213,4 +212,4 @@ We can set that up for you: email us on <info@indexdata.com>.
 
 - - -
 
-Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>
+Copyright (C) 2013-2016 Index Data ApS. <http://indexdata.com>

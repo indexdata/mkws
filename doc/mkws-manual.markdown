@@ -1,6 +1,5 @@
 % The MKWS manual: embedded metasearching with the MasterKey Widget Set
 % Mike Taylor
-% November 2014
 
 
 Introduction
@@ -1316,4 +1315,4 @@ should be upgraded to the new-style class names as soon as is convenient.
 
 - - -
 
-Copyright (C) 2013-2014 Index Data ApS. <http://indexdata.com>
+Copyright (C) 2013-2016 Index Data ApS. <http://indexdata.com>
