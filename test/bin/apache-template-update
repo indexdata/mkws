@@ -52,5 +52,5 @@ fi
 : ${MKWS_APACHE_FILE="$APACHE_LOG_DIR/jasmine-dev-${APACHE_PORT}.conf"}
 export APACHE_MODULES
 
-perl -npe 's,\${(.*?)},$ENV{$1},g; ' $MKWS_APACHE_TEMPLATE > $MKWS_APACHE_FILE.tmp
+perl -npe 's,\$\{(.*?)\},$ENV{$1},g; ' $MKWS_APACHE_TEMPLATE > $MKWS_APACHE_FILE.tmp
 mv -f $MKWS_APACHE_FILE.tmp $MKWS_APACHE_FILE
