@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
+# Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
 #
 # To build the PDFs, you will need these Debian packages:
 #	texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
@@ -34,7 +34,7 @@ all: $(INSTALLED)
 	chmod ugo-w $@
 
 # For a description of pandoc's markdown format, see:
-# http://johnmacfarlane.net/pandoc/demo/example9/pandocs-markdown.html
+# http://pandoc.org/README.html#pandocs-markdown
 
 # for older pandoc (<1.9) run first:
 # perl -i.bak -npe 's/"(Authors|Subjects)": "(.*?)"/"$1": "test"/' tools/htdocs/mkws-manual.markdown

@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
+# Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
 
 PHANTOMJS_TIMEOUT=30
 PHANTOMJS=	../bin/bomb --timeout=${PHANTOMJS_TIMEOUT} ../node_modules/phantomjs/bin/phantomjs
@@ -17,7 +17,7 @@ PHANTOMJS_URL=	http://www.indexdata.com/
 all: help
 
 clean:
-	rm -f index-*.html
+	rm -f index*.html
 	rm -f iframe-*.html
 	rm -f ${IMAGES}/*.png
 
@@ -49,7 +49,7 @@ help-url:
 	@echo "You can start the web server with: make apache-start"
 
 estimate-time:
-	@wc -l url.* | tail -n1 | awk '{print "Estimeate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
+	@wc -l url.* | tail -n1 | awk '{print "Estimate run time: " $$1 * (1 + '${TIMEOUT}') * 0.5, "seconds" }'
 	@echo ""
 
 index:
