@@ -1,4 +1,4 @@
-Jasmine / jasmine-node test frame works
+Jasmine / jasmine-node test frameworks
 =============================================
 
 This directory contains the MasterKey Widget Set (MKWS) Test framework.
@@ -69,8 +69,8 @@ File system hierarchy
 
 Documentation
 ---------------------------------------
-http://pivotal.github.io/jasmine/
-https://github.com/pivotal/jasmine
+http://jasmine.github.io/
+https://github.com/jasmine/jasmine
 http://phantomjs.org/
 
 
