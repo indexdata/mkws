@@ -18,7 +18,7 @@ div#header h3 { font-size: 100% }
   background-position: right top;
   background-color: #eee; 
 }
-// Somehow, "-n+3" is how you say "first three panes"
+/* Somehow, "-n+3" is how you say "first three panes" */
 .pane:nth-child(-n+3) {
   background-image: none;
 }
