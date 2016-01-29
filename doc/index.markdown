@@ -180,6 +180,9 @@ are and how various things are done.
   and the corresponding
   [Apache2 configuration stanza](//example.indexdata.com/apache-config.txt).
 * [A version that uses a jQuery popup](//example.indexdata.com/popup.html?q=sushi).
+* An application that
+  [draws together information from several widgets](//example.indexdata.com/topic.html?q=sushi)
+  to present a topic page.
 
 ### Non-standard interfaces
 
