@@ -2,6 +2,7 @@ libexec
 logs/error-*\.log
 logs/jasmine-dev-*\.conf
 logs/mkws-jasmine-*\.log
+logs/mkws-jasmine-*.pid
 node_modules
 widgets/iframe*.html
 widgets/index*.html
