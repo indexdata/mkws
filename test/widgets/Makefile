@@ -76,5 +76,5 @@ help:
 	@echo ""
 	@echo "Examples: "
 	@echo ""
-	@echo "make TESTS=mike screenshots"
+	@echo "make TESTS=koha screenshots"
 
