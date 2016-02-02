@@ -6,7 +6,7 @@ IMAGES=		./images
 SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
-TESTS=	example koha indexdata 
+TESTS=	example # koha indexdata 
 TIMEOUT=4
 PREFIX=	test
 APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
@@ -32,10 +32,12 @@ screenshot:
 screenshots: clean estimate-time iframe
 	set -e; \
 	for t in ${TESTS}; do \
+	  if [ -e url.$$t ]; then \
 	    for i in $$(cat url.$$t); do \
 	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot & sleep 1; \
 	    done; wait; \
 	    ${MAKE} PREFIX=$$t index; \
+	  fi; \
 	done
 	${MAKE} index-widgets tidy help-url
 
@@ -59,7 +61,10 @@ index-widgets:
 iframe: index-iframe
 index-iframe:
 	perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' url.example > iframe-example.html
-	perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' url.indexdata > iframe-indexdata.html
+	if [ -e url.indexdata ]; then \
+	  perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' \
+	 	url.indexdata > iframe-indexdata.html; \
+	fi
 
 tidy:
 	for i in iframe-*.html index*.html; do \
