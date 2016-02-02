@@ -10,8 +10,6 @@ TESTS=	example koha indexdata
 TIMEOUT=4
 PREFIX=	test
 APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
-
-PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
 PHANTOMJS_URL=	http://www.indexdata.com/
 
 all: help
