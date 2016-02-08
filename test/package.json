@@ -15,7 +15,7 @@
         "request": "*",
         "jasmine-reporters": "*",
         "jasmine-node": "*",
-        "phantomjs": "*",
+        "phantomjs": ">= 1.9.8 < 2.0.0",
         "handlebars": "3.0.3",
         "uglify-js": "*"
     },

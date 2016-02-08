@@ -6,12 +6,10 @@ IMAGES=		./images
 SCREENSHOT_WIDTH_HEIGHT=	1000 1200
 PROG=	../phantom/screenshot.js
 MD5=	$(shell which md5 md5sum)
-TESTS=	koha demos mike # koha.url
+TESTS=	example # koha indexdata 
 TIMEOUT=4
 PREFIX=	test
 APACHE_PORT:= $(shell echo $${APACHE_PORT-4040})
-
-PHANTOMJS_URL=	http://cph.koha.indexdata.com/cgi-bin/koha/opac-search.pl?q=sushi
 PHANTOMJS_URL=	http://www.indexdata.com/
 
 all: help
@@ -34,10 +32,12 @@ screenshot:
 screenshots: clean estimate-time iframe
 	set -e; \
 	for t in ${TESTS}; do \
+	  if [ -e url.$$t ]; then \
 	    for i in $$(cat url.$$t); do \
 	    	${MAKE} PHANTOMJS_URL="$$i" TIMEOUT=4 PREFIX=$$t screenshot & sleep 1; \
 	    done; wait; \
 	    ${MAKE} PREFIX=$$t index; \
+	  fi; \
 	done
 	${MAKE} index-widgets tidy help-url
 
@@ -58,13 +58,16 @@ index:
 index-widgets:
 	ls -t index-*html iframe-*.html | perl -ne 'chomp; print qq{<a href="$$_">$$_</a><br/>\n}' > index.html
 
-iframe: index-iframe-demo
-index-iframe-demo:
-	( egrep example.indexdata.com url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos-example.html
-	( egrep -v example.indexdata.com url.demos | perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' ) > iframe-demos-other.html
+iframe: index-iframe
+index-iframe:
+	perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' url.example > iframe-example.html
+	if [ -e url.indexdata ]; then \
+	  perl -ne 'chomp; print qq{<h2>$$_</h2><iframe width="900px" height="600px" src="$$_"></iframe>\n}' \
+	 	url.indexdata > iframe-indexdata.html; \
+	fi
 
 tidy:
-	for i in iframe-demos*.html index*.html; do \
+	for i in iframe-*.html index*.html; do \
 	    tidy -i -m $$i >/dev/null 2>&1; \
 	    perl -i -npe 's,(^\s*</head>),<link type="text/css" rel="stylesheet" href="screenshots.css" /> $$1,' $$i; \
 	done
@@ -76,5 +79,5 @@ help:
 	@echo ""
 	@echo "Examples: "
 	@echo ""
-	@echo "make TESTS=mike screenshots"
+	@echo "make TESTS=koha screenshots"
 
