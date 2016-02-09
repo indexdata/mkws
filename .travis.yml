@@ -33,5 +33,6 @@ before_install:
 
 before_script:
  - true
+ - uname -a
 script:
  - PHANTOMJS_TIMEOUT=60 make check
