@@ -12,10 +12,10 @@ matrix:
       compiler: gcc
       env:
        - MY_OS=precise
-#    - os: osx
-#      osx_image: xcode7.2
-#      env:
-#       - MY_OS=macos
+    - os: osx
+      osx_image: xcode7.2
+      env:
+       - MY_OS=macos
 addons:
  apt:
   packages:
@@ -27,8 +27,8 @@ addons:
    - pandoc
 
 before_install:
-  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  #- if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pkg-config icu4c yaz; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pandoc; fi
   #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./test/travis/travis-init.sh; fi
 
 before_script:
