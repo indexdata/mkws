@@ -441,7 +441,7 @@ mkws.registerWidgetType('waiting', function() {
   this.node.css("visibility", "hidden");
   var template = that.team.loadTemplate(that.config.template || "waiting");
   this.node.html(template({
-    src: this.config.src || "http://mkws.indexdata.com/progress.gif"
+    src: this.config.src || "//mkws.indexdata.com/progress.gif"
   }));
 
   this.team.queue("searchtriggered").subscribe(function(data) {
