@@ -2,10 +2,13 @@ libexec
 logs/error-*\.log
 logs/jasmine-dev-*\.conf
 logs/mkws-jasmine-*\.log
+logs/mkws-jasmine-*.pid
 node_modules
 widgets/iframe*.html
 widgets/index*.html
 widgets/images/*http---*
 widgets/images/index.html
+widgets/url.koha
+widgets/url.indexdata
 images/screenshot.png
 mkws-error*

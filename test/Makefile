@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
+# Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
 
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
@@ -104,8 +104,14 @@ perltidy:
 	@ls ${PERL_SCRIPTS} | xargs -n2 -P8 perltidy -b
 
 
-node_modules node-modules:
+node_modules node-modules: _node_modules versions
+_node_modules:
 	npm install ${NPM_INSTALL_FLAGS}
+
+versions:
+	node --version
+	npm --version
+	${PHANTOMJS} --version
 
 apache-start:
 	bin/apache-template-update
@@ -126,7 +132,7 @@ help:
 	@echo "     [ phantomjs | phantomjs-all ]"
 	@echo "     [ jsbeautifier | perltidy | screenshot ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ node-modules ]"
+	@echo "     [ node-modules | versions ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
 	@echo "Examples: "
