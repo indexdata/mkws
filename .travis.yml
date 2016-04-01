@@ -2,20 +2,19 @@ language: javascript
 sudo: required
 matrix:
   include:
-    - os: linux
-      dist: trusty
-      compiler: clang
-      env:
-       - MY_OS=trusty
-    - os: linux
-      dist: precise
-      compiler: gcc
-      env:
-       - MY_OS=precise
-#    - os: osx
-#      osx_image: xcode7.2
+#    - os: linux
+#      dist: trusty
+#      compiler: clang
 #      env:
-#       - MY_OS=macos
+#       - MY_OS=trusty
+#    - os: linux
+#      dist: precise
+#      compiler: gcc
+#      env:
+#       - MY_OS=precise
+    - os: osx
+      env:
+       - MY_OS=macos
 addons:
  apt:
   packages:
@@ -29,7 +28,6 @@ addons:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pandoc; fi
-  #- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./test/travis/travis-init.sh; fi
 
 before_script:
  - true
