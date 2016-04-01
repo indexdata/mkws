@@ -5,12 +5,10 @@ matrix:
   include:
     - os: linux
       dist: trusty
-      compiler: clang
       env:
        - MY_OS=trusty
     - os: linux
       dist: precise
-      compiler: gcc
       env:
        - MY_OS=precise
     - os: osx
