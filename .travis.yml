@@ -1,22 +1,22 @@
-language: node_js 
+language: javascript 
+sudo: required
+
 matrix:
   include:
     - os: linux
       dist: trusty
+      compiler: clang
       env:
        - MY_OS=trusty
-      node_js:
-       - "5"
     - os: linux
       dist: precise
+      compiler: gcc
       env:
        - MY_OS=precise
-      node_js:
-       - "4"
-#    - os: osx
-#      osx_image: xcode7.2
-#      env:
-#       - MY_OS=macos
+    - os: osx
+      env:
+       - MY_OS=macos
+
 addons:
  apt:
   packages:
@@ -35,4 +35,5 @@ before_script:
  - true
 
 script:
- - PHANTOMJS_TIMEOUT=40 make check
+ - PHANTOMJS_TIMEOUT=45 make check
+
