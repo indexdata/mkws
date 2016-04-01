@@ -1,19 +1,15 @@
 language: node_js 
 sudo: required
 
-matrix:
-  include:
-    - os: linux
-      dist: trusty
-      env:
-       - MY_OS=trusty
-    - os: linux
-      dist: precise
-      env:
-       - MY_OS=precise
-    - os: osx
-      env:
-       - MY_OS=macos
+node_js:
+  - "5"
+  - "5.1"
+  - "4"
+  - "4.2"
+  - "4.1"
+  - "4.0"
+  - "0.12"
+  - "0.10"
 
 addons:
  apt:
@@ -24,13 +20,6 @@ addons:
    - unzip 
    - apache2 
    - pandoc
-
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update          ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install pandoc; fi
-
-before_script:
- - true
 
 script:
  - PHANTOMJS_TIMEOUT=45 make check
