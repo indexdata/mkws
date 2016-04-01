@@ -1,20 +1,22 @@
 language: javascript 
 sudo: required
+
 matrix:
   include:
-#    - os: linux
-#      dist: trusty
-#      compiler: clang
-#      env:
-#       - MY_OS=trusty
-#    - os: linux
-#      dist: precise
-#      compiler: gcc
-#      env:
-#       - MY_OS=precise
+    - os: linux
+      dist: trusty
+      compiler: clang
+      env:
+       - MY_OS=trusty
+    - os: linux
+      dist: precise
+      compiler: gcc
+      env:
+       - MY_OS=precise
     - os: osx
       env:
        - MY_OS=macos
+
 addons:
  apt:
   packages:
@@ -31,5 +33,7 @@ before_install:
 
 before_script:
  - true
+
 script:
- - PHANTOMJS_TIMEOUT=40 make check
+ - PHANTOMJS_TIMEOUT=45 make check
+
