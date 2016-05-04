@@ -10,8 +10,14 @@
     CustomLog /var/log/apache2/mkws-dev-access.log combined
 
     RewriteEngine on
-    RewriteLogLevel 1
-    RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
+
+    # apache 2.2 only
+    #RewriteLogLevel 1
+    #RewriteLog /var/log/apache2/mkws-dev-rewrite.log 
+
+    # apache 2.4 and later
+    #LogLevel warn rewrite:trace1
+
 
     DocumentRoot /home/indexdata/mkws-dev/examples/htdocs
     Alias /tools/htdocs /home/indexdata/mkws-dev/tools/htdocs
