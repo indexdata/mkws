@@ -9,6 +9,9 @@
         "name": "Wolfram Schneider",
         "email": "wosch@indexdata.com"
     }],
+    "dependencies": {
+	"jquery-json": "2.4.0"
+    },
     "devDependencies": {
         "xmlhttprequest": "*",
         "cssstyle": "*",

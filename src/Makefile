@@ -10,7 +10,7 @@ PP2_FILE = pz2.js
 
 HANDLEBARS_URL = http://builds.handlebarsjs.com.s3.amazonaws.com/${HANDLEBARS_FILE}
 JQUERY_URL = http://code.jquery.com/${JQUERY_FILE}
-JQUERY_JSON_URL = https://jquery-json.googlecode.com/files/${JQUERY_JSON_FILE}
+#JQUERY_JSON_URL = https://raw.githubusercontent.com/Krinkle/jquery-json/v2.4.0/build/jquery.json.min.js
 JSNLOG_URL = https://raw.githubusercontent.com/mperdeck/jsnlog.js/2.7.5/${JSNLOG_FILE}
 PP2_URL = https://raw.githubusercontent.com/indexdata/pazpar2/master/js/pz2.js
 
@@ -76,7 +76,7 @@ $(DEST)/${JQUERY_FILE}:
 	rm -f $@.tmp
 
 $(DEST)/${JQUERY_JSON_FILE}:
-	curl -sSf ${JQUERY_JSON_URL} -o $@.tmp
+	cp ../test/node_modules/jquery-json/dist/jquery.json.min.js $@.tmp
 	mv -f $@.tmp $@
 
 $(DEST)/${JSNLOG_FILE}:
