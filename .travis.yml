@@ -3,8 +3,7 @@ sudo: required
 
 node_js:
   - "6"
-  - "5"
-  - "0.12"
+  - "4"
 
 addons:
  apt:

@@ -73,7 +73,12 @@ http://jasmine.github.io/
 https://github.com/jasmine/jasmine
 http://phantomjs.org/
 
+Troubleshooting
+---------------------------------------
+If apache2.4 don't run, please check for the installed
+apache libs. You may need to removed the deb package 'libapache2-mpm-itk' 
+to get the regression test works again.
 
 --
-Copyright (c) 2013-2014 Index Data ApS. http://indexdata.com
+Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
 Oct 2014, Wolfram
