@@ -15,6 +15,10 @@ addons:
    - apache2 
    - pandoc
 
+before_install:
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./test/bin/travis-init.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sudo apt-get install -yq yarn; fi
+
 script:
  - PHANTOMJS_TIMEOUT=45 make check
 
