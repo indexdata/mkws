@@ -25,6 +25,10 @@ $ make node-modules
 if you want. The top level makefile in ./mkws/Makefile takes care to
 checkout and update the modules automatically.
 
+please install phantomjs globally on your machine first: 
+$ npm install -g phantomjs@1.9.20
+and set a symlink to it from /usr/local/bin/phantomjs
+
 
 Testing
 ---------------------------------------
