@@ -8,9 +8,6 @@ matrix:
       env:
        - MY_OS=trusty
 
-node_js:
-  - "6"
-
 addons:
  apt:
   packages:
