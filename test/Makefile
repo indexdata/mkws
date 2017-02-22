@@ -13,7 +13,12 @@ PHANTOMJS_FLAGS ?= --ignore-ssl-errors=true
 
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
-PHANTOMJS=	./node_modules/phantomjs-prebuilt/bin/phantomjs
+
+# please install phantomjs globally on your machine first: 
+#  npm install -g phantomjs@1.9.20
+# and set a symlink from /usr/local/bin/phantomjs
+PHANTOMJS=	/usr/local/bin/phantomjs
+
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bin/bomb.pl
