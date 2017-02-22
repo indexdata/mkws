@@ -2,25 +2,28 @@
     "name": "MKWS",
     "version": "1.0.0",
     "license": "GPL-3.0",
-    "contributors": [{
-        "name": "Mike Taylor",
-        "email": "mike@indexdata.com"
-    }, {
-        "name": "Wolfram Schneider",
-        "email": "wosch@indexdata.com"
-    }],
+    "contributors": [
+        {
+            "name": "Mike Taylor",
+            "email": "mike@indexdata.com"
+        },
+        {
+            "name": "Wolfram Schneider",
+            "email": "wosch@indexdata.com"
+        }
+    ],
     "dependencies": {
-	"jquery-json": "2.4.0"
+        "jquery-json": "2.4.0",
+        "phantomjs-prebuilt": "^2.1.14"
     },
     "devDependencies": {
-        "xmlhttprequest": "*",
         "cssstyle": "*",
-        "request": "*",
-        "jasmine-reporters": "*",
-        "jasmine-node": "*",
-        "phantomjs": ">= 1.9.8 < 2.0.0",
         "handlebars": "3.0.3",
-        "uglify-js": "*"
+        "jasmine-node": "^1.14.3",
+        "jasmine-reporters": "*",
+        "request": "*",
+        "uglify-js": "*",
+        "xmlhttprequest": "*"
     },
     "repository": {
         "type": "git",
