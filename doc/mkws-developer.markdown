@@ -26,7 +26,7 @@ You also need Node.js, but unfortunately the `node-js` package is not
 available for Debian wheezy. You can either get it from
 wheezy-backports or download the source from
 http://nodejs.org/download/ and build it yourself. You need both Node
-itself and its package manager NPM: `make install` puts them into
+itself and its package manager Yarn: `make install` puts them into
 `/usr/local/bin`.
 
 
