@@ -5,10 +5,11 @@ matrix:
   include:
     - os: linux
       dist: trusty
+      env:
+       - MY_OS=trusty
 
 node_js:
   - "6"
-#  - "node"
 
 addons:
  apt:
