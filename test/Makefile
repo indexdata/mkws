@@ -11,7 +11,7 @@ PHANTOMJS_URL=http://localhost:${APACHE_PORT}/${PHANTOMJS_PATH}
 PHANTOMJS_TIMEOUT ?= 30
 PHANTOMJS_FLAGS ?= --ignore-ssl-errors=true
 
-NPM_INSTALL_FLAGS=-q
+NPM_INSTALL_FLAGS=
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 
 # please install phantomjs globally on your machine first: 
