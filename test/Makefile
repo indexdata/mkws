@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2016 Index Data ApS. http://indexdata.com
+# Copyright (c) 2013-2017 Index Data ApS. http://indexdata.com
 
 # For running on Mike's local install of node.js
 MIKE = PATH=$$PATH:/usr/local/lib/node-v0.10.24-linux-x64/bin
@@ -13,7 +13,7 @@ PHANTOMJS_FLAGS ?= --ignore-ssl-errors=true
 
 NPM_INSTALL_FLAGS=-q
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
-PHANTOMJS=	./node_modules/phantomjs/bin/phantomjs
+PHANTOMJS=	./node_modules/phantomjs-prebuilt/bin/phantomjs
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
 PERL_SCRIPTS=	bin/bomb.pl
@@ -106,12 +106,13 @@ perltidy:
 
 node_modules node-modules: _node_modules versions
 _node_modules:
-	npm install ${NPM_INSTALL_FLAGS}
+	yarn install ${NPM_INSTALL_FLAGS}
 
 versions:
 	node --version
-	npm --version
+	yarn --version
 	${PHANTOMJS} --version
+	${JASMINE_NODE} --version
 
 apache-start:
 	bin/apache-template-update
