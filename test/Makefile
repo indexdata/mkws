@@ -14,10 +14,8 @@ PHANTOMJS_FLAGS ?= --ignore-ssl-errors=true
 NPM_INSTALL_FLAGS=
 JASMINE_NODE=	./node_modules/jasmine-node/bin/jasmine-node
 
-# please install phantomjs globally on your machine first: 
-#  npm install -g phantomjs@1.9.20
-# and set a symlink from /usr/local/bin/phantomjs
-PHANTOMJS=	/usr/local/bin/phantomjs
+#PHANTOMJS=	/usr/local/bin/phantomjs
+PHANTOMJS=	./node_modules/.bin/phantomjs
 
 IMAGES=	./images
 SCREENSHOT_WIDTH=	360 480 640 768 1024 1200 1440 2048
@@ -109,7 +107,7 @@ perltidy:
 	@ls ${PERL_SCRIPTS} | xargs -n2 -P8 perltidy -b
 
 
-node_modules node-modules: _node_modules versions
+node_modules node-modules yarn-install: _node_modules versions
 _node_modules:
 	yarn install ${NPM_INSTALL_FLAGS}
 
@@ -138,7 +136,7 @@ help:
 	@echo "     [ phantomjs | phantomjs-all ]"
 	@echo "     [ jsbeautifier | perltidy | screenshot ]"
 	@echo "     [ screenshots ]"
-	@echo "     [ node-modules | versions ]"
+	@echo "     [ yarn-install | versions ]"
 	@echo "     [ apache-stop apache-start ]"
 	@echo ""
 	@echo "Examples: "
