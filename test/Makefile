@@ -98,7 +98,7 @@ screenshots: check
 	${MAKE} -C ./widgets $@
 
 jsbeautifier jsb indent:
-	for i in package.json ./spec*/*.js ./js/*.js ./phantom/*.js; do \
+	for i in package.json ./spec*/*.js ./phantom/*.js; do \
 	  jsbeautifier -j $$i > $@.tmp && mv -f $@.tmp $$i; \
 	done
 
