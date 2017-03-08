@@ -22,7 +22,6 @@ var waitsForAndRuns = function (escapeFunction, runFunction, escapeTime) {
 
         // clear the interval and the timeout
 
-
         function clearMe() {
             clearInterval(interval);
             clearTimeout(timeOut);
@@ -144,15 +143,13 @@ describe("Check service-proxy auth is done", function () {
         if (mkws.config.use_service_proxy) {
             // wait for service proxy auth
             waitsForAndRuns(function () {
-                debug("foobar");
                 return mkws.authenticated;
-
             }, function () {
                 debug("service proxy auth done");
                 expect(mkws.authenticated).toBe(true);
                 done();
                 debug("beforeEach ends");
-            }, 1 * jasmine_config.second);
+            }, 5 * jasmine_config.second);
 
         } else {
             debug("running raw pp2, don't wait for mkws auth");
