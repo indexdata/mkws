@@ -2,16 +2,13 @@
     "name": "MKWS",
     "version": "1.0.0",
     "license": "GPL-3.0",
-    "contributors": [
-        {
-            "name": "Mike Taylor",
-            "email": "mike@indexdata.com"
-        },
-        {
-            "name": "Wolfram Schneider",
-            "email": "wosch@indexdata.com"
-        }
-    ],
+    "contributors": [{
+        "name": "Mike Taylor",
+        "email": "mike@indexdata.com"
+    }, {
+        "name": "Wolfram Schneider",
+        "email": "wosch@indexdata.com"
+    }],
     "dependencies": {
         "jquery-json": "2.4.0"
     },
