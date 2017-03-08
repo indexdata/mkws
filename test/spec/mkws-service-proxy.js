@@ -5,28 +5,29 @@
  */
 
 // compatible with jasmine 1.3.x
-var waitsForAndRuns = function(escapeFunction, runFunction, escapeTime) {
-    // check the escapeFunction every millisecond so as soon as it is met we can escape the function
-    var interval = setInterval(function() {
-        if (escapeFunction()) {
+var waitsForAndRuns = function (escapeFunction, runFunction, escapeTime) {
+        // check the escapeFunction every millisecond so as soon as it is met we can escape the function
+        var interval = setInterval(function () {
+            if (escapeFunction()) {
+                clearMe();
+                runFunction();
+            }
+        }, 10); // 10ms is enough for polling
+        // in case we never reach the escapeFunction, we will time out
+        // at the escapeTime
+        var timeOut = setTimeout(function () {
             clearMe();
             runFunction();
+        }, escapeTime);
+
+        // clear the interval and the timeout
+
+
+        function clearMe() {
+            clearInterval(interval);
+            clearTimeout(timeOut);
         }
-    }, 10); // 10ms is enough for polling
-  
-    // in case we never reach the escapeFunction, we will time out
-    // at the escapeTime
-    var timeOut = setTimeout(function() {
-        clearMe();
-        runFunction();
-    }, escapeTime);
-  
-    // clear the interval and the timeout
-    function clearMe(){
-        clearInterval(interval);
-        clearTimeout(timeOut);
-    }
-};
+    };
 
 // get references from mkws.js, lazy evaluation
 var debug = function (text) {
@@ -138,26 +139,26 @@ describe("Init jasmine config", function () {
 describe("Check service-proxy auth is done", function () {
     var $ = mkws.$;
 
-    beforeEach(function(done) {
+    beforeEach(function (done) {
         debug("beforeEach starts");
         if (mkws.config.use_service_proxy) {
             // wait for service proxy auth
             waitsForAndRuns(function () {
                 debug("foobar");
                 return mkws.authenticated;
-        
+
             }, function () {
                 debug("service proxy auth done");
                 expect(mkws.authenticated).toBe(true);
                 done();
                 debug("beforeEach ends");
             }, 1 * jasmine_config.second);
-            
+
         } else {
             debug("running raw pp2, don't wait for mkws auth");
         }
     });
-        
+
     it("pazpar2 was successfully initialized", function () {
         expect(mkws.config.error).toBe(undefined);
         expect(mkws.authenticated).toBe(true);
@@ -215,15 +216,15 @@ describe("Check pazpar2 navigation", function () {
             $(id).trigger("click");
         }, time * jasmine_config.second);
     }
-        
+
     // Asynchronous part
     it("check running search next/prev", function () {
         expect($(".mkws-pager").length).toBe(1);
     });
-    
-     
+
+
     describe("Expect next link 2", function () {
-        beforeEach(function(done) {
+        beforeEach(function (done) {
             var path = "div.mkws-pager div:nth-child(2) a";
             waitsForAndRuns(function () {
                 return $(path).length >= 2 ? true : false;
@@ -239,10 +240,10 @@ describe("Check pazpar2 navigation", function () {
         });
     });
 
-   describe("Expect next link 3", function () {
-        beforeEach(function(done) {
+    describe("Expect next link 3", function () {
+        beforeEach(function (done) {
             var path = "div.mkws-pager div:nth-child(2) a";
-            
+
             waitsForAndRuns(function () {
                 return $(path).length >= 3 ? true : false;
             }, function () {
@@ -272,7 +273,7 @@ describe("Check pazpar2 hit counter", function () {
             done();
         }, jasmine_config.max_time * jasmine_config.second);
     });
-            
+
     it("check running search hit counter", function () {
         debug("mkws pager found records: '" + hits + "'");
         expect($(".mkws-pager").length).toBe(1);
@@ -297,15 +298,15 @@ describe("Check Facets", function () {
                     done();
                 }, 4 * jasmine_config.second);
             });
-            
+
             it("found Facets ...", function () {
                 var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
                 debug("Facet sources success: " + sources.length);
                 expect(sources.length).toBe(1);
-    
+
                 var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
                 expect(subjects.length).toBe(1);
-    
+
                 var authors = $("div.mkws-facet[data-mkws-facet='author']");
                 expect(authors.length).toBe(1);
             });
@@ -320,10 +321,10 @@ describe("Check Facets", function () {
                     done();
                 }, 4 * jasmine_config.second);
             });
-            
+
             it("found Facets author", function () {
                 expect($("div.mkws-facet[data-mkws-facet='author'] div.mkws-term").length).toBeGreaterThan(1);
-             });
+            });
         });
     });
 });
@@ -380,30 +381,28 @@ xdescribe("Check Author Facets", function () {
 describe("Check active clients author", function () {
     var $ = mkws.$;
 
-    it("check for active clients after limited author search", function () {
-        describe("", function () {
-            beforeEach(function (done) {
-                waitsForAndRuns(function () {
-                    var clients = $("div.mkws-stat span.mkws-client-count");
-                    // debug("clients: " + clients.text());
-                    return clients.length == 1 && clients.text().match("/[1-9]+[0-9]*$");
-                }, function () {
-                    debug("wait for Active clients: x/y");
-                    done();
-                }, 5.5 * jasmine_config.second);
-            });
-                    
-            it("x", function () {
+    describe("check for active clients after limited author search", function () {
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
                 var clients = $("div.mkws-stat span.mkws-client-count");
-                debug("span.mkws-client-count: " + clients.text());
-                expect(clients.text()).toMatch("/[1-9]+[0-9]*$");
+                // debug("clients: " + clients.text());
+                return clients.length == 1 && clients.text().match("/[1-9]+[0-9]*$");
+            }, function () {
+                debug("wait for Active clients: x/y");
+                done();
+            }, 5.5 * jasmine_config.second);
+        });
 
-                // exact match of active clients (e.g. a SP misconfiguration)
-                if (jasmine_config.active_clients) {
-                    debug("check for " + jasmine_config.active_clients + " active connections");
-                    expect(clients.text()).toMatch(" [0-9]+/" + jasmine_config.active_clients + "$");
-                }
-            });
+        it("client count", function () {
+            var clients = $("div.mkws-stat span.mkws-client-count");
+            debug("span.mkws-client-count: " + clients.text());
+            expect(clients.text()).toMatch("/[1-9]+[0-9]*$");
+
+            // exact match of active clients (e.g. a SP misconfiguration)
+            if (jasmine_config.active_clients) {
+                debug("check for " + jasmine_config.active_clients + " active connections");
+                expect(clients.text()).toMatch(" [0-9]+/" + jasmine_config.active_clients + "$");
+            }
         });
     });
 
@@ -416,7 +415,7 @@ describe("Check active clients author", function () {
         waitsFor(function () {
             return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
         }, "wait some miliseconds", (waittime + 0.5) * jasmine_config.second);
-        
+
         beforeEach(function (done) {
             waitsForAndRuns(function () {
                 return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
@@ -777,7 +776,7 @@ xdescribe("Check translations", function () {
      */
 });
 
-describe("Check status client counter", function () {
+xdescribe("Check status client counter", function () {
     var $ = mkws.$;
 
     function get_time() {
@@ -811,7 +810,7 @@ describe("Check status client counter", function () {
 });
 
 /* remove the "source" and "author" facet link to get more records again */
-describe("Check removable facets links", function () {
+xdescribe("Check removable facets links", function () {
     var $ = mkws.$;
 
     it("remove links for source and author", function () {
@@ -870,7 +869,7 @@ describe("Check removable facets links", function () {
 });
 
 
-describe("Check per page options", function () {
+xdescribe("Check per page options", function () {
     var $ = mkws.$;
 
     it("show per page", function () {
@@ -915,7 +914,7 @@ describe("Check per page options", function () {
     });
 });
 
-describe("Check SortBy options", function () {
+xdescribe("Check SortBy options", function () {
     var $ = mkws.$;
 
     it("sort by title", function () {
@@ -1012,6 +1011,7 @@ xdescribe("Check async widget discovery", function () {
 /* done */
 describe("All tests are done", function () {
     it(">>> hooray <<<", function () {
+        expect(mkws.jasmine_done).toBe(false);
         mkws.jasmine_done = true;
         debug(">>> hooray <<<");
     });
