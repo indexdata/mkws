@@ -281,47 +281,55 @@ describe("Check pazpar2 hit counter", function () {
 describe("Check Facets", function () {
     var $ = mkws.$;
 
-    it("found Facets", function () {
-        var facets = $("div.mkws-facets");
-        debug("Facet success: " + facets.length);
-        expect(facets.length).toBe(1);
+    describe("Check Facets", function () {
+        it("found Facets", function () {
+            var facets = $("div.mkws-facets");
+            debug("Facet success: " + facets.length);
+            expect(facets.length).toBe(1);
+        });
+    });
 
-        describe("Check Facets xtargets", function () {
-            beforeEach(function (done) {
-                waitsForAndRuns(function () {
-                    return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
-                }, function () {
-                    debug("check for facet sources");
-                    done();
-                }, 4 * jasmine_config.second);
-            });
-
-            it("found Facets ...", function () {
-                var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
-                debug("Facet sources success: " + sources.length);
-                expect(sources.length).toBe(1);
-
-                var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
-                expect(subjects.length).toBe(1);
-
-                var authors = $("div.mkws-facet[data-mkws-facet='author']");
-                expect(authors.length).toBe(1);
-            });
+    describe("Check Facets xtargets", function () {
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
+            }, function () {
+                debug("check for facet sources");
+                done();
+            }, 4 * jasmine_config.second);
         });
 
-        describe("Check Facets author", function () {
-            beforeEach(function (done) {
-                waitsForAndRuns(function () {
-                    return $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term").length >= 2 ? true : false;
-                }, function () {
-                    debug("At least two author link displayed");
-                    done();
-                }, 4 * jasmine_config.second);
-            });
+        it("found Facets ...", function () {
+            var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
+            debug("Facet sources success: " + sources.length);
+            expect(sources.length).toBe(1);
 
-            it("found Facets author", function () {
-                expect($("div.mkws-facet[data-mkws-facet='author'] div.mkws-term").length).toBeGreaterThan(1);
-            });
+            var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
+            debug("Facet subjects success: " + subjects.length);
+            expect(subjects.length).toBe(1);
+
+            var authors = $("div.mkws-facet[data-mkws-facet='author']");
+            debug("Facet authors success: " + authors.length);
+            expect(authors.length).toBe(1);
+        });
+    });
+
+    describe("Check Facets author", function () {
+        var path = "div.mkws-facet[data-mkws-facet='author'] div.mkws-term";
+        beforeEach(function (done) {
+            var min_authors = 5;
+
+            waitsForAndRuns(function () {
+                return $(path).length >= min_authors ? true : false;
+            }, function () {
+                debug("At least " + min_authors + " author link displayed");
+                done();
+            }, 6 * jasmine_config.second);
+        });
+
+        it("found facets author", function () {
+            expect($(path).length).toBeGreaterThan(1);
+            debug("author facet length: " + $(path).length);
         });
     });
 });
@@ -340,7 +348,7 @@ describe("Check Author Facets", function () {
         // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
         // do not click on author names without a comma, e.g.: "Joe Barbara"
         // because searching on such authors won't find anything.
-        var terms = $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term a");
+        var terms = $("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term a");
         for (var i = 0; i < terms.length; i++) {
             var term = $(terms[i]).text();
             if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
@@ -350,8 +358,9 @@ describe("Check Author Facets", function () {
                 break;
             }
         }
-        if ($("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a").text().length == 0) {
-            debug("No good authors found. Not clicking on the bad ones");
+        if ($("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term:nth-child(" + author_number + ") a").text().length == 0) {
+            debug("No good authors found. Not clicking on the bad ones: " + terms.length);
+            console.log(terms);
             return;
         }
 
@@ -653,7 +662,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-xdescribe("Check translations", function () {
+describe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
@@ -670,6 +679,11 @@ xdescribe("Check translations", function () {
 
     function check_translation(list, text) {
         expect(list.length).toBe(text.length);
+        if (list.length != text.length) {
+            debug("check_translation: " + list.length + " " + text.length);
+            console.log(list);
+            console.log(text);
+        }
 
         for (var i = 0; i < text.length; i++) {
             expect($(list[i]).text().match(M(text[i]))).not.toBeNull();
@@ -692,6 +706,7 @@ xdescribe("Check translations", function () {
 
         // we except one missing field, or one error
         expect(errors.length).not.toBeGreaterThan(1);
+        debug("found error length: " + errors.length)
     }
 
     it("check language", function () {
