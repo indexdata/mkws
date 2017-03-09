@@ -653,7 +653,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-describe("Check translations", function () {
+xdescribe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
@@ -809,35 +809,36 @@ describe("Check translations", function () {
      */
 });
 
-xdescribe("Check status client counter", function () {
+describe("Check status client counter", function () {
     var $ = mkws.$;
 
-    function get_time() {
-        var date = new Date();
-        return date.getTime();
-    }
-    var time = get_time();
-
     it("check status clients", function () {
+        expect(true).toBe(true);
+
         if (!jasmine_status.source_click) {
             debug("skip clients check due missing source click");
             return;
         }
 
-        waitsFor(function () {
-            var clients = $("div.mkws-stat span.mkws-client-count");
-            debug("clients: " + clients.text());
-            if (clients.length == 1 && clients.text().match("0/1$")) {
-                return true;
-            } else {
-                return false;
-            }
-        }, "wait for Active clients: 0/1", 4 * jasmine_config.second);
 
-        runs(function () {
-            var clients = $("div.mkws-stat span.mkws-client-count");
-            debug("span.mkws-client-count: " + clients.text());
-            expect(clients.text()).toMatch("0/1$");
+        describe("Check status client counter", function () {
+            beforeEach(function (done) {
+                waitsForAndRuns(function () {
+                    var clients = $("div.mkws-stat span.mkws-client-count");
+                    debug("clients: " + clients.text());
+                    return clients.length == 1 && clients.text().match("0/1$");
+                }, function () {
+                    debug("wait for Active clients: 0/1");
+                    done();
+                }, 4 * jasmine_config.second);
+            });
+
+
+            it("client count", function () {
+                var clients = $("div.mkws-stat span.mkws-client-count");
+                debug("span.mkws-client-count: " + clients.text());
+                expect(clients.text()).toMatch("0/1$");
+            });
         });
     });
 });
