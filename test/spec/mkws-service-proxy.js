@@ -1017,7 +1017,6 @@ describe("Check SortBy options", function () {
         select.trigger("change");
 
         describe("DOM change mkws-records, by sort page", function () {
-
             beforeEach(function (done) {
                 waitsForAndRuns(function () {
                     //debug("wait for2: " + waitcount);
@@ -1052,7 +1051,7 @@ describe("Check SortBy options", function () {
     });
 });
 
-
+/*
 xdescribe("Check async widget discovery", function () {
     var $ = mkws.$;
     it("initialises a new widget", function () {
@@ -1071,6 +1070,7 @@ xdescribe("Check async widget discovery", function () {
         });
     });
 });
+*/
 
 /* done */
 describe("All tests are done", function () {
