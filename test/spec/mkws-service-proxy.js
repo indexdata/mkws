@@ -164,6 +164,7 @@ describe("Check service-proxy auth is done", function () {
 
 describe("Check pazpar2 search", function () {
     var $ = mkws.$;
+
     it("validate HTML id's", function () {
         expect($("input.mkws-query").length).toBe(1);
         expect($("input.mkws-button").length).toBe(1);
@@ -219,7 +220,6 @@ describe("Check pazpar2 navigation", function () {
         expect($(".mkws-pager").length).toBe(1);
     });
 
-
     describe("Expect next link 2", function () {
         beforeEach(function (done) {
             var path = "div.mkws-pager div:nth-child(2) a";
@@ -259,7 +259,7 @@ describe("Check pazpar2 navigation", function () {
 
 describe("Check pazpar2 hit counter", function () {
     var $ = mkws.$;
-    var hits = 0;
+    var hits = -2;
 
     beforeEach(function (done) {
         waitsForAndRuns(function () {
@@ -326,15 +326,11 @@ describe("Check Facets", function () {
     });
 });
 
-
-
 describe("Check Author Facets", function () {
     var $ = mkws.$;
-    var hits_all_targets = get_hit_counter();
 
     it("Limit search to first author", function () {
         expect(true).toBe(true); // XXX: spec has no expectations ???
-        
         if (mkws.config.disable_facet_authors_search) {
             debug("Facets: ignore limit search for authors");
             return;
@@ -369,6 +365,8 @@ describe("Check Author Facets", function () {
     it("Limited author search", function () {
         expect(true).toBe(true); // XXX: spec has no expectations ???
         beforeEach(function (done) {
+            var hits_all_targets = get_hit_counter();
+
             waitsForAndRuns(function () {
                 var hits_single_target = get_hit_counter();
                 return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
@@ -419,7 +417,7 @@ describe("Check active clients author", function () {
         }, function () {
             debug("wait some miliseconds: " + waittime);
         }, (waittime + 0.5) * jasmine_config.second);
-    
+
         expect(true).toBe(true);
     });
 });
