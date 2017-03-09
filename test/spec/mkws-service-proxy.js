@@ -520,37 +520,47 @@ describe("Check Source Facets", function () {
 });
 
 
-xdescribe("Check record list", function () {
+describe("Check record list", function () {
     var $ = mkws.$;
 
-    it("check for single active client", function () {
+    describe("check for single active client", function () {
         if (!jasmine_status.source_click) {
             debug("skip clients check due missing source click");
             return;
         }
 
-        waitsFor(function () {
-            var clients = $("div.mkws-stat span.mkws-client-count");
-            //debug("clients: " + clients.text());
-            return clients.length == 1 && clients.text().match("/1$");
-        }, "wait for Active clients: x/1", 5 * jasmine_config.second);
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                var clients = $("div.mkws-stat span.mkws-client-count");
+                //debug("clients: " + clients.text());
+                return clients.length == 1 && clients.text().match("/1$");
+            }, function () {
+                debug("wait for Active clients: x/1");
+                done();
+            }, 5 * jasmine_config.second);
+        });
 
-        runs(function () {
+        it("got a singel target", function () {
             var clients = $("div.mkws-stat span.mkws-client-count");
             debug("span.mkws-client-count: " + clients.text());
             expect(clients.text()).toMatch("/1$");
         });
     });
 
-    it("got a record", function () {
+    describe("got a record", function () {
         var linkaddr = "div.mkws-records div.mkws-summary:nth-child(1) a";
 
-        waitsFor(function () {
-            // remove + insert node: must be at least 2
-            return $(linkaddr).length > 0;
-        }, "wait until we see a new record", 2.5 * jasmine_config.second);
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                // remove + insert node: must be at least 2
+                return $(linkaddr).length > 0;
+            }, function () {
+                debug("wait until we see a new record");
+                done();
+            }, 2.5 * jasmine_config.second);
+        });
 
-        runs(function () {
+        it("got a record", function () {
             expect($(linkaddr).length).toBeGreaterThan(0);
         });
     });
