@@ -653,7 +653,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-xdescribe("Check translations", function () {
+describe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
