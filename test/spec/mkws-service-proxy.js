@@ -524,12 +524,12 @@ describe("Check record list", function () {
     var $ = mkws.$;
 
     describe("check for single active client", function () {
-        if (!jasmine_status.source_click) {
-            debug("skip clients check due missing source click");
-            return;
-        }
-
         beforeEach(function (done) {
+            if (!jasmine_status.source_click) {
+                expect(true).toBe(true);
+                debug("skip clients check due missing source click");
+            }
+
             waitsForAndRuns(function () {
                 var clients = $("div.mkws-stat span.mkws-client-count");
                 //debug("clients: " + clients.text());
@@ -566,23 +566,28 @@ describe("Check record list", function () {
     });
 });
 
-xdescribe("Show record", function () {
+describe("Show record", function () {
     var $ = mkws.$;
-
     var record_number = 1; // the Nth record in hit list
     it("show record author", function () {
         var click = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") a").trigger("click");
         debug("show record click is success: " + click.length);
         expect(click.length).toBe(1);
+    });
 
-        // wait until the record pops up
-        waitsFor(function () {
-            var show = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") > div.mkws-details");
-            //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkws-records div.mkws-summary").text());
-            return show != null && show.length ? true : false;
-        }, "wait some miliseconds to show up a record", 2 * jasmine_config.second);
+    describe("got a record", function () {
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                var show = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") > div.mkws-details");
+                //debug("poprecord: " + (show ? show.length : -1) + " " + $("div.mkws-records div.mkws-summary").text());
+                return show != null && show.length ? true : false;
+            }, function () {
+                debug("wait some miliseconds to show up a record");
+                done();
+            }, 2 * jasmine_config.second);
+        });
 
-        runs(function () {
+        it("show record pop up", function () {
             debug("show record pop up");
             expect($("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") div")).not.toBe(null);
         });
