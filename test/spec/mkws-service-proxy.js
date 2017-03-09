@@ -972,10 +972,12 @@ describe("Check per page options", function () {
     });
 });
 
-xdescribe("Check SortBy options", function () {
+describe("Check SortBy options", function () {
     var $ = mkws.$;
 
     it("sort by title", function () {
+        expect(true).toBe(true);
+
         if (!jasmine_config.check_sortby) {
             debug("ignore check for sort by");
             return;
@@ -999,49 +1001,53 @@ xdescribe("Check SortBy options", function () {
             return list;
         }
 
-        runs(function () {
-            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
-                waitcount++;
-                if (waitcount <= 5 || (waitcount % 10 == 0)) {
-                    debug("DOM change mkws-records, sort by: " + waitcount);
-                }
+        $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            waitcount++;
+            if (waitcount <= 5 || (waitcount % 10 == 0)) {
+                debug("DOM change mkws-records, sort by: " + waitcount);
+            }
+        });
+
+        var select = $("select.mkws-sort option[selected='selected']");
+        debug("Sort by default is: " + select.text() + " and unselect it");
+        select.removeAttr('selected');
+
+        select = $("select.mkws-sort option[value='" + sort_value + "']").attr('selected', true);
+        debug("sort by is set to: " + select.text());
+        select.trigger("change");
+
+        describe("DOM change mkws-records, by sort page", function () {
+
+            beforeEach(function (done) {
+                waitsForAndRuns(function () {
+                    //debug("wait for2: " + waitcount);
+                    return waitcount >= (per_page_number + 10) ? true : false;
+                }, function () {
+                    debug("DOM change mkws-records, by sort page");
+                    done();
+                }, 3 * jasmine_config.second);
             });
 
-            var select = $("select.mkws-sort option[selected='selected']");
-            debug("Sort by default is: " + select.text() + " and unselect it");
-            select.removeAttr('selected');
+            it("unbind by sort", function () {
+                $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+                debug("unbind by sort");
 
-            select = $("select.mkws-sort option[value='" + sort_value + "']").attr('selected', true);
-            debug("sort by is set to: " + select.text());
-            select.trigger("change");
-        });
+                var records = $("div.mkws-records > div.mkws-summary");
+                debug("Sort by got now " + records.length + " records");
+                expect(records.length).toBe(per_page_number);
 
-        waitsFor(function () {
-            //debug("wait for2: " + waitcount);
-            return waitcount >= (per_page_number + 10) ? true : false;
-        }, "DOM change mkws-records, by sort page", 3 * jasmine_config.second);
+                var title_list_new = title_list("yyy ");
+                var diff_flag = 0;
+                for (var i = 0; i < title_list_old.length; i++) {
+                    debug((i + 1) + ". " + title_list_old[i] + " :: " + title_list_new[i]);
 
-        runs(function () {
-            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-            debug("unbind by sort");
-
-            var records = $("div.mkws-records > div.mkws-summary");
-            debug("Sort by got now " + records.length + " records");
-            expect(records.length).toBe(per_page_number);
-        });
-
-        runs(function () {
-            var title_list_new = title_list("yyy ");
-            var diff_flag = 0;
-            for (var i = 0; i < title_list_old.length; i++) {
-                debug((i + 1) + ". " + title_list_old[i] + " :: " + title_list_new[i]);
-
-                if (title_list_old[i] != title_list_new[i]) {
-                    diff_flag++;
+                    if (title_list_old[i] != title_list_new[i]) {
+                        diff_flag++;
+                    }
                 }
-            }
-            debug("Title changes: " + diff_flag + " out of " + per_page_number);
-            expect(diff_flag).not.toBe(0);
+                debug("Title changes: " + diff_flag + " out of " + per_page_number);
+                expect(diff_flag).not.toBe(0);
+            });
         });
     });
 });
