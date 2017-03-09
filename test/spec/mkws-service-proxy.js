@@ -337,58 +337,60 @@ describe("Check Facets", function () {
 describe("Check Author Facets", function () {
     var $ = mkws.$;
 
-    it("Limit search to first author", function () {
-        expect(true).toBe(true); // XXX: spec has no expectations ???
-        if (mkws.config.disable_facet_authors_search) {
-            debug("Facets: ignore limit search for authors");
-            return;
-        }
-
-        var author_number = 2; // 2=first author
-        // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
-        // do not click on author names without a comma, e.g.: "Joe Barbara"
-        // because searching on such authors won't find anything.
-        var terms = $("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term a");
-        for (var i = 0; i < terms.length; i++) {
-            var term = $(terms[i]).text();
-            if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
-                debug("ignore author facet: " + term);
-                author_number++;
-            } else {
-                break;
-            }
-        }
-        if ($("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term:nth-child(" + author_number + ") a").text().length == 0) {
-            debug("No good authors found. Not clicking on the bad ones: " + terms.length);
-            console.log(terms);
-            return;
-        }
-
-        var path = $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a");
-        expect(path.length).toBe(1);
-
-        debug("Clicking on author (" + author_number + ") " + path.text());
-        path.trigger("click");
-    });
-
-    describe("Limited author search", function () {
-        beforeEach(function (done) {
-            var hits_all_targets = get_hit_counter();
-
-            waitsForAndRuns(function () {
-                var hits_single_target = get_hit_counter();
-                return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
-            }, function () {
-                debug("Limited author search for less than " + hits_all_targets + " hits");
-                done();
-            }, 4.5 * jasmine_config.second);
-        });
-
-
-        it("it dummy", function () {
+    describe("Limit search to first author", function () {
+        it("Limit search to first author", function () {
             expect(true).toBe(true); // XXX: spec has no expectations ???
+            if (mkws.config.disable_facet_authors_search) {
+                debug("Facets: ignore limit search for authors");
+                return;
+            }
+
+            var author_number = 2; // 2=first author
+            // do not click on author with numbers, e.g.: "Bower, James M. Beeman, David, 1938-"
+            // do not click on author names without a comma, e.g.: "Joe Barbara"
+            // because searching on such authors won't find anything.
+            var terms = $("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term a");
+            for (var i = 0; i < terms.length; i++) {
+                var term = $(terms[i]).text();
+                if (term.match(/[0-9].+[0-9]/i) || !term.match(/,/)) {
+                    debug("ignore author facet: " + term);
+                    author_number++;
+                } else {
+                    break;
+                }
+            }
+            if ($("div.mkws-facet[data-mkws-facet='author'] > div.mkws-term:nth-child(" + author_number + ") a").text().length == 0) {
+                debug("No good authors found. Not clicking on the bad ones: " + terms.length);
+                console.log(terms);
+                return;
+            }
+
+            var path = $("div.mkws-facet[data-mkws-facet='author'] div.mkws-term:nth-child(" + author_number + ") a");
+            expect(path.length).toBe(1);
+
+            debug("Clicking on author (" + author_number + ") " + path.text());
+            path.trigger("click");
         });
 
+        describe("Limited author search", function () {
+            beforeEach(function (done) {
+                var hits_all_targets = get_hit_counter();
+
+                waitsForAndRuns(function () {
+                    var hits_single_target = get_hit_counter();
+                    return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
+                }, function () {
+                    debug("Limited author search for less than " + hits_all_targets + " hits");
+                    done();
+                }, 4.5 * jasmine_config.second);
+            });
+
+
+            it("it dummy", function () {
+                expect(true).toBe(true); // XXX: spec has no expectations ???
+            });
+
+        });
     });
 });
 
@@ -419,8 +421,6 @@ describe("Check active clients author", function () {
             }
         });
     });
-
-
 });
 
 describe("Check Source Facets", function () {
@@ -503,7 +503,7 @@ describe("Check Source Facets", function () {
                 hits_single_target = get_hit_counter();
                 return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
             }, function () {
-                debug("Limited source search for less than " + hits_all_targets + " hits");
+                debug("Limited source search for less than " + hits_all_targets + " > " + hits_single_target + " hits");
                 done();
             }, 5 * jasmine_config.second);
         });
@@ -570,10 +570,12 @@ describe("Check record list", function () {
 describe("Show record", function () {
     var $ = mkws.$;
     var record_number = 1; // the Nth record in hit list
-    it("show record author", function () {
-        var click = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") a").trigger("click");
-        debug("show record click is success: " + click.length);
-        expect(click.length).toBe(1);
+    describe("show record author", function () {
+        it("show record author", function () {
+            var click = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") a").trigger("click");
+            debug("show record click is success: " + click.length);
+            expect(click.length).toBe(1);
+        });
     });
 
     describe("got a record", function () {
@@ -594,24 +596,26 @@ describe("Show record", function () {
         });
     });
 
-    it("extract URL", function () {
-        expect(true).toBe(true);
-        if (jasmine_config.show_record_url == false) {
-            debug("ignore test for URL in record")
-            return;
-        }
+    describe("extract URL", function () {
+        it("extract URL", function () {
+            expect(true).toBe(true);
+            if (jasmine_config.show_record_url == false) {
+                debug("ignore test for URL in record")
+                return;
+            }
 
-        var urls = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") div table tbody tr td a");
-        debug("number of extracted URL from record: " + urls.length);
-        // expect(urls.length).toBeGreaterThan(0); // LoC has records without links
-        for (var i = 0; i < urls.length; i++) {
-            var url = $(urls[i]);
-            debug("URL: " + url.attr('href') + " text: " + url.text());
+            var urls = $("div.mkws-records div.mkws-summary:nth-child(" + record_number + ") div table tbody tr td a");
+            debug("number of extracted URL from record: " + urls.length);
+            // expect(urls.length).toBeGreaterThan(0); // LoC has records without links
+            for (var i = 0; i < urls.length; i++) {
+                var url = $(urls[i]);
+                debug("URL: " + url.attr('href') + " text: " + url.text());
 
-            expect(url.attr('href')).not.toBe(null);
-            expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9\-]+\.[0-9a-z].*\//i);
-            expect(url.text()).not.toBe("");
-        }
+                expect(url.attr('href')).not.toBe(null);
+                expect(url.attr('href')).toMatch(/^https?:\/\/[a-z0-9\-]+\.[0-9a-z].*\//i);
+                expect(url.text()).not.toBe("");
+            }
+        });
     });
 });
 
