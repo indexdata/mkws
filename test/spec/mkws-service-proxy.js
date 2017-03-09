@@ -362,8 +362,7 @@ describe("Check Author Facets", function () {
         path.trigger("click");
     });
 
-    it("Limited author search", function () {
-        expect(true).toBe(true); // XXX: spec has no expectations ???
+    describe("Limited author search", function () {
         beforeEach(function (done) {
             var hits_all_targets = get_hit_counter();
 
@@ -375,6 +374,12 @@ describe("Check Author Facets", function () {
                 done();
             }, 4.5 * jasmine_config.second);
         });
+
+
+        it("it dummy", function () {
+            expect(true).toBe(true); // XXX: spec has no expectations ???
+        });
+
     });
 });
 
@@ -648,7 +653,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-xdescribe("Check translations", function () {
+describe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
