@@ -422,25 +422,30 @@ describe("Check active clients author", function () {
     });
 });
 
-xdescribe("Check Source Facets", function () {
+describe("Check Source Facets", function () {
     var $ = mkws.$;
+    var hits_all_targets = -2;
 
-    it("limit search to first source", function () {
-        var hits_all_targets = get_hit_counter();
+    describe("limit search to first source", function () {
         var source_number = 2; // 2=first source
         // wait for a stat response
         var waitcount = 0;
         // do not click on wikipedia link - no author or subject facets possible
         var link = "div.mkws-facet[data-mkws-facet='xtargets'] div.mkws-term a";
 
-        // wait for a visible source link in facets
-        waitsFor(function () {
-            var terms = $(link);
-            return terms && terms.length > 0;
-        }, "wait for source facets after author search", 5 * jasmine_config.second);
+        beforeEach(function (done) {
+            hits_all_targets = get_hit_counter();
 
+            waitsForAndRuns(function () {
+                var terms = $(link);
+                return terms && terms.length > 0;
+            }, function () {
+                debug("wait for source facets after author search");
+                done();
+            }, 5 * jasmine_config.second);
+        });
 
-        runs(function () {
+        it("check for good source", function () {
             var terms = $(link);
             for (var i = 0; i < terms.length; i++) {
                 var term = $(terms[i]).text();
@@ -467,25 +472,43 @@ xdescribe("Check Source Facets", function () {
                 waitcount++;
                 debug("DOM change mkws-pager, for stat: " + waitcount);
             });
+
+            expect(true).toBe(true);
+        });
+    });
+
+    describe("wait for source facets", function () {
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                return $("div.mkws-navi").length && $("div.mkws-navi").text().match(/(Source|datenquelle|kilder): /i) ? true : false;
+            }, function () {
+                debug("wait for source facets");
+                done();
+            }, 5 * jasmine_config.second);
         });
 
-        waitsFor(function () {
-            if ($("div.mkws-navi").length && $("div.mkws-navi").text().match(/(Source|datenquelle|kilder): /i)) {
-                return true;
-            } else {
-                return false;
-            }
-        }, "Search for source in navi bar", 4 * jasmine_config.second);
+        it("got one", function () {
+            expect(true).toBe(true);
+        });
+    });
+
+    describe("Limited source search for less hits", function () {
+        var hits_single_target = -2;
 
         // Note: it may happens that limited source search returns the same number of hits
         // as before. Thats not really an error, but unfortunate
-        waitsFor(function () {
-            var hits_single_target = get_hit_counter();
+        beforeEach(function (done) {
+            waitsForAndRuns(function () {
+                hits_single_target = get_hit_counter();
+                return hits_single_target > 0 && hits_single_target < hits_all_targets ? true : false;
+            }, function () {
+                debug("Limited source search for less than " + hits_all_targets + " hits");
+                done();
+            }, 5 * jasmine_config.second);
+        });
 
-            return waitcount >= 2 && hits_single_target > 0 && hits_single_target <= hits_all_targets ? true : false;
-        }, "Limited source search for less than " + hits_all_targets + " hits", 5 * jasmine_config.second);
 
-        runs(function () {
+        it("get less hits for sources", function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_all_targets + " >= " + hits_single_target);
             expect(hits_all_targets).not.toBeLessThan(hits_single_target);
