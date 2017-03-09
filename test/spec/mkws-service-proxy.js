@@ -406,20 +406,7 @@ describe("Check active clients author", function () {
         });
     });
 
-    // avoid race conditions of source facets updates
-    it("wait a little bit for a source facets update", function () {
-        // wait a half second, to show the target view
-        var waittime = 0.5;
-        var time = (new Date).getTime();
 
-        waitsForAndRuns(function () {
-            return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
-        }, function () {
-            debug("wait some miliseconds: " + waittime);
-        }, (waittime + 0.5) * jasmine_config.second);
-
-        expect(true).toBe(true);
-    });
 });
 
 describe("Check Source Facets", function () {
@@ -594,6 +581,7 @@ describe("Show record", function () {
     });
 
     it("extract URL", function () {
+        expect(true).toBe(true);
         if (jasmine_config.show_record_url == false) {
             debug("ignore test for URL in record")
             return;
@@ -613,7 +601,7 @@ describe("Show record", function () {
     });
 });
 
-xdescribe("Check switch menu Records/Targets", function () {
+describe("Check switch menu Records/Targets", function () {
     var $ = mkws.$;
 
     it("check mkws-switch", function () {
@@ -630,17 +618,24 @@ xdescribe("Check switch menu Records/Targets", function () {
         expect($("div.mkws-targets").is(":visible")).toBe(true);
         expect($("div.mkws-records").is(":visible")).toBe(false);
 
-        // wait a half second, to show the target view
-        var waittime = 0.7;
-        var time = (new Date).getTime();
-        waitsFor(function () {
-            return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
-        }, "wait some miliseconds", (waittime + 0.3) * jasmine_config.second);
 
-        // look for table header
-        runs(function () {
-            expect($("div.mkws-targets").html()).toMatch(/Target ID/);
+        // avoid race conditions of source facets updates
+        it("wait a little bit for a source facets update", function () {
+            // wait a half second, to show the target view
+            var waittime = 0.7;
+            var time = (new Date).getTime();
+
+            waitsForAndRuns(function () {
+                return (new Date).getTime() - time > (waittime * jasmine_config.second) ? true : false;
+            }, function () {
+                debug("wait some miliseconds: " + waittime);
+            }, (waittime + 0.5) * jasmine_config.second);
+
+            expect(true).toBe(true);
         });
+
+
+        expect($("div.mkws-targets").html()).toMatch(/Target ID/);
     });
 
     it("switch back to record view", function () {
