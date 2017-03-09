@@ -657,15 +657,16 @@ describe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
-    var M = function (string) {
-            var text = $("<span/>").html(mkws.M(string)).text()
-            debug("translate check for: " + text);
-            return text;
-        };
 
-    var lang = function () {
-            return mkws.config.lang
-        };
+    function M(string) {
+        var text = $("<span/>").html(mkws.M(string)).text()
+        debug("translate check for: " + text);
+        return text;
+    };
+
+    function lang() {
+        return mkws.config.lang
+    };
 
     function check_translation(list, text) {
         expect(list.length).toBe(text.length);
@@ -844,60 +845,75 @@ describe("Check status client counter", function () {
 });
 
 /* remove the "source" and "author" facet link to get more records again */
-xdescribe("Check removable facets links", function () {
+describe("Check removable facets links", function () {
     var $ = mkws.$;
 
     it("remove links for source and author", function () {
         var waitcount = 0;
+
+        expect(true).toBe(true);
         if (!jasmine_config.check_sortby) {
             debug("ignore check for removable facets");
             return;
         }
 
 
-        runs(function () {
-            var click = $("a.mkws-removable").eq(0).trigger("click");
-            debug("Removed first facets link: " + click.length);
-            expect(click.length).toBe(1);
+        var click = $("a.mkws-removable").eq(0).trigger("click");
+        debug("Removed first facets link: " + click.length);
+        expect(click.length).toBe(1);
+
+        $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            waitcount++;
+            if (waitcount <= 5 || (waitcount % 5 == 0)) {
+                debug("DOM change mkws-records for removeable: " + waitcount);
+            }
         });
 
-        runs(function () {
-            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
-                waitcount++;
-                if (waitcount <= 5 || (waitcount % 5 == 0)) {
-                    debug("DOM change mkws-records for removeable: " + waitcount);
-                }
+        describe("Check removable facets links", function () {
+
+            beforeEach(function (done) {
+                waitsForAndRuns(function () {
+                    return waitcount >= 2 && $("a.mkws-removable").length == 1 ? 1 : 0;
+                }, function () {
+                    debug("Records DOM change mkws-records, removable");
+                    done();
+                }, 2 * jasmine_config.second);
+            });
+
+            it("unbind removable", function () {
+
+                debug("unbind removable");
+                $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+                waitcount = 0;
+
+                $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+                    waitcount++;
+                    if (waitcount <= 5 || (waitcount % 5 == 0)) {
+                        debug("DOM change mkws-records for removeable2: " + waitcount);
+                    }
+                });
+
+                var click = $("a.mkws-removable").eq(0).trigger("click");
+                debug("Removed second facets link: " + click.length);
+                expect(click.length).toBe(1);
             });
         });
 
-        waitsFor(function () {
-            return waitcount >= 2 && $("a.mkws-removable").length == 1 ? 1 : 0;
-        }, "Records DOM change mkws-records, removable", 2 * jasmine_config.second);
+        describe("Check removable facets links", function () {
 
-        runs(function () {
-            debug("unbind removable");
-            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
-            waitcount = 0;
-
-            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
-                waitcount++;
-                if (waitcount <= 5 || (waitcount % 5 == 0)) {
-                    debug("DOM change mkws-records for removeable2: " + waitcount);
-                }
+            beforeEach(function (done) {
+                waitsForAndRuns(function () {
+                    return waitcount >= 2 && $("a.mkws-removable").length == 0 ? true : false;
+                }, function () {
+                    debug("DOM change mkws-records, removable2");
+                    done();
+                }, 2 * jasmine_config.second);
             });
 
-            var click = $("a.mkws-removable").eq(0).trigger("click");
-            debug("Removed second facets link: " + click.length);
-            expect(click.length).toBe(1);
-        });
-
-        waitsFor(function () {
-            return waitcount >= 2 && $("a.mkws-removable").length == 0 ? true : false;
-        }, "DOM change mkws-records, removable2", 2 * jasmine_config.second);
-
-        runs(function () {
-            debug("unbind removable2");
-            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            it("unbind removable2", function () {
+                debug("unbind removable2");
+                $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            });
         });
     });
 });
