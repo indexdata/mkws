@@ -653,7 +653,7 @@ describe("Check switch menu Records/Targets", function () {
 });
 
 // temporary disabled due records without an author, MKWS-400
-describe("Check translations", function () {
+xdescribe("Check translations", function () {
     var $ = mkws.$;
 
     // handle html entities, "Zur&uuml;ck" => "Zurück"
@@ -919,10 +919,12 @@ describe("Check removable facets links", function () {
 });
 
 
-xdescribe("Check per page options", function () {
+describe("Check per page options", function () {
     var $ = mkws.$;
 
     it("show per page", function () {
+        expect(true).toBe(true);
+
         if (!jasmine_config.check_sortby) {
             debug("ignore check for per page select");
             return;
@@ -931,35 +933,41 @@ xdescribe("Check per page options", function () {
         var per_page_number = 20;
 
 
-        runs(function () {
-            var select = $("select.mkws-perpage option[selected='selected']");
-            debug("per page default is: " + select.text() + " and unselect it");
-            select.removeAttr('selected');
+        var select = $("select.mkws-perpage option[selected='selected']");
+        debug("per page default is: " + select.text() + " and unselect it");
+        select.removeAttr('selected');
 
-            select = $("select.mkws-perpage option[value='" + per_page_number + "']").attr('selected', true);
-            debug("per page is set to: " + select.text());
-            select.trigger("change");
+        select = $("select.mkws-perpage option[value='" + per_page_number + "']").attr('selected', true);
+        debug("per page is set to: " + select.text());
+        select.trigger("change");
 
-            $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
-                waitcount++;
-                if (waitcount <= 5 || (waitcount % 10 == 0)) {
-                    debug("DOM change mkws-records, per page: " + waitcount);
-                }
-            });
+        $("div.mkws-records").bind("DOMNodeInserted DOMNodeRemoved propertychange", function () {
+            waitcount++;
+            if (waitcount <= 5 || (waitcount % 10 == 0)) {
+                debug("DOM change mkws-records, per page: " + waitcount);
+            }
         });
 
-        waitsFor(function () {
-            // debug("per page waitcounter: " + waitcount)
-            return waitcount >= (per_page_number + 10) ? true : false;
-        }, "DOM change mkws-records, by per page", 3 * jasmine_config.second);
+        describe("DOM change mkws-records, by per page", function () {
 
-        runs(function () {
-            debug("unbind per page");
-            $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+            beforeEach(function (done) {
+                waitsForAndRuns(function () {
+                    // debug("per page waitcounter: " + waitcount)
+                    return waitcount >= (per_page_number + 10) ? true : false;
+                }, function () {
+                    debug("DOM change mkws-records, by per page");
+                    done();
+                }, 3 * jasmine_config.second);
+            });
 
-            var records = $("div.mkws-records > div.mkws-summary");
-            debug("Per page got now " + records.length + " records");
-            expect(records.length).toBe(per_page_number);
+            it("unbind per page", function () {
+                debug("unbind per page");
+                $("div.mkws-records").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
+
+                var records = $("div.mkws-records > div.mkws-summary");
+                debug("Per page got now " + records.length + " records");
+                expect(records.length).toBe(per_page_number);
+            });
         });
     });
 });
