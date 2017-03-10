@@ -69,7 +69,7 @@ phantomjs p: check-js apache-stop apache-start _phantomjs
 	${MAKE} apache-stop
 
 _phantomjs:
-	./bin/bomb --timeout="${PHANTOMJS_TIMEOUT}.5" -- ${PHANTOMJS} ${PHANTOMJS_FLAGS} phantom/run-jasmine.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
+	./bin/bomb --timeout="${PHANTOMJS_TIMEOUT}.5" -- ${PHANTOMJS} ${PHANTOMJS_FLAGS} phantom/run-jasmine2.js ${PHANTOMJS_URL} ${PHANTOMJS_TIMEOUT}
 
 phantomjs-all p-all:
 	${MAKE} phantomjs PHANTOMJS_PATH=jasmine-local-popup.html
