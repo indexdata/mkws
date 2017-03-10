@@ -112,7 +112,12 @@ page.open(url, function (status) {
     if (debug >= 1) console.log("polling MKWS jasmine test status for " + run_time + " seconds");
 
 
-    var exit = wait_for_jasmine(function () {
+    var exit = wait_for_jasmine(
+
+    // check                             
+
+
+    function () {
         return page.evaluate(function () {
             if (!window || !window.mkws || !window.mkws.$) {
                 console.log("No window object found");
@@ -121,32 +126,39 @@ page.open(url, function (status) {
 
             var $ = window.mkws.$;
             var error_msg = [""];
-            var passing = $(".passingAlert").text() || $(".failingAlert").text();
+            var passing = $(".jasmine-failed").text();
 
             // extract failed tests
-            var list = $('.results > #details > .specDetail.failed');
+            var list = $('.jasmine-results > .jasmine-failures > .jasmine-spec-detail.jasmine-failed');
             if (list && list.length > 0) {
                 error_msg.push("==> " + list.length + ' test(s) FAILED:');
-                for (i = 0; i < list.length; ++i) {
-                    var el = list[i],
-                        desc = el.querySelector('.description'),
-                        msg = el.querySelector('.resultMessage.fail');
-                    error_msg.push($(desc).text());
-                    error_msg.push($(msg).text());
-                }
+                error_msg.push(list.text());
             }
 
+            //if (list && list.length > 0) {
+            //    error_msg.push("==> " + list.length + ' test(s) FAILED:');
+            //    for (i = 0; i < list.length; ++i) {
+            //        var el = list[i],
+            //            desc = el.querySelector('.jasmine-description'),
+            //            msg = el.querySelector('.resultMessage.fail');
+            //        error_msg.push($(desc).text());
+            //        error_msg.push($(msg).text());
+            //    }
+            //}
             return {
                 mkws: window.mkws,
-                done: $('.symbolSummary .pending').length == 0,
+                done: $(".jasmine-duration").text().match(/^finished in/) ? true : false,
                 html: $("html").html(),
-                duration: $(".duration").text(),
+                duration: $(".jasmine-duration").text(),
                 error_msg: error_msg,
                 failed: (list.length > 0 || !passing),
                 passing: passing
             };
         })
     },
+
+    // scucces
+
 
     function (result) {
         if (debug < 1) return;
@@ -156,6 +168,9 @@ page.open(url, function (status) {
         console.log("jasmine duration: " + result.duration);
         console.log("jasmine passing: " + result.passing);
     },
+
+    // failure
+
 
     function (result) {
         var error_png = "./mkws-error.png";
