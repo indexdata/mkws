@@ -1082,26 +1082,6 @@ describe("Check SortBy options", function () {
     });
 });
 
-/*
-xdescribe("Check async widget discovery", function () {
-    var $ = mkws.$;
-    it("initialises a new widget", function () {
-        $("div.mkws-search").after('<div id="asyncSearch"><div class="mkws-search mkws-team-async"></div></div>');
-        mkws.init("Another search box", "#asyncSearch");
-        waitsFor(function () {
-            return $("#asyncSearch input").length >= 1 ? true : false;
-        }, "Call init() to build an .mkws-search", 750);
-        runs(function () {
-            var numInput = $("div.mkws-search input").length;
-            debug("Input elements present: " + numInput);
-            expect(numInput).toBe(4);
-            var numRec = $("div.mkws-records > div.mkws-summary").length;
-            debug("Records should still be present. There are: " + numRec);
-            expect(numRec).toBeGreaterThan(0);
-        });
-    });
-});
-*/
 
 /* done */
 describe("All tests are done", function () {
