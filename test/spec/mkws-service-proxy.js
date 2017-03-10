@@ -519,7 +519,7 @@ describe("Check Source Facets", function () {
         it("get less hits for sources", function () {
             var hits_single_target = get_hit_counter();
             debug("get less hits for sources: " + hits_single_target + " >= " + hits_all_targets);
-            expect(hits_all_targets + 1).not.toBeLessThan(hits_single_target);
+            expect(hits_all_targets + 10).not.toBeLessThan(hits_single_target);
             jasmine_status.source_click = 1;
 
             $(".mkws-pager").unbind("DOMNodeInserted DOMNodeRemoved propertychange");
@@ -805,7 +805,11 @@ describe("Check translations", function () {
 
     it("facets navigation/filter", function () {
         var list = $(".mkws-navi > span");
-        var text = ["source", "author"];
+        var text = ["author"];
+
+        if (jasmine_status.source_click) {
+            text = ["source", "author"];
+        }
 
         check_translation(list, text);
     });
