@@ -518,7 +518,7 @@ describe("Check Source Facets", function () {
 
         it("get less hits for sources", function () {
             var hits_single_target = get_hit_counter();
-            debug("get less hits for sources: " + hits_all_targets + " >= " + hits_single_target);
+            debug("get less hits for sources: " + hits_single_target + " >= " + hits_all_targets);
             expect(hits_all_targets + 1).not.toBeLessThan(hits_single_target);
             jasmine_status.source_click = 1;
 
@@ -536,6 +536,7 @@ describe("Check record list", function () {
             if (!jasmine_status.source_click) {
                 expect(true).toBe(true);
                 debug("skip clients check due missing source click");
+                return;
             }
 
             waitsForAndRuns(function () {
