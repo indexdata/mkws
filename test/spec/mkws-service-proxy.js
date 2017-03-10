@@ -188,6 +188,7 @@ describe("Check MOTD after search", function () {
     var $ = mkws.$;
 
     it("MOTD is hidden", function () {
+        expect(true).toBe(true);
         if (!jasmine_config.check_motd) {
             return;
         }
@@ -281,7 +282,7 @@ describe("Check pazpar2 hit counter", function () {
 describe("Check Facets", function () {
     var $ = mkws.$;
 
-    describe("Check Facets", function () {
+    describe("Check facets", function () {
         it("found Facets", function () {
             var facets = $("div.mkws-facets");
             debug("Facet success: " + facets.length);
@@ -289,32 +290,38 @@ describe("Check Facets", function () {
         });
     });
 
-    describe("Check Facets xtargets", function () {
+    describe("Check facets sources/xtargets", function () {
         beforeEach(function (done) {
             waitsForAndRuns(function () {
                 return $("div.mkws-facet[data-mkws-facet='xtargets']").length == 1 ? true : false;
             }, function () {
-                debug("check for facet sources");
+                debug("check for facet sources/xtargets");
                 done();
             }, 4 * jasmine_config.second);
         });
 
-        it("found Facets ...", function () {
-            var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
-            debug("Facet sources success: " + sources.length);
-            expect(sources.length).toBe(1);
+        describe("found facets", function () {
+            it("found facets sources/xtargets", function () {
+                var sources = $("div.mkws-facet[data-mkws-facet='xtargets']");
+                debug("Facet sources/xtargets success: " + sources.length);
+                expect(sources.length).toBe(1);
+            });
 
-            var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
-            debug("Facet subjects success: " + subjects.length);
-            expect(subjects.length).toBe(1);
+            it("found facets subjects", function () {
+                var subjects = $("div.mkws-facet[data-mkws-facet='subject']");
+                debug("Facet subjects success: " + subjects.length);
+                expect(subjects.length).toBe(1);
+            });
 
-            var authors = $("div.mkws-facet[data-mkws-facet='author']");
-            debug("Facet authors success: " + authors.length);
-            expect(authors.length).toBe(1);
+            it("found facets authors", function () {
+                var authors = $("div.mkws-facet[data-mkws-facet='author']");
+                debug("Facet authors success: " + authors.length);
+                expect(authors.length).toBe(1);
+            });
         });
     });
 
-    describe("Check Facets author", function () {
+    describe("Check facets author", function () {
         var path = "div.mkws-facet[data-mkws-facet='author'] div.mkws-term";
         beforeEach(function (done) {
             var min_authors = 5;
@@ -327,7 +334,7 @@ describe("Check Facets", function () {
             }, 6 * jasmine_config.second);
         });
 
-        it("found facets author", function () {
+        it("found some authors", function () {
             expect($(path).length).toBeGreaterThan(1);
             debug("author facet length: " + $(path).length);
         });
@@ -338,7 +345,7 @@ describe("Check Author Facets", function () {
     var $ = mkws.$;
 
     describe("Limit search to first author", function () {
-        it("Limit search to first author", function () {
+        it("pick a good author name", function () {
             expect(true).toBe(true); // XXX: spec has no expectations ???
             if (mkws.config.disable_facet_authors_search) {
                 debug("Facets: ignore limit search for authors");
@@ -386,7 +393,7 @@ describe("Check Author Facets", function () {
             });
 
 
-            it("it dummy", function () {
+            it("Got less hits for limited author search", function () {
                 expect(true).toBe(true); // XXX: spec has no expectations ???
             });
 
@@ -488,7 +495,7 @@ describe("Check Source Facets", function () {
             }, 5 * jasmine_config.second);
         });
 
-        it("got one", function () {
+        it("got new facets results", function () {
             expect(true).toBe(true);
         });
     });
