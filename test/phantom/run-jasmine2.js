@@ -113,7 +113,6 @@ page.open(url, function (status) {
 
 
     var exit = wait_for_jasmine(
-
     // check                             
 
 
@@ -151,7 +150,7 @@ page.open(url, function (status) {
                 html: $("html").html(),
                 duration: $(".jasmine-duration").text(),
                 error_msg: error_msg,
-                failed: (list.length > 0 || !passing),
+                failed: (list.length > 0 ? true : false),
                 passing: passing
             };
         })
@@ -188,5 +187,7 @@ page.open(url, function (status) {
 
         console.log("keep html DOM in '" + error_html + "'");
         // console.log("you may run: lynx -nolist -dump " + error_html);
-    }, run_time * 1000);
+    },
+
+    run_time * 1000); // wait_for_jasmine
 });
