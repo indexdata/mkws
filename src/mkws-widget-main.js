@@ -140,6 +140,10 @@ mkws.registerWidgetType('records', function() {
         }
 
         var urls = hit['md-electronic-url'];
+        if (!urls && hit.location && hit.location[0]) {
+          urls = hit.location[0]['md-electronic-url'];
+        }
+
         if (urls) {
           var bestLink = null;
           var otherLinks = [];
