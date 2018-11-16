@@ -33,7 +33,7 @@ mkws.makeTeam = function($, teamName) {
   var m_template = {}; // compiled templates, from any source
   var m_widgets = {}; // Maps widget-type to array of widget objects
   var m_gotRecords = false;
-  
+
   var config = mkws.objectInheritingFrom(mkws.config);
   that.config = config;
 
@@ -99,7 +99,7 @@ mkws.makeTeam = function($, teamName) {
 
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
- 
+
   // pz2.js event handlers:
   function onInit() {
     that.info("init");
@@ -484,7 +484,7 @@ mkws.makeTeam = function($, teamName) {
     else {
       that.info("No MKWS template for " + name);
       return null;
-    }  
+    }
   }
   that.loadTemplate = loadTemplate;
 
