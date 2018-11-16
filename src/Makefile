@@ -33,7 +33,8 @@ COMPONENTS = mkws-handlebars.js \
 	mkws-widget-ru.js \
 	mkws-widget-builder.js \
 	mkws-templates.js \
-	mkws-popup.js
+	mkws-popup.js \
+	mkws-accessibility.js
 
 DOWNLOADABLE = ${HANDLEBARS_FILE} ${JQUERY_FILE} ${JQUERY_JSON_FILE} ${JSNLOG_FILE} ${PP2_FILE}
 RELEASABLE = mkws.js mkws.min.js mkws-complete.js mkws-complete.min.js
