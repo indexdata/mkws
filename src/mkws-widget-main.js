@@ -293,6 +293,10 @@ mkws.registerWidgetType('search-form', function() {
   var that = this;
   this.node.submit(function() {
     var val = team.widget('query').value();
+    if (team.widget('query-field')) {
+      // If there's a query-field widget, it must name its radio-buttons "field"
+      val = that.node.context.field.value + '=' + val;
+    }
     team.newSearch(that, val);
     return false;
   });
@@ -463,6 +467,7 @@ mkws.registerWidgetType('waiting', function() {
 // warnings when they occur.
 
 mkws.registerWidgetType('query', function() {});
+mkws.registerWidgetType('query-field', function() {});
 mkws.registerWidgetType('motd-container', function() {});
 mkws.registerWidgetType('button', function() {});
 
