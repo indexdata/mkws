@@ -92,7 +92,7 @@ header, which are loaded from the tool site `mkws.indexdata.com`:
 * `mkws.css`
   provides the default CSS styling.
 
-Second, within the HTML body, `<div>` elements with special IDs that
+Second, within the HTML body, `<div>` elements with special classes that
 begin `mkws-` can be provided. These are filled in by the MKWS code,
 and provide the components of the searching UI. The very simple
 application above has only two such widgets: a search box and a
@@ -104,7 +104,7 @@ Defining widget elements
 Widget type
 -----------
 
-An HTML element is made an MKWS widget by including an MKWS
+An HTML element is made into an MKWS widget by including an MKWS
 class-name. These names begin `mkws-` and what follows that prefix
 specifies the type of the widget. The type can be any sequence of
 alphanumeric characters and hyphens _except_ something beginning
@@ -204,12 +204,12 @@ In addition to the global configuration provided by the `mkws_config`
 object, individual widgets' behaviour can be configured by providing
 configuration settings as attributes on their HTML elements. For example,
 a `records` widget might be restricted to displaying no more than
-three records by setting the `numrecs` parameter as follows:
+three records by setting the `maxrecs` parameter as follows:
 
 	<div class="mkws-records" maxrecs="3">
 
 Although this works well, HTML validators will consider this element
-acceptable, since the `maxrecs` attribute is not part of the HTML
+unacceptable, since the `maxrecs` attribute is not part of the HTML
 schema. However, attributes beginning `data-` are always accepted as
 HTML extensions, much like email headers beginning with
 `X-`. Therefore, the widget set also recognises configuration
@@ -566,7 +566,7 @@ customer, hiding the credentials in a rewrite rule in the local
 web-server's configuration. Then local mechanisms can be used to limit
 access to that local authentication URL. Here is one way to do it when
 Apache2 is the application's web-server, which we will call
-yourname.com`:
+`yourname.com`:
 
 Step 1: add a rewriting authentication alias to the configuration:
 
