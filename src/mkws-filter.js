@@ -68,16 +68,16 @@ function filterSet(team) {
     var res = "";
 
     that.visitTargets(function(id, name) {
-      if (res) res += ",";
+      if (res) res += "|";
       if (id.match(/^[a-z:]+[=~]/)) {
-        m_team.info("filter '" + id + "' already begins with SETTING OP");
-      } else {
-        id = 'pz:id=' + id;
+        var newId = id.replace(/^[a-z:]+[=~]/, '');
+        m_team.info("filter '" + id + "' already begins with SETTING OP: changed to '" + newId + "'");
+        id = newId;
       }
       res += id;
     });
 
-    return res;
+    return res ? 'pz:id=' + res : "";
   };
 
   that.pp2limit = function(initial) {

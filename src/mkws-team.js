@@ -4,7 +4,7 @@
 //
 // Some functions are visible as member-functions to be called from
 // outside code -- specifically, from generated HTML. These functions
-// are that.switchView(), showDetails(), limitTarget(), limitQuery(),
+// are that.switchView(), showDetails(), limitTarget(), limitMultipleTargets(), limitQuery(),
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
@@ -33,7 +33,7 @@ mkws.makeTeam = function($, teamName) {
   var m_template = {}; // compiled templates, from any source
   var m_widgets = {}; // Maps widget-type to array of widget objects
   var m_gotRecords = false;
-  
+
   var config = mkws.objectInheritingFrom(mkws.config);
   that.config = config;
 
@@ -99,7 +99,7 @@ mkws.makeTeam = function($, teamName) {
 
   m_sortOrder = config.sort_default;
   m_perpage = config.perpage_default;
- 
+
   // pz2.js event handlers:
   function onInit() {
     that.info("init");
@@ -214,6 +214,17 @@ mkws.makeTeam = function($, teamName) {
   that.limitTarget = function(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_filterSet.add(targetFilter(id, name));
+    if (m_query) triggerSearch();
+    return false;
+  };
+
+
+  that.limitMultipleTargets = function(idsAndNames) {
+    that.info("limitMultipleTargetsTargets", idsAndNames);
+    for (var i in idsAndNames) {
+      var pair = idsAndNames[i];
+      m_filterSet.add(targetFilter(pair[0], pair[1]));
+    }
     if (m_query) triggerSearch();
     return false;
   };
@@ -484,7 +495,7 @@ mkws.makeTeam = function($, teamName) {
     else {
       that.info("No MKWS template for " + name);
       return null;
-    }  
+    }
   }
   that.loadTemplate = loadTemplate;
 

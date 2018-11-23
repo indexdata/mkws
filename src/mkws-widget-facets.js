@@ -78,6 +78,7 @@ mkws.registerWidgetType('facet', function() {
       }
     }
     that.node.html(template({
+      team: teamName,
       name: name,
       caption: caption,
       terms: terms
