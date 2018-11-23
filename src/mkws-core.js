@@ -244,6 +244,10 @@ mkws.limitTarget  = function(tname, id, name) {
   mkws.teams[tname].limitTarget(id, name);
 };
 
+mkws.limitMultipleTargets = function(tname, idsAndNames) {
+  mkws.teams[tname].limitMultipleTargets(idsAndNames);
+}
+
 mkws.limitQuery  = function(tname, field, value) {
   mkws.teams[tname].limitQuery(field, value);
 };
