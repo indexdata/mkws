@@ -1,18 +1,15 @@
-	// Increase/descrease font size
+// Increase/descrease font size
 
-function biggerText() {
-    document.getElementById("main-content").style.fontSize = "x-large";
-    document.getElementById("top-header").style.fontSize = "x-large";
-}
-function smallerText() {
-    document.getElementById("top-header").style.fontSize = "medium";
-    document.getElementById("main-content").style.fontSize = "medium";
-}
-function regularText() {
-    document.getElementById("top-header").style.fontSize = "large";
-    document.getElementById("main-content").style.fontSize = "large";
+function _setFontSize(size) {
+  console.log('setting font-size to "' + size + '"');
+  document.getElementById("top-header").style.fontSize = size;
+  document.getElementById("main-content").style.fontSize = size;
 }
 
+function smallerText() { _setFontSize('medium') }
+function regularText() { _setFontSize('large') }
+function biggerText() { _setFontSize('x-large') }
+  
 function highContrast() {
 
   var links = document.getElementsByTagName("a");
