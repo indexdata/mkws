@@ -9,90 +9,38 @@ function regularText() { _setFontSize('large') }
 function biggerText() { _setFontSize('x-large') }
   
 
+function _setColorsForClass(className, foregroundColor, backgroundColor) {
+  var e = document.getElementsByClassName(className);
+  for(var i = 0; i < e.length; i++) {
+    e[i].style.color = foregroundColor;
+    e[i].style.backgroundColor =  backgroundColor;
+  }
+}
+
 function _setColors(foregroundColor, backgroundColor, linkColor, currentPageForegroundColor, currentPageBackgroundColor, facetTitleBackgroundColor) {
   console.log('setting foreground=' + foregroundColor + ', background=' + backgroundColor);
+
   var links = document.getElementsByTagName("a");
-  for(var i=0;i<links.length;i++)  {
-        if(links[i].href)   {
-            links[i].style.color = linkColor;
-        }
+  for (var i = 0; i < links.length; i++) {
+    if (links[i].href) {
+      links[i].style.color = linkColor;
     }
-
-  var e =     document.getElementsByClassName('header');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
   }
 
-  var e =     document.getElementsByClassName('main');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-
-  var e =     document.getElementsByClassName('results');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-waiting');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-targets');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-ranking');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-pager');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-
-  var e =     document.getElementsByClassName('mkws-current-page');
-  e[0].style.backgroundColor =  currentPageBackgroundColor;
-  e[0].style.color = currentPageForegroundColor;
-
-  var e =     document.getElementsByClassName('mkws-navi');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-
-  var e =     document.getElementsByClassName('mkws-records');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-
-  var e =     document.getElementsByClassName('footer');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-switch');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-
-  var e =     document.getElementsByClassName('mkws-facets');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  backgroundColor;
-    e[i].style.color = foregroundColor;
-  }
-  var e =     document.getElementsByClassName('mkws-facet-title');
-  for(i=0; i<e.length; i++) {
-    e[i].style.backgroundColor =  facetTitleBackgroundColor;
-    e[i].style.color = foregroundColor;
-  }
+  _setColorsForClass('main', foregroundColor, backgroundColor);
+  _setColorsForClass('header', foregroundColor, backgroundColor);
+  _setColorsForClass('footer', foregroundColor, backgroundColor);
+  _setColorsForClass('results', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-waiting', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-targets', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-ranking', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-pager', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-navi', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-records', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-switch', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-facets', foregroundColor, backgroundColor);
+  _setColorsForClass('mkws-facet-title', foregroundColor, facetTitleBackgroundColor);
+  _setColorsForClass('mkws-current-page', currentPageForegroundColor, currentPageBackgroundColor);
 }
 
 function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray") }
