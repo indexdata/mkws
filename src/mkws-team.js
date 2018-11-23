@@ -4,7 +4,7 @@
 //
 // Some functions are visible as member-functions to be called from
 // outside code -- specifically, from generated HTML. These functions
-// are that.switchView(), showDetails(), limitTarget(), limitQuery(),
+// are that.switchView(), showDetails(), limitTarget(), limitMultipleTargets(), limitQuery(),
 // limitCategory(), delimitTarget(), delimitQuery(), showPage(),
 // pagerPrev(), pagerNext().
 //
@@ -214,6 +214,17 @@ mkws.makeTeam = function($, teamName) {
   that.limitTarget = function(id, name) {
     that.info("limitTarget(id=" + id + ", name=" + name + ")");
     m_filterSet.add(targetFilter(id, name));
+    if (m_query) triggerSearch();
+    return false;
+  };
+
+
+  that.limitMultipleTargets = function(idsAndNames) {
+    that.info("limitMultipleTargetsTargets", idsAndNames);
+    for (var i in idsAndNames) {
+      var pair = idsAndNames[i];
+      m_filterSet.add(targetFilter(pair[0], pair[1]));
+    }
     if (m_query) triggerSearch();
     return false;
   };
