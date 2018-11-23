@@ -1,5 +1,3 @@
-// Increase/descrease font size
-
 function _setFontSize(size) {
   console.log('setting font-size to "' + size + '"');
   document.getElementById("top-header").style.fontSize = size;
