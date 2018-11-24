@@ -92,7 +92,7 @@ Apart from [this file](index.html) and its [PDF version](index.pdf):
 Source code
 -----------
 
-The source code for MKWS is available on GitHub at https://github.com/indexdata/mkws
+The source code for MKWS is [available on GitHub](https://github.com/indexdata/mkws).
 
 It is furnished under [the GNU Lesser General Public License v3.0](https://github.com/indexdata/mkws/blob/master/LICENSE).
 
