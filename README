@@ -12,7 +12,7 @@ doc      -- documentation (in Markdown, compiles to HTML)
 test     -- regression-testing scripts
 notes    -- internal documents, not for customers
 
-See tools/htdocs/NEWS for the change-log.
+See tools/htdocs/NEWS.markdown for the change-log.
 
 For more documentation:
 

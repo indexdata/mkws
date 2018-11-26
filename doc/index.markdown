@@ -150,7 +150,7 @@ The current version number is always in
 [the VERSION file](VERSION).
 
 Version history is in
-[the NEWS file](NEWS).
+[the NEWS file](NEWS.markdown).
 
 Examples using the widget-set
 -----------------------------
