@@ -11,6 +11,7 @@ examples -- examples of applications that use MKWS
 doc      -- documentation (in Markdown, compiles to HTML)
 test     -- regression-testing scripts
 notes    -- internal documents, not for customers
+yarn.lock -- empty Yarn lock file to tell Travis to use Yarn
 
 See tools/htdocs/NEWS.markdown for the change-log.
 
