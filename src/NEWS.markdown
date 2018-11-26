@@ -33,7 +33,7 @@
 * Updates to documentation.
 * Update test-suite for changed set of testing targets. Fixes MKWS-439.
 * `NEWS` file is now in Markdown, and renamed `NEWS.markdown`.
-* XXX Check JIRA.
+* Add top-level NEWS.markdown with a link to src/NEWS.markdown
 
 ## [1.0.0](https://github.com/indexdata/mkws/tree/1.0.0) (Tue Nov 11 13:34:28 GMT 2014)
 
