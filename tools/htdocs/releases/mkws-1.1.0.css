@@ -1,0 +1,248 @@
+@import url(//fonts.googleapis.com/css?family=Cabin:400,400italic,700,700italic);
+
+.mkwsLang, .mkws-lang,
+.mkwsSwitch, .mkws-switch,
+.mkwsSearch, .mkws-search,
+.mkwsTermlists, .mkws-facets,
+.mkwsFacet, .mkws-facet,
+.mkwsRanking, .mkws-ranking,
+.mkwsPager, .mkws-pager,
+.mkwsNavi, .mkws-navi,
+.mkwsRecords, .mkws-records,
+.mkwsRecord, .mkws-record,
+.mkwsTargets, .mkws-targets,
+.mkwsStat, .mkws-stat,
+.mkwsMOTD, .mkws-motd,
+.mkwsAuthname, .mkws-auth-name {
+    font-family: Cabin, Gill Sans, "Gillius ADF", Gillius, GilliusADF, Verdana, Sans-Serif;
+}
+
+.mkwsLang, .mkws-lang {
+    float: left;
+    padding-left: 1em;
+    padding-top: 0.4em;
+}
+
+.mkwsLang a, .mkws-lang a {
+    background: #d0e0ff;
+    padding: 1px 4px;
+}
+
+.mkwsLang span, .mkws-lang span {
+    border: solid 1px #d0e0ff;
+    padding: 0px 3px;
+}
+
+.mkwsSearch, .mkws-search {
+    float: right;
+}
+
+.mkwsSwitch, .mkws-switch {
+    float: right;
+    padding-left: 1em;
+    padding-top: 0.4em;
+}
+
+.mkwsTargets, .mkws-targets {
+    background-color: #fafafa;
+}
+
+.mkwsStat, .mkws-stat {
+    margin-top: 10px;
+    border-top: 1px solid  #156a16;
+    padding-top: 5px;
+    font-size: small;
+}
+
+.mkwsStat:before, .mkws-stat:before {
+    content: "Status info";
+    font-weight: bold;
+}
+
+.mkwsSwitch a, .mkws-switch a,
+.mkwsLang a, .mkws-lang a,
+.mkwsFacet a, .mkws-facet a,
+.mkwsRanking a, .mkws-ranking a,
+.mkwsPager a, .mkws-pager a,
+.mkwsNavi a, .mkws-navi a,
+.mkwsRecords a, .mkws-records a,
+.mkwsRecord a, .mkws-record a {
+    color: #005701;
+    text-decoration: none;
+}
+
+.mkwsSwitch a:hover, .mkws-switch a:hover,
+.mkwsLang a:hover, .mkws-lang a:hover,
+.mkwsFacet a:hover, .mkws-facet a:hover,
+.mkwsPager a:hover, .mkws-pager a:hover,
+.mkwsRecords a:hover, .mkws-records a:hover,
+.mkwsRecord a:hover, .mkws-record a:hover {
+    text-decoration: underline;
+}
+
+.mkwsNavi a.mkwsRemovable:hover, .mkws-navi a.mkws-removable:hover {
+    text-decoration: line-through;
+}
+
+.mkwsSearch input.mkwsButton, .mkws-search input.mkws-button {
+    border: 3px outset #132194;
+    background-color: #132194;
+    padding: 2px;
+    width: 6em;
+    color: #FFFFFF;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.mkwsAuthname, .mkws-auth-name {
+    color: #132194;
+}
+
+.mkwsSearch input.mkwsQuery, .mkws-search input.mkws-query {
+    border: 2px inset #e0f0ff;
+    padding: 3px;
+    font-size: 12px;
+    background: #f0f8ff;
+    width: 30em;
+    max-width: 100%;
+}
+
+.mkwsTermlistsTitle, .mkws-facets-title {
+    font-size: large;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mkwsTermlists, .mkws-facets {
+    background: #d0e0ff;
+    padding: 0.7em;
+    font-size: small;
+    display: none;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+.mkwsTermlists.active, .mkws-facets.active {
+    display: block;
+}
+
+.mkwsFacet, .mkws-facet {
+    background: #e0f0ff;
+    padding: 0.7em;
+    margin-top: 0.7em;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+.mkwsTerm, .mkws-term {
+    clear: both;
+}
+
+.mkwsTerm span, .mkws-term span {
+    float: right;
+}
+
+.mkwsFacetTitle, .mkws-facet-title {
+    font-weight: bold;
+}
+
+.mkwsSummary, .mkws-summary {
+    padding: 5px;
+}
+
+.mkwsDetails, .mkws-details {
+    border: 1px solid #404040;
+    background: #e8e8e8;
+    color: black;
+    padding: 5px 10px;
+    margin: 10px 0px;
+    box-shadow: 10px 10px 5px #808080;
+
+    border-top-right-radius: 10px;
+    -moz-border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+}
+
+.mkwsDetails th, .mkws-details th {
+    text-align: right;
+    vertical-align: top;
+    padding-right: 0.6em;
+}
+
+.mkwsDetails th:after, .mkws-details th:after {
+    content: ":";
+}
+
+.mkwsPager, .mkws-pager {
+    background: #e0e0e0;
+    padding: 0.3em;
+}
+
+.mkws-pager-desc {
+    float: right;
+}
+
+.mkws-pager-list {
+    float: clear;
+}
+
+.mkws-prev::before {
+    content: "<< ";
+}
+
+.mkws-next::after {
+    content: " >>";
+}
+
+.mkwsTargets table thead tr td, .mkws-targets table thead tr td {
+    background-color: #132194;
+    color: white;
+    font-weight: bold;
+    padding: 0.2em 0.5em;
+}
+
+.mkwsTargets table tbody tr:nth-child(odd), .mkws-targets table tbody tr:nth-child(odd) {
+    background-color: #e0f0ff;
+}
+
+.mkwsTargets table tbody tr:nth-child(even), .mkws-targets table tbody tr:nth-child(even) {
+    background-color: #d0e0ff;
+}
+
+.mkwsTargets table tbody tr td, .mkws-targets table tbody tr td {
+    padding: 0.2em 0.5em;
+}
+
+.mkwsCurrentPage, .mkws-current-page {
+    padding: 0.1em 0.5em;
+    background: #508751;
+    color: white;
+}
+
+.mkwsProgress, .mkws-progress {
+    border: 1px solid #c0c0c0;
+    float: left;
+    margin-left: 2em;
+    margin-top: 0.2em;
+    padding: 0 0.3em;
+}
+
+.mkwsProgress .mkwsDone, .mkws-progress .mkws-done { color: #005701 }
+.mkwsProgress .mkwsWaiting, .mkws-progress .mkws-waiting { color: #c0c0c0 }
+
+.mkwsResults table, .mkws-results table {
+  display: inline-table /* only for Firefox! */
+}
+
+.mkws-field-description, .mkws-field-date, .mkws-field-thumb {
+  display: none;
+}
+
+
