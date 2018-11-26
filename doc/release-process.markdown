@@ -47,7 +47,7 @@ Run `make release` and check that the results make sense.
 Once you're happy with this, you can set it in stone:
 
 * Commit your changes, push them to origin.
-* Tag your commit with a tag consisting of the letter `f` followed by the new version number, e.g. `v2.6.0`, and push the tag.
+* Tag your commit with a tag consisting of the letter `v` followed by the new version number, e.g. `v2.6.0`, and push the tag.
 * Login to summer, go to `/home/indexdata/mkws/src`.
 * Update the repository: `git pull`.
 * Make the new release publicly visible: `make`.
