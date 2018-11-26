@@ -8,6 +8,24 @@ Version history for the MasterKey Widget Set (MKWS)
 	- Add another Handlebars helper, "compare". This code is by
 	  Mike Griffin, taken from a blog comment (see source code for
 	  details).
+	- The `records` widget tries harder to find URLs in records,
+	  looking inside `location` if they are not at the top level.
+	- Add `query-field` widget: if used, it must presently be
+	  contained within `search-form` and must use the name `field`
+	  for its field-selection radio-buttons.
+  	- ### Document `query-field`
+	- Add `mkws.limitMultipleTargets` function (and corresponding
+	  `team.limitMultipleTargets` method); handling of filters
+	  modified to support this.
+	- ### Document `limitMultipleTargets`
+	- Team name is passed into the `facet` template as the `team`
+	  argument.
+	- Add very clumsy support for certain accessibility functions
+	  needed for the CNIB application. Not documented, as this
+	  will certainly change.
+	- Updates to documentation.
+	- Update test-suite for changed set of testing targets. Fixes
+	  MKWS-439.
 	- ### Check JIRA.
 
 1.0.0  Tue Nov 11 13:34:28 GMT 2014
