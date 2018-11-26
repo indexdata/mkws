@@ -42,6 +42,8 @@ Check once more that the test-suite passes.
 
 Edit the version file, [`../src/VERSION`](../src/VERSION) to contain the version-number of the new release. In choosing the new version number, honour [semantic versioning](https://semver.org/): in short, if the new release includes any backwards-incompatible changes, increment the major version number and reset the minor and patch numbers to zero (e.g. 2.5.3 &rarr; 3.0.0); otherwise, increment the minor version number and reset the patch-level (e.g. 2.5.3 &rarr; 2.6.0). For a truly trivial change, just increment the patch-level (e.g. 2.5.3 &rarr; 2.5.4).
 
+In the change-log, note the date/time of the release.
+
 Run `make release` and check that the results make sense.
 
 Once you're happy with this, you can set it in stone:
