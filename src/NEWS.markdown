@@ -1,6 +1,6 @@
 # Version history for the MasterKey Widget Set (MKWS)
 
-## 1.1.0 (IN PROGRESS)
+## [1.1.0](https://github.com/indexdata/mkws/tree/1.1.0) (Mon Nov 26 18:07:45 GMT 2018)
 
 * Freeze results update when cursor is over results. Fixes MKWS-58.
 * Use protocol-relative URLs. Fixes MKWS-98.
