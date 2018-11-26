@@ -2,6 +2,25 @@
 
 ## 1.1.0 (IN PROGRESS)
 
+* Freeze results update when cursor is over results. Fixes MKWS-58.
+* Use protocol-relative URLs. Fixes MKWS-98.
+* When changing SP authentication path, do not allow old sessions from the old path live on. Fixes MKWS-221.
+* Support and use different log-levels (INFO, WARN, ERROR, etc.). Fixes MKWS-239.
+* Reference widget: make the credit configurable. Fixes MKWS-344.
+* Move the Reference Universe widget into the MKWS core. Fixes MKWS-348.
+* Rename the `reference` widget to the more honest `wikipedia`. Fixes MKWS-349.
+* Patch up downloaded copy of jQuery to properly close `<input>` tag, fixing an error on Firefox. Fixes MKWS-351.
+* The targets table now shows the displayNames of the targets instead of their IDs. Fixes MKWS-352.
+* Arguments to autosearch can now be optional. Fixes MKWS-362.
+* Autosearch terms, when provided, fill query boxes. Fixes MKWS-363.
+* Facets titles are correctly translated. Fixes MKWS-364.
+* Add an explicit "No hits" message. Fixes MKWS-374.
+* Add a new `waiting` widget to display an image (e.g. spinning wheel) while a search is in progress. Fixes MKWS-375.
+* Grey out records and facets when submitting a new search, before the new records arrive. Fixes MKWS-376.
+* Fix race-condition that would sometimes make either facets or records invisible. Fixes MKWS-383.
+* Auto-search configuration entries such as `maxrecs` and `targetfilter` now also work on regular searches. Fixes MKWS-413.
+* Fix Test-suite failure: 'undefined' is not an object (evaluating 'widget.config.sort'). Fixes MKWS-414.
+* Fix "insecure contents" warning on MKWS home-page by loading Google font using HTTPS. Fixes MKWS-423.
 * Add a new Handlebars helper, `mkws-if-either`, which evaluates two conditions and runs the bracketed template if either is true. Astonishingly, there is no way to make such a check using stock Handlebars.
 * Add another Handlebars helper, `compare`. This code is by Mike Griffin, taken from a blog comment (see source code for details).
 * The `records` widget tries harder to find URLs in records, looking inside `location` if they are not at the top level.
