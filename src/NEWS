@@ -1,11 +1,11 @@
 Version history for the MasterKey Widget Set (MKWS)
 
 1.1.0  [IN PROGRESS]
-	- Add a new Handlebars helper, mkws-if-either, which evaluates
+	- Add a new Handlebars helper, `mkws-if-either`, which evaluates
 	  two conditions and runs the bracketed template if either is
 	  true. Astonishingly, there is no way to make such a check
 	  using stock Handlebars.
-	- Add another Handlebars helper, "compare". This code is by
+	- Add another Handlebars helper, `compare`. This code is by
 	  Mike Griffin, taken from a blog comment (see source code for
 	  details).
 	- The `records` widget tries harder to find URLs in records,
@@ -29,7 +29,7 @@ Version history for the MasterKey Widget Set (MKWS)
 	- ### Check JIRA.
 
 1.0.0  Tue Nov 11 13:34:28 GMT 2014
-	- First major stable public release. Fixes MANY bugs and adds
+	- First major stable public release. Fixes _many_ bugs and adds
 	  many new features, including but not limited to the following:
 	  * MKWS-84	Translate fieldnames in full-record popup
 	  * MKWS-168	Standardise templating
