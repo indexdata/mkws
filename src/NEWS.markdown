@@ -35,6 +35,8 @@
 * `NEWS` file is now in Markdown, and renamed `NEWS.markdown`.
 * Add top-level NEWS.markdown with a link to src/NEWS.markdown.
 * Convert top-level README file to Markdown.
+* Add a proper [release-procudure document](../doc/release-process.markdown).
+
 
 ## [1.0.0](https://github.com/indexdata/mkws/tree/1.0.0) (Tue Nov 11 13:34:28 GMT 2014)
 
@@ -85,6 +87,7 @@ many new features, including but not limited to the following:
 * MKWS-329:	Include the CSS file in archived releases
 * MKWS-330:	Remove query_width config option
 * MKWS-333:	make sure that MKWS works fine with the Internet Explorer
+
 
 ## [0.9.1](https://github.com/indexdata/mkws/tree/0.9.1) (Thu Dec 19 15:33:13 GMT 2013)
 
