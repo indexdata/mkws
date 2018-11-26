@@ -16,7 +16,7 @@ To update the site, ssh into summer, and in the MKWS directory do a `git pull` t
 
 ### Check the code.
 
-Run the test suite (`make test`).
+Run the test suite (`make check` at the top level).
 
 Then run some manual tests to satisfy yourself that things are looking good:
 
