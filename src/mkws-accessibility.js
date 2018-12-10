@@ -44,4 +44,4 @@ function _setColors(foregroundColor, backgroundColor, linkColor, currentPageFore
 }
 
 function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray") }
-function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "WhiteSmoke") }
+function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "White") }
