@@ -45,3 +45,21 @@ function _setColors(foregroundColor, backgroundColor, linkColor, currentPageFore
 
 function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray") }
 function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "White") }
+
+function setStyle(selector, property, value) {
+  for (var i = 0; i < document.styleSheets.length; i++){
+    var styleSheet = document.styleSheets[i];
+    for (var j = 0; j < styleSheet.cssRules.length; j++) {
+      var rule = styleSheet.cssRules[j];
+      if (rule.selectorText === selector) {
+        var style = rule.style;
+        for (var k = 0; k < style.length; k++) {
+          if (style[k] === property) {
+            style.setProperty(property, value);
+            return;
+          }
+        }
+      }
+    }
+  }
+}
