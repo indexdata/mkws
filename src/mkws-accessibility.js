@@ -55,6 +55,10 @@ function listStyles() {
         throw(e);
       }
     }
+    if (cssRules === null) {
+      // Safari doesn't throw an exception when accessing rules for a font
+      continue;
+    }
     console.log(' stylesheet', i, 'has', cssRules.length, 'rules:');
     for (var j = 0; j < cssRules.length; j++) {
       var rule = cssRules[j];
@@ -79,6 +83,7 @@ function setStyle(selector, property, value) {
   // need to change first.
   for (var i = document.styleSheets.length-1; i >= 0; i--) {
     var styleSheet = document.styleSheets[i];
+    console.log('styleSheet =', styleSheet);
     var cssRules = null;
     try {
       cssRules = styleSheet.cssRules;
@@ -89,6 +94,10 @@ function setStyle(selector, property, value) {
       } else {
         throw(e);
       }
+    }
+    if (cssRules === null) {
+      // Safari doesn't throw an exception when accessing rules for a font
+      continue;
     }
     for (var j = 0; j < cssRules.length; j++) {
       var rule = cssRules[j];
