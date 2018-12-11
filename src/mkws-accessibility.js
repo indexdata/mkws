@@ -103,14 +103,9 @@ function setStyle(selector, property, value) {
     for (var j = 0; j < cssRules.length; j++) {
       var rule = cssRules[j];
       if (rule.selectorText === selector) {
-        var style = rule.style;
-        for (var k = 0; k < style.length; k++) {
-          if (style[k] === property) {
-            console.log('setting CSS: ' + rule.selectorText + ' { ' + property + ': ' + value + ' }');
-            style.setProperty(property, value);
-            return;
-          }
-        }
+        console.log('setting CSS: ' + rule.selectorText + ' { ' + property + ': ' + value + ' }');
+        rule.style.setProperty(property, value);
+        return;
       }
     }
   }
