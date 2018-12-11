@@ -867,6 +867,10 @@ facet_max_*               facet     int               Specifies how many terms a
                                                       example, if a `publisher` facet is generated, then `facet_max_publisher` can
                                                       be used to limit the list to the top six.
 
+facet_sort_*              facet     string            Specifies which part of a term should be used to order the terms appearing within the named facet.
+                                                      May be `term`, `field`, `count`, `linkdata` or undefined (the default) in which case the terms are
+                                                      presented in the order that the service sends them.
+
 facets                    _team_    array   *Note 1*  Ordered list of names of facets to display.
 
 freeze_opacity            records   float             If defined, a fractional value between in the range 0.0 (transparent) to 1.0
