@@ -17,23 +17,23 @@ function _setColorsForClass(className, foregroundColor, backgroundColor) {
   setStyle('.' + className, 'background-color', backgroundColor);
 }
 
-function _setColors(foregroundColor, backgroundColor, linkColor, currentPageForegroundColor, currentPageBackgroundColor, facetTitleBackgroundColor) {
-  console.log('setting foreground=' + foregroundColor + ', background=' + backgroundColor);
+function _setColors(fgColor, bgColor, linkColor, currentPageFgColor, currentPageBgColor, facetTitleBgColor) {
+  console.log('setting foreground=' + fgColor + ', background=' + bgColor);
   setStyle('a', 'color', linkColor);
-  _setColorsForClass('main', foregroundColor, backgroundColor);
-  _setColorsForClass('header', foregroundColor, backgroundColor);
-  _setColorsForClass('footer', foregroundColor, backgroundColor);
-  _setColorsForClass('results', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-waiting', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-targets', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-ranking', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-pager', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-navi', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-records', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-switch', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-facets', foregroundColor, backgroundColor);
-  _setColorsForClass('mkws-facet-title', foregroundColor, facetTitleBackgroundColor);
-  _setColorsForClass('mkws-current-page', currentPageForegroundColor, currentPageBackgroundColor);
+  _setColorsForClass('main', fgColor, bgColor);
+  _setColorsForClass('header', fgColor, bgColor);
+  _setColorsForClass('footer', fgColor, bgColor);
+  _setColorsForClass('results', fgColor, bgColor);
+  _setColorsForClass('mkws-waiting', fgColor, bgColor);
+  _setColorsForClass('mkws-targets', fgColor, bgColor);
+  _setColorsForClass('mkws-ranking', fgColor, bgColor);
+  _setColorsForClass('mkws-pager', fgColor, bgColor);
+  _setColorsForClass('mkws-navi', fgColor, bgColor);
+  _setColorsForClass('mkws-records', fgColor, bgColor);
+  _setColorsForClass('mkws-switch', fgColor, bgColor);
+  _setColorsForClass('mkws-facets', fgColor, bgColor);
+  _setColorsForClass('mkws-facet-title', fgColor, facetTitleBgColor);
+  _setColorsForClass('mkws-current-page', currentPageFgColor, currentPageBgColor);
 }
 
 function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray") }
