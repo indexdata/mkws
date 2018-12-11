@@ -13,23 +13,13 @@ function biggerText() { _setFontSize('x-large') }
   
 
 function _setColorsForClass(className, foregroundColor, backgroundColor) {
-  var e = document.getElementsByClassName(className);
-  for(var i = 0; i < e.length; i++) {
-    e[i].style.color = foregroundColor;
-    e[i].style.backgroundColor =  backgroundColor;
-  }
+  setStyle('.' + className, 'color', foregroundColor);
+  setStyle('.' + className, 'background-color', backgroundColor);
 }
 
 function _setColors(foregroundColor, backgroundColor, linkColor, currentPageForegroundColor, currentPageBackgroundColor, facetTitleBackgroundColor) {
   console.log('setting foreground=' + foregroundColor + ', background=' + backgroundColor);
-
-  var links = document.getElementsByTagName("a");
-  for (var i = 0; i < links.length; i++) {
-    if (links[i].href) {
-      links[i].style.color = linkColor;
-    }
-  }
-
+  setStyle('a', 'color', linkColor);
   _setColorsForClass('main', foregroundColor, backgroundColor);
   _setColorsForClass('header', foregroundColor, backgroundColor);
   _setColorsForClass('footer', foregroundColor, backgroundColor);
