@@ -84,7 +84,6 @@ function listStyles() {
 }
 
 function setStyle(selector, property, value) {
-  console.log('there are', document.styleSheets.length, 'styleSheets:');
   for (var i = 0; i < document.styleSheets.length; i++){
     var styleSheet = document.styleSheets[i];
     var cssRules = null;
@@ -93,13 +92,11 @@ function setStyle(selector, property, value) {
     } catch (e) {
       // Sometimes accessing cssRules is deemed insecure for opaque reasons
       if (e.message === 'The operation is insecure.') {
-        console.log(' stylesheet', i, 'skipped: insecure');
         continue;
       } else {
         throw(e);
       }
     }
-    console.log(' stylesheet', i, 'has', cssRules.length, 'rules:');
     for (var j = 0; j < cssRules.length; j++) {
       var rule = cssRules[j];
       if (rule.selectorText === selector) {
