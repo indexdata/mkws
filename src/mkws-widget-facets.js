@@ -64,6 +64,15 @@ mkws.registerWidgetType('facet', function() {
         linkdata: linkdata
       }); 
     }
+
+    var key = (that.config.facet_sort_order || {})[name];
+    if (key) {
+      terms.sort(function (a, b) {
+        var x = a[key]; var y = b[key]
+        return (x < y) ? -1 : (x > y) ? 1 : 0;
+      });
+    }
+
     // configured template > facet specific template > default facet template
     var template;
     if (that.config.template) {
