@@ -58,7 +58,7 @@ function listStyles() {
       cssRules = styleSheet.cssRules;
     } catch (e) {
       // Sometimes accessing cssRules is deemed insecure for opaque reasons
-      if (e.message === 'The operation is insecure.') {
+      if (e.name === 'SecurityError') {
         console.log(' stylesheet', i, 'skipped: insecure');
         continue;
       } else {
@@ -91,7 +91,7 @@ function setStyle(selector, property, value) {
       cssRules = styleSheet.cssRules;
     } catch (e) {
       // Sometimes accessing cssRules is deemed insecure for opaque reasons
-      if (e.message === 'The operation is insecure.') {
+      if (e.name === 'SecurityError') {
         continue;
       } else {
         throw(e);
