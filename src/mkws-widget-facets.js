@@ -65,7 +65,7 @@ mkws.registerWidgetType('facet', function() {
       }); 
     }
 
-    var key = (that.config.facet_sort_order || {})[name];
+    var key = that.config['facet_sort_' + name];
     if (key) {
       terms.sort(function (a, b) {
         var x = a[key]; var y = b[key]
