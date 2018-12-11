@@ -84,7 +84,10 @@ function listStyles() {
 }
 
 function setStyle(selector, property, value) {
-  for (var i = 0; i < document.styleSheets.length; i++){
+  // When the same selector occurs in multiple stylesheets, the LAST one
+  // wins; so walk backwards through in order to find the one that we
+  // need to change first.
+  for (var i = document.styleSheets.length-1; i >= 0; i--) {
     var styleSheet = document.styleSheets[i];
     var cssRules = null;
     try {
