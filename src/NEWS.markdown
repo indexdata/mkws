@@ -5,6 +5,7 @@
 * Support and document new `facet_sort_*` configuration item: most useful for listing targets alphabetically rather than by number of hits using `facet_sort_xtargets: 'term'`.
 * Better implementation of accessibility function, but the API is unchanged. Still not documented, as this will certainly change.
 * Change one of the hardwired colors in the accessibility code.
+* `delimitTarget` removes only the nominated target. Previously it removed _all_ targets from the filter-set, which used to be OK back when you could only select one at a time but not since we added multi-select.
 
 ## [1.1.0](https://github.com/indexdata/mkws/tree/v1.1.0) (Mon Nov 26 18:07:45 GMT 2018)
 
