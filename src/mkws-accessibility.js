@@ -41,7 +41,7 @@ function _setColors(fgColor, bgColor, linkColor, currentPageFgColor, currentPage
   _setColorsForClass('mkws-field-data', fgColor, bgColor);
 }
 
-function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray", "Black", "Yellow") }
+function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray", "Yellow", "Black") }
 function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "White", "DarkBlue", "White") }
 
 function listStyles() {
