@@ -17,7 +17,7 @@ function _setColorsForClass(className, foregroundColor, backgroundColor) {
   setStyle('.' + className, 'background-color', backgroundColor);
 }
 
-function _setColors(fgColor, bgColor, linkColor, currentPageFgColor, currentPageBgColor, facetTitleBgColor) {
+function _setColors(fgColor, bgColor, linkColor, currentPageFgColor, currentPageBgColor, facetTitleBgColor, buttonFgColor, buttonBgColor) {
   console.log('setting foreground=' + fgColor + ', background=' + bgColor);
   setStyle('a', 'color', linkColor);
   _setColorsForClass('main', fgColor, bgColor);
@@ -34,10 +34,15 @@ function _setColors(fgColor, bgColor, linkColor, currentPageFgColor, currentPage
   _setColorsForClass('mkws-facets', fgColor, bgColor);
   _setColorsForClass('mkws-facet-title', fgColor, facetTitleBgColor);
   _setColorsForClass('mkws-current-page', currentPageFgColor, currentPageBgColor);
+  _setColorsForClass('button', buttonFgColor, buttonBgColor);
+  _setColorsForClass('smallButton', buttonFgColor, buttonBgColor);
+  _setColorsForClass('largeButton', buttonFgColor, buttonBgColor);
+  _setColorsForClass('mkws-pager-list', fgColor, bgColor);
+  _setColorsForClass('mkws-field-data', fgColor, bgColor);
 }
 
-function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray") }
-function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "White") }
+function highContrast() { _setColors("White", "Black", "Yellow", "White", "DimGray", "DimGray", "Black", "Yellow") }
+function defaultContrast() { _setColors("Black", "White", "DarkBlue", "White", "DarkBlue", "White", "DarkBlue", "White") }
 
 function listStyles() {
   console.log('there are', document.styleSheets.length, 'styleSheets:');
