@@ -250,7 +250,7 @@ mkws.makeTeam = function($, teamName) {
 
   that.delimitTarget = function(id) {
     that.info("delimitTarget(id=" + id + ")");
-    m_filterSet.removeMatching(function(f) { return f.type === 'target' });
+    m_filterSet.removeMatching(function(f) { return f.type === 'target' && f.id === id});
     if (m_query) triggerSearch();
     return false;
   };
